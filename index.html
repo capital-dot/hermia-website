@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hermia — Every Enquiry Qualified. Every Deal Captured.</title>
-<meta name="description" content="Hermia qualifies your property enquiries via WhatsApp + SMS, scores leads Hot/Warm/Cold, and pushes summaries directly into Zoho CRM. Built for Australian and UAE real estate agents.">
+<meta name="description" content="Hermia qualifies your property enquiries via WhatsApp + SMS, scores leads Hot/Warm/Cold, and pushes summaries directly into Customer Relationship Management (CRM). Built for Australian and UAE real estate agents.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -85,15 +85,6 @@ transition:all 0.3s; display:inline-flex; align-items:center; gap:8px;
 }
 .btn-primary:hover { background:var(–gold-light); transform:translateY(-3px); box-shadow:0 12px 32px rgba(201,163,91,0.3); }
 
-.btn-secondary {
-color:var(–soft); text-decoration:none; font-size:15px;
-padding:18px 28px; border-radius:12px; border:1px solid var(–border);
-transition:all 0.2s; display:inline-flex; align-items:center; gap:8px;
-}
-.btn-secondary:hover { color:var(–cream); border-color:rgba(201,163,91,0.4); }
-
-.hero-actions { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:44px; }
-
 .stats-bar {border-top:1px solid var(–border); border-bottom:1px solid var(–border); background:rgba(201,163,91,0.02); padding:40px 48px; display:flex; align-items:center; justify-content:center; gap:72px; flex-wrap:wrap;}
 .stat { text-align:center; }
 .stat-num { font-family:‘Cormorant Garamond’,serif; font-size:48px; font-weight:700; color:var(–gold); line-height:1; }
@@ -106,48 +97,39 @@ section { padding:96px 24px; max-width:1100px; margin:0 auto; }
 .section-title em { font-style:italic; color:var(–gold); }
 .section-body { font-size:18px; color:var(–soft); line-height:1.7; max-width:580px; margin-top:18px; font-weight:300; }
 
-/* ─── VIDEO FIX ─── */
+/* ── VIDEO: enlarged + gold glow ── */
 .video-outer {
 margin: 52px auto 64px;
 max-width: 860px;
 position: relative;
 }
-
-/* Golden glow ring around the video */
 .video-outer::before {
 content: ‘’;
 position: absolute;
 inset: -2px;
 border-radius: 20px;
-background: linear-gradient(135deg, rgba(201,163,91,0.6), rgba(201,163,91,0.15), rgba(201,163,91,0.5));
+background: linear-gradient(135deg, rgba(201,163,91,0.55), rgba(201,163,91,0.12), rgba(201,163,91,0.45));
 z-index: 0;
 }
-
-/* Outer ambient glow */
 .video-outer::after {
 content: ‘’;
 position: absolute;
-inset: -24px;
+inset: -28px;
 border-radius: 32px;
-background: radial-gradient(ellipse, rgba(201,163,91,0.18) 0%, transparent 70%);
+background: radial-gradient(ellipse, rgba(201,163,91,0.16) 0%, transparent 70%);
 z-index: -1;
-filter: blur(16px);
+filter: blur(18px);
 }
-
 .video-wrapper {
 position: relative;
-padding-bottom: 56.25%; /* 16:9 */
+padding-bottom: 56.25%;
 height: 0;
 overflow: hidden;
 border-radius: 18px;
 background: #0a0a0a;
 z-index: 1;
-box-shadow:
-0 0 0 1px rgba(201,163,91,0.25),
-0 24px 64px rgba(0,0,0,0.7),
-0 0 80px rgba(201,163,91,0.08);
+box-shadow: 0 0 0 1px rgba(201,163,91,0.2), 0 24px 64px rgba(0,0,0,0.7);
 }
-
 .video-wrapper iframe {
 position: absolute;
 top: 0; left: 0;
@@ -156,71 +138,33 @@ border: none;
 border-radius: 18px;
 }
 
-/* ─── STEPS TIMELINE FIX ─── */
-.steps {
-margin-top: 0;
-display: flex;
-flex-direction: column;
-position: relative;
-padding-left: 0;
-}
-
-/* Clean vertical gold line — perfectly aligned to circle centers */
+/* ── STEPS: clean straight line ── */
+.steps { margin-top:60px; display:flex; flex-direction:column; position:relative; }
 .steps::before {
-content: ‘’;
-position: absolute;
-left: 31px; /* center of 64px circle */
-top: 32px;  /* start at center of first circle */
-bottom: 32px;
-width: 1px;
-background: linear-gradient(180deg, var(–gold) 0%, rgba(201,163,91,0.3) 80%, transparent 100%);
-z-index: 0;
+content:’’;
+position:absolute;
+left:31px;
+top:32px;
+bottom:32px;
+width:1px;
+background:linear-gradient(180deg,var(–gold),transparent);
 }
-
-.step {
-display: flex;
-gap: 32px;
-padding: 44px 0;
-border-bottom: 1px solid var(–border);
-position: relative;
-align-items: flex-start;
-}
-.step:last-child { border-bottom: none; }
-
+.step { display:flex; gap:32px; padding:44px 0; border-bottom:1px solid var(–border); align-items:flex-start; }
+.step:last-child { border-bottom:none; }
 .step-num {
-width: 64px;
-height: 64px;
-min-width: 64px;
-border-radius: 50%;
-background: var(–black); /* matches page bg so line appears behind */
-border: 1px solid rgba(201,163,91,0.4);
-display: flex;
-align-items: center;
-justify-content: center;
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 28px;
-font-weight: 700;
-color: var(–gold);
-position: relative;
-z-index: 1; /* sits in front of the line */
-box-shadow: 0 0 0 4px var(–black); /* clean gap between line and circle */
+width:64px; height:64px; min-width:64px; border-radius:50%;
+background:var(–black);
+border:1px solid rgba(201,163,91,0.4);
+display:flex; align-items:center; justify-content:center;
+font-family:‘Cormorant Garamond’,serif; font-size:28px; font-weight:700; color:var(–gold);
+position:relative; z-index:1;
+box-shadow: 0 0 0 5px var(–black);
 }
-
-.step-content { padding-top: 14px; }
+.step-content { padding-top:14px; }
 .step-content h3 { font-size:22px; font-weight:600; color:#fff; margin-bottom:8px; }
 .step-content p { font-size:16px; color:var(–soft); line-height:1.65; font-weight:300; }
-.step-tag {
-display: inline-block;
-margin-top: 12px;
-font-size: 11px;
-font-weight: 600;
-letter-spacing: 1.5px;
-text-transform: uppercase;
-color: var(–gold);
-opacity: 0.7;
-}
+.step-tag { display:inline-block; margin-top:10px; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(–gold); opacity:0.7; }
 
-/* Features */
 .features-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:16px; margin-top:52px; }
 .feature-card { background:var(–card); border:1px solid var(–border); border-radius:16px; padding:28px; transition:all 0.3s; }
 .feature-card:hover { border-color:rgba(201,163,91,0.35); transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,0.4); }
@@ -228,7 +172,6 @@ opacity: 0.7;
 .feature-card h3 { font-size:17px; font-weight:600; color:#fff; margin-bottom:10px; }
 .feature-card p { font-size:15px; color:var(–soft); line-height:1.65; font-weight:300; }
 
-/* Pricing */
 .pricing-wrap { display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin:52px auto 0; max-width:1100px; }
 .pricing-card { background:var(–card); border:1px solid rgba(201,163,91,0.4); border-radius:24px; padding:60px 52px; text-align:center; position:relative; overflow:hidden; max-width:380px; flex:1; min-width:320px; }
 .pricing-badge { display:inline-block; background:var(–gold-dim); border:1px solid var(–border); border-radius:100px; padding:5px 18px; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(–gold); margin-bottom:32px; }
@@ -239,7 +182,6 @@ opacity: 0.7;
 .price-features li { font-size:15px; color:var(–soft); font-weight:300; line-height:1.5; }
 .price-note { font-size:13px; color:var(–muted); margin-top:20px; font-style:italic; }
 
-/* CTA */
 .cta-section { text-align:center; padding:100px 24px; max-width:800px; margin:0 auto; }
 .cta-actions { display:flex; align-items:center; gap:14px; justify-content:center; margin-top:44px; flex-wrap:wrap; }
 
@@ -262,9 +204,8 @@ grid-template-columns:1.2fr 1fr 1fr; gap:40px;
 nav{padding:16px 20px;} .nav-links{display:none;}
 section{padding:64px 20px;}
 .steps::before { left:26px; }
-.step { gap:20px; padding:32px 0; }
+.step { gap:24px; padding:32px 0; }
 .step-num { width:52px; height:52px; min-width:52px; font-size:22px; }
-.video-outer { margin: 40px auto 48px; }
 }
 </style>
 
@@ -308,17 +249,11 @@ section{padding:64px 20px;}
   <div class="section-tag">How It Works</div>
   <h2 class="section-title">Simple. Automatic.<br><em>Always running.</em></h2>
   <p class="section-body">Watch the full walkthrough, then see exactly how Hermia fits into your existing workflow.</p>
-
-  <!-- VIDEO: enlarged + gold glow -->
-
   <div class="video-outer">
     <div class="video-wrapper">
       <iframe src="https://www.loom.com/embed/e74cca06dd56423d961780c420dd83e5" allowfullscreen></iframe>
     </div>
   </div>
-
-  <!-- STEPS: clean timeline -->
-
   <div class="steps">
     <div class="step">
       <div class="step-num">1</div>
@@ -355,9 +290,9 @@ section{padding:64px 20px;}
     <div class="step">
       <div class="step-num">5</div>
       <div class="step-content">
-        <h3>Full summary pushed directly into your Zoho CRM</h3>
+        <h3>Full summary pushed directly into your Customer Relationship Management (CRM)</h3>
         <p>Name, number, budget, timeline, finance status, requirements, and score — all pre-filled and waiting.</p>
-        <span class="step-tag">Direct to Zoho CRM</span>
+        <span class="step-tag">Direct to Customer Relationship Management (CRM)</span>
       </div>
     </div>
   </div>
@@ -384,7 +319,7 @@ section{padding:64px 20px;}
     </div>
     <div class="feature-card">
       <div class="feature-label">CRM</div>
-      <h3>Zoho CRM integration</h3>
+      <h3>Customer Relationship Management (CRM) integration</h3>
       <p>Full lead summary pushed automatically. Zero manual entry required.</p>
     </div>
     <div class="feature-card">
@@ -403,8 +338,7 @@ section{padding:64px 20px;}
 <section id="pricing" class="divider" style="text-align:center;">
   <div class="section-tag">Pricing — Australia & UAE</div>
   <h2 class="section-title">One powerful system.<br><em>Two strong markets.</em></h2>
-  <p class="section-body" style="margin:18px auto 60px;">Choose the plan for your country. Both include WhatsApp + SMS qualification, Hot/Warm/Cold scoring, and direct Zoho CRM integration.</p>
-
+  <p class="section-body" style="margin:18px auto 60px;">Choose the plan for your country. Both include WhatsApp + SMS qualification, Hot/Warm/Cold scoring, and direct Customer Relationship Management (CRM) integration.</p>
   <div class="pricing-wrap">
     <div class="pricing-card">
       <div class="pricing-badge">🇦🇺 Australia</div>
@@ -413,29 +347,25 @@ section{padding:64px 20px;}
       <ul class="price-features">
         <li>WhatsApp + SMS qualification</li>
         <li>Hot / Warm / Cold scoring</li>
-        <li>Direct Zoho CRM push</li>
+        <li>Direct Customer Relationship Management (CRM) push</li>
         <li>Domain & Realestate.com.au support</li>
         <li>24/7 coverage & full onboarding</li>
       </ul>
       <a href="apply.html" class="btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:18px;">Apply — Australia</a>
     </div>
-
-```
-<div class="pricing-card" style="border-color:#C9A35B;">
-  <div class="pricing-badge">🇦🇪 UAE / Dubai</div>
-  <div class="price"><sup style="font-size:28px;">AED</sup>980</div>
-  <div class="price-period">per month · WhatsApp-first · RERA ready</div>
-  <ul class="price-features">
-    <li>WhatsApp Business API primary</li>
-    <li>English + Arabic support</li>
-    <li>Property Finder & Bayut enquiries</li>
-    <li>Inspection / viewing booking</li>
-    <li>Hot lead scoring + Zoho CRM</li>
-  </ul>
-  <a href="apply.html" class="btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:18px;background:#C9A35B;color:#000;">Apply — UAE / Dubai</a>
-</div>
-```
-
+    <div class="pricing-card" style="border-color:#C9A35B;">
+      <div class="pricing-badge">🇦🇪 UAE / Dubai</div>
+      <div class="price"><sup>AED</sup>980</div>
+      <div class="price-period">per month · WhatsApp-first · RERA ready</div>
+      <ul class="price-features">
+        <li>WhatsApp Business API primary</li>
+        <li>English + Arabic support</li>
+        <li>Property Finder & Bayut enquiries</li>
+        <li>Inspection / viewing booking</li>
+        <li>Hot lead scoring + Customer Relationship Management (CRM)</li>
+      </ul>
+      <a href="apply.html" class="btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:18px;background:#C9A35B;color:#000;">Apply — UAE / Dubai</a>
+    </div>
   </div>
 </section>
 
