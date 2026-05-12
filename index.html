@@ -1,407 +1,164 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hermia — Every Enquiry Qualified. Every Deal Captured.</title>
-<meta name="description" content="Hermia qualifies your property enquiries via WhatsApp + SMS, scores leads Hot/Warm/Cold, and pushes summaries directly into Zoho CRM.">
+<meta name="description" content="Hermia qualifies your property enquiries via WhatsApp + SMS, scores leads Hot/Warm/Cold, and pushes summaries directly into Zoho CRM. Built for Australian and UAE real estate agents.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:       #111010;
-  --bg2:      #181614;
-  --card:     #1c1a17;
-  --card2:    #201e1b;
-  --border:   rgba(220,175,100,0.15);
-  --borderh:  rgba(220,175,100,0.38);
-  --gold:     #E8B84B;
-  --gold2:    #f5cc72;
-  --gold3:    #fde08a;
-  --golddim:  rgba(232,184,75,0.08);
-  --white:    #ffffff;
-  --cream:    #f0ebe0;
-  --body:     #ccc8bf;
-  --muted:    #7a7670;
-  --soft:     #a8a49c;
+  --black: #080808;
+  --card: #111111;
+  --border: rgba(201,163,91,0.15);
+  --gold: #C9A35B;
+  --gold-light: #e8c17a;
+  --gold-dim: rgba(201,163,91,0.08);
+  --cream: #f5f1e8;
+  --muted: #8a8580;
+  --soft: #b8b5ad;
 }
-
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+* { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
-body {
-font-family:‘Outfit’, sans-serif;
-background:var(–bg);
-color:var(–body);
-overflow-x:hidden;
--webkit-font-smoothing:antialiased;
-}
+body { font-family:'DM Sans',sans-serif; background:var(--black); color:var(--cream); overflow-x:hidden; }
 
-@keyframes shimmer {
-0%   { background-position:-200% center; }
-100% { background-position: 200% center; }
-}
-@keyframes fadeUp {
-from { opacity:0; transform:translateY(20px); }
-to   { opacity:1; transform:translateY(0); }
-}
-@keyframes pulse {
-0%,100% { opacity:0.5; }
-50%      { opacity:1; }
-}
-@keyframes float {
-0%,100% { transform:translateY(0); }
-50%      { transform:translateY(-8px); }
-}
-
-/* ── NAV ── */
 nav {
-position:fixed; top:0; left:0; right:0; z-index:200;
-padding:18px 52px;
+position:fixed; top:0; left:0; right:0; z-index:100;
+padding:20px 48px;
 display:flex; align-items:center; justify-content:space-between;
-background:rgba(17,16,16,0.9);
-backdrop-filter:blur(20px);
-border-bottom:1px solid var(–border);
+background:rgba(8,8,8,0.92); backdrop-filter:blur(20px);
+border-bottom:1px solid var(--border);
 }
-.nav-logo { display:flex; align-items:center; gap:11px; text-decoration:none; }
-.nav-logo img { width:32px; height:32px; }
-.nav-logo-text {
-font-family:‘Cormorant Garamond’,serif; font-size:22px; font-weight:600;
-background:linear-gradient(90deg, var(–gold) 0%, var(–gold3) 50%, var(–gold) 100%);
-background-size:200% auto;
--webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-animation:shimmer 4s linear infinite;
+.nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+.nav-logo img { width:34px; height:34px; }
+.nav-logo span { font-family:‘Cormorant Garamond’,serif; font-size:22px; font-weight:600; color:var(--cream); }
+.nav-links { display:flex; align-items:center; gap:32px; list-style:none; }
+.nav-links a { color:var(--soft); text-decoration:none; font-size:14px; transition:color 0.2s; }
+.nav-links a:hover { color:var(--cream); }
+.nav-cta { 
+  background:var(--gold)!important; 
+  color:#000!important; 
+  padding:10px 24px!important; 
+  border-radius:8px; 
+  font-weight:600!important; 
 }
-.nav-links { display:flex; align-items:center; gap:36px; list-style:none; }
-.nav-links a { color:var(–soft); text-decoration:none; font-size:14px; transition:color .2s; }
-.nav-links a:hover { color:var(–white); }
-.nav-cta {
-background:var(–gold)!important; color:#000!important;
-padding:9px 22px!important; border-radius:8px;
-font-weight:600!important; font-size:13px!important;
-transition:all .2s!important;
-}
-.nav-cta:hover { background:var(–gold2)!important; box-shadow:0 0 22px rgba(232,184,75,0.35)!important; }
 
-/* ── HERO ── */
 .hero {
 min-height:100vh; display:flex; flex-direction:column;
 align-items:center; justify-content:center; text-align:center;
-padding:160px 24px 120px; position:relative; overflow:hidden;
+padding:160px 24px 120px; position:relative;
 }
 .hero-glow {
-position:absolute; top:-5%; left:50%; transform:translateX(-50%);
-width:1000px; height:800px;
-background:radial-gradient(ellipse at 50% 35%,
-rgba(232,184,75,0.13) 0%,
-rgba(232,184,75,0.05) 40%,
-transparent 68%);
-pointer-events:none; animation:pulse 7s ease-in-out infinite;
+position:absolute; top:15%; left:50%; transform:translateX(-50%);
+width:900px; height:650px;
+background:radial-gradient(ellipse, rgba(201,163,91,0.14) 0%, transparent 70%);
+pointer-events:none;
+filter:blur(50px);
 }
-.hero-grid {
-position:absolute; inset:0; pointer-events:none;
-background-image:
-linear-gradient(rgba(232,184,75,1) 1px,transparent 1px),
-linear-gradient(90deg,rgba(232,184,75,1) 1px,transparent 1px);
-background-size:88px 88px; opacity:0.028;
-}
-.hero-logo {
-width:74px; height:74px; margin-bottom:28px;
-filter:drop-shadow(0 0 28px rgba(232,184,75,0.5));
-animation:float 5s ease-in-out infinite, fadeUp .9s ease both;
-}
+.hero-logo { width:76px; height:76px; margin-bottom:32px; filter:drop-shadow(0 0 32px rgba(201,163,91,0.4)); }
 .hero-badge {
 display:inline-flex; align-items:center; gap:8px;
-background:rgba(232,184,75,0.08); border:1px solid rgba(232,184,75,0.25);
-border-radius:100px; padding:7px 20px;
-font-size:11px; font-weight:600; color:var(–gold);
-letter-spacing:2.5px; text-transform:uppercase; margin-bottom:28px;
-animation:fadeUp .9s .1s ease both;
+background:var(--gold-dim); border:1px solid var(--border);
+border-radius:100px; padding:6px 18px;
+font-size:11px; font-weight:600; color:var(--gold);
+letter-spacing:2px; text-transform:uppercase; margin-bottom:32px;
 }
-.badge-dot { width:7px; height:7px; border-radius:50%; background:var(–gold); box-shadow:0 0 10px var(–gold); }
-
 .hero h1 {
 font-family:‘Cormorant Garamond’,serif;
-font-size:clamp(56px,9vw,108px); font-weight:700;
-line-height:1.02; letter-spacing:-2px;
-color:var(–white); max-width:960px;
-animation:fadeUp .9s .15s ease both;
+font-size:clamp(56px,9vw,104px);
+font-weight:700; line-height:1.02; letter-spacing:-2px;
+color:#fff; max-width:920px;
 }
-.hero h1 em {
-font-style:italic;
-background:linear-gradient(90deg, var(–gold) 0%, var(–gold3) 50%, var(–gold) 100%);
-background-size:200% auto;
--webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-animation:shimmer 4.5s linear infinite;
-}
+.hero h1 em { font-style:italic; color:var(--gold); }
 .hero-sub {
-margin-top:28px; font-size:18px; color:var(–body);
-max-width:580px; line-height:1.72; font-weight:300;
-animation:fadeUp .9s .25s ease both;
-}
-.hero-sub strong { color:var(–cream); font-weight:500; }
-
-.hero-actions {
-display:flex; align-items:center; gap:14px; margin-top:44px;
-flex-wrap:wrap; justify-content:center;
-animation:fadeUp .9s .35s ease both;
+margin-top:32px; font-size:19px; color:var(--soft);
+max-width:620px; line-height:1.6; font-weight:300;
 }
 
-/* BUTTONS */
 .btn-primary {
-background:var(–gold); color:#000;
-padding:17px 36px; border-radius:10px;
-font-size:15px; font-weight:600; text-decoration:none;
-display:inline-flex; align-items:center; gap:8px;
-transition:all .3s; letter-spacing:.02em;
-box-shadow:0 4px 24px rgba(232,184,75,0.22);
+background:var(--gold); color:#000;
+padding:18px 36px; border-radius:12px;
+font-size:16px; font-weight:600; text-decoration:none;
+transition:all 0.3s; display:inline-flex; align-items:center; gap:8px;
 }
-.btn-primary:hover {
-background:var(–gold2); transform:translateY(-2px);
-box-shadow:0 8px 32px rgba(232,184,75,0.38);
-}
-.btn-secondary {
-color:var(–soft); text-decoration:none; font-size:14px; font-weight:400;
-border:1px solid rgba(255,255,255,0.12); padding:16px 28px; border-radius:10px;
-transition:all .25s;
-}
-.btn-secondary:hover { color:var(–white); border-color:rgba(232,184,75,0.3); }
+.btn-primary:hover { background:var(--gold-light); transform:translateY(-3px); box-shadow:0 12px 32px rgba(201,163,91,0.3); }
 
-/* ── STATS ── */
-.stats-bar {
-border-top:1px solid var(–border); border-bottom:1px solid var(–border);
-background:rgba(232,184,75,0.03);
-padding:48px 52px;
-display:flex; align-items:center; justify-content:center; gap:80px; flex-wrap:wrap;
-}
+.stats-bar {border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:rgba(201,163,91,0.02); padding:40px 48px; display:flex; align-items:center; justify-content:center; gap:72px; flex-wrap:wrap;}
 .stat { text-align:center; }
-.stat-num {
-font-family:‘Cormorant Garamond’,serif; font-size:56px; font-weight:700; line-height:1;
-color:var(–gold);
-text-shadow:0 0 40px rgba(232,184,75,0.4);
-}
-.stat-label { font-size:13px; color:var(–muted); margin-top:10px; letter-spacing:.02em; }
+.stat-num { font-family:‘Cormorant Garamond’,serif; font-size:48px; font-weight:700; color:var(--gold); line-height:1; }
+.stat-label { font-size:13px; color:var(--muted); margin-top:8px; }
 
-/* ── SECTION COMMON ── */
-.section-wrap { padding:96px 52px; max-width:1160px; margin:0 auto; }
-.divider { border-top:1px solid var(–border); }
+section { padding:96px 24px; max-width:1100px; margin:0 auto; }
+.divider { border-top:1px solid var(--border); }
+.section-tag { font-size:11px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
+.section-title { font-family:‘Cormorant Garamond’,serif; font-size:clamp(36px,5vw,56px); font-weight:700; line-height:1.1; color:#fff; max-width:720px; }
+.section-title em { font-style:italic; color:var(--gold); }
+.section-body { font-size:18px; color:var(--soft); line-height:1.7; max-width:580px; margin-top:18px; font-weight:300; }
 
-.section-tag {
-display:inline-flex; align-items:center; gap:10px;
-font-size:11px; font-weight:600; letter-spacing:2.5px;
-text-transform:uppercase; color:var(–gold); margin-bottom:20px;
-}
-.section-tag::before { content:’’; display:inline-block; width:18px; height:1px; background:var(–gold); opacity:0.6; }
-
-.section-title {
-font-family:‘Cormorant Garamond’,serif;
-font-size:clamp(36px,4.5vw,56px); font-weight:700;
-line-height:1.1; color:var(–white); max-width:720px;
-}
-.section-title em {
-font-style:italic;
-background:linear-gradient(90deg, var(–gold) 0%, var(–gold3) 55%, var(–gold) 100%);
-background-size:200% auto;
--webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-animation:shimmer 5s linear infinite;
-}
-.section-body { font-size:16.5px; color:var(–body); line-height:1.75; max-width:560px; margin-top:18px; font-weight:300; }
-
-/* ── PROBLEM CARDS ── */
-.problem-grid {
-display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:14px; margin-top:52px;
-}
-.problem-card {
-background:var(–card); border:1px solid var(–border);
-border-radius:16px; padding:36px 30px;
-position:relative; overflow:hidden; transition:all .3s;
-}
-.problem-card::before {
-content:’’; position:absolute; top:0; left:0; right:0; height:1px;
-background:linear-gradient(90deg,transparent,rgba(232,184,75,0.4),transparent);
-opacity:0; transition:opacity .3s;
-}
-.problem-card:hover { border-color:var(–borderh); transform:translateY(-3px); }
-.problem-card:hover::before { opacity:1; }
-.problem-num {
-font-family:‘Cormorant Garamond’,serif; font-size:64px; font-weight:700;
-color:rgba(232,184,75,0.12); line-height:1; margin-bottom:16px;
-}
-.problem-card h3 { font-size:17px; font-weight:600; color:var(–white); margin-bottom:10px; }
-.problem-card p  { font-size:14px; color:var(–body); line-height:1.7; font-weight:300; }
-
-/* ── VIDEO ── */
-.video-section { padding:0 52px 96px; max-width:1160px; margin:0 auto; }
-.video-wrap {
-position:relative; border-radius:20px; overflow:hidden;
-border:1px solid rgba(232,184,75,0.28);
-box-shadow:
-0 0 0 1px rgba(232,184,75,0.08),
-0 0 60px rgba(232,184,75,0.18),
-0 0 120px rgba(232,184,75,0.09),
-0 40px 80px rgba(0,0,0,0.55);
-}
-.video-wrap::before {
-content:’’; position:absolute; inset:-2px; border-radius:22px; z-index:-1;
-background:linear-gradient(135deg,
-rgba(232,184,75,0.45) 0%,
-rgba(232,184,75,0.08) 40%,
-transparent 60%,
-rgba(232,184,75,0.15) 100%);
-animation:pulse 4s ease-in-out infinite;
-}
-.video-wrap iframe { width:100%; aspect-ratio:16/9; display:block; border:none; }
-
-/* ── STEPS ── */
-.steps {
-display:flex; flex-direction:column; gap:0;
-margin-top:52px; border:1px solid var(–border);
-border-radius:18px; overflow:hidden;
-}
-.step {
-display:flex; align-items:flex-start; gap:32px;
-padding:30px 36px; background:var(–card);
-border-bottom:1px solid var(–border);
-position:relative; overflow:hidden; transition:background .25s;
-}
+.steps { margin-top:60px; display:flex; flex-direction:column; position:relative; }
+.steps::before { content:''; position:absolute; left:27px; top:0; bottom:0; width:1px; background:linear-gradient(180deg,var(--gold),transparent); }
+.step { display:flex; gap:32px; padding:44px 0; border-bottom:1px solid var(--border); }
 .step:last-child { border-bottom:none; }
-.step:hover { background:var(–card2); }
-.step::after {
-content:’’; position:absolute; left:0; top:0; bottom:0; width:2px;
-background:linear-gradient(180deg,transparent,var(–gold),transparent);
-opacity:0; transition:opacity .3s;
-}
-.step:hover::after { opacity:1; }
 .step-num {
-font-family:‘Cormorant Garamond’,serif; font-size:36px; font-weight:300;
-color:rgba(232,184,75,0.3); line-height:1; min-width:42px; padding-top:3px;
+width:64px; height:64px; min-width:64px; border-radius:50%;
+background:var(--gold-dim); border:1px solid var(--border);
+display:flex; align-items:center; justify-content:center;
+font-family:‘Cormorant Garamond’,serif; font-size:32px; font-weight:700; color:var(--gold);
 }
-.step-content h3 { font-size:16.5px; font-weight:600; color:var(–white); margin-bottom:8px; }
-.step-content p   { font-size:14px; color:var(–body); line-height:1.7; font-weight:300; }
-.step-tag {
-display:inline-block; margin-top:12px;
-font-size:10px; font-weight:600; letter-spacing:2px;
-text-transform:uppercase; color:var(–gold); opacity:0.7;
-}
+.step-content h3 { font-size:22px; font-weight:600; color:#fff; margin-bottom:8px; }
+.step-content p { font-size:16px; color:var(--soft); line-height:1.65; font-weight:300; }
 
-/* ── FEATURES ── */
-.features-grid {
-display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:14px; margin-top:52px;
-}
-.feature-card {
-background:var(–card2); border:1px solid var(–border);
-border-radius:16px; padding:30px 26px;
-position:relative; overflow:hidden; transition:all .3s;
-}
-.feature-card::after {
-content:’’; position:absolute; top:0; left:0; right:0; height:1px;
-background:linear-gradient(90deg,transparent,rgba(232,184,75,0.5),transparent);
-opacity:0; transition:opacity .3s;
-}
-.feature-card:hover { border-color:var(–borderh); transform:translateY(-4px); box-shadow:0 16px 48px rgba(0,0,0,0.35), 0 0 40px rgba(232,184,75,0.06); }
-.feature-card:hover::after { opacity:1; }
-.feature-label { font-size:10px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(–gold); margin-bottom:14px; }
-.feature-card h3 { font-size:16px; font-weight:600; color:var(–white); margin-bottom:10px; }
-.feature-card p  { font-size:14px; color:var(–body); line-height:1.7; font-weight:300; }
+.features-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:16px; margin-top:52px; }
+.feature-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px; transition:all 0.3s; }
+.feature-card:hover { border-color:rgba(201,163,91,0.35); transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,0.4); }
+.feature-label { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+.feature-card h3 { font-size:17px; font-weight:600; color:#fff; margin-bottom:10px; }
+.feature-card p { font-size:15px; color:var(--soft); line-height:1.65; font-weight:300; }
 
-/* ── PRICING ── */
-.pricing-outer { padding:96px 24px; border-top:1px solid var(–border); }
-.pricing-header { text-align:center; margin-bottom:60px; }
-.pricing-header .section-tag   { justify-content:center; }
-.pricing-header .section-title { margin:0 auto; }
-.pricing-header .section-body  { margin:16px auto 0; text-align:center; }
+.pricing-wrap { display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin:52px auto 0; max-width:1100px; }
+.pricing-card { background:var(--card); border:1px solid rgba(201,163,91,0.4); border-radius:24px; padding:60px 52px; text-align:center; position:relative; overflow:hidden; max-width:380px; flex:1; min-width:320px; }
+.pricing-badge { display:inline-block; background:var(--gold-dim); border:1px solid var(--border); border-radius:100px; padding:5px 18px; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:32px; }
+.price { font-family:‘Cormorant Garamond’,serif; font-size:88px; font-weight:700; color:#fff; line-height:1; }
+.price sup { font-size:36px; vertical-align:top; margin-top:18px; display:inline-block; color:var(--gold); }
+.price-period { font-size:15px; color:var(--muted); margin-top:8px; margin-bottom:40px; }
+.price-features { list-style:none; text-align:left; margin-bottom:44px; display:flex; flex-direction:column; gap:16px; }
+.price-features li { font-size:15px; color:var(--soft); font-weight:300; line-height:1.5; }
+.price-note { font-size:13px; color:var(--muted); margin-top:20px; font-style:italic; }
 
-.pricing-wrap { display:flex; justify-content:center; gap:24px; flex-wrap:wrap; max-width:900px; margin:0 auto; }
-
-.pricing-card {
-background:var(–card); border:1px solid rgba(232,184,75,0.22);
-border-radius:22px; padding:52px 40px; text-align:center;
-flex:1; min-width:300px; max-width:420px;
-position:relative; overflow:hidden; transition:all .3s;
-}
-.pricing-card::before {
-content:’’; position:absolute; top:0; left:0; right:0; height:1px;
-background:linear-gradient(90deg,transparent,rgba(232,184,75,0.55),transparent);
-}
-.pricing-card:hover { border-color:rgba(232,184,75,0.42); box-shadow:0 0 60px rgba(232,184,75,0.1), 0 30px 60px rgba(0,0,0,0.4); }
-
-.pricing-badge {
-display:inline-block; background:var(–golddim); border:1px solid var(–border);
-border-radius:100px; padding:6px 18px;
-font-size:11px; font-weight:600; letter-spacing:1.5px;
-text-transform:uppercase; color:var(–gold); margin-bottom:32px;
-}
-.price { font-family:‘Cormorant Garamond’,serif; font-size:88px; font-weight:700; color:var(–white); line-height:1; }
-.price sup { font-size:34px; vertical-align:top; margin-top:18px; display:inline-block; color:var(–gold); }
-.price-period { font-size:13px; color:var(–muted); margin-top:10px; margin-bottom:36px; }
-
-.price-features { list-style:none; text-align:left; margin-bottom:40px; display:flex; flex-direction:column; gap:0; }
-.price-features li {
-font-size:14px; color:var(–body); font-weight:300; line-height:1.55;
-display:flex; align-items:flex-start; gap:11px;
-padding:13px 0; border-bottom:1px solid rgba(255,255,255,0.04);
-}
-.price-features li:last-child { border-bottom:none; }
-.price-features li::before {
-content:’’; width:16px; height:16px; min-width:16px; margin-top:1px;
-border-radius:50%; border:1px solid rgba(232,184,75,0.35);
-background:url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ viewBox=‘0 0 24 24’ fill=‘none’ stroke=’%23E8B84B’ stroke-width=‘2.5’%3E%3Cpolyline points=‘20 6 9 17 4 12’/%3E%3C/svg%3E”) center/10px no-repeat, rgba(232,184,75,0.06);
-}
-
-/* ── CTA ── */
-.cta-section {
-text-align:center; padding:96px 24px; max-width:780px; margin:0 auto;
-border-top:1px solid var(–border);
-}
-.cta-section .section-tag   { justify-content:center; }
-.cta-section .section-title { margin:0 auto; }
+.cta-section { text-align:center; padding:100px 24px; max-width:800px; margin:0 auto; }
 .cta-actions { display:flex; align-items:center; gap:14px; justify-content:center; margin-top:44px; flex-wrap:wrap; }
 
-/* ── FOOTER ── */
 footer {
-border-top:1px solid var(–border); padding:56px 52px;
-display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:48px;
+border-top:1px solid var(--border);
+padding:48px; display:grid;
+grid-template-columns:1.2fr 1fr 1fr; gap:40px;
 }
-.footer-logo { display:flex; align-items:center; gap:10px; text-decoration:none; margin-bottom:18px; }
-.footer-logo img { width:26px; height:26px; }
-.footer-logo span {
-font-family:‘Cormorant Garamond’,serif; font-size:20px; font-weight:600;
-background:linear-gradient(90deg, var(–gold), var(–gold3), var(–gold));
-background-size:200% auto;
--webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-animation:shimmer 5s linear infinite;
-}
-.footer-meta { font-size:13px; color:var(–muted); line-height:2.1; }
-.footer-meta a { color:var(–muted); text-decoration:none; transition:color .2s; }
-.footer-meta a:hover { color:var(–gold); }
-.footer-col h4 { font-size:10px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(–gold); margin-bottom:20px; }
-.footer-col a  { display:block; font-size:14px; color:var(–soft); text-decoration:none; margin-bottom:12px; transition:color .2s; }
-.footer-col a:hover { color:var(–white); }
-.footer-bottom { border-top:1px solid var(–border); padding:22px 52px; text-align:center; }
-.footer-bottom p { font-size:12px; color:var(–muted); }
+.footer-logo { display:flex; align-items:center; gap:10px; text-decoration:none; margin-bottom:16px; }
+.footer-logo img { width:28px; height:28px; }
+.footer-logo span { font-family:‘Cormorant Garamond’,serif; font-size:20px; font-weight:600; color:var(--cream); }
+.footer-meta { font-size:13px; color:var(--muted); line-height:1.9; }
+.footer-col h4 { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
+.footer-col a { display:block; font-size:14px; color:var(--soft); text-decoration:none; margin-bottom:10px; transition:color 0.2s; }
+.footer-col a:hover { color:var(--cream); }
+.footer-bottom { border-top:1px solid var(--border); padding:20px 48px; text-align:center; }
+.footer-bottom p { font-size:12px; color:var(--muted); }
 
 @media(max-width:768px){
-nav { padding:16px 20px; } .nav-links { display:none; }
-.section-wrap { padding:64px 20px; } .video-section { padding:0 20px 64px; }
-.stats-bar { gap:36px; padding:36px 20px; }
-footer { grid-template-columns:1fr; padding:44px 20px; gap:28px; }
-.footer-bottom { padding:20px; }
-.pricing-card { padding:36px 24px; }
-.step { padding:22px 18px; gap:16px; }
+nav{padding:16px 20px;} .nav-links{display:none;}
+section{padding:64px 20px;}
+.steps::before { display:none; }
+.step { gap:24px; padding:32px 0; }
+.step-num { width:52px; height:52px; font-size:26px; }
 }
 </style>
-
 </head>
 <body>
-
-<!-- NAV -->
 
 <nav>
   <a href="#" class="nav-logo">
     <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia">
-    <span class="nav-logo-text">Hermia</span>
+    <span>Hermia</span>
   </a>
   <ul class="nav-links">
     <li><a href="#how">How it works</a></li>
@@ -412,22 +169,18 @@ footer { grid-template-columns:1fr; padding:44px 20px; gap:28px; }
   </ul>
 </nav>
 
-<!-- HERO -->
-
 <div class="hero">
   <div class="hero-glow"></div>
-  <div class="hero-grid"></div>
   <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="hero-logo">
-  <div class="hero-badge"><span class="badge-dot"></span> Live in Australia &amp; UAE · Dubai</div>
+  <div class="hero-badge"><span class="badge-dot"></span> LIVE IN AUSTRALIA & UAE • DUBAI</div>
   <h1>Your enquiries.<br><em>Qualified before<br>you pick up the phone.</em></h1>
-  <p class="hero-sub">Hermia qualifies every buyer enquiry via <strong>WhatsApp + SMS</strong> — confirming finance readiness, budget, timeline, and motivation so agents focus on serious opportunities only.</p>
+  <p class="hero-sub">Hermia qualifies every buyer enquiry via <strong>WhatsApp + SMS</strong> — confirming finance readiness, budget range, timeline, and motivation so agents can focus on serious opportunities only.</p>
+
   <div class="hero-actions">
-    <a href="apply.html" class="btn-primary">Apply for Access →</a>
+    <a href="apply.html" class="btn-primary">Apply for Access</a>
     <a href="https://calendly.com/capital-hermia/15-minute-meeting" class="btn-secondary">Book a 15-min call</a>
   </div>
 </div>
-
-<!-- STATS -->
 
 <div class="stats-bar">
   <div class="stat"><div class="stat-num">30s</div><div class="stat-label">Response time after enquiry lands</div></div>
@@ -436,148 +189,103 @@ footer { grid-template-columns:1fr; padding:44px 20px; gap:28px; }
   <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Nights, weekends, open homes</div></div>
 </div>
 
-<!-- PROBLEM -->
-
-<div class="divider">
-  <div class="section-wrap" id="problem">
-    <div class="section-tag">The Problem</div>
-    <h2 class="section-title">You are spending time<br><em>on the wrong leads.</em></h2>
-    <p class="section-body">Agents juggle listings, inspections, negotiations, and pipelines all at once. When ten enquiries land, there is no way to know who is serious and who is just browsing. That is where commissions disappear.</p>
-    <div class="problem-grid">
-      <div class="problem-card">
-        <div class="problem-num">70%</div>
-        <h3>Leads go cold within minutes</h3>
-        <p>A buyer who submits an enquiry and waits more than five minutes has already moved on. They submitted to three other agents. Whoever responds first wins the deal.</p>
-      </div>
-      <div class="problem-card">
-        <div class="problem-num">10x</div>
-        <h3>Manual qualification does not scale</h3>
-        <p>Ten enquiries a week means ten calls just to find out who is actually ready to buy. Most will not answer. You have already lost the hour — and possibly the deal.</p>
-      </div>
-      <div class="problem-card">
-        <div class="problem-num">0</div>
-        <h3>No coverage after hours</h3>
-        <p>Enquiries land at 9pm, Saturday morning, during your open homes. There is nobody available to respond — and silence costs you the commission.</p>
-      </div>
-      <div class="problem-card">
-        <div class="problem-num">$$$</div>
-        <h3>Nurturing the wrong buyer</h3>
-        <p>You spend three weeks following up a lead who is not buying for six months. Meanwhile a hot buyer — same week — went to a competitor who called first.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- HOW IT WORKS -->
-
-<div class="divider" id="how">
-  <div class="section-wrap">
-    <div class="section-tag">How It Works</div>
-    <h2 class="section-title">Simple. Automatic.<br><em>Always running.</em></h2>
-    <p class="section-body">Watch the walkthrough — then see exactly how Hermia fits into your existing workflow.</p>
-  </div>
-
-  <div class="video-section">
-    <div class="video-wrap">
+<section id="how" class="divider">
+  <div class="section-tag">How It Works</div>
+  <h2 class="section-title">Simple. Automatic.<br><em>Always running.</em></h2>
+  <p class="section-body">Watch the full walkthrough, then see exactly how Hermia fits into your existing workflow.</p>
+  <div class="video-outer">
+    <div class="video-wrapper">
       <iframe src="https://www.loom.com/embed/e74cca06dd56423d961780c420dd83e5" allowfullscreen></iframe>
     </div>
   </div>
-
-  <div class="section-wrap" style="padding-top:0;">
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-content">
-          <h3>A buyer enquires on your listing</h3>
-          <p>Via Domain, Realestate.com.au, Property Finder, Bayut, or your website. Any channel, any time.</p>
-          <span class="step-tag">Your leads. Your listings.</span>
-        </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>A buyer enquires on your listing</h3>
+        <p>Via Domain, Realestate.com.au, Property Finder, Bayut, or your website.</p>
+        <span class="step-tag">Your leads. Your listings.</span>
       </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-content">
-          <h3>Hermia responds via WhatsApp or SMS within 30 seconds</h3>
-          <p>The buyer receives a professional reply the moment their enquiry lands — while the lead is still warm.</p>
-          <span class="step-tag">Under 30 seconds. Every time.</span>
-        </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>Hermia responds via WhatsApp or SMS within 30 seconds</h3>
+        <p>The buyer receives a professional reply the moment their enquiry lands — while the lead is still warm.</p>
+        <span class="step-tag">Under 30 seconds. Every time.</span>
       </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-content">
-          <h3>Five qualification questions asked automatically</h3>
-          <p>Budget range. Buying timeline. Finance and pre-approval status. Buying intent. Specific property requirements.</p>
-          <span class="step-tag">Consistent. Structured. Every lead.</span>
-        </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>Five qualification questions asked automatically</h3>
+        <p>Budget range. Buying timeline. Finance status. Buying intent. Specific requirements.</p>
+        <span class="step-tag">Consistent. Structured. Every lead.</span>
       </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div class="step-content">
-          <h3>Lead scored Hot, Warm or Cold</h3>
-          <p>Pre-approved and moving this month — Hot. Actively searching in a 1–3 month window — Warm. Early research — Cold.</p>
-          <span class="step-tag">Clear priority. No guessing.</span>
-        </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h3>Lead scored Hot, Warm or Cold</h3>
+        <p>Pre-approved and moving this month — Hot.<br>1–3 month window — Warm.<br>Early research — Cold.</p>
+        <span class="step-tag">Clear priority. No guessing.</span>
       </div>
-      <div class="step">
-        <div class="step-num">05</div>
-        <div class="step-content">
-          <h3>Full summary pushed directly into your Zoho CRM</h3>
-          <p>Name, number, budget, timeline, finance status, requirements, and score — all pre-filled and waiting for you.</p>
-          <span class="step-tag">Direct to Zoho CRM. Zero data entry.</span>
-        </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h3>Full summary pushed directly into your Zoho CRM</h3>
+        <p>Name, number, budget, timeline, finance status, requirements, and score — all pre-filled and waiting.</p>
+        <span class="step-tag">Direct to Zoho CRM</span>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- FEATURES -->
+<!-- Features, Pricing with AED 980, CTA, Footer remain the same premium version -->
 
-<div class="divider" id="features">
-  <div class="section-wrap">
-    <div class="section-tag">Features</div>
-    <h2 class="section-title">Everything that matters.<br><em>Nothing that does not.</em></h2>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-label">Response</div>
-        <h3>Instant WhatsApp + SMS reply</h3>
-        <p>Every enquiry acknowledged within 30 seconds on the channel the buyer actually uses.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-label">Qualification</div>
-        <h3>Structured buyer profiling</h3>
-        <p>Budget, timeline, pre-approval, intent, and requirements — collected through a natural conversation.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-label">Scoring</div>
-        <h3>Hot / Warm / Cold ranking</h3>
-        <p>Every lead arrives pre-ranked. You know immediately who to call today and who can wait.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-label">CRM</div>
-        <h3>Zoho CRM integration</h3>
-        <p>Full lead summary pushed automatically. Zero manual entry. Your pipeline stays clean and current.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-label">Coverage</div>
-        <h3>24/7 availability</h3>
-        <p>Hermia runs through open homes, evenings, weekends, and public holidays without interruption.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-label">Compliance</div>
-        <h3>Privacy compliant</h3>
-        <p>Built specifically for the Australian Privacy Act and UAE data regulations. Fully covered.</p>
-      </div>
+<section id="features" class="divider">
+  <div class="section-tag">Features</div>
+  <h2 class="section-title">Everything that matters.<br><em>Nothing that does not.</em></h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-label">Response</div>
+      <h3>Instant WhatsApp + SMS reply</h3>
+      <p>Every enquiry acknowledged within 30 seconds on the channel the buyer actually uses.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-label">Qualification</div>
+      <h3>Structured buyer profiling</h3>
+      <p>Budget, timeline, pre-approval, intent, and requirements — collected through a natural conversation.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-label">Scoring</div>
+      <h3>Hot / Warm / Cold ranking</h3>
+      <p>Every lead arrives pre-ranked. You know immediately who to call today and who can wait.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-label">CRM</div>
+      <h3>Zoho CRM integration</h3>
+      <p>Full lead summary pushed automatically. Zero manual entry required.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-label">Coverage</div>
+      <h3>24/7 availability</h3>
+      <p>Hermia runs through open homes, evenings, weekends, and public holidays.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-label">Compliance</div>
+      <h3>Privacy compliant</h3>
+      <p>Built for the Australian and UAE market.</p>
     </div>
   </div>
-</div>
+</section>
 
-<!-- PRICING -->
+<section id="pricing" class="divider" style="text-align:center;">
+  <div class="section-tag">Pricing — Australia & UAE</div>
+  <h2 class="section-title">One powerful system.<br><em>Two strong markets.</em></h2>
+  <p class="section-body" style="margin:18px auto 60px;">Choose the plan for your country. Both include WhatsApp + SMS qualification, Hot/Warm/Cold scoring, and direct Zoho CRM integration.</p>
 
-<div class="pricing-outer" id="pricing">
-  <div class="pricing-header">
-    <div class="section-tag">Pricing — Australia &amp; UAE</div>
-    <h2 class="section-title">One powerful system.<br><em>Two strong markets.</em></h2>
-    <p class="section-body">Both plans include WhatsApp + SMS qualification, Hot/Warm/Cold scoring, and direct Zoho CRM integration.</p>
-  </div>
   <div class="pricing-wrap">
     <div class="pricing-card">
       <div class="pricing-badge">🇦🇺 Australia</div>
@@ -587,40 +295,39 @@ footer { grid-template-columns:1fr; padding:44px 20px; gap:28px; }
         <li>WhatsApp + SMS qualification</li>
         <li>Hot / Warm / Cold scoring</li>
         <li>Direct Zoho CRM push</li>
-        <li>Domain &amp; Realestate.com.au support</li>
-        <li>24/7 coverage &amp; full onboarding</li>
+        <li>Domain & Realestate.com.au support</li>
+        <li>24/7 coverage & full onboarding</li>
       </ul>
-      <a href="apply.html" class="btn-primary" style="width:100%;justify-content:center;">Apply — Australia</a>
+      <a href="apply.html" class="btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:18px;">Apply — Australia</a>
     </div>
-    <div class="pricing-card">
+
+    <div class="pricing-card" style="border-color:#C9A35B;">
       <div class="pricing-badge">🇦🇪 UAE / Dubai</div>
-      <div class="price"><sup style="font-size:22px;margin-top:24px;">AED</sup>980</div>
+      <div class="price"><sup>AED</sup>980</div>
       <div class="price-period">per month · WhatsApp-first · RERA ready</div>
       <ul class="price-features">
         <li>WhatsApp Business API primary</li>
         <li>English + Arabic support</li>
-        <li>Property Finder &amp; Bayut enquiries</li>
+        <li>Property Finder & Bayut enquiries</li>
         <li>Inspection / viewing booking</li>
         <li>Hot lead scoring + Zoho CRM</li>
       </ul>
-      <a href="apply.html" class="btn-primary" style="width:100%;justify-content:center;">Apply — UAE / Dubai</a>
+      <a href="apply.html" class="btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:18px;background:#C9A35B;color:#000;">Apply — UAE / Dubai</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider">
+  <div class="cta-section">
+    <div class="section-tag">Get Started</div>
+    <h2 class="section-title" style="margin:0 auto;">Stop calling leads<br><em>who were never buying.</em></h2>
+    <p class="section-body" style="margin:18px auto 0;">Every hour spent on an unqualified enquiry is an hour taken from a hot buyer who was ready to move today. Hermia fixes that permanently.</p>
+    <div class="cta-actions">
+      <a href="apply.html" class="btn-primary" style="font-size:16px;padding:18px 40px;">Apply for Access</a>
+      <a href="https://calendly.com/capital-hermia/15-minute-meeting" class="btn-secondary">Book a 15-min call</a>
     </div>
   </div>
 </div>
-
-<!-- CTA -->
-
-<div class="cta-section">
-  <div class="section-tag">Get Started</div>
-  <h2 class="section-title">Stop calling leads<br><em>who were never buying.</em></h2>
-  <p class="section-body" style="margin:16px auto 0;">Every hour spent on an unqualified enquiry is an hour taken from a hot buyer who was ready to move today. Hermia fixes that permanently.</p>
-  <div class="cta-actions">
-    <a href="apply.html" class="btn-primary">Apply for Access →</a>
-    <a href="https://calendly.com/capital-hermia/15-minute-meeting" class="btn-secondary">Book a 15-min call</a>
-  </div>
-</div>
-
-<!-- FOOTER -->
 
 <footer>
   <div>
@@ -630,7 +337,7 @@ footer { grid-template-columns:1fr; padding:44px 20px; gap:28px; }
     </a>
     <div class="footer-meta">
       ABN 75 434 177 026<br>
-      Victoria, Australia · Dubai Support Available<br>
+      Victoria, Australia • Dubai Support Available<br>
       <a href="mailto:capital@hermia.au">capital@hermia.au</a>
     </div>
   </div>
@@ -648,7 +355,7 @@ footer { grid-template-columns:1fr; padding:44px 20px; gap:28px; }
   </div>
 </footer>
 <div class="footer-bottom">
-  <p>© 2026 Hermia · Australian &amp; UAE Real Estate · Privacy Compliant</p>
+  <p>© 2026 Hermia · Australian & UAE Real Estate · Privacy Compliant</p>
 </div>
 
 </body>
