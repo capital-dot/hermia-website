@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply — Hermia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:#080808; --card:#111; --border:rgba(201,163,91,0.15);
+  --gold:#C9A35B; --gold-light:#e8c17a; --gold-dim:rgba(201,163,91,0.08);
+  --cream:#f5f1e8; --muted:#8a8580; --soft:#b8b5ad;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream);min-height:100vh;}
+
+nav{
+padding:20px 48px; display:flex; align-items:center; justify-content:space-between;
+border-bottom:1px solid var(–border);
+}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-logo img{width:34px;height:34px;}
+.nav-logo span{font-family:‘Cormorant Garamond’,serif;font-size:22px;font-weight:600;color:var(–cream);}
+.nav-back{color:var(–soft);text-decoration:none;font-size:14px;transition:color 0.2s;}
+.nav-back:hover{color:var(–cream);}
+
+.page{max-width:680px;margin:0 auto;padding:72px 24px 100px;}
+
+.page-tag{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(–gold);margin-bottom:16px;}
+.page-title{font-family:‘Cormorant Garamond’,serif;font-size:clamp(40px,6vw,64px);font-weight:700;line-height:1.05;color:#fff;margin-bottom:16px;}
+.page-title em{font-style:italic;color:var(–gold);}
+.page-sub{font-size:16px;color:var(–soft);line-height:1.7;font-weight:300;margin-bottom:52px;max-width:520px;}
+
+.form-card{
+background:var(–card);border:1px solid var(–border);
+border-radius:20px;padding:48px 44px;position:relative;overflow:hidden;
+}
+.form-card::before{content:’’;position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(–gold),transparent);}
+
+.field{margin-bottom:28px;}
+.field label{display:block;font-size:13px;font-weight:600;color:var(–soft);letter-spacing:0.5px;margin-bottom:10px;text-transform:uppercase;font-size:11px;letter-spacing:1.5px;}
+.field input,.field select{
+width:100%;padding:16px 18px;
+background:#0d0d0d;border:1px solid var(–border);
+border-radius:10px;color:var(–cream);
+font-family:‘DM Sans’,sans-serif;font-size:15px;font-weight:300;
+transition:all 0.2s;outline:none;appearance:none;
+}
+.field input::placeholder{color:var(–muted);}
+.field input:focus,.field select:focus{border-color:rgba(201,163,91,0.5);background:#0f0f0f;}
+.field select{cursor:pointer;background-image:url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘8’ viewBox=‘0 0 12 8’%3E%3Cpath d=‘M1 1l5 5 5-5’ stroke=’%238a8580’ stroke-width=‘1.5’ fill=‘none’ stroke-linecap=‘round’/%3E%3C/svg%3E”);background-repeat:no-repeat;background-position:right 16px center;padding-right:44px;}
+.field select option{background:#111;color:var(–cream);}
+
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+
+.disclaimer{
+background:var(–gold-dim);border:1px solid var(–border);
+border-radius:10px;padding:16px 20px;
+font-size:13px;color:var(–soft);line-height:1.6;
+margin-bottom:32px;
+}
+
+.submit-btn{
+width:100%;padding:18px;
+background:var(–gold);color:#000;
+font-family:‘DM Sans’,sans-serif;font-size:16px;font-weight:600;
+border:none;border-radius:10px;cursor:pointer;
+transition:all 0.2s;
+}
+.submit-btn:hover{background:var(–gold-light);transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,163,91,0.25);}
+.submit-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+
+.form-note{font-size:12px;color:var(–muted);text-align:center;margin-top:16px;font-style:italic;}
+
+/* SUCCESS STATE */
+.success-state{display:none;text-align:center;padding:48px 0;}
+.success-icon{
+width:72px;height:72px;border-radius:50%;
+background:var(–gold-dim);border:1px solid var(–border);
+display:flex;align-items:center;justify-content:center;
+margin:0 auto 28px;font-size:28px;
+}
+.success-state h2{font-family:‘Cormorant Garamond’,serif;font-size:36px;font-weight:700;color:#fff;margin-bottom:12px;}
+.success-state p{font-size:15px;color:var(–soft);line-height:1.7;font-weight:300;max-width:400px;margin:0 auto;}
+.success-back{display:inline-block;margin-top:32px;color:var(–gold);text-decoration:none;font-size:14px;border:1px solid var(–border);padding:12px 24px;border-radius:8px;transition:all 0.2s;}
+.success-back:hover{border-color:rgba(201,163,91,0.4);color:var(–gold-light);}
+
+@media(max-width:600px){
+nav{padding:16px 20px;}
+.page{padding:48px 20px 80px;}
+.form-card{padding:32px 24px;}
+.field-row{grid-template-columns:1fr;}
+}
+</style>
+
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia">
+    <span>Hermia</span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+</nav>
+
+<div class="page">
+  <div class="page-tag">Application</div>
+  <h1 class="page-title">Apply for<br><em>access.</em></h1>
+  <p class="page-sub">Hermia is available to a limited number of agents per state. Complete the form below and we will be in touch within one business day.</p>
+
+  <div class="form-card">
+    <div id="form-view">
+      <div class="field-row">
+        <div class="field">
+          <label>Full Name</label>
+          <input type="text" id="name" placeholder="Jane Smith" required>
+        </div>
+        <div class="field">
+          <label>Phone Number</label>
+          <input type="tel" id="phone" placeholder="04XX XXX XXX" required>
+        </div>
+      </div>
+
+```
+  <div class="field">
+    <label>Email Address</label>
+    <input type="email" id="email" placeholder="jane@youragency.com.au" required>
+  </div>
+
+  <div class="field">
+    <label>Agency Name</label>
+    <input type="text" id="agency" placeholder="Your agency or brokerage" required>
+  </div>
+
+  <div class="field-row">
+    <div class="field">
+      <label>State</label>
+      <select id="state" required>
+        <option value="" disabled selected>Select state</option>
+        <option value="NSW">New South Wales</option>
+        <option value="VIC">Victoria</option>
+        <option value="QLD">Queensland</option>
+        <option value="WA">Western Australia</option>
+        <option value="SA">South Australia</option>
+        <option value="TAS">Tasmania</option>
+        <option value="ACT">ACT</option>
+        <option value="NT">Northern Territory</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Current CRM</label>
+      <select id="crm">
+        <option value="" disabled selected>Select CRM</option>
+        <option value="Zoho CRM">Zoho CRM</option>
+        <option value="Rex">Rex</option>
+        <option value="Salesforce">Salesforce</option>
+        <option value="HubSpot">HubSpot</option>
+        <option value="PropertyMe">PropertyMe</option>
+        <option value="VaultRE">VaultRE</option>
+        <option value="AgentBox">AgentBox</option>
+        <option value="None">No CRM currently</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    Hermia qualifies the enquiries you already receive from Domain, Realestate.com.au, and your website. We do not generate new leads or assist with advertising.
+  </div>
+
+  <button class="submit-btn" onclick="submitApplication()">Submit Application</button>
+  <p class="form-note">We review every application manually. Expect a response within one business day.</p>
+</div>
+
+<div class="success-state" id="success-view">
+  <div class="success-icon">✓</div>
+  <h2>Application received.</h2>
+  <p>Thank you. We review every application personally and will be in touch within one business day to discuss next steps.</p>
+  <a href="index.html" class="success-back">Back to Hermia</a>
+</div>
+```
+
+  </div>
+</div>
+
+<script>
+async function submitApplication() {
+  const btn = document.querySelector('.submit-btn');
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const agency = document.getElementById('agency').value.trim();
+  const state = document.getElementById('state').value;
+  const crm = document.getElementById('crm').value;
+
+  if (!name || !phone || !email || !agency || !state) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+
+  try {
+    await fetch('https://tally.so/r/BzAbqQ', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, phone, email, agency, state, crm, source: 'hermia-website-apply' })
+    });
+  } catch(e) {}
+
+  document.getElementById('form-view').style.display = 'none';
+  document.getElementById('success-view').style.display = 'block';
+}
+</script>
+
+</body>
+</html>
