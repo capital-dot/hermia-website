@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -28,20 +29,20 @@ position:fixed; top:0; left:0; right:0; z-index:100;
 padding:20px 48px;
 display:flex; align-items:center; justify-content:space-between;
 background:rgba(8,8,8,0.92); backdrop-filter:blur(20px);
-border-bottom:1px solid var(--border);
+border-bottom:1px solid var(–border);
 }
 .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
 .nav-logo img { width:34px; height:34px; }
-.nav-logo span { font-family:‘Cormorant Garamond’,serif; font-size:22px; font-weight:600; color:var(--cream); }
+.nav-logo span { font-family:‘Cormorant Garamond’,serif; font-size:22px; font-weight:600; color:var(–cream); }
 .nav-links { display:flex; align-items:center; gap:32px; list-style:none; }
-.nav-links a { color:var(--soft); text-decoration:none; font-size:14px; transition:color 0.2s; }
-.nav-links a:hover { color:var(--cream); }
-.nav-cta { 
-  background:var(--gold)!important; 
-  color:#000!important; 
-  padding:10px 24px!important; 
-  border-radius:8px; 
-  font-weight:600!important; 
+.nav-links a { color:var(–soft); text-decoration:none; font-size:14px; transition:color 0.2s; }
+.nav-links a:hover { color:var(–cream); }
+.nav-cta {
+background:var(–gold)!important;
+color:#000!important;
+padding:10px 24px!important;
+border-radius:8px;
+font-weight:600!important;
 }
 
 .hero {
@@ -59,9 +60,9 @@ filter:blur(50px);
 .hero-logo { width:76px; height:76px; margin-bottom:32px; filter:drop-shadow(0 0 32px rgba(201,163,91,0.4)); }
 .hero-badge {
 display:inline-flex; align-items:center; gap:8px;
-background:var(--gold-dim); border:1px solid var(--border);
+background:var(–gold-dim); border:1px solid var(–border);
 border-radius:100px; padding:6px 18px;
-font-size:11px; font-weight:600; color:var(--gold);
+font-size:11px; font-weight:600; color:var(–gold);
 letter-spacing:2px; text-transform:uppercase; margin-bottom:32px;
 }
 .hero h1 {
@@ -70,88 +71,203 @@ font-size:clamp(56px,9vw,104px);
 font-weight:700; line-height:1.02; letter-spacing:-2px;
 color:#fff; max-width:920px;
 }
-.hero h1 em { font-style:italic; color:var(--gold); }
+.hero h1 em { font-style:italic; color:var(–gold); }
 .hero-sub {
-margin-top:32px; font-size:19px; color:var(--soft);
+margin-top:32px; font-size:19px; color:var(–soft);
 max-width:620px; line-height:1.6; font-weight:300;
 }
 
 .btn-primary {
-background:var(--gold); color:#000;
+background:var(–gold); color:#000;
 padding:18px 36px; border-radius:12px;
 font-size:16px; font-weight:600; text-decoration:none;
 transition:all 0.3s; display:inline-flex; align-items:center; gap:8px;
 }
-.btn-primary:hover { background:var(--gold-light); transform:translateY(-3px); box-shadow:0 12px 32px rgba(201,163,91,0.3); }
+.btn-primary:hover { background:var(–gold-light); transform:translateY(-3px); box-shadow:0 12px 32px rgba(201,163,91,0.3); }
 
-.stats-bar {border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:rgba(201,163,91,0.02); padding:40px 48px; display:flex; align-items:center; justify-content:center; gap:72px; flex-wrap:wrap;}
+.btn-secondary {
+color:var(–soft); text-decoration:none; font-size:15px;
+padding:18px 28px; border-radius:12px; border:1px solid var(–border);
+transition:all 0.2s; display:inline-flex; align-items:center; gap:8px;
+}
+.btn-secondary:hover { color:var(–cream); border-color:rgba(201,163,91,0.4); }
+
+.hero-actions { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:44px; }
+
+.stats-bar {border-top:1px solid var(–border); border-bottom:1px solid var(–border); background:rgba(201,163,91,0.02); padding:40px 48px; display:flex; align-items:center; justify-content:center; gap:72px; flex-wrap:wrap;}
 .stat { text-align:center; }
-.stat-num { font-family:‘Cormorant Garamond’,serif; font-size:48px; font-weight:700; color:var(--gold); line-height:1; }
-.stat-label { font-size:13px; color:var(--muted); margin-top:8px; }
+.stat-num { font-family:‘Cormorant Garamond’,serif; font-size:48px; font-weight:700; color:var(–gold); line-height:1; }
+.stat-label { font-size:13px; color:var(–muted); margin-top:8px; }
 
 section { padding:96px 24px; max-width:1100px; margin:0 auto; }
-.divider { border-top:1px solid var(--border); }
-.section-tag { font-size:11px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
+.divider { border-top:1px solid var(–border); }
+.section-tag { font-size:11px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(–gold); margin-bottom:18px; }
 .section-title { font-family:‘Cormorant Garamond’,serif; font-size:clamp(36px,5vw,56px); font-weight:700; line-height:1.1; color:#fff; max-width:720px; }
-.section-title em { font-style:italic; color:var(--gold); }
-.section-body { font-size:18px; color:var(--soft); line-height:1.7; max-width:580px; margin-top:18px; font-weight:300; }
+.section-title em { font-style:italic; color:var(–gold); }
+.section-body { font-size:18px; color:var(–soft); line-height:1.7; max-width:580px; margin-top:18px; font-weight:300; }
 
-.steps { margin-top:60px; display:flex; flex-direction:column; position:relative; }
-.steps::before { content:''; position:absolute; left:27px; top:0; bottom:0; width:1px; background:linear-gradient(180deg,var(--gold),transparent); }
-.step { display:flex; gap:32px; padding:44px 0; border-bottom:1px solid var(--border); }
-.step:last-child { border-bottom:none; }
-.step-num {
-width:64px; height:64px; min-width:64px; border-radius:50%;
-background:var(--gold-dim); border:1px solid var(--border);
-display:flex; align-items:center; justify-content:center;
-font-family:‘Cormorant Garamond’,serif; font-size:32px; font-weight:700; color:var(--gold);
+/* ─── VIDEO FIX ─── */
+.video-outer {
+margin: 52px auto 64px;
+max-width: 860px;
+position: relative;
 }
+
+/* Golden glow ring around the video */
+.video-outer::before {
+content: ‘’;
+position: absolute;
+inset: -2px;
+border-radius: 20px;
+background: linear-gradient(135deg, rgba(201,163,91,0.6), rgba(201,163,91,0.15), rgba(201,163,91,0.5));
+z-index: 0;
+}
+
+/* Outer ambient glow */
+.video-outer::after {
+content: ‘’;
+position: absolute;
+inset: -24px;
+border-radius: 32px;
+background: radial-gradient(ellipse, rgba(201,163,91,0.18) 0%, transparent 70%);
+z-index: -1;
+filter: blur(16px);
+}
+
+.video-wrapper {
+position: relative;
+padding-bottom: 56.25%; /* 16:9 */
+height: 0;
+overflow: hidden;
+border-radius: 18px;
+background: #0a0a0a;
+z-index: 1;
+box-shadow:
+0 0 0 1px rgba(201,163,91,0.25),
+0 24px 64px rgba(0,0,0,0.7),
+0 0 80px rgba(201,163,91,0.08);
+}
+
+.video-wrapper iframe {
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 100%;
+border: none;
+border-radius: 18px;
+}
+
+/* ─── STEPS TIMELINE FIX ─── */
+.steps {
+margin-top: 0;
+display: flex;
+flex-direction: column;
+position: relative;
+padding-left: 0;
+}
+
+/* Clean vertical gold line — perfectly aligned to circle centers */
+.steps::before {
+content: ‘’;
+position: absolute;
+left: 31px; /* center of 64px circle */
+top: 32px;  /* start at center of first circle */
+bottom: 32px;
+width: 1px;
+background: linear-gradient(180deg, var(–gold) 0%, rgba(201,163,91,0.3) 80%, transparent 100%);
+z-index: 0;
+}
+
+.step {
+display: flex;
+gap: 32px;
+padding: 44px 0;
+border-bottom: 1px solid var(–border);
+position: relative;
+align-items: flex-start;
+}
+.step:last-child { border-bottom: none; }
+
+.step-num {
+width: 64px;
+height: 64px;
+min-width: 64px;
+border-radius: 50%;
+background: var(–black); /* matches page bg so line appears behind */
+border: 1px solid rgba(201,163,91,0.4);
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 28px;
+font-weight: 700;
+color: var(–gold);
+position: relative;
+z-index: 1; /* sits in front of the line */
+box-shadow: 0 0 0 4px var(–black); /* clean gap between line and circle */
+}
+
+.step-content { padding-top: 14px; }
 .step-content h3 { font-size:22px; font-weight:600; color:#fff; margin-bottom:8px; }
-.step-content p { font-size:16px; color:var(--soft); line-height:1.65; font-weight:300; }
+.step-content p { font-size:16px; color:var(–soft); line-height:1.65; font-weight:300; }
+.step-tag {
+display: inline-block;
+margin-top: 12px;
+font-size: 11px;
+font-weight: 600;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+color: var(–gold);
+opacity: 0.7;
+}
 
+/* Features */
 .features-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:16px; margin-top:52px; }
-.feature-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px; transition:all 0.3s; }
+.feature-card { background:var(–card); border:1px solid var(–border); border-radius:16px; padding:28px; transition:all 0.3s; }
 .feature-card:hover { border-color:rgba(201,163,91,0.35); transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,0.4); }
-.feature-label { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+.feature-label { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(–gold); margin-bottom:12px; }
 .feature-card h3 { font-size:17px; font-weight:600; color:#fff; margin-bottom:10px; }
-.feature-card p { font-size:15px; color:var(--soft); line-height:1.65; font-weight:300; }
+.feature-card p { font-size:15px; color:var(–soft); line-height:1.65; font-weight:300; }
 
+/* Pricing */
 .pricing-wrap { display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin:52px auto 0; max-width:1100px; }
-.pricing-card { background:var(--card); border:1px solid rgba(201,163,91,0.4); border-radius:24px; padding:60px 52px; text-align:center; position:relative; overflow:hidden; max-width:380px; flex:1; min-width:320px; }
-.pricing-badge { display:inline-block; background:var(--gold-dim); border:1px solid var(--border); border-radius:100px; padding:5px 18px; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:32px; }
+.pricing-card { background:var(–card); border:1px solid rgba(201,163,91,0.4); border-radius:24px; padding:60px 52px; text-align:center; position:relative; overflow:hidden; max-width:380px; flex:1; min-width:320px; }
+.pricing-badge { display:inline-block; background:var(–gold-dim); border:1px solid var(–border); border-radius:100px; padding:5px 18px; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(–gold); margin-bottom:32px; }
 .price { font-family:‘Cormorant Garamond’,serif; font-size:88px; font-weight:700; color:#fff; line-height:1; }
-.price sup { font-size:36px; vertical-align:top; margin-top:18px; display:inline-block; color:var(--gold); }
-.price-period { font-size:15px; color:var(--muted); margin-top:8px; margin-bottom:40px; }
+.price sup { font-size:36px; vertical-align:top; margin-top:18px; display:inline-block; color:var(–gold); }
+.price-period { font-size:15px; color:var(–muted); margin-top:8px; margin-bottom:40px; }
 .price-features { list-style:none; text-align:left; margin-bottom:44px; display:flex; flex-direction:column; gap:16px; }
-.price-features li { font-size:15px; color:var(--soft); font-weight:300; line-height:1.5; }
-.price-note { font-size:13px; color:var(--muted); margin-top:20px; font-style:italic; }
+.price-features li { font-size:15px; color:var(–soft); font-weight:300; line-height:1.5; }
+.price-note { font-size:13px; color:var(–muted); margin-top:20px; font-style:italic; }
 
+/* CTA */
 .cta-section { text-align:center; padding:100px 24px; max-width:800px; margin:0 auto; }
 .cta-actions { display:flex; align-items:center; gap:14px; justify-content:center; margin-top:44px; flex-wrap:wrap; }
 
 footer {
-border-top:1px solid var(--border);
+border-top:1px solid var(–border);
 padding:48px; display:grid;
 grid-template-columns:1.2fr 1fr 1fr; gap:40px;
 }
 .footer-logo { display:flex; align-items:center; gap:10px; text-decoration:none; margin-bottom:16px; }
 .footer-logo img { width:28px; height:28px; }
-.footer-logo span { font-family:‘Cormorant Garamond’,serif; font-size:20px; font-weight:600; color:var(--cream); }
-.footer-meta { font-size:13px; color:var(--muted); line-height:1.9; }
-.footer-col h4 { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
-.footer-col a { display:block; font-size:14px; color:var(--soft); text-decoration:none; margin-bottom:10px; transition:color 0.2s; }
-.footer-col a:hover { color:var(--cream); }
-.footer-bottom { border-top:1px solid var(--border); padding:20px 48px; text-align:center; }
-.footer-bottom p { font-size:12px; color:var(--muted); }
+.footer-logo span { font-family:‘Cormorant Garamond’,serif; font-size:20px; font-weight:600; color:var(–cream); }
+.footer-meta { font-size:13px; color:var(–muted); line-height:1.9; }
+.footer-col h4 { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(–gold); margin-bottom:18px; }
+.footer-col a { display:block; font-size:14px; color:var(–soft); text-decoration:none; margin-bottom:10px; transition:color 0.2s; }
+.footer-col a:hover { color:var(–cream); }
+.footer-bottom { border-top:1px solid var(–border); padding:20px 48px; text-align:center; }
+.footer-bottom p { font-size:12px; color:var(–muted); }
 
 @media(max-width:768px){
 nav{padding:16px 20px;} .nav-links{display:none;}
 section{padding:64px 20px;}
-.steps::before { display:none; }
-.step { gap:24px; padding:32px 0; }
-.step-num { width:52px; height:52px; font-size:26px; }
+.steps::before { left:26px; }
+.step { gap:20px; padding:32px 0; }
+.step-num { width:52px; height:52px; min-width:52px; font-size:22px; }
+.video-outer { margin: 40px auto 48px; }
 }
 </style>
+
 </head>
 <body>
 
@@ -175,7 +291,6 @@ section{padding:64px 20px;}
   <div class="hero-badge"><span class="badge-dot"></span> LIVE IN AUSTRALIA & UAE • DUBAI</div>
   <h1>Your enquiries.<br><em>Qualified before<br>you pick up the phone.</em></h1>
   <p class="hero-sub">Hermia qualifies every buyer enquiry via <strong>WhatsApp + SMS</strong> — confirming finance readiness, budget range, timeline, and motivation so agents can focus on serious opportunities only.</p>
-
   <div class="hero-actions">
     <a href="apply.html" class="btn-primary">Apply for Access</a>
     <a href="https://calendly.com/capital-hermia/15-minute-meeting" class="btn-secondary">Book a 15-min call</a>
@@ -193,11 +308,17 @@ section{padding:64px 20px;}
   <div class="section-tag">How It Works</div>
   <h2 class="section-title">Simple. Automatic.<br><em>Always running.</em></h2>
   <p class="section-body">Watch the full walkthrough, then see exactly how Hermia fits into your existing workflow.</p>
+
+  <!-- VIDEO: enlarged + gold glow -->
+
   <div class="video-outer">
     <div class="video-wrapper">
       <iframe src="https://www.loom.com/embed/e74cca06dd56423d961780c420dd83e5" allowfullscreen></iframe>
     </div>
   </div>
+
+  <!-- STEPS: clean timeline -->
+
   <div class="steps">
     <div class="step">
       <div class="step-num">1</div>
@@ -241,8 +362,6 @@ section{padding:64px 20px;}
     </div>
   </div>
 </section>
-
-<!-- Features, Pricing with AED 980, CTA, Footer remain the same premium version -->
 
 <section id="features" class="divider">
   <div class="section-tag">Features</div>
@@ -301,19 +420,22 @@ section{padding:64px 20px;}
       <a href="apply.html" class="btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:18px;">Apply — Australia</a>
     </div>
 
-    <div class="pricing-card" style="border-color:#C9A35B;">
-      <div class="pricing-badge">🇦🇪 UAE / Dubai</div>
-      <div class="price"><sup>AED</sup>980</div>
-      <div class="price-period">per month · WhatsApp-first · RERA ready</div>
-      <ul class="price-features">
-        <li>WhatsApp Business API primary</li>
-        <li>English + Arabic support</li>
-        <li>Property Finder & Bayut enquiries</li>
-        <li>Inspection / viewing booking</li>
-        <li>Hot lead scoring + Zoho CRM</li>
-      </ul>
-      <a href="apply.html" class="btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:18px;background:#C9A35B;color:#000;">Apply — UAE / Dubai</a>
-    </div>
+```
+<div class="pricing-card" style="border-color:#C9A35B;">
+  <div class="pricing-badge">🇦🇪 UAE / Dubai</div>
+  <div class="price"><sup style="font-size:28px;">AED</sup>980</div>
+  <div class="price-period">per month · WhatsApp-first · RERA ready</div>
+  <ul class="price-features">
+    <li>WhatsApp Business API primary</li>
+    <li>English + Arabic support</li>
+    <li>Property Finder & Bayut enquiries</li>
+    <li>Inspection / viewing booking</li>
+    <li>Hot lead scoring + Zoho CRM</li>
+  </ul>
+  <a href="apply.html" class="btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:18px;background:#C9A35B;color:#000;">Apply — UAE / Dubai</a>
+</div>
+```
+
   </div>
 </section>
 
