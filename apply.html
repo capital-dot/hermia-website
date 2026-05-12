@@ -167,10 +167,6 @@ nav{padding:16px 20px;}
     </div>
   </div>
 
-  <div class="disclaimer">
-    Hermia qualifies the enquiries you already receive from Domain, Realestate.com.au, and your website. We do not generate new leads or assist with advertising.
-  </div>
-
   <button class="submit-btn" onclick="submitApplication()">Submit Application</button>
   <p class="form-note">We review every application manually. Expect a response within one business day.</p>
 </div>
@@ -205,11 +201,11 @@ async function submitApplication() {
   btn.disabled = true;
 
   try {
-    await fetch('https://tally.so/r/BzAbqQ', {
+    await fetch('https://hook.eu1.make.com/3hq3jwbtjc6afnfem9rhshxwqlyx838j', {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, phone, email, agency, state, crm, source: 'hermia-website-apply' })
+      body: JSON.stringify({ type: 'application', name, phone, email, agency, state, crm, source: 'hermia-website', submitted_at: new Date().toISOString() })
     });
   } catch(e) {}
 
