@@ -24,11 +24,11 @@ html { scroll-behavior:smooth; }
 body { font-family:'DM Sans',sans-serif; background:var(--black); color:var(--cream); overflow-x:hidden; }
 
 nav {
-  position:fixed; top:0; left:0; right:0; z-index:100;
-  padding:20px 48px;
-  display:flex; align-items:center; justify-content:space-between;
-  background:rgba(8,8,8,0.92); backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
+position:fixed; top:0; left:0; right:0; z-index:100;
+padding:20px 48px;
+display:flex; align-items:center; justify-content:space-between;
+background:rgba(8,8,8,0.92); backdrop-filter:blur(20px);
+border-bottom:1px solid var(--border);
 }
 .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
 .nav-logo img { width:34px; height:34px; }
@@ -42,50 +42,112 @@ nav {
   padding:10px 24px!important; 
   border-radius:8px; 
   font-weight:600!important; 
-  font-size:14px;
 }
-.nav-cta:hover { background:var(--gold-light)!important; transform:translateY(-1px); }
 
 .hero {
-  min-height:100vh; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; text-align:center;
-  padding:160px 24px 120px; position:relative;
+min-height:100vh; display:flex; flex-direction:column;
+align-items:center; justify-content:center; text-align:center;
+padding:160px 24px 120px; position:relative;
 }
 .hero-glow {
-  position:absolute; top:15%; left:50%; transform:translateX(-50%);
-  width:800px; height:600px;
-  background:radial-gradient(ellipse, rgba(201,163,91,0.09) 0%, transparent 70%);
-  pointer-events:none;
+position:absolute; top:15%; left:50%; transform:translateX(-50%);
+width:800px; height:600px;
+background:radial-gradient(ellipse, rgba(201,163,91,0.09) 0%, transparent 70%);
+pointer-events:none;
 }
 .hero-logo { width:76px; height:76px; margin-bottom:32px; filter:drop-shadow(0 0 28px rgba(201,163,91,0.25)); }
 .hero-badge {
-  display:inline-flex; align-items:center; gap:8px;
-  background:var(--gold-dim); border:1px solid var(--border);
-  border-radius:100px; padding:6px 18px;
-  font-size:11px; font-weight:600; color:var(--gold);
-  letter-spacing:2px; text-transform:uppercase; margin-bottom:32px;
+display:inline-flex; align-items:center; gap:8px;
+background:var(--gold-dim); border:1px solid var(--border);
+border-radius:100px; padding:6px 18px;
+font-size:11px; font-weight:600; color:var(--gold);
+letter-spacing:2px; text-transform:uppercase; margin-bottom:32px;
 }
 .hero h1 {
-  font-family:‘Cormorant Garamond’,serif;
-  font-size:clamp(56px,9vw,104px);
-  font-weight:700; line-height:1.02; letter-spacing:-2px;
-  color:#fff; max-width:920px;
+font-family:‘Cormorant Garamond’,serif;
+font-size:clamp(56px,9vw,104px);
+font-weight:700; line-height:1.02; letter-spacing:-2px;
+color:#fff; max-width:920px;
 }
 .hero h1 em { font-style:italic; color:var(--gold); }
 .hero-sub {
-  margin-top:32px; font-size:19px; color:var(--soft);
-  max-width:620px; line-height:1.6; font-weight:300;
+margin-top:32px; font-size:19px; color:var(--soft);
+max-width:620px; line-height:1.6; font-weight:300;
 }
 
 .btn-primary {
-  background:var(--gold); color:#000;
-  padding:18px 36px; border-radius:12px;
-  font-size:16px; font-weight:600; text-decoration:none;
-  transition:all 0.3s; display:inline-flex; align-items:center; gap:8px;
+background:var(--gold); color:#000;
+padding:18px 36px; border-radius:12px;
+font-size:16px; font-weight:600; text-decoration:none;
+transition:all 0.3s; display:inline-flex; align-items:center; gap:8px;
 }
 .btn-primary:hover { background:var(--gold-light); transform:translateY(-3px); box-shadow:0 12px 32px rgba(201,163,91,0.3); }
 
-.stats-bar, section, .problem-grid, .features-grid, .pricing-wrap, .pricing-card, footer { /* your original styles preserved */ }
+.stats-bar {border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:rgba(201,163,91,0.02); padding:40px 48px; display:flex; align-items:center; justify-content:center; gap:72px; flex-wrap:wrap;}
+.stat { text-align:center; }
+.stat-num { font-family:‘Cormorant Garamond’,serif; font-size:48px; font-weight:700; color:var(--gold); line-height:1; }
+.stat-label { font-size:13px; color:var(--muted); margin-top:8px; }
+
+section { padding:96px 24px; max-width:1100px; margin:0 auto; }
+.divider { border-top:1px solid var(--border); }
+.section-tag { font-size:11px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
+.section-title { font-family:‘Cormorant Garamond’,serif; font-size:clamp(36px,5vw,56px); font-weight:700; line-height:1.1; color:#fff; max-width:720px; }
+.section-title em { font-style:italic; color:var(--gold); }
+.section-body { font-size:17px; color:var(--soft); line-height:1.7; max-width:580px; margin-top:18px; font-weight:300; }
+
+.problem-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:16px; margin-top:52px; }
+.problem-card { background:#0d0d0d; border:1px solid var(--border); border-radius:16px; padding:36px; position:relative; overflow:hidden; }
+.problem-num { font-family:‘Cormorant Garamond’,serif; font-size:68px; font-weight:700; color:rgba(201,163,91,0.1); line-height:1; margin-bottom:14px; }
+.problem-card h3 { font-size:18px; font-weight:600; color:var(--cream); margin-bottom:10px; }
+.problem-card p { font-size:15px; color:var(--soft); line-height:1.65; font-weight:300; }
+
+.features-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:16px; margin-top:52px; }
+.feature-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px; transition:all 0.3s; }
+.feature-card:hover { border-color:rgba(201,163,91,0.35); transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,0.4); }
+.feature-label { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+.feature-card h3 { font-size:17px; font-weight:600; color:#fff; margin-bottom:10px; }
+.feature-card p { font-size:14px; color:var(--soft); line-height:1.65; font-weight:300; }
+
+.scoring-row { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:16px; margin-top:16px; }
+.score-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:36px 28px; text-align:center; }
+.score-label { font-family:‘Cormorant Garamond’,serif; font-size:34px; font-weight:700; margin-bottom:12px; display:block; }
+.score-label.hot { color:#ff6b50; }
+.score-label.warm { color:#ffb347; }
+.score-label.cold { color:#7eb8f7; }
+
+.pricing-wrap { display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin:52px auto 0; max-width:1100px; }
+.pricing-card { background:var(--card); border:1px solid rgba(201,163,91,0.4); border-radius:24px; padding:60px 52px; text-align:center; position:relative; overflow:hidden; max-width:380px; flex:1; min-width:320px; }
+.pricing-badge { display:inline-block; background:var(--gold-dim); border:1px solid var(--border); border-radius:100px; padding:5px 18px; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:32px; }
+.price { font-family:‘Cormorant Garamond’,serif; font-size:88px; font-weight:700; color:#fff; line-height:1; }
+.price sup { font-size:36px; vertical-align:top; margin-top:18px; display:inline-block; color:var(--gold); }
+.price-period { font-size:15px; color:var(--muted); margin-top:8px; margin-bottom:40px; }
+.price-features { list-style:none; text-align:left; margin-bottom:44px; display:flex; flex-direction:column; gap:16px; }
+.price-features li { font-size:15px; color:var(--soft); font-weight:300; line-height:1.5; }
+.price-note { font-size:13px; color:var(--muted); margin-top:20px; font-style:italic; }
+
+.cta-section { text-align:center; padding:100px 24px; max-width:800px; margin:0 auto; }
+.cta-actions { display:flex; align-items:center; gap:14px; justify-content:center; margin-top:44px; flex-wrap:wrap; }
+
+footer {
+border-top:1px solid var(--border);
+padding:48px; display:grid;
+grid-template-columns:1.2fr 1fr 1fr; gap:40px;
+}
+.footer-logo { display:flex; align-items:center; gap:10px; text-decoration:none; margin-bottom:16px; }
+.footer-logo img { width:28px; height:28px; }
+.footer-logo span { font-family:‘Cormorant Garamond’,serif; font-size:20px; font-weight:600; color:var(--cream); }
+.footer-meta { font-size:13px; color:var(--muted); line-height:1.9; }
+.footer-col h4 { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
+.footer-col a { display:block; font-size:14px; color:var(--soft); text-decoration:none; margin-bottom:10px; transition:color 0.2s; }
+.footer-col a:hover { color:var(--cream); }
+.footer-bottom { border-top:1px solid var(--border); padding:20px 48px; text-align:center; }
+.footer-bottom p { font-size:12px; color:var(--muted); }
+
+@media(max-width:768px){
+nav{padding:16px 20px;} .nav-links{display:none;}
+section{padding:64px 20px;}
+.pricing-wrap{gap:24px;}
+}
 </style>
 </head>
 <body>
@@ -111,17 +173,215 @@ nav {
   <h1>Your enquiries.<br><em>Qualified before<br>you pick up the phone.</em></h1>
   <p class="hero-sub">Hermia qualifies every buyer enquiry via <strong>WhatsApp + SMS</strong> — confirming finance readiness, budget range, timeline, and motivation so agents can focus on serious opportunities only.</p>
 
-  <div class="hero-actions" style="margin-top:48px;">
+  <div class="hero-actions">
     <a href="apply.html" class="btn-primary">Apply for Access</a>
-    <a href="https://calendly.com/capital-hermia/15-minute-meeting" class="btn-secondary" style="margin-left:12px;">Book a 15-min call</a>
+    <a href="https://calendly.com/capital-hermia/15-minute-meeting" class="btn-secondary">Book a 15-min call</a>
   </div>
 </div>
 
-<!-- The rest of the sections (Problem, How it Works, Features, Pricing, CTA, Footer) are the same clean version I gave you last time. -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">30s</div><div class="stat-label">Response time after enquiry lands</div></div>
+  <div class="stat"><div class="stat-num">70%</div><div class="stat-label">Of leads lost to slow follow-up</div></div>
+  <div class="stat"><div class="stat-num">2–3</div><div class="stat-label">Extra commissions per month</div></div>
+  <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Nights, weekends, open homes</div></div>
+</div>
 
-<!-- For the pricing list I removed the dashes completely and made it premium clean. -->
+<section id="problem" class="divider">
+  <div class="section-tag">The Problem</div>
+  <h2 class="section-title">You are spending time<br><em>on the wrong leads.</em></h2>
+  <p class="section-body">Agents juggle listings, inspections, negotiations, and pipelines all at once. When ten enquiries land, there is no way to know who is serious and who is just browsing. That is where commissions disappear.</p>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="problem-num">70%</div>
+      <h3>Leads go cold within minutes</h3>
+      <p>A buyer who submits an enquiry and waits more than five minutes has already moved on. They submitted to three other agents. Whoever responds first wins the deal.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">10x</div>
+      <h3>Manual qualification does not scale</h3>
+      <p>Ten enquiries a week means ten calls just to find out who is actually ready to buy. Most will not answer. You have already lost the hour — and possibly the deal.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">0</div>
+      <h3>No coverage after hours</h3>
+      <p>Enquiries land at 9pm, on Saturday morning, during your open homes. There is nobody available to respond — and silence costs you the commission.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">$$$</div>
+      <h3>Nurturing the wrong buyer</h3>
+      <p>You spend three weeks following up a lead who is not buying for six months. Meanwhile a hot buyer — same week — went to a competitor who called them first.</p>
+    </div>
+  </div>
+</section>
 
-<!-- If you want the absolute full file with every section updated, reply "full premium file" and I’ll drop the complete 100% ready version. -->
+<section id="how" class="divider">
+  <div class="section-tag">How It Works</div>
+  <h2 class="section-title">Simple. Automatic.<br><em>Always running.</em></h2>
+  <p class="section-body">Watch the full walkthrough, then see exactly how Hermia fits into your existing workflow.</p>
+  <div class="video-outer">
+    <div class="video-wrapper">
+      <iframe src="https://www.loom.com/embed/e74cca06dd56423d961780c420dd83e5" allowfullscreen></iframe>
+    </div>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>A buyer enquires on your listing</h3>
+        <p>Via Domain, Realestate.com.au, Property Finder, Bayut, or your website.</p>
+        <span class="step-tag">Your leads. Your listings.</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>Hermia responds via WhatsApp or SMS within 30 seconds</h3>
+        <p>The buyer receives a professional reply the moment their enquiry lands — while the lead is still warm.</p>
+        <span class="step-tag">Under 30 seconds. Every time.</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>Five qualification questions asked automatically</h3>
+        <p>Budget range. Buying timeline. Finance and pre-approval status. Buying intent. Specific property requirements.</p>
+        <span class="step-tag">Consistent. Structured. Every lead.</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h3>Lead scored Hot, Warm or Cold</h3>
+        <p>Pre-approved and moving this month — Hot. Actively searching in a 1–3 month window — Warm. Early research — Cold.</p>
+        <span class="step-tag">Clear priority. No guessing.</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h3>Full summary pushed directly into your Zoho CRM</h3>
+        <p>Name, number, budget, timeline, finance status, requirements, and score — all pre-filled and waiting.</p>
+        <span class="step-tag">Direct to Zoho CRM</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="divider">
+  <div class="section-tag">Features</div>
+  <h2 class="section-title">Everything that matters.<br><em>Nothing that does not.</em></h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-label">Response</div>
+      <h3>Instant WhatsApp + SMS reply</h3>
+      <p>Every enquiry acknowledged within 30 seconds on the channel the buyer actually uses.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-label">Qualification</div>
+      <h3>Structured buyer profiling</h3>
+      <p>Budget, timeline, pre-approval, intent, and requirements — collected through a natural conversation.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-label">Scoring</div>
+      <h3>Hot / Warm / Cold ranking</h3>
+      <p>Every lead arrives pre-ranked. You know immediately who to call today and who can wait.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-label">CRM</div>
+      <h3>Zoho CRM integration</h3>
+      <p>Full lead summary pushed automatically. Zero manual entry required.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-label">Coverage</div>
+      <h3>24/7 availability</h3>
+      <p>Hermia runs through open homes, evenings, weekends, and public holidays.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-label">Compliance</div>
+      <h3>Privacy compliant</h3>
+      <p>Built for the Australian and UAE market.</p>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="divider" style="text-align:center;">
+  <div class="section-tag">Pricing — Australia & UAE</div>
+  <h2 class="section-title">One powerful system.<br><em>Two strong markets.</em></h2>
+  <p class="section-body" style="margin:18px auto 60px;">Choose the plan for your country. Both include WhatsApp + SMS qualification, Hot/Warm/Cold scoring, and direct Zoho CRM integration.</p>
+
+  <div class="pricing-wrap">
+    <!-- Australia -->
+    <div class="pricing-card">
+      <div class="pricing-badge">🇦🇺 Australia</div>
+      <div class="price"><sup>$</sup>188</div>
+      <div class="price-period">AUD per month · no setup fee · cancel anytime</div>
+      <ul class="price-features">
+        <li>WhatsApp + SMS qualification</li>
+        <li>Hot / Warm / Cold scoring</li>
+        <li>Direct Zoho CRM push</li>
+        <li>Domain & Realestate.com.au support</li>
+        <li>24/7 coverage & full onboarding</li>
+      </ul>
+      <a href="apply.html" class="btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:18px;">Apply — Australia</a>
+    </div>
+
+    <!-- UAE -->
+    <div class="pricing-card" style="border-color:#C9A35B;">
+      <div class="pricing-badge">🇦🇪 UAE / Dubai</div>
+      <div class="price"><sup>AED</sup>999</div>
+      <div class="price-period">per month · WhatsApp-first · RERA ready</div>
+      <ul class="price-features">
+        <li>WhatsApp Business API primary</li>
+        <li>English + Arabic support</li>
+        <li>Property Finder & Bayut enquiries</li>
+        <li>Inspection / viewing booking</li>
+        <li>Hot lead scoring + Zoho CRM</li>
+      </ul>
+      <a href="apply.html" class="btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:18px;background:#C9A35B;color:#000;">Apply — UAE / Dubai</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider">
+  <div class="cta-section">
+    <div class="section-tag">Get Started</div>
+    <h2 class="section-title" style="margin:0 auto;">Stop calling leads<br><em>who were never buying.</em></h2>
+    <p class="section-body" style="margin:18px auto 0;">Every hour spent on an unqualified enquiry is an hour taken from a hot buyer who was ready to move today. Hermia fixes that permanently.</p>
+    <div class="cta-actions">
+      <a href="apply.html" class="btn-primary" style="font-size:16px;padding:18px 40px;">Apply for Access</a>
+      <a href="https://calendly.com/capital-hermia/15-minute-meeting" class="btn-secondary">Book a 15-min call</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <a href="#" class="footer-logo">
+      <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia">
+      <span>Hermia</span>
+    </a>
+    <div class="footer-meta">
+      ABN 75 434 177 026<br>
+      Victoria, Australia • Dubai Support Available<br>
+      <a href="mailto:capital@hermia.au">capital@hermia.au</a>
+    </div>
+  </div>
+  <div class="footer-col">
+    <h4>Product</h4>
+    <a href="#how">How it works</a>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+  </div>
+  <div class="footer-col">
+    <h4>Contact</h4>
+    <a href="mailto:capital@hermia.au">capital@hermia.au</a>
+    <a href="https://calendly.com/capital-hermia/15-minute-meeting">Book a call</a>
+    <a href="apply.html">Apply</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2026 Hermia · Australian & UAE Real Estate · Privacy Compliant</p>
+</div>
 
 </body>
 </html>
