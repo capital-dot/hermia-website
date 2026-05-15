@@ -33,7 +33,7 @@ border-bottom:1px solid var(--border);
 }
 .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
 .nav-logo img { width:34px; height:34px; }
-.nav-logo span { font-family:‘Cormorant Garamond’,serif; font-size:22px; font-weight:600; color:var(--cream); }
+.nav-logo span { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:600; color:var(--cream); }
 .nav-links { display:flex; align-items:center; gap:32px; list-style:none; }
 .nav-links a { color:var(--soft); text-decoration:none; font-size:14px; transition:color 0.2s; }
 .nav-links a:hover { color:var(--cream); }
@@ -66,7 +66,7 @@ font-size:11px; font-weight:600; color:var(--gold);
 letter-spacing:2px; text-transform:uppercase; margin-bottom:32px;
 }
 .hero h1 {
-font-family:‘Cormorant Garamond’,serif;
+font-family:'Cormorant Garamond',serif;
 font-size:clamp(56px,9vw,104px);
 font-weight:700; line-height:1.02; letter-spacing:-2px;
 color:#fff; max-width:920px;
@@ -87,24 +87,23 @@ transition:all 0.3s; display:inline-flex; align-items:center; gap:8px;
 
 .stats-bar {border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:rgba(201,163,91,0.02); padding:40px 48px; display:flex; align-items:center; justify-content:center; gap:72px; flex-wrap:wrap;}
 .stat { text-align:center; }
-.stat-num { font-family:‘Cormorant Garamond’,serif; font-size:48px; font-weight:700; color:var(--gold); line-height:1; }
+.stat-num { font-family:'Cormorant Garamond',serif; font-size:48px; font-weight:700; color:var(--gold); line-height:1; }
 .stat-label { font-size:13px; color:var(--muted); margin-top:8px; }
 
 section { padding:96px 24px; max-width:1100px; margin:0 auto; }
 .divider { border-top:1px solid var(--border); }
 .section-tag { font-size:11px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
-.section-title { font-family:‘Cormorant Garamond’,serif; font-size:clamp(36px,5vw,56px); font-weight:700; line-height:1.1; color:#fff; max-width:720px; }
+.section-title { font-family:'Cormorant Garamond',serif; font-size:clamp(36px,5vw,56px); font-weight:700; line-height:1.1; color:#fff; max-width:720px; }
 .section-title em { font-style:italic; color:var(--gold); }
 .section-body { font-size:18px; color:var(--soft); line-height:1.7; max-width:580px; margin-top:18px; font-weight:300; }
 
-/* ── VIDEO: enlarged + gold glow ── */
 .video-outer {
 margin: 52px auto 64px;
 max-width: 860px;
 position: relative;
 }
 .video-outer::before {
-content: ‘’;
+content: '';
 position: absolute;
 inset: -2px;
 border-radius: 20px;
@@ -112,7 +111,7 @@ background: linear-gradient(135deg, rgba(201,163,91,0.55), rgba(201,163,91,0.12)
 z-index: 0;
 }
 .video-outer::after {
-content: ‘’;
+content: '';
 position: absolute;
 inset: -28px;
 border-radius: 32px;
@@ -138,10 +137,9 @@ border: none;
 border-radius: 18px;
 }
 
-/* ── STEPS: clean straight line ── */
 .steps { margin-top:60px; display:flex; flex-direction:column; position:relative; }
 .steps::before {
-content:’’;
+content:'';
 position:absolute;
 left:31px;
 top:32px;
@@ -156,7 +154,7 @@ width:64px; height:64px; min-width:64px; border-radius:50%;
 background:var(--black);
 border:1px solid rgba(201,163,91,0.4);
 display:flex; align-items:center; justify-content:center;
-font-family:‘Cormorant Garamond’,serif; font-size:28px; font-weight:700; color:var(--gold);
+font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:700; color:var(--gold);
 position:relative; z-index:1;
 box-shadow: 0 0 0 5px var(--black);
 }
@@ -172,44 +170,141 @@ box-shadow: 0 0 0 5px var(--black);
 .feature-card h3 { font-size:17px; font-weight:600; color:#fff; margin-bottom:10px; }
 .feature-card p { font-size:15px; color:var(--soft); line-height:1.65; font-weight:300; }
 
+/* ── MAKE BADGE SECTION ── */
+.trust-section {
+  border-top: 1px solid var(--border);
+  padding: 80px 24px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(201,163,91,0.02);
+}
+.trust-section::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px; height: 400px;
+  background: radial-gradient(ellipse, rgba(201,163,91,0.10) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(50px);
+}
+.trust-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 72px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+.make-seal-wrap { flex-shrink: 0; position: relative; }
+.make-seal {
+  width: 150px; height: 150px;
+  background: linear-gradient(135deg, #C9A35B 0%, #e8c17a 50%, #C9A35B 100%);
+  border-radius: 50%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  border: 6px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 0 0 14px rgba(201,163,91,0.07),
+    0 24px 60px rgba(201,163,91,0.40),
+    inset 0 2px 4px rgba(255,255,255,0.25);
+  animation: seal-pulse 3s ease-in-out infinite;
+}
+@keyframes seal-pulse {
+  0%, 100% { box-shadow: 0 0 0 14px rgba(201,163,91,0.07), 0 24px 60px rgba(201,163,91,0.40), inset 0 2px 4px rgba(255,255,255,0.25); }
+  50% { box-shadow: 0 0 0 22px rgba(201,163,91,0.12), 0 30px 70px rgba(201,163,91,0.52), inset 0 2px 4px rgba(255,255,255,0.25); }
+}
+.make-seal-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px; font-weight: 700;
+  color: #111; letter-spacing: -1px; line-height: 1;
+}
+.make-seal-sub {
+  font-size: 9px; font-weight: 700;
+  color: #111; letter-spacing: 2.5px;
+  text-transform: uppercase; margin-top: 6px;
+}
+.make-seal-verified {
+  position: absolute;
+  bottom: -4px; right: -4px;
+  width: 36px; height: 36px;
+  background: #111;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; color: var(--gold);
+}
+.trust-copy { max-width: 500px; }
+.trust-copy-tag {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform:uppercase;
+  color: var(--gold); margin-bottom: 14px;
+}
+.trust-copy h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 34px; font-weight: 700;
+  color: #fff; line-height: 1.15; margin-bottom: 16px;
+}
+.trust-copy h3 em { font-style: italic; color: var(--gold); }
+.trust-copy p {
+  font-size: 16px; color: var(--soft);
+  line-height: 1.7; font-weight: 300; margin-bottom: 28px;
+}
+.trust-checks { display: flex; flex-direction: column; gap: 12px; }
+.trust-check {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 14px; color: var(--soft); line-height: 1.5;
+}
+.trust-check-icon {
+  width: 22px; height: 22px; min-width: 22px;
+  background: rgba(201,163,91,0.12);
+  border: 1px solid rgba(201,163,91,0.35);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--gold); margin-top: 1px;
+}
+.trust-check strong { color: #fff; }
+.trust-logos-row {
+  max-width: 1100px;
+  margin: 40px auto 0;
+  display: flex; align-items: center;
+  justify-content: center; gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  position: relative; z-index: 1;
+}
+.trust-logos-label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 1.5px; color: var(--muted);
+  text-transform: uppercase; white-space: nowrap;
+  margin-right: 8px;
+}
+.trust-logo-pill {
+  background: rgba(201,163,91,0.07);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 8px 22px;
+  font-size: 13px; font-weight: 600;
+  color: var(--soft);
+}
+/* ── END MAKE BADGE SECTION ── */
+
 .pricing-wrap { display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin:52px auto 0; max-width:1100px; }
 .pricing-card { background:var(--card); border:1px solid rgba(201,163,91,0.4); border-radius:24px; padding:60px 52px; text-align:center; position:relative; overflow:hidden; max-width:380px; flex:1; min-width:320px; }
 .pricing-badge { display:inline-block; background:var(--gold-dim); border:1px solid var(--border); border-radius:100px; padding:5px 18px; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:32px; }
-.price { font-family:‘Cormorant Garamond’,serif; font-size:88px; font-weight:700; color:#fff; line-height:1; }
+.price { font-family:'Cormorant Garamond',serif; font-size:88px; font-weight:700; color:#fff; line-height:1; }
 .price sup { font-size:36px; vertical-align:top; margin-top:18px; display:inline-block; color:var(--gold); }
 .price-period { font-size:15px; color:var(--muted); margin-top:8px; margin-bottom:40px; }
 .price-features { list-style:none; text-align:left; margin-bottom:44px; display:flex; flex-direction:column; gap:16px; }
 .price-features li { font-size:15px; color:var(--soft); font-weight:300; line-height:1.5; }
-.price-note { font-size:13px; color:var(--muted); margin-top:20px; font-style:italic; }
 
 .cta-section { text-align:center; padding:100px 24px; max-width:800px; margin:0 auto; }
 .cta-actions { display:flex; align-items:center; gap:14px; justify-content:center; margin-top:44px; flex-wrap:wrap; }
 
-footer {
-border-top:1px solid var(--border);
-padding:48px; display:grid;
-grid-template-columns:1.2fr 1fr 1fr; gap:40px;
-}
-.footer-logo { display:flex; align-items:center; gap:10px; text-decoration:none; margin-bottom:16px; }
-.footer-logo img { width:28px; height:28px; }
-.footer-logo span { font-family:‘Cormorant Garamond’,serif; font-size:20px; font-weight:600; color:var(--cream); }
-.footer-meta { font-size:13px; color:var(--muted); line-height:1.9; }
-.footer-col h4 { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
-.footer-col a { display:block; font-size:14px; color:var(--soft); text-decoration:none; margin-bottom:10px; transition:color 0.2s; }
-.footer-col a:hover { color:var(--cream); }
-.footer-bottom { border-top:1px solid var(--border); padding:20px 48px; text-align:center; }
-.footer-bottom p { font-size:12px; color:var(--muted); }
-
-@media(max-width:768px){
-nav{padding:16px 20px;} .nav-links{display:none;}
-section{padding:64px 20px;}
-.steps::before { left:26px; }
-.step { gap:24px; padding:32px 0; }
-.step-num { width:52px; height:52px; min-width:52px; font-size:22px; }
-}
-
-/* ── ONLY THE CHANGES YOU ASKED FOR ── */
-/* 1. Blue text/links/buttons changed to pure white (only btn-secondary was rendering blue) */
 .btn-secondary {
   background: transparent;
   color: #fff;
@@ -231,7 +326,21 @@ section{padding:64px 20px;}
   box-shadow: 0 12px 32px rgba(201,163,91,0.3);
 }
 
-/* 2. Subtle golden yellow shine/glow on ALL black/dark sections, cards and panels — exactly matching the warm yellow of the “Apply — UAE / Dubai” button. Not dramatic, just elegant soft glow. */
+footer {
+border-top:1px solid var(--border);
+padding:48px; display:grid;
+grid-template-columns:1.2fr 1fr 1fr; gap:40px;
+}
+.footer-logo { display:flex; align-items:center; gap:10px; text-decoration:none; margin-bottom:16px; }
+.footer-logo img { width:28px; height:28px; }
+.footer-logo span { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; color:var(--cream); }
+.footer-meta { font-size:13px; color:var(--muted); line-height:1.9; }
+.footer-col h4 { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
+.footer-col a { display:block; font-size:14px; color:var(--soft); text-decoration:none; margin-bottom:10px; transition:color 0.2s; }
+.footer-col a:hover { color:var(--cream); }
+.footer-bottom { border-top:1px solid var(--border); padding:20px 48px; text-align:center; }
+.footer-bottom p { font-size:12px; color:var(--muted); }
+
 .pricing-card,
 .feature-card,
 .step,
@@ -244,12 +353,25 @@ section{padding:64px 20px;}
     inset 0 0 18px -12px rgba(201,163,91,0.22);
   transition: box-shadow 0.4s ease;
 }
-
 .pricing-card:hover,
 .feature-card:hover {
   box-shadow: 
     0 0 35px -5px rgba(201,163,91,0.45),
     inset 0 0 25px -10px rgba(201,163,91,0.3);
+}
+
+@media(max-width:768px){
+  nav{padding:16px 20px;} .nav-links{display:none;}
+  section{padding:64px 20px;}
+  .steps::before { left:26px; }
+  .step { gap:24px; padding:32px 0; }
+  .step-num { width:52px; height:52px; min-width:52px; font-size:22px; }
+  .trust-inner { gap: 36px; }
+  .trust-copy h3 { font-size: 26px; }
+  .make-seal { width: 110px; height: 110px; }
+  .make-seal-logo { font-size: 22px; }
+  .trust-logos-row { gap: 12px; }
+  footer { grid-template-columns: 1fr; padding: 32px 20px; }
 }
 </style>
 
@@ -276,7 +398,7 @@ section{padding:64px 20px;}
   <div class="hero-badge"><span class="badge-dot"></span> LIVE IN AUSTRALIA & UAE • DUBAI</div>
   <h1>Your enquiries.<br><em>Qualified before<br>you pick up the phone.</em></h1>
   <p class="hero-sub">Hermia qualifies every buyer enquiry via <strong>WhatsApp + SMS</strong> — confirming finance readiness, budget range, timeline, and motivation so agents can focus on serious opportunities only.</p>
-  <div class="hero-actions">
+  <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:40px;">
     <a href="apply.html" class="btn-primary">Apply for Access</a>
     <a href="https://calendly.com/capital-hermia/15-minute-meeting" class="btn-secondary">Book a 15-min call</a>
   </div>
@@ -334,9 +456,9 @@ section{padding:64px 20px;}
     <div class="step">
       <div class="step-num">5</div>
       <div class="step-content">
-        <h3>Full summary pushed directly into your Customer Relationship Management (CRM)</h3>
+        <h3>Full summary pushed directly into your CRM</h3>
         <p>Name, number, budget, timeline, finance status, requirements, and score — all pre-filled and waiting.</p>
-        <span class="step-tag">Direct to Customer Relationship Management (CRM)</span>
+        <span class="step-tag">Direct to CRM</span>
       </div>
     </div>
   </div>
@@ -363,7 +485,7 @@ section{padding:64px 20px;}
     </div>
     <div class="feature-card">
       <div class="feature-label">CRM</div>
-      <h3>Customer Relationship Management (CRM) integration</h3>
+      <h3>CRM integration</h3>
       <p>Full lead summary pushed automatically. Zero manual entry required.</p>
     </div>
     <div class="feature-card">
@@ -373,25 +495,83 @@ section{padding:64px 20px;}
     </div>
     <div class="feature-card">
       <div class="feature-label">Compliance</div>
-      <h3>Privacy compliant</h3>
-      <p>Built for the Australian and UAE market.</p>
+      <h3>Privacy Act 1988 compliant</h3>
+      <p>Built for the Australian and UAE market. Your data stays where it belongs.</p>
     </div>
   </div>
 </section>
 
+<!-- ══════════════════════════════════════ -->
+<!--         MAKE CERTIFIED BADGE          -->
+<!-- ══════════════════════════════════════ -->
+<div class="trust-section">
+  <div class="trust-inner">
+
+    <!-- ANIMATED SEAL -->
+    <div class="make-seal-wrap">
+      <div class="make-seal">
+        <div class="make-seal-logo">MAKE</div>
+        <div class="make-seal-sub">Certified</div>
+      </div>
+      <div class="make-seal-verified">✓</div>
+    </div>
+
+    <!-- COPY -->
+    <div class="trust-copy">
+      <div class="trust-copy-tag">Built on Enterprise Infrastructure</div>
+      <h3>Make Certified<br><em>Professional Architect.</em></h3>
+      <p>
+        Hermia's software platform is built by a <strong>Make Certified Level 3 Professional</strong> —
+        the same platform powering enterprise solutions at Spotify, Adobe, and Cisco.
+        Your lead data is handled with enterprise-grade reliability from the moment an enquiry lands.
+      </p>
+      <div class="trust-checks">
+        <div class="trust-check">
+          <div class="trust-check-icon">✓</div>
+          <span><strong>Independently Verified</strong> — Credentials issued directly by Make.com</span>
+        </div>
+        <div class="trust-check">
+          <div class="trust-check-icon">✓</div>
+          <span><strong>Redundant Error-Handling</strong> — No lead drops, no missed enquiries</span>
+        </div>
+        <div class="trust-check">
+          <div class="trust-check-icon">✓</div>
+          <span><strong>Privacy Act 1988 Compliant</strong> — Australian data sovereignty standards</span>
+        </div>
+        <div class="trust-check">
+          <div class="trust-check-icon">✓</div>
+          <span><strong>Zero Manual Entry</strong> — Data processed and pushed, never stored externally</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TRUSTED BY ROW -->
+  <div class="trust-logos-row">
+    <span class="trust-logos-label">Same platform trusted by</span>
+    <span class="trust-logo-pill">Spotify</span>
+    <span class="trust-logo-pill">Adobe</span>
+    <span class="trust-logo-pill">Cisco</span>
+    <span class="trust-logo-pill">HubSpot</span>
+    <span class="trust-logo-pill">Twilio</span>
+  </div>
+</div>
+<!-- ══════════════════════════════════════ -->
+
 <section id="pricing" class="divider" style="text-align:center;">
   <div class="section-tag">Pricing — Australia & UAE</div>
   <h2 class="section-title">One powerful system.<br><em>Two strong markets.</em></h2>
-  <p class="section-body" style="margin:18px auto 60px;">Choose the plan for your country. Both include WhatsApp + SMS qualification, Hot/Warm/Cold scoring, and direct Customer Relationship Management (CRM) integration.</p>
+  <p class="section-body" style="margin:18px auto 60px;">Choose the plan for your country. Both include WhatsApp + SMS qualification, Hot/Warm/Cold scoring, and direct CRM integration.</p>
   <div class="pricing-wrap">
     <div class="pricing-card">
       <div class="pricing-badge">🇦🇺 Australia</div>
-      <div class="price"><sup>$</sup>188</div>
-      <div class="price-period">AUD per month · no setup fee · cancel anytime</div>
+      <div class="price"><sup>$</sup>260</div>
+      <div class="price-period">$260 AUD per month · Special offer: no setup fee (normally $1,700) · cancel anytime</div>
       <ul class="price-features">
         <li>WhatsApp + SMS qualification</li>
         <li>Hot / Warm / Cold scoring</li>
-        <li>Direct Customer Relationship Management (CRM) push</li>
+        <li>Direct CRM push</li>
         <li>Domain & Realestate.com.au support</li>
         <li>24/7 coverage & full onboarding</li>
       </ul>
@@ -399,14 +579,14 @@ section{padding:64px 20px;}
     </div>
     <div class="pricing-card" style="border-color:#C9A35B;">
       <div class="pricing-badge">🇦🇪 UAE / Dubai</div>
-      <div class="price"><sup>AED</sup>980</div>
-      <div class="price-period">per month · WhatsApp-first · RERA ready</div>
+      <div class="price"><sup>AED</sup>1,400</div>
+      <div class="price-period">AED 1,400 per month · Special offer: no setup fee (normally AED 2,600) · cancel anytime</div>
       <ul class="price-features">
         <li>WhatsApp Business API primary</li>
         <li>English + Arabic support</li>
         <li>Property Finder & Bayut enquiries</li>
         <li>Inspection / viewing booking</li>
-        <li>Hot lead scoring + Customer Relationship Management (CRM)</li>
+        <li>Hot lead scoring + CRM</li>
       </ul>
       <a href="apply.html" class="btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:18px;background:#C9A35B;color:#000;">Apply — UAE / Dubai</a>
     </div>
@@ -451,7 +631,7 @@ section{padding:64px 20px;}
   </div>
 </footer>
 <div class="footer-bottom">
-  <p>© 2026 Hermia · Australian & UAE Real Estate · Privacy Compliant</p>
+  <p>© 2026 Hermia · Australian & UAE Real Estate · Privacy Act 1988 Compliant</p>
 </div>
 
 </body>
