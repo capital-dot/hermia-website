@@ -52,10 +52,11 @@ padding:160px 24px 120px; position:relative;
 }
 .hero-glow {
 position:absolute; top:15%; left:50%; transform:translateX(-50%);
-width:900px; height:650px;
-background:radial-gradient(ellipse, rgba(201,163,91,0.14) 0%, transparent 70%);
+width:1100px; height:780px; /* BIGGER + MORE INTENSE GOLD GLOW */
+background:radial-gradient(ellipse, rgba(201,163,91,0.28) 0%, transparent 65%);
 pointer-events:none;
-filter:blur(50px);
+filter:blur(65px);
+opacity: 0.9;
 }
 .hero-logo { width:76px; height:76px; margin-bottom:32px; filter:drop-shadow(0 0 32px rgba(201,163,91,0.4)); }
 .hero-badge {
@@ -70,8 +71,16 @@ font-family:'Cormorant Garamond',serif;
 font-size:clamp(56px,9vw,104px);
 font-weight:700; line-height:1.02; letter-spacing:-2px;
 color:#fff; max-width:920px;
+text-shadow: 
+  0 0 40px rgba(201,163,91,0.4),
+  0 0 80px rgba(201,163,91,0.25); /* EXTRA GOLD GLOW ON TITLE */
 }
-.hero h1 em { font-style:italic; color:var(--gold); }
+.hero h1 em { 
+  font-style:italic; 
+  color:var(--gold); 
+  text-shadow: 0 0 30px #e8c17a, 0 0 60px #C9A35B; /* STRONGER GOLD GLOW ON EMPHASIS */
+}
+
 .hero-sub {
 margin-top:32px; font-size:19px; color:var(--soft);
 max-width:620px; line-height:1.6; font-weight:300;
@@ -83,7 +92,11 @@ padding:18px 36px; border-radius:12px;
 font-size:16px; font-weight:600; text-decoration:none;
 transition:all 0.3s; display:inline-flex; align-items:center; gap:8px;
 }
-.btn-primary:hover { background:var(--gold-light); transform:translateY(-3px); box-shadow:0 12px 32px rgba(201,163,91,0.3); }
+.btn-primary:hover { 
+  background:var(--gold-light); 
+  transform:translateY(-3px); 
+  box-shadow:0 12px 32px rgba(201,163,91,0.5), 0 0 40px rgba(201,163,91,0.6); /* STRONGER GOLD GLOW ON BUTTON */
+}
 
 .stats-bar {border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:rgba(201,163,91,0.02); padding:40px 48px; display:flex; align-items:center; justify-content:center; gap:72px; flex-wrap:wrap;}
 .stat { text-align:center; }
@@ -93,7 +106,15 @@ transition:all 0.3s; display:inline-flex; align-items:center; gap:8px;
 section { padding:96px 24px; max-width:1100px; margin:0 auto; }
 .divider { border-top:1px solid var(--border); }
 .section-tag { font-size:11px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
-.section-title { font-family:'Cormorant Garamond',serif; font-size:clamp(36px,5vw,56px); font-weight:700; line-height:1.1; color:#fff; max-width:720px; }
+.section-title { 
+  font-family:'Cormorant Garamond',serif; 
+  font-size:clamp(36px,5vw,56px); 
+  font-weight:700; 
+  line-height:1.1; 
+  color:#fff; 
+  max-width:720px;
+  text-shadow: 0 0 25px rgba(201,163,91,0.35); /* ADDED GOLD GLOW TO SECTION TITLES */
+}
 .section-title em { font-style:italic; color:var(--gold); }
 .section-body { font-size:18px; color:var(--soft); line-height:1.7; max-width:580px; margin-top:18px; font-weight:300; }
 
@@ -107,17 +128,17 @@ content: '';
 position: absolute;
 inset: -2px;
 border-radius: 20px;
-background: linear-gradient(135deg, rgba(201,163,91,0.55), rgba(201,163,91,0.12), rgba(201,163,91,0.45));
+background: linear-gradient(135deg, rgba(201,163,91,0.65), rgba(201,163,91,0.18), rgba(201,163,91,0.55)); /* MORE GOLD GLOW AROUND VIDEO */
 z-index: 0;
 }
 .video-outer::after {
 content: '';
 position: absolute;
-inset: -28px;
+inset: -32px;
 border-radius: 32px;
-background: radial-gradient(ellipse, rgba(201,163,91,0.16) 0%, transparent 70%);
+background: radial-gradient(ellipse, rgba(201,163,91,0.22) 0%, transparent 70%);
 z-index: -1;
-filter: blur(18px);
+filter: blur(22px);
 }
 .video-wrapper {
 position: relative;
@@ -127,7 +148,7 @@ overflow: hidden;
 border-radius: 18px;
 background: #0a0a0a;
 z-index: 1;
-box-shadow: 0 0 0 1px rgba(201,163,91,0.2), 0 24px 64px rgba(0,0,0,0.7);
+box-shadow: 0 0 0 1px rgba(201,163,91,0.3), 0 24px 64px rgba(0,0,0,0.7), 0 0 60px rgba(201,163,91,0.25); /* EXTRA GOLD GLOW ON VIDEO */
 }
 .video-wrapper iframe {
 position: absolute;
@@ -165,7 +186,11 @@ box-shadow: 0 0 0 5px var(--black);
 
 .features-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:16px; margin-top:52px; }
 .feature-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px; transition:all 0.3s; }
-.feature-card:hover { border-color:rgba(201,163,91,0.35); transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,0.4); }
+.feature-card:hover { 
+  border-color:rgba(201,163,91,0.45); 
+  transform:translateY(-4px); 
+  box-shadow:0 16px 40px rgba(0,0,0,0.4), 0 0 40px rgba(201,163,91,0.35); /* MORE GOLD GLOW ON HOVER */
+}
 .feature-label { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
 .feature-card h3 { font-size:17px; font-weight:600; color:#fff; margin-bottom:10px; }
 .feature-card p { font-size:15px; color:var(--soft); line-height:1.65; font-weight:300; }
@@ -184,7 +209,7 @@ box-shadow: 0 0 0 5px var(--black);
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   width: 800px; height: 400px;
-  background: radial-gradient(ellipse, rgba(201,163,91,0.10) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(201,163,91,0.14) 0%, transparent 70%);
   pointer-events: none;
   filter: blur(50px);
 }
@@ -209,13 +234,13 @@ box-shadow: 0 0 0 5px var(--black);
   border: 6px solid rgba(255,255,255,0.08);
   box-shadow:
     0 0 0 14px rgba(201,163,91,0.07),
-    0 24px 60px rgba(201,163,91,0.40),
+    0 24px 60px rgba(201,163,91,0.55), /* STRONGER GOLD GLOW ON SEAL */
     inset 0 2px 4px rgba(255,255,255,0.25);
   animation: seal-pulse 3s ease-in-out infinite;
 }
 @keyframes seal-pulse {
-  0%, 100% { box-shadow: 0 0 0 14px rgba(201,163,91,0.07), 0 24px 60px rgba(201,163,91,0.40), inset 0 2px 4px rgba(255,255,255,0.25); }
-  50% { box-shadow: 0 0 0 22px rgba(201,163,91,0.12), 0 30px 70px rgba(201,163,91,0.52), inset 0 2px 4px rgba(255,255,255,0.25); }
+  0%, 100% { box-shadow: 0 0 0 14px rgba(201,163,91,0.07), 0 24px 60px rgba(201,163,91,0.55), inset 0 2px 4px rgba(255,255,255,0.25); }
+  50% { box-shadow: 0 0 0 26px rgba(201,163,91,0.18), 0 34px 80px rgba(201,163,91,0.65), inset 0 2px 4px rgba(255,255,255,0.25); }
 }
 .make-seal-logo {
   font-family: 'Cormorant Garamond', serif;
@@ -240,7 +265,7 @@ box-shadow: 0 0 0 5px var(--black);
 .trust-copy { max-width: 500px; }
 .trust-copy-tag {
   font-size: 10px; font-weight: 700;
-  letter-spacing: 2.5px; text-transform:uppercase;
+  letter-spacing: 2.5px; text-transform: uppercase;
   color: var(--gold); margin-bottom: 14px;
 }
 .trust-copy h3 {
@@ -323,7 +348,7 @@ box-shadow: 0 0 0 5px var(--black);
   background: var(--gold-light);
   color: #000;
   transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(201,163,91,0.3);
+  box-shadow: 0 12px 32px rgba(201,163,91,0.5), 0 0 40px rgba(201,163,91,0.6);
 }
 
 footer {
@@ -349,15 +374,15 @@ grid-template-columns:1.2fr 1fr 1fr; gap:40px;
 .stats-bar,
 .hero {
   box-shadow: 
-    0 0 25px -8px rgba(201,163,91,0.35),
-    inset 0 0 18px -12px rgba(201,163,91,0.22);
+    0 0 25px -8px rgba(201,163,91,0.45),
+    inset 0 0 18px -12px rgba(201,163,91,0.28);
   transition: box-shadow 0.4s ease;
 }
 .pricing-card:hover,
 .feature-card:hover {
   box-shadow: 
-    0 0 35px -5px rgba(201,163,91,0.45),
-    inset 0 0 25px -10px rgba(201,163,91,0.3);
+    0 0 35px -5px rgba(201,163,91,0.55),
+    inset 0 0 25px -10px rgba(201,163,91,0.35);
 }
 
 @media(max-width:768px){
@@ -417,7 +442,8 @@ grid-template-columns:1.2fr 1fr 1fr; gap:40px;
   <p class="section-body">Watch the full walkthrough, then see exactly how Hermia fits into your existing workflow.</p>
   <div class="video-outer">
     <div class="video-wrapper">
-      <iframe src="https://www.loom.com/embed/e74cca06dd56423d961780c420dd83e5" allowfullscreen></iframe>
+      <!-- NEW IMPROVED LOOM VIDEO -->
+      <iframe src="https://www.loom.com/embed/bd55eadd56f84281baac1fdfe24a73bd" allowfullscreen></iframe>
     </div>
   </div>
   <div class="steps">
