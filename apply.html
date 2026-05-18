@@ -18,18 +18,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
 nav{padding:20px 48px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border);}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
 .nav-logo img{width:34px;height:34px;}
-.nav-logo span{font-family:‘Cormorant Garamond’,serif;font-size:22px;font-weight:600;color:var(--cream);}
+.nav-logo span{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--cream);}
 .nav-back{color:var(--soft);text-decoration:none;font-size:14px;transition:color 0.2s;}
 .nav-back:hover{color:var(--cream);}
 
 .page{max-width:680px;margin:0 auto;padding:72px 24px 100px;}
 .page-tag{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
-.page-title{font-family:‘Cormorant Garamond’,serif;font-size:clamp(40px,6vw,64px);font-weight:700;line-height:1.05;color:#fff;margin-bottom:16px;}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,64px);font-weight:700;line-height:1.05;color:#fff;margin-bottom:16px;}
 .page-title em{font-style:italic;color:var(--gold);}
 .page-sub{font-size:16px;color:var(--soft);line-height:1.7;font-weight:300;margin-bottom:52px;max-width:520px;}
 
 .form-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:48px 44px;position:relative;overflow:hidden;}
-.form-card::before{content:’’;position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
 
 .field{margin-bottom:28px;}
 .field label{display:block;font-size:13px;font-weight:600;color:var(--soft);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase;}
@@ -46,10 +46,39 @@ border-radius:10px;color:var(--cream);font-size:15px;transition:all 0.2s;
 
 .form-note{font-size:12px;color:var(--muted);text-align:center;margin-top:16px;font-style:italic;}
 
+/* New Security Verification Footer Badge */
+.security-footer {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-top: 32px;
+  padding: 20px 24px;
+  background: rgba(201,163,91,0.03);
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+}
+.security-footer svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--gold);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.security-footer p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--soft);
+  font-weight: 300;
+}
+.security-footer strong {
+  color: var(--cream);
+  font-weight: 500;
+}
+
 /* Success */
 .success-state{display:none;text-align:center;padding:48px 0;}
 .success-icon{width:72px;height:72px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;font-size:28px;}
-.success-state h2{font-family:‘Cormorant Garamond’,serif;font-size:36px;font-weight:700;color:#fff;margin-bottom:12px;}
+.success-state h2{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:#fff;margin-bottom:12px;}
 .success-back{display:inline-block;margin-top:32px;color:var(--gold);text-decoration:none;font-size:14px;border:1px solid var(--border);padding:12px 24px;border-radius:8px;}
 </style>
 </head>
@@ -122,6 +151,11 @@ border-radius:10px;color:var(--cream);font-size:15px;transition:all 0.2s;
       <a href="index.html" class="success-back">Back to Hermia</a>
     </div>
   </div>
+
+  <div class="security-footer" id="security-notice">
+    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+    <p><strong>Enterprise Data Security:</strong> Integration architecture is securely <strong>powered by Unipile Systems</strong>. Real-time CRM and inbox syncing utilize fully audited Google OAuth pipelines with bank-grade encryption endpoints. We never see or store client passwords.</p>
+  </div>
 </div>
 
 <script>
@@ -153,6 +187,8 @@ async function submitApplication() {
 
   document.getElementById('form-view').style.display = 'none';
   document.getElementById('success-view').style.display = 'block';
+  // Hide security notice on success view to keep screen clean
+  document.getElementById('security-notice').style.display = 'none';
 }
 </script>
 
