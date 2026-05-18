@@ -1,0 +1,195 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Agreement • Hermia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --card: #111111;
+      --gold: #C9A35B;
+      --gold-light: #e8c17a;
+      --cream: #f5f1e8;
+      --muted: #a8a39a;
+      --soft: #d4d0c7;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter', sans-serif; background:var(--black); color:var(--cream); line-height:1.75; padding:60px 20px; max-width:800px; margin:0 auto; }
+    .header { text-align:center; margin-bottom:60px; }
+    .logo { width:72px; height:72px; margin:0 auto 20px; display:block; filter:drop-shadow(0 4px 25px rgba(201,163,91,0.35)); }
+    h1 { font-family:'Playfair Display', serif; font-size:42px; color:#fff; letter-spacing:-1px; }
+    .doc-meta { font-size:13px; color:var(--muted); margin-top:8px; text-transform:uppercase; letter-spacing:2px; }
+    h2 { font-size:15px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin:48px 0 16px; }
+    p, li { font-size:16px; color:var(--soft); margin-bottom:14px; }
+    ul { padding-left:24px; margin-bottom:20px; }
+    .highlight-box { background:rgba(201,163,91,0.08); border:1px solid rgba(201,163,91,0.2); padding:30px; border-radius:16px; margin:32px 0; }
+    .strike { text-decoration:line-through; opacity:0.5; font-size:0.9em; }
+    .price-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+    .agreement-card { background:var(--card); border:1px solid rgba(201,163,91,0.3); border-radius:24px; padding:44px; margin-top:52px; }
+    .pay-btn { display:block; text-align:center; padding:22px; border-radius:14px; font-weight:700; text-decoration:none; margin-top:16px; transition:0.3s; font-size:17px; cursor:pointer; border:none; width:100%; font-family:'Inter',sans-serif; }
+    .btn-au { background:var(--gold); color:#111; }
+    .btn-au:hover { background:var(--gold-light); transform:translateY(-3px); box-shadow:0 12px 30px rgba(201,163,91,0.3); }
+    .btn-uae { background:#fff; color:#111; margin-top:12px; }
+    .btn-uae:hover { background:#f5f1e8; transform:translateY(-3px); }
+    footer { margin-top:80px; text-align:center; font-size:13px; color:var(--muted); border-top:1px solid #222; padding-top:40px; }
+    .country-picker { display:none; }
+    .country-picker.visible { display:block; }
+    input[type="text"] { width:100%; padding:14px 18px; background:#1a1a1a; border:1px solid rgba(201,163,91,0.3); border-radius:10px; color:var(--cream); font-size:16px; font-family:'Inter',sans-serif; outline:none; transition:border 0.2s; }
+    input[type="text"]:focus { border-color:var(--gold); }
+    .checkbox-row { display:flex; gap:12px; align-items:flex-start; cursor:pointer; }
+    .checkbox-row input { margin-top:4px; accent-color:var(--gold); width:18px; height:18px; flex-shrink:0; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo">
+    <h1>Service Agreement</h1>
+    <p class="doc-meta">Founder's Special Selection</p>
+  </div>
+
+  <h2>1. The Partnership</h2>
+  <p>This Agreement is entered into between <strong>Hermia</strong> ("Provider", ABN 75 434 177 026) and the Client. By proceeding, the Client is secured as one of the <strong>First 10 Founding Partners</strong>.</p>
+
+  <h2>2. Hermia Lead Management Software</h2>
+  <p>The Provider shall provide the Client with access to the <strong>Hermia Lead Management Software</strong>. This system is a proprietary automated solution that engages with inbound enquiries via SMS and WhatsApp, qualifies leads through structured conversation logic, scores priority (Hot/Warm/Cold), and syncs directly with the Client's CRM.</p>
+
+  <h2>3. Founding Partner Pricing</h2>
+  <div class="highlight-box">
+    <div class="price-row">
+      <span>Professional Setup & Integration</span>
+      <span class="strike">$1,700 AUD / AED 2,600</span>
+    </div>
+    <div class="price-row" style="color:var(--gold); font-weight:700;">
+      <span>Special Launch Offer</span>
+      <span><strong>No setup fee</strong></span>
+    </div>
+    <div style="height:1px; background:rgba(201,163,91,0.2); margin:15px 0;"></div>
+    <div class="price-row">
+      <strong>Monthly Software Access</strong>
+      <strong>$260 AUD / AED 1,400</strong>
+    </div>
+  </div>
+
+  <h2>4. How to Cancel</h2>
+  <p>This is a month-to-month service with no long-term lock-in. To cancel, the Client must simply:</p>
+  <ul>
+    <li>Send an email to <strong>capital@hermia.au</strong> with the subject line "Cancel Subscription"; or</li>
+    <li>Manage and cancel the subscription directly via the <strong>Stripe Billing Portal</strong> link provided in your monthly invoice.</li>
+  </ul>
+  <p>Cancellations must be made at least <strong>48 hours before</strong> the next billing date to avoid further charges.</p>
+
+  <h2>5. Compliance & Security</h2>
+  <p>The Provider maintains all communication infrastructure to meet Australian and UAE telecommunication standards. This includes the use of dedicated mobile numbers to ensure 100% deliverability and compliance with the <em>Australian Privacy Act 1988</em> and <em>UAE Data Law No. 45/2021</em>.</p>
+
+  <h2>6. Liability Disclaimer</h2>
+  <p>The Software is a qualification tool for existing leads. The Provider does not generate new leads and is not responsible for final conversion rates or property sale outcomes. The Client is responsible for final lead follow-up.</p>
+
+  <h2>7. Lead Data & Consent</h2>
+  <p>The Client warrants that they have obtained all necessary consents from property enquirers before passing their contact details to Hermia for processing. The Client is solely responsible for compliance with the <em>Spam Act 2003</em> (Cth), the <em>Australian Privacy Act 1988</em>, and any applicable UAE telecommunications regulations in relation to lead consent. Hermia processes lead data solely as a service provider acting on the Client's instructions.</p>
+
+  <h2>8. Intellectual Property</h2>
+  <p>Hermia's conversation flows, qualification logic, scoring methodology, and system architecture are proprietary trade secrets owned exclusively by Hermia. The Client may not reproduce, copy, share, reverse engineer, or resell any part of the Hermia system. Breach of this clause entitles Hermia to immediate termination without refund.</p>
+
+  <h2>9. Governing Law</h2>
+  <p>This Agreement is governed by the laws of Victoria, Australia. Any disputes will be subject to the exclusive jurisdiction of the courts of Victoria.</p>
+
+  <div class="agreement-card">
+    <h3 style="text-align:center; margin-bottom:24px; font-family:'Playfair Display'; font-size:24px;">Accept Terms & Secure Spot</h3>
+
+    <div style="margin-bottom:20px;">
+      <label style="font-size:13px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:8px;">Full Name</label>
+      <input type="text" id="clientName" placeholder="Your full legal name" />
+    </div>
+
+    <div style="margin-bottom:24px;">
+      <label style="font-size:13px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:8px;">Business / Agency Name</label>
+      <input type="text" id="clientBusiness" placeholder="Your agency or business name" />
+    </div>
+
+    <label class="checkbox-row" style="margin-bottom:24px;">
+      <input type="checkbox" id="agreeCheckbox">
+      <span style="color:var(--soft); font-size:15px;">I have read and agree to the terms and conditions of this Service Agreement. I confirm the name entered above is accurate and constitutes my electronic signature, dated <span id="todayDate"></span>.</span>
+    </label>
+
+    <div class="country-picker" id="countryPicker">
+      <button class="pay-btn btn-au" onclick="handlePayment('AU')">
+        🇦🇺 Secure Founding Spot ($260 AUD / month)
+      </button>
+      <button class="pay-btn btn-uae" onclick="handlePayment('UAE')">
+        🇦🇪 Secure Founding Spot (AED 1,400 / month)
+      </button>
+    </div>
+
+    <p id="nameWarning" style="color:#e07070; font-size:14px; display:none; margin-top:12px;">Please enter your full name before agreeing.</p>
+    <p id="sendingMsg" style="color:var(--gold); font-size:14px; display:none; text-align:center; margin-top:12px;">Saving your agreement — redirecting to payment ✦</p>
+  </div>
+
+  <footer>
+    © 2026 Hermia · ABN 75 434 177 026<br>
+    Hermia is independent software and not affiliated with HubSpot, Zoho, Airtable, Rex Software, Meta, or Stripe. All trademarks belong to their respective owners.<br><br>
+    <a href="/privacy" style="color:var(--muted);">Privacy Policy</a> &nbsp;·&nbsp; <a href="/terms" style="color:var(--muted);">Terms of Service</a>
+  </footer>
+
+  <script>
+    const WEBHOOK_URL = 'https://hook.eu1.make.com/55y5lsql5rmr8ju9cmlt9o5115q784ay';
+    const STRIPE_AU  = 'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04';
+    const STRIPE_UAE = 'https://buy.stripe.com/cNi5kFdvPdeY2W6cUA9EI05';
+
+    const today = new Date();
+    document.getElementById('todayDate').textContent = today.toLocaleDateString('en-AU', { day:'numeric', month:'long', year:'numeric' });
+
+    const checkbox = document.getElementById('agreeCheckbox');
+    const picker   = document.getElementById('countryPicker');
+    const warning  = document.getElementById('nameWarning');
+
+    checkbox.addEventListener('change', function () {
+      const name = document.getElementById('clientName').value.trim();
+      if (this.checked && name.length > 2) {
+        picker.classList.add('visible');
+        warning.style.display = 'none';
+      } else if (this.checked && name.length <= 2) {
+        this.checked = false;
+        warning.style.display = 'block';
+      } else {
+        picker.classList.remove('visible');
+        warning.style.display = 'none';
+      }
+    });
+
+    async function handlePayment(country) {
+      const name     = document.getElementById('clientName').value.trim();
+      const business = document.getElementById('clientBusiness').value.trim();
+      const stripeUrl = country === 'AU' ? STRIPE_AU : STRIPE_UAE;
+      const plan      = country === 'AU' ? '$260 AUD/month' : 'AED 1,400/month';
+
+      document.getElementById('sendingMsg').style.display = 'block';
+
+      const payload = {
+        full_name:        name,
+        agency_name:      business || 'Not provided',
+        country:          country,
+        plan:             plan,
+        signed_at:        new Date().toISOString(),
+        agreed_to_terms:  true,
+        contract_version: '1.0 — 18 May 2026'
+      };
+
+      try {
+        await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {
+        // Silent fail — still redirect regardless
+      }
+
+      setTimeout(() => { window.location.href = stripeUrl; }, 1200);
+    }
+  </script>
+
+</body>
+</html>
