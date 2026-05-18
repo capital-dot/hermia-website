@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -52,7 +51,7 @@ padding:160px 24px 120px; position:relative;
 }
 .hero-glow {
 position:absolute; top:15%; left:50%; transform:translateX(-50%);
-width:1100px; height:780px; /* BIGGER + MORE INTENSE GOLD GLOW */
+width:1100px; height:780px;
 background:radial-gradient(ellipse, rgba(201,163,91,0.28) 0%, transparent 65%);
 pointer-events:none;
 filter:blur(65px);
@@ -73,14 +72,13 @@ font-weight:700; line-height:1.02; letter-spacing:-2px;
 color:#fff; max-width:920px;
 text-shadow: 
   0 0 40px rgba(201,163,91,0.4),
-  0 0 80px rgba(201,163,91,0.25); /* EXTRA GOLD GLOW ON TITLE */
+  0 0 80px rgba(201,163,91,0.25);
 }
 .hero h1 em { 
   font-style:italic; 
   color:var(--gold); 
-  text-shadow: 0 0 30px #e8c17a, 0 0 60px #C9A35B; /* STRONGER GOLD GLOW ON EMPHASIS */
+  text-shadow: 0 0 30px #e8c17a, 0 0 60px #C9A35B;
 }
-
 .hero-sub {
 margin-top:32px; font-size:19px; color:var(--soft);
 max-width:620px; line-height:1.6; font-weight:300;
@@ -95,7 +93,7 @@ transition:all 0.3s; display:inline-flex; align-items:center; gap:8px;
 .btn-primary:hover { 
   background:var(--gold-light); 
   transform:translateY(-3px); 
-  box-shadow:0 12px 32px rgba(201,163,91,0.5), 0 0 40px rgba(201,163,91,0.6); /* STRONGER GOLD GLOW ON BUTTON */
+  box-shadow:0 12px 32px rgba(201,163,91,0.5), 0 0 40px rgba(201,163,91,0.6);
 }
 
 .stats-bar {border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:rgba(201,163,91,0.02); padding:40px 48px; display:flex; align-items:center; justify-content:center; gap:72px; flex-wrap:wrap;}
@@ -113,7 +111,7 @@ section { padding:96px 24px; max-width:1100px; margin:0 auto; }
   line-height:1.1; 
   color:#fff; 
   max-width:720px;
-  text-shadow: 0 0 25px rgba(201,163,91,0.35); /* ADDED GOLD GLOW TO SECTION TITLES */
+  text-shadow: 0 0 25px rgba(201,163,91,0.35);
 }
 .section-title em { font-style:italic; color:var(--gold); }
 .section-body { font-size:18px; color:var(--soft); line-height:1.7; max-width:580px; margin-top:18px; font-weight:300; }
@@ -128,7 +126,7 @@ content: '';
 position: absolute;
 inset: -2px;
 border-radius: 20px;
-background: linear-gradient(135deg, rgba(201,163,91,0.65), rgba(201,163,91,0.18), rgba(201,163,91,0.55)); /* MORE GOLD GLOW AROUND VIDEO */
+background: linear-gradient(135deg, rgba(201,163,91,0.65), rgba(201,163,91,0.18), rgba(201,163,91,0.55));
 z-index: 0;
 }
 .video-outer::after {
@@ -148,7 +146,7 @@ overflow: hidden;
 border-radius: 18px;
 background: #0a0a0a;
 z-index: 1;
-box-shadow: 0 0 0 1px rgba(201,163,91,0.3), 0 24px 64px rgba(0,0,0,0.7), 0 0 60px rgba(201,163,91,0.25); /* EXTRA GOLD GLOW ON VIDEO */
+box-shadow: 0 0 0 1px rgba(201,163,91,0.3), 0 24px 64px rgba(0,0,0,0.7), 0 0 60px rgba(201,163,91,0.25);
 }
 .video-wrapper iframe {
 position: absolute;
@@ -189,13 +187,12 @@ box-shadow: 0 0 0 5px var(--black);
 .feature-card:hover { 
   border-color:rgba(201,163,91,0.45); 
   transform:translateY(-4px); 
-  box-shadow:0 16px 40px rgba(0,0,0,0.4), 0 0 40px rgba(201,163,91,0.35); /* MORE GOLD GLOW ON HOVER */
+  box-shadow:0 16px 40px rgba(0,0,0,0.4), 0 0 40px rgba(201,163,91,0.35);
 }
 .feature-label { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
 .feature-card h3 { font-size:17px; font-weight:600; color:#fff; margin-bottom:10px; }
 .feature-card p { font-size:15px; color:var(--soft); line-height:1.65; font-weight:300; }
 
-/* ── MAKE BADGE SECTION ── */
 .trust-section {
   border-top: 1px solid var(--border);
   padding: 80px 24px;
@@ -234,7 +231,7 @@ box-shadow: 0 0 0 5px var(--black);
   border: 6px solid rgba(255,255,255,0.08);
   box-shadow:
     0 0 0 14px rgba(201,163,91,0.07),
-    0 24px 60px rgba(201,163,91,0.55), /* STRONGER GOLD GLOW ON SEAL */
+    0 24px 60px rgba(201,163,91,0.55),
     inset 0 2px 4px rgba(255,255,255,0.25);
   animation: seal-pulse 3s ease-in-out infinite;
 }
@@ -316,7 +313,6 @@ box-shadow: 0 0 0 5px var(--black);
   font-size: 13px; font-weight: 600;
   color: var(--soft);
 }
-/* ── END MAKE BADGE SECTION ── */
 
 .pricing-wrap { display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin:52px auto 0; max-width:1100px; }
 .pricing-card { background:var(--card); border:1px solid rgba(201,163,91,0.4); border-radius:24px; padding:60px 52px; text-align:center; position:relative; overflow:hidden; max-width:380px; flex:1; min-width:320px; }
@@ -354,7 +350,7 @@ box-shadow: 0 0 0 5px var(--black);
 footer {
 border-top:1px solid var(--border);
 padding:48px; display:grid;
-grid-template-columns:1.2fr 1fr 1fr; gap:40px;
+grid-template-columns:1.2fr 1fr 1fr 1fr; gap:40px;
 }
 .footer-logo { display:flex; align-items:center; gap:10px; text-decoration:none; margin-bottom:16px; }
 .footer-logo img { width:28px; height:28px; }
@@ -399,7 +395,6 @@ grid-template-columns:1.2fr 1fr 1fr; gap:40px;
   footer { grid-template-columns: 1fr; padding: 32px 20px; }
 }
 </style>
-
 </head>
 <body>
 
@@ -442,7 +437,6 @@ grid-template-columns:1.2fr 1fr 1fr; gap:40px;
   <p class="section-body">Watch the full walkthrough, then see exactly how Hermia fits into your existing workflow.</p>
   <div class="video-outer">
     <div class="video-wrapper">
-      <!-- NEW IMPROVED LOOM VIDEO -->
       <iframe src="https://www.loom.com/embed/b4979b2af49c4a65ace11f6139f3007e" allowfullscreen></iframe>
     </div>
   </div>
@@ -527,13 +521,8 @@ grid-template-columns:1.2fr 1fr 1fr; gap:40px;
   </div>
 </section>
 
-<!-- ══════════════════════════════════════ -->
-<!--         MAKE CERTIFIED BADGE          -->
-<!-- ══════════════════════════════════════ -->
 <div class="trust-section">
   <div class="trust-inner">
-
-    <!-- ANIMATED SEAL -->
     <div class="make-seal-wrap">
       <div class="make-seal">
         <div class="make-seal-logo">MAKE</div>
@@ -541,8 +530,6 @@ grid-template-columns:1.2fr 1fr 1fr; gap:40px;
       </div>
       <div class="make-seal-verified">✓</div>
     </div>
-
-    <!-- COPY -->
     <div class="trust-copy">
       <div class="trust-copy-tag">Built on Enterprise Infrastructure</div>
       <h3>Make Certified<br><em>Professional Architect.</em></h3>
@@ -570,10 +557,7 @@ grid-template-columns:1.2fr 1fr 1fr; gap:40px;
         </div>
       </div>
     </div>
-
   </div>
-
-  <!-- TRUSTED BY ROW -->
   <div class="trust-logos-row">
     <span class="trust-logos-label">Same platform trusted by</span>
     <span class="trust-logo-pill">Spotify</span>
@@ -583,7 +567,6 @@ grid-template-columns:1.2fr 1fr 1fr; gap:40px;
     <span class="trust-logo-pill">Twilio</span>
   </div>
 </div>
-<!-- ══════════════════════════════════════ -->
 
 <section id="pricing" class="divider" style="text-align:center;">
   <div class="section-tag">Pricing — Australia & UAE</div>
@@ -655,10 +638,17 @@ grid-template-columns:1.2fr 1fr 1fr; gap:40px;
     <a href="https://calendly.com/capital-hermia/15-minute-meeting">Book a call</a>
     <a href="apply.html">Apply</a>
   </div>
+  <div class="footer-col">
+    <h4>Legal</h4>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms of Service</a>
+    <a href="/contract">Service Agreement</a>
+  </div>
 </footer>
 <div class="footer-bottom">
-  <p>© 2026 Hermia · Australian & UAE Real Estate · Privacy Act 1988 Compliant</p>
+  <p>© 2026 Hermia · ABN 75 434 177 026 · Hermia is independent software and not affiliated with HubSpot, Zoho, Airtable, Rex Software, Meta, or Stripe. All trademarks belong to their respective owners. Powered by Make.</p>
 </div>
 
 </body>
 </html>
+
