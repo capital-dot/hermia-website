@@ -3,155 +3,176 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy — Hermia</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <title>Legal & Privacy — Hermia Enterprise Lead Systems</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --black: #0a0a0a;
+      --black: #080808;
       --card: #111111;
       --gold: #C9A35B;
       --gold-light: #e8c17a;
       --cream: #f5f1e8;
-      --muted: #a8a39a;
-      --soft: #d4d0c7;
+      --muted: #8a8580;
+      --soft: #b8b5ad;
+      --border: rgba(201,163,91,0.15 );
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { 
-      font-family:'Inter',system-ui,sans-serif; 
+      font-family:'Inter', sans-serif; 
       background:var(--black); 
       color:var(--cream); 
-      line-height:1.75; 
-      padding:60px 20px; 
-      max-width:780px; 
+      line-height:1.8; 
+      padding:80px 24px; 
+      max-width:860px; 
       margin:0 auto; 
     }
-    .header { text-align:center; margin-bottom:60px; }
-    .logo { width:72px; height:72px; margin:0 auto 20px; display:block; filter:drop-shadow(0 4px 25px rgba(201,163,91,0.35)); }
+    .header { text-align:center; margin-bottom:80px; }
+    .logo { width:64px; height:64px; margin:0 auto 24px; display:block; filter:drop-shadow(0 0 20px rgba(201,163,91,0.3)); }
     h1 { 
-      font-family:'Playfair Display',serif; 
-      font-size:42px; 
+      font-family:'Cormorant Garamond', serif; 
+      font-size:48px; 
       font-weight:700; 
       color:#fff; 
       letter-spacing:-1px; 
-      margin-bottom:8px; 
+      margin-bottom:12px; 
     }
     .meta { 
-      font-size:14px; 
-      color:var(--muted); 
-      margin-bottom:48px; 
+      font-size:13px; 
+      font-weight:600;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      color:var(--gold); 
+      margin-bottom:60px; 
+    }
+    .nav-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 60px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+    }
+    .nav-tabs a {
+      color: var(--soft);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s;
+    }
+    .nav-tabs a:hover, .nav-tabs a.active {
+      color: var(--gold);
     }
     h2 { 
-      font-size:15px; 
-      font-weight:600; 
-      letter-spacing:2.5px; 
-      text-transform:uppercase; 
-      color:var(--gold); 
-      margin:48px 0 16px; 
+      font-family:'Cormorant Garamond', serif;
+      font-size:28px; 
+      font-weight:700; 
+      color:#fff; 
+      margin:56px 0 20px; 
+      border-left: 3px solid var(--gold);
+      padding-left: 20px;
     }
     p, li { 
       font-size:16px; 
       color:var(--soft); 
-      margin-bottom:14px; 
+      margin-bottom:18px; 
+      font-weight: 300;
     }
-    ul { padding-left:24px; margin-bottom:20px; }
-    li { margin-bottom:8px; }
+    ul { padding-left:24px; margin-bottom:24px; }
+    li { margin-bottom:10px; }
     strong { color:#fff; font-weight:600; }
-    .highlight { 
-      background:rgba(201,163,91,0.08); 
-      border-left:4px solid var(--gold); 
-      padding:22px 26px; 
-      border-radius:0 12px 12px 0; 
-      margin:24px 0; 
+    .legal-notice { 
+      background:rgba(201,163,91,0.05); 
+      border: 1px solid var(--border);
+      padding:32px; 
+      border-radius:16px; 
+      margin:40px 0; 
+    }
+    .legal-notice h4 {
+      color: var(--gold);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
     }
     footer { 
-      margin-top:100px; 
+      margin-top:120px; 
       text-align:center; 
-      font-size:13.5px; 
+      font-size:13px; 
       color:var(--muted); 
-      border-top:1px solid rgba(201,163,91,0.2); 
-      padding-top:32px; 
+      border-top:1px solid var(--border); 
+      padding-top:40px; 
     }
-    @media(max-width:600px){ body{padding:40px 20px;} }
+    a { color: var(--gold); text-decoration: none; }
+    @media(max-width:600px){ body{padding:60px 20px;} h1 { font-size: 36px; } }
   </style>
 </head>
 <body>
 
   <div class="header">
     <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo">
-    <h1>Privacy Policy</h1>
-    <p class="meta">Effective 18 May 2026 • ABN 75 434 177 026</p>
+    <h1>Legal Governance & Privacy</h1>
+    <p class="meta">Tier 1 Data Stewardship • Effective May 2026</p>
   </div>
 
-  <h2>1. Who We Are</h2>
-  <p>Hermia ("we", "us", "our") is an Australian sole trader (ABN 75 434 177 026) providing SMS and WhatsApp lead qualification software for real estate agents. Our website is <a href="https://hermia.au">hermia.au</a>. Contact: <a href="mailto:capital@hermia.au">capital@hermia.au</a></p>
+  <div class="nav-tabs">
+    <a href="#privacy" class="active">Privacy Policy</a>
+    <a href="#terms">Terms of Service</a>
+  </div>
 
-  <h2>2. What Information We Collect</h2>
-  <p>We collect information in the following ways:</p>
-  <ul>
-    <li><strong>Agent clients:</strong> Business name, contact name, email address, phone number, CRM details, and billing information provided during onboarding.</li>
-    <li><strong>End leads (property enquirers):</strong> Name, phone number, and enquiry data passed to Hermia by the agent via their CRM or listing platform.</li>
-    <li><strong>Automated interactions:</strong> SMS and WhatsApp message content generated through our qualification flows.</li>
-    <li><strong>Usage data:</strong> System logs, scenario activity, and error reports from our Make.com automation platform.</li>
-  </ul>
+  <div id="privacy">
+    <h2>1. Global Data Sovereignty & Stewardship</h2>
+    <p>Hermia ("the Platform" ) operates as a high-precision data processing layer for the real estate industry. We are committed to the highest standards of data integrity, complying with the <strong>Australian Privacy Act 1988 (Cth)</strong> and the <strong>UAE Federal Decree-Law No. 45 of 2021 (PDPL)</strong>.</p>
+    
+    <div class="legal-notice">
+      <h4>Zero-Access Architecture</h4>
+      <p>Unlike "Tier 2" legacy systems, Hermia utilizes <strong>Zero-Access Architecture</strong>. We utilize bank-grade OAuth 2.0 protocols to sync with your CRM and Inbox. This means we never see, store, or have access to your raw account passwords.</p>
+    </div>
 
-  <h2>3. How We Use Your Information</h2>
-  <ul>
-    <li>To deliver and operate the Hermia lead qualification service.</li>
-    <li>To route qualified leads back to agents via their nominated CRM.</li>
-    <li>To process payments via Stripe.</li>
-    <li>To communicate with agents regarding their account and service updates.</li>
-    <li>To improve our automation flows and product reliability.</li>
-  </ul>
+    <h2>2. Data Collection & Classification</h2>
+    <p>We process information categorized into three distinct tiers:</p>
+    <ul>
+      <li><strong>Tier A (Identity Data):</strong> Business credentials and contact details required for enterprise billing and account management.</li>
+      <li><strong>Tier B (Lead Intelligence):</strong> Real-time enquiry data (Name, Phone, Requirements) captured from authorized portals (REA, Domain, Bayut, Property Finder).</li>
+      <li><strong>Tier C (Conversational Metadata):</strong> Structured qualification logs generated during AI-driven WhatsApp and SMS engagements.</li>
+    </ul>
 
-  <h2>4. Third-Party Services</h2>
-  <p>Hermia integrates with the following third-party platforms to deliver its service. Each platform operates under its own privacy policy:</p>
-  <ul>
-    <li><strong>Make.com</strong> — automation infrastructure</li>
-    <li><strong>ClickSend</strong> — SMS delivery</li>
-    <li><strong>Unipile</strong> — WhatsApp and messaging integration</li>
-    <li><strong>Stripe</strong> — payment processing</li>
-    <li><strong>HubSpot, Zoho, Airtable, Rex Software</strong> — CRM integrations (where enabled by agent)</li>
-    <li><strong>OpenAI</strong> — AI language processing </li>
-  </ul>
-  <p>Hermia is independent software and is not affiliated with, endorsed by, or officially partnered with any of the above platforms. All trademarks belong to their respective owners.</p>
+    <h2>3. Advanced Processing & Security</h2>
+    <p>Hermia is built on <strong>Enterprise-Grade Infrastructure</strong> (Make.com Level 3 Architect Certified). Data is processed in secure, volatile memory and is only retained as long as necessary to facilitate the "Hot Lead" push to your CRM. We employ 256-bit AES encryption for all data in transit.</p>
 
-  <h2>5. Australian Privacy Act Compliance</h2>
-  <p>We handle personal information in accordance with the <em>Privacy Act 1988</em> (Cth) and the Australian Privacy Principles (APPs). This includes:</p>
-  <ul>
-    <li>Only collecting information that is necessary for our service.</li>
-    <li>Not disclosing personal information to third parties except as required to deliver the service or comply with law.</li>
-    <li>Taking reasonable steps to protect personal information from misuse, loss, or unauthorised access.</li>
-    <li>Allowing individuals to access and correct their personal information upon request.</li>
-  </ul>
+    <h2>4. International Data Transfers</h2>
+    <p>As a global platform serving Australia and the UAE, data may be processed across secure sovereign borders. We ensure all third-party sub-processors (including OpenAI, Unipile, and Stripe) maintain rigorous SOC2 or equivalent compliance standards.</p>
+  </div>
 
-  <h2>6. Data Storage and Security</h2>
-  <p>Lead data is stored in secure cloud-based data stores (Make.com Data Store). Billing data is handled entirely by Stripe and is not stored on Hermia systems. We retain lead interaction data only as long as necessary to deliver the service to the agent.</p>
+  <div id="terms" style="margin-top: 100px;">
+    <h1>Terms of Service</h1>
+    <p class="meta">Enterprise Service Agreement</p>
 
-  <h2>7. SMS and WhatsApp Consent</h2>
-  <p>Hermia sends automated SMS and WhatsApp messages to property enquirers on behalf of real estate agents. Agents are responsible for ensuring they have obtained appropriate consent from leads in accordance with the <em>Spam Act 2003</em> (Cth) and applicable telecommunications regulations. Hermia processes these messages as a service provider acting on the agent's instructions.</p>
+    <h2>1. Provision of Service</h2>
+    <p>By deploying Hermia, the Client (Real Estate Agency/Agent) enters into a professional service agreement for automated lead qualification. Hermia grants a non-exclusive, non-transferable right to utilize the platform's AI logic for lead processing.</p>
 
-  <h2>8. International Transfers</h2>
-  <p>Some third-party services we use may process data outside Australia, including in the United States and UAE. We take reasonable steps to ensure these providers maintain appropriate data protection standards.</p>
+    <h2>2. Ethical Engagement & Compliance</h2>
+    <p>The Client acknowledges that Hermia acts as a <strong>Technical Processor</strong>. The Client maintains full responsibility for ensuring that all lead engagements comply with the <strong>Spam Act 2003 (Australia)</strong> and <strong>RERA/DLD regulations (UAE)</strong>. Hermia provides the tools for engagement; the Client provides the legal basis for communication.</p>
 
-  <h2>9. Your Rights</h2>
-  <p>You may contact us at <a href="mailto:capital@hermia.au">capital@hermia.au</a> to:</p>
-  <ul>
-    <li>Request access to personal information we hold about you.</li>
-    <li>Request correction of inaccurate information.</li>
-    <li>Request deletion of your data (subject to legal retention obligations).</li>
-    <li>Opt out of marketing communications.</li>
-  </ul>
+    <div class="legal-notice">
+      <h4>Limitation of Liability</h4>
+      <p>Hermia provides a Tier 1 automation service but does not guarantee specific financial outcomes or real estate closings. In no event shall Hermia's liability exceed the total fees paid by the Client in the three (3) months preceding any claim.</p>
+    </div>
 
-  <h2>10. Changes to This Policy</h2>
-  <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated effective date. Continued use of the service after changes constitutes acceptance.</p>
+    <h2>3. Intellectual Property</h2>
+    <p>All AI logic, qualification flows, and proprietary "Hermia" code remains the exclusive intellectual property of the Platform. Unauthorized reverse-engineering of our Tier 1 logic is strictly prohibited.</p>
 
-  <h2>11. Contact</h2>
-  <p>For any privacy-related enquiries: <a href="mailto:capital@hermia.au">capital@hermia.au</a></p>
+    <h2>4. Termination & Freedom</h2>
+    <p>We believe in value, not lock-ins. Clients may terminate their service at any time. Upon termination, Hermia will cease all lead processing and purge conversational metadata within 30 days, subject to regulatory retention requirements.</p>
+  </div>
 
   <footer>
-    © 2026 Hermia • ABN 75 434 177 026<br>
-    <a href="/" style="color:#C9A35B;">Back to Hermia</a>
+    © 2026 Hermia · ABN 75 434 177 026 · Victoria, Australia · Dubai Support  
+
+    <a href="mailto:capital@hermia.au">Governance & Legal: capital@hermia.au</a>
   </footer>
 
 </body>
 </html>
+
