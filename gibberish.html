@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hermia — Live Demo</title>
+<title>Hermia — Live Triage Demo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -405,6 +405,109 @@ body {
   margin-top:8px;
   text-align:center;
 }
+
+/* MINI CRM RESULT CARD (shows final lead grading) */
+.crm-result-card {
+  display:none;
+  background:linear-gradient(135deg, rgba(16,185,129,0.06) 0%, rgba(0,0,0,0.3) 100%);
+  border:1px solid var(--emerald);
+  border-radius:14px;
+  padding:18px 20px;
+  animation:fadeInScale 0.5s ease forwards;
+  box-shadow:0 0 25px rgba(16,185,129,0.18);
+}
+.crm-result-card.show { display:block; }
+.crm-result-card.warm {
+  background:linear-gradient(135deg, rgba(245,158,11,0.06) 0%, rgba(0,0,0,0.3) 100%);
+  border-color:#f59e0b;
+  box-shadow:0 0 25px rgba(245,158,11,0.18);
+}
+.crm-result-card.cold {
+  background:linear-gradient(135deg, rgba(239,68,68,0.06) 0%, rgba(0,0,0,0.3) 100%);
+  border-color:var(--danger);
+  box-shadow:0 0 25px rgba(239,68,68,0.18);
+}
+@keyframes fadeInScale {
+  from { opacity:0; transform:scale(0.95); }
+  to { opacity:1; transform:scale(1); }
+}
+.result-header {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+  padding-bottom:12px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.result-icon {
+  width:32px; height:32px;
+  background:var(--emerald);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#000;
+  font-weight:700;
+  font-size:14px;
+  box-shadow:0 0 12px rgba(16,185,129,0.4);
+}
+.crm-result-card.warm .result-icon { background:#f59e0b; box-shadow:0 0 12px rgba(245,158,11,0.4); }
+.crm-result-card.cold .result-icon { background:var(--danger); box-shadow:0 0 12px rgba(239,68,68,0.4); }
+.result-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;
+  font-weight:700;
+  color:#fff;
+}
+.result-rows {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.result-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:12px;
+}
+.result-row-label { color:var(--muted); font-weight:500; }
+.result-row-val { color:#fff; font-weight:600; }
+.result-tag-hot {
+  background:rgba(16,185,129,0.15);
+  color:var(--emerald);
+  padding:3px 9px;
+  border-radius:5px;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:0.5px;
+}
+.result-tag-warm {
+  background:rgba(245,158,11,0.15);
+  color:#f59e0b;
+  padding:3px 9px;
+  border-radius:5px;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:0.5px;
+}
+.result-tag-cold {
+  background:rgba(239,68,68,0.15);
+  color:var(--danger);
+  padding:3px 9px;
+  border-radius:5px;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:0.5px;
+}
+.result-footer {
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid rgba(255,255,255,0.06);
+  font-size:11px;
+  color:var(--muted);
+  text-align:center;
+  font-style:italic;
+}
 .cta-link {
   display:inline-block;
   background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);
@@ -456,7 +559,7 @@ body {
   <div class="demo-header">
     <div class="demo-tag">
       <span class="demo-tag-dot"></span>
-      Live Demo Sandbox
+      Live Triage Demo
     </div>
     <h1>See Hermia <em>Triage Live</em></h1>
     <p>Run an actual buyer enquiry through the qualification engine. Watch how raw inputs become a CRM-ready file in under 60 seconds — and how malformed data gets filtered out automatically.</p>
@@ -529,8 +632,45 @@ body {
         </div>
       </div>
 
+      <!-- MINI CRM RESULT CARD -->
+      <div class="crm-result-card" id="result-card">
+        <div class="result-header">
+          <div class="result-icon">✓</div>
+          <div class="result-title" id="result-title">Lead Qualified · Sent to CRM</div>
+        </div>
+        <div class="result-rows">
+          <div class="result-row">
+            <span class="result-row-label">Prospect</span>
+            <span class="result-row-val">Kevin Knocks</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">Listing</span>
+            <span class="result-row-val">15 Palm Jumeirah</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">Timeline</span>
+            <span class="result-row-val" id="result-timeline">—</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">Budget</span>
+            <span class="result-row-val" id="result-budget">—</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">Finance flex</span>
+            <span class="result-row-val" id="result-finance">—</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">Lead grade</span>
+            <span id="result-grade-tag" class="result-tag-hot">HOT</span>
+          </div>
+        </div>
+        <div class="result-footer" id="result-footnote">
+          Auto-pushed to Pipedrive · 84 seconds total
+        </div>
+      </div>
+
       <div class="cta-row">
-        <a href="apply.html" class="cta-link">Book My Private Demo →</a>
+        <a href="handoff.html" class="cta-link">Calculate My Lead Loss →</a>
       </div>
     </div>
 
@@ -547,6 +687,7 @@ const junkBtn = document.getElementById('trigger-junk');
 let step = 1;
 let junkCount = 0;
 let dead = false;
+let answers = { timeline: '—', budget: '—', finance: '—', leadRating: 'HOT' };
 
 const flow = {
   1: {
@@ -645,8 +786,13 @@ function pick(opt, next) {
     const tile = document.getElementById(`tile-${opt.tile}`);
     tile.classList.add('active');
     tile.querySelector('.tile-value').innerText = opt.val;
+    // Capture answer for result card
+    if (opt.tile === 'timeline') answers.timeline = opt.val;
+    if (opt.tile === 'budget')   answers.budget = opt.val;
+    if (opt.tile === 'finance')  answers.finance = opt.val;
   }
   if (opt.rating) {
+    answers.leadRating = opt.rating;
     status.innerText = `${opt.rating} LEAD`;
     status.className = `crm-badge ${opt.rating.toLowerCase()}`;
   }
@@ -660,13 +806,56 @@ function pick(opt, next) {
       log('[SHUTDOWN] Final token dispatched. Connection closed.', 'system');
       dead = true;
 
+      // === REVEAL MINI CRM RESULT CARD ===
+      setTimeout(() => {
+        const resultCard = document.getElementById('result-card');
+        const grade = answers.leadRating;
+
+        // Determine grade based on captured data if not explicitly set
+        let finalGrade = grade;
+        if (answers.timeline === 'Within 4 weeks') {
+          finalGrade = 'HOT';
+        } else if (answers.timeline === '1-3 months') {
+          finalGrade = 'WARM';
+        } else {
+          finalGrade = 'COLD';
+        }
+
+        // Populate card
+        document.getElementById('result-timeline').innerText = answers.timeline;
+        document.getElementById('result-budget').innerText = answers.budget;
+        document.getElementById('result-finance').innerText = answers.finance;
+
+        const gradeTag = document.getElementById('result-grade-tag');
+        gradeTag.innerText = finalGrade;
+        gradeTag.className = `result-tag-${finalGrade.toLowerCase()}`;
+
+        resultCard.className = `crm-result-card show ${finalGrade.toLowerCase()}`;
+
+        // Update title + footer based on grade
+        const title = document.getElementById('result-title');
+        const footer = document.getElementById('result-footnote');
+        if (finalGrade === 'HOT') {
+          title.innerText = '🔥 Hot Lead · Call Today';
+          footer.innerText = 'Pushed to CRM · 84 seconds total · Agent notified';
+        } else if (finalGrade === 'WARM') {
+          title.innerText = '⏳ Warm Lead · Nurture Sequence';
+          footer.innerText = 'Pushed to CRM · Added to 14-day nurture flow';
+        } else {
+          title.innerText = '❄️ Cold Lead · Long-term Drip';
+          footer.innerText = 'Pushed to CRM · Quarterly check-in scheduled';
+        }
+
+        log(`[CRM] ${finalGrade} lead synced to Pipedrive`, 'success');
+      }, 900);
+
       setTimeout(() => {
         const ghost = document.createElement('div');
         ghost.className = 'bubble user';
         ghost.innerText = "Wait, can I change my budget?";
         chat.appendChild(ghost);
         log('[DROPPED] Connection terminated. Input ignored.', 'system');
-      }, 1600);
+      }, 2400);
     }, 800);
   } else {
     step = next;
@@ -685,24 +874,52 @@ junkBtn.onclick = () => {
   chat.scrollTop = chat.scrollHeight;
 
   junkCount++;
-  log(`[INVALID] Malformed input #${junkCount}/3`, 'warn');
+  log(`[INVALID] Malformed input #${junkCount}/3 — pattern not recognised`, 'warn');
+
+  // Visible "thinking" indicator so user sees Hermia processing the junk
+  const evalBubble = document.createElement('div');
+  evalBubble.className = 'bubble bot';
+  evalBubble.id = 'junk-eval';
+  evalBubble.innerText = '⚠️ Pattern check failed... evaluating intent...';
+  chat.appendChild(evalBubble);
+  chat.scrollTop = chat.scrollHeight;
 
   if (junkCount >= 3) {
     setTimeout(() => {
-      log('[TERMINATED] 3-strike kill switch fired. Lead flagged as junk.', 'danger');
+      const t = document.getElementById('junk-eval');
+      if (t) t.remove();
+      log('[ALERT] 3-strike threshold reached', 'warn');
+    }, 2000);
+
+    setTimeout(() => {
+      log('[KILL SWITCH] Lead flagged as junk · Removing from queue', 'danger');
+    }, 3500);
+
+    setTimeout(() => {
+      log('[TERMINATED] Session destroyed · No CRM record created', 'danger');
       status.innerText = 'JUNK FILTERED';
       status.className = 'crm-badge cold';
-      tray.innerHTML = '<div style="color:var(--muted); font-size:12px; text-align:center; padding:14px;">Session terminated · Intent failed</div>';
+      tray.innerHTML = '<div style="color:var(--muted); font-size:12px; text-align:center; padding:14px; line-height:1.5;">✕ Session terminated<br><span style="font-size:10px;">Intent verification failed · No record sent to CRM</span></div>';
       dead = true;
-    }, 500);
+    }, 5000);
   } else {
     setTimeout(() => {
+      const t = document.getElementById('junk-eval');
+      if (t) t.remove();
+    }, 1800);
+
+    setTimeout(() => {
+      log(`[RECOVERY] Sending clarification (attempt ${junkCount}/3)`, 'system');
       const retry = document.createElement('div');
       retry.className = 'bubble bot';
-      retry.innerText = "Sorry, I didn't catch that. Please reply with the letter that matches your answer.";
+      retry.innerText = `Sorry, I didn't catch that. Please reply with the letter (A, B, C, D) that matches your answer.\n\n(Attempt ${junkCount}/3 — system will flag as junk after 3 failed inputs.)`;
       chat.appendChild(retry);
+      chat.scrollTop = chat.scrollHeight;
+    }, 2500);
+
+    setTimeout(() => {
       showBot(step);
-    }, 700);
+    }, 4500);
   }
 };
 
@@ -714,4 +931,5 @@ setTimeout(() => {
 
 </body>
 </html>
+
 
