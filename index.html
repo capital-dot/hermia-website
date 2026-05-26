@@ -35,7 +35,7 @@ border-bottom:1px solid var(--border);
 .nav-logo span { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:600; color:var(--cream); }
 .nav-links { display:flex; align-items:center; gap:32px; list-style:none; }
 .nav-links a { color:var(--soft); text-decoration:none; font-size:14px; transition:color 0.2s; }
-.nav-links a:hover { color:var(--cream); }
+.nav-links safe a:hover { color:var(--cream); }
 .nav-cta {
 background:var(--gold)!important;
 color:#000!important;
@@ -745,7 +745,13 @@ grid-template-columns:1.2fr 1fr 1fr 1fr; gap:40px;
   <p class="hero-sub">Hermia instantly engages, qualifies, and scores every buyer enquiry via WhatsApp and SMS turning raw portal data into a pipeline of ready buyers.</p>
   <div style="margin-top:48px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center;">
     <a href="apply.html" class="btn-primary">Book My Free Demo</a>
-    <a href="https://calendly.com/capital-hermia/15-minute-meeting" class="btn-secondary">See How It Works</a>
+    <a href="javascript:void(0);" 
+       class="btn-secondary" 
+       data-cal-link="hermia/business" 
+       data-cal-namespace="business" 
+       data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'>
+       See How It Works
+    </a>
   </div>
 </div>
 
@@ -958,7 +964,6 @@ Captured Every Single Month</div>
   </div>
 </section>
 
-<!-- ══════════════ LUXURY PRICING SECTION ══════════════ -->
 <section id="pricing">
   <div class="pricing-glow"></div>
 
@@ -978,7 +983,6 @@ Captured Every Single Month</div>
 
   <div class="pricing-panel">
 
-    <!-- Australia -->
     <div class="p-card">
       <div class="p-country">
         <span class="p-flag">🇦🇺</span> Australia
@@ -1000,12 +1004,17 @@ Captured Every Single Month</div>
         <li>Covers nights, weekends &amp; public holidays without you lifting a finger</li>
         <li>Full setup done for you within 24 hours</li>
       </ul>
-      <a href="https://www.hermia.au/apply" target="_blank" class="p-btn p-btn-outline">Book a Demo</a>
+      <a href="javascript:void(0);" 
+         class="p-btn p-btn-outline"
+         data-cal-link="hermia/business" 
+         data-cal-namespace="business" 
+         data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'>
+         Book a Demo
+      </a>
     </div>
 
     <div class="p-divider"></div>
 
-    <!-- UAE -->
     <div class="p-card">
       <div class="p-badge">Featured</div>
       <div class="p-country">
@@ -1028,7 +1037,13 @@ Captured Every Single Month</div>
         <li>Covers nights, weekends &amp; public holidays without you lifting a finger</li>
         <li>Full setup done for you within 24 hours</li>
       </ul>
-      <a href="https://www.hermia.au/apply" target="_blank" class="p-btn p-btn-gold">Book a Demo</a>
+      <a href="javascript:void(0);" 
+         class="p-btn p-btn-gold"
+         data-cal-link="hermia/business" 
+         data-cal-namespace="business" 
+         data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'>
+         Book a Demo
+      </a>
     </div>
 
   </div>
@@ -1043,8 +1058,6 @@ Captured Every Single Month</div>
     <div class="pf-diamond"></div>
   </div>
 </section>
-<!-- ══════════════ END PRICING ══════════════ -->
-
 <div class="divider">
   <div class="cta-section">
     <div class="section-tag">Get Started</div>
@@ -1053,7 +1066,13 @@ Captured Every Single Month</div>
     <p class="section-body" style="margin:18px auto 0;">Every hour spent on an unqualified enquiry is an hour stolen from a Hot buyer who was ready to move today. Hermia fixes that permanently.</p>
     <div class="cta-actions">
       <a href="apply.html" class="btn-primary" style="font-size:16px;padding:18px 40px;">Book My Free Demo</a>
-      <a href="https://calendly.com/capital-hermia/15-minute-meeting" class="btn-secondary">See How It Works</a>
+      <a href="javascript:void(0);" 
+         class="btn-secondary"
+         data-cal-link="hermia/business" 
+         data-cal-namespace="business" 
+         data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'>
+         See How It Works
+      </a>
     </div>
   </div>
 </div>
@@ -1094,7 +1113,23 @@ Captured Every Single Month</div>
   <p>© 2026 Hermia · ABN 75 434 177 026 · Hermia is an independent software provider. All trademarks are the property of their respective owners. Powered by Make.</p>
 </div>
 
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+  
+  Cal("init", "business", {origin:"https://app.cal.com"});
+
+  // Configured to lock dark mode and apply custom gold highlights (#C9A35B)
+  Cal.ns.business("ui", {
+    "theme": "dark",
+    "styles": {
+      "branding": {
+        "brandColor": "#C9A35B"
+      }
+    },
+    "hideEventTypeDetails": false,
+    "layout": "month_view"
+  });
+</script>
 </body>
 </html>
-
 
