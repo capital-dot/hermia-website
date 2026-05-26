@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hermia - Agent Command Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen">
+
+    <nav class="border-b border-slate-800 bg-slate-900/50 backdrop-blur px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <div class="h-8 w-8 bg-indigo-600 rounded-lg flex items-center justify-center font-bold text-white tracking-wider">H</div>
+            <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Hermia AI</span>
+        </div>
+        <div class="flex items-center space-x-4">
+            <span class="flex h-3 w-3 relative">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+            </span>
+            <span class="text-sm font-medium text-slate-400">Agent Dashboard: Active</span>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col h-[650px] overflow-hidden shadow-2xl">
+            <div id="alert-banner" class="bg-amber-500/10 border-b border-amber-500/20 px-6 py-3 flex justify-between items-center animate-pulse">
+                <div class="flex items-center space-x-2 text-amber-400">
+                    <i class="fa-solid fa-fire text-lg"></i>
+                    <span class="text-sm font-bold uppercase tracking-wider">High Intent Signal Detected</span>
+                </div>
+                <button onclick="takeoverChat()" id="takeover-btn" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 text-xs font-black uppercase tracking-widest px-4 py-2 rounded-lg shadow-lg transition-all transform hover:scale-105 cursor-pointer">
+                    ⚡ Take Over Chat
+                </button>
+            </div>
+
+            <div class="p-4 border-b border-slate-800 bg-slate-900/80 flex items-center justify-between">
+                <div>
+                    <h3 class="font-bold text-lg text-slate-200">Lead: Marcus Vance</h3>
+                    <p class="text-xs text-slate-400"><i class="fa-brands fa-whatsapp text-emerald-500 mr-1"></i> +1 (555) 382-9104</p>
+                </div>
+                <span id="chat-status" class="bg-indigo-500/10 text-indigo-400 text-xs px-2.5 py-1 rounded-full border border-indigo-500/20 font-mono">AI Qualifying...</span>
+            </div>
+
+            <div class="flex-1 p-6 overflow-y-auto space-y-4 bg-slate-950/40">
+                <div class="flex items-start space-x-3">
+                    <div class="bg-indigo-600 text-xs font-bold p-2 rounded-lg">AI</div>
+                    <div class="bg-slate-800 p-3 rounded-2xl rounded-tl-none max-w-md text-sm text-slate-300">
+                        Hi Marcus! I saw you inquired about 442 Ocean Vista. Are you looking to move in the next 30-60 days, or just browsing?
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3 justify-end">
+                    <div class="bg-slate-700 p-3 rounded-2xl rounded-tr-none max-w-md text-sm text-slate-200">
+                        Definitely moving. My lease ends in 5 weeks and I need to buy ASAP. I'm pre-approved for $950k.
+                    </div>
+                    <div class="bg-slate-600 text-xs font-bold p-2 rounded-lg">Lead</div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <div class="bg-indigo-600 text-xs font-bold p-2 rounded-lg">AI</div>
+                    <div class="bg-slate-800 p-3 rounded-2xl rounded-tl-none max-w-md text-sm text-slate-300">
+                        Perfect, that property fits your budget. Do you have a specific time you'd like to tour it this week?
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3 justify-end">
+                    <div class="bg-amber-500/10 border border-amber-500/30 p-3 rounded-2xl rounded-tr-none max-w-md text-sm text-amber-200 font-medium">
+                        Honestly, I can head over there today at 4:00 PM if an agent is free. Let me know.
+                    </div>
+                    <div class="bg-slate-600 text-xs font-bold p-2 rounded-lg">Lead</div>
+                </div>
+                <div id="manual-entry" class="hidden flex items-start space-x-3 justify-end animate-fadeIn">
+                    <div class="bg-emerald-600 p-3 rounded-2xl rounded-tr-none max-w-md text-sm text-white font-medium">
+                        Hey Marcus! This is Jonathan. I can absolutely make 4 PM work today. I'm locking that in for us right now. See you there!
+                    </div>
+                    <div class="bg-emerald-500 text-xs font-bold p-2 rounded-lg">You</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <div class="flex items-center space-x-2 mb-4">
+                    <i class="fa-solid fa-brain text-indigo-400 text-xl"></i>
+                    <h3 class="font-bold text-lg text-slate-200">AI "Vibe Check"</h3>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                        <span class="text-xs font-bold uppercase tracking-wider text-indigo-400 block mb-1">Core Situation</span>
+                        <p class="text-sm text-slate-300">Highly motivated buyer. Leases ending. Pre-approved at $950k. Clear intent to view today.</p>
+                    </div>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                        <span class="text-xs font-bold uppercase tracking-wider text-cyan-400 block mb-1">Lead Temperament</span>
+                        <p class="text-sm text-slate-300">Urgent, decisive, prefers direct layout of logistics over small talk.</p>
+                    </div>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-indigo-500/30 bg-indigo-950/20">
+                        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 block mb-1">Recommended Icebreaker</span>
+                        <p class="text-sm text-slate-200">"Hey Marcus, I saw you want to look at 442 Ocean Vista at 4 PM. I just cleared my schedule to get you in."</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl text-center">
+                <h4 class="font-bold text-slate-200 mb-2">Data Integrity Handoff</h4>
+                <p class="text-xs text-slate-400 mb-4">Push fully mapped lead payload details straight to your pipeline setup.</p>
+                <button onclick="syncCRM()" id="crm-btn" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold py-3 px-4 rounded-xl transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    <span>Sync to CRM (Zoho/Rex)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function takeoverChat() {
+            document.getElementById('alert-banner').classList.remove('animate-pulse', 'bg-amber-500/10', 'border-amber-500/20');
+            document.getElementById('alert-banner').classList.add('bg-emerald-500/10', 'border-emerald-500/20');
+            document.getElementById('alert-banner').innerHTML = `
+                <div class="flex items-center space-x-2 text-emerald-400 mx-auto">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span class="text-sm font-bold uppercase tracking-wider">You are now controlling this conversation live</span>
+                </div>`;
+            document.getElementById('chat-status').className = "bg-emerald-500/10 text-emerald-400 text-xs px-2.5 py-1 rounded-full border border-emerald-500/20 font-mono";
+            document.getElementById('chat-status').innerText = "Manual Control";
+            document.getElementById('manual-entry').classList.remove('hidden');
+        }
+
+        function syncCRM() {
+            const btn = document.getElementById('crm-btn');
+            btn.className = "w-full bg-emerald-600 text-white font-bold py-3 px-4 rounded-xl transition-all flex items-center justify-center space-x-2 shadow-lg";
+            btn.innerHTML = `<i class="fa-solid fa-circle-check animate-bounce"></i> <span>Successfully Synced to CRM!</span>`;
+        }
+    </script>
+</body>
+</html>
