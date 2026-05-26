@@ -24,11 +24,11 @@ html { scroll-behavior:smooth; }
 body { font-family:'DM Sans',sans-serif; background:var(--black); color:var(--cream); overflow-x:hidden; }
 
 nav {
-position:fixed; top:0; left:0; right:0; z-index:100;
-padding:20px 48px;
-display:flex; align-items:center; justify-content:space-between;
-background:rgba(8,8,8,0.92); backdrop-filter:blur(20px);
-border-bottom:1px solid var(--border);
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  padding:20px 48px;
+  display:flex; align-items:center; justify-content:space-between;
+  background:rgba(8,8,8,0.92); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
 }
 .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
 .nav-logo img { width:34px; height:34px; }
@@ -39,68 +39,94 @@ border-bottom:1px solid var(--border);
 .nav-links .nav-tool-link { color: var(--gold-light); font-weight: 500; }
 .nav-links .nav-tool-link:hover { color: #fff; text-shadow: 0 0 10px rgba(232,193,122,0.5); }
 .nav-cta {
-background:var(--gold)!important;
-color:#000!important;
-padding:10px 24px!important;
-border-radius:8px;
-font-weight:600!important;
-text-decoration:none;
-display:inline-block;
+  background:var(--gold)!important;
+  color:#000!important;
+  padding:10px 24px!important;
+  border-radius:8px;
+  font-weight:600!important;
+  text-decoration:none;
+  display:inline-block;
 }
 
 .hero {
-min-height:100vh; display:flex; flex-direction:column;
-align-items:center; justify-content:center; text-align:center;
-padding:160px 24px 120px; position:relative;
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center;
+  padding:160px 24px 120px; position:relative;
 }
 .hero-glow {
-position:absolute; top:15%; left:50%; transform:translateX(-50%);
-width:1100px; height:780px;
-background:radial-gradient(ellipse, rgba(201,163,91,0.28) 0%, transparent 65%);
-pointer-events:none;
-filter:blur(65px);
-opacity: 0.9;
+  position:absolute; top:15%; left:50%; transform:translateX(-50%);
+  width:1100px; height:780px;
+  background:radial-gradient(ellipse, rgba(201,163,91,0.28) 0%, transparent 65%);
+  pointer-events:none;
+  filter:blur(65px);
+  opacity: 0.9;
 }
 .hero-logo { width:76px; height:76px; margin-bottom:32px; filter:drop-shadow(0 0 32px rgba(201,163,91,0.4)); }
 .hero-badge {
-display:inline-flex; align-items:center; gap:8px;
-background:var(--gold-dim); border:1px solid var(--border);
-border-radius:100px; padding:6px 18px;
-font-size:11px; font-weight:600; color:var(--gold);
-letter-spacing:2px; text-transform:uppercase; margin-bottom:32px;
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--gold-dim); border:1px solid var(--border);
+  border-radius:100px; padding:6px 18px;
+  font-size:11px; font-weight:600; color:var(--gold);
+  letter-spacing:2px; text-transform:uppercase; margin-bottom:32px;
 }
 .hero h1 {
-font-family:'Cormorant Garamond',serif;
-font-size:clamp(52px,8.5vw,98px);
-font-weight:700; line-height:1.02; letter-spacing:-2px;
-color:#fff; max-width:980px;
-text-shadow: 
-  0 0 40px rgba(201,163,91,0.4),
-  0 0 80px rgba(201,163,91,0.25);
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(52px,8.5vw,98px);
+  font-weight:700; line-height:1.02; letter-spacing:-2px;
+  color:#fff; max-width:980px;
+  text-shadow: 0 0 40px rgba(201,163,91,0.4), 0 0 80px rgba(201,163,91,0.25);
 }
-.hero h1 em { 
-  font-style:italic; 
-  color:var(--gold); 
+.hero h1 em {
+  font-style:italic;
+  color:var(--gold);
   text-shadow: 0 0 30px #e8c17a, 0 0 60px #C9A35B;
 }
 .hero-sub {
-margin-top:32px; font-size:19px; color:var(--soft);
-max-width:720px; line-height:1.6; font-weight:300;
+  margin-top:32px; font-size:19px; color:var(--soft);
+  max-width:720px; line-height:1.6; font-weight:300;
 }
 
 .btn-primary {
-background:var(--gold); color:#000;
-padding:18px 36px; border-radius:12px;
-font-size:16px; font-weight:600; text-decoration:none;
-transition:all 0.3s; display:inline-flex; align-items:center; gap:8px;
+  background:var(--gold); color:#000;
+  padding:18px 36px; border-radius:12px;
+  font-size:16px; font-weight:600; text-decoration:none;
+  transition:all 0.3s; display:inline-flex; align-items:center; gap:8px;
+  cursor:pointer;
+  border:none;
+  font-family:'DM Sans',sans-serif;
 }
-.btn-primary:hover { 
-  background:var(--gold-light); 
-  transform:translateY(-3px); 
+.btn-primary:hover {
+  background:var(--gold-light);
+  transform:translateY(-3px);
   box-shadow:0 12px 32px rgba(201,163,91,0.5), 0 0 40px rgba(201,163,91,0.6);
 }
 
-.stats-bar {border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:rgba(201,163,91,0.02); padding:48px 48px; display:flex; align-items:center; justify-content:center; gap:60px; flex-wrap:wrap;}
+.btn-secondary {
+  background: transparent;
+  color: #fff;
+  border: 2px solid var(--gold);
+  padding: 18px 36px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-secondary:hover {
+  background: var(--gold-light);
+  color: #000;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(201,163,91,0.5), 0 0 40px rgba(201,163,91,0.6);
+}
+
+.stats-bar {
+  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  background:rgba(201,163,91,0.02); padding:48px;
+  display:flex; align-items:center; justify-content:center; gap:60px; flex-wrap:wrap;
+}
 .stat { text-align:center; max-width:240px; }
 .stat-num { font-family:'Cormorant Garamond',serif; font-size:48px; font-weight:700; color:var(--gold); line-height:1; }
 .stat-label { font-size:13px; color:var(--soft); margin-top:10px; line-height:1.5; font-weight:400; }
@@ -108,12 +134,10 @@ transition:all 0.3s; display:inline-flex; align-items:center; gap:8px;
 section { padding:96px 24px; max-width:1100px; margin:0 auto; }
 .divider { border-top:1px solid var(--border); }
 .section-tag { font-size:11px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
-.section-title { 
-  font-family:'Cormorant Garamond',serif; 
-  font-size:clamp(36px,5vw,56px); 
-  font-weight:700; 
-  line-height:1.1; 
-  color:#fff; 
+.section-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,5vw,56px);
+  font-weight:700; line-height:1.1; color:#fff;
   max-width:820px;
   text-shadow: 0 0 25px rgba(201,163,91,0.35);
 }
@@ -121,199 +145,323 @@ section { padding:96px 24px; max-width:1100px; margin:0 auto; }
 .section-body { font-size:18px; color:var(--soft); line-height:1.7; max-width:640px; margin-top:18px; font-weight:300; }
 
 .video-outer {
-margin: 52px auto 64px;
-max-width: 860px;
-position: relative;
+  margin: 52px auto 64px;
+  max-width: 860px;
+  position: relative;
 }
 .video-outer::before {
-content: '';
-position: absolute;
-inset: -2px;
-border-radius: 20px;
-background: linear-gradient(135deg, rgba(201,163,91,0.65), rgba(201,163,91,0.18), rgba(201,163,91,0.55));
-z-index: 0;
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(201,163,91,0.65), rgba(201,163,91,0.18), rgba(201,163,91,0.55));
+  z-index: 0;
 }
 .video-outer::after {
-content: '';
-position: absolute;
-inset: -32px;
-border-radius: 32px;
-background: radial-gradient(ellipse, rgba(201,163,91,0.22) 0%, transparent 70%);
-z-index: -1;
-filter: blur(22px);
+  content: '';
+  position: absolute;
+  inset: -32px;
+  border-radius: 32px;
+  background: radial-gradient(ellipse, rgba(201,163,91,0.22) 0%, transparent 70%);
+  z-index: -1;
+  filter: blur(22px);
 }
 .video-wrapper {
-position: relative;
-padding-bottom: 56.25%;
-height: 0;
-overflow: hidden;
-border-radius: 18px;
-background: #0a0a0a;
-z-index: 1;
-box-shadow: 0 0 0 1px rgba(201,163,91,0.3), 0 24px 64px rgba(0,0,0,0.7), 0 0 60px rgba(201,163,91,0.25);
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #0a0a0a;
+  z-index: 1;
+  box-shadow: 0 0 0 1px rgba(201,163,91,0.3), 0 24px 64px rgba(0,0,0,0.7), 0 0 60px rgba(201,163,91,0.25);
 }
 .video-wrapper iframe {
-position: absolute;
-top: 0; left: 0;
-width: 100%; height: 100%;
-border: none;
-border-radius: 18px;
-}
-
-/* 🧪 INTERACTIVE SIMULATOR WORKSPACE STYLE ENGINE */
-.sandbox-workspace {
-  margin-top: 52px;
-  background: #0d0d0d;
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 40px;
-  position: relative;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-}
-.sandbox-header-ui {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(201,163,91,0.1);
-  padding-bottom: 20px;
-  margin-bottom: 32px;
-}
-.sandbox-back-btn {
-  background: transparent;
-  color: var(--gold);
-  border: 1px solid rgba(201,163,91,0.3);
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  transition: all 0.2s;
-  text-transform: uppercase;
-}
-.sandbox-back-btn:hover {
-  background: var(--gold-dim);
-  border-color: var(--gold);
-}
-.sandbox-step { display: none; }
-.sandbox-step.active { display: block; animation: fadeIn 0.4s ease-out; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-.sim-chat-box {
-  background: #050505;
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 12px;
-  padding: 24px;
-  margin: 20px 0;
-  max-width: 580px;
-}
-.sim-msg { display: flex; gap: 12px; margin-bottom: 16px; }
-.sim-avatar { width: 32px; height: 32px; background: var(--gold); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px; }
-.sim-text { background: #141414; padding: 12px 16px; border-radius: 0 12px 12px 12px; font-size: 14px; max-width: 85%; line-height: 1.5; }
-.sim-text.user-reply { background: var(--gold-dim); border: 1px solid rgba(201,163,91,0.2); border-radius: 12px 0 12px 12px; color: var(--gold-light); margin-left: auto; }
-
-/* Dynamic Triangular Matrix Visualization Container */
-.triangular-engine-graphic {
-  background: #050505;
-  border: 1px solid rgba(201,163,91,0.2);
-  border-radius: 12px;
-  padding: 40px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  margin-top: 24px;
-}
-.matrix-mesh {
-  font-family: monospace;
-  color: var(--gold);
-  font-size: 11px;
-  line-height: 1.4;
-  letter-spacing: 2px;
-  opacity: 0.85;
-  text-shadow: 0 0 8px rgba(201,163,91,0.6);
-}
-
-/* 📊 DYNAMIC VALUE CALCULATOR STYLES */
-.calc-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 44px;
-  margin-top: 52px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.5);
-}
-.calc-inputs { display: flex; flex-direction: column; gap: 28px; }
-.calc-group { display: flex; flex-direction: column; gap: 12px; }
-.calc-group label { font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); }
-.calc-slider {
-  -webkit-appearance: none;
-  width: 100%; height: 6px;
-  background: #1f1f1f;
-  border-radius: 3px;
-  outline: none;
-}
-.calc-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 20px; height: 20px;
-  background: var(--gold);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform 0.1s;
-}
-.calc-slider::-webkit-slider-thumb:hover { transform: scale(1.2); box-shadow: 0 0 15px var(--gold); }
-.calc-val-display { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: #fff; }
-.calc-outputs {
-  background: rgba(201,163,91,0.02);
-  border-left: 1px solid var(--border);
-  padding-left: 48px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 32px;
-}
-.calc-metric h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); margin-bottom: 6px; }
-.calc-metric-v { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 700; color: var(--gold-light); text-shadow: 0 0 20px rgba(201,163,91,0.2); }
-
-@media(max-width:768px) {
-  .calc-card { grid-template-columns: 1fr; gap: 32px; padding: 28px; }
-  .calc-outputs { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 32px; }
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+  border-radius: 18px;
 }
 
 .steps { margin-top:60px; display:flex; flex-direction:column; position:relative; }
 .steps::before {
-content:'';
-position:absolute;
-left:31px;
-top:32px;
-bottom:32px;
-width:1px;
-background:linear-gradient(180deg,var(--gold),transparent);
+  content:'';
+  position:absolute;
+  left:31px;
+  top:32px;
+  bottom:32px;
+  width:1px;
+  background:linear-gradient(180deg,var(--gold),transparent);
 }
 .step { display:flex; gap:32px; padding:44px 0; border-bottom:1px solid var(--border); align-items:flex-start; }
 .step:last-child { border-bottom:none; }
 .step-num {
-width:64px; height:64px; min-width:64px; border-radius:50%;
-background:var(--black);
-border:1px solid rgba(201,163,91,0.4);
-display:flex; align-items:center; justify-content:center;
-font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:700; color:var(--gold);
-position:relative; z-index:1;
-box-shadow: 0 0 0 5px var(--black);
+  width:64px; height:64px; min-width:64px; border-radius:50%;
+  background:var(--black);
+  border:1px solid rgba(201,163,91,0.4);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:700; color:var(--gold);
+  position:relative; z-index:1;
+  box-shadow: 0 0 0 5px var(--black);
 }
 .step-content { padding-top:14px; }
 .step-content h3 { font-size:22px; font-weight:600; color:#fff; margin-bottom:8px; }
 .step-content p { font-size:16px; color:var(--soft); line-height:1.65; font-weight:300; }
 .step-type-tag { display:inline-block; margin-top:10px; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); opacity:0.7; }
 
+/* === LIVE DEMO PROMO CARD (replaces broken sandbox) === */
+.demo-promo {
+  margin-top:52px;
+  background:linear-gradient(135deg, rgba(201,163,91,0.08) 0%, var(--card) 50%, #0d0d0d 100%);
+  border:1px solid var(--gold);
+  border-radius:24px;
+  padding:56px 48px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,0.5), 0 0 60px rgba(201,163,91,0.15);
+}
+.demo-promo::before,
+.demo-promo::after {
+  content:'';
+  position:absolute;
+  width:24px; height:24px;
+  border-color:var(--gold);
+  border-style:solid;
+}
+.demo-promo::before { top:14px; right:14px; border-width:1px 1px 0 0; }
+.demo-promo::after  { bottom:14px; left:14px; border-width:0 0 1px 1px; }
+
+.demo-promo-grid {
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:48px;
+  align-items:center;
+  position:relative;
+  z-index:1;
+}
+@media(max-width:768px) {
+  .demo-promo-grid { grid-template-columns:1fr; gap:32px; }
+  .demo-promo { padding:36px 28px; }
+}
+.demo-promo-tag {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(201,163,91,0.1);
+  border:1px solid var(--gold);
+  padding:6px 14px;
+  border-radius:100px;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:20px;
+}
+.demo-promo-dot {
+  width:6px; height:6px;
+  background:#10b981;
+  border-radius:50%;
+  box-shadow:0 0 10px #10b981;
+  animation: dp-pulse 2s infinite;
+}
+@keyframes dp-pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.demo-promo h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px;
+  font-weight:700;
+  color:#fff;
+  line-height:1.1;
+  margin-bottom:14px;
+  letter-spacing:-0.5px;
+}
+.demo-promo h3 em { font-style:italic; color:var(--gold); }
+.demo-promo p {
+  font-size:15px;
+  color:var(--soft);
+  line-height:1.65;
+  font-weight:300;
+  margin-bottom:24px;
+}
+.demo-promo-features {
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-bottom:28px;
+}
+.demo-promo-features li {
+  font-size:13px;
+  color:var(--soft);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.demo-promo-features li::before {
+  content:'◆';
+  font-size:7px;
+  color:var(--gold);
+}
+.demo-promo-cta {
+  display:inline-block;
+  background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);
+  color:#000;
+  padding:16px 32px;
+  border-radius:12px;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:all 0.3s;
+  box-shadow:0 10px 30px rgba(201,163,91,0.3);
+}
+.demo-promo-cta:hover {
+  filter:brightness(1.1);
+  transform:translateY(-2px);
+  box-shadow:0 14px 40px rgba(201,163,91,0.45);
+}
+
+.demo-visual {
+  background:#050505;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:24px;
+  font-family:monospace;
+  font-size:12px;
+  position:relative;
+  overflow:hidden;
+}
+.demo-visual::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg, rgba(201,163,91,0.05) 0%, transparent 50%);
+  pointer-events:none;
+}
+.demo-visual-header {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:16px;
+  padding-bottom:12px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+.demo-visual-dots {
+  display:flex;
+  gap:5px;
+}
+.demo-visual-dot {
+  width:8px; height:8px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.15);
+}
+.demo-visual-dot.green { background:#10b981; }
+.demo-line {
+  color:var(--soft);
+  line-height:1.7;
+  position:relative;
+  z-index:1;
+}
+.demo-line strong { color:var(--gold-light); }
+.demo-line.success { color:#10b981; }
+
+/* === FAQ SECTION === */
+.faq-section {
+  border-top:1px solid var(--border);
+  padding:96px 24px;
+  max-width:900px;
+  margin:0 auto;
+}
+.faq-header {
+  text-align:center;
+  margin-bottom:56px;
+}
+.faq-list {
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.faq-item {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  transition:all 0.3s;
+}
+.faq-item:hover {
+  border-color:rgba(201,163,91,0.3);
+}
+.faq-item.open {
+  border-color:var(--gold);
+  background:linear-gradient(135deg, rgba(201,163,91,0.04) 0%, var(--card) 60%);
+}
+.faq-q {
+  width:100%;
+  background:none;
+  border:none;
+  padding:24px 28px;
+  text-align:left;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  color:#fff;
+  font-size:16px;
+  font-weight:600;
+  line-height:1.4;
+}
+.faq-q-icon {
+  flex-shrink:0;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--gold);
+  font-size:14px;
+  transition:all 0.3s;
+}
+.faq-item.open .faq-q-icon {
+  background:var(--gold);
+  color:#000;
+  border-color:var(--gold);
+  transform:rotate(45deg);
+}
+.faq-a {
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.4s ease, padding 0.4s ease;
+}
+.faq-item.open .faq-a {
+  max-height:400px;
+  padding:0 28px 24px;
+}
+.faq-a-content {
+  color:var(--soft);
+  font-size:15px;
+  line-height:1.7;
+  font-weight:300;
+  padding-top:8px;
+  border-top:1px solid var(--border);
+}
+.faq-a-content strong { color:#fff; font-weight:600; }
+.faq-a-content em { color:var(--gold-light); font-style:italic; }
+
 .features-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:16px; margin-top:52px; }
 .feature-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px; transition:all 0.3s; }
-.feature-card:hover { 
-  border-color:rgba(201,163,91,0.45); 
-  transform:translateY(-4px); 
+.feature-card:hover {
+  border-color:rgba(201,163,91,0.45);
+  transform:translateY(-4px);
   box-shadow:0 16px 40px rgba(0,0,0,0.4), 0 0 40px rgba(201,163,91,0.35);
 }
 .feature-label { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
@@ -406,30 +554,6 @@ box-shadow: 0 0 0 5px var(--black);
   font-size: 11px; color: var(--gold); margin-top: 1px;
 }
 .trust-check strong { color: #fff; }
-.trust-logos-row {
-  max-width: 1100px;
-  margin: 40px auto 0;
-  display: flex; align-items: center;
-  justify-content: center; gap: 16px;
-  flex-wrap: wrap;
-  padding-top: 32px;
-  border-top: 1px solid var(--border);
-  position: relative; z-index: 1;
-}
-.trust-logos-label {
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 1.5px; color: var(--muted);
-  text-transform: uppercase; white-space: nowrap;
-  margin-right: 8px;
-}
-.trust-logo-pill {
-  background: rgba(201,163,91,0.07);
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  padding: 8px 22px;
-  font-size: 13px; font-weight: 600;
-  color: var(--soft);
-}
 
 .why-section {
   border-top: 1px solid var(--border);
@@ -537,10 +661,7 @@ box-shadow: 0 0 0 5px var(--black);
   margin: 0 auto 16px;
   text-shadow: 0 0 25px rgba(201,163,91,0.3);
 }
-#pricing .pricing-heading em {
-  font-style: italic;
-  color: var(--gold);
-}
+#pricing .pricing-heading em { font-style: italic; color: var(--gold); }
 #pricing .pricing-sub {
   font-size: 16px;
   color: var(--soft);
@@ -577,8 +698,6 @@ box-shadow: 0 0 0 5px var(--black);
   border: 1.5px solid var(--gold);
   background: linear-gradient(150deg, #131008 0%, #111111 55%);
 }
-.p-card:first-child:hover { background: #131313; }
-.p-card:last-child:hover  { background: linear-gradient(150deg, #171209 0%, #131313 55%); }
 .p-card:last-child::before,
 .p-card:last-child::after {
   content: '';
@@ -729,24 +848,6 @@ box-shadow: 0 0 0 5px var(--black);
   filter: brightness(1.08);
   box-shadow: 0 10px 36px rgba(201,163,91,0.42);
 }
-.pricing-footnote {
-  margin-top: 56px;
-  font-size: 9px;
-  letter-spacing: 2.5px;
-  color: rgba(138,133,128,0.4);
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.pf-diamond {
-  width: 4px; height: 4px;
-  background: rgba(201,163,91,0.4);
-  transform: rotate(45deg);
-  flex-shrink: 0;
-}
 
 @media (max-width: 680px) {
   #pricing { padding: 80px 20px 100px; }
@@ -768,31 +869,10 @@ box-shadow: 0 0 0 5px var(--black);
 .cta-section { text-align:center; padding:100px 24px; max-width:800px; margin:0 auto; }
 .cta-actions { display:flex; align-items:center; gap:14px; justify-content:center; margin-top:44px; flex-wrap:wrap; }
 
-.btn-secondary {
-  background: transparent;
-  color: #fff;
-  border: 2px solid var(--gold);
-  padding: 18px 36px;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-.btn-secondary:hover {
-  background: var(--gold-light);
-  color: #000;
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(201,163,91,0.5), 0 0 40px rgba(201,163,91,0.6);
-}
-
 footer {
-border-top:1px solid var(--border);
-padding:48px; display:grid;
-grid-template-columns:1.2fr 1fr 1fr 1fr; gap:40px;
+  border-top:1px solid var(--border);
+  padding:48px; display:grid;
+  grid-template-columns:1.2fr 1fr 1fr 1fr; gap:40px;
 }
 .footer-logo { display:flex; align-items:center; gap:10px; text-decoration:none; margin-bottom:16px; }
 .footer-logo img { width:28px; height:28px; }
@@ -814,29 +894,6 @@ grid-template-columns:1.2fr 1fr 1fr 1fr; gap:40px;
   footer { grid-template-columns:1fr; }
 }
 </style>
-
-<script type="text/javascript">
-  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-  Cal("init", "business", {origin:"https://app.cal.com"});
-  Cal.ns.business("ui", {
-    "hideEventTypeDetails": false,
-    "layout": "month_view",
-    "cssVarsPerTheme": {
-      "dark": {
-        "cal-brand": "#C9A35B",
-        "cal-bg": "#0e0e0e",
-        "cal-bg-subtle": "#161616",
-        "cal-bg-emphasis": "#1a1a1a",
-        "cal-border": "rgba(201,163,91,0.2)",
-        "cal-border-emphasis": "rgba(201,163,91,0.4)",
-        "cal-text": "#f5f1e8",
-        "cal-text-emphasis": "#ffffff",
-        "cal-text-subtle": "#b8b5ad"
-      }
-    },
-    "theme": "dark"
-  });
-</script>
 </head>
 <body>
 
@@ -846,10 +903,11 @@ grid-template-columns:1.2fr 1fr 1fr 1fr; gap:40px;
     <span>Hermia</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#how">How it works</a></li>
+    <li><a href="#how">How It Works</a></li>
     <li><a href="#benefits">Benefits</a></li>
-    <li><a href="#simulation" class="nav-tool-link">Launch Live Simulation</a></li>
-    <li><a href="#calculator-section" class="nav-tool-link">ROI Calculator</a></li>
+    <li><a href="#live-demo">Live Demo</a></li>
+    <li><a href="handoff.html" class="nav-tool-link">Loss Calculator</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="apply.html" class="nav-cta">Book My Demo</a></li>
   </ul>
@@ -860,7 +918,7 @@ grid-template-columns:1.2fr 1fr 1fr 1fr; gap:40px;
   <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia Logo" class="hero-logo">
   <div class="hero-badge">The Future of Lead Management</div>
   <h1>Secure<em> Additional Closings</em> Every Month Without Lifting a Finger</h1>
-  <p class="hero-sub">Hermia instantly engages, qualifies, and scores every buyer enquiry via WhatsApp and SMS turning raw portal data into a pipeline of ready buyers.</p>
+  <p class="hero-sub">Hermia instantly engages, qualifies, and scores every buyer enquiry via WhatsApp and SMS — turning raw portal data into a pipeline of ready buyers.</p>
   <div style="margin-top:48px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center;">
     <a href="apply.html" class="btn-primary">Book My Free Demo</a>
     <a href="gibberish.html" class="btn-secondary">See How It Works</a>
@@ -870,27 +928,27 @@ grid-template-columns:1.2fr 1fr 1fr 1fr; gap:40px;
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-num">30s</div>
-    <div class="stat-label">Average Response Time  
-(Global Average: 12 Hours )</div>
+    <div class="stat-label">Average Response Time
+(Global Average: 12 Hours)</div>
   </div>
   <div class="stat">
     <div class="stat-num">80%</div>
-    <div class="stat-label">Inquiry Leakage Prevented  
-via Instant WhatsApp & SMS Touch</div>
+    <div class="stat-label">Inquiry Leakage Prevented
+via Instant WhatsApp &amp; SMS Touch</div>
   </div>
   <div class="stat">
     <div class="stat-num">$15k</div>
-    <div class="stat-label">Potential Extra Commission  
+    <div class="stat-label">Potential Extra Commission
 Captured Every Single Month</div>
   </div>
 </div>
 
 <section id="how">
   <div class="section-tag">The Process</div>
-  <h2 class="section-title">One message becomes a  
+  <h2 class="section-title">One message becomes a
 <em>qualified, CRM-ready lead</em></h2>
   <p class="section-body">Hermia bridges the gap between the portal enquiry and your commission check. No manual entry. No time wasters. Just results.</p>
-  
+
   <div class="video-outer">
     <div class="video-wrapper">
       <iframe src="https://www.loom.com/embed/5e7262fa26ac49c9b5805793c521ae4e" allowfullscreen></iframe>
@@ -909,7 +967,7 @@ Captured Every Single Month</div>
     <div class="step">
       <div class="step-num">2</div>
       <div class="step-content">
-        <h3>Hermia initiates a high touch WhatsApp & SMS engagement</h3>
+        <h3>Hermia initiates a high-touch WhatsApp &amp; SMS engagement</h3>
         <p>Your buyer gets a professional WhatsApp or SMS reply while they're still on the listing page. They feel prioritized, not ignored.</p>
         <span class="step-type-tag">First response wins the lead. Every time.</span>
       </div>
@@ -917,8 +975,8 @@ Captured Every Single Month</div>
     <div class="step">
       <div class="step-num">3</div>
       <div class="step-content">
-        <h3>Five questions filter the time-wasters out</h3>
-        <p>Budget. Timeline. Finance status. Buying intent. Requirements. Hermia asks the surgical questions you need naturally, by message, without you in the loop.</p>
+        <h3>Three questions filter the time-wasters out</h3>
+        <p>Timeline. Budget. Buying flexibility. Hermia asks the surgical questions naturally by message — without you in the loop.</p>
         <span class="step-type-tag">No more "just looking" buyers wasting your Saturday</span>
       </div>
     </div>
@@ -926,7 +984,7 @@ Captured Every Single Month</div>
       <div class="step-num">4</div>
       <div class="step-content">
         <h3>Every lead ranked Hot, Warm, or Cold</h3>
-        <p>Pre-approved and moving this month call them today. 1–3 month window nurture. Early research drop into a sequence. You never wonder who to chase first again.</p>
+        <p>Pre-approved and moving this month — call them today. 1–3 month window — nurture. Early research — drop into a sequence. You never wonder who to chase first.</p>
         <span class="step-type-tag">Clear priority. No guessing.</span>
       </div>
     </div>
@@ -934,116 +992,17 @@ Captured Every Single Month</div>
       <div class="step-num">5</div>
       <div class="step-content">
         <h3>Your morning starts with a pre-built pipeline</h3>
-        <p>Name, number, budget, timeline, finance, requirements, score already synced. You open your CRM at 8am and start calling Hot buyers, not chasing dead leads.</p>
+        <p>Name, number, budget, timeline, finance, requirements, score — already synced. You open your CRM at 8am and start calling Hot buyers, not chasing dead leads.</p>
         <span class="step-type-tag">Revenue-Focused Workflows</span>
       </div>
     </div>
   </div>
-</section>
 
-<section id="simulation" class="divider">
-  <div class="section-tag">Interactive Environment</div>
-  <h2 class="section-title">Stop pitching. <em>Let them test drive value.</em></h2>
-  <p class="section-body">Don't take our word for it. Run through the live staging matrix below to see exactly how data formats translate to qualified revenue pipelines.</p>
-
-  <div class="sandbox-workspace">
-    <div class="sandbox-header-ui">
-      <span style="font-size:11px; letter-spacing:2px; font-weight:600; color:var(--muted); text-transform:uppercase;">Simulation Staging Kernel v4.26</span>
-      <button class="sandbox-back-btn" id="sandboxBackCtrl" onclick="navigateStepBack()" style="display:none;">← Back</button>
-    </div>
-
-    <div id="sandbox-step-1" class="sandbox-step active">
-      <h3 style="font-size:22px; color:#fff; margin-bottom:12px;">Step 1: Real-Time Lead Interception</h3>
-      <p style="font-size:15px; color:var(--soft); line-height:1.6; font-weight:300;">Simulate a cold inquiry form fill arriving from premium web portals.</p>
-      
-      <div class="sim-chat-box">
-        <div class="sim-msg">
-          <div class="sim-avatar">REA</div>
-          <div class="sim-text"><strong>System Notification:</strong> New inquiry received for Listing #8849 - 4 Bed, 2 Bath in Toorak. Customer Name: James Vance. Email: jamesv@domain.com. Phone: +61 491 570 156.</div>
-        </div>
-      </div>
-      <button class="btn-primary" style="padding:12px 24px; font-size:14px;" onclick="navigateForwardTo('sandbox-step-2')">Simulate Immediate WhatsApp Response →</button>
-    </div>
-
-    <div id="sandbox-step-2" class="sandbox-step">
-      <h3 style="font-size:22px; color:#fff; margin-bottom:12px;">Step 2: Automated High-Touch Matrix Qualification</h3>
-      <p style="font-size:15px; color:var(--soft); line-height:1.6; font-weight:300;">Hermia fires an instant contextual message stack, capturing vital transactional metadata.</p>
-      
-      <div class="sim-chat-box">
-        <div class="sim-msg">
-          <div class="sim-avatar">H</div>
-          <div class="sim-text">Hi James! Noticed you just looked at the Toorak listing. To help arrange the private showing files, are you looking to buy within 30 days, or just mapping the area out?</div>
-        </div>
-        <div class="sim-msg">
-          <div class="sim-text user-reply">Hey! Need to find a spot before July since we sold our apartment. Finance is fully approved up to $2.2M.</div>
-        </div>
-      </div>
-      <button class="btn-primary" style="padding:12px 24px; font-size:14px;" onclick="navigateForwardTo('sandbox-step-3')">Analyze Core Routing Data →</button>
-    </div>
-
-    <div id="sandbox-step-3" class="sandbox-step">
-      <h3 style="font-size:22px; color:#fff; margin-bottom:12px;">Step 3: The Triangular Routing Engine Matrix</h3>
-      <p style="font-size:15px; color:var(--soft); line-height:1.6; font-weight:300;">The platform parses data structures down into atomic values, updating lead mappings natively inside your agency's CRM stack without data drop risks.</p>
-      
-      <div class="triangular-engine-graphic">
-        <div class="matrix-mesh">
-          ▲<br>
-          ▲ ▲<br>
-          ▲ [PARSING: INTENT_HOT] ▲<br>
-          ▲ [TIMELINE: &lt; 4 WEEKS] [BUDGET: $2,200,000 AUD] ▲<br>
-          ▲ [FINANCE: APPROVED] [CRM_ROUTE: PIPEDRIVE_STAGED] [VERIFIED: TRUE] ▲
-        </div>
-      </div>
-
-      <p style="font-size:14px; color:var(--soft); margin-top:24px; line-height:1.6;">Your pipeline is updated. Secure a private architecture alignment call to route this execution directly to your local real estate infrastructure CRM environment:</p>
-      
-      <div style="margin-top:20px;">
-        <button class="btn-primary" style="padding:14px 28px; font-size:14px;" data-cal-link="hermia/business" data-cal-namespace="business" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'>Secure a Private Briefing with Engineering →</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="calculator-section" class="divider">
-  <div class="section-tag">Value Metrics Matrix</div>
-  <h2 class="section-title">Calculate the <em>Calculation Metric Engine</em></h2>
-  <p class="section-body">Adjust your baseline indicators below to view total hours recaptured from cold leads along with potential unlocked commission gains.</p>
-
-  <div class="calc-card">
-    <div class="calc-inputs">
-      <div class="calc-group">
-        <div style="display:flex; justify-content:between; align-items:center; width:100%;">
-          <label>Monthly Inbound Enquiries</label>
-        </div>
-        <input type="range" min="20" max="500" value="120" class="calc-slider" id="inputLeads" oninput="calculateMetricsValues()">
-        <div class="calc-val-display" id="displayLeads">120</div>
-      </div>
-
-      <div class="calc-group">
-        <label>Average Commission Check ($ / AED)</label>
-        <input type="range" min="5000" max="50000" step="1000" value="15000" class="calc-slider" id="inputComm" oninput="calculateMetricsValues()">
-        <div class="calc-val-display" id="displayComm">$15,000</div>
-      </div>
-    </div>
-
-    <div class="calc-outputs">
-      <div class="calc-metric">
-        <h4>Wasted Hours Recaptured</h4>
-        <div class="calc-metric-v" id="metricHours">36 Hours</div>
-        <p style="font-size:12px; color:var(--muted); margin-top:4px;">No more evening manual screening phone logs.</p>
-      </div>
-      <div class="calc-metric">
-        <h4>Unlocked Monthly Commission Lift</h4>
-        <div class="calc-metric-v" id="metricRevenue">$18,000</div>
-        <p style="font-size:12px; color:var(--muted); margin-top:4px;">Based on a calculated conservative 10% conversation response save structure.</p>
-      </div>
-    </div>
-  </div>
 </section>
 
 <section id="benefits" class="divider">
   <div class="section-tag">What You Get</div>
-  <h2 class="section-title">More commissions.  
+  <h2 class="section-title">More commissions.
 <em>Fewer wasted hours.</em></h2>
   <div class="features-grid">
     <div class="feature-card">
@@ -1064,18 +1023,151 @@ Captured Every Single Month</div>
     <div class="feature-card">
       <div class="feature-label">Pipeline</div>
       <h3>Your CRM stays full without you typing</h3>
-      <p>Every qualified lead is pre filled and ready. Zero manual entry. Zero leads lost between portal and pipeline.</p>
+      <p>Every qualified lead is pre-filled and ready. Zero manual entry. Zero leads lost between portal and pipeline.</p>
     </div>
     <div class="feature-card">
       <div class="feature-label">Coverage</div>
       <h3>Never lose a lead to "after hours" again</h3>
-      <p>Open homes, weekends, public holidays, sleep Hermia covers every moment you can't. Leads keep arriving qualified.</p>
+      <p>Open homes, weekends, public holidays, sleep — Hermia covers every moment you can't. Leads keep arriving qualified.</p>
     </div>
     <div class="feature-card">
       <div class="feature-label">Confidence</div>
       <h3>Walk into every call knowing what they want</h3>
-      <p>Budget, timeline, finance, intent all there before you dial. No fishing. No discovery calls. Just closing conversations.</p>
+      <p>Budget, timeline, finance, intent — all there before you dial. No fishing. No discovery calls. Just closing conversations.</p>
     </div>
+  </div>
+</section>
+
+<!-- ============ FAQ SECTION ============ -->
+<section id="faq" class="faq-section">
+  <div class="faq-header" style="text-align:center;">
+    <div class="section-tag" style="display:inline-block;">Questions Agents Actually Ask</div>
+    <h2 class="section-title" style="margin:0 auto;">The honest answers <em>before you book</em></h2>
+    <p class="section-body" style="margin:18px auto 0;">No buzzwords. No vague promises. Real questions from real buyer agents during our calls.</p>
+  </div>
+
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-q">
+        <span>Is this just another chatbot?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-content">
+          <strong>No.</strong> Chatbots live on your website and require visitors to type long replies. Hermia operates over <em>WhatsApp and SMS</em> — the channels your buyers already use — and asks them just 3 letter-choice questions (A/B/C/D). It feels like texting a real assistant, not arguing with a bot. There's no AI conversation generation involved in qualification — every question is scripted, every answer is structured. The result is clean data, not a transcript.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">
+        <span>What's the difference between Hermia and tools like LeadTrack or AI SDRs?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-content">
+          <strong>We don't generate leads. We qualify yours.</strong> Most "AI sales reps" try to source new leads through cold outreach — risky on compliance, generic in quality. Hermia plugs into your <em>existing inbound enquiries</em> from REA, Domain, Property Finder, and Bayut. The leads are already yours. Hermia just makes sure none of them slip through unqualified or unanswered after hours.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">
+        <span>Will my buyers know they're talking to AI?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-content">
+          Hermia introduces itself as <em>"your agent's digital assistant"</em> — never pretending to be human. Buyers respond well to it because: (a) they're getting a reply in 30 seconds at 9pm, which feels professional, and (b) the questions are short and respectful. The handoff to you is clean. No false expectations, no awkward reveal call.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">
+        <span>Which CRMs does it connect to?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-content">
+          <strong>HubSpot, Zoho, Rex, Pipedrive, Bitrix24, and Airtable</strong> are all supported natively. If you use something else, we'll build the integration for you during onboarding — included in setup. Hermia pushes <em>structured fields</em> (timeline, budget, finance flex, tier, contact info) — not just raw transcripts.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">
+        <span>How is this Spam Act 2003 / Privacy Act 1988 compliant?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-content">
+          Hermia only messages buyers who <em>initiated contact</em> through your portal listings — that's the consent trigger under Spam Act 2003. Every message includes your agency identification and a working STOP/unsubscribe. Lead data is processed and pushed directly to your CRM with full encryption, no external storage. All operations sit within Australian Privacy Act 1988 boundaries. Documentation provided on request.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">
+        <span>What happens if Hermia gets it wrong?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-content">
+          <strong>Every conversation is logged and visible to you.</strong> If Hermia misclassifies a lead or misses something, you'll see it the same morning when you review your CRM. The system also has a <em>3-strike kill switch</em> that automatically drops malformed inputs (gibberish, spam) before they pollute your pipeline. You stay in control — Hermia just removes the manual triage step.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">
+        <span>What if I don't get many enquiries?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-content">
+          That's actually when Hermia matters most. If you only get 5-10 enquiries a week, you <em>can't afford to lose any</em> — especially the ones that come at 11pm or during open homes. Hermia ensures every single one is qualified before it ever hits your phone. One missed Hot lead per month already exceeds the cost of Hermia for the entire year.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">
+        <span>How long does setup take?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-content">
+          <strong>Roughly 10-15 minutes of your time.</strong> We do most of the work for you: connect your CRM, set up the WhatsApp/SMS forwarding, configure your portals. You're live within 24 hours of signing up. No "self-serve onboarding" — you get a real human walking you through it.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">
+        <span>What if I cancel?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-content">
+          <strong>No contracts, no lock-in, no exit fees.</strong> Cancel any time. Your data exports cleanly back to you. We earn your business every month or we lose it. Simple.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">
+        <span>Who's actually behind Hermia?</span>
+        <span class="faq-q-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-content">
+          A solo founder building a focused product — not a venture-backed team treating you like a feature checkbox. Hermia is built by a <em>Make Certified Level 3 Professional</em>, the same infrastructure standard used by Spotify, Adobe, and Cisco. When you book a demo, you're talking to the person who actually wrote the code and will personally onboard you.
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1090,10 +1182,10 @@ Captured Every Single Month</div>
     </div>
     <div class="trust-copy">
       <div class="trust-copy-tag">Built on Enterprise Infrastructure</div>
-      <h3>Make Certified  
+      <h3>Make Certified
 <em>Professional Architect.</em></h3>
       <p>
-        Hermia's platform is built by a <strong>Make Certified Level 3 Professional</strong> 
+        Hermia's platform is built by a <strong>Make Certified Level 3 Professional</strong> —
         the same infrastructure powering enterprise solutions at Spotify, Adobe, and Cisco.
         Your lead data is handled with enterprise-grade reliability.
       </p>
@@ -1117,21 +1209,13 @@ Captured Every Single Month</div>
       </div>
     </div>
   </div>
-  <div class="trust-logos-row">
-    <span class="trust-logos-label">Same platform trusted by</span>
-    <span class="trust-logo-pill">Spotify</span>
-    <span class="trust-logo-pill">Adobe</span>
-    <span class="trust-logo-pill">Cisco</span>
-    <span class="trust-logo-pill">HubSpot</span>
-    <span class="trust-logo-pill">Twilio</span>
-  </div>
 </div>
 
 <section class="why-section">
   <div class="section-tag">Why Agents Choose Hermia</div>
-  <h2 class="section-title" style="margin:0 auto;">Eight reasons agents refuse  
+  <h2 class="section-title" style="margin:0 auto;">Eight reasons agents refuse
 <em>to go back to manual follow-up.</em></h2>
-  <p class="section-body" style="margin:18px auto 0;">Built around how you actually work not how a Silicon Valley product team thinks you should.</p>
+  <p class="section-body" style="margin:18px auto 0;">Built around how you actually work — not how a Silicon Valley product team thinks you should.</p>
   <div class="why-grid">
     <div class="why-card">
       <div class="why-icon">⚡</div>
@@ -1151,27 +1235,27 @@ Captured Every Single Month</div>
     <div class="why-card">
       <div class="why-icon">⚙</div>
       <h3>Plugs into the CRM you already use</h3>
-      <p>Bitrix24, Pipedrive, Zoho, Rex, etc. Hermia pushes structured lead data directly where you already manage your pipeline.</p>
+      <p>HubSpot, Zoho, Rex, Pipedrive, Bitrix24. Hermia pushes structured lead data directly where you already manage your pipeline.</p>
     </div>
     <div class="why-card">
       <div class="why-icon">🛡</div>
       <h3>Spam-Free Engagement Logic</h3>
-      <p>Built for the regulatory environment you operate in. Buyer consent captured at first message via WhatsApp & SMS. No risk of 'AI hallucinations'.</p>
+      <p>Built for the regulatory environment you operate in. Buyer consent captured at first message via WhatsApp &amp; SMS. No 'AI hallucinations'.</p>
     </div>
     <div class="why-card">
       <div class="why-icon">🏛</div>
       <h3>Enterprise reliability, solo-agent price</h3>
-      <p>Make Certified Level 3 platform the automation backbone trusted by Spotify, Adobe, and Cisco. Priced for one agent, not one enterprise.</p>
+      <p>Make Certified Level 3 platform — the automation backbone trusted by Spotify, Adobe, and Cisco. Priced for one agent, not one enterprise.</p>
     </div>
     <div class="why-card">
       <div class="why-icon">✉️</div>
       <h3>Spam Act 2003 Compliant</h3>
-      <p>Every automated email or SMS instantly identifies your agency and includes a functional, seamless opt-out (STOP/Unsubscribe) mechanism to keep responses 100% legal.</p>
+      <p>Every automated email or SMS instantly identifies your agency and includes a functional opt-out (STOP/Unsubscribe). 100% legal.</p>
     </div>
     <div class="why-card">
       <div class="why-icon">🔒</div>
       <h3>Privacy Act 1988 Guardrails</h3>
-      <p>Securely intercepts live inquiry data (names, phone numbers, emails) and routes it directly to your CRM with complete encryption and zero data-sharing risks.</p>
+      <p>Securely intercepts live inquiry data and routes it directly to your CRM with complete encryption and zero data-sharing risks.</p>
     </div>
   </div>
 </section>
@@ -1247,27 +1331,67 @@ Captured Every Single Month</div>
     </div>
 
   </div>
+</section>
 
-  <div class="pricing-footnote">
-    <div class="pf-diamond"></div>
-    Contracted service
-    <div class="pf-diamond"></div>
-    Full onboarding included
-    <div class="pf-diamond"></div>
-    Dedicated support
-    <div class="pf-diamond"></div>
+<!-- ============ LIVE TRIAGE DEMO SECTION (own section, bottom of page) ============ -->
+<section id="live-demo" class="divider" style="max-width:1100px; margin:0 auto;">
+  <div style="text-align:center; margin-bottom:48px;">
+    <div class="section-tag" style="display:inline-block;">Interactive Tool</div>
+    <h2 class="section-title" style="margin:0 auto;">Test the engine
+<em>on your terms.</em></h2>
+    <p class="section-body" style="margin:18px auto 0;">Don't take our word for it. Run a real buyer enquiry through Hermia's qualification flow and watch a raw inquiry turn into a scored CRM file in under 60 seconds.</p>
+  </div>
+
+  <div class="demo-promo">
+    <div class="demo-promo-grid">
+      <div>
+        <div class="demo-promo-tag">
+          <span class="demo-promo-dot"></span>
+          Live Triage Demo
+        </div>
+        <h3>See it qualify a lead <em>in real time</em></h3>
+        <p>Click through a buyer enquiry the way your actual lead would. See how Hermia captures timeline, budget, and finance flexibility — and how malformed inputs get filtered out automatically.</p>
+        <ul class="demo-promo-features">
+          <li>Real 3-question qualification sequence</li>
+          <li>Live Hot/Warm/Cold tier scoring</li>
+          <li>Edge case stress test (gibberish kill switch)</li>
+          <li>CRM telemetry dashboard preview</li>
+        </ul>
+        <a href="gibberish.html" class="demo-promo-cta">Launch Live Demo →</a>
+      </div>
+      <div class="demo-visual">
+        <div class="demo-visual-header">
+          <div class="demo-visual-dots">
+            <span class="demo-visual-dot"></span>
+            <span class="demo-visual-dot"></span>
+            <span class="demo-visual-dot green"></span>
+          </div>
+          <span>hermia · live triage feed</span>
+        </div>
+        <div class="demo-line">[09:14:22] <strong>Inbound webhook captured</strong></div>
+        <div class="demo-line">[09:14:23] Lead: Kevin K. · Listing #15</div>
+        <div class="demo-line">[09:14:24] SMS-1 dispatched ← timeline</div>
+        <div class="demo-line">[09:14:51] Reply: <strong>A (within 4 weeks)</strong></div>
+        <div class="demo-line">[09:14:52] SMS-2 dispatched ← budget</div>
+        <div class="demo-line">[09:15:18] Reply: <strong>C ($800k-$1.2M)</strong></div>
+        <div class="demo-line">[09:15:19] SMS-3 dispatched ← flex check</div>
+        <div class="demo-line">[09:15:42] Reply: <strong>D (no constraint)</strong></div>
+        <div class="demo-line success">[09:15:43] ✓ <strong>HOT LEAD scored → CRM</strong></div>
+        <div class="demo-line">[09:15:44] Agent notified · 84s total</div>
+      </div>
+    </div>
   </div>
 </section>
 
 <div class="divider">
   <div class="cta-section">
     <div class="section-tag">Get Started</div>
-    <h2 class="section-title" style="margin:0 auto;">Stop calling leads  
+    <h2 class="section-title" style="margin:0 auto;">Stop calling leads
 <em>who were never buying.</em></h2>
     <p class="section-body" style="margin:18px auto 0;">Every hour spent on an unqualified enquiry is an hour stolen from a Hot buyer who was ready to move today. Hermia fixes that permanently.</p>
     <div class="cta-actions">
       <a href="apply.html" class="btn-primary" style="font-size:16px;padding:18px 40px;">Book My Free Demo</a>
-      <a href="#simulation" class="btn-secondary">See How It Works</a>
+      <a href="handoff.html" class="btn-secondary">Calculate My Lead Loss</a>
     </div>
   </div>
 </div>
@@ -1279,11 +1403,9 @@ Captured Every Single Month</div>
       <span>Hermia</span>
     </a>
     <div class="footer-meta">
-      ABN 75 434 177 026  
-
-      Victoria, Australia • Dubai Support Available  
-
-      <a href="mailto:capital@hermia.au">capital@hermia.au</a>
+      ABN 75 434 177 026
+Victoria, Australia • Dubai Support Available
+<a href="mailto:capital@hermia.au">capital@hermia.au</a>
     </div>
   </div>
   <div class="footer-col">
@@ -1291,80 +1413,38 @@ Captured Every Single Month</div>
     <a href="#how">How it works</a>
     <a href="#benefits">What you get</a>
     <a href="#pricing">Pricing</a>
+    <a href="gibberish.html">Live demo</a>
+    <a href="handoff.html">Loss calculator</a>
   </div>
   <div class="footer-col">
     <h4>Contact</h4>
     <a href="mailto:capital@hermia.au">capital@hermia.au</a>
     <a href="apply.html">Book My Demo</a>
+    <a href="secure.html">Private briefing</a>
   </div>
   <div class="footer-col">
     <h4>Legal</h4>
     <a href="/privacy">Privacy Policy</a>
     <a href="/terms">Terms of Service</a>
-    <a href="/contract">Service Agreement</a>
   </div>
 </footer>
 <div class="footer-bottom">
-  <p>© 2026 Hermia · ABN 75 434 177 026 · Hermia is an independent software provider. All trademarks are the property of their respective owners. Powered by Make.</p>
+  <p>© 2026 Hermia · ABN 75 434 177 026 · Hermia is an independent software provider. All trademarks are property of their respective owners. Powered by Make.</p>
 </div>
 
-<script type="text/javascript">
-  // 1. Sequential Step Back Array Controller
-  const sandboxHistoryStack = [];
-
-  function navigateForwardTo(nextStepId) {
-      const activeScreen = document.querySelector('.sandbox-step.active');
-      if (activeScreen) {
-          sandboxHistoryStack.push(activeScreen.id);
-          activeScreen.classList.remove('active');
-      }
-      document.getElementById(nextStepId).classList.add('active');
-      updateBackControlToggle();
-  }
-
-  function navigateStepBack() {
-      if (sandboxHistoryStack.length > 0) {
-          const targetReturnId = sandboxHistoryStack.pop();
-          const activeScreen = document.querySelector('.sandbox-step.active');
-          if (activeScreen) {
-              activeScreen.classList.remove('active');
-          }
-          document.getElementById(targetReturnId).classList.add('active');
-      }
-      updateBackControlToggle();
-  }
-
-  function updateBackControlToggle() {
-      const ctrlBtn = document.getElementById('sandboxBackCtrl');
-      if(sandboxHistoryStack.length > 0) {
-          ctrlBtn.style.display = 'inline-block';
-      } else {
-          ctrlBtn.style.display = 'none';
-      }
-  }
-
-  // 2. Interactive ROI Math Calculations Script
-  function calculateMetricsValues() {
-      const volume = parseInt(document.getElementById('inputLeads').value);
-      const commission = parseInt(document.getElementById('inputComm').value);
-      
-      // Update interactive HTML interface node sliders
-      document.getElementById('displayLeads').innerText = volume;
-      document.getElementById('displayComm').innerText = '$' + commission.toLocaleString();
-      
-      // Compute architectural yield
-      const hoursSaved = Math.round(volume * 0.3); // Avg 18 mins administrative filter run per lead
-      const extraRevenue = Math.round((volume * 0.05) * commission); // Conservative 5% close lift
-      
-      // Update display components
-      document.getElementById('metricHours').innerText = hoursSaved + ' Hours';
-      document.getElementById('metricRevenue').innerText = '$' + extraRevenue.toLocaleString();
-  }
-
-  // Primary Runtime Loader Initialization
-  window.addEventListener('DOMContentLoaded', () => {
-      calculateMetricsValues();
+<script>
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    // open clicked (unless it was already open)
+    if (!isOpen) item.classList.add('open');
   });
+});
 </script>
+
 </body>
 </html>
