@@ -1,0 +1,399 @@
+<section class="hermia-sandbox-section">
+  <div class="ambient-glow glow-left"></div>
+  <div class="ambient-glow glow-right"></div>
+
+  <div class="sandbox-container">
+    <div class="sandbox-header">
+      <div class="status-pill">
+        <span class="pulse-dot"></span>
+        Hermia Core Engine V2.5: Zero Friction Triaging
+      </div>
+      <h2>Stop Conversing. <span class="gold-text">Start Triaging.</span></h2>
+      <p class="sandbox-subtitle">
+        Test how Hermia filters serious intent from background noise, handles bad data inputs, and auto-corrects lazy agent setups instantly.
+      </p>
+    </div>
+
+    <div class="sandbox-grid">
+      <div class="sandbox-col phone-wrapper">
+        <div class="glass-phone-header">
+          <div class="phone-contact-info">
+            <div class="avatar">H</div>
+            <div>
+              <h4>Hermia</h4>
+              <p class="status-online">Operational Engagement Node</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="phone-chat-body" id="chat-body">
+          </div>
+
+        <div class="phone-actions-tray" id="actions-tray">
+          </div>
+
+        <div class="simulation-testing-bar">
+          <span class="test-label">SIMULATE EDGE CASES:</span>
+          <button class="test-trigger-btn" id="trigger-gibberish">Simulate Gibberish Input</button>
+        </div>
+      </div>
+
+      <div class="sandbox-col crm-wrapper">
+        <div class="crm-header">
+          <div class="crm-title-group">
+            <h3>Triage Telemetry Feed</h3>
+            <p>Live Interception Diagnostics</p>
+          </div>
+          <div class="crm-badge" id="crm-lead-status">Awaiting Inquiry</div>
+        </div>
+
+        <div class="crm-body">
+          <div class="telemetry-card">
+            <div class="telemetry-row">
+              <span class="label">TARGET REAL ESTATE:</span>
+              <span class="value" id="telemetry-property">15 Palm Jumeirah Drive</span>
+            </div>
+            <div class="telemetry-row">
+              <span class="label">PROSPECT IDENTIFIER:</span>
+              <span class="value" id="telemetry-name">Kevin Knocks</span>
+            </div>
+          </div>
+
+          <div class="qualification-matrix">
+            <div class="matrix-box" id="matrix-timeline">
+              <span class="box-label">TIMELINE FILTER</span>
+              <span class="box-value">—</span>
+            </div>
+            <div class="matrix-box" id="matrix-budget">
+              <span class="box-label">ESTIMATED BUDGET</span>
+              <span class="box-value">—</span>
+            </div>
+            <div class="matrix-box" id="matrix-finance">
+              <span class="box-label">FINANCE ASSESSMENT</span>
+              <span class="box-value">—</span>
+            </div>
+            <div class="matrix-box" id="matrix-booking">
+              <span class="box-label">INSPECTION STATUS</span>
+              <span class="box-value">—</span>
+            </div>
+          </div>
+
+          <div class="terminal-feed">
+            <div class="terminal-header">ALGORITHMIC LOG ENGINE</div>
+            <div class="terminal-rows" id="terminal-rows">
+              <div class="log-line base-system">[INIT]: Thread established. Listening for active portal triggers...</div>
+            </div>
+          </div>
+
+          <div class="crm-cta-box" id="sandbox-cta">
+            <h4>Ready to purge time-wasters out of your pipeline?</h4>
+            <a href="calendar.html" class="premium-cta-btn">Deploy Hermia to Your Agency →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* Base UI configuration parameters */
+:root {
+  --bg-dark: #09090b;
+  --card-bg: rgba(20, 20, 23, 0.6);
+  --border-color: rgba(212, 175, 55, 0.15);
+  --border-focus: rgba(212, 175, 55, 0.4);
+  --gold-primary: #d4af37;
+  --gold-glow: rgba(212, 175, 55, 0.12);
+  --text-main: #f4f4f5;
+  --text-muted: #a1a1aa;
+}
+
+.hermia-sandbox-section {
+  position: relative;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  padding: 120px 24px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
+}
+.ambient-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--gold-glow) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 1;
+}
+.glow-left { top: -10%; left: -5%; }
+.glow-right { bottom: -10%; right: -5%; }
+
+.sandbox-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+.sandbox-header { text-align: center; margin-bottom: 60px; }
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(212, 175, 55, 0.05);
+  border: 1px solid var(--border-color);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold-primary);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.pulse-dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 8px #10b981; }
+.sandbox-header h2 { font-size: 42px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
+.gold-text { color: var(--gold-primary); text-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+.sandbox-subtitle { color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 16px; line-height: 1.6; }
+
+.sandbox-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: start; }
+@media(max-width: 968px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+.sandbox-col { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; backdrop-filter: blur(20px); overflow: hidden; }
+.phone-wrapper { height: 640px; display: flex; flex-direction: column; position: relative; }
+.glass-phone-header { background: rgba(15, 15, 18, 0.9); padding: 16px 20px; border-bottom: 1px solid var(--border-color); }
+.phone-contact-info { display: flex; align-items: center; gap: 12px; }
+.phone-contact-info .avatar { width: 36px; height: 36px; background: var(--gold-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 700; }
+.phone-contact-info h4 { margin: 0; font-size: 15px; font-weight: 600; }
+.status-online { margin: 0; font-size: 11px; color: #10b981; }
+
+.phone-chat-body { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; background: rgba(10, 10, 12, 0.4); }
+.bubble { max-width: 85%; padding: 12px 16px; border-radius: 14px; font-size: 14px; line-height: 1.45; word-wrap: break-word; }
+.bubble.bot { background: rgba(30, 30, 35, 0.8); border: 1px solid rgba(255,255,255,0.06); align-self: flex-start; border-top-left-radius: 2px; color: #e4e4e7; }
+.bubble.user { background: var(--gold-primary); color: #000; font-weight: 500; align-self: flex-end; border-top-right-radius: 2px; }
+.bubble.system-alert { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; max-width: 100%; font-size: 12px; font-family: monospace; }
+
+.phone-actions-tray { padding: 16px; background: rgba(15, 15, 18, 0.8); border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px; }
+.action-capsule { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); padding: 10px 16px; border-radius: 10px; text-align: left; cursor: pointer; font-size: 13px; transition: all 0.2s ease; }
+.action-capsule:hover { background: rgba(212, 175, 55, 0.08); border-color: var(--gold-primary); }
+
+.simulation-testing-bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #0c0c0e; border-top: 1px solid rgba(255,255,255,0.05); }
+.test-label { font-size: 11px; color: var(--text-muted); letter-spacing: 0.05em; font-weight: 600; }
+.test-trigger-btn { background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #ef4444; font-size: 11px; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+.test-trigger-btn:hover { background: rgba(239, 68, 68, 0.25); }
+
+/* Right HUD Styling */
+.crm-wrapper { padding: 28px; display: flex; flex-direction: column; gap: 20px; }
+.crm-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 16px; }
+.crm-title-group h3 { margin: 0; font-size: 18px; font-weight: 700; }
+.crm-title-group p { margin: 2px 0 0; font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.crm-badge { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; }
+.crm-badge.processing { background: rgba(212,175,55,0.1); border-color: var(--gold-primary); color: var(--gold-primary); }
+.crm-badge.hot { background: #064e3b; border-color: #059669; color: #34d399; box-shadow: 0 0 15px rgba(5, 150, 105, 0.25); }
+.crm-badge.cold { background: #3f1d1d; border-color: #f87171; color: #fca5a5; }
+
+.telemetry-card { background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255,255,255,0.04); border-radius: 10px; padding: 12px 16px; }
+.telemetry-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 12px; }
+.telemetry-row .label { color: var(--text-muted); }
+.telemetry-row .value { font-weight: 600; }
+
+.qualification-matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.matrix-box { background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: 10px; padding: 14px; }
+.matrix-box.filled { border-color: var(--border-focus); background: rgba(212, 175, 55, 0.02); }
+.box-label { display: block; font-size: 10px; color: var(--text-muted); letter-spacing: 0.05em; margin-bottom: 4px; }
+.box-value { font-size: 14px; font-weight: 700; color: #fff; }
+
+.terminal-feed { background: #030305; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 14px; font-family: monospace; }
+.terminal-header { font-size: 10px; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 6px; margin-bottom: 8px; }
+.terminal-rows { height: 90px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; font-size: 11px; }
+.log-line { color: #34d399; }
+.log-line.warn { color: #f59e0b; }
+.log-line.danger { color: #ef4444; }
+.log-line.system { color: #a1a1aa; }
+
+.crm-cta-box { background: linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(0,0,0,0) 100%); border: 1px solid var(--gold-primary); border-radius: 12px; padding: 20px; text-align: center; display: none; }
+.crm-cta-box h4 { margin: 0 0 12px; font-size: 16px; font-weight: 700; }
+.premium-cta-btn { display: inline-block; background: var(--gold-primary); color: #000; padding: 10px 20px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 13px; }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const chatBody = document.getElementById("chat-body");
+  const actionsTray = document.getElementById("actions-tray");
+  const terminalRows = document.getElementById("terminal-rows");
+  const crmStatus = document.getElementById("crm-lead-status");
+  const btnGibberish = document.getElementById("trigger-gibberish");
+
+  let currentStep = 1;
+  let gibberishCount = 0;
+  let systemIsCold = false;
+
+  const funnelScript = {
+    1: {
+      botText: "Hi Kevin Knocks, I'm Hermia your agent's digital assistant for [Agency]. I've just flagged your enquiry for 15 Palm Jumeirah Drive with the team! To help me prioritize your file for the agent, when are you hoping to move in? Reply with the letter:\n\nA) Within 4 weeks\nB) 1-3 months\nC) 3-6 months\nD) 6-12 months\nE) 12+ months",
+      options: [
+        { text: "A) Within 4 weeks", value: "Within 4 weeks", log: "Intent Locked: CRITICAL IMPACT LEAD (4 Wks)", target: "timeline", rating: "HOT" },
+        { text: "D) 6-12 months", value: "6-12 months", log: "Intent Locked: Long-Tail Prospect (Nurture)", target: "timeline", rating: "COLD" }
+      ],
+      next: 2
+    },
+    2: {
+      botText: "Got it, updating your profile now! To make sure the agent pulls the exact right pricing data for you, what's your rough budget frame for this search? Drop me the letter that's closest:\n\nA) Under $500k\nB) $500k-$800k\nC) $800k-$1.2M\nD) $1.2M-$2M\nE) $2M+",
+      options: [
+        { text: "A) Under $500k", value: "Under $500k", log: "Budget Range Locked: Under $500k Bracket", target: "budget" }
+      ],
+      next: 3
+    },
+    3: {
+      botText: "That's an excellent budget range! If a property comes up slightly outside your under $500K bracket but fits your criteria perfectly, would you stretch for it?\n\nA) Yes, if it fits perfectly\nB) Maybe, depends on the home\nC) No, absolute hard limit\nD) Budget isn't an issue",
+      options: [
+        { text: "B) Maybe, depends on the home", value: "Maybe (Stretchable)", log: "Finance Proxy: Flexible Liquid Capital / Mid-Tier Status", target: "finance" },
+        { text: "D) Budget isn't an issue", value: "Liquid / Cash Asset", log: "Finance Proxy: HIGH VALUE LIQUIDITY CASH BUYER", target: "finance" }
+      ],
+      next: 4
+    },
+    4: {
+      botText: "Great news, your file is fully verified! Since you're interested in the property, we can lock you in a priority spot instantly right here, plus you can check out any additional properties to your liking:\n\nhttps://agency.zohobookings.com.au/#/agency\n\nIf there isn't an open time listed for it yet, just reply R for (REQUEST) and I'll push your priority file straight to the agent's desk to get it sorted!",
+      options: [
+        { text: "R) Request Inspection Slot", value: "R", log: "Triggering [LAZY AGENT FALLBACK]: Core listing link missing slot parameters.", target: "booking" }
+      ],
+      next: 5
+    },
+    5: {
+      botText: "Perfect. Your inspection request for 15 Palm Jumeirah Drive has been sent to the agent. When are you generally free so we can book the best time for you?\n\nA) Weekdays\nB) Weekends\nC) Either works",
+      options: [
+        { text: "A) Weekdays", value: "Weekdays Slot", log: "Availability compiled. Firing urgent internal compliance warning email to Agent.", target: "booking" }
+      ],
+      next: "finalize"
+    }
+  };
+
+  function logger(text, type = "success") {
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const line = document.createElement("div");
+    line.className = `log-line ${type}`;
+    line.innerText = `[${time}] ${text}`;
+    terminalRows.appendChild(line);
+    terminalRows.scrollTop = terminalRows.scrollHeight;
+  }
+
+  function executeBotStep(stepId) {
+    if (systemIsCold) return;
+    actionsTray.innerHTML = "";
+    
+    const pulseIndicator = document.createElement("div");
+    pulseIndicator.className = "bubble bot";
+    pulseIndicator.id = "sim-typing";
+    pulseIndicator.innerText = "Hermia is evaluating state...";
+    chatBody.appendChild(pulseIndicator);
+    chatBody.scrollTop = chatBody.scrollHeight;
+
+    setTimeout(() => {
+      if (document.getElementById("sim-typing")) document.getElementById("sim-typing").remove();
+      
+      const config = funnelScript[stepId];
+      const bubble = document.createElement("div");
+      bubble.className = "bubble bot";
+      bubble.innerText = config.botText;
+      chatBody.appendChild(bubble);
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      config.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.className = "action-capsule";
+        btn.innerText = opt.text;
+        btn.onclick = () => selectOption(opt, config.next);
+        actionsTray.appendChild(btn);
+      });
+    }, 900);
+  }
+
+  function selectOption(option, nextStep) {
+    if (systemIsCold) return;
+    actionsTray.innerHTML = "";
+
+    const userBubble = document.createElement("div");
+    userBubble.className = "bubble user";
+    userBubble.innerText = option.value;
+    chatBody.appendChild(userBubble);
+
+    logger(option.log);
+
+    if (option.target) {
+      const box = document.getElementById(`matrix-${option.target}`);
+      box.classList.add("filled");
+      box.querySelector(".box-value").innerText = option.value.toUpperCase();
+      box.querySelector(".box-value").style.color = "var(--gold-primary)";
+    }
+
+    if (option.rating) {
+      crmStatus.innerText = `${option.rating} LEAD`;
+      crmStatus.className = `crm-badge ${option.rating.toLowerCase()}`;
+    }
+
+    if (option.value === "R") {
+      const systemAlert = document.createElement("div");
+      systemAlert.className = "bubble system-alert";
+      systemAlert.innerText = "[CRITICAL SYSTEM AUTOMATION ALERT]: Email dispatched to Agent. Alerting: 'Update listing configuration metadata parameters on dashboard. Priority leads losing instant-booking loop pipeline!'";
+      chatBody.appendChild(systemAlert);
+    }
+
+    if (nextStep === "finalize") {
+      setTimeout(() => {
+        const finalMsg = document.createElement("div");
+        finalMsg.className = "bubble bot";
+        finalMsg.innerText = "Thank you for your cooperation. Your agent has your details and will be in touch with you shortly.\n\nHave a wonderful day.";
+        chatBody.appendChild(finalMsg);
+        
+        logger("[SHUTDOWN]: Final status token pushed. Memory execution block destroyed.");
+        document.getElementById("sandbox-cta").style.display = "block";
+        systemIsCold = true;
+        
+        // Emulate Dead-End State Silence
+        setTimeout(() => {
+          const userIdle = document.createElement("div");
+          userIdle.className = "bubble user";
+          userIdle.innerText = "Thanks";
+          chatBody.appendChild(userIdle);
+          logger("[DROPPED]: Active connection state unlinked. Message discarded completely.", "system");
+        }, 1500);
+
+      }, 1000);
+    } else {
+      currentStep = nextStep;
+      executeBotStep(nextStep);
+    }
+  }
+
+  // Handle Garbage/Gibberish Edge-Case Testing Button
+  btnGibberish.onclick = () => {
+    if (systemIsCold) return;
+    actionsTray.innerHTML = "";
+    
+    const junk = document.createElement("div");
+    junk.className = "bubble user";
+    junk.innerText = "hfsd89234!!";
+    chatBody.appendChild(junk);
+    
+    gibberishCount++;
+    logger(`[MALFORMED DATA]: Pattern failure input caught. Failure count: ${gibberishCount}/3`, "warn");
+
+    if (gibberishCount >= 3) {
+      setTimeout(() => {
+        logger("[RUTHLESS DROPPED]: Persistent invalid input threshold exceeded. Removing record from queue runtime. Lead ignored.", "danger");
+        crmStatus.innerText = "IGNORED USER";
+        crmStatus.className = "crm-badge cold";
+        actionsTray.innerHTML = "<div style='color:var(--text-muted);font-size:12px;text-align:center;padding:10px;'>Session Terminated: Intent Verification Failed.</div>";
+        systemIsCold = true;
+      }, 600);
+    } else {
+      setTimeout(() => {
+        const retryMsg = document.createElement("div");
+        retryMsg.className = "bubble bot";
+        retryMsg.innerText = "Sorry, I didn't get that. Can you please respond with a designated letter frame selection option?";
+        chatBody.appendChild(retryMsg);
+        executeBotStep(currentStep);
+      }, 800);
+    }
+  };
+
+  // Kickoff Stream Simulation
+  setTimeout(() => {
+    logger("[PORTAL TRIGGER]: New Inquiry caught via API hook.");
+    executeBotStep(1);
+  }, 800);
+});
+</script>
