@@ -1,73 +1,569 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Real Estate Match</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermia — Lost Lead Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080808;
+  --card: #111111;
+  --border: rgba(201,163,91,0.15);
+  --gold: #C9A35B;
+  --gold-light: #e8c17a;
+  --gold-dim: rgba(201,163,91,0.08);
+  --cream: #f5f1e8;
+  --muted: #8a8580;
+  --soft: #b8b5ad;
+  --danger: #ef4444;
+  --emerald: #10b981;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'DM Sans',sans-serif;
+  background:var(--black);
+  color:var(--cream);
+  min-height:100vh;
+  padding:80px 24px;
+  overflow-x:hidden;
+  position:relative;
+}
+
+.glow-bg {
+  position:fixed;
+  top:30%; left:50%;
+  transform:translateX(-50%);
+  width:900px; height:600px;
+  background:radial-gradient(ellipse, rgba(201,163,91,0.18) 0%, transparent 65%);
+  filter:blur(100px);
+  pointer-events:none;
+  z-index:0;
+}
+
+.shell {
+  position:relative;
+  z-index:1;
+  max-width:980px;
+  margin:0 auto;
+}
+
+.back-link {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:40px;
+  color:var(--gold);
+  text-decoration:none;
+  font-size:13px;
+  font-weight:500;
+  padding:8px 16px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  transition:all 0.2s;
+}
+.back-link:hover {
+  background:var(--gold-dim);
+  border-color:var(--gold);
+}
+
+.header {
+  text-align:center;
+  margin-bottom:56px;
+}
+.tag-pill {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--gold-dim);
+  border:1px solid var(--border);
+  padding:6px 16px;
+  border-radius:100px;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:24px;
+}
+.tag-dot {
+  width:6px; height:6px;
+  background:var(--danger);
+  border-radius:50%;
+  box-shadow:0 0 10px var(--danger);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.header h1 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px, 5.5vw, 58px);
+  font-weight:700;
+  color:#fff;
+  line-height:1.08;
+  letter-spacing:-1.5px;
+  margin-bottom:18px;
+  text-shadow:0 0 30px rgba(201,163,91,0.35);
+}
+.header h1 em { font-style:italic; color:var(--gold); }
+.header p {
+  font-size:17px;
+  color:var(--soft);
+  max-width:620px;
+  margin:0 auto;
+  line-height:1.65;
+  font-weight:300;
+}
+
+.calc-card {
+  background:linear-gradient(180deg, var(--card) 0%, #0d0d0d 100%);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:48px;
+  box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(201,163,91,0.1);
+  position:relative;
+  overflow:hidden;
+}
+.calc-card::before,
+.calc-card::after {
+  content:'';
+  position:absolute;
+  width:24px; height:24px;
+  border-color:rgba(201,163,91,0.4);
+  border-style:solid;
+  pointer-events:none;
+}
+.calc-card::before { top:14px; right:14px; border-width:1px 1px 0 0; }
+.calc-card::after  { bottom:14px; left:14px; border-width:0 0 1px 1px; }
+
+.calc-grid {
+  display:grid;
+  grid-template-columns:1fr 1px 1fr;
+  gap:48px;
+  align-items:start;
+}
+@media(max-width:840px) {
+  .calc-grid { grid-template-columns:1fr; gap:32px; }
+  .calc-divider { display:none; }
+}
+.calc-divider {
+  background:linear-gradient(180deg, transparent 0%, var(--border) 50%, transparent 100%);
+}
+
+/* INPUTS */
+.inputs {
+  display:flex;
+  flex-direction:column;
+  gap:36px;
+}
+.input-group {
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.input-label {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.input-label-text {
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.input-label-help {
+  font-size:11px;
+  color:var(--muted);
+  font-weight:400;
+}
+.input-display {
+  font-family:'Cormorant Garamond',serif;
+  font-size:42px;
+  font-weight:700;
+  color:#fff;
+  line-height:1;
+  letter-spacing:-1px;
+}
+.input-display .unit {
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;
+  font-weight:400;
+  color:var(--muted);
+  margin-left:6px;
+  letter-spacing:1px;
+}
+
+.slider {
+  -webkit-appearance:none;
+  width:100%;
+  height:6px;
+  background:rgba(255,255,255,0.06);
+  border-radius:3px;
+  outline:none;
+  border:1px solid rgba(201,163,91,0.15);
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance:none;
+  width:22px;
+  height:22px;
+  background:linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  border-radius:50%;
+  cursor:pointer;
+  box-shadow:0 0 15px rgba(201,163,91,0.5), 0 0 0 3px rgba(201,163,91,0.15);
+  transition:transform 0.15s;
+}
+.slider::-webkit-slider-thumb:hover { transform:scale(1.15); }
+.slider::-moz-range-thumb {
+  width:22px;
+  height:22px;
+  background:linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  border-radius:50%;
+  cursor:pointer;
+  border:none;
+  box-shadow:0 0 15px rgba(201,163,91,0.5);
+}
+
+.slider-bounds {
+  display:flex;
+  justify-content:space-between;
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:1px;
+  margin-top:4px;
+  text-transform:uppercase;
+}
+
+/* OUTPUTS */
+.outputs {
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+}
+.output-block {
+  position:relative;
+}
+.output-label {
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.output-label-danger { color:#fca5a5; }
+.output-label-gold { color:var(--gold); }
+.output-label-dot {
+  width:5px; height:5px;
+  border-radius:50%;
+}
+.output-label-dot.danger { background:var(--danger); box-shadow:0 0 8px var(--danger); }
+.output-label-dot.gold { background:var(--gold); box-shadow:0 0 8px var(--gold); }
+
+.output-value {
+  font-family:'Cormorant Garamond',serif;
+  font-size:56px;
+  font-weight:700;
+  line-height:1;
+  letter-spacing:-2px;
+  margin-bottom:8px;
+}
+.output-value-danger {
+  color:#fca5a5;
+  text-shadow:0 0 30px rgba(239,68,68,0.25);
+}
+.output-value-gold {
+  color:var(--gold-light);
+  text-shadow:0 0 30px rgba(201,163,91,0.35);
+}
+.output-sub {
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.55;
+  font-weight:300;
+}
+
+.output-divider {
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+.summary-box {
+  margin-top:36px;
+  padding:24px 28px;
+  background:linear-gradient(135deg, rgba(201,163,91,0.06) 0%, transparent 100%);
+  border:1px solid var(--border);
+  border-radius:14px;
+  text-align:center;
+}
+.summary-label {
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:10px;
+}
+.summary-text {
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;
+  font-weight:600;
+  color:#fff;
+  line-height:1.35;
+}
+.summary-text em { font-style:italic; color:var(--gold-light); }
+
+.cta-block {
+  margin-top:40px;
+  text-align:center;
+}
+.cta-btn {
+  display:inline-block;
+  background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);
+  color:#000;
+  padding:18px 36px;
+  border-radius:12px;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:all 0.3s;
+  box-shadow:0 10px 30px rgba(201,163,91,0.35);
+}
+.cta-btn:hover {
+  filter:brightness(1.1);
+  transform:translateY(-2px);
+  box-shadow:0 14px 40px rgba(201,163,91,0.5);
+}
+.cta-hint {
+  margin-top:14px;
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:1px;
+}
+
+.footnote {
+  margin-top:40px;
+  text-align:center;
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+}
+.fn-diamond {
+  width:4px; height:4px;
+  background:rgba(201,163,91,0.4);
+  transform:rotate(45deg);
+}
+
+@media(max-width:600px) {
+  .calc-card { padding:32px 24px; }
+  .output-value { font-size:44px; }
+  .input-display { font-size:34px; }
+}
+</style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex justify-center items-center p-4">
+<body>
 
-    <div class="w-full max-w-md bg-white border border-slate-200 rounded-[40px] p-6 shadow-2xl relative overflow-hidden ring-12 ring-slate-900/5">
-        
-        <div class="text-center my-4">
-            <div class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100 text-indigo-600 mb-3">
-                <i class="fa-solid fa-handshake-angle text-xl"></i>
-            </div>
-            <h2 class="text-2xl font-black tracking-tight text-slate-900">Details Confirmed!</h2>
-            <p class="text-sm text-slate-500 mt-1">You've been paired with our premium local property specialist.</p>
-        </div>
+<div class="glow-bg"></div>
 
-        <div class="bg-gradient-to-b from-indigo-950 to-slate-900 rounded-3xl p-5 text-white text-center shadow-lg relative my-6">
-            <div class="relative w-24 h-24 mx-auto mb-3">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=256&h=256" alt="Agent Profile" class="rounded-full object-cover w-full h-full border-4 border-indigo-500/30">
-                <span class="absolute bottom-1 right-1 bg-emerald-500 border-2 border-slate-900 h-4 w-4 rounded-full"></span>
-            </div>
-            
-            <h3 class="text-lg font-bold tracking-tight">Jonathan Reed</h3>
-            <p class="text-xs text-indigo-300 font-medium tracking-wide uppercase">Senior Property Advisor</p>
+<div class="shell">
 
-            <div class="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-white/10 text-center">
-                <div>
-                    <span class="text-xs text-slate-400 block">Rating</span>
-                    <span class="text-sm font-bold text-amber-400"><i class="fa-solid fa-star"></i> 4.9/5.0</span>
-                </div>
-                <div>
-                    <span class="text-xs text-slate-400 block">Response Time</span>
-                    <span class="text-sm font-bold text-cyan-400"><i class="fa-solid fa-bolt"></i> &lt; 5 Mins</span>
-                </div>
-            </div>
-        </div>
+  <a href="index.html" class="back-link">← Back to Hermia</a>
 
-        <div class="relative bg-slate-900 rounded-2xl aspect-video overflow-hidden shadow-md group border border-slate-200">
-            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover opacity-60 filter blur-[1px]" alt="Video Preview">
-            <div class="absolute inset-0 flex flex-col justify-center items-center text-white p-4 text-center">
-                <button class="h-14 w-14 bg-indigo-600 hover:bg-indigo-700 rounded-full flex items-center justify-center text-white shadow-xl transition-all transform hover:scale-110 cursor-pointer">
-                    <i class="fa-solid fa-play text-xl ml-1"></i>
-                </button>
-                <span class="text-xs font-bold tracking-wider uppercase mt-3 drop-shadow">Watch Jonathan's 30s Video Welcome</span>
-            </div>
-        </div>
-
-        <div class="mt-6 space-y-2 text-sm text-slate-600 px-2">
-            <div class="flex items-center space-x-2">
-                <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                <span>Top 1% Representative in your target market</span>
-            </div>
-            <div class="flex items-center space-x-2">
-                <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                <span>Informed directly on your $950k pre-approval</span>
-            </div>
-        </div>
-
-        <div class="mt-6">
-            <a href="#" class="block text-center bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-4 rounded-2xl shadow-xl transition-all transform active:scale-95">
-                <i class="fa-solid fa-calendar-days mr-2"></i> Confirm Instant Meeting Link
-            </a>
-        </div>
-
+  <div class="header">
+    <div class="tag-pill">
+      <span class="tag-dot"></span>
+      The Hidden Tax on Slow Replies
     </div>
+    <h1>How much are you <em>losing every month</em><br>to unqualified leads?</h1>
+    <p>Move the sliders to your actual numbers. We'll show you the exact commission lost on enquiries that slipped through gaps in your follow-up — and what Hermia would recover.</p>
+  </div>
+
+  <div class="calc-card">
+
+    <div class="calc-grid">
+
+      <div class="inputs">
+
+        <div class="input-group">
+          <div class="input-label">
+            <span class="input-label-text">Monthly inbound enquiries</span>
+            <span class="input-label-help">From REA · Domain · Property Finder</span>
+          </div>
+          <div class="input-display" id="d-leads">120<span class="unit">leads/mo</span></div>
+          <input type="range" min="20" max="500" value="120" step="5" class="slider" id="i-leads">
+          <div class="slider-bounds">
+            <span>20</span>
+            <span>500</span>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-label">
+            <span class="input-label-text">% of leads currently lost</span>
+            <span class="input-label-help">Industry avg: 50-80%</span>
+          </div>
+          <div class="input-display" id="d-loss">60<span class="unit">%</span></div>
+          <input type="range" min="20" max="90" value="60" step="5" class="slider" id="i-loss">
+          <div class="slider-bounds">
+            <span>20%</span>
+            <span>90%</span>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-label">
+            <span class="input-label-text">Avg commission per close</span>
+            <span class="input-label-help">Your typical deal</span>
+          </div>
+          <div class="input-display" id="d-comm">$15,000<span class="unit">/close</span></div>
+          <input type="range" min="3000" max="80000" value="15000" step="1000" class="slider" id="i-comm">
+          <div class="slider-bounds">
+            <span>$3k</span>
+            <span>$80k</span>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-label">
+            <span class="input-label-text">Your close rate on qualified leads</span>
+            <span class="input-label-help">Conservative: 3-8%</span>
+          </div>
+          <div class="input-display" id="d-rate">5<span class="unit">%</span></div>
+          <input type="range" min="1" max="15" value="5" step="1" class="slider" id="i-rate">
+          <div class="slider-bounds">
+            <span>1%</span>
+            <span>15%</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="calc-divider"></div>
+
+      <div class="outputs">
+
+        <div class="output-block">
+          <div class="output-label output-label-danger">
+            <span class="output-label-dot danger"></span>
+            Leads slipping through monthly
+          </div>
+          <div class="output-value output-value-danger" id="o-lost">72</div>
+          <div class="output-sub">Buyers who enquired and were never qualified, never followed up, or replied to too late.</div>
+        </div>
+
+        <div class="output-divider"></div>
+
+        <div class="output-block">
+          <div class="output-label output-label-danger">
+            <span class="output-label-dot danger"></span>
+            Commission lost per month
+          </div>
+          <div class="output-value output-value-danger" id="o-cash-month">$54,000</div>
+          <div class="output-sub">Closed business walking out the door because qualification didn't happen fast enough.</div>
+        </div>
+
+        <div class="output-divider"></div>
+
+        <div class="output-block">
+          <div class="output-label output-label-gold">
+            <span class="output-label-dot gold"></span>
+            What Hermia would recover annually
+          </div>
+          <div class="output-value output-value-gold" id="o-recover">$648,000</div>
+          <div class="output-sub">Based on Hermia capturing 100% of inbound enquiries within 30 seconds and pre-qualifying them.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="summary-box">
+      <div class="summary-label">The Hermia Investment</div>
+      <div class="summary-text">
+        Hermia costs <em>$260 AUD / month</em>.<br>
+        One recovered close pays for it for <em id="months-covered">57 months</em>.
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a href="apply.html" class="cta-btn">Book My Private Demo →</a>
+      <div class="cta-hint">25-min walkthrough · Founder-led · No sales team</div>
+    </div>
+
+  </div>
+
+  <div class="footnote">
+    <span class="fn-diamond"></span>
+    Conservative industry benchmarks
+    <span class="fn-diamond"></span>
+    Real-time calculation
+    <span class="fn-diamond"></span>
+    Not financial advice
+    <span class="fn-diamond"></span>
+  </div>
+
+</div>
+
+<script>
+const sLeads = document.getElementById('i-leads');
+const sLoss = document.getElementById('i-loss');
+const sComm = document.getElementById('i-comm');
+const sRate = document.getElementById('i-rate');
+
+const dLeads = document.getElementById('d-leads');
+const dLoss = document.getElementById('d-loss');
+const dComm = document.getElementById('d-comm');
+const dRate = document.getElementById('d-rate');
+
+const oLost = document.getElementById('o-lost');
+const oCashMonth = document.getElementById('o-cash-month');
+const oRecover = document.getElementById('o-recover');
+const mCov = document.getElementById('months-covered');
+
+function fmt(n) {
+  return '$' + Math.round(n).toLocaleString();
+}
+
+function calc() {
+  const leads = +sLeads.value;
+  const loss = +sLoss.value;
+  const comm = +sComm.value;
+  const rate = +sRate.value;
+
+  // Displays
+  dLeads.innerHTML = leads + '<span class="unit">leads/mo</span>';
+  dLoss.innerHTML = loss + '<span class="unit">%</span>';
+  dComm.innerHTML = fmt(comm) + '<span class="unit">/close</span>';
+  dRate.innerHTML = rate + '<span class="unit">%</span>';
+
+  // Outputs
+  const leadsLost = Math.round(leads * (loss/100));
+  const closesLost = leadsLost * (rate/100);
+  const cashMonth = closesLost * comm;
+  const cashYear = cashMonth * 12;
+
+  oLost.innerText = leadsLost;
+  oCashMonth.innerText = fmt(cashMonth);
+  oRecover.innerText = fmt(cashYear);
+
+  // Months covered by one close
+  const months = Math.max(1, Math.round(comm / 260));
+  mCov.innerText = months + ' months';
+}
+
+[sLeads, sLoss, sComm, sRate].forEach(s => s.addEventListener('input', calc));
+calc();
+</script>
 
 </body>
 </html>
+
