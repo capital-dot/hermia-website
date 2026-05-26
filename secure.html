@@ -1,162 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hermia AI - Elite Real Estate Lead Qualification</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermia — Private Briefing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080808;
+  --card: #111111;
+  --border: rgba(201,163,91,0.15);
+  --gold: #C9A35B;
+  --gold-light: #e8c17a;
+  --gold-dim: rgba(201,163,91,0.08);
+  --cream: #f5f1e8;
+  --muted: #8a8580;
+  --soft: #b8b5ad;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'DM Sans',sans-serif;
+  background:var(--black);
+  color:var(--cream);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:48px 24px;
+  overflow-x:hidden;
+}
+
+.bg-glow {
+  position:fixed;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:1000px; height:700px;
+  background:radial-gradient(ellipse, rgba(201,163,91,0.18) 0%, transparent 65%);
+  pointer-events:none;
+  filter:blur(80px);
+  z-index:0;
+}
+
+.brief-shell {
+  position:relative;
+  z-index:1;
+  width:100%;
+  max-width:540px;
+  background:linear-gradient(180deg, #131008 0%, #0a0a0a 100%);
+  border:1px solid var(--gold);
+  border-radius:28px;
+  padding:0;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(201,163,91,0.18);
+}
+.brief-shell::before,
+.brief-shell::after {
+  content:'';
+  position:absolute;
+  width:24px; height:24px;
+  border-color:var(--gold);
+  border-style:solid;
+}
+.brief-shell::before { top:14px; right:14px; border-width:1px 1px 0 0; }
+.brief-shell::after  { bottom:14px; left:14px; border-width:0 0 1px 1px; }
+
+.brief-header {
+  text-align:center;
+  padding:48px 36px 32px;
+  border-bottom:1px solid var(--border);
+}
+.brief-tag {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--gold-dim);
+  border:1px solid var(--border);
+  padding:6px 16px;
+  border-radius:100px;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:24px;
+}
+.brief-tag-dot {
+  width:6px; height:6px;
+  background:#10b981;
+  border-radius:50%;
+  box-shadow:0 0 10px #10b981;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; }
+  50% { opacity:0.4; }
+}
+.brief-header h1 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px;
+  font-weight:700;
+  color:#fff;
+  line-height:1.15;
+  margin-bottom:14px;
+  letter-spacing:-0.5px;
+}
+.brief-header h1 em {
+  font-style:italic;
+  color:var(--gold);
+  text-shadow:0 0 25px rgba(201,163,91,0.4);
+}
+.brief-header p {
+  font-size:14px;
+  color:var(--soft);
+  line-height:1.6;
+  font-weight:300;
+  max-width:380px;
+  margin:0 auto;
+}
+
+.brief-body {
+  padding:36px;
+}
+
+.advisor-card {
+  background:rgba(201,163,91,0.04);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:24px;
+  text-align:center;
+  margin-bottom:28px;
+}
+.advisor-avatar {
+  width:72px; height:72px;
+  background:linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:32px;
+  font-weight:700;
+  color:#000;
+  margin:0 auto 14px;
+  box-shadow:0 8px 24px rgba(201,163,91,0.4);
+  position:relative;
+}
+.advisor-status {
+  position:absolute;
+  bottom:2px; right:2px;
+  width:16px; height:16px;
+  background:#10b981;
+  border:3px solid #0a0a0a;
+  border-radius:50%;
+}
+.advisor-name {
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;
+  font-weight:700;
+  color:#fff;
+  margin-bottom:4px;
+}
+.advisor-title {
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:18px;
+}
+.advisor-stats {
+  display:grid;
+  grid-template-columns:1fr 1px 1fr;
+  gap:14px;
+  padding-top:18px;
+  border-top:1px solid var(--border);
+}
+.stat-divider {
+  background:var(--border);
+}
+.stat-block {
+  text-align:center;
+}
+.stat-block-label {
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+.stat-block-value {
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;
+  font-weight:700;
+  color:var(--gold-light);
+}
+
+.briefing-includes {
+  margin-bottom:28px;
+}
+.briefing-includes-label {
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:14px;
+  text-align:center;
+}
+.includes-list {
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.includes-list li {
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  font-size:13px;
+  color:var(--soft);
+  line-height:1.5;
+  font-weight:300;
+}
+.includes-list li::before {
+  content:'◆';
+  font-size:7px;
+  color:var(--gold);
+  margin-top:6px;
+  flex-shrink:0;
+}
+.includes-list strong { color:#fff; font-weight:500; }
+
+.cta-block {
+  background:rgba(0,0,0,0.4);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:24px;
+  text-align:center;
+}
+.cta-block-hint {
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:16px;
+  letter-spacing:0.5px;
+}
+.cta-btn {
+  display:block;
+  width:100%;
+  background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);
+  color:#000;
+  padding:18px 20px;
+  border-radius:10px;
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:all 0.3s;
+  box-shadow:0 10px 30px rgba(201,163,91,0.3);
+  border:none;
+  cursor:pointer;
+}
+.cta-btn:hover {
+  filter:brightness(1.1);
+  transform:translateY(-2px);
+  box-shadow:0 14px 40px rgba(201,163,91,0.45);
+}
+
+.security-row {
+  margin-top:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:1px;
+}
+.security-row::before,
+.security-row::after {
+  content:'';
+  flex:1;
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--border), transparent);
+}
+.security-icon {
+  color:var(--gold);
+  opacity:0.6;
+}
+
+.brief-footer {
+  border-top:1px solid var(--border);
+  padding:20px 36px;
+  text-align:center;
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+.brief-footer a {
+  color:var(--gold);
+  text-decoration:none;
+}
+
+@media (max-width:480px) {
+  .brief-header h1 { font-size:28px; }
+  .brief-header { padding:36px 24px 24px; }
+  .brief-body { padding:24px; }
+  .advisor-stats { grid-template-columns:1fr; }
+  .stat-divider { display:none; }
+}
+</style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-indigo-500 selection:text-white">
+<body>
 
-    <nav class="sticky top-0 z-50 border-b border-slate-900 bg-slate-950/80 backdrop-blur-md px-6 py-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="h-9 w-9 bg-indigo-600 rounded-xl flex items-center justify-center font-bold text-white tracking-wider text-lg shadow-lg shadow-indigo-600/20">H</div>
-                <span class="text-xl font-black tracking-tight bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Hermia AI</span>
-            </div>
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
-                <a href="#features" class="hover:text-slate-200 transition-colors">Features</a>
-                <a href="#workflow" class="hover:text-slate-200 transition-colors">How It Works</a>
-                <a href="calendar.html" class="text-indigo-400 hover:text-indigo-300 transition-colors flex items-center space-x-1">
-                    <span>Live Demo Dashboard</span>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                </a>
-            </div>
-            <div>
-                <a href="calendar.html" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-indigo-600/20 block">
-                    Launch App
-                </a>
-            </div>
+<div class="bg-glow"></div>
+
+<div class="brief-shell">
+
+  <div class="brief-header">
+    <div class="brief-tag">
+      <span class="brief-tag-dot"></span>
+      Private Appointment
+    </div>
+    <h1>Reserve Your <em>Private Briefing</em></h1>
+    <p>A confidential walkthrough with Hermia's founding engineer. For agencies serious about owning their inbound pipeline.</p>
+  </div>
+
+  <div class="brief-body">
+
+    <div class="advisor-card">
+      <div class="advisor-avatar">
+        H
+        <span class="advisor-status"></span>
+      </div>
+      <div class="advisor-name">Hermia Engineering</div>
+      <div class="advisor-title">Direct Founder Access</div>
+
+      <div class="advisor-stats">
+        <div class="stat-block">
+          <div class="stat-block-label">Briefing Length</div>
+          <div class="stat-block-value">25 min</div>
         </div>
-    </nav>
-
-    <header class="relative overflow-hidden pt-24 pb-20 lg:pt-32 lg:pb-28">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[400px] bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none"></div>
-        
-        <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
-            <span class="inline-flex items-center space-x-2 bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-indigo-500/20 mb-6">
-                <i class="fa-solid fa-bolt animate-pulse"></i> <span>Built for High-Volume Real Estate Teams</span>
-            </span>
-            <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-white max-w-4xl mx-auto leading-[1.15]">
-                Stop Chasing Ghost Leads. <br>
-                Let AI Qualify Them on <span class="bg-gradient-to-r from-indigo-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">WhatsApp.</span>
-            </h1>
-            <p class="mt-6 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                Hermia instantly context-vets, filters, and pre-approves your incoming real estate leads via SMS and WhatsApp. Zero cold calls. Zero wasted hours.
-            </p>
-            
-            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="calendar.html" class="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-700 hover:to-cyan-700 text-white font-bold px-8 py-4 rounded-2xl shadow-xl shadow-indigo-600/10 transition-all transform hover:-translate-y-0.5 text-center">
-                    Explore Agent Dashboard
-                </a>
-                <a href="handoff.html" target="_blank" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-bold px-8 py-4 rounded-2xl transition-all text-center flex items-center justify-center space-x-2">
-                    <span>View Mobile Handoff Experience</span>
-                    <i class="fa-solid fa-mobile-screen-button text-sm text-slate-500"></i>
-                </a>
-            </div>
+        <div class="stat-divider"></div>
+        <div class="stat-block">
+          <div class="stat-block-label">Response Window</div>
+          <div class="stat-block-value">&lt; 12hr</div>
         </div>
-    </header>
+      </div>
+    </div>
 
-    <section class="max-w-7xl mx-auto px-6 py-12 border-y border-slate-900 bg-slate-900/20">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-            <div class="p-4">
-                <div class="text-indigo-400 text-2xl mb-3"><i class="fa-solid fa-gauge-high"></i></div>
-                <h3 class="text-lg font-bold text-slate-200">Instant Speed-to-Lead</h3>
-                <p class="text-sm text-slate-400 mt-2">Hermia engages raw inbound leads in under 45 seconds on WhatsApp, destroying your drop-off rates.</p>
-            </div>
-            <div class="p-4">
-                <div class="text-cyan-400 text-2xl mb-3"><i class="fa-solid fa-filter-circle-xmark"></i></div>
-                <h3 class="text-lg font-bold text-slate-200">100% Automated Vetting</h3>
-                <p class="text-sm text-slate-400 mt-2">Extracts budget, timeline, buying intent, and pre-approval documentation completely on autopilot.</p>
-            </div>
-            <div class="p-4">
-                <div class="text-emerald-400 text-2xl mb-3"><i class="fa-solid fa-address-card"></i></div>
-                <h3 class="text-lg font-bold text-slate-200">Premium Authority Handoff</h3>
-                <p class="text-sm text-slate-400 mt-2">Instantly sends qualified leads an elite digital business profile before you ever dial their phone number.</p>
-            </div>
-        </div>
-    </section>
+    <div class="briefing-includes">
+      <div class="briefing-includes-label">What's covered</div>
+      <ul class="includes-list">
+        <li><strong>Live qualification walk-through</strong> on your actual portal flow</li>
+        <li><strong>CRM routing audit</strong> — HubSpot, Zoho, Rex, Pipedrive supported</li>
+        <li><strong>Lead loss analysis</strong> — quantify what you're leaking after hours</li>
+        <li><strong>Custom deployment plan</strong> tailored to your agency's enquiry volume</li>
+      </ul>
+    </div>
 
-    <section id="features" class="max-w-7xl mx-auto px-6 py-24 space-y-32">
-        
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6">
-                <div class="h-10 w-10 bg-amber-500/10 text-amber-400 rounded-xl flex items-center justify-center border border-amber-500/20 font-bold">01</div>
-                <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-white">
-                    The "Hot Takeover" <br><span class="text-amber-400">Stealth Alert Stream</span>
-                </h2>
-                <p class="text-slate-400 leading-relaxed">
-                    While Hermia handles the baseline qualification conversations, our AI constantly scans for high-intent buying indicators. The moment a lead dropped a message stating they want to tour a home *today*, your command center alerts you immediately to jump in manually without breaking the chat flow.
-                </p>
-                <div class="pt-4">
-                    <a href="calendar.html" class="inline-flex items-center space-x-2 text-sm font-bold text-indigo-400 hover:text-indigo-300">
-                        <span>See Live Intercept Demo</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl relative group overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-tr from-indigo-600/10 to-transparent opacity-50"></div>
-                <div class="bg-amber-500/10 border border-amber-500/30 p-4 rounded-xl flex justify-between items-center mb-4">
-                    <span class="text-xs font-bold uppercase tracking-wider text-amber-400"><i class="fa-solid fa-fire mr-1"></i> High Intent Detected</span>
-                    <span class="text-xs font-mono text-slate-400">Active on WhatsApp</span>
-                </div>
-                <div class="space-y-3 font-mono text-xs text-slate-400">
-                    <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">AI: Are you pre-approved for a mortgage?</div>
-                    <div class="bg-slate-800 p-3 rounded-lg text-slate-200 text-right ml-8">Lead: Yes, verified for $950k. Can I see it today at 4?</div>
-                </div>
-            </div>
-        </div>
+    <div class="cta-block">
+      <div class="cta-block-hint">Limited briefings available this week</div>
+      <a href="apply.html" class="cta-btn">Reserve My Slot →</a>
+      <div class="security-row">
+        <span class="security-icon">◆</span>
+        Private &amp; Confidential
+        <span class="security-icon">◆</span>
+      </div>
+    </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center lg:flex-row-reverse">
-            <div class="lg:order-2 space-y-6">
-                <div class="h-10 w-10 bg-indigo-500/10 text-indigo-400 rounded-xl flex items-center justify-center border border-indigo-500/20 font-bold">02</div>
-                <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-white">
-                    AI "Vibe Check" <br><span class="text-indigo-400">Call Cheat Sheets</span>
-                </h2>
-                <p class="text-slate-400 leading-relaxed">
-                    Stop reading long conversation transcripts blind. Hermia parses the core logistics, analyzes the lead's psychological temperament, and formulates a tailored opening icebreaker strategy directly inside your interface dashboard.
-                </p>
-                <div class="pt-4">
-                    <a href="calendar.html" class="inline-flex items-center space-x-2 text-sm font-bold text-indigo-400 hover:text-indigo-300">
-                        <span>Check AI Vibe Panel</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="lg:order-1 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-4">
-                <div class="flex items-center space-x-2 border-b border-slate-800 pb-3">
-                    <i class="fa-solid fa-brain text-indigo-400"></i>
-                    <span class="text-sm font-bold text-slate-200">Automated Intelligence Summary</span>
-                </div>
-                <div class="space-y-2 text-xs">
-                    <div class="bg-slate-950 p-3 rounded-xl"><b class="text-indigo-400">Temperament:</b> Urgent, decisive, objective-driven.</div>
-                    <div class="bg-slate-950 p-3 rounded-xl"><b class="text-emerald-400">Action:</b> Skip greeting fluff, call directly with showing details.</div>
-                </div>
-            </div>
-        </div>
+  </div>
 
-    </section>
+  <div class="brief-footer">
+    Hermia · <a href="mailto:capital@hermia.au">capital@hermia.au</a> · hermia.au
+  </div>
 
-    <section class="max-w-4xl mx-auto px-6 py-20 text-center relative">
-        <div class="absolute inset-0 bg-indigo-600/5 blur-[80px] rounded-full pointer-events-none"></div>
-        <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 rounded-[32px] p-8 sm:p-12 shadow-2xl relative z-10">
-            <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-white">Ready to Elite-Scale Your Lead Conversions?</h2>
-            <p class="text-slate-400 mt-4 max-w-xl mx-auto text-sm sm:text-base">
-                Hook up Hermia with your primary phone lines, connect Zoho or Rex CRMs via Zapier, and let AI protect your real estate commission pipe 24/7/365.
-            </p>
-            <div class="mt-8">
-                <a href="calendar.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-xl shadow-indigo-600/20">
-                    Open App Command Center
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="border-t border-slate-900 py-8 text-center text-xs text-slate-600">
-        <p>&copy; 2026 Hermia AI Infrastructure. Built exclusively for hyper-productive real estate environments.</p>
-    </footer>
+</div>
 
 </body>
 </html>
+
