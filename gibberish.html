@@ -836,14 +836,14 @@ function pick(opt, next) {
         const title = document.getElementById('result-title');
         const footer = document.getElementById('result-footnote');
         if (finalGrade === 'HOT') {
-          title.innerText = '🔥 Hot Lead · Call Today';
-          footer.innerText = 'Pushed to CRM · 84 seconds total · Agent notified';
+          title.innerText = '🔥 Hot Lead · Synced to CRM';
+          footer.innerText = 'Silently pushed to CRM · 84 seconds total · No spam emails';
         } else if (finalGrade === 'WARM') {
-          title.innerText = '⏳ Warm Lead · Nurture Sequence';
-          footer.innerText = 'Pushed to CRM · Added to 14-day nurture flow';
+          title.innerText = '⏳ Warm Lead · Synced to CRM';
+          footer.innerText = 'Silently pushed to CRM · Added to nurture flow';
         } else {
-          title.innerText = '❄️ Cold Lead · Long-term Drip';
-          footer.innerText = 'Pushed to CRM · Quarterly check-in scheduled';
+          title.innerText = '❄️ Cold Lead · Synced to CRM';
+          footer.innerText = 'Silently pushed to CRM · Quarterly check-in scheduled';
         }
 
         log(`[CRM] ${finalGrade} lead synced to Pipedrive`, 'success');
@@ -931,5 +931,4 @@ setTimeout(() => {
 
 </body>
 </html>
-
 
