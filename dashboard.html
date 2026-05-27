@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Intelligence Feed — Hermia</title>
+<title>Hermia — The Lead Profit Center</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
 :root {
   --black: #080808;
@@ -13,11 +13,12 @@
   --border: rgba(201,163,91,0.15);
   --gold: #C9A35B;
   --gold-light: #e8c17a;
-  --gold-dim: rgba(201,163,91,0.08);
+  --gold-dim: rgba(201,163,91,0.06);
   --cream: #f5f1e8;
   --muted: #8a8580;
   --soft: #b8b5ad;
   --emerald: #10b981;
+  --ruby: #f43f5e;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
@@ -25,366 +26,244 @@ body {
   background:var(--black);
   color:var(--cream);
   min-height:100vh;
-  padding:40px 20px;
+  padding:0;
 }
 
-.feed-shell {
-  max-width:1000px;
-  margin:0 auto;
+/* Simple Navigation */
+.nav-controls {
+  position: sticky; top: 0;
+  background: rgba(8,8,8,0.95); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 100;
+}
+.nav-left { display: flex; gap: 12px; }
+.nav-btn {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--soft); text-decoration: none; font-size: 11px;
+  font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  padding: 10px 16px; border-radius: 8px; transition: 0.3s;
+}
+.nav-btn:hover { border-color: var(--gold); color: #fff; }
+.live-badge { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--gold); font-weight: 500; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+.shell { max-width: 1000px; margin: 0 auto; padding: 60px 24px; }
+
+/* Marketing Hook */
+.marketing-header { text-align: center; margin-bottom: 60px; }
+.marketing-header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 7vw, 72px); font-weight: 700;
+  line-height: 1.1; color: #fff; margin-bottom: 24px;
+}
+.marketing-header h1 em { font-style: italic; color: var(--gold); }
+.marketing-header p {
+  font-size: 18px; color: var(--soft); max-width: 600px; margin: 0 auto;
+  line-height: 1.6; font-weight: 300;
 }
 
-/* Header Section */
-.feed-header {
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  margin-bottom:48px;
-  padding-bottom:24px;
-  border-bottom:1px solid var(--border);
+/* SECURITY VIDEO */
+.security-section {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 32px; padding: 48px; margin-bottom: 80px;
 }
-.feed-title h1 {
-  font-family:'Cormorant Garamond',serif;
-  font-size:48px;
-  font-weight:700;
-  color:#fff;
-  line-height:1;
-  letter-spacing:-1.5px;
+.video-container {
+  position: relative; padding-bottom: 56.25%; height: 0;
+  border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--border); margin-bottom: 24px;
 }
-.feed-title h1 em {
-  font-style:italic;
-  color:var(--gold);
+.video-container iframe {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
 }
-.feed-title p {
-  font-size:14px;
-  color:var(--soft);
-  margin-top:12px;
-  letter-spacing:0.5px;
-}
-.live-status {
-  display:flex;
-  align-items:center;
-  gap:12px;
-  background:var(--gold-dim);
-  border:1px solid var(--border);
-  padding:8px 16px;
-  border-radius:100px;
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  color:var(--gold);
-}
-.status-dot {
-  width:6px; height:6px;
-  background:var(--emerald);
-  border-radius:50%;
-  box-shadow:0 0 10px var(--emerald);
-  animation:pulse 2s infinite;
-}
-@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+.video-label { font-size: 12px; color: var(--muted); text-align: center; font-style: italic; }
 
-/* The Grid */
-.feed-grid {
-  display:grid;
-  grid-template-columns:1fr 340px;
-  gap:32px;
+/* THE LIVE SIMULATION (Lead List) */
+.tool-section { margin-top: 40px; margin-bottom: 80px; }
+.tool-header { text-align: center; margin-bottom: 48px; }
+.tool-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 42px; color: #fff; margin-bottom: 12px; }
+.tool-caption { font-size: 16px; color: var(--gold); max-width: 580px; margin: 0 auto; font-weight: 400; line-height: 1.5; }
+
+.lead-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 24px;
+  padding: 32px; margin-bottom: 24px; position: relative;
 }
-@media(max-width:900px) {
-  .feed-grid { grid-template-columns:1fr; }
+.lead-card::before {
+  content: 'PERIMETER INTERCEPT';
+  position: absolute; top: -12px; left: 32px;
+  background: var(--gold); color: #000; font-size: 9px; font-weight: 900;
+  padding: 4px 12px; border-radius: 4px; letter-spacing: 1px;
 }
 
-/* Feed Column */
-.feed-column {
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-}
+.lead-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+@media(max-width:768px) { .lead-split { grid-template-columns: 1fr; } }
 
-.feed-card {
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:24px;
-  position:relative;
-  overflow:hidden;
-  transition:all 0.3s;
-}
-.feed-card:hover {
-  border-color:rgba(201,163,91,0.4);
-  transform:translateY(-2px);
-}
-.card-time {
-  position:absolute;
-  top:24px; right:24px;
-  font-size:10px;
-  color:var(--muted);
-  font-weight:600;
-}
-.card-header {
-  display:flex;
-  align-items:center;
-  gap:16px;
-  margin-bottom:20px;
-}
-.card-avatar {
-  width:44px; height:44px;
-  background:var(--gold-dim);
-  border:1px solid var(--border);
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-family:'Cormorant Garamond',serif;
-  font-size:20px;
-  font-weight:700;
-  color:var(--gold);
-}
-.card-info h3 {
-  font-size:16px;
-  font-weight:600;
-  color:#fff;
-  margin-bottom:2px;
-}
-.card-info p {
-  font-size:12px;
-  color:var(--muted);
-}
+.enquiry-side { border-right: 1px solid var(--border); padding-right: 40px; }
+@media(max-width:768px) { .enquiry-side { border-right: none; padding-right: 0; border-bottom: 1px solid var(--border); padding-bottom: 40px; } }
 
-.card-pill-row {
-  display:flex;
-  gap:8px;
-  margin-bottom:20px;
-  flex-wrap:wrap;
-}
-.pill {
-  background:rgba(255,255,255,0.03);
-  border:1px solid var(--border);
-  padding:6px 12px;
-  border-radius:6px;
-  font-size:10px;
-  font-weight:600;
-  color:var(--soft);
-}
-.pill strong { color:var(--gold-light); }
-.pill.hot {
-  background:rgba(16,185,129,0.05);
-  border-color:rgba(16,185,129,0.2);
-  color:var(--emerald);
-}
+.enquiry-side h4 { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+.enquiry-text { font-size: 15px; color: #fff; font-style: italic; line-height: 1.6; padding-left: 12px; border-left: 2px solid var(--ruby); }
 
-.card-chat-preview {
-  background:rgba(0,0,0,0.3);
-  border-radius:12px;
-  padding:16px;
-  font-size:13px;
-  line-height:1.5;
-  color:var(--soft);
-  font-style:italic;
-  position:relative;
-}
-.card-chat-preview::before {
-  content:'"';
-  position:absolute;
-  top:10px; left:6px;
-  font-size:24px;
-  color:var(--gold);
-  opacity:0.3;
-}
+.hermia-side h4 { font-size: 11px; color: var(--emerald); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+.lead-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pillar-box { background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 14px; border-radius: 8px; }
+.pillar-label { font-size: 9px; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.05em; }
+.pillar-value { font-size: 14px; font-weight: 600; color: #fff; }
 
-/* Sidebar Column */
-.sidebar-column {
-  display:flex;
-  flex-direction:column;
-  gap:24px;
+.nudge-btn {
+  margin-top: 20px; width: 100%; background: transparent; color: var(--gold);
+  border: 1px solid var(--border); padding: 14px; border-radius: 8px; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; transition: 0.2s;
 }
+.nudge-btn:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
 
-.stats-card {
-  background:linear-gradient(135deg, rgba(201,163,91,0.08) 0%, var(--card) 100%);
-  border:1px solid var(--gold);
-  border-radius:24px;
-  padding:32px;
+/* THE RESOURCEFUL OPERATIONAL AUDIT (Replaces Ghost Lead Ticker) */
+.audit-section {
+  background: linear-gradient(180deg, var(--card) 0%, #080808 100%);
+  border: 1px solid var(--border); border-radius: 32px;
+  padding: 60px 48px; text-align: center;
 }
-.stats-title {
-  font-size:11px;
-  font-weight:700;
-  letter-spacing:2.5px;
-  text-transform:uppercase;
-  color:var(--gold);
-  margin-bottom:24px;
-  text-align:center;
+.audit-section h2 {
+  font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 700; color: #fff; margin-bottom: 16px;
 }
-.stat-row {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-  padding-bottom:12px;
-  border-bottom:1px solid var(--border);
-}
-.stat-row:last-child { border-bottom:none; margin-bottom:0; }
-.stat-label { font-size:12px; color:var(--soft); }
-.stat-value { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:700; color:#fff; }
+.audit-section h2 em { font-style: italic; color: var(--gold); }
+.audit-section p { font-size: 16px; color: var(--soft); max-width: 640px; margin: 0 auto 48px; line-height: 1.7; }
 
-.action-card {
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:32px;
-  text-align:center;
-}
-.action-card h4 {
-  font-family:'Cormorant Garamond',serif;
-  font-size:22px;
-  font-weight:700;
-  color:#fff;
-  margin-bottom:12px;
-}
-.action-card p {
-  font-size:13px;
-  color:var(--muted);
-  line-height:1.5;
-  margin-bottom:24px;
-}
-.action-btn {
-  display:block;
-  background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);
-  color:#000;
-  padding:16px;
-  border-radius:12px;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  text-decoration:none;
-  transition:0.3s;
-}
-.action-btn:hover { filter:brightness(1.1); transform:translateY(-2px); }
+.audit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: left; }
+@media(max-width:768px) { .audit-grid { grid-template-columns: 1fr; } }
 
-/* Animation */
-@keyframes slideIn {
-  from { opacity:0; transform:translateY(20px); }
-  to { opacity:1; transform:translateY(0); }
+.audit-card {
+  background: rgba(255,255,255,0.01); border: 1px solid var(--border);
+  padding: 32px 24px; border-radius: 16px; transition: border-color 0.3s ease;
 }
-.feed-card {
-  animation: slideIn 0.5s ease forwards;
+.audit-card:hover { border-color: rgba(201,163,91,0.4); }
+.audit-metric { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; color: var(--gold); margin-bottom: 12px; display: inline-block; background: var(--gold-dim); padding: 4px 10px; border-radius: 4px; }
+.audit-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+.audit-desc { font-size: 13px; color: var(--soft); line-height: 1.5; }
+
+.action-cta {
+  margin-top: 56px; display: inline-block; background: var(--gold); color: var(--black);
+  padding: 20px 48px; border-radius: 12px; font-size: 14px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; transition: 0.2s;
+  box-shadow: 0 10px 30px rgba(201,163,91,0.2);
 }
-.feed-card:nth-child(2) { animation-delay:0.1s; }
-.feed-card:nth-child(3) { animation-delay:0.2s; }
+.action-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+.bg-glow {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(201,163,91,0.08) 0%, transparent 70%);
+  filter: blur(100px); pointer-events: none; z-index: 0;
+}
 </style>
 </head>
 <body>
 
-<div class="feed-shell">
+<div class="bg-glow"></div>
 
-  <header class="feed-header">
-    <div class="feed-title">
-      <h1>Intelligence <em>Feed</em></h1>
-      <p>Live lead qualification across your agency network.</p>
-    </div>
-    <div class="live-status">
-      <span class="status-dot"></span>
-      Hermia Active
-    </div>
+<nav class="nav-controls">
+  <div class="nav-left">
+    <a href="handoff.html" class="nav-btn">← Back to Calculator</a>
+    <a href="index.html" class="nav-btn">Website Portal</a>
+  </div>
+  <div class="live-badge">
+    <span class="status-dot" style="background: var(--emerald); box-shadow: 0 0 10px var(--emerald);"></span>
+    Operational Perimeter Active
+  </div>
+</nav>
+
+<div class="shell">
+  
+  <header class="marketing-header">
+    <h1>The <em>Lead Profit</em> Center</h1>
+    <p>We turn your messy inbox into a clean asset. Stop guessing who is serious and let your parameters instantly isolate real transaction intent.</p>
   </header>
 
-  <div class="feed-grid">
+  <section class="security-section">
+    <div class="video-container">
+      <iframe src="https://www.loom.com/embed/61daca292e5c48c0a080b2b3235333da" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    </div>
+    <p class="video-label">Watch: How we secure your data integrations using OAuth 2.0</p>
+  </section>
+
+  <div class="tool-section">
+    <div class="tool-header">
+      <h2>The Hermia Difference</h2>
+      <p class="tool-caption">Hermia turns messy enquiries into qualified buyers before you even wake up.</p>
+    </div>
+
+    <div class="lead-card">
+      <div class="lead-split">
+        <div class="enquiry-side">
+          <h4>Raw Incoming Message</h4>
+          <p class="enquiry-text">"Hi, I want to book an inspection for the Downtown apartment today."</p>
+          <p style="margin-top: 16px; font-size: 11px; color: var(--ruby); font-weight: 500;">❌ Pipeline Burden: Zero contextual visibility.</p>
+        </div>
+        <div class="hermia-side">
+          <h4>Hermia Verified Profile</h4>
+          <div class="lead-pillars">
+            <div class="pillar-box"><div class="pillar-label">Budget</div><div class="pillar-value" style="color:var(--gold);">AED 4.2M</div></div>
+            <div class="pillar-box"><div class="pillar-label">Timeline</div><div class="pillar-value">4 Weeks</div></div>
+            <div class="pillar-box"><div class="pillar-label">Finance</div><div class="pillar-value">Pre-Approved</div></div>
+            <div class="pillar-box"><div class="pillar-label">Intent</div><div class="pillar-value" style="color: var(--emerald);">High Buy</div></div>
+          </div>
+          <button class="nudge-btn" onclick="alert('Action Triggered: Booking confirmation protocol sent.')">⚡ Confirm 4pm Viewing Block</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="lead-card">
+      <div class="lead-split">
+        <div class="enquiry-side">
+          <h4>Raw Incoming Message</h4>
+          <p class="enquiry-text">"Is this available? Looking for a layout in Bondi. - Sarah"</p>
+          <p style="margin-top: 16px; font-size: 11px; color: var(--ruby); font-weight: 500;">❌ Pipeline Burden: High risk of manual follow-up delay.</p>
+        </div>
+        <div class="hermia-side">
+          <h4>Hermia Verified Profile</h4>
+          <div class="lead-pillars">
+            <div class="pillar-box"><div class="pillar-label">Budget</div><div class="pillar-value" style="color:var(--gold);">AUD 2.8M</div></div>
+            <div class="pillar-box"><div class="pillar-label">Timeline</div><div class="pillar-value">3 Months</div></div>
+            <div class="pillar-box"><div class="pillar-label">Finance</div><div class="pillar-value">Cash Allocations</div></div>
+            <div class="pillar-box"><div class="pillar-label">Intent</div><div class="pillar-value" style="color: var(--emerald);">Liquid Ready</div></div>
+          </div>
+          <button class="nudge-btn" onclick="alert('Action Triggered: Premium portfolio matching sent.')">⚡ Dispatch Matching Portfolios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="audit-section">
+    <h2>The <em>Agency Velocity</em> Benchmarks</h2>
+    <p>How top-tier brokerages protect their marketing spend and maintain absolute speed-to-lead control.</p>
     
-    <div class="feed-column">
+    <div class="audit-grid">
+      <div class="audit-card">
+        <span class="audit-metric">&lt; 90 Seconds</span>
+        <div class="audit-title">The Friction Window</div>
+        <div class="audit-desc">Inbound conversion probability drops by 391% if contact is not made within the first 5 minutes of real text interest.</div>
+      </div>
       
-      <!-- Lead 1 -->
-      <div class="feed-card">
-        <div class="card-time">2 mins ago</div>
-        <div class="card-header">
-          <div class="card-avatar">MV</div>
-          <div class="card-info">
-            <h3>Marcus Vance</h3>
-            <p>Property Finder · Downtown Dubai</p>
-          </div>
-        </div>
-        <div class="card-pill-row">
-          <div class="pill hot">HOT LEAD</div>
-          <div class="pill">Budget: <strong>AED 4.2M</strong></div>
-          <div class="pill">Timeline: <strong>4 Weeks</strong></div>
-          <div class="pill">Finance: <strong>Pre-Approved</strong></div>
-        </div>
-        <div class="card-chat-preview">
-          "I'm looking to move by the end of the month. My lease is up and I need a 3-bed apartment in Downtown. I'm ready to view today."
-        </div>
+      <div class="audit-card">
+        <span class="audit-metric">4-Tier Filtering</span>
+        <div class="audit-title">Context Extraction</div>
+        <div class="audit-desc">Isolating budget parameters, purchase readiness status, and liquidity positions without human data entry overhead.</div>
       </div>
-
-      <!-- Lead 2 -->
-      <div class="feed-card">
-        <div class="card-time">14 mins ago</div>
-        <div class="card-header">
-          <div class="card-avatar">SL</div>
-          <div class="card-info">
-            <h3>Sarah Lawson</h3>
-            <p>REA · Sydney Eastern Suburbs</p>
-          </div>
-        </div>
-        <div class="card-pill-row">
-          <div class="pill">WARM LEAD</div>
-          <div class="pill">Budget: <strong>AUD 2.8M</strong></div>
-          <div class="pill">Timeline: <strong>3 Months</strong></div>
-          <div class="pill">Finance: <strong>Cash Buyer</strong></div>
-        </div>
-        <div class="card-chat-preview">
-          "Just sold my place in Melbourne, moving back to Sydney. Looking for something quiet near Bronte. Not in a rush but if the right place comes up I'll move fast."
-        </div>
+      
+      <div class="audit-card">
+        <span class="audit-metric">100% Zero-Loss</span>
+        <div class="audit-title">Hot CRM Routing</div>
+        <div class="audit-desc">Ensuring genuine buyers pass cleanly to your specialists' mobile devices instantly while tire-kickers are filtered automatically.</div>
       </div>
-
-      <!-- Lead 3 -->
-      <div class="feed-card">
-        <div class="card-time">42 mins ago</div>
-        <div class="card-header">
-          <div class="card-avatar">AK</div>
-          <div class="card-info">
-            <h3>Ahmed Khan</h3>
-            <p>Bayut · Dubai Marina</p>
-          </div>
-        </div>
-        <div class="card-pill-row">
-          <div class="pill hot">HOT LEAD</div>
-          <div class="pill">Budget: <strong>AED 1.8M</strong></div>
-          <div class="pill">Timeline: <strong>Immediate</strong></div>
-          <div class="pill">Finance: <strong>Cash</strong></div>
-        </div>
-        <div class="card-chat-preview">
-          "Investor looking for a high-yield studio. Ready to sign today if the ROI numbers work. Can you send the service charge breakdown?"
-        </div>
-      </div>
-
     </div>
 
-    <div class="sidebar-column">
-      
-      <div class="stats-card">
-        <div class="stats-title">Today's Pulse</div>
-        <div class="stat-row">
-          <div class="stat-label">Leads Intercepted</div>
-          <div class="stat-value">42</div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-label">Fully Qualified</div>
-          <div class="stat-value">38</div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-label">Time Saved</div>
-          <div class="stat-value">8.4h</div>
-        </div>
-      </div>
-
-      <div class="action-card">
-        <h4>Need more data?</h4>
-        <p>Get a full diagnostic of your agency's lead flow and recovery potential.</p>
-        <a href="apply.html" class="action-btn">Run Audit →</a>
-      </div>
-
-    </div>
-
+    <a href="apply.html" class="action-cta">Apply for Partnership Integration →</a>
   </div>
 
 </div>
 
 </body>
 </html>
+
