@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hermia - Lost Lead Calculator</title>
+    <title>Hermia - Calculator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -20,20 +20,13 @@
             --muted: #8a8580;
             --soft: #b8b5ad;
             --danger: #ef4444;
-            --emerald: #10b981;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'DM Sans', sans-serif;
             background: var(--black);
             color: var(--cream);
-            line-height: 1.6;
             padding: 40px 20px;
             display: flex;
             flex-direction: column;
@@ -42,27 +35,10 @@
             min-height: 100vh;
         }
 
-        .container {
-            max-width: 650px;
-            width: 100%;
-            text-align: center;
-        }
+        .container { max-width: 650px; width: 100%; text-align: center; }
+        h1 { font-size: 2.2rem; font-weight: 500; margin-bottom: 10px; letter-spacing: -0.02em; }
+        .subtitle { color: var(--soft); margin-bottom: 40px; font-size: 1.1rem; }
 
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 500;
-            margin-bottom: 10px;
-            color: var(--cream);
-            letter-spacing: -0.02em;
-        }
-
-        .subtitle {
-            color: var(--soft);
-            margin-bottom: 40px;
-            font-size: 1.1rem;
-        }
-
-        /* Calculator Card */
         .calculator-card {
             background: var(--card);
             border: 1px solid var(--border);
@@ -73,30 +49,11 @@
             margin-bottom: 40px;
         }
 
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        label {
-            display: block;
-            font-size: 0.9rem;
-            color: var(--soft);
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .input-prefix {
-            position: absolute;
-            left: 16px;
-            color: var(--muted);
-            font-weight: 500;
-        }
+        .form-group { margin-bottom: 24px; }
+        label { display: block; font-size: 0.9rem; color: var(--soft); margin-bottom: 8px; font-weight: 500; }
+        
+        .input-wrapper { position: relative; display: flex; align-items: center; }
+        .input-prefix { position: absolute; left: 16px; color: var(--muted); font-weight: 500; }
 
         input[type="number"], input[type="range"] {
             width: 100%;
@@ -107,56 +64,17 @@
             color: var(--cream);
             font-size: 1.1rem;
             outline: none;
-            transition: border-color 0.2s ease;
         }
+        .has-prefix { padding-left: 32px !important; }
 
-        input[type="number"]:focus {
-            border-color: var(--gold);
-        }
+        .slider-header { display: flex; justify-content: space-between; align-items: center; }
+        .slider-value { color: var(--gold); font-weight: 600; font-size: 1.1rem; }
 
-        .has-prefix {
-            padding-left: 32px !important;
-        }
-
-        /* Slider Specific Styling */
-        .slider-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .slider-value {
-            color: var(--gold);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        input[type="range"] {
-            -webkit-appearance: none;
-            padding: 0;
-            height: 6px;
-            background: rgba(201,163,91,0.2);
-            border: none;
-            border-radius: 3px;
-            outline: none;
-            margin-top: 10px;
-        }
-
+        input[type="range"] { -webkit-appearance: none; padding: 0; height: 6px; background: rgba(201,163,91,0.2); margin-top: 10px; }
         input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--gold);
-            cursor: pointer;
-            transition: transform 0.1s;
+            -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--gold); cursor: pointer;
         }
 
-        input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-        }
-
-        /* Results Display */
         .results-box {
             background: var(--gold-dim);
             border: 1px solid rgba(201,163,91,0.3);
@@ -165,31 +83,9 @@
             margin-top: 32px;
             text-align: center;
         }
-
-        .results-title {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--gold);
-            margin-bottom: 8px;
-        }
-
-        .loss-amount {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--danger);
-            margin-bottom: 4px;
-        }
-
-        .annual-loss {
-            font-size: 0.95rem;
-            color: var(--soft);
-        }
-
-        /* CTA Section */
-        .cta-section {
-            margin-top: 20px;
-        }
+        .results-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 8px; }
+        .loss-amount { font-size: 2.5rem; font-weight: 700; color: var(--danger); margin-bottom: 4px; }
+        .annual-loss { font-size: 0.95rem; color: var(--soft); }
 
         .btn-primary {
             display: inline-block;
@@ -200,39 +96,34 @@
             border-radius: 8px;
             text-decoration: none;
             font-size: 1.05rem;
-            transition: background 0.2s ease, transform 0.2s ease;
             box-shadow: 0 4px 14px rgba(201,163,91,0.3);
         }
-
-        .btn-primary:hover {
-            background: var(--gold-light);
-            transform: translateY(-2px);
-        }
+        .btn-primary:hover { background: var(--gold-light); }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h1>How much commission is slipping through delayed follow-ups?</h1>
-        <p class="subtitle">Enter your metrics below to see what slow speed-to-lead is costing your pipeline monthly.</p>
+        <p class="subtitle">See what raw response friction is costing your pipeline monthly.</p>
 
         <div class="calculator-card">
             <div class="form-group">
                 <label for="monthlyLeads">Average Monthly Inbound Leads</label>
-                <input type="number" id="monthlyLeads" value="100" min="0">
+                <input type="number" id="monthlyLeads" value="100">
             </div>
 
             <div class="form-group">
                 <label for="avgCommission">Average Commission per Deal</label>
                 <div class="input-wrapper">
                     <span class="input-prefix">$</span>
-                    <input type="number" id="avgCommission" class="has-prefix" value="5000" min="0">
+                    <input type="number" id="avgCommission" class="has-prefix" value="5000">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="slider-header">
-                    <label for="estimatedLoss">Estimated Leads Lost to Delayed Response</label>
+                    <label for="estimatedLoss">Leads Lost to Delayed Response</label>
                     <span class="slider-value" id="sliderValue">35%</span>
                 </div>
                 <input type="range" id="estimatedLoss" min="5" max="80" value="35">
@@ -241,51 +132,37 @@
             <div class="results-box">
                 <div class="results-title">Estimated Monthly Revenue Leakage</div>
                 <div class="loss-amount" id="monthlyLossDisplay">$175,000</div>
-                <div class="annual-loss">That's <span id="annualLossDisplay" style="color: var(--cream); font-weight: 600;">$2,100,000</span> slipping away every year.</div>
+                <div class="annual-loss">That's <span id="annualLossDisplay" style="color: var(--cream); font-weight: 600;">$2,100,000</span> yearly.</div>
             </div>
         </div>
 
-        <div class="cta-section">
+        <div>
             <a href="what%20we%20do.html" class="btn-primary">See How We Plug This Leak</a>
         </div>
     </div>
 
     <script>
-        const monthlyLeadsInput = document.getElementById('monthlyLeads');
-        const avgCommissionInput = document.getElementById('avgCommission');
-        const estimatedLossSlider = document.getElementById('estimatedLoss');
-        const sliderValueLabel = document.getElementById('sliderValue');
-        
+        const monthlyLeads = document.getElementById('monthlyLeads');
+        const avgCommission = document.getElementById('avgCommission');
+        const estimatedLoss = document.getElementById('estimatedLoss');
+        const sliderValue = document.getElementById('sliderValue');
         const monthlyLossDisplay = document.getElementById('monthlyLossDisplay');
         const annualLossDisplay = document.getElementById('annualLossDisplay');
 
-        function calculateLoss() {
-            const leads = parseFloat(monthlyLeadsInput.value) || 0;
-            const commission = parseFloat(avgCommissionInput.value) || 0;
-            const lossPercentage = parseFloat(estimatedLossSlider.value) || 0;
-
-            // Update visible range percentage text
-            sliderValueLabel.textContent = lossPercentage + '%';
-
-            // Calculations
-            // Assumes loss percentage represents portion of total volume abandoned/failed due to lag
-            const monthlyLoss = leads * (lossPercentage / 100) * commission;
-            const annualLoss = monthlyLoss * 12;
-
-            // Format numbers nicely to currency locale strings
-            monthlyLossDisplay.textContent = '$' + Math.round(monthlyLoss).toLocaleString();
-            annualLossDisplay.textContent = '$' + Math.round(annualLoss).toLocaleString();
+        function updateValues() {
+            const leads = parseFloat(monthlyLeads.value) || 0;
+            const comm = parseFloat(avgCommission.value) || 0;
+            const pct = parseFloat(estimatedLoss.value) || 0;
+            
+            sliderValue.textContent = pct + '%';
+            const mLoss = leads * (pct / 100) * comm;
+            
+            monthlyLossDisplay.textContent = '$' + Math.round(mLoss).toLocaleString();
+            annualLossDisplay.textContent = '$' + Math.round(mLoss * 12).toLocaleString();
         }
 
-        // Listen for user changes to compute outputs instantly
-        monthlyLeadsInput.addEventListener('input', calculateLoss);
-        avgCommissionInput.addEventListener('input', calculateLoss);
-        estimatedLossSlider.addEventListener('input', calculateLoss);
-
-        // Run calculation once on page load to set initial values
-        calculateLoss();
+        [monthlyLeads, avgCommission, estimatedLoss].forEach(el => el.addEventListener('input', updateValues));
     </script>
 </body>
 </html>
-
 
