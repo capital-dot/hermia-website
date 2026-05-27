@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom CRM Integration Array — Hermia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080808;
+  --card: #111111;
+  --border: rgba(201,163,91,0.15);
+  --gold: #C9A35B;
+  --gold-light: #e8c17a;
+  --cream: #f5f1e8;
+  --muted: #8a8580;
+  --soft: #b8b5ad;
+  --emerald: #10b981;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--black); color:var(--cream); min-height:100vh; padding:40px 20px; }
+
+.form-shell { max-width:600px; margin:60px auto; background:var(--card); border:1px solid var(--border); border-radius:24px; padding:48px; }
+.form-header { text-align:center; margin-bottom:40px; }
+.form-header h1 { font-family:'Cormorant Garamond',serif; font-size:36px; color:#fff; margin-bottom:12px; }
+.form-header h1 em { font-style:italic; color:var(--gold); }
+.form-header p { font-size:14px; color:var(--soft); line-height:1.6; }
+
+.form-group { margin-bottom:24px; }
+.form-group label { display:block; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--gold); margin-bottom:8px; }
+.form-group input, .form-group select, .form-group textarea {
+  width:100%; background:var(--black); border:1px solid var(--border); border-radius:8px; padding:14px; color:#fff; font-size:14px; outline:none; transition:0.25s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--gold); }
+
+.submit-btn {
+  width:100%; background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828); color:#000; padding:16px; border:none; border-radius:12px;
+  font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:0.3s;
+}
+.submit-btn:hover { filter:brightness(1.1); transform:translateY(-1px); }
+
+.nav-back-row { display:flex; justify-content:space-between; max-width:600px; margin:0 auto 20px auto; }
+.back-link { font-size:12px; color:var(--soft); text-decoration:none; text-transform:uppercase; letter-spacing:1px; }
+.back-link:hover { color:var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="nav-back-row">
+  <a href="final tool.html" class="back-link">← Back to Portal</a>
+  <a href="dashboard.html" class="back-link">Live Feed →</a>
+</div>
+
+<div class="form-shell">
+  <div class="form-header">
+    <h1>Custom CRM <em>Deployment</em></h1>
+    <p>Please supply your infrastructure parameters below to queue your automated ingestion routing protocols.</p>
+  </div>
+
+  <form action="https://hook.us1.make.com/your-exact-webhook-string" method="POST">
+    <div class="form-group">
+      <label for="agency-name">Agency Name</label>
+      <input type="text" id="agency-name" name="agencyName" placeholder="e.g., Prime Realty International" required>
+    </div>
+
+    <div class="form-group">
+      <label for="agent-choice">Primary System Architecture</label>
+      <select id="agent-choice" name="crmTarget" required>
+        <option value="hubspot">HubSpot CRM Engine</option>
+        <option value="zoho">Zoho Custom Array</option>
+        <option value="other">Proprietary / Alternative Stack</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="agent-email">Operational Point of Contact Email</label>
+      <input type="email" id="agent-email" name="email" placeholder="operations@yourdomain.com" required>
+    </div>
+
+    <div class="form-group">
+      <label for="integration-notes">Specific Mapping Details / Webhook Requirements</label>
+      <textarea id="integration-notes" name="notes" rows="4" placeholder="List any special custom properties or pipeline stage fields required..."></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn">Initialize Synchronization Process →</button>
+  </form>
+</div>
+
+</body>
+</html>
