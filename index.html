@@ -38,6 +38,93 @@ nav {
 .nav-links a:hover { color:var(--cream); }
 .nav-links .nav-tool-link { color: var(--gold-light); font-weight: 500; }
 .nav-links .nav-tool-link:hover { color: #fff; text-shadow: 0 0 10px rgba(232,193,122,0.5); }
+
+/* TOOLS DROPDOWN */
+.nav-tools-wrap {
+  position: relative;
+}
+.nav-tools-trigger {
+  background: none;
+  border: none;
+  color: var(--soft);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Sans', sans-serif;
+  padding: 0;
+  transition: color 0.2s;
+}
+.nav-tools-trigger:hover { color: var(--cream); }
+.nav-tools-trigger svg {
+  width: 10px;
+  height: 10px;
+  fill: currentColor;
+  transition: transform 0.25s;
+}
+.nav-tools-wrap.open .nav-tools-trigger svg { transform: rotate(180deg); }
+.nav-tools-wrap.open .nav-tools-trigger { color: var(--gold); }
+
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 16px);
+  right: 0;
+  min-width: 280px;
+  background: rgba(15,15,18,0.96);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(201,163,91,0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.25s;
+}
+.nav-tools-wrap.open .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.nav-dropdown-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.nav-dropdown-item:hover {
+  background: var(--gold-dim);
+}
+.nav-dropdown-icon {
+  width: 32px; height: 32px;
+  min-width: 32px;
+  background: var(--gold-dim);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--gold);
+}
+.nav-dropdown-text { flex: 1; }
+.nav-dropdown-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 2px;
+  display: block;
+}
+.nav-dropdown-desc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+  display: block;
+}
 .nav-cta {
   background:var(--gold)!important;
   color:#000!important;
@@ -904,12 +991,46 @@ footer {
   </a>
   <ul class="nav-links">
     <li><a href="#how">How It Works</a></li>
-    <li><a href="#live-demo">Live Demo</a></li>
-    <li><a href="handoff.html" class="nav-tool-link">Loss Calculator</a></li>
-    <li><a href="#faq">FAQ</a></li>
     <li><a href="#benefits">Benefits</a></li>
     <li><a href="#pricing">Pricing</a></li>
-    <li><a href="calendar.html" class="nav-cta">Reserve My Slot</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li class="nav-tools-wrap" id="nav-tools">
+      <button class="nav-tools-trigger" onclick="toggleNavTools(event)">
+        Tools
+        <svg viewBox="0 0 10 6"><path d="M0 0l5 5 5-5z"/></svg>
+      </button>
+      <div class="nav-dropdown">
+        <a href="gibberish.html" class="nav-dropdown-item">
+          <div class="nav-dropdown-icon">▶</div>
+          <div class="nav-dropdown-text">
+            <span class="nav-dropdown-title">Live Triage Demo</span>
+            <span class="nav-dropdown-desc">See Hermia qualify a lead in real time</span>
+          </div>
+        </a>
+        <a href="handoff.html" class="nav-dropdown-item">
+          <div class="nav-dropdown-icon">$</div>
+          <div class="nav-dropdown-text">
+            <span class="nav-dropdown-title">Loss Calculator</span>
+            <span class="nav-dropdown-desc">Calculate what you're losing monthly</span>
+          </div>
+        </a>
+        <a href="final-tool.html" class="nav-dropdown-item">
+          <div class="nav-dropdown-icon">★</div>
+          <div class="nav-dropdown-text">
+            <span class="nav-dropdown-title">Founder Access</span>
+            <span class="nav-dropdown-desc">Apply for a 25-min strategy session</span>
+          </div>
+        </a>
+        <a href="calendar.html" class="nav-dropdown-item">
+          <div class="nav-dropdown-icon">◇</div>
+          <div class="nav-dropdown-text">
+            <span class="nav-dropdown-title">Booking Calendar</span>
+            <span class="nav-dropdown-desc">Reserve a time slot directly</span>
+          </div>
+        </a>
+      </div>
+    </li>
+    <li><a href="apply.html" class="nav-cta">Apply for Trial</a></li>
   </ul>
 </nav>
 
@@ -951,7 +1072,7 @@ Captured Every Single Month</div>
 
   <div class="video-outer">
     <div class="video-wrapper">
-      <iframe src="https://www.loom.com/embed/30278ab7cc2a47b6930e69e7ff64e14e" allowfullscreen></iframe>
+      <iframe src="https://www.loom.com/embed/5e7262fa26ac49c9b5805793c521ae4e" allowfullscreen></iframe>
     </div>
   </div>
 
@@ -1226,7 +1347,7 @@ Captured Every Single Month</div>
         <li>Covers nights, weekends &amp; public holidays without you lifting a finger</li>
         <li>Full setup done for you — live in your business within 24 hours</li>
       </ul>
-      <a href="calendar.html" class="p-btn p-btn-outline">Reserve My Slot</a>
+      <a href="apply.html" class="p-btn p-btn-outline">Apply for Trial</a>
     </div>
 
     <div class="p-divider"></div>
@@ -1253,7 +1374,7 @@ Captured Every Single Month</div>
         <li>Covers nights, weekends &amp; public holidays without you lifting a finger</li>
         <li>Full setup done for you — live in your business within 24 hours</li>
       </ul>
-      <a href="calendar.html" class="p-btn p-btn-gold">Reserve My Slot</a>
+      <a href="apply.html" class="p-btn p-btn-gold">Apply for Trial</a>
     </div>
 
   </div>
@@ -1442,7 +1563,7 @@ Victoria, Australia • Dubai Support Available
     <h4>Contact</h4>
     <a href="mailto:capital@hermia.au">capital@hermia.au</a>
     <a href="calendar.html">Reserve My Slot</a>
-    <a href="secure.html">Private briefing</a>
+    <a href="final-tool.html">Founder access</a>
   </div>
   <div class="footer-col">
     <h4>Legal</h4>
@@ -1460,14 +1581,32 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   btn.addEventListener('click', () => {
     const item = btn.closest('.faq-item');
     const isOpen = item.classList.contains('open');
-    // close all
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-    // open clicked (unless it was already open)
     if (!isOpen) item.classList.add('open');
   });
+});
+
+// Tools dropdown toggle
+function toggleNavTools(e) {
+  e.stopPropagation();
+  document.getElementById('nav-tools').classList.toggle('open');
+}
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  const wrap = document.getElementById('nav-tools');
+  if (wrap && !wrap.contains(e.target)) {
+    wrap.classList.remove('open');
+  }
+});
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.getElementById('nav-tools')?.classList.remove('open');
+  }
 });
 </script>
 
 </body>
 </html>
+
 
