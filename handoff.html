@@ -8,9 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-
-     <a href="index.html" class="nav-back-btn">Back to Site</a>
-    
     :root {
       --black:#080808; --card:#111111; --border:rgba(201,163,91,0.18); --gold:#C9A35B;
       --gold-light:#e8c17a; --gold-dim:rgba(201,163,91,0.08); --cream:#f5f1e8;
@@ -22,6 +19,34 @@
       color:var(--cream);padding:40px 20px;min-height:100vh;display:flex;align-items:center;justify-content:center
     }
     .container{max-width:1000px;width:100%}
+    
+    /* Navigation Bar at Top */
+    .nav-header {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 24px;
+    }
+    .nav-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--soft);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      transition: all 0.2s ease;
+    }
+    .nav-back-btn:hover {
+      color: var(--gold);
+      border-color: rgba(201, 163, 91, 0.45);
+      background: rgba(201, 163, 91, 0.04);
+      transform: translateX(-2px);
+    }
+
     .hero{text-align:center;margin-bottom:32px}
     h1{font-size:clamp(2rem,4vw,2.8rem);font-weight:700;line-height:1.1;letter-spacing:-0.03em;margin-bottom:12px}
     .subtitle{color:var(--soft);font-size:1.05rem;max-width:760px;margin:0 auto 12px;line-height:1.6}
@@ -89,7 +114,7 @@
     .section-title{font-size:.82rem;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:12px}
     .info-card p,.info-card li{color:var(--soft);line-height:1.65;font-size:.95rem}
     .info-card ul{list-style:none;display:grid;gap:12px}
-    .info-item{padding:14px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.02)}
+    .info-item {padding:14px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.02)}
     .info-item strong{color:var(--cream); display: block; margin-bottom: 4px;}
     
     .how{margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
@@ -102,6 +127,14 @@
 </head>
 <body>
   <div class="container">
+    <!-- Top Back Navigation Header -->
+    <div class="nav-header">
+      <a href="index.html" class="nav-back-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Site
+      </a>
+    </div>
+
     <div class="hero">
       <h1>Estimate Commission Lost to Slow Lead Response</h1>
       <p class="subtitle">In real estate, speed-to-lead dictates your market share. Calculate how many pipeline opportunities drop off when inbound digital inquiries are left unaddressed or delayed.</p>
@@ -173,8 +206,8 @@
         </div>
 
         <div class="cta">
-          <a href="appply.html" class="btn-primary">Book a System Demo</a>
-          <a href="cal.html" class="btn-secondary">Speak with an Consultant</a>
+          <a href="https://hermia.au/demo" class="btn-primary">Book a System Demo</a>
+          <a href="https://hermia.au/contact" class="btn-secondary">Speak with an Automation Consultant</a>
         </div>
       </div>
 
