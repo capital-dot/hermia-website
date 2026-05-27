@@ -640,7 +640,7 @@
 
     <div id="crmConfirmationDisplay" class="confirmation-banner" style="display: none;">
       <h3>⚡ Process Utilized Successfully</h3>
-      <p>Your setup details have been saved. A team member will be in touch with you in about <strong>2 to 3 business days</strong> with your final confirmation.</p>
+      <p>Your setup details have been saved. A team member will be in touch with you in about <strong>1 to 2 business days</strong> for setup.</p>
     </div>
   </div>
 
@@ -683,6 +683,31 @@ function utilizeCrmProcess() {
     return;
   }
   
+  // Construct CRM submission payload
+  const formData = {
+    name: name,
+    email: email,
+    crmPlatform: crmName,
+    agentCount: agents,
+    timestamp: new Date().toISOString()
+  };
+
+  // Fire live data directly out to the Make Webhook
+  fetch('https://hook.eu1.make.com/3hq3jwbtjc6afnfem9rhshxwqlyx838j', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => {
+    console.log('Webhook dispatched successfully:', response.status);
+  })
+  .catch(error => {
+    console.error('Error dispatching webhook submission:', error);
+  });
+  
+  // Update UI Layout transitions instantly for seamless interaction
   document.getElementById('crmFormContainer').style.display = 'none';
   document.getElementById('crmConfirmationDisplay').style.display = 'block';
 }
@@ -692,3 +717,4 @@ runDiagnostic();
 
 </body>
 </html>
+
