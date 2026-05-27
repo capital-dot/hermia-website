@@ -3,295 +3,422 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Hermia Protocol — Private Implementation</title>
+<title>Hermia — Lead Conversion Infrastructure</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --black: #050505;
   --card: #0c0c0c;
-  --border: rgba(201,163,91,0.2);
+  --border: rgba(201,163,91,0.15);
   --gold: #C9A35B;
   --gold-light: #e8c17a;
-  --gold-dim: rgba(201,163,91,0.08);
+  --gold-dim: rgba(201,163,91,0.05);
   --cream: #f5f1e8;
-  --muted: #666666;
-  --soft: #a1a1a1;
+  --muted: #777777;
+  --soft: #b8b8b8;
   --emerald: #10b981;
+  --red: #ff4d4d;
 }
+
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
-  font-family:'DM Sans',sans-serif;
+  font-family:'DM Sans', sans-serif;
   background:var(--black);
   color:var(--cream);
   min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:40px 20px;
+  padding:0 24px 120px;
   overflow-x:hidden;
 }
 
 .bg-grid {
   position:fixed; top:0; left:0; right:0; bottom:0;
   background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 50px 50px;
-  opacity: 0.1;
+  background-size: 60px 60px;
+  opacity: 0.06;
   pointer-events:none;
   z-index:0;
 }
 
 .bg-glow {
   position:fixed;
-  top:50%; left:50%;
+  top:20%; left:50%;
   transform:translate(-50%,-50%);
-  width:800px; height:800px;
-  background:radial-gradient(circle, rgba(201,163,91,0.12) 0%, transparent 70%);
+  width:1000px; height:1000px;
+  background:radial-gradient(circle, rgba(201,163,91,0.05) 0%, transparent 60%);
   pointer-events:none;
-  filter:blur(100px);
+  filter:blur(120px);
   z-index:0;
 }
 
-.protocol-shell {
+.container {
   position:relative;
   z-index:1;
-  width:100%;
-  max-width:580px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:32px;
-  padding:0;
-  overflow:hidden;
-  box-shadow:0 40px 120px rgba(0,0,0,0.8);
-}
-
-/* Header Section */
-.protocol-header {
-  text-align:center;
-  padding:56px 40px 32px;
-  border-bottom:1px solid var(--border);
-  position:relative;
-}
-.protocol-header::before {
-  content:'TOP SECRET';
-  position:absolute;
-  top:24px; left:24px;
-  font-size:9px; font-weight:800; letter-spacing:2px;
-  color:var(--gold); opacity:0.3;
-}
-.protocol-header::after {
-  content:'REF: HM-PROT-2026';
-  position:absolute;
-  top:24px; right:24px;
-  font-size:9px; font-weight:800; letter-spacing:2px;
-  color:var(--gold); opacity:0.3;
-}
-
-.protocol-tag {
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  background:var(--gold-dim);
-  border:1px solid var(--border);
-  padding:6px 16px;
-  border-radius:100px;
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  color:var(--gold);
-  margin-bottom:24px;
-}
-.protocol-tag-dot {
-  width:6px; height:6px;
-  background:var(--emerald);
-  border-radius:50%;
-  box-shadow:0 0 10px var(--emerald);
-  animation:pulse 2s infinite;
-}
-@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
-
-.protocol-header h1 {
-  font-family:'Cormorant Garamond',serif;
-  font-size:42px;
-  font-weight:700;
-  color:#fff;
-  line-height:1.1;
-  margin-bottom:16px;
-  letter-spacing:-1px;
-}
-.protocol-header h1 em {
-  font-style:italic;
-  color:var(--gold);
-}
-.protocol-header p {
-  font-size:15px;
-  color:var(--soft);
-  line-height:1.6;
-  font-weight:300;
-  max-width:420px;
+  max-width:1100px;
   margin:0 auto;
 }
 
-/* Body Section */
-.protocol-body {
-  padding:40px;
+/* TOP NAVIGATION */
+.top-nav {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:32px 0;
+  margin-bottom:64px;
+  border-bottom:1px solid rgba(201,163,91,0.1);
 }
 
-.agenda-box {
-  background:rgba(255,255,255,0.02);
+.nav-back {
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--soft);
+  text-decoration:none;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  transition:color 0.2s;
+}
+
+.nav-back:hover {
+  color:var(--gold-light);
+}
+
+.nav-brand {
+  font-family:'Cormorant Garamond', serif;
+  font-size:24px;
+  font-weight:700;
+  color:#fff;
+  letter-spacing:1px;
+}
+
+/* HERO SECTION */
+.hero {
+  text-align:center;
+  max-width:920px;
+  margin:0 auto 80px;
+}
+
+.hero h1 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:64px;
+  font-weight:700;
+  line-height:1.1;
+  letter-spacing:-1.5px;
+  color:#fff;
+  margin-bottom:28px;
+}
+
+.hero h1 em {
+  font-style:italic;
+  color:var(--gold);
+}
+
+.hero p {
+  font-size:20px;
+  color:var(--soft);
+  font-weight:300;
+  line-height:1.6;
+  max-width:760px;
+  margin:0 auto 40px;
+}
+
+/* PIPELINE VISUALIZATION */
+.pipeline-container {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:40px;
+  margin-bottom:80px;
+  box-shadow:0 30px 60px rgba(0,0,0,0.5);
+}
+
+.pipeline-title {
+  text-align:center;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:32px;
+}
+
+.pipeline-flow {
+  display:grid;
+  grid-template-columns:repeat(6, 1fr);
+  gap:12px;
+  position:relative;
+}
+
+.pipeline-step {
+  background:rgba(255,255,255,0.01);
+  border:1px solid rgba(201,163,91,0.1);
+  border-radius:12px;
+  padding:20px 12px;
+  text-align:center;
+  position:relative;
+}
+
+.pipeline-step::after {
+  content: "→";
+  position:absolute;
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold);
+  opacity: 0.5;
+  font-size: 16px;
+  z-index: 2;
+}
+
+.pipeline-step:last-child::after {
+  content: "";
+}
+
+.step-num {
+  font-family:'Cormorant Garamond', serif;
+  font-size:18px;
+  font-style:italic;
+  color:var(--gold);
+  margin-bottom:6px;
+}
+
+.step-name {
+  font-size:13px;
+  font-weight:600;
+  color:#fff;
+}
+
+/* BENEFITS SECTION */
+.section-header {
+  text-align:center;
+  margin-bottom:48px;
+}
+
+.section-header h2 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:44px;
+  font-weight:600;
+  color:#fff;
+}
+
+.benefits-grid {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:24px;
+  margin-bottom:80px;
+}
+
+.benefit-box {
+  background:var(--card);
   border:1px solid var(--border);
   border-radius:20px;
-  padding:28px;
-  margin-bottom:32px;
-}
-.agenda-title {
-  font-size:11px;
-  font-weight:700;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  color:var(--gold);
-  margin-bottom:20px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.agenda-title::after {
-  content:'';
-  flex:1;
-  height:1px;
-  background:var(--border);
+  padding:36px;
+  transition:all 0.3s ease;
 }
 
-.agenda-list {
-  list-style:none;
-}
-.agenda-item {
-  display:flex;
-  gap:16px;
-  margin-bottom:18px;
-}
-.agenda-item:last-child { margin-bottom:0; }
-.agenda-num {
-  font-family:'Cormorant Garamond',serif;
-  font-size:18px;
-  font-weight:700;
-  color:var(--gold);
-  min-width:24px;
-}
-.agenda-text strong {
-  display:block;
-  color:#fff;
-  font-size:14px;
-  margin-bottom:4px;
-}
-.agenda-text p {
-  font-size:13px;
-  color:var(--soft);
-  line-height:1.5;
-  font-weight:300;
-}
-
-/* The Unique Hook: Live Intercept */
-.live-intercept {
-  background:linear-gradient(135deg, rgba(201,163,91,0.1) 0%, transparent 100%);
-  border:1px solid var(--gold);
-  border-radius:16px;
-  padding:20px;
-  margin-bottom:32px;
-  display:flex;
-  align-items:center;
-  gap:20px;
-}
-.intercept-icon {
-  width:48px; height:48px;
-  background:var(--gold);
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
-  box-shadow:0 0 20px rgba(201,163,91,0.4);
-}
-.intercept-text h4 {
-  font-size:14px;
-  font-weight:700;
-  color:#fff;
-  margin-bottom:4px;
-}
-.intercept-text p {
-  font-size:12px;
-  color:var(--gold-light);
-  font-weight:500;
-}
-
-/* CTA Section */
-.protocol-cta {
-  text-align:center;
-}
-.cta-btn {
-  display:block;
-  width:100%;
-  background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);
-  color:#000;
-  padding:20px;
-  border-radius:12px;
-  font-family:'DM Sans',sans-serif;
-  font-size:13px;
-  font-weight:700;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  text-decoration:none;
-  transition:all 0.3s;
-  box-shadow:0 15px 40px rgba(201,163,91,0.4);
-  border:none;
-  cursor:pointer;
-  margin-bottom:20px;
-}
-.cta-btn:hover {
-  filter:brightness(1.1);
+.benefit-box:hover {
+  border-color:var(--gold);
   transform:translateY(-2px);
-  box-shadow:0 20px 50px rgba(201,163,91,0.6);
 }
 
-.security-clearance {
+.benefits-grid .benefit-box:nth-child(4),
+.benefits-grid .benefit-box:nth-child(5) {
+  grid-column: span 1;
+}
+
+/* Adjust layout for 5 cards to look balanced */
+@shadow {
+  display: flex;
+}
+
+.benefit-box h4 {
+  font-size:18px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:16px;
   display:flex;
   align-items:center;
-  justify-content:center;
   gap:12px;
-  font-size:10px;
-  color:var(--muted);
-  letter-spacing:1.5px;
-  text-transform:uppercase;
 }
-.security-clearance span {
-  width:4px; height:4px;
+
+.benefit-dot {
+  width:6px; height:6px;
   background:var(--gold);
   border-radius:50%;
 }
 
-/* Footer */
-.protocol-footer {
-  border-top:1px solid var(--border);
-  padding:24px 40px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:10px;
-  color:var(--muted);
-  letter-spacing:1px;
-}
-.protocol-footer a {
-  color:var(--gold);
-  text-decoration:none;
+.benefit-box p {
+  font-size:14px;
+  color:var(--soft);
+  line-height:1.6;
+  font-weight:300;
 }
 
-@media (max-width:480px) {
-  .protocol-header { padding:48px 24px 24px; }
-  .protocol-header h1 { font-size:32px; }
-  .protocol-body { padding:24px; }
-  .agenda-box { padding:20px; }
-  .live-intercept { flex-direction:column; text-align:center; }
+.benefit-box ul {
+  list-style: none;
+  margin-top: 14px;
+}
+
+.benefit-box ul li {
+  font-size: 13px;
+  color: var(--cream);
+  margin-bottom: 6px;
+  padding-left: 14px;
+  position: relative;
+}
+
+.benefit-box ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+
+/* COMPARISON SECTION */
+.comparison-container {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:48px;
+  margin-bottom:80px;
+}
+
+.comparison-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+}
+
+.comp-column h3 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:28px;
+  font-weight:600;
+  margin-bottom:24px;
+  padding-bottom:12px;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.comp-column.negative h3 { color: var(--red); }
+.comp-column.positive h3 { color: var(--gold); }
+
+.comp-list {
+  list-style:none;
+}
+
+.comp-list li {
+  font-size:15px;
+  line-height:1.6;
+  margin-bottom:18px;
+  color:var(--soft);
+  position:relative;
+  padding-left:28px;
+}
+
+.comp-list li strong {
+  color: #fff;
+}
+
+.comp-list li::before {
+  position:absolute;
+  left:0;
+  font-weight:700;
+  font-size:16px;
+}
+
+.negative .comp-list li::before { content:'✕'; color:var(--red); }
+.positive .comp-list li::before { content:'✓'; color:var(--emerald); }
+
+/* LIVE DEMO EXPERIENCE */
+.demo-section {
+  background:linear-gradient(135deg, rgba(201,163,91,0.08) 0%, transparent 100%);
+  border:1px solid var(--gold);
+  border-radius:24px;
+  padding:48px;
+  text-align:center;
+  margin-bottom:80px;
+}
+
+.demo-section h2 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:38px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:16px;
+}
+
+.demo-section p {
+  font-size:16px;
+  color:var(--soft);
+  max-width:680px;
+  margin:0 auto 28px;
+  line-height:1.6;
+}
+
+.demo-badge {
+  display:inline-block;
+  font-size:11px;
+  font-weight:700;
+  color:#000;
+  background:var(--gold);
+  padding:4px 12px;
+  border-radius:4px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:16px;
+}
+
+/* CTA LAYOUT */
+.cta-block {
+  text-align:center;
+  max-width:650px;
+  margin:0 auto;
+}
+
+.cta-block h3 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:32px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:24px;
+}
+
+.cta-button {
+  display:inline-block;
+  background:var(--gold);
+  color:#000;
+  padding:22px 56px;
+  border-radius:12px;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:all 0.3s;
+  box-shadow:0 15px 40px rgba(201,163,91,0.2);
+}
+
+.cta-button:hover {
+  background:var(--gold-light);
+  transform:translateY(-2px);
+  box-shadow:0 20px 50px rgba(201,163,91,0.3);
+}
+
+/* RESPONSIVE RE-FLOW */
+@media (max-width: 960px) {
+  .pipeline-flow { grid-template-columns:repeat(3, 1fr); gap:16px; }
+  .pipeline-step::after { display:none; }
+  .benefits-grid { grid-template-columns:1fr 1fr; }
+}
+
+@media (max-width: 760px) {
+  .comparison-grid { grid-template-columns:1fr; gap:32px; }
+  .benefits-grid { grid-template-columns:1fr; }
+  .pipeline-flow { grid-template-columns:1fr; }
+  body { padding:0 16px 80px; }
+  .hero h1 { font-size:42px; }
+  .section-header h2 { font-size:32px; }
 }
 </style>
 </head>
@@ -300,73 +427,116 @@ body {
 <div class="bg-grid"></div>
 <div class="bg-glow"></div>
 
-<div class="protocol-shell">
+<div class="container">
 
-  <div class="protocol-header">
-    <div class="protocol-tag">
-      <span class="protocol-tag-dot"></span>
-      Implementation Briefing
-    </div>
-    <h1>The Hermia <em>Protocol</em></h1>
-    <p>A private, technical briefing for principals and directors ready to intercept their market's inbound pipeline.</p>
-  </div>
+  <header class="top-nav">
+    <div class="nav-brand">HERMIA</div>
+    <a href="final tool.html" class="nav-back">← Back to Main Site</a>
+  </header>
 
-  <div class="protocol-body">
+  <section class="hero">
+    <h1>Real Estate Teams Using Hermia Stop Losing Buyers To <em>Slow Follow-Up</em></h1>
+    <p>Hermia automatically responds to inbound property inquiries, qualifies serious buyers, follows up instantly, and books inspections directly into your calendar — 24/7.</p>
+    <a href="#demo" class="cta-button">See Hermia Live</a>
+  </section>
 
-    <div class="live-intercept">
-      <div class="intercept-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+  <section class="pipeline-container">
+    <div class="pipeline-title">Lead Conversion Infrastructure Execution Flow</div>
+    <div class="pipeline-flow">
+      <div class="pipeline-step">
+        <div class="step-num">01</div>
+        <div class="step-name">Inquiry</div>
       </div>
-      <div class="intercept-text">
-        <h4>Live Intercept Simulation</h4>
-        <p>Watch Hermia qualify a live lead on your own device during the briefing.</p>
+      <div class="pipeline-step">
+        <div class="step-num">02</div>
+        <div class="step-name">Qualification</div>
       </div>
-    </div>
-
-    <div class="agenda-box">
-      <div class="agenda-title">The Agenda</div>
-      <div class="agenda-list">
-        <div class="agenda-item">
-          <div class="agenda-num">01</div>
-          <div class="agenda-text">
-            <strong>Revenue Recovery Audit</strong>
-            <p>We analyze your last 30 days of portal data to quantify the exact dollar value of leads lost to slow response times.</p>
-          </div>
-        </div>
-        <div class="agenda-item">
-          <div class="agenda-num">02</div>
-          <div class="agenda-text">
-            <strong>The Intercept Strategy</strong>
-            <p>A technical walkthrough of how we intercept REA, Domain, and Property Finder payloads before they hit your CRM.</p>
-          </div>
-        </div>
-        <div class="agenda-item">
-          <div class="agenda-num">03</div>
-          <div class="agenda-text">
-            <strong>Custom Logic Mapping</strong>
-            <p>We define the 5 data pillars specific to your agency's high-value buyer profile.</p>
-          </div>
-        </div>
+      <div class="pipeline-step">
+        <div class="step-num">03</div>
+        <div class="step-name">Follow-up</div>
+      </div>
+      <div class="pipeline-step">
+        <div class="step-num">04</div>
+        <div class="step-name">Booking</div>
+      </div>
+      <div class="pipeline-step">
+        <div class="step-num">05</div>
+        <div class="step-name">Agent Notified</div>
+      </div>
+      <div class="pipeline-step">
+        <div class="step-num">06</div>
+        <div class="step-name">Inspection Booked</div>
       </div>
     </div>
+  </section>
 
-    <div class="protocol-cta">
-      <a href="calendar.html" class="cta-btn">Initiate Briefing →</a>
-      <div class="security-clearance">
-        CONFIDENTIAL <span></span> DIRECTOR LEVEL ACCESS <span></span> SECURE
+  <section class="section-header">
+    <h2>What Hermia Automatically Solves</h2>
+  </section>
+
+  <section class="benefits-grid">
+    <div class="benefit-box">
+      <div class="benefit-num">01</div>
+      <h4><span class="benefit-dot"></span> Stop Losing Leads Overnight</h4>
+      <p>Most agencies reply too late. By the time your team responds, the buyer has already moved on, booked elsewhere, or forgotten they even enquired. Hermia responds instantly within seconds.</p>
+    </div>
+    <div class="benefit-box">
+      <div class="benefit-num">02</div>
+      <h4><span class="benefit-dot"></span> Turn Portal Spam Into Qualified Buyers</h4>
+      <p>REA and Domain inquiries are incredibly noisy. Hermia automatically filters serious buyers, investors, renters, sellers, and time-wasters. Your agents stop wasting hours chasing dead leads.</p>
+    </div>
+    <div class="benefit-box">
+      <div class="benefit-num">03</div>
+      <h4><span class="benefit-dot"></span> Speed Wins Listings</h4>
+      <p>Vendors care deeply about follow-up speed. When your agency responds instantly, buyers engage more, inspections increase, and vendors notice the operational superiority. Hermia systematically protects your brand reputation.</p>
+    </div>
+    <div class="benefit-box">
+      <div class="benefit-num">04</div>
+      <h4><span class="benefit-dot"></span> Eliminate Repetitive Admin Work</h4>
+      <p>No more manual texting, repetitive initial qualification, missed callbacks, or forgotten follow-ups. Hermia handles the front-end communication automatically so your agents can focus entirely on listings, negotiations, and closing deals.</p>
+    </div>
+    <div class="benefit-box">
+      <div class="benefit-num">05</div>
+      <h4><span class="benefit-dot"></span> After Hours Mode (24/7)</h4>
+      <p>Your staff clocks out. Hermia doesn't. At 11 PM, over weekends, during public holidays, or while your agents are driving to inspections, Hermia continues engaging and converting every single inbound lead instantly.</p>
+    </div>
+  </section>
+
+  <section class="comparison-container">
+    <div class="comparison-grid">
+      <div class="comp-column negative">
+        <h3>Without Hermia</h3>
+        <ul class="comp-list">
+          <li><strong>Missed opportunities</strong> from late-night portal leads that go cold before morning.</li>
+          <li><strong>Slow responses</strong> allowing hot buyers to schedule inspections with competing agencies.</li>
+          <li><strong>Admin overload</strong> from staff spending hours sorting through spam and manual text tracking.</li>
+          <li><strong>Inconsistent execution</strong> when busy agents forget to log follow-ups or coordinate callbacks.</li>
+        </ul>
+      </div>
+      <div class="comp-column positive">
+        <h3>With Hermia Infrastructure</h3>
+        <ul class="comp-list">
+          <li><strong>Instant automated replies</strong> engaging 100% of portal inquiries within seconds.</li>
+          <li><strong>Live qualification parameters</strong> to instantly identify serious buyers vs time-wasters.</li>
+          <li><strong>Direct calendar updates</strong> booking property inspections straight into system logs automatically.</li>
+          <li><strong>Flawless execution consistency</strong> delivering a premium, personalized experience to every pipeline asset.</li>
+        </ul>
       </div>
     </div>
+  </section>
 
-  </div>
+  <section class="demo-section" id="demo">
+    <div class="demo-badge">Interactive Experience</div>
+    <h2>Watch Hermia Handle A Real Lead Live</h2>
+    <p>Experience the product exactly as your buyers do. During your walkthrough session, you will trigger an inbound inquiry parameters map and watch Hermia qualify and engage a live lead directly on your own mobile device in real time.</p>
+  </section>
 
-  <div class="protocol-footer">
-    <div>HERMIA PROTOCOL v2.1</div>
-    <div><a href="mailto:capital@hermia.au">CONTACT SECURITY</a></div>
-  </div>
+  <section class="cta-block">
+    <h3>The Agencies Winning Attention Respond First.</h3>
+    <a href="#" class="cta-button">Book Live Demo</a>
+  </section>
 
 </div>
 
 </body>
 </html>
-
-
