@@ -3,55 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hermia — Live Triage Demo</title>
+<title>The Hermia Protocol — Private Implementation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --black: #080808;
-  --card: #111111;
-  --border: rgba(201,163,91,0.15);
+  --black: #050505;
+  --card: #0c0c0c;
+  --border: rgba(201,163,91,0.2);
   --gold: #C9A35B;
   --gold-light: #e8c17a;
   --gold-dim: rgba(201,163,91,0.08);
   --cream: #f5f1e8;
-  --muted: #8a8580;
-  --soft: #b8b5ad;
+  --muted: #666666;
+  --soft: #a1a1a1;
   --emerald: #10b981;
-  --danger: #ef4444;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
   font-family:'DM Sans',sans-serif;
   background:var(--black);
   color:var(--cream);
-  padding:120px 24px;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px 20px;
   overflow-x:hidden;
-  position:relative;
 }
 
-.glow-1, .glow-2 {
-  position:fixed;
-  width:600px; height:600px;
-  filter:blur(100px);
+.bg-grid {
+  position:fixed; top:0; left:0; right:0; bottom:0;
+  background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.1;
   pointer-events:none;
   z-index:0;
 }
-.glow-1 { top:-10%; left:-5%; background:radial-gradient(circle, rgba(201,163,91,0.14) 0%, transparent 70%); }
-.glow-2 { bottom:-10%; right:-5%; background:radial-gradient(circle, rgba(201,163,91,0.1) 0%, transparent 70%); }
 
-.wrap {
+.bg-glow {
+  position:fixed;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:800px; height:800px;
+  background:radial-gradient(circle, rgba(201,163,91,0.12) 0%, transparent 70%);
+  pointer-events:none;
+  filter:blur(100px);
+  z-index:0;
+}
+
+.protocol-shell {
   position:relative;
   z-index:1;
-  max-width:1100px;
-  margin:0 auto;
+  width:100%;
+  max-width:580px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:32px;
+  padding:0;
+  overflow:hidden;
+  box-shadow:0 40px 120px rgba(0,0,0,0.8);
 }
 
-.header {
+/* Header Section */
+.protocol-header {
   text-align:center;
-  margin-bottom:56px;
+  padding:56px 40px 32px;
+  border-bottom:1px solid var(--border);
+  position:relative;
 }
-.tag-pill {
+.protocol-header::before {
+  content:'TOP SECRET';
+  position:absolute;
+  top:24px; left:24px;
+  font-size:9px; font-weight:800; letter-spacing:2px;
+  color:var(--gold); opacity:0.3;
+}
+.protocol-header::after {
+  content:'REF: HM-PROT-2026';
+  position:absolute;
+  top:24px; right:24px;
+  font-size:9px; font-weight:800; letter-spacing:2px;
+  color:var(--gold); opacity:0.3;
+}
+
+.protocol-tag {
   display:inline-flex;
   align-items:center;
   gap:8px;
@@ -66,700 +102,271 @@ body {
   color:var(--gold);
   margin-bottom:24px;
 }
-.tag-dot {
+.protocol-tag-dot {
   width:6px; height:6px;
   background:var(--emerald);
   border-radius:50%;
   box-shadow:0 0 10px var(--emerald);
   animation:pulse 2s infinite;
 }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-.header h1 {
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(36px, 5vw, 56px);
-  font-weight:700;
-  color:#fff;
-  line-height:1.1;
-  letter-spacing:-1px;
-  margin-bottom:16px;
-  text-shadow:0 0 30px rgba(201,163,91,0.3);
-}
-.header h1 em { font-style:italic; color:var(--gold); }
-.header p {
-  font-size:17px;
-  color:var(--soft);
-  max-width:640px;
-  margin:0 auto;
-  line-height:1.65;
-  font-weight:300;
-}
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
 
-.grid {
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
-  gap:32px;
-  align-items:start;
-}
-@media(max-width:900px) { .grid { grid-template-columns:1fr; } }
-
-.panel {
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 20px 50px rgba(0,0,0,0.5);
-  backdrop-filter:blur(20px);
-}
-
-/* Phone */
-.phone { height:640px; display:flex; flex-direction:column; }
-.phone-head {
-  background:rgba(15,15,18,0.9);
-  padding:18px 22px;
-  border-bottom:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.avatar {
-  width:38px; height:38px;
-  background:linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#000;
-  font-weight:700;
-  font-family:'Cormorant Garamond',serif;
-  font-size:18px;
-}
-.contact-name { font-size:15px; font-weight:600; color:#fff; }
-.contact-status { font-size:11px; color:var(--emerald); margin-top:2px; }
-
-.chat-stream {
-  flex:1;
-  padding:20px;
-  overflow-y:auto;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-  background:rgba(8,8,10,0.5);
-}
-.bubble {
-  max-width:84%;
-  padding:13px 16px;
-  border-radius:14px;
-  font-size:14px;
-  line-height:1.45;
-  word-wrap:break-word;
-  animation:fadeUp 0.3s ease forwards;
-  white-space:pre-line;
-}
-.bubble.bot {
-  background:rgba(28,28,32,0.9);
-  border:1px solid rgba(255,255,255,0.06);
-  align-self:flex-start;
-  border-top-left-radius:4px;
-  color:#e4e4e7;
-}
-.bubble.user {
-  background:var(--gold);
-  color:#000;
-  font-weight:600;
-  align-self:flex-end;
-  border-top-right-radius:4px;
-}
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(8px); }
-  to { opacity:1; transform:translateY(0); }
-}
-
-.tray {
-  padding:16px;
-  background:rgba(12,12,15,0.9);
-  border-top:1px solid var(--border);
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  min-height:120px;
-}
-.opt-btn {
-  background:transparent;
-  border:1px solid var(--border);
-  color:var(--cream);
-  padding:12px 16px;
-  border-radius:10px;
-  text-align:left;
-  cursor:pointer;
-  font-size:13px;
-  font-weight:500;
-  font-family:'DM Sans',sans-serif;
-  transition:all 0.2s;
-}
-.opt-btn:hover {
-  background:var(--gold-dim);
-  border-color:var(--gold);
-  transform:translateX(3px);
-}
-
-.test-bar {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:12px 18px;
-  background:#050505;
-  border-top:1px solid rgba(255,255,255,0.04);
-}
-.test-bar-label {
-  font-size:10px;
-  color:var(--muted);
-  letter-spacing:1.5px;
-  font-weight:600;
-  text-transform:uppercase;
-}
-.test-trigger {
-  background:rgba(239,68,68,0.12);
-  border:1px solid rgba(239,68,68,0.3);
-  color:var(--danger);
-  font-size:10px;
-  padding:6px 12px;
-  border-radius:6px;
-  cursor:pointer;
-  font-weight:600;
-}
-.test-trigger:hover { background:rgba(239,68,68,0.22); }
-
-/* CRM */
-.crm {
-  padding:28px;
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-}
-.crm-head {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom:1px solid var(--border);
-  padding-bottom:18px;
-}
-.crm-h3 {
-  font-family:'Cormorant Garamond',serif;
-  font-size:22px;
-  font-weight:700;
-  color:#fff;
-}
-.crm-sub {
-  font-size:11px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  color:var(--muted);
-  margin-top:4px;
-}
-.crm-badge {
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
-  padding:6px 14px;
-  border-radius:8px;
-  font-size:11px;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:0.5px;
-}
-.crm-badge.processing {
-  background:var(--gold-dim);
-  border-color:var(--gold);
-  color:var(--gold);
-}
-.crm-badge.hot {
-  background:rgba(16,185,129,0.12);
-  border-color:var(--emerald);
-  color:var(--emerald);
-  box-shadow:0 0 18px rgba(16,185,129,0.25);
-}
-.crm-badge.cold {
-  background:rgba(239,68,68,0.12);
-  border-color:var(--danger);
-  color:#fca5a5;
-}
-
-.meta-card {
-  background:rgba(0,0,0,0.25);
-  border:1px solid rgba(255,255,255,0.04);
-  border-radius:12px;
-  padding:14px 18px;
-}
-.meta-row {
-  display:flex;
-  justify-content:space-between;
-  padding:6px 0;
-  font-size:13px;
-}
-.meta-l { color:var(--muted); font-weight:500; }
-.meta-v { color:#e4e4e7; font-weight:600; }
-
-.matrix {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-.tile {
-  background:rgba(255,255,255,0.01);
-  border:1px solid rgba(255,255,255,0.04);
-  border-radius:12px;
-  padding:14px 16px;
-  transition:all 0.3s;
-}
-.tile.active {
-  border-color:rgba(201,163,91,0.4);
-  background:rgba(201,163,91,0.04);
-}
-.tile-l {
-  display:block;
-  font-size:10px;
-  color:var(--muted);
-  letter-spacing:1.5px;
-  margin-bottom:6px;
-  font-weight:600;
-  text-transform:uppercase;
-}
-.tile-v {
-  font-size:13px;
-  font-weight:700;
-  color:#fff;
-}
-.tile.active .tile-v { color:var(--gold-light); }
-
-.term {
-  background:#040406;
-  border:1px solid rgba(255,255,255,0.06);
-  border-radius:12px;
-  padding:14px;
-  font-family:monospace;
-}
-.term-h {
-  font-size:9px;
-  color:var(--muted);
-  border-bottom:1px solid rgba(255,255,255,0.08);
-  padding-bottom:8px;
-  margin-bottom:10px;
-  font-weight:700;
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-}
-.term-logs {
-  height:100px;
-  overflow-y:auto;
-  display:flex;
-  flex-direction:column;
-  gap:5px;
-  font-size:10px;
-}
-.log { color:var(--emerald); }
-.log.warn { color:#f59e0b; }
-.log.danger { color:var(--danger); }
-.log.sys { color:var(--muted); }
-
-.cta-row { margin-top:8px; text-align:center; }
-.cta-link {
-  display:inline-block;
-  background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);
-  color:#000;
-  padding:14px 28px;
-  border-radius:10px;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  text-decoration:none;
-  transition:all 0.3s;
-  box-shadow:0 8px 24px rgba(201,163,91,0.3);
-}
-.cta-link:hover {
-  filter:brightness(1.1);
-  transform:translateY(-2px);
-}
-
-/* Timeline section (NO lazy agents section as requested) */
-.timeline-block {
-  margin-top:120px;
-  padding-top:60px;
-  border-top:1px solid var(--border);
-}
-.timeline-intro {
-  text-align:center;
-  margin-bottom:60px;
-}
-.timeline-intro h2 {
+.protocol-header h1 {
   font-family:'Cormorant Garamond',serif;
   font-size:42px;
   font-weight:700;
   color:#fff;
-  margin-bottom:14px;
+  line-height:1.1;
+  margin-bottom:16px;
   letter-spacing:-1px;
 }
-.timeline-intro h2 em { font-style:italic; color:var(--gold); }
-.timeline-intro p {
+.protocol-header h1 em {
+  font-style:italic;
+  color:var(--gold);
+}
+.protocol-header p {
+  font-size:15px;
   color:var(--soft);
-  font-size:16px;
-  max-width:580px;
+  line-height:1.6;
+  font-weight:300;
+  max-width:420px;
   margin:0 auto;
-  line-height:1.6;
-  font-weight:300;
 }
-.timeline-row {
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:24px;
-}
-@media(max-width:768px) { .timeline-row { grid-template-columns:1fr; } }
 
-.timeline-node {
-  background:var(--card);
+/* Body Section */
+.protocol-body {
+  padding:40px;
+}
+
+.agenda-box {
+  background:rgba(255,255,255,0.02);
   border:1px solid var(--border);
-  border-radius:18px;
-  padding:32px;
-  transition:all 0.3s;
+  border-radius:20px;
+  padding:28px;
+  margin-bottom:32px;
 }
-.timeline-node:hover {
-  border-color:rgba(201,163,91,0.4);
-  transform:translateY(-4px);
-  box-shadow:0 16px 40px rgba(0,0,0,0.4), 0 0 40px rgba(201,163,91,0.25);
-}
-.timeline-node.gold-node {
-  border-color:rgba(201,163,91,0.35);
-  background:linear-gradient(180deg, rgba(201,163,91,0.04) 0%, transparent 100%);
-}
-.node-num {
-  font-family:'Cormorant Garamond',serif;
-  font-size:40px;
+.agenda-title {
+  font-size:11px;
   font-weight:700;
-  color:rgba(201,163,91,0.25);
-  margin-bottom:14px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:20px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
-.gold-node .node-num { color:var(--gold); text-shadow:0 0 18px rgba(201,163,91,0.35); }
-.timeline-node h3 {
+.agenda-title::after {
+  content:'';
+  flex:1;
+  height:1px;
+  background:var(--border);
+}
+
+.agenda-list {
+  list-style:none;
+}
+.agenda-item {
+  display:flex;
+  gap:16px;
+  margin-bottom:18px;
+}
+.agenda-item:last-child { margin-bottom:0; }
+.agenda-num {
+  font-family:'Cormorant Garamond',serif;
   font-size:18px;
-  font-weight:600;
-  color:#fff;
-  margin-bottom:10px;
+  font-weight:700;
+  color:var(--gold);
+  min-width:24px;
 }
-.timeline-node p {
+.agenda-text strong {
+  display:block;
+  color:#fff;
   font-size:14px;
+  margin-bottom:4px;
+}
+.agenda-text p {
+  font-size:13px;
   color:var(--soft);
-  line-height:1.6;
+  line-height:1.5;
   font-weight:300;
 }
 
-.back-link {
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
+/* The Unique Hook: Live Intercept */
+.live-intercept {
+  background:linear-gradient(135deg, rgba(201,163,91,0.1) 0%, transparent 100%);
+  border:1px solid var(--gold);
+  border-radius:16px;
+  padding:20px;
   margin-bottom:32px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+.intercept-icon {
+  width:48px; height:48px;
+  background:var(--gold);
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  box-shadow:0 0 20px rgba(201,163,91,0.4);
+}
+.intercept-text h4 {
+  font-size:14px;
+  font-weight:700;
+  color:#fff;
+  margin-bottom:4px;
+}
+.intercept-text p {
+  font-size:12px;
+  color:var(--gold-light);
+  font-weight:500;
+}
+
+/* CTA Section */
+.protocol-cta {
+  text-align:center;
+}
+.cta-btn {
+  display:block;
+  width:100%;
+  background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);
+  color:#000;
+  padding:20px;
+  border-radius:12px;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:all 0.3s;
+  box-shadow:0 15px 40px rgba(201,163,91,0.4);
+  border:none;
+  cursor:pointer;
+  margin-bottom:20px;
+}
+.cta-btn:hover {
+  filter:brightness(1.1);
+  transform:translateY(-2px);
+  box-shadow:0 20px 50px rgba(201,163,91,0.6);
+}
+
+.security-clearance {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+.security-clearance span {
+  width:4px; height:4px;
+  background:var(--gold);
+  border-radius:50%;
+}
+
+/* Footer */
+.protocol-footer {
+  border-top:1px solid var(--border);
+  padding:24px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:1px;
+}
+.protocol-footer a {
   color:var(--gold);
   text-decoration:none;
-  font-size:13px;
-  font-weight:500;
-  padding:8px 16px;
-  border:1px solid var(--border);
-  border-radius:8px;
-  transition:all 0.2s;
 }
-.back-link:hover { background:var(--gold-dim); border-color:var(--gold); }
+
+@media (max-width:480px) {
+  .protocol-header { padding:48px 24px 24px; }
+  .protocol-header h1 { font-size:32px; }
+  .protocol-body { padding:24px; }
+  .agenda-box { padding:20px; }
+  .live-intercept { flex-direction:column; text-align:center; }
+}
 </style>
 </head>
 <body>
 
-<div class="glow-1"></div>
-<div class="glow-2"></div>
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
 
-<div class="wrap">
+<div class="protocol-shell">
 
-  <a href="index.html" class="back-link">← Back to Hermia</a>
-
-  <div class="header">
-    <div class="tag-pill">
-      <span class="tag-dot"></span>
-      Live Triage Demo
+  <div class="protocol-header">
+    <div class="protocol-tag">
+      <span class="protocol-tag-dot"></span>
+      Implementation Briefing
     </div>
-    <h1>Stop pitching. <em>Let them test drive it.</em></h1>
-    <p>Prospects don't want a sales deck — they want speed. Run the live filtration sequence below to watch how Hermia turns a raw enquiry into a qualified CRM record.</p>
+    <h1>The Hermia <em>Protocol</em></h1>
+    <p>A private, technical briefing for principals and directors ready to intercept their market's inbound pipeline.</p>
   </div>
 
-  <div class="grid">
+  <div class="protocol-body">
 
-    <div class="panel phone">
-      <div class="phone-head">
-        <div class="avatar">H</div>
-        <div>
-          <div class="contact-name">Hermia</div>
-          <div class="contact-status">● Active intercept node</div>
-        </div>
+    <div class="live-intercept">
+      <div class="intercept-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
       </div>
-
-      <div class="chat-stream" id="chat-stream"></div>
-
-      <div class="tray" id="tray"></div>
-
-      <div class="test-bar">
-        <span class="test-bar-label">Edge case test:</span>
-        <button class="test-trigger" id="trigger-junk">Simulate gibberish</button>
+      <div class="intercept-text">
+        <h4>Live Intercept Simulation</h4>
+        <p>Watch Hermia qualify a live lead on your own device during the briefing.</p>
       </div>
     </div>
 
-    <div class="panel crm">
-      <div class="crm-head">
-        <div>
-          <div class="crm-h3">Triage Telemetry</div>
-          <div class="crm-sub">Live qualification feed</div>
+    <div class="agenda-box">
+      <div class="agenda-title">The Agenda</div>
+      <div class="agenda-list">
+        <div class="agenda-item">
+          <div class="agenda-num">01</div>
+          <div class="agenda-text">
+            <strong>Revenue Recovery Audit</strong>
+            <p>We analyze your last 30 days of portal data to quantify the exact dollar value of leads lost to slow response times.</p>
+          </div>
         </div>
-        <div class="crm-badge" id="status">Awaiting inquiry</div>
-      </div>
-
-      <div class="meta-card">
-        <div class="meta-row">
-          <span class="meta-l">Target listing</span>
-          <span class="meta-v">15 Palm Jumeirah Drive</span>
+        <div class="agenda-item">
+          <div class="agenda-num">02</div>
+          <div class="agenda-text">
+            <strong>The Intercept Strategy</strong>
+            <p>A technical walkthrough of how we intercept REA, Domain, and Property Finder payloads before they hit your CRM.</p>
+          </div>
         </div>
-        <div class="meta-row">
-          <span class="meta-l">Prospect</span>
-          <span class="meta-v">Kevin Knocks</span>
-        </div>
-      </div>
-
-      <div class="matrix">
-        <div class="tile" id="tile-timeline">
-          <span class="tile-l">Timeline</span>
-          <span class="tile-v">—</span>
-        </div>
-        <div class="tile" id="tile-budget">
-          <span class="tile-l">Budget</span>
-          <span class="tile-v">—</span>
-        </div>
-        <div class="tile" id="tile-finance">
-          <span class="tile-l">Finance flex</span>
-          <span class="tile-v">—</span>
-        </div>
-        <div class="tile" id="tile-booking">
-          <span class="tile-l">Inspection</span>
-          <span class="tile-v">—</span>
+        <div class="agenda-item">
+          <div class="agenda-num">03</div>
+          <div class="agenda-text">
+            <strong>Custom Logic Mapping</strong>
+            <p>We define the 5 data pillars specific to your agency's high-value buyer profile.</p>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="term">
-        <div class="term-h">System Log</div>
-        <div class="term-logs" id="terminal">
-          <div class="log sys">[INIT] Listening for portal trigger...</div>
-        </div>
-      </div>
-
-      <div class="cta-row">
-        <a href="handoff.html" class="cta-link">Calculate My Lead Loss →</a>
+    <div class="protocol-cta">
+      <a href="calendar.html" class="cta-btn">Initiate Briefing →</a>
+      <div class="security-clearance">
+        CONFIDENTIAL <span></span> DIRECTOR LEVEL ACCESS <span></span> SECURE
       </div>
     </div>
 
   </div>
 
-  <!-- Timeline section (no lazy agents block) -->
-  <div class="timeline-block">
-    <div class="timeline-intro">
-      <h2>Zero noise. <em>Absolute boundary control.</em></h2>
-      <p>Agents hate endless loops, broken automations, and spam notifications. Hermia enforces clean execution from intercept to handoff.</p>
-    </div>
-
-    <div class="timeline-row">
-      <div class="timeline-node">
-        <div class="node-num">01</div>
-        <h3>Intercept &amp; extract</h3>
-        <p>Hermia locks onto the inbound enquiry instantly. Filters gibberish via the 3-strike kill switch before it ever reaches your CRM.</p>
-      </div>
-      <div class="timeline-node">
-        <div class="node-num">02</div>
-        <h3>Qualify &amp; sync</h3>
-        <p>The moment timeline, budget, and buying flexibility match thresholds, a clean structured lead populates your CRM pipeline.</p>
-      </div>
-      <div class="timeline-node gold-node">
-        <div class="node-num">03</div>
-        <h3>Clean handoff</h3>
-        <p>Once the sequence completes, conversation memory is cleared. No loops, no rogue replies — the lead arrives in your CRM ready to call.</p>
-      </div>
-    </div>
+  <div class="protocol-footer">
+    <div>HERMIA PROTOCOL v2.1</div>
+    <div><a href="mailto:capital@hermia.au">CONTACT SECURITY</a></div>
   </div>
 
 </div>
 
-<script>
-const chat = document.getElementById('chat-stream');
-const tray = document.getElementById('tray');
-const term = document.getElementById('terminal');
-const status = document.getElementById('status');
-const junkBtn = document.getElementById('trigger-junk');
-
-let step = 1, junkCount = 0, dead = false;
-
-const flow = {
-  1: {
-    msg: "Hi Kevin, I'm Hermia — your agent's digital assistant. I've flagged your enquiry for 15 Palm Jumeirah Drive. When are you hoping to move in?\n\nA) Within 4 weeks\nB) 1-3 months\nC) 3-6 months\nD) 6+ months",
-    opts: [
-      { txt:"A) Within 4 weeks", val:"Within 4 weeks", log:"Timeline: < 4 weeks (HOT)", tile:"timeline", rating:"HOT" },
-      { txt:"C) 3-6 months", val:"3-6 months", log:"Timeline: 3-6 months (COLD nurture)", tile:"timeline", rating:"COLD" }
-    ],
-    next:2
-  },
-  2: {
-    msg: "Got it. What's your rough budget?\n\nA) Under $500k\nB) $500k-$800k\nC) $800k-$1.2M\nD) $1.2M-$2M\nE) $2M+",
-    opts: [
-      { txt:"C) $800k-$1.2M", val:"$800k-$1.2M", log:"Budget locked: $800k-$1.2M", tile:"budget" }
-    ],
-    next:3
-  },
-  3: {
-    msg: "Strong budget. If a property comes up slightly outside that bracket but ticks every box, would you stretch?\n\nA) Yes for the right one\nB) Maybe, depends\nC) No, hard limit\nD) Budget isn't an issue",
-    opts: [
-      { txt:"D) Budget isn't an issue", val:"Budget no issue", log:"Finance proxy: cash-flexible / premium buyer", tile:"finance" }
-    ],
-    next:4
-  },
-  4: {
-    msg: "Great news — your file is fully verified. Lock in an inspection here:\nhttps://agency.zohobookings.com.au\n\nIf no times are listed yet, reply R for (REQUEST) and I'll route your file to the agent.",
-    opts: [
-      { txt:"R) Request inspection", val:"R", log:"R-trigger fired: agent queue updated", tile:"booking" }
-    ],
-    next:5
-  },
-  5: {
-    msg: "Perfect. Last quick one — are weekdays or weekends generally better?\n\nA) Weekdays\nB) Weekends\nC) Either",
-    opts: [
-      { txt:"C) Either works", val:"Either", log:"Availability captured. Compiling digest.", tile:"booking" }
-    ],
-    next:"end"
-  }
-};
-
-function log(t, type="success") {
-  const time = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
-  const l = document.createElement('div');
-  l.className = `log ${type==='success'?'':type}`;
-  l.innerText = `[${time}] ${t}`;
-  term.appendChild(l);
-  term.scrollTop = term.scrollHeight;
-}
-
-function showBot(stepId) {
-  if (dead) return;
-  tray.innerHTML = '';
-
-  const typing = document.createElement('div');
-  typing.className = 'bubble bot';
-  typing.id = 'typing-i';
-  typing.innerText = 'Hermia is thinking…';
-  chat.appendChild(typing);
-  chat.scrollTop = chat.scrollHeight;
-
-  setTimeout(() => {
-    const t = document.getElementById('typing-i');
-    if (t) t.remove();
-
-    const d = flow[stepId];
-    const bubble = document.createElement('div');
-    bubble.className = 'bubble bot';
-    bubble.innerText = d.msg;
-    chat.appendChild(bubble);
-    chat.scrollTop = chat.scrollHeight;
-
-    d.opts.forEach(o => {
-      const b = document.createElement('button');
-      b.className = 'opt-btn';
-      b.innerText = o.txt;
-      b.onclick = () => pick(o, d.next);
-      tray.appendChild(b);
-    });
-  }, 700);
-}
-
-function pick(opt, next) {
-  if (dead) return;
-  tray.innerHTML = '';
-
-  const b = document.createElement('div');
-  b.className = 'bubble user';
-  b.innerText = opt.val;
-  chat.appendChild(b);
-  chat.scrollTop = chat.scrollHeight;
-
-  log(opt.log);
-
-  if (opt.tile) {
-    const tile = document.getElementById(`tile-${opt.tile}`);
-    tile.classList.add('active');
-    tile.querySelector('.tile-v').innerText = opt.val;
-  }
-  if (opt.rating) {
-    status.innerText = `${opt.rating} LEAD`;
-    status.className = `crm-badge ${opt.rating.toLowerCase()}`;
-  }
-
-  if (next === 'end') {
-    setTimeout(() => {
-      const final = document.createElement('div');
-      final.className = 'bubble bot';
-      final.innerText = "Thank you for your cooperation. Your agent has your details and will be in touch shortly.\n\nHave a wonderful day.";
-      chat.appendChild(final);
-      log('[SHUTDOWN] Connection closed.', 'sys');
-      dead = true;
-
-      setTimeout(() => {
-        const ghost = document.createElement('div');
-        ghost.className = 'bubble user';
-        ghost.innerText = "Thanks";
-        chat.appendChild(ghost);
-        log('[DROPPED] Input ignored.', 'sys');
-      }, 1500);
-    }, 800);
-  } else {
-    step = next;
-    showBot(next);
-  }
-}
-
-junkBtn.onclick = () => {
-  if (dead) return;
-  tray.innerHTML = '';
-
-  const junk = document.createElement('div');
-  junk.className = 'bubble user';
-  junk.innerText = 'asdf90834!!';
-  chat.appendChild(junk);
-  chat.scrollTop = chat.scrollHeight;
-
-  junkCount++;
-  log(`[INVALID] Malformed input #${junkCount}/3`, 'warn');
-
-  if (junkCount >= 3) {
-    setTimeout(() => {
-      log('[TERMINATED] Kill switch fired. Lead dropped.', 'danger');
-      status.innerText = 'JUNK FILTERED';
-      status.className = 'crm-badge cold';
-      tray.innerHTML = '<div style="color:var(--muted); font-size:12px; text-align:center; padding:14px;">Session terminated · Intent failed</div>';
-      dead = true;
-    }, 500);
-  } else {
-    setTimeout(() => {
-      const retry = document.createElement('div');
-      retry.className = 'bubble bot';
-      retry.innerText = "Sorry, I didn't catch that. Please reply with the letter that matches your answer.";
-      chat.appendChild(retry);
-      showBot(step);
-    }, 700);
-  }
-};
-
-setTimeout(() => {
-  log('[WEBHOOK] Inbound enquiry detected');
-  showBot(1);
-}, 800);
-</script>
-
 </body>
 </html>
+
 
