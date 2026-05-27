@@ -1,168 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hermia - Calculator</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --black: #080808;
-            --card: #111111;
-            --border: rgba(201,163,91,0.15);
-            --gold: #C9A35B;
-            --gold-light: #e8c17a;
-            --gold-dim: rgba(201,163,91,0.08);
-            --cream: #f5f1e8;
-            --muted: #8a8580;
-            --soft: #b8b5ad;
-            --danger: #ef4444;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--black);
-            color: var(--cream);
-            padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        .container { max-width: 650px; width: 100%; text-align: center; }
-        h1 { font-size: 2.2rem; font-weight: 500; margin-bottom: 10px; letter-spacing: -0.02em; }
-        .subtitle { color: var(--soft); margin-bottom: 40px; font-size: 1.1rem; }
-
-        .calculator-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px;
-            text-align: left;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            margin-bottom: 40px;
-        }
-
-        .form-group { margin-bottom: 24px; }
-        label { display: block; font-size: 0.9rem; color: var(--soft); margin-bottom: 8px; font-weight: 500; }
-        
-        .input-wrapper { position: relative; display: flex; align-items: center; }
-        .input-prefix { position: absolute; left: 16px; color: var(--muted); font-weight: 500; }
-
-        input[type="number"], input[type="range"] {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border);
-            padding: 14px 16px;
-            border-radius: 8px;
-            color: var(--cream);
-            font-size: 1.1rem;
-            outline: none;
-        }
-        .has-prefix { padding-left: 32px !important; }
-
-        .slider-header { display: flex; justify-content: space-between; align-items: center; }
-        .slider-value { color: var(--gold); font-weight: 600; font-size: 1.1rem; }
-
-        input[type="range"] { -webkit-appearance: none; padding: 0; height: 6px; background: rgba(201,163,91,0.2); margin-top: 10px; }
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--gold); cursor: pointer;
-        }
-
-        .results-box {
-            background: var(--gold-dim);
-            border: 1px solid rgba(201,163,91,0.3);
-            border-radius: 12px;
-            padding: 24px;
-            margin-top: 32px;
-            text-align: center;
-        }
-        .results-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 8px; }
-        .loss-amount { font-size: 2.5rem; font-weight: 700; color: var(--danger); margin-bottom: 4px; }
-        .annual-loss { font-size: 0.95rem; color: var(--soft); }
-
-        .btn-primary {
-            display: inline-block;
-            background: var(--gold);
-            color: var(--black);
-            font-weight: 600;
-            padding: 16px 36px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 1.05rem;
-            box-shadow: 0 4px 14px rgba(201,163,91,0.3);
-        }
-        .btn-primary:hover { background: var(--gold-light); }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hermia - Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:#080808; --card:#111111; --border:rgba(201,163,91,0.18); --gold:#C9A35B;
+      --gold-light:#e8c17a; --gold-dim:rgba(201,163,91,0.08); --cream:#f5f1e8;
+      --muted:#8a8580; --soft:#b8b5ad; --danger:#ef4444; --good:#22c55e;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:'DM Sans',sans-serif;background:radial-gradient(circle at top, #141414 0%, var(--black) 55%);
+      color:var(--cream);padding:40px 20px;min-height:100vh;display:flex;align-items:center;justify-content:center
+    }
+    .container{max-width:860px;width:100%}
+    .hero{text-align:center;margin-bottom:22px}
+    h1{font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.05;letter-spacing:-0.03em;margin-bottom:12px}
+    .subtitle{color:var(--soft);font-size:1.05rem;max-width:760px;margin:0 auto 12px;line-height:1.6}
+    .trust-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:18px 0 0}
+    .trust-pill{border:1px solid var(--border);background:rgba(255,255,255,0.03);color:var(--soft);padding:10px 14px;border-radius:999px;font-size:.92rem}
+    .layout{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start}
+    .calculator-card,.info-card{background:rgba(17,17,17,.96);border:1px solid var(--border);border-radius:18px;box-shadow:0 20px 40px rgba(0,0,0,.45)}
+    .calculator-card{padding:28px}
+    .info-card{padding:24px}
+    .form-group{margin-bottom:22px}
+    label{display:block;font-size:.9rem;color:var(--soft);margin-bottom:8px;font-weight:500}
+    .field-help{font-size:.84rem;color:var(--muted);margin-top:8px;line-height:1.45}
+    .input-wrapper{position:relative;display:flex;align-items:center}
+    .input-prefix{position:absolute;left:16px;color:var(--muted);font-weight:500;pointer-events:none}
+    input[type="number"],input[type="range"]{width:100%;background:rgba(255,255,255,.03);border:1px solid var(--border);padding:14px 16px;border-radius:10px;color:var(--cream);font-size:1.05rem;outline:none}
+    .has-prefix{padding-left:32px!important}
+    input[type="range"]{-webkit-appearance:none;padding:0;height:6px;background:rgba(201,163,91,.2);margin-top:10px}
+    input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer}
+    .slider-header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .slider-value{color:var(--gold);font-weight:700;font-size:1.05rem}
+    .results-box{background:linear-gradient(180deg, rgba(201,163,91,.12), rgba(201,163,91,.06));border:1px solid rgba(201,163,91,.28);border-radius:14px;padding:22px;margin-top:24px;text-align:center}
+    .results-title{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:10px}
+    .loss-amount{font-size:clamp(2.2rem,5vw,3.1rem);font-weight:700;color:var(--danger);line-height:1.05;margin-bottom:6px}
+    .annual-loss{font-size:.98rem;color:var(--soft)}
+    .breakdown{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px}
+    .metric{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:left}
+    .metric .k{font-size:.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px}
+    .metric .v{font-size:1.05rem;font-weight:700;color:var(--cream)}
+    .cta{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+    .btn-primary{display:inline-flex;align-items:center;justify-content:center;background:var(--gold);color:var(--black);font-weight:700;padding:16px 18px;border-radius:10px;text-decoration:none;font-size:1.02rem;box-shadow:0 4px 14px rgba(201,163,91,.28)}
+    .btn-primary:hover{background:var(--gold-light)}
+    .btn-secondary{display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--cream);font-weight:600;padding:15px 18px;border-radius:10px;text-decoration:none;border:1px solid var(--border)}
+    .btn-secondary:hover{border-color:rgba(201,163,91,.45)}
+    .section-title{font-size:.82rem;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:12px}
+    .info-card p,.info-card li{color:var(--soft);line-height:1.65;font-size:.98rem}
+    .info-card ul{list-style:none;display:grid;gap:12px}
+    .info-item{padding:14px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.02)}
+    .info-item strong{color:var(--cream)}
+    .calc-note{font-size:.84rem;color:var(--muted);margin-top:14px;line-height:1.55}
+    .how{margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+    .how code{color:var(--gold);background:rgba(201,163,91,.08);padding:2px 6px;border-radius:6px}
+    .privacy{margin-top:14px;font-size:.86rem;color:var(--muted)}
+    .privacy a{color:var(--soft)}
+    @media (max-width: 860px){ .layout{grid-template-columns:1fr} .breakdown{grid-template-columns:1fr} }
+  </style>
 </head>
 <body>
-
-    <div class="container">
-        <h1>How much commission is slipping through delayed follow-ups?</h1>
-        <p class="subtitle">See what raw response friction is costing your pipeline monthly.</p>
-
-        <div class="calculator-card">
-            <div class="form-group">
-                <label for="monthlyLeads">Average Monthly Inbound Leads</label>
-                <input type="number" id="monthlyLeads" value="100">
-            </div>
-
-            <div class="form-group">
-                <label for="avgCommission">Average Commission per Deal</label>
-                <div class="input-wrapper">
-                    <span class="input-prefix">$</span>
-                    <input type="number" id="avgCommission" class="has-prefix" value="5000">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="slider-header">
-                    <label for="estimatedLoss">Leads Lost to Delayed Response</label>
-                    <span class="slider-value" id="sliderValue">35%</span>
-                </div>
-                <input type="range" id="estimatedLoss" min="5" max="80" value="35">
-            </div>
-
-            <div class="results-box">
-                <div class="results-title">Estimated Monthly Revenue Leakage</div>
-                <div class="loss-amount" id="monthlyLossDisplay">$175,000</div>
-                <div class="annual-loss">That's <span id="annualLossDisplay" style="color: var(--cream); font-weight: 600;">$2,100,000</span> yearly.</div>
-            </div>
-        </div>
-
-        <div>
-            <a href="what%20we%20do.html" class="btn-primary">See How We Plug This Leak</a>
-        </div>
+  <div class="container">
+    <div class="hero">
+      <h1>Estimate commission lost from slow follow-up</h1>
+      <p class="subtitle">Enter your average monthly leads, commission per deal, and the share of leads that go cold before a response. The calculator gives a simple estimate, so agents can quickly see what delayed follow-up may be costing.</p>
+      <div class="trust-row">
+        <div class="trust-pill">Built for Australian agents</div>
+        <div class="trust-pill">Clear assumptions</div>
+        <div class="trust-pill">Privacy-first approach</div>
+        <div class="trust-pill">No-obligation estimate</div>
+      </div>
     </div>
 
-    <script>
-        const monthlyLeads = document.getElementById('monthlyLeads');
-        const avgCommission = document.getElementById('avgCommission');
-        const estimatedLoss = document.getElementById('estimatedLoss');
-        const sliderValue = document.getElementById('sliderValue');
-        const monthlyLossDisplay = document.getElementById('monthlyLossDisplay');
-        const annualLossDisplay = document.getElementById('annualLossDisplay');
+    <div class="layout">
+      <div class="calculator-card">
+        <div class="form-group">
+          <label for="monthlyLeads">Average monthly inbound leads</label>
+          <input type="number" id="monthlyLeads" value="100" min="0" step="1" inputmode="numeric" />
+          <div class="field-help">Use the average number of new enquiries you receive each month.</div>
+        </div>
 
-        function updateValues() {
-            const leads = parseFloat(monthlyLeads.value) || 0;
-            const comm = parseFloat(avgCommission.value) || 0;
-            const pct = parseFloat(estimatedLoss.value) || 0;
-            
-            sliderValue.textContent = pct + '%';
-            const mLoss = leads * (pct / 100) * comm;
-            
-            monthlyLossDisplay.textContent = '$' + Math.round(mLoss).toLocaleString();
-            annualLossDisplay.textContent = '$' + Math.round(mLoss * 12).toLocaleString();
-        }
+        <div class="form-group">
+          <label for="avgCommission">Average commission per deal</label>
+          <div class="input-wrapper">
+            <span class="input-prefix">$</span>
+            <input type="number" id="avgCommission" class="has-prefix" value="5000" min="0" step="100" inputmode="decimal" />
+          </div>
+          <div class="field-help">Estimate your average gross commission from a successfully closed deal.</div>
+        </div>
 
-        [monthlyLeads, avgCommission, estimatedLoss].forEach(el => el.addEventListener('input', updateValues));
-    </script>
-</body>
-</html>
+        <div class="form-group">
+          <div class="slider-header">
+            <label for="estimatedLoss" style="margin-bottom:0">Leads lost to delayed response</label>
+            <span class="slider-value" id="sliderValue">35%</span>
+          </div>
+          <input type="range" id="estimatedLoss" min="5" max="80" value="35" step="1" />
+          <div class="field-help">A simple benchmark for leads that cool off before you connect.</div>
+        </div>
+
+        <div class="results-box" aria-live="polite">
+          <div class="results-title">Estimated monthly revenue leakage</div>
+          <div class="loss-amount" id="monthlyLossDisplay">$175,000</div>
+          <div class="annual-loss">That is <span id="annualLossDisplay" style="color: var(--cream); font-weight: 700;">$2,100,000</span> yearly.</div>
+          <div class="breakdown">
+            <div class="metric"><div class="k">Monthly leads</div><div class="v" id="leadCountDisplay">100</div></div>
+            <div class="metric"><div class="k">Average commission</div><div class="v" id="commissionDisplay">$5,000</div></div>
+            <div class="metric"><div class="k">Loss rate</div><div class="v" id="lossRateDisplay">35%</div></div>
+          </div>
+        </div>
+
+        <div class="how">
+          <div class="section-title">How it is calculated</div>
+          <p class="calc-note">Monthly leakage = monthly leads × estimated lost leads % × average commission. This is a directional estimate, not a guarantee, and actual results depend on response time, lead source, and market conditions.</p>
+        </div>
+
+        <div class="cta">
+          <a href="what%20we%20do.html" class="btn-primary">Book a 10-minute demo</a>
+          <a href="#trust" class="btn-secondary">See why agents trust us</a>
+        </div>
+
+        <div class="privacy">By using this calculator, you agree to our <a href="privacy.html">privacy policy</a> and understand that results are estimates only.</div>
+      </div>
+
+      <aside class="info-card" id="trust">
+        <div class="section-title">Why this feels trustworthy</div>
+        <ul>
+          <li class="info-item"><strong>Transparent assumptions.</strong> The page explains the formula, which makes the result easier to believe.</li>
+          <li class="info-item"><strong>Specific next step.</strong> The CTA asks for a demo instead of a vague click-through.</li>
+          <li class="info-item"><strong>Privacy visible.</strong> A policy link and consent language reduce friction for agents.</li>
+          <li class="info-item"><strong>Human proof.</strong> Add testimonials, agency logos, or a short case study above or below this card.</li>
+          <li class="info-item"><strong>Practical framing.</strong> The copy focuses on lost commission, which is the metric agents care about most.</li>
+        </ul>
+        <p class="privacy">Optional upgrade: add a small “Used by agents in Melbourne, Sydney and Brisbane” line only if it is true.</p>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const monthlyLeads = document.getElementById('monthlyLeads');
+    const avgCommission = document.getElementById('avgCommission');
+    const estimatedLoss = document.getElementById('estimatedLoss');
+    const sliderValue = document.getElementById('sliderValu
 
