@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What We Do • Hermia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --card: #141414;
+      --card-inner: #1c1c1c;
+      --gold: #C9A35B;
+      --gold-light: #e8c17a;
+      --cream: #f5f1e8;
+      --muted: #a8a39a;
+      --soft: #d4d0c7;
+      --success: #4CAF50;
+      --error: #f44336;
+      --info: #2196F3;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { 
+      font-family:'Inter', sans-serif; 
+      background:var(--black); 
+      color:var(--cream); 
+      line-height:1.7; 
+      padding:0;
+      margin:0;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Header Navigation styling */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0 60px;
+    }
+    .logo-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo { 
+      width: 44px; 
+      height: 44px; 
+      filter: drop-shadow(0 2px 10px rgba(201,163,91,0.3)); 
+    }
+    .brand { 
+      font-family: 'Playfair Display', serif; 
+      font-size: 24px; 
+      color: #fff; 
+      font-weight: 700;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 60px;
+    }
+    .tagline {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero p {
+      font-size: 19px;
+      color: var(--soft);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* The Problem vs Solution Block */
+    .grid-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 80px;
+    }
+    .status-card {
+      background: var(--card);
+      border: 1px solid #222;
+      border-radius: 20px;
+      padding: 40px;
+    }
+    .status-card.negative {
+      border-left: 4px solid #331c1c;
+    }
+    .status-card.positive {
+      border-left: 4px solid var(--gold);
+    }
+    .status-card h3 {
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .status-card ul {
+      padding-left: 20px;
+    }
+    .status-card li {
+      margin-bottom: 12px;
+      color: var(--soft);
+    }
+
+    /* LIVE SIMULATOR CONTAINER */
+    .simulator-title {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .simulator-subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 32px;
+    }
+    .simulator-box {
+      background: var(--card);
+      border: 1px solid rgba(201,163,91,0.2);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      margin-bottom: 80px;
+    }
+    .sim-nav {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid #222;
+      padding-bottom: 16px;
+    }
+    .sim-tab {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      color: var(--muted);
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+    .sim-tab:hover {
+      border-color: var(--gold);
+      color: #fff;
+    }
+    .sim-tab.active {
+      background: var(--gold);
+      color: #111;
+      border-color: var(--gold);
+      font-weight: 600;
+    }
+
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.2fr 1.3fr;
+      align-items: center;
+      gap: 20px;
+    }
+    @media (max-width: 768px) {
+      .grid-split, .sim-grid { grid-template-columns: 1fr; }
+      .sim-arrow { transform: rotate(90deg); margin: 10px 0; }
+    }
+
+    .panel-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .raw-inquiry {
+      background: #0d0d0d;
+      border: 1px solid #222;
+      border-radius: 14px;
+      padding: 24px;
+      min-height: 220px;
+    }
+    .inquiry-meta {
+      font-size: 13px;
+      color: var(--muted);
+      border-bottom: 1px solid #1a1a1a;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+    .inquiry-body {
+      font-size: 15px;
+      color: #e0e0e0;
+      font-style: italic;
+    }
+
+    .sim-arrow {
+      text-align: center;
+      font-size: 32px;
+      color: var(--gold);
+      font-weight: bold;
+    }
+
+    /* Live CRM Inject Dynamic Card */
+    .crm-inject {
+      background: var(--card-inner);
+      border: 1px solid #333;
+      border-radius: 14px;
+      padding: 24px;
+      min-height: 220px;
+      position: relative;
+    }
+    .crm-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #2a2a2a;
+      padding-bottom: 12px;
+    }
+    .crm-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .priority-badge {
+      padding: 4px 12px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .priority-badge.hot { background: rgba(244,67,54,0.15); color: #ff6b6b; border: 1px solid rgba(244,67,54,0.3); }
+    .priority-badge.cold { background: rgba(33,150,243,0.15); color: #6ba4ff; border: 1px solid rgba(33,150,243,0.3); }
+    
+    .data-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 20px;
+      margin-bottom: 16px;
+    }
+    .data-item {
+      font-size: 13px;
+    }
+    .data-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .data-item strong {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .action-banner {
+      background: #111;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-left: 3px solid var(--gold);
+    }
+
+    /* Operational Core Values Rules */
+    .rules-block {
+      background: linear-gradient(135deg, #111 0%, #0a0a0a 100%);
+      border: 1px solid #222;
+      border-radius: 20px;
+      padding: 44px;
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .rules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+      margin-top: 32px;
+    }
+    @media (max-width: 768px) { .rules-grid { grid-template-columns: 1fr; } }
+    .rule-item {
+      padding: 20px;
+    }
+    .rule-item div {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    .rule-item h4 {
+      font-size: 17px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .rule-item p {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* Main CTA Button */
+    .cta-wrapper {
+      text-align: center;
+      margin-top: 40px;
+    }
+    .primary-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold);
+      color: #111;
+      font-weight: 700;
+      font-size: 17px;
+      padding: 20px 40px;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(201,163,91,0.2);
+    }
+    .primary-btn:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(201,163,91,0.3);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 100px;
+      padding-top: 30px;
+      border-top: 1px solid #1c1c1c;
+      font-size: 13px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <header>
+      <a href="#" class="logo-block">
+        <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo">
+        <span class="brand">Hermia</span>
+      </a>
+    </header>
+
+    <section class="hero">
+      <div class="tagline">Intelligent Triage For Real Estate</div>
+      <h1>Stop Guessing Enquiries.<br>Focus On Leads <em>Ready To Close.</em></h1>
+      <p>Real estate agents waste entire afternoons chasing window shoppers and long-term browsers. Hermia parses intent instantly and organizes your pipeline context.</p>
+    </section>
+
+    <div class="grid-split">
+      <div class="status-card negative">
+        <h3>❌ The Old, Exhausting Way</h3>
+        <ul>
+          <li>An enquiry lands in your inbox from a listing portal.</li>
+          <li>You spend your valuable afternoon calling them to verify basic details.</li>
+          <li>They tell you they are "just looking" or moving in 8 months' time.</li>
+          <li><strong>Result:</strong> Hours wasted on dead ends that should have been spent at inspections or closing open deals.</li>
+        </ul>
+      </div>
+
+      <div class="status-card positive">
+        <h3>✨ The Automated Hermia Way</h3>
+        <ul>
+          <li>Hermia captures and processes incoming enquiries instantly.</li>
+          <li>We quietly extract timelines, precise budgets, and financial status.</li>
+          <li>The lead profile automatically drops into your CRM categorized by urgency.</li>
+          <li><strong>Result:</strong> You open your dashboard, see who is pre-approved and moving in weeks, call them, and lock down the deal.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 class="simulator-title">See The System Live</h2>
+    <p class="simulator-subtitle">Click an inquiry type to see how Hermia reads raw text and transforms it into direct, actionable CRM data.</p>
+
+    <div class="simulator-box">
+      <div class="sim-nav">
+        <div class="sim-tab active" onclick="switchLead('hot')">🔥 Immediate Buyer (Hot)</div>
+        <div class="sim-tab" onclick="switchLead('cold')">❄️ Future Nurture (Cold)</div>
+        <div class="sim-tab" onclick="switchLead('tenant')">🏠 Urgent Rental (Hot)</div>
+      </div>
+
+      <div class="sim-grid">
+        <div>
+          <div class="panel-label">1. Incoming Inbound Text</div>
+          <div class="raw-inquiry">
+            <div class="inquiry-meta" id="leadPortal">Portal: Realestate.com.au</div>
+            <div class="inquiry-body" id="leadText">
+              "Hi, I want to book an inspection for 14/22 Smith St this Saturday. My partner and I have our bank pre-approval ready and need to settle into a place within a month. Cheers, Dave."
+            </div>
+          </div>
+        </div>
+
+        <div class="sim-arrow">➔</div>
+
+        <div>
+          <div class="panel-label">2. Instant CRM Injection</div>
+          <div class="crm-inject">
+            <div class="crm-header">
+              <span class="crm-title" id="crmName">Lead: Dave M.</span>
+              <span class="priority-badge hot" id="crmPriority">Hot Lead</span>
+            </div>
+            
+            <div class="data-grid">
+              <div class="data-item">
+                <span>Intent</span>
+                <strong id="crmIntent">Purchase / Buy</strong>
+              </div>
+              <div class="data-item">
+                <span>Timeline</span>
+                <strong id="crmTimeline">&lt; 4 Weeks</strong>
+              </div>
+              <div class="data-item">
+                <span>Budget Context</span>
+                <strong id="crmBudget">Market Premium ($850k)</strong>
+              </div>
+              <div class="data-item">
+                <span>Finance Status</span>
+                <strong id="crmFinance">Pre-Approved (Bank)</strong>
+              </div>
+            </div>
+
+            <div class="action-banner" id="crmAction">
+              🚨 Action: Call immediately. Settle within the month.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rules-block">
+      <h3 style="font-family:'Playfair Display'; font-size:28px; color:#fff;">Our Guardrails: Zero Disruption, Pure Leverage</h3>
+      <p style="color:var(--muted); font-size:15px; max-width:600px; margin:8px auto 0;">We protect your relationship parameters with prospective clientele with absolute precision.</p>
+      
+      <div class="rules-grid">
+        <div class="rule-item">
+          <div>🛡️</div>
+          <h4>We Don't Promise</h4>
+          <p>We never confirm prices, promise parameters, or make transactional declarations to your prospects.</p>
+        </div>
+        <div class="rule-item">
+          <div>🚫</div>
+          <h4>We Don't Generate</h4>
+          <p>We do not source cold leads or run generic ad spend arrays. We focus entirely on extracting data from active enquiries.</p>
+        </div>
+        <div class="rule-item">
+          <div>⚡</div>
+          <h4>We Just Route</h4>
+          <p>We gather explicit structural parameters and feed them straight to your existing CRM suite in real-time.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-wrapper">
+      <a href="contract.html" class="primary-btn">
+        Secure Your Founding Partner Spot ➔
+      </a>
+    </div>
+
+    <footer>
+      © 2026 Hermia · Product Layout Suite<br>
+      Hermia functions as an independent optimization utility running seamlessly with your native pipeline structures.
+    </footer>
+
+  </div>
+
+  <script>
+    const leadData = {
+      hot: {
+        portal: "Portal: Realestate.com.au",
+        text: '"Hi, I want to book an inspection for 14/22 Smith St this Saturday. My partner and I have our bank pre-approval ready and need to settle into a place within a month. Cheers, Dave."',
+        name: "Lead: Dave M.",
+        priority: "Hot Lead",
+        priorityClass: "priority-badge hot",
+        intent: "Purchase / Buy",
+        timeline: "< 4 Weeks",
+        budget: "Market Premium",
+        finance: "Pre-Approved (Bank)",
+        action: "🚨 Action: Call immediately. Lead is ready to transact now."
+      },
+      cold: {
+        portal: "Portal: Domain.com.au",
+        text: '"Just checking to see what the layout looks like. We are thinking of buying an investment property down the line, probably in 6 or 7 months when our cash lock-in account matures. No rush."',
+        name: "Lead: Sarah K.",
+        priority: "Cold Lead",
+        priorityClass: "priority-badge cold",
+        intent: "Investment Asset",
+        timeline: "6+ Months",
+        budget: "In Review",
+        finance: "Unverified / Staged",
+        action: "💤 Action: Route to automated email nurture loop."
+      },
+      tenant: {
+        portal: "Portal: Direct QR Scan",
+        text: '"Needing to find a lease option immediately. Moving for a corporate corporate transfer on the 15th of next month. Clean record, proof of funds can be sent over today."',
+        name: "Lead: Marcus T.",
+        priority: "Hot Lead",
+        priorityClass: "priority-badge hot",
+        intent: "Lease / Rental",
+        timeline: "2-3 Weeks",
+        budget: "Corporate Allocation",
+        finance: "Verified Payslips",
+        action: "🚨 Action: Priority link allocation to application forms."
+      }
+    };
+
+    function switchLead(type) {
+      // Manage Active Tab UI State
+      const tabs = document.querySelectorAll('.sim-tab');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Update Live UI Fields dynamically
+      const data = leadData[type];
+      document.getElementById('leadPortal').textContent = data.portal;
+      document.getElementById('leadText').textContent = data.text;
+      document.getElementById('crmName').textContent = data.name;
+      
+      const pBadge = document.getElementById('crmPriority');
+      pBadge.textContent = data.priority;
+      pBadge.className = data.priorityClass;
+
+      document.getElementById('crmIntent').textContent = data.intent;
+      document.getElementById('crmTimeline').textContent = data.timeline;
+      document.getElementById('crmBudget').textContent = data.budget;
+      document.getElementById('crmFinance').textContent = data.finance;
+      document.getElementById('crmAction').textContent = data.action;
+    }
+  </script>
+</body>
+</html>
