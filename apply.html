@@ -15,38 +15,79 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream);min-height:100vh;}
 
-nav{padding:20px 48px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border);}
+nav{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  padding:20px 48px;
+  display:flex; align-items:center; justify-content:space-between;
+  background:rgba(8,8,8,0.92); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
 .nav-logo img{width:34px;height:34px;}
 .nav-logo span{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--cream);}
-.nav-back{color:var(--soft);text-decoration:none;font-size:14px;transition:color 0.2s;}
-.nav-back:hover{color:var(--cream);}
+.nav-back-btn{
+  color:var(--soft);
+  text-decoration:none;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  border:1px solid var(--border);
+  padding:10px 18px;
+  border-radius:8px;
+  transition:all 0.25s;
+}
+.nav-back-btn:hover{
+  color:#fff;
+  border-color:var(--gold);
+  background:var(--gold-dim);
+  box-shadow:0 0 15px rgba(201,163,91,0.2);
+}
 
-.page{max-width:680px;margin:0 auto;padding:72px 24px 100px;}
+.page{max-width:680px;margin:0 auto;padding:140px 24px 100px;}
 .page-tag{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
-.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,64px);font-weight:700;line-height:1.05;color:#fff;margin-bottom:16px;}
-.page-title em{font-style:italic;color:var(--gold);}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,64px);font-weight:700;line-height:1.05;color:#fff;margin-bottom:16px;letter-spacing:-1px;}
+.page-title em{font-style:italic;color:var(--gold);text-shadow:0 0 25px rgba(201,163,91,0.35);}
 .page-sub{font-size:16px;color:var(--soft);line-height:1.7;font-weight:300;margin-bottom:52px;max-width:520px;}
 
-.form-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:48px 44px;position:relative;overflow:hidden;}
+.form-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:48px 44px;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.5);}
 .form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
 
 .field{margin-bottom:28px;}
 .field label{display:block;font-size:13px;font-weight:600;color:var(--soft);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase;}
 .field input,.field select{
-width:100%;padding:16px 18px;background:#0d0d0d;border:1px solid rgba(201,163,91,0.25);
-border-radius:10px;color:var(--cream);font-size:15px;transition:all 0.2s;
+  width:100%;padding:16px 18px;background:#0d0d0d;border:1px solid rgba(201,163,91,0.25);
+  border-radius:10px;color:var(--cream);font-size:15px;transition:all 0.2s;
+  font-family:'DM Sans',sans-serif;
 }
-.field input:focus,.field select:focus{border-color:var(--gold);background:#1a1a1a;box-shadow:0 0 0 4px rgba(201,163,91,0.25);}
+.field input:focus,.field select:focus{outline:none;border-color:var(--gold);background:#1a1a1a;box-shadow:0 0 0 4px rgba(201,163,91,0.15);}
+.field select{
+  appearance:none; cursor:pointer;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%23C9A35B' d='M0 0l5 5 5-5z'/></svg>");
+  background-repeat:no-repeat;
+  background-position:right 18px center;
+  padding-right:42px;
+}
+.field input::placeholder{color:var(--muted);}
 
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:520px){.field-row{grid-template-columns:1fr;}}
 
-.submit-btn{width:100%;padding:18px;background:var(--gold);color:#000;font-size:16px;font-weight:600;border:none;border-radius:10px;cursor:pointer;transition:all 0.2s;}
-.submit-btn:hover{background:var(--gold-light);transform:translateY(-1px);}
+.submit-btn{
+  width:100%;padding:18px;
+  background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);
+  color:#000;font-size:13px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  border:none;border-radius:10px;cursor:pointer;
+  transition:all 0.3s;
+  box-shadow:0 10px 30px rgba(201,163,91,0.25);
+  font-family:'DM Sans',sans-serif;
+}
+.submit-btn:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 14px 40px rgba(201,163,91,0.4);}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
 
 .form-note{font-size:12px;color:var(--muted);text-align:center;margin-top:16px;font-style:italic;}
 
-/* New Security Verification Footer Badge */
 .security-footer {
   display: flex;
   align-items: flex-start;
@@ -75,11 +116,14 @@ border-radius:10px;color:var(--cream);font-size:15px;transition:all 0.2s;
   font-weight: 500;
 }
 
-/* Success */
 .success-state{display:none;text-align:center;padding:48px 0;}
-.success-icon{width:72px;height:72px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;font-size:28px;}
+.success-icon{width:72px;height:72px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;font-size:32px;color:var(--gold);box-shadow:0 0 30px rgba(201,163,91,0.3);}
 .success-state h2{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:#fff;margin-bottom:12px;}
-.success-back{display:inline-block;margin-top:32px;color:var(--gold);text-decoration:none;font-size:14px;border:1px solid var(--border);padding:12px 24px;border-radius:8px;}
+.success-state p{color:var(--soft);font-weight:300;line-height:1.6;}
+.success-cta{display:inline-block;margin-top:32px;background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);color:#000;text-decoration:none;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 30px;border-radius:10px;transition:all 0.3s;box-shadow:0 8px 24px rgba(201,163,91,0.25);}
+.success-cta:hover{filter:brightness(1.1);transform:translateY(-2px);}
+.success-back{display:inline-block;margin-top:14px;color:var(--soft);text-decoration:none;font-size:12px;letter-spacing:1px;}
+.success-back:hover{color:var(--cream);}
 </style>
 </head>
 <body>
@@ -89,43 +133,43 @@ border-radius:10px;color:var(--cream);font-size:15px;transition:all 0.2s;
     <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia">
     <span>Hermia</span>
   </a>
-  <a href="index.html" class="nav-back">← Back to site</a>
+  <a href="index.html" class="nav-back-btn">← Back to Site</a>
 </nav>
 
 <div class="page">
   <div class="page-tag">Application</div>
-  <h1 class="page-title">Apply for<br><em>demo.</em></h1>
-  <p class="page-sub">Limited spots available in Australia and UAE. We review every application personally and reply within one business day.</p>
+  <h1 class="page-title">Apply for your<br><em>3-day trial.</em></h1>
+  <p class="page-sub">Limited spots in Australia and UAE. Every application is reviewed personally — we'll reply within one business day with next steps.</p>
 
   <div class="form-card">
     <div id="form-view">
       <div class="field">
-        <label>Which Market?</label>
+        <label>Which market?</label>
         <select id="market" required>
-          <option value="" disabled selected>Select Market</option>
-          <option value="Australia">🇦🇺 Australia</option>
-          <option value="UAE">🇦🇪 UAE / Dubai</option>
+          <option value="" disabled selected>Select market</option>
+          <option value="Australia">🇦🇺 Australia — $260 AUD/mo</option>
+          <option value="UAE">🇦🇪 UAE / Dubai — AED 1,400/mo</option>
         </select>
       </div>
 
       <div class="field-row">
         <div class="field">
-          <label>Full Name</label>
+          <label>Full name</label>
           <input type="text" id="name" placeholder="Jane Smith" required>
         </div>
         <div class="field">
-          <label>Phone Number</label>
-          <input type="tel" id="phone" placeholder="+61 4XX XXX XXX or +971 XX XXX XXXX" required>
+          <label>Phone number</label>
+          <input type="tel" id="phone" placeholder="+61 4XX XXX XXX" required>
         </div>
       </div>
 
       <div class="field">
-        <label>Email Address</label>
+        <label>Email address</label>
         <input type="email" id="email" placeholder="jane@youragency.com" required>
       </div>
 
       <div class="field">
-        <label>Agency Name</label>
+        <label>Agency name</label>
         <input type="text" id="agency" placeholder="Your agency or brokerage" required>
       </div>
 
@@ -133,28 +177,34 @@ border-radius:10px;color:var(--cream);font-size:15px;transition:all 0.2s;
         <label>Current CRM (optional)</label>
         <select id="crm">
           <option value="">Select CRM</option>
-          <option value="Zoho CRM">Zoho CRM</option>
+          <option value="HubSpot">HubSpot</option>
+          <option value="Zoho">Zoho CRM</option>
           <option value="Rex">Rex</option>
+          <option value="Pipedrive">Pipedrive</option>
+          <option value="Bitrix24">Bitrix24</option>
           <option value="PropertyMe">PropertyMe</option>
           <option value="Other">Other</option>
+          <option value="None">No CRM yet</option>
         </select>
       </div>
 
-      <button class="submit-btn" onclick="submitApplication()">Submit Application</button>
-      <p class="form-note">We review every application manually.</p>
+      <button class="submit-btn" onclick="submitApplication()">Submit Application →</button>
+      <p class="form-note">Every application reviewed manually by Archie.</p>
     </div>
 
     <div class="success-state" id="success-view">
       <div class="success-icon">✓</div>
       <h2>Application received.</h2>
-      <p>Thank you. We’ll be in touch within one business day.</p>
+      <p>Thank you. We'll be in touch within one business day with next steps and a calendar link to book your strategy call.</p>
+      <a href="calendar.html" class="success-cta">Book a Slot Now →</a>
+      <br>
       <a href="index.html" class="success-back">Back to Hermia</a>
     </div>
   </div>
 
   <div class="security-footer" id="security-notice">
     <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
-    <p><strong>Enterprise Data Security:</strong> Our architecture is powered by Unipile Systems, utilizing fully audited Google OAuth protocols and bank grade encryption. We maintain a zero-access policy ensuring your passwords and credentials are never seen or stored by our systems.</p>
+    <p><strong>Enterprise Data Security:</strong> Our architecture is powered by Unipile Systems, utilizing fully audited Google OAuth protocols and bank-grade encryption. We maintain a zero-access policy — your passwords and credentials are never seen or stored by our systems.</p>
   </div>
 </div>
 
@@ -181,14 +231,19 @@ async function submitApplication() {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'application', market, name, phone, email, agency, crm, source: 'hermia-apply', submitted_at: new Date().toISOString() })
+      body: JSON.stringify({
+        type: 'application',
+        market, name, phone, email, agency, crm,
+        source: 'hermia-apply',
+        submitted_at: new Date().toISOString()
+      })
     });
   } catch(e) {}
 
   document.getElementById('form-view').style.display = 'none';
   document.getElementById('success-view').style.display = 'block';
-  // Hide security notice on success view to keep screen clean
   document.getElementById('security-notice').style.display = 'none';
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 </script>
 
