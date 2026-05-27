@@ -1,88 +1,385 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Inspection Request</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermia — Private Briefing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080808;
+  --card: #111111;
+  --border: rgba(201,163,91,0.15);
+  --gold: #C9A35B;
+  --gold-light: #e8c17a;
+  --gold-dim: rgba(201,163,91,0.08);
+  --cream: #f5f1e8;
+  --muted: #8a8580;
+  --soft: #b8b5ad;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'DM Sans',sans-serif;
+  background:var(--black);
+  color:var(--cream);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:48px 24px;
+  overflow-x:hidden;
+}
+
+.bg-glow {
+  position:fixed;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:1000px; height:700px;
+  background:radial-gradient(ellipse, rgba(201,163,91,0.18) 0%, transparent 65%);
+  pointer-events:none;
+  filter:blur(80px);
+  z-index:0;
+}
+
+.brief-shell {
+  position:relative;
+  z-index:1;
+  width:100%;
+  max-width:540px;
+  background:linear-gradient(180deg, #131008 0%, #0a0a0a 100%);
+  border:1px solid var(--gold);
+  border-radius:28px;
+  padding:0;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(201,163,91,0.18);
+}
+.brief-shell::before,
+.brief-shell::after {
+  content:'';
+  position:absolute;
+  width:24px; height:24px;
+  border-color:var(--gold);
+  border-style:solid;
+}
+.brief-shell::before { top:14px; right:14px; border-width:1px 1px 0 0; }
+.brief-shell::after  { bottom:14px; left:14px; border-width:0 0 1px 1px; }
+
+.brief-header {
+  text-align:center;
+  padding:48px 36px 32px;
+  border-bottom:1px solid var(--border);
+}
+.brief-tag {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--gold-dim);
+  border:1px solid var(--border);
+  padding:6px 16px;
+  border-radius:100px;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:24px;
+}
+.brief-tag-dot {
+  width:6px; height:6px;
+  background:#10b981;
+  border-radius:50%;
+  box-shadow:0 0 10px #10b981;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; }
+  50% { opacity:0.4; }
+}
+.brief-header h1 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px;
+  font-weight:700;
+  color:#fff;
+  line-height:1.15;
+  margin-bottom:14px;
+  letter-spacing:-0.5px;
+}
+.brief-header h1 em {
+  font-style:italic;
+  color:var(--gold);
+  text-shadow:0 0 25px rgba(201,163,91,0.4);
+}
+.brief-header p {
+  font-size:14px;
+  color:var(--soft);
+  line-height:1.6;
+  font-weight:300;
+  max-width:380px;
+  margin:0 auto;
+}
+
+.brief-body {
+  padding:36px;
+}
+
+.advisor-card {
+  background:rgba(201,163,91,0.04);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:24px;
+  text-align:center;
+  margin-bottom:28px;
+}
+.advisor-avatar {
+  width:72px; height:72px;
+  background:linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:32px;
+  font-weight:700;
+  color:#000;
+  margin:0 auto 14px;
+  box-shadow:0 8px 24px rgba(201,163,91,0.4);
+  position:relative;
+}
+.advisor-status {
+  position:absolute;
+  bottom:2px; right:2px;
+  width:16px; height:16px;
+  background:#10b981;
+  border:3px solid #0a0a0a;
+  border-radius:50%;
+}
+.advisor-name {
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;
+  font-weight:700;
+  color:#fff;
+  margin-bottom:4px;
+}
+.advisor-title {
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:18px;
+}
+.advisor-stats {
+  display:grid;
+  grid-template-columns:1fr 1px 1fr;
+  gap:14px;
+  padding-top:18px;
+  border-top:1px solid var(--border);
+}
+.stat-divider {
+  background:var(--border);
+}
+.stat-block {
+  text-align:center;
+}
+.stat-block-label {
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+.stat-block-value {
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;
+  font-weight:700;
+  color:var(--gold-light);
+}
+
+.briefing-includes {
+  margin-bottom:28px;
+}
+.briefing-includes-label {
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:14px;
+  text-align:center;
+}
+.includes-list {
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.includes-list li {
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  font-size:13px;
+  color:var(--soft);
+  line-height:1.5;
+  font-weight:300;
+}
+.includes-list li::before {
+  content:'◆';
+  font-size:7px;
+  color:var(--gold);
+  margin-top:6px;
+  flex-shrink:0;
+}
+.includes-list strong { color:#fff; font-weight:500; }
+
+.cta-block {
+  background:rgba(0,0,0,0.4);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:24px;
+  text-align:center;
+}
+.cta-block-hint {
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:16px;
+  letter-spacing:0.5px;
+}
+.cta-btn {
+  display:block;
+  width:100%;
+  background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);
+  color:#000;
+  padding:18px 20px;
+  border-radius:10px;
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:all 0.3s;
+  box-shadow:0 10px 30px rgba(201,163,91,0.3);
+  border:none;
+  cursor:pointer;
+}
+.cta-btn:hover {
+  filter:brightness(1.1);
+  transform:translateY(-2px);
+  box-shadow:0 14px 40px rgba(201,163,91,0.45);
+}
+
+.security-row {
+  margin-top:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:1px;
+}
+.security-row::before,
+.security-row::after {
+  content:'';
+  flex:1;
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--border), transparent);
+}
+.security-icon {
+  color:var(--gold);
+  opacity:0.6;
+}
+
+.brief-footer {
+  border-top:1px solid var(--border);
+  padding:20px 36px;
+  text-align:center;
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+.brief-footer a {
+  color:var(--gold);
+  text-decoration:none;
+}
+
+@media (max-width:480px) {
+  .brief-header h1 { font-size:28px; }
+  .brief-header { padding:36px 24px 24px; }
+  .brief-body { padding:24px; }
+  .advisor-stats { grid-template-columns:1fr; }
+  .stat-divider { display:none; }
+}
+</style>
 </head>
-<body style="margin: 0; padding: 0; background-color: #121212; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #ffffff; -webkit-font-smoothing: antialiased;">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #121212; padding: 40px 20px;">
-        <tr>
-            <td align="center">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; background-color: #1c1c1e; border: 1px solid #2c2c2e; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
-                    
-                    <tr>
-                        <td align="center" style="padding: 40px 20px; border-bottom: 1px solid #2c2c2e; background: linear-gradient(185deg, #242426 0%, #1c1c1e 100%);">
-                            <h1 style="margin: 0; font-size: 26px; font-weight: 700; letter-spacing: 2px; color: #d4af37; text-transform: uppercase;">HERMIA</h1>
-                            <p style="margin: 5px 0 0 0; font-size: 11px; color: #a0a0a5; letter-spacing: 3px; text-transform: uppercase;">New Inspection Request</p>
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td style="padding: 40px 30px;">
-                            <p style="margin: 0 0 24px 0; font-size: 15px; line-height: 1.5; color: #e5e5ea;">
-                                A new inspection request has been submitted. The lead details have been parsed and mapped below:
-                            </p>
-                            
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 30px;">
-                                <tr>
-                                    <td width="35%" style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 13px; font-weight: 600; color: #a0a0a5; text-transform: uppercase; letter-spacing: 0.5px;">Lead Name</td>
-                                    <td width="65%" style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 15px; color: #ffffff; font-weight: 500;">{{name}}</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 13px; font-weight: 600; color: #a0a0a5; text-transform: uppercase; letter-spacing: 0.5px;">Phone Number</td>
-                                    <td style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 15px; color: #ffffff;">{{phone}}</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 13px; font-weight: 600; color: #a0a0a5; text-transform: uppercase; letter-spacing: 0.5px;">Property Address</td>
-                                    <td style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 15px; color: #ffffff; line-height: 1.4;">{{property}}</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 13px; font-weight: 600; color: #a0a0a5; text-transform: uppercase; letter-spacing: 0.5px;">Availability</td>
-                                    <td style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 15px; color: #ffffff;">{{availability}}</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 13px; font-weight: 600; color: #a0a0a5; text-transform: uppercase; letter-spacing: 0.5px;">Intent Metric</td>
-                                    <td style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 15px; color: #d4af37; font-weight: 600;">{{179.intent}}</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 18px 0 10px 0; font-size: 13px; font-weight: 600; color: #a0a0a5; text-transform: uppercase; letter-spacing: 0.5px;">Qualification</td>
-                                    <td style="padding: 18px 0 10px 0;">
-                                        <span style="background-color: #d4af37; color: #121212; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; display: inline-block; text-transform: uppercase; letter-spacing: 1px; vertical-align: middle;">{{qualification}}</span>
-                                    </td>
-                                </tr>
-                            </table>
-                            
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tr>
-                                    <td align="center" style="padding-top: 10px;">
-                                        <a href="#" style="background-color: transparent; border: 1px solid #d4af37; color: #d4af37; padding: 12px 28px; border-radius: 4px; font-size: 13px; font-weight: 600; text-decoration: none; display: inline-block; letter-spacing: 1px; text-transform: uppercase;">Open Lead Dashboard</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td style="background-color: #171719; padding: 32px 24px; text-align: center; border-top: 1px solid #2c2c2e;">
-                            <p style="margin: 0 0 8px 0; font-size: 12px; color: #a0a0a5; font-weight: 600; letter-spacing: 1px;">HERMIA SYSTEM NOTICE</p>
-                            <p style="margin: 0 0 16px 0; font-size: 11px; color: #636366; line-height: 1.5;">
-                                This is an automated email triggered by your Make.com lead qualification workflow.<br>
-                                Please refer to your internal dashboard to modify mapping structures.
-                            </p>
-                            <table border="0" cellpadding="0" cellspacing="0" align="center">
-                                <tr>
-                                    <td>
-                                        <a href="#" style="color: #d4af37; font-size: 11px; text-decoration: none; font-weight: 600; letter-spacing: 0.5px;">Community Feedback</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    
-                </table>
-                </td>
-        </tr>
-    </table>
+<body>
+
+<div class="bg-glow"></div>
+
+<div class="brief-shell">
+
+  <div class="brief-header">
+    <div class="brief-tag">
+      <span class="brief-tag-dot"></span>
+      Private Appointment
+    </div>
+    <h1>Reserve Your <em>Private Briefing</em></h1>
+    <p>A confidential walkthrough with Hermia's founding engineer. For agencies serious about owning their inbound pipeline.</p>
+  </div>
+
+  <div class="brief-body">
+
+    <div class="advisor-card">
+      <div class="advisor-avatar">
+        H
+        <span class="advisor-status"></span>
+      </div>
+      <div class="advisor-name">Hermia Engineering</div>
+      <div class="advisor-title">Direct Founder Access</div>
+
+      <div class="advisor-stats">
+        <div class="stat-block">
+          <div class="stat-block-label">Briefing Length</div>
+          <div class="stat-block-value">25 min</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-block">
+          <div class="stat-block-label">Response Window</div>
+          <div class="stat-block-value">&lt; 12hr</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="briefing-includes">
+      <div class="briefing-includes-label">What's covered</div>
+      <ul class="includes-list">
+        <li><strong>Live qualification walk-through</strong> on your actual portal flow</li>
+        <li><strong>CRM routing audit</strong> — HubSpot, Zoho, Rex, Pipedrive supported</li>
+        <li><strong>Lead loss analysis</strong> — quantify what you're leaking after hours</li>
+        <li><strong>Custom deployment plan</strong> tailored to your agency's enquiry volume</li>
+      </ul>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-block-hint">Limited briefings available this week</div>
+      <a href="calendar.html" class="cta-btn">Reserve My Slot →</a>
+      <div class="security-row">
+        <span class="security-icon">◆</span>
+        Private &amp; Confidential
+        <span class="security-icon">◆</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="brief-footer">
+    Hermia · <a href="mailto:capital@hermia.au">capital@hermia.au</a> · hermia.au
+  </div>
+
+</div>
+
 </body>
 </html>
