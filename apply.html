@@ -119,11 +119,9 @@ nav{
 .success-state{display:none;text-align:center;padding:48px 0;}
 .success-icon{width:72px;height:72px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;font-size:32px;color:var(--gold);box-shadow:0 0 30px rgba(201,163,91,0.3);}
 .success-state h2{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:#fff;margin-bottom:12px;}
-.success-state p{color:var(--soft);font-weight:300;line-height:1.6;}
-.success-cta{display:inline-block;margin-top:32px;background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);color:#000;text-decoration:none;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 30px;border-radius:10px;transition:all 0.3s;box-shadow:0 8px 24px rgba(201,163,91,0.25);}
-.success-cta:hover{filter:brightness(1.1);transform:translateY(-2px);}
-.success-back{display:inline-block;margin-top:14px;color:var(--soft);text-decoration:none;font-size:12px;letter-spacing:1px;}
-.success-back:hover{color:var(--cream);}
+.success-state p{color:var(--soft);font-weight:300;line-height:1.6;margin-bottom:32px;}
+.success-cta{display:inline-block;background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);color:#000;text-decoration:none;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:16px 36px;border-radius:10px;transition:all 0.3s;box-shadow:0 8px 24px rgba(201,163,91,0.25);font-family:'DM Sans',sans-serif;}
+.success-cta:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,163,91,0.4);}
 </style>
 </head>
 <body>
@@ -195,10 +193,9 @@ nav{
     <div class="success-state" id="success-view">
       <div class="success-icon">✓</div>
       <h2>Application received.</h2>
-      <p>We'll be in touch within one business day with next steps.</p>
-      
-      <a href="index.html" class="success-back">Back to Hermia</a>
-    </br>
+      <p>We'll be in touch within one business day with your next steps.</p>
+      <a href="index.html" class="success-cta">Back to Hermia</a>
+    </div>
   </div>
 
   <div class="security-footer" id="security-notice">
