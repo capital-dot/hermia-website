@@ -1,569 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hermia — Response Leakage Calculator</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --black: #080808;
-  --card: #111111;
-  --border: rgba(201,163,91,0.15);
-  --gold: #C9A35B;
-  --gold-light: #e8c17a;
-  --gold-dim: rgba(201,163,91,0.08);
-  --cream: #f5f1e8;
-  --muted: #8a8580;
-  --soft: #b8b5ad;
-  --danger: #ef4444;
-  --emerald: #10b981;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family:'DM Sans',sans-serif;
-  background:var(--black);
-  color:var(--cream);
-  min-height:100vh;
-  padding:80px 24px;
-  overflow-x:hidden;
-  position:relative;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hermia - Lost Lead Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --black: #080808;
+            --card: #111111;
+            --border: rgba(201,163,91,0.15);
+            --gold: #C9A35B;
+            --gold-light: #e8c17a;
+            --gold-dim: rgba(201,163,91,0.08);
+            --cream: #f5f1e8;
+            --muted: #8a8580;
+            --soft: #b8b5ad;
+            --danger: #ef4444;
+            --emerald: #10b981;
+        }
 
-.glow-bg {
-  position:fixed;
-  top:30%; left:50%;
-  transform:translateX(-50%);
-  width:900px; height:600px;
-  background:radial-gradient(ellipse, rgba(201,163,91,0.18) 0%, transparent 65%);
-  filter:blur(100px);
-  pointer-events:none;
-  z-index:0;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.shell {
-  position:relative;
-  z-index:1;
-  max-width:980px;
-  margin:0 auto;
-}
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--black);
+            color: var(--cream);
+            line-height: 1.6;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
-.back-link {
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  margin-bottom:40px;
-  color:var(--gold);
-  text-decoration:none;
-  font-size:13px;
-  font-weight:500;
-  padding:8px 16px;
-  border:1px solid var(--border);
-  border-radius:8px;
-  transition:all 0.2s;
-}
-.back-link:hover {
-  background:var(--gold-dim);
-  border-color:var(--gold);
-}
+        .container {
+            max-width: 650px;
+            width: 100%;
+            text-align: center;
+        }
 
-.header {
-  text-align:center;
-  margin-bottom:56px;
-}
-.tag-pill {
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  background:var(--gold-dim);
-  border:1px solid var(--border);
-  padding:6px 16px;
-  border-radius:100px;
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  color:var(--gold);
-  margin-bottom:24px;
-}
-.tag-dot {
-  width:6px; height:6px;
-  background:var(--danger);
-  border-radius:50%;
-  box-shadow:0 0 10px var(--danger);
-  animation:pulse 2s infinite;
-}
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-.header h1 {
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(36px, 5.5vw, 58px);
-  font-weight:700;
-  color:#fff;
-  line-height:1.08;
-  letter-spacing:-1.5px;
-  margin-bottom:18px;
-  text-shadow:0 0 30px rgba(201,163,91,0.35);
-}
-.header h1 em { font-style:italic; color:var(--gold); }
-.header p {
-  font-size:17px;
-  color:var(--soft);
-  max-width:620px;
-  margin:0 auto;
-  line-height:1.65;
-  font-weight:300;
-}
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--cream);
+            letter-spacing: -0.02em;
+        }
 
-.calc-card {
-  background:linear-gradient(180deg, var(--card) 0%, #0d0d0d 100%);
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:48px;
-  box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(201,163,91,0.1);
-  position:relative;
-  overflow:hidden;
-}
-.calc-card::before,
-.calc-card::after {
-  content:'';
-  position:absolute;
-  width:24px; height:24px;
-  border-color:rgba(201,163,91,0.4);
-  border-style:solid;
-  pointer-events:none;
-}
-.calc-card::before { top:14px; right:14px; border-width:1px 1px 0 0; }
-.calc-card::after  { bottom:14px; left:14px; border-width:0 0 1px 1px; }
+        .subtitle {
+            color: var(--soft);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
 
-.calc-grid {
-  display:grid;
-  grid-template-columns:1fr 1px 1fr;
-  gap:48px;
-  align-items:start;
-}
-@media(max-width:840px) {
-  .calc-grid { grid-template-columns:1fr; gap:32px; }
-  .calc-divider { display:none; }
-}
-.calc-divider {
-  background:linear-gradient(180deg, transparent 0%, var(--border) 50%, transparent 100%);
-}
+        /* Calculator Card */
+        .calculator-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: left;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            margin-bottom: 40px;
+        }
 
-/* INPUTS */
-.inputs {
-  display:flex;
-  flex-direction:column;
-  gap:36px;
-}
-.input-group {
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-.input-label {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.input-label-text {
-  font-size:11px;
-  font-weight:700;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  color:var(--gold);
-}
-.input-label-help {
-  font-size:11px;
-  color:var(--muted);
-  font-weight:400;
-}
-.input-display {
-  font-family:'Cormorant Garamond',serif;
-  font-size:42px;
-  font-weight:700;
-  color:#fff;
-  line-height:1;
-  letter-spacing:-1px;
-}
-.input-display .unit {
-  font-family:'DM Sans',sans-serif;
-  font-size:14px;
-  font-weight:400;
-  color:var(--muted);
-  margin-left:6px;
-  letter-spacing:1px;
-}
+        .form-group {
+            margin-bottom: 24px;
+        }
 
-.slider {
-  -webkit-appearance:none;
-  width:100%;
-  height:6px;
-  background:rgba(255,255,255,0.06);
-  border-radius:3px;
-  outline:none;
-  border:1px solid rgba(201,163,91,0.15);
-}
-.slider::-webkit-slider-thumb {
-  -webkit-appearance:none;
-  width:22px;
-  height:22px;
-  background:linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-  border-radius:50%;
-  cursor:pointer;
-  box-shadow:0 0 15px rgba(201,163,91,0.5), 0 0 0 3px rgba(201,163,91,0.15);
-  transition:transform 0.15s;
-}
-.slider::-webkit-slider-thumb:hover { transform:scale(1.15); }
-.slider::-moz-range-thumb {
-  width:22px;
-  height:22px;
-  background:linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-  border-radius:50%;
-  cursor:pointer;
-  border:none;
-  box-shadow:0 0 15px rgba(201,163,91,0.5);
-}
+        label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--soft);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
 
-.slider-bounds {
-  display:flex;
-  justify-content:space-between;
-  font-size:10px;
-  color:var(--muted);
-  letter-spacing:1px;
-  margin-top:4px;
-  text-transform:uppercase;
-}
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
 
-/* OUTPUTS */
-.outputs {
-  display:flex;
-  flex-direction:column;
-  gap:28px;
-}
-.output-block {
-  position:relative;
-}
-.output-label {
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:2.5px;
-  text-transform:uppercase;
-  margin-bottom:8px;
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.output-label-danger { color:#fca5a5; }
-.output-label-gold { color:var(--gold); }
-.output-label-dot {
-  width:5px; height:5px;
-  border-radius:50%;
-}
-.output-label-dot.danger { background:var(--danger); box-shadow:0 0 8px var(--danger); }
-.output-label-dot.gold { background:var(--gold); box-shadow:0 0 8px var(--gold); }
+        .input-prefix {
+            position: absolute;
+            left: 16px;
+            color: var(--muted);
+            font-weight: 500;
+        }
 
-.output-value {
-  font-family:'Cormorant Garamond',serif;
-  font-size:56px;
-  font-weight:700;
-  line-height:1;
-  letter-spacing:-2px;
-  margin-bottom:8px;
-}
-.output-value-danger {
-  color:#fca5a5;
-  text-shadow:0 0 30px rgba(239,68,68,0.25);
-}
-.output-value-gold {
-  color:var(--gold-light);
-  text-shadow:0 0 30px rgba(201,163,91,0.35);
-}
-.output-sub {
-  font-size:12px;
-  color:var(--muted);
-  line-height:1.55;
-  font-weight:300;
-}
+        input[type="number"], input[type="range"] {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            padding: 14px 16px;
+            border-radius: 8px;
+            color: var(--cream);
+            font-size: 1.1rem;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
 
-.output-divider {
-  height:1px;
-  background:linear-gradient(90deg, transparent, var(--border), transparent);
-}
+        input[type="number"]:focus {
+            border-color: var(--gold);
+        }
 
-.summary-box {
-  margin-top:36px;
-  padding:24px 28px;
-  background:linear-gradient(135deg, rgba(201,163,91,0.06) 0%, transparent 100%);
-  border:1px solid var(--border);
-  border-radius:14px;
-  text-align:center;
-}
-.summary-label {
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:2.5px;
-  text-transform:uppercase;
-  color:var(--gold);
-  margin-bottom:10px;
-}
-.summary-text {
-  font-family:'Cormorant Garamond',serif;
-  font-size:22px;
-  font-weight:600;
-  color:#fff;
-  line-height:1.35;
-}
-.summary-text em { font-style:italic; color:var(--gold-light); }
+        .has-prefix {
+            padding-left: 32px !important;
+        }
 
-.cta-block {
-  margin-top:40px;
-  text-align:center;
-}
-.cta-btn {
-  display:inline-block;
-  background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);
-  color:#000;
-  padding:18px 36px;
-  border-radius:12px;
-  font-size:13px;
-  font-weight:700;
-  letter-spacing:2.5px;
-  text-transform:uppercase;
-  text-decoration:none;
-  transition:all 0.3s;
-  box-shadow:0 10px 30px rgba(201,163,91,0.35);
-}
-.cta-btn:hover {
-  filter:brightness(1.1);
-  transform:translateY(-2px);
-  box-shadow:0 14px 40px rgba(201,163,91,0.5);
-}
-.cta-hint {
-  margin-top:14px;
-  font-size:11px;
-  color:var(--muted);
-  letter-spacing:1px;
-}
+        /* Slider Specific Styling */
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.footnote {
-  margin-top:40px;
-  text-align:center;
-  font-size:10px;
-  color:var(--muted);
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:14px;
-}
-.fn-diamond {
-  width:4px; height:4px;
-  background:rgba(201,163,91,0.4);
-  transform:rotate(45deg);
-}
+        .slider-value {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
 
-@media(max-width:600px) {
-  .calc-card { padding:32px 24px; }
-  .output-value { font-size:44px; }
-  .input-display { font-size:34px; }
-}
-</style>
+        input[type="range"] {
+            -webkit-appearance: none;
+            padding: 0;
+            height: 6px;
+            background: rgba(201,163,91,0.2);
+            border: none;
+            border-radius: 3px;
+            outline: none;
+            margin-top: 10px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        /* Results Display */
+        .results-box {
+            background: var(--gold-dim);
+            border: 1px solid rgba(201,163,91,0.3);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        .results-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .loss-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--danger);
+            margin-bottom: 4px;
+        }
+
+        .annual-loss {
+            font-size: 0.95rem;
+            color: var(--soft);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--black);
+            font-weight: 600;
+            padding: 16px 36px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.05rem;
+            transition: background 0.2s ease, transform 0.2s ease;
+            box-shadow: 0 4px 14px rgba(201,163,91,0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 <body>
 
-<div class="glow-bg"></div>
+    <div class="container">
+        <h1>How much commission is slipping through delayed follow-ups?</h1>
+        <p class="subtitle">Enter your metrics below to see what slow speed-to-lead is costing your pipeline monthly.</p>
 
-<div class="shell">
+        <div class="calculator-card">
+            <div class="form-group">
+                <label for="monthlyLeads">Average Monthly Inbound Leads</label>
+                <input type="number" id="monthlyLeads" value="100" min="0">
+            </div>
 
-  <a href="index.html" class="back-link">← Back to Hermia</a>
+            <div class="form-group">
+                <label for="avgCommission">Average Commission per Deal</label>
+                <div class="input-wrapper">
+                    <span class="input-prefix">$</span>
+                    <input type="number" id="avgCommission" class="has-prefix" value="5000" min="0">
+                </div>
+            </div>
 
-  <div class="header">
-    <div class="tag-pill">
-      <span class="tag-dot"></span>
-      The Hidden Tax on Slow Replies
-    </div>
-    <h1>How much commission is <em>slipping through</em><br>delayed follow-ups?</h1>
-    <p>Move the sliders to match your actual numbers. See the exact deal volume lost when speed-to-lead gaps appear—and how Hermia seals them.</p>
-  </div>
+            <div class="form-group">
+                <div class="slider-header">
+                    <label for="estimatedLoss">Estimated Leads Lost to Delayed Response</label>
+                    <span class="slider-value" id="sliderValue">35%</span>
+                </div>
+                <input type="range" id="estimatedLoss" min="5" max="80" value="35">
+            </div>
 
-  <div class="calc-card">
-
-    <div class="calc-grid">
-
-      <div class="inputs">
-
-        <div class="input-group">
-          <div class="input-label">
-            <span class="input-label-text">Monthly inbound enquiries</span>
-            <span class="input-label-help">From REA · Domain · Property Finder</span>
-          </div>
-          <div class="input-display" id="d-leads">120<span class="unit">leads/mo</span></div>
-          <input type="range" min="20" max="500" value="120" step="5" class="slider" id="i-leads">
-          <div class="slider-bounds">
-            <span>20</span>
-            <span>500</span>
-          </div>
+            <div class="results-box">
+                <div class="results-title">Estimated Monthly Revenue Leakage</div>
+                <div class="loss-amount" id="monthlyLossDisplay">$175,000</div>
+                <div class="annual-loss">That's <span id="annualLossDisplay" style="color: var(--cream); font-weight: 600;">$2,100,000</span> slipping away every year.</div>
+            </div>
         </div>
 
-        <div class="input-group">
-          <div class="input-label">
-            <span class="input-label-text">% of leads currently lost</span>
-            <span class="input-label-help">Industry avg: 50-80%</span>
-          </div>
-          <div class="input-display" id="d-loss">60<span class="unit">%</span></div>
-          <input type="range" min="20" max="90" value="60" step="5" class="slider" id="i-loss">
-          <div class="slider-bounds">
-            <span>20%</span>
-            <span>90%</span>
-          </div>
+        <div class="cta-section">
+            <a href="what%20we%20do.html" class="btn-primary">See How We Plug This Leak</a>
         </div>
-
-        <div class="input-group">
-          <div class="input-label">
-            <span class="input-label-text">Avg commission per close</span>
-            <span class="input-label-help">Your typical deal</span>
-          </div>
-          <div class="input-display" id="d-comm">$15,000<span class="unit">/close</span></div>
-          <input type="range" min="3000" max="80000" value="15000" step="1000" class="slider" id="i-comm">
-          <div class="slider-bounds">
-            <span>$3k</span>
-            <span>$80k</span>
-          </div>
-        </div>
-
-        <div class="input-group">
-          <div class="input-label">
-            <span class="input-label-text">Your close rate on qualified leads</span>
-            <span class="input-label-help">Conservative: 3-8%</span>
-          </div>
-          <div class="input-display" id="d-rate">5<span class="unit">%</span></div>
-          <input type="range" min="1" max="15" value="5" step="1" class="slider" id="i-rate">
-          <div class="slider-bounds">
-            <span>1%</span>
-            <span>15%</span>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="calc-divider"></div>
-
-      <div class="outputs">
-
-        <div class="output-block">
-          <div class="output-label output-label-danger">
-            <span class="output-label-dot danger"></span>
-            Leads slipping through monthly
-          </div>
-          <div class="output-value output-value-danger" id="o-lost">72</div>
-          <div class="output-sub">Buyers who enquired and were never qualified, never followed up, or replied to too late.</div>
-        </div>
-
-        <div class="output-divider"></div>
-
-        <div class="output-block">
-          <div class="output-label output-label-danger">
-            <span class="output-label-dot danger"></span>
-            Commission lost per month
-          </div>
-          <div class="output-value output-value-danger" id="o-cash-month">$54,000</div>
-          <div class="output-sub">Closed business walking out the door because qualification didn't happen fast enough.</div>
-        </div>
-
-        <div class="output-divider"></div>
-
-        <div class="output-block">
-          <div class="output-label output-label-gold">
-            <span class="output-label-dot gold"></span>
-            What Hermia would recover annually
-          </div>
-          <div class="output-value output-value-gold" id="o-recover">$648,000</div>
-          <div class="output-sub">Based on Hermia capturing 100% of inbound enquiries within 30 seconds and pre-qualifying them.</div>
-        </div>
-
-      </div>
     </div>
 
-    <div class="summary-box">
-      <div class="summary-label">The Hermia Investment</div>
-      <div class="summary-text">
-        Hermia costs <em>$260 AUD / month</em>.<br>
-        One recovered close pays for it for <em id="months-covered">57 months</em>.
-      </div>
-    </div>
+    <script>
+        const monthlyLeadsInput = document.getElementById('monthlyLeads');
+        const avgCommissionInput = document.getElementById('avgCommission');
+        const estimatedLossSlider = document.getElementById('estimatedLoss');
+        const sliderValueLabel = document.getElementById('sliderValue');
+        
+        const monthlyLossDisplay = document.getElementById('monthlyLossDisplay');
+        const annualLossDisplay = document.getElementById('annualLossDisplay');
 
-    <div class="cta-block">
-      <a href="index.html#live-demo" class="cta-btn">See Triage Live Engine in Action →</a>
-      <div class="cta-hint">Next step → Watch how Hermia processes and tiers inputs instantly</div>
-    </div>
+        function calculateLoss() {
+            const leads = parseFloat(monthlyLeadsInput.value) || 0;
+            const commission = parseFloat(avgCommissionInput.value) || 0;
+            const lossPercentage = parseFloat(estimatedLossSlider.value) || 0;
 
-  </div>
+            // Update visible range percentage text
+            sliderValueLabel.textContent = lossPercentage + '%';
 
-  <div class="footnote">
-    <span class="fn-diamond"></span>
-    Conservative industry benchmarks
-    <span class="fn-diamond"></span>
-    Real-time calculation
-    <span class="fn-diamond"></span>
-    Not financial advice
-    <span class="fn-diamond"></span>
-  </div>
+            // Calculations
+            // Assumes loss percentage represents portion of total volume abandoned/failed due to lag
+            const monthlyLoss = leads * (lossPercentage / 100) * commission;
+            const annualLoss = monthlyLoss * 12;
 
-</div>
+            // Format numbers nicely to currency locale strings
+            monthlyLossDisplay.textContent = '$' + Math.round(monthlyLoss).toLocaleString();
+            annualLossDisplay.textContent = '$' + Math.round(annualLoss).toLocaleString();
+        }
 
-<script>
-const sLeads = document.getElementById('i-leads');
-const sLoss = document.getElementById('i-loss');
-const sComm = document.getElementById('i-comm');
-const sRate = document.getElementById('i-rate');
+        // Listen for user changes to compute outputs instantly
+        monthlyLeadsInput.addEventListener('input', calculateLoss);
+        avgCommissionInput.addEventListener('input', calculateLoss);
+        estimatedLossSlider.addEventListener('input', calculateLoss);
 
-const dLeads = document.getElementById('d-leads');
-const dLoss = document.getElementById('d-loss');
-const dComm = document.getElementById('d-comm');
-const dRate = document.getElementById('d-rate');
-
-const oLost = document.getElementById('o-lost');
-const oCashMonth = document.getElementById('o-cash-month');
-const oRecover = document.getElementById('o-recover');
-const mCov = document.getElementById('months-covered');
-
-function fmt(n) {
-  return '$' + Math.round(n).toLocaleString();
-}
-
-function calc() {
-  const leads = +sLeads.value;
-  const loss = +sLoss.value;
-  const comm = +sComm.value;
-  const rate = +sRate.value;
-
-  // Displays
-  dLeads.innerHTML = leads + '<span class="unit">leads/mo</span>';
-  dLoss.innerHTML = loss + '<span class="unit">%</span>';
-  dComm.innerHTML = fmt(comm) + '<span class="unit">/close</span>';
-  dRate.innerHTML = rate + '<span class="unit">%</span>';
-
-  // Outputs
-  const leadsLost = Math.round(leads * (loss/100));
-  const closesLost = leadsLost * (rate/100);
-  const cashMonth = closesLost * comm;
-  const cashYear = cashMonth * 12;
-
-  oLost.innerText = leadsLost;
-  oCashMonth.innerText = fmt(cashMonth);
-  oRecover.innerText = fmt(cashYear);
-
-  // Months covered by one close
-  const months = Math.max(1, Math.round(comm / 260));
-  mCov.innerText = months + ' months';
-}
-
-[sLeads, sLoss, sComm, sRate].forEach(s => s.addEventListener('input', calc));
-calc();
-</script>
-
+        // Run calculation once on page load to set initial values
+        calculateLoss();
+    </script>
 </body>
 </html>
+
 
