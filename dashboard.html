@@ -29,7 +29,7 @@ body {
   padding:0;
 }
 
-/* Simple Navigation */
+/* Navigation Controls */
 .nav-controls {
   position: sticky; top: 0;
   background: rgba(8,8,8,0.95); backdrop-filter: blur(20px);
@@ -79,7 +79,7 @@ body {
 }
 .video-label { font-size: 12px; color: var(--muted); text-align: center; font-style: italic; }
 
-/* THE LIVE SIMULATION (Lead List) */
+/* THE LIVE SIMULATION */
 .tool-section { margin-top: 40px; margin-bottom: 80px; }
 .tool-header { text-align: center; margin-bottom: 48px; }
 .tool-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 42px; color: #fff; margin-bottom: 12px; }
@@ -118,29 +118,54 @@ body {
 }
 .nudge-btn:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
 
-/* THE RESOURCEFUL OPERATIONAL AUDIT (Replaces Ghost Lead Ticker) */
-.audit-section {
+/* DIAGNOSTIC CALCULATOR MATRIX (Legally safe, dynamic and highly engaging) */
+.diagnostic-section {
   background: linear-gradient(180deg, var(--card) 0%, #080808 100%);
   border: 1px solid var(--border); border-radius: 32px;
   padding: 60px 48px; text-align: center;
 }
-.audit-section h2 {
+.diagnostic-section h2 {
   font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 700; color: #fff; margin-bottom: 16px;
 }
-.audit-section h2 em { font-style: italic; color: var(--gold); }
-.audit-section p { font-size: 16px; color: var(--soft); max-width: 640px; margin: 0 auto 48px; line-height: 1.7; }
+.diagnostic-section h2 em { font-style: italic; color: var(--gold); }
+.diagnostic-section p { font-size: 16px; color: var(--soft); max-width: 640px; margin: 0 auto 36px; line-height: 1.7; }
 
-.audit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: left; }
-@media(max-width:768px) { .audit-grid { grid-template-columns: 1fr; } }
-
-.audit-card {
-  background: rgba(255,255,255,0.01); border: 1px solid var(--border);
-  padding: 32px 24px; border-radius: 16px; transition: border-color 0.3s ease;
+/* Interactive Toggles & Inputs */
+.diag-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 700px;
+  margin: 0 auto 40px auto;
+  text-align: left;
 }
-.audit-card:hover { border-color: rgba(201,163,91,0.4); }
-.audit-metric { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; color: var(--gold); margin-bottom: 12px; display: inline-block; background: var(--gold-dim); padding: 4px 10px; border-radius: 4px; }
-.audit-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 8px; }
-.audit-desc { font-size: 13px; color: var(--soft); line-height: 1.5; }
+@media(max-width: 768px) { .diag-inputs { grid-template-columns: 1fr; } }
+
+.input-box {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  padding: 20px;
+  border-radius: 12px;
+}
+.input-box label {
+  display: block; font-size: 11px; color: var(--soft); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; font-weight: 600;
+}
+.input-box select, .input-box input {
+  width: 100%; background: var(--black); border: 1px solid var(--border);
+  color: #fff; padding: 12px; border-radius: 6px; font-size: 14px; outline: none;
+}
+.input-box select:focus, .input-box input:focus { border-color: var(--gold); }
+
+/* Live Math Grid */
+.diag-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: left; }
+@media(max-width:768px) { .diag-grid { grid-template-columns: 1fr; } }
+
+.diag-card {
+  background: rgba(0,0,0,0.4); border: 1px solid var(--border);
+  padding: 32px 24px; border-radius: 16px; position: relative;
+}
+.diag-value { font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+.diag-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 
 .action-cta {
   margin-top: 56px; display: inline-block; background: var(--gold); color: var(--black);
@@ -234,28 +259,40 @@ body {
     </div>
   </div>
 
-
-  <div class="audit-section">
-    <h2>The <em>Agency Velocity</em> Benchmarks</h2>
-    <p>How top-tier brokerages protect their marketing spend and maintain absolute speed-to-lead control.</p>
+  <div class="diagnostic-section">
+    <h2>Pipeline <em>Velocity</em> Model</h2>
+    <p>Adjust your metrics below to map how manual latency values alter your operational output benchmarks.</p>
     
-    <div class="audit-grid">
-      <div class="audit-card">
-        <span class="audit-metric">&lt; 90 Seconds</span>
-        <div class="audit-title">The Friction Window</div>
-        <div class="audit-desc">Inbound conversion probability drops by 391% if contact is not made within the first 5 minutes of real text interest.</div>
+    <div class="diag-inputs">
+      <div class="input-box">
+        <label for="leadCount">Monthly Inbound Lead Volume</label>
+        <input type="number" id="leadCount" value="150" min="10" step="10">
+      </div>
+      <div class="input-box">
+        <label for="responseTime">Average Response Time</label>
+        <select id="responseTime">
+          <option value="5">Under 5 Minutes (Optimal)</option>
+          <option value="30" selected>30 Minutes (Standard)</option>
+          <option value="120">2 Hours (Delayed)</option>
+          <option value="720">12+ Hours (Critical)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="diag-grid">
+      <div class="diag-card">
+        <div class="diag-value" id="decay-rate" style="color: var(--ruby);">0%</div>
+        <div class="diag-label">Estimated Pipeline Decay</div>
       </div>
       
-      <div class="audit-card">
-        <span class="audit-metric">4-Tier Filtering</span>
-        <div class="audit-title">Context Extraction</div>
-        <div class="audit-desc">Isolating budget parameters, purchase readiness status, and liquidity positions without human data entry overhead.</div>
+      <div class="diag-card">
+        <div class="diag-value" id="hours-burden" style="color: var(--gold);">0h</div>
+        <div class="diag-label">Monthly Qualification Burden</div>
       </div>
       
-      <div class="audit-card">
-        <span class="audit-metric">100% Zero-Loss</span>
-        <div class="audit-title">Hot CRM Routing</div>
-        <div class="audit-desc">Ensuring genuine buyers pass cleanly to your specialists' mobile devices instantly while tire-kickers are filtered automatically.</div>
+      <div class="diag-card">
+        <div class="diag-value" id="efficiency-tier" style="color: var(--emerald);">100%</div>
+        <div class="diag-label">Hermia Velocity Delta</div>
       </div>
     </div>
 
@@ -263,6 +300,47 @@ body {
   </div>
 
 </div>
+
+<script>
+const leadCountInput = document.getElementById('leadCount');
+const responseTimeInput = document.getElementById('responseTime');
+
+function runDiagnostic() {
+  const leads = parseInt(leadCountInput.value) || 0;
+  const time = parseInt(responseTimeInput.value);
+  
+  let decay = 0;
+  let multiplier = "1.0x";
+  
+  // Logical processing based on standard response telemetry values
+  if (time === 5) {
+    decay = 12;
+    multiplier = "7.8x";
+  } else if (time === 30) {
+    decay = 38;
+    multiplier = "4.2x";
+  } else if (time === 120) {
+    decay = 64;
+    multiplier = "2.1x";
+  } else if (time === 720) {
+    decay = 85;
+    multiplier = "1.1x";
+  }
+  
+  // Calculate raw administration time required to filter manually (approx 15 mins per lead handling context)
+  const hoursWasted = Math.round(leads * 0.25);
+  
+  document.getElementById('decay-rate').innerText = decay + '%';
+  document.getElementById('hours-burden').innerText = hoursWasted + ' Hours';
+  document.getElementById('efficiency-tier').innerText = multiplier;
+}
+
+leadCountInput.addEventListener('input', runDiagnostic);
+responseTimeInput.addEventListener('change', runDiagnostic);
+
+// Initialize metrics
+runDiagnostic();
+</script>
 
 </body>
 </html>
