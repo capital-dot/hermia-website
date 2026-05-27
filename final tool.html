@@ -388,21 +388,33 @@ nav {
 }
 .simulator-controls {
   padding:24px 32px; border-bottom:1px solid var(--border);
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:20px;
+  display:grid; grid-template-columns:repeat(2,1fr); gap:20px;
+}
+.sim-group {
+  display:flex;
+  flex-direction:column;
+}
+.sim-group.full-width {
+  grid-column: span 2;
 }
 .sim-group label {
   display:block; font-size:10px; font-weight:700;
   letter-spacing:1.5px; text-transform:uppercase;
   color:var(--gold); margin-bottom:10px;
 }
-.sim-group input, .sim-group select {
+.sim-group input, .sim-group select, .sim-group textarea {
   width:100%; background:rgba(255,255,255,0.05);
   border:1px solid var(--border); border-radius:8px;
   padding:11px 14px; color:#fff;
   font-family:'DM Sans',sans-serif; font-size:14px;
   outline:none; transition:all 0.3s; appearance:none;
 }
-.sim-group input:focus, .sim-group select:focus {
+.sim-group textarea {
+  min-height:90px;
+  resize:vertical;
+  line-height:1.5;
+}
+.sim-group input:focus, .sim-group select:focus, .sim-group textarea:focus {
   border-color:var(--gold); background:rgba(201,163,91,0.05);
 }
 .sim-group select option { background:#1a1a1a; }
@@ -441,8 +453,9 @@ nav {
 .sim-lead-badge.cold { background:#f3f4f6; color:#6b7280; }
 
 .sim-lead-body { padding:20px 28px; }
+
 .sim-pillars-row {
-  display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:20px;
+  display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px;
 }
 .sim-pillar {
   background:rgba(0,0,0,0.04); border:1px solid rgba(0,0,0,0.08);
@@ -457,10 +470,10 @@ nav {
 }
 .sim-action-row {
   background:rgba(0,0,0,0.03); border:1px solid rgba(0,0,0,0.06);
-  border-radius:8px; padding:14px 16px;
-  font-size:13px; color:#374151; line-height:1.55;
+  border-radius:8px; padding:18px;
+  font-size:13px; color:#374151; line-height:1.6;
 }
-.sim-action-row strong { color:#1a1a1a; font-weight:600; }
+.sim-action-row strong { color:#1a1a1a; font-weight:700; display:block; margin-bottom:6px; font-size:14px; text-transform:uppercase; letter-spacing:0.5px;}
 .sim-lead-footer {
   background:rgba(0,0,0,0.03); border-top:1px solid rgba(0,0,0,0.08);
   padding:12px 28px; display:flex; justify-content:space-between;
@@ -589,9 +602,10 @@ footer a { color:var(--gold); text-decoration:none; }
   .hero { padding:130px 20px 60px; }
   .flow-steps { grid-template-columns:1fr; }
   .pillars-grid { grid-template-columns:1fr 1fr; }
-  .sim-pillars-row { grid-template-columns:repeat(3,1fr); }
+  .sim-pillars-row { grid-template-columns:repeat(2,1fr); }
   .final-cta-box { padding:44px 24px; }
   .simulator-controls { grid-template-columns:1fr; }
+  .sim-group.full-width { grid-column: span 1; }
 }
 @media(max-width:400px) {
   .pillars-grid { grid-template-columns:1fr; }
@@ -603,19 +617,17 @@ footer a { color:var(--gold); text-decoration:none; }
 <div class="bg-glow-1"></div>
 <div class="bg-glow-2"></div>
 
-<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">
     <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" onerror="this.style.display='none'">
     <span>Hermia</span>
   </a>
   <div class="nav-links">
-    <a href="dashboard.html" class="nav-link">Pipeline Audit</a>
+    <a href="dashboard.html" class="nav-link">Security Feed Portal</a>
     <a href="apply.html" class="nav-link cta">Get Started →</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-tag">
     <span class="hero-tag-dot"></span>
@@ -624,12 +636,11 @@ footer a { color:var(--gold); text-decoration:none; }
   <h1>Stop Guessing.<br><em>Start Closing.</em></h1>
   <p class="hero-sub">Every afternoon you spend chasing cold enquiries is an afternoon you're not at an auction, an inspection, or closing a deal. Hermia qualifies your leads for you — so your CRM only shows you the ones worth calling.</p>
   <div class="hero-cta-row">
-    <a href="gibberish.html" class="btn-primary">See lt Triage →</a>
+    <a href="dashboard.html" class="btn-primary">Run Security Audit →</a>
     <a href="what we do.html" class="btn-ghost">The Guide</a>
   </div>
 </section>
 
-<!-- PROBLEM STRIP -->
 <div class="problem-strip">
   <div class="problem-inner">
     <div class="problem-item">
@@ -650,7 +661,6 @@ footer a { color:var(--gold); text-decoration:none; }
   </div>
 </div>
 
-<!-- STORY: THE PROBLEM -->
 <div class="section-shell">
   <div class="section-header">
     <div class="section-tag">The Problem</div>
@@ -688,7 +698,6 @@ footer a { color:var(--gold); text-decoration:none; }
   </div>
 </div>
 
-<!-- HOW IT WORKS -->
 <div class="section-shell" id="how-it-works">
   <div class="divider">
     <div class="divider-line"></div>
@@ -738,7 +747,6 @@ footer a { color:var(--gold); text-decoration:none; }
   </div>
 </div>
 
-<!-- 5 PILLARS -->
 <div class="section-shell">
   <div class="section-header">
     <div class="section-tag">The Five Pillars</div>
@@ -775,7 +783,6 @@ footer a { color:var(--gold); text-decoration:none; }
   </div>
 </div>
 
-<!-- LIVE SIMULATOR -->
 <div class="simulator-shell">
   <div class="divider">
     <div class="divider-line"></div>
@@ -787,7 +794,7 @@ footer a { color:var(--gold); text-decoration:none; }
 
   <div class="section-header">
     <h2>See what lands in <em>your CRM</em></h2>
-    <p>Adjust the lead details below and watch the qualified lead card update in real time — exactly as it would appear in HubSpot, Rex, or Zoho.</p>
+    <p>Adjust the lead details below or paste a raw text stream to watch the qualified lead extraction card respond dynamically in real time.</p>
   </div>
 
   <div class="simulator-wrap">
@@ -800,6 +807,10 @@ footer a { color:var(--gold); text-decoration:none; }
     </div>
 
     <div class="simulator-controls">
+      <div class="sim-group full-width">
+        <label>Raw Lead Text / Messaging Input (AI Analysis Engine)</label>
+        <textarea id="sim-inquiry" oninput="parseAndUpdateSim()" placeholder="Type raw structural logs or client messages here... (e.g., 'Hey this is Sarah, looking to buy a house near schools with a pool under 800k. I am pre-approved and want to move within a month')">Hey this is James, looking for a house near top schools under $600k. I am pre-approved and want to move within 4 weeks.</textarea>
+      </div>
       <div class="sim-group">
         <label>Lead Name</label>
         <input type="text" id="sim-name" value="James Thornton" oninput="updateSim()">
@@ -857,6 +868,7 @@ footer a { color:var(--gold); text-decoration:none; }
           </div>
         </div>
         <div class="sim-lead-body">
+          
           <div class="sim-pillars-row">
             <div class="sim-pillar">
               <div class="sim-pillar-label">Budget</div>
@@ -874,13 +886,11 @@ footer a { color:var(--gold); text-decoration:none; }
               <div class="sim-pillar-label">Intent</div>
               <div class="sim-pillar-value" id="sim-display-intent">Buying</div>
             </div>
-            <div class="sim-pillar">
-              <div class="sim-pillar-label">Priority</div>
-              <div class="sim-pillar-value" id="sim-display-priority" style="color:#15803d;">Call Now</div>
-            </div>
           </div>
+
           <div class="sim-action-row" id="sim-action">
-            <strong>Recommended action:</strong> Call immediately — pre-approved buyer with a 4-week timeline is ready to inspect. This lead has a high probability of closing within 30 days.
+            <strong>Inquiry Summary:</strong>
+            <span>Loading assessment...</span>
           </div>
         </div>
         <div class="sim-lead-footer">
@@ -892,7 +902,6 @@ footer a { color:var(--gold); text-decoration:none; }
   </div>
 </div>
 
-<!-- BEFORE / AFTER -->
 <div class="section-shell">
   <div class="section-header">
     <div class="section-tag">The Difference</div>
@@ -958,7 +967,6 @@ footer a { color:var(--gold); text-decoration:none; }
   </div>
 </div>
 
-<!-- STATS BAND -->
 <div class="stats-band">
   <div class="stats-inner">
     <div class="stat-item">
@@ -984,7 +992,6 @@ footer a { color:var(--gold); text-decoration:none; }
   </div>
 </div>
 
-<!-- CRM LOGOS -->
 <div class="crm-section">
   <div class="crm-label">Syncs directly with your CRM</div>
   <div class="crm-logos">
@@ -1000,14 +1007,13 @@ footer a { color:var(--gold); text-decoration:none; }
   </div>
 </div>
 
-<!-- FINAL CTA -->
 <div class="final-cta-section">
   <div class="final-cta-box">
     <h2>Ready to only call <em>hot leads?</em></h2>
     <p>We don't generate leads. We don't make promises to your buyers. We just make sure that when you open your CRM, every lead is worth your time. Setup takes 24 hours. No voice calls. No gatekeeping.</p>
     <div class="final-cta-btns">
       <a href="apply.html" class="btn-primary">Start Your Setup →</a>
-      <a href="pipeline-audit.html" class="btn-ghost">Get a Pipeline Audit</a>
+      <a href="handoff.html" class="btn-ghost">Calculate Savings →</a>
     </div>
     <div class="final-cta-note">No founder meetings. No long onboarding. Just results in 24 hours.</div>
   </div>
@@ -1030,12 +1036,78 @@ function getScore(timeline, finance) {
   return 'cold';
 }
 
+function parseAndUpdateSim() {
+  const txt = document.getElementById('sim-inquiry').value.toLowerCase();
+
+  // 1. Budget Detection
+  if (txt.includes('1.2m') || txt.includes('over a million') || txt.includes('1.5m')) {
+    document.getElementById('sim-budget').value = '$1.2M+';
+  } else if (txt.includes('800k') || txt.includes('million') || txt.includes('1m') || txt.includes('900k')) {
+    document.getElementById('sim-budget').value = '$800k–$1.2M';
+  } else if (txt.includes('600k') || txt.includes('700k')) {
+    document.getElementById('sim-budget').value = '$600k–$800k';
+  } else if (txt.includes('500k') || txt.includes('450k')) {
+    document.getElementById('sim-budget').value = '$500k–$600k';
+  } else if (txt.includes('cheap') || txt.includes('under 400') || txt.includes('300k') || txt.includes('400k')) {
+    document.getElementById('sim-budget').value = 'Under $400k';
+  }
+
+  // 2. Timeline Detection
+  if (txt.includes('4 weeks') || txt.includes('asap') || txt.includes('urgent') || txt.includes('immediately') || txt.includes('this month') || txt.includes('right away')) {
+    document.getElementById('sim-timeline').value = 'Within 4 weeks';
+  } else if (txt.includes('1-2 months') || txt.includes('next month') || txt.includes('2 months') || txt.includes('weeks')) {
+    document.getElementById('sim-timeline').value = '1–2 months';
+  } else if (txt.includes('3-4 months') || txt.includes('3 months') || txt.includes('4 months')) {
+    document.getElementById('sim-timeline').value = '3–4 months';
+  } else if (txt.includes('6 months') || txt.includes('later this year') || txt.includes('6+ months')) {
+    document.getElementById('sim-timeline').value = '6+ months';
+  } else if (txt.includes('browsing') || txt.includes('just looking') || txt.includes('dreaming') || txt.includes('browse')) {
+    document.getElementById('sim-timeline').value = 'Just browsing';
+  }
+
+  // 3. Finance Status Detection
+  if (txt.includes('pre-approved') || txt.includes('preapproved') || txt.includes('letter ready')) {
+    document.getElementById('sim-finance').value = 'Pre-approved';
+  } else if (txt.includes('cash') || txt.includes('outright') || txt.includes('no loan')) {
+    document.getElementById('sim-finance').value = 'Cash buyer';
+  } else if (txt.includes('applying') || txt.includes('in progress') || txt.includes('bank is checking') || txt.includes('approval in')) {
+    document.getElementById('sim-finance').value = 'Approval in progress';
+  } else if (txt.includes('not started') || txt.includes('haven\'t checked') || txt.includes('need a loan')) {
+    document.getElementById('sim-finance').value = 'Not yet started';
+  }
+
+  // 4. Intent Detection
+  if (txt.includes('buy') || txt.includes('purchase') || txt.includes('buying')) {
+    document.getElementById('sim-intent').value = 'Buying';
+  } else if (txt.includes('sell') || txt.includes('valuation') || txt.includes('selling') || txt.includes('list my')) {
+    document.getElementById('sim-intent').value = 'Selling';
+  } else if (txt.includes('rent') || txt.includes('lease') || txt.includes('renting')) {
+    document.getElementById('sim-intent').value = 'Renting';
+  } else if (txt.includes('invest') || txt.includes('portfolio') || txt.includes('investing')) {
+    document.getElementById('sim-intent').value = 'Investing';
+  }
+
+  // 5. Name Heuristics
+  const nameMatch = txt.match(/(?:my name is|this is|i'm|i am)\s+([a-z]+(?:\s+[a-z]+)?)/i);
+  if (nameMatch && nameMatch[1]) {
+    const words = nameMatch[1].trim().split(' ');
+    const formattedName = words.map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    const exclusions = ['looking', 'ready', 'interested', 'pre-approved', 'cash', 'buying', 'selling', 'a', 'just', 'here'];
+    if (!exclusions.includes(words[0].toLowerCase())) {
+      document.getElementById('sim-name').value = formattedName;
+    }
+  }
+
+  updateSim();
+}
+
 function updateSim() {
   const name = document.getElementById('sim-name').value || 'Anonymous';
   const budget = document.getElementById('sim-budget').value;
   const timeline = document.getElementById('sim-timeline').value;
   const finance = document.getElementById('sim-finance').value;
   const intent = document.getElementById('sim-intent').value;
+  const inquiryInput = document.getElementById('sim-inquiry').value || '';
   const score = getScore(timeline, finance);
 
   document.getElementById('sim-display-name').innerText = name;
@@ -1046,36 +1118,55 @@ function updateSim() {
   document.getElementById('sim-id').innerText = Math.floor(Math.random() * 9000) + 1000;
 
   const badge = document.getElementById('sim-badge');
-  const priority = document.getElementById('sim-display-priority');
   const action = document.getElementById('sim-action');
 
   if (score === 'hot') {
     badge.className = 'sim-lead-badge hot';
     badge.innerText = '🔥 HOT LEAD';
-    priority.innerText = 'Call Now';
-    priority.style.color = '#15803d';
-    action.innerHTML = `<strong>Recommended action:</strong> Call immediately — ${finance.toLowerCase()} ${intent.toLowerCase()} with a ${timeline.toLowerCase()} timeline is ready to move. High probability of closing within 30 days.`;
   } else if (score === 'warm') {
     badge.className = 'sim-lead-badge warm';
     badge.innerText = '📋 WARM LEAD';
-    priority.innerText = 'Follow Up';
-    priority.style.color = '#1e40af';
-    action.innerHTML = `<strong>Recommended action:</strong> Schedule a follow-up call within the next 7 days. ${intent} intent confirmed with a ${timeline.toLowerCase()} timeline — worth nurturing actively.`;
   } else {
     badge.className = 'sim-lead-badge cold';
     badge.innerText = '❄️ COLD LEAD';
-    priority.innerText = 'Nurture';
-    priority.style.color = '#6b7280';
-    action.innerHTML = `<strong>Recommended action:</strong> Add to nurture sequence. Timeline is ${timeline.toLowerCase()} — set a calendar reminder to reconnect closer to their target date.`;
   }
 
-  // Pulse animation
+  let cleanedMsg = inquiryInput.trim().toLowerCase();
+  let professionalAssessment = "Prospect requested direct property parameters verification and live active asset tracking metrics.";
+  let explicitNeed = `Seeking verified information for ${intent.toLowerCase()} options.`;
+
+  if (cleanedMsg.includes('school') || cleanedMsg.includes('education') || cleanedMsg.includes('kids') || cleanedMsg.includes('uni')) {
+    professionalAssessment = "Prospect prioritizes geographic proximity to top-tier educational institutions and family-centric regional infrastructure.";
+    explicitNeed = "High priority asset zoned near localized education centers.";
+  } else if (cleanedMsg.includes('cheap') || cleanedMsg.includes('discount') || cleanedMsg.includes('low price') || cleanedMsg.includes('budget')) {
+    professionalAssessment = "Prospect targets high-efficiency entry market options, focusing on capital preservation and asset optimization.";
+    explicitNeed = "Value-driven entry opportunity maximizing capital efficiency.";
+  } else if (cleanedMsg.includes('now') || cleanedMsg.includes('asap') || cleanedMsg.includes('today') || cleanedMsg.includes('urgent') || cleanedMsg.includes('weeks')) {
+    professionalAssessment = "Prospect exhibits immediate timeline velocity, requiring priority walkthrough coordination and accelerated document delivery paths.";
+    explicitNeed = "Expedited acquisition pipeline and compressed relocation window.";
+  } else if (cleanedMsg.includes('pool') || cleanedMsg.includes('view') || cleanedMsg.includes('luxury') || cleanedMsg.includes('modern')) {
+    professionalAssessment = "Prospect emphasizes premium luxury layout parameters, aesthetic structural design, and custom lifestyle tracking specifications.";
+    explicitNeed = "Curated premium lifestyle asset configuration.";
+  } else if (cleanedMsg.includes('rent') || cleanedMsg.includes('lease')) {
+    professionalAssessment = "Prospect evaluates rapid tenancy transitions or structured programmatic rental yields.";
+    explicitNeed = "High-velocity rental allocation placement.";
+  } else if (cleanedMsg.includes('sell') || cleanedMsg.includes('valuation')) {
+    professionalAssessment = "Prospect requires liquidity pricing evaluation models and micro-market analysis grids to transition current asset into listing pipelines.";
+    explicitNeed = "Full residential valuation processing and listing distribution setup.";
+  }
+
+  action.innerHTML = `<strong>Inquiry Summary:</strong>
+  • <strong>Core Requirement:</strong> Lead is looking for: <em>"${explicitNeed}"</em><br>
+  • <strong>AI Assessment:</strong> ${professionalAssessment}<br>
+  • <strong>Financial Profile:</strong> Explicit asset allocation verified within a <strong>${budget}</strong> tier structure.<br>
+  • <strong>Intent & Timeline:</strong> Logged tracking status maps to <strong>${intent}</strong> requirements within a clear <strong>${timeline.toLowerCase()}</strong> delivery timeline.<br>
+  • <strong>System Verdict:</strong> Verified tracking score matches operational <strong>${score.toUpperCase()}</strong> pipeline priorities. Safe to prioritize engagement immediately.`;
+
   const card = document.getElementById('sim-card');
   card.style.transform = 'scale(1.01)';
   setTimeout(() => { card.style.transform = 'scale(1)'; }, 200);
 }
 
-// Animate stats on scroll
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1091,7 +1182,11 @@ document.querySelectorAll('.pillar-card, .flow-step, .ba-card, .stat-item').forE
   el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   observer.observe(el);
 });
+
+// Run live parsing loops on initialization
+parseAndUpdateSim();
 </script>
 
 </body>
 </html>
+
