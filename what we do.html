@@ -1,308 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What We Do — Hermia | Real Estate AI (Australia & Dubai)</title>
-<meta name="description" content="Hermia qualifies your property enquiries automatically via WhatsApp & SMS. Integrated with REA, Domain, Property Finder & Bayut. No voice calls. 24h setup.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --black: #080808;
-  --card: #111111;
-  --border: rgba(201,163,91,0.15);
-  --border-strong: rgba(201,163,91,0.3);
-  --gold: #C9A35B;
-  --gold-light: #e8c17a;
-  --gold-dim: rgba(201,163,91,0.08);
-  --cream: #f5f1e8;
-  --muted: #8a8580;
-  --soft: #b8b5ad;
-  --emerald: #10b981;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body {
-  font-family:'DM Sans',sans-serif;
-  background:var(--black);
-  color:var(--cream);
-  min-height:100vh;
-  overflow-x:hidden;
-}
-
-/* === NAV === */
-nav {
-  position:fixed; top:0; left:0; right:0; z-index:100;
-  padding:20px 48px;
-  display:flex; align-items:center; justify-content:space-between;
-  background:rgba(8,8,8,0.92); backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-}
-.nav-logo {
-  display:flex; align-items:center; gap:12px;
-  text-decoration:none;
-}
-.nav-logo img { width:34px; height:34px; }
-.nav-logo span {
-  font-family:'Cormorant Garamond',serif;
-  font-size:22px; font-weight:600; color:var(--cream);
-}
-.nav-back-btn {
-  color:var(--soft); text-decoration:none;
-  font-size:12px; font-weight:600; letter-spacing:1.5px;
-  text-transform:uppercase; border:1px solid var(--border);
-  padding:10px 18px; border-radius:8px; transition:all 0.25s;
-}
-.nav-back-btn:hover {
-  color:#fff; border-color:var(--gold);
-  background:var(--gold-dim); box-shadow:0 0 15px rgba(201,163,91,0.2);
-}
-
-/* === GLOWS === */
-.bg-glow-1 {
-  position:fixed; top:-10%; left:-10%;
-  width:700px; height:700px;
-  background:radial-gradient(circle, rgba(201,163,91,0.15) 0%, transparent 70%);
-  filter:blur(100px); pointer-events:none; z-index:0;
-}
-.bg-glow-2 {
-  position:fixed; bottom:-10%; right:-10%;
-  width:700px; height:700px;
-  background:radial-gradient(circle, rgba(201,163,91,0.12) 0%, transparent 70%);
-  filter:blur(100px); pointer-events:none; z-index:0;
-}
-
-/* === HERO === */
-.hero {
-  position:relative; z-index:1;
-  padding:160px 24px 32px;
-  max-width:1100px; margin:0 auto; text-align:center;
-}
-.hero-tag {
-  display:inline-flex; align-items:center; gap:10px;
-  background:var(--gold-dim); border:1px solid var(--border);
-  padding:8px 20px; border-radius:100px;
-  font-size:11px; font-weight:700; letter-spacing:3px;
-  text-transform:uppercase; color:var(--gold); margin-bottom:32px;
-}
-.hero-tag-dot {
-  width:7px; height:7px; background:var(--emerald);
-  border-radius:50%; box-shadow:0 0 10px var(--emerald);
-  animation:pulse 2s infinite;
-}
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
-.hero h1 {
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(40px, 7vw, 76px); font-weight:700;
-  line-height:1.05; letter-spacing:-1.5px; color:#fff;
-  margin-bottom:24px; text-shadow:0 0 40px rgba(201,163,91,0.35);
-}
-.hero h1 em {
-  font-style:italic; color:var(--gold);
-  text-shadow:0 0 30px rgba(232,193,122,0.5);
-}
-.hero-sub {
-  font-size:18px; color:var(--soft); max-width:720px;
-  margin:0 auto 40px; line-height:1.65; font-weight:300;
-}
-
-/* === VIDEO EMBED === */
-.video-wrapper {
-  max-width: 880px;
-  margin: 0 auto 60px;
-  padding: 0 24px;
-  position: relative;
-  z-index: 2;
-}
-.video-container {
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-  height: 0;
-  overflow: hidden;
-  border-radius: 16px;
-  border: 1px solid var(--border-strong);
-  background: var(--card);
-  box-shadow: 
-    0 30px 60px rgba(0,0,0,0.6),
-    0 0 40px rgba(201,163,91,0.15);
-}
-.video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-/* === PORTAL STRIP === */
-.portal-strip {
-  display:flex; align-items:center; justify-content:center;
-  gap:24px; margin-bottom:80px; flex-wrap:wrap;
-  padding:14px 32px; background: rgba(255,255,255,0.02);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  max-width: 1000px; margin-left: auto; margin-right: auto;
-  border-radius: 12px;
-}
-.portal-group-label {
-  font-size:10px; font-weight:700; letter-spacing:2px;
-  text-transform:uppercase; color:var(--gold); opacity: 0.8;
-}
-.portal-item {
-  display:flex; align-items:center; gap:8px;
-}
-.portal-logo-icon {
-  width: 16px; height: 16px; object-fit: contain;
-}
-.portal-label {
-  font-size:12px; font-weight:700; letter-spacing:1.5px;
-  text-transform:uppercase; color:#fff;
-}
-.portal-divider {
-  width:1px; height:20px; background:var(--border-strong);
-  margin: 0 8px;
-}
-
-/* === SECTION DIVIDER === */
-.section-divider {
-  display:flex; align-items:center; justify-content:center;
-  gap:14px; margin-bottom:48px;
-}
-.section-divider-line {
-  height:1px; width:80px;
-  background:linear-gradient(90deg, transparent, var(--border-strong));
-}
-.section-divider-line.r {
-  background:linear-gradient(90deg, var(--border-strong), transparent);
-}
-.section-divider-diamond {
-  width:6px; height:6px;
-  background:var(--gold);
-  transform:rotate(45deg);
-  opacity:0.7;
-}
-.section-divider-label {
-  font-size:10px; font-weight:700; letter-spacing:4px;
-  text-transform:uppercase; color:var(--gold);
-}
-
-/* === SHELL HEADERS === */
-.shell-header { text-align:center; margin-bottom:56px; padding: 0 24px; }
-.shell-header h2 {
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(34px, 5vw, 52px); font-weight:700;
-  color:#fff; line-height:1.1; letter-spacing:-1px;
-  margin-bottom:18px; text-shadow:0 0 25px rgba(201,163,91,0.3);
-}
-.shell-header h2 em { font-style:italic; color:var(--gold); }
-.shell-header p {
-  font-size:17px; color:var(--soft); max-width:640px;
-  margin:0 auto; line-height:1.65; font-weight:300;
-}
-
-/* === BLUEPRINT GRID === */
-.guide-shell {
-  position:relative; z-index:1;
-  max-width:1000px; margin:0 auto 100px; padding:0 24px;
-}
-.blueprint-grid {
-  display:grid; grid-template-columns:repeat(2, 1fr);
-  gap:20px; margin-bottom:80px;
-}
-@media(max-width:768px) { .blueprint-grid { grid-template-columns:1fr; } }
-
-.blueprint-card {
-  background:var(--card); border:1px solid var(--border);
-  border-radius:18px; padding:32px; transition:all 0.3s;
-  position:relative; overflow:hidden;
-}
-.blueprint-card:hover {
-  border-color:rgba(201,163,91,0.4);
-  transform:translateY(-4px);
-  box-shadow:0 18px 40px rgba(0,0,0,0.4), 0 0 35px rgba(201,163,91,0.2);
-}
-.blueprint-num {
-  position:absolute; top:24px; right:28px;
-  font-family:'Cormorant Garamond',serif; font-size:72px;
-  font-weight:700; color:rgba(201,163,91,0.15); line-height:1;
-}
-.blueprint-stage {
-  font-size:10px; font-weight:700; letter-spacing:2px;
-  text-transform:uppercase; color:var(--gold); margin-bottom:8px;
-}
-.blueprint-card h3 {
-  font-family:'Cormorant Garamond',serif; font-size:24px;
-  font-weight:700; color:#fff; margin-bottom:14px;
-  letter-spacing:-0.3px;
-}
-.blueprint-card p {
-  font-size:14px; color:var(--soft); line-height:1.65;
-  font-weight:300; margin-bottom:16px;
-}
-.blueprint-tech {
-  padding-top:14px; border-top:1px solid var(--border);
-  display:flex; flex-wrap:wrap; gap:8px;
-}
-.tech-pill {
-  background:var(--gold-dim); border:1px solid var(--border);
-  border-radius:6px; padding:4px 10px; font-size:10px;
-  color:var(--gold-light); font-weight:600; letter-spacing:0.5px;
-}
-
-/* === LIVE AUDIT TOOL === */
-.audit-shell {
-  position:relative; z-index:1;
-  max-width:920px; margin:0 auto 100px; padding:0 24px;
-}
-.audit-controls {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 32px;
-  margin-bottom: 40px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 24px;
-  text-align: left;
-}
-.control-group label {
-  display: block;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 12px;
-}
-.control-group input, .control-group select {
-  width: 100%;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px 16px;
-  color: #fff;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  outline: none;
-  transition: all 0.3s;
-}
-.control-group input:focus { border-color: var(--gold); background: rgba(201,163,91,0.05); }
-
-.audit-document {
-  background:linear-gradient(180deg, #f5f1e8 0%, #ebe4d3 100%);
-  border-radius:16px;
-  padding:0;
-  box-shadow:
-    0 50px 100px rgba(0,0,0,0.6),
-    0 0 0 1px rgba(201,163,91,0.3),
-    0 0 80px rgba(201,163,91,0.15);
-  position:relative;
-  overflow:hidden;
-  color:#1a1a1a;
-  font-family:'DM Sans',sans-serif;
-  transition: all 0.5s ease;
-}
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Inspection Request</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #121212; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #ffffff; -webkit-font-smoothing: antialiased;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #121212; padding: 40px 20px;">
+        <tr>
+            <td align="center">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; background-color: #1c1c1e; border: 1px solid #2c2c2e; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
+                    
+                    <tr>
+                        <td align="center" style="padding: 40px 20px; border-bottom: 1px solid #2c2c2e; background: linear-gradient(185deg, #242426 0%, #1c1c1e 100%);">
+                            <h1 style="margin: 0; font-size: 26px; font-weight: 700; letter-spacing: 2px; color: #d4af37; text-transform: uppercase;">HERMIA</h1>
+                            <p style="margin: 5px 0 0 0; font-size: 11px; color: #a0a0a5; letter-spacing: 3px; text-transform: uppercase;">New Inspection Request</p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding: 40px 30px;">
+                            <p style="margin: 0 0 24px 0; font-size: 15px; line-height: 1.5; color: #e5e5ea;">
+                                A new inspection request has been submitted. The lead details have been parsed and mapped below:
+                            </p>
+                            
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 30px;">
+                                <tr>
+                                    <td width="35%" style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 13px; font-weight: 600; color: #a0a0a5; text-transform: uppercase; letter-spacing: 0.5px;">Lead Name</td>
+                                    <td width="65%" style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 15px; color: #ffffff; font-weight: 500;">{{name}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 13px; font-weight: 600; color: #a0a0a5; text-transform: uppercase; letter-spacing: 0.5px;">Phone Number</td>
+                                    <td style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 15px; color: #ffffff;">{{phone}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 13px; font-weight: 600; color: #a0a0a5; text-transform: uppercase; letter-spacing: 0.5px;">Property Address</td>
+                                    <td style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 15px; color: #ffffff; line-height: 1.4;">{{property}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 13px; font-weight: 600; color: #a0a0a5; text-transform: uppercase; letter-spacing: 0.5px;">Availability</td>
+                                    <td style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 15px; color: #ffffff;">{{availability}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 13px; font-weight: 600; color: #a0a0a5; text-transform: uppercase; letter-spacing: 0.5px;">Intent Metric</td>
+                                    <td style="padding: 14px 0; border-bottom: 1px solid #2c2c2e; font-size: 15px; color: #d4af37; font-weight: 600;">{{179.intent}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 18px 0 10px 0; font-size: 13px; font-weight: 600; color: #a0a0a5; text-transform: uppercase; letter-spacing: 0.5px;">Qualification</td>
+                                    <td style="padding: 18px 0 10px 0;">
+                                        <span style="background-color: #d4af37; color: #121212; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; display: inline-block; text-transform: uppercase; letter-spacing: 1px; vertical-align: middle;">{{qualification}}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td align="center" style="padding-top: 10px;">
+                                        <a href="#" style="background-color: transparent; border: 1px solid #d4af37; color: #d4af37; padding: 12px 28px; border-radius: 4px; font-size: 13px; font-weight: 600; text-decoration: none; display: inline-block; letter-spacing: 1px; text-transform: uppercase;">Open Lead Dashboard</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="background-color: #171719; padding: 32px 24px; text-align: center; border-top: 1px solid #2c2c2e;">
+                            <p style="margin: 0 0 8px 0; font-size: 12px; color: #a0a0a5; font-weight: 600; letter-spacing: 1px;">HERMIA SYSTEM NOTICE</p>
+                            <p style="margin: 0 0 16px 0; font-size: 11px; color: #636366; line-height: 1.5;">
+                                This is an automated email triggered by your Make.com lead qualification workflow.<br>
+                                Please refer to your internal dashboard to modify mapping structures.
+                            </p>
+                            <table border="0" cellpadding="0" cellspacing="0" align="center">
+                                <tr>
+                                    <td>
+                                        <a href="#" style="color: #d4af37; font-size: 11px; text-decoration: none; font-weight: 600; letter-spacing: 0.5px;">Community Feedback</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                </table>
+                </td>
+        </tr>
+    </table>
+</body>
+</html>
