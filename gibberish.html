@@ -203,6 +203,223 @@ body {
   to { opacity:1; transform:translateY(0); }
 }
 
+/* === PRE-CHAT REALISTIC OPENING SEQUENCE === */
+.opening-stage {
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+/* Property listing card (mock REA card) */
+.listing-card {
+  background:#fff;
+  border-radius:12px;
+  overflow:hidden;
+  color:#1a1a1a;
+  box-shadow:0 8px 24px rgba(0,0,0,0.4);
+  animation:fadeUp 0.4s ease forwards;
+  font-family:'DM Sans',sans-serif;
+}
+.listing-photo {
+  height:120px;
+  background:linear-gradient(135deg, #2a5d7c 0%, #1e4258 50%, #c9a35b 150%);
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:rgba(255,255,255,0.4);
+  font-size:36px;
+}
+.listing-photo::after {
+  content:'15 Palm Jumeirah';
+  position:absolute;
+  bottom:8px;
+  left:10px;
+  font-size:10px;
+  color:rgba(255,255,255,0.85);
+  font-weight:600;
+  letter-spacing:0.5px;
+  background:rgba(0,0,0,0.3);
+  padding:3px 8px;
+  border-radius:4px;
+}
+.listing-portal-tag {
+  position:absolute;
+  top:8px;
+  left:10px;
+  background:#e4002b;
+  color:#fff;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:1px;
+  padding:3px 8px;
+  border-radius:3px;
+}
+.listing-info {
+  padding:12px 14px;
+}
+.listing-price {
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;
+  font-weight:700;
+  color:#1a1a1a;
+  margin-bottom:2px;
+}
+.listing-addr {
+  font-size:11px;
+  color:#666;
+  margin-bottom:8px;
+}
+.listing-specs {
+  display:flex;
+  gap:10px;
+  font-size:10px;
+  color:#888;
+  font-weight:500;
+}
+
+/* Enquiry form */
+.enquiry-form {
+  background:#fff;
+  border-radius:12px;
+  padding:16px;
+  color:#1a1a1a;
+  box-shadow:0 6px 18px rgba(0,0,0,0.3);
+  animation:fadeUp 0.4s ease forwards;
+  font-family:'DM Sans',sans-serif;
+}
+.enquiry-form-title {
+  font-size:12px;
+  font-weight:700;
+  color:#1a1a1a;
+  margin-bottom:12px;
+  letter-spacing:0.3px;
+}
+.enquiry-field {
+  margin-bottom:10px;
+}
+.enquiry-field-label {
+  font-size:9px;
+  color:#666;
+  font-weight:600;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  margin-bottom:3px;
+  display:block;
+}
+.enquiry-field-value {
+  font-size:11px;
+  color:#1a1a1a;
+  background:#f5f5f5;
+  padding:7px 10px;
+  border-radius:5px;
+  border:1px solid #e5e5e5;
+}
+.enquiry-checkbox-row {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:10px;
+  padding:8px;
+  background:#fef9ed;
+  border-radius:6px;
+  border:1px solid #e8c17a;
+}
+.enquiry-checkbox {
+  width:14px; height:14px;
+  background:#c9a35b;
+  border-radius:3px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:10px;
+  font-weight:700;
+}
+.enquiry-checkbox-label {
+  font-size:10px;
+  color:#1a1a1a;
+  font-weight:600;
+}
+.enquiry-submit {
+  margin-top:12px;
+  background:#e4002b;
+  color:#fff;
+  text-align:center;
+  padding:10px;
+  border-radius:6px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+}
+
+/* Email-sent confirmation card */
+.email-sent {
+  background:rgba(16,185,129,0.08);
+  border:1px solid rgba(16,185,129,0.3);
+  border-radius:10px;
+  padding:14px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  animation:fadeUp 0.4s ease forwards;
+}
+.email-sent-icon {
+  width:32px; height:32px;
+  background:rgba(16,185,129,0.15);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#10b981;
+  font-size:14px;
+  flex-shrink:0;
+}
+.email-sent-text {
+  font-size:12px;
+  color:#e4e4e7;
+  line-height:1.4;
+}
+.email-sent-text strong { color:#fff; }
+
+/* Tracker - "Hermia responding in..." */
+.tracker {
+  background:rgba(201,163,91,0.08);
+  border:1px solid rgba(201,163,91,0.35);
+  border-radius:10px;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  animation:fadeUp 0.4s ease forwards;
+}
+.tracker-spinner {
+  width:18px; height:18px;
+  border:2px solid rgba(201,163,91,0.2);
+  border-top-color:var(--gold);
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+  flex-shrink:0;
+}
+@keyframes spin {
+  to { transform:rotate(360deg); }
+}
+.tracker-text {
+  font-size:12px;
+  color:#e4e4e7;
+  line-height:1.4;
+}
+.tracker-text strong { color:var(--gold-light); font-weight:600; }
+.tracker-time {
+  margin-left:auto;
+  font-family:monospace;
+  font-size:11px;
+  color:var(--gold);
+  font-weight:700;
+}
+
 .phone-actions {
   padding:16px;
   background:rgba(12,12,15,0.9);
@@ -691,7 +908,7 @@ let answers = { timeline: '—', budget: '—', finance: '—', leadRating: 'HOT
 
 const flow = {
   1: {
-    msg: "Hi Kevin, I'm Hermia — your agent's digital assistant. I've flagged your enquiry for 15 Palm Jumeirah Drive. To prioritise your file, when are you hoping to move in?\n\nA) Within 4 weeks\nB) 1-3 months\nC) 3-6 months\nD) 6+ months",
+    msg: "Hi Kevin — Hermia here, digital assistant for [Agency Name].\n\nWe've received your enquiry on 15 Palm Jumeirah Drive and your file is being prepared for the listing agent. To help them prioritise your viewing request, when are you hoping to move in?\n\nA) Within 4 weeks\nB) 1-3 months\nC) 3-6 months\nD) 6+ months",
     opts: [
       { txt:"A) Within 4 weeks", val:"Within 4 weeks", log:"Timeline locked: < 4 weeks (HOT signal)", tile:"timeline", rating:"HOT" },
       { txt:"C) 3-6 months", val:"3-6 months", log:"Timeline locked: 3-6 months (COLD nurture)", tile:"timeline", rating:"COLD" }
@@ -721,9 +938,11 @@ const flow = {
     next:5
   },
   5: {
-    msg: "Perfect. Your request has been sent to the agent. Quick last one — are weekdays or weekends generally better?\n\nA) Weekdays\nB) Weekends\nC) Either",
+    msg: "Perfect. Your request has been sent to the agent. Quick last one — are weekdays or weekends generally better for inspections?\n\nA) Weekdays\nB) Weekends\nC) Either works",
     opts: [
-      { txt:"C) Either works", val:"Either", log:"Availability captured. Compiling agent digest.", tile:"booking" }
+      { txt:"A) Weekdays", val:"Weekdays", log:"Availability captured: weekdays only", tile:"booking" },
+      { txt:"B) Weekends", val:"Weekends", log:"Availability captured: weekends only", tile:"booking" },
+      { txt:"C) Either works", val:"Either", log:"Availability captured: full flexibility", tile:"booking" }
     ],
     next:"end"
   }
@@ -798,65 +1017,110 @@ function pick(opt, next) {
   }
 
   if (next === 'end') {
+    // === STAGE A — Hermia's final closing message ===
     setTimeout(() => {
       const final = document.createElement('div');
       final.className = 'bubble bot';
-      final.innerText = "Thank you for your cooperation. Your agent has your details and will be in touch shortly.\n\nHave a wonderful day.";
+      final.innerText = "Thank you for your cooperation. Your agent has your full file and will be in touch shortly.\n\nHave a wonderful day.";
       chat.appendChild(final);
-      log('[SHUTDOWN] Final token dispatched. Connection closed.', 'system');
+      chat.scrollTop = chat.scrollHeight;
+      log('[SHUTDOWN] Final qualification token dispatched', 'system');
       dead = true;
-
-      // === REVEAL MINI CRM RESULT CARD ===
-      setTimeout(() => {
-        const resultCard = document.getElementById('result-card');
-        const grade = answers.leadRating;
-
-        // Determine grade based on captured data if not explicitly set
-        let finalGrade = grade;
-        if (answers.timeline === 'Within 4 weeks') {
-          finalGrade = 'HOT';
-        } else if (answers.timeline === '1-3 months') {
-          finalGrade = 'WARM';
-        } else {
-          finalGrade = 'COLD';
-        }
-
-        // Populate card
-        document.getElementById('result-timeline').innerText = answers.timeline;
-        document.getElementById('result-budget').innerText = answers.budget;
-        document.getElementById('result-finance').innerText = answers.finance;
-
-        const gradeTag = document.getElementById('result-grade-tag');
-        gradeTag.innerText = finalGrade;
-        gradeTag.className = `result-tag-${finalGrade.toLowerCase()}`;
-
-        resultCard.className = `crm-result-card show ${finalGrade.toLowerCase()}`;
-
-        // Update title + footer based on grade
-        const title = document.getElementById('result-title');
-        const footer = document.getElementById('result-footnote');
-        if (finalGrade === 'HOT') {
-          title.innerText = '🔥 Hot Lead · Synced to CRM';
-          footer.innerText = 'Silently pushed to CRM · 84 seconds total · No spam emails';
-        } else if (finalGrade === 'WARM') {
-          title.innerText = '⏳ Warm Lead · Synced to CRM';
-          footer.innerText = 'Silently pushed to CRM · Added to nurture flow';
-        } else {
-          title.innerText = '❄️ Cold Lead · Synced to CRM';
-          footer.innerText = 'Silently pushed to CRM · Quarterly check-in scheduled';
-        }
-
-        log(`[CRM] ${finalGrade} lead synced to Pipedrive`, 'success');
-      }, 900);
-
-      setTimeout(() => {
-        const ghost = document.createElement('div');
-        ghost.className = 'bubble user';
-        ghost.innerText = "Wait, can I change my budget?";
-        chat.appendChild(ghost);
-        log('[DROPPED] Connection terminated. Input ignored.', 'system');
-      }, 2400);
     }, 800);
+
+    // === STAGE B — Buyer tries to message again after closing (ghost) ===
+    setTimeout(() => {
+      const ghost = document.createElement('div');
+      ghost.className = 'bubble user';
+      ghost.innerText = "Wait, can I change my budget to $1.5M?";
+      chat.appendChild(ghost);
+      chat.scrollTop = chat.scrollHeight;
+      log('[INBOUND] Late buyer message received post-shutdown', 'warn');
+    }, 3200);
+
+    // === STAGE C — NO SPAM callout: Hermia drops the message, never spams ===
+    setTimeout(() => {
+      log('[FILTER] Conversation closed · ignoring late input', 'warn');
+
+      // Visible in-chat callout banner — shows agents the no-spam behaviour
+      const noSpam = document.createElement('div');
+      noSpam.style.cssText = `
+        background:linear-gradient(135deg, rgba(239,68,68,0.06), rgba(0,0,0,0.3));
+        border:1px solid rgba(239,68,68,0.3);
+        border-radius:10px;
+        padding:14px;
+        display:flex;
+        gap:12px;
+        align-items:flex-start;
+        animation:fadeUp 0.4s ease forwards;
+      `;
+      noSpam.innerHTML = `
+        <div style="width:28px; height:28px; min-width:28px; background:rgba(239,68,68,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--danger); font-size:14px; font-weight:700;">✕</div>
+        <div style="font-size:12px; color:#e4e4e7; line-height:1.5;">
+          <strong style="color:#fff; display:block; margin-bottom:3px;">Message ignored. No spam.</strong>
+          <span style="font-size:11px; color:#a1a1aa;">Hermia closed this conversation after qualification. Late buyer messages are dropped — never auto-replied to. Only the agent can re-engage.</span>
+        </div>
+      `;
+      chat.appendChild(noSpam);
+      chat.scrollTop = chat.scrollHeight;
+
+      log('[DROPPED] No auto-reply sent · agent will follow up manually', 'danger');
+    }, 4800);
+
+    // === STAGE D — CRM result card reveals (the payoff) ===
+    setTimeout(() => {
+      const resultCard = document.getElementById('result-card');
+
+      // Determine grade based on timeline answer
+      let finalGrade;
+      if (answers.timeline === 'Within 4 weeks') {
+        finalGrade = 'HOT';
+      } else if (answers.timeline === '1-3 months') {
+        finalGrade = 'WARM';
+      } else {
+        finalGrade = 'COLD';
+      }
+
+      // Populate card with captured answers
+      document.getElementById('result-timeline').innerText = answers.timeline;
+      document.getElementById('result-budget').innerText = answers.budget;
+      document.getElementById('result-finance').innerText = answers.finance;
+
+      const gradeTag = document.getElementById('result-grade-tag');
+      gradeTag.innerText = finalGrade;
+      gradeTag.className = `result-tag-${finalGrade.toLowerCase()}`;
+
+      resultCard.className = `crm-result-card show ${finalGrade.toLowerCase()}`;
+
+      // Title + footer based on grade
+      const title = document.getElementById('result-title');
+      const footer = document.getElementById('result-footnote');
+      if (finalGrade === 'HOT') {
+        title.innerText = '🔥 Hot Lead · Synced to CRM';
+        footer.innerText = 'Silently pushed to CRM · Agent priority call · No spam emails sent';
+      } else if (finalGrade === 'WARM') {
+        title.innerText = '⏳ Warm Lead · Synced to CRM';
+        footer.innerText = 'Silently pushed to CRM · Nurture sequence · No spam emails sent';
+      } else {
+        title.innerText = '❄️ Cold Lead · Synced to CRM';
+        footer.innerText = 'Silently pushed to CRM · Long-term drip · No spam emails sent';
+      }
+
+      log(`[CRM SYNC] ${finalGrade} lead pushed to agent's CRM silently`, 'success');
+
+      // Scroll the result card into view so user sees the payoff
+      setTimeout(() => {
+        resultCard.scrollIntoView({ behavior:'smooth', block:'center' });
+      }, 300);
+
+      // Final tray message
+      tray.innerHTML = `
+        <div style="text-align:center; padding:14px; color:var(--gold-light); font-size:12px; line-height:1.6;">
+          <div style="font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; color:var(--gold);">✓ Demo complete</div>
+          <span style="color:var(--muted); font-size:11px;">Lead handed to agent · Conversation closed</span>
+        </div>
+      `;
+    }, 6400);
   } else {
     step = next;
     showBot(next);
@@ -923,10 +1187,176 @@ junkBtn.onclick = () => {
   }
 };
 
-setTimeout(() => {
-  log('[WEBHOOK] Inbound enquiry from portal');
+// === REALISTIC OPENING SEQUENCE (CLICK-DRIVEN) ===
+// User taps a button in the phone tray to advance each stage
+// This lets them read + understand each step at their own pace
+
+function clearStage() {
+  const stage = document.getElementById('opening-stage');
+  if (stage) stage.remove();
+}
+
+function setTrayButton(label, hint, onClick) {
+  tray.innerHTML = '';
+
+  if (hint) {
+    const hintEl = document.createElement('div');
+    hintEl.style.cssText = 'font-size:10px; color:var(--muted); text-align:center; padding:4px 0 8px; letter-spacing:0.5px; font-style:italic;';
+    hintEl.innerText = hint;
+    tray.appendChild(hintEl);
+  }
+
+  const btn = document.createElement('button');
+  btn.className = 'action-btn';
+  btn.style.textAlign = 'center';
+  btn.style.fontWeight = '600';
+  btn.style.background = 'var(--gold-dim)';
+  btn.style.borderColor = 'var(--gold)';
+  btn.innerText = label;
+  btn.onclick = onClick;
+  tray.appendChild(btn);
+}
+
+// --- STAGE 1 — Show property listing card ---
+function openingStage1() {
+  log('[PORTAL] Buyer browsing listing · realestate.com.au');
+
+  const stage = document.createElement('div');
+  stage.id = 'opening-stage';
+  stage.className = 'opening-stage';
+  stage.innerHTML = `
+    <div class="listing-card">
+      <div class="listing-photo">
+        <span class="listing-portal-tag">REA</span>
+        🏠
+      </div>
+      <div class="listing-info">
+        <div class="listing-price">$1.2M – $1.4M</div>
+        <div class="listing-addr">15 Palm Jumeirah Drive, Toorak VIC 3142</div>
+        <div class="listing-specs">
+          <span>◆ 4 Bed</span>
+          <span>◆ 3 Bath</span>
+          <span>◆ 2 Car</span>
+        </div>
+      </div>
+    </div>
+  `;
+  chat.appendChild(stage);
+  chat.scrollTop = chat.scrollHeight;
+
+  setTrayButton(
+    '▶  Step 1: Buyer fills enquiry form',
+    'Tap to advance the demo',
+    openingStage2
+  );
+}
+
+// --- STAGE 2 — Show enquiry form ---
+function openingStage2() {
+  log('[FORM] Buyer filling Contact Agent form');
+
+  const stage = document.getElementById('opening-stage');
+  const form = document.createElement('div');
+  form.className = 'enquiry-form';
+  form.innerHTML = `
+    <div class="enquiry-form-title">Contact Agent · REA</div>
+    <div class="enquiry-field">
+      <span class="enquiry-field-label">Name</span>
+      <div class="enquiry-field-value">Kevin Knocks</div>
+    </div>
+    <div class="enquiry-field">
+      <span class="enquiry-field-label">Phone</span>
+      <div class="enquiry-field-value">+61 412 555 891</div>
+    </div>
+    <div class="enquiry-checkbox-row">
+      <div class="enquiry-checkbox">✓</div>
+      <div class="enquiry-checkbox-label">I'd like to book an inspection</div>
+    </div>
+    <div class="enquiry-submit">Send Enquiry to Agent →</div>
+  `;
+  stage.appendChild(form);
+  chat.scrollTop = chat.scrollHeight;
+
+  setTrayButton(
+    '▶  Step 2: Submit enquiry to agent',
+    'Tap to submit the form',
+    openingStage3
+  );
+}
+
+// --- STAGE 3 — Email sent confirmation ---
+function openingStage3() {
+  log('[EMAIL] Enquiry sent to agent inbox · webhook fired');
+
+  const stage = document.getElementById('opening-stage');
+  const email = document.createElement('div');
+  email.className = 'email-sent';
+  email.innerHTML = `
+    <div class="email-sent-icon">✓</div>
+    <div class="email-sent-text">
+      <strong>Enquiry sent.</strong><br>
+      <span style="font-size:11px; color:#a1a1aa;">A copy was forwarded to the agent's inbox. Hermia intercepts the same webhook in parallel.</span>
+    </div>
+  `;
+  stage.appendChild(email);
+  chat.scrollTop = chat.scrollHeight;
+
+  setTrayButton(
+    '▶  Step 3: Watch Hermia respond',
+    'Tap to trigger Hermia',
+    openingStage4
+  );
+}
+
+// --- STAGE 4 — Hermia responding tracker (live counter) ---
+let trackerSeconds = 0;
+let trackerInterval;
+
+function openingStage4() {
+  log('[HERMIA] Intercepting enquiry · preparing qualification message');
+
+  const stage = document.getElementById('opening-stage');
+  const tracker = document.createElement('div');
+  tracker.className = 'tracker';
+  tracker.innerHTML = `
+    <div class="tracker-spinner"></div>
+    <div class="tracker-text">
+      <strong>Hermia is responding...</strong><br>
+      <span style="font-size:10px; color:#a1a1aa;">Drafting qualification message via WhatsApp/SMS</span>
+    </div>
+    <div class="tracker-time" id="tracker-time">0s</div>
+  `;
+  stage.appendChild(tracker);
+  chat.scrollTop = chat.scrollHeight;
+
+  trackerSeconds = 0;
+  trackerInterval = setInterval(() => {
+    trackerSeconds++;
+    const t = document.getElementById('tracker-time');
+    if (t) t.innerText = trackerSeconds + 's';
+    // Auto-cap at 30s so it doesn't run forever if user gets distracted
+    if (trackerSeconds >= 30) clearInterval(trackerInterval);
+  }, 1000);
+
+  setTrayButton(
+    '▶  Step 4: See Hermia\'s message arrive',
+    'Tap when ready',
+    openingStage5
+  );
+}
+
+// --- STAGE 5 — Hermia's qualification message arrives ---
+function openingStage5() {
+  clearInterval(trackerInterval);
+  log(`[HERMIA] Message dispatched · response time: ${trackerSeconds}s`);
+  clearStage();
   showBot(1);
-}, 800);
+}
+
+// === KICK OFF — Start with Stage 1 ===
+setTimeout(() => {
+  openingStage1();
+}, 600);
 </script>
 
 </body>
