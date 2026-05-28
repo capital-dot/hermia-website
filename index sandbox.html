@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermia — Lead Prioritisation For Real Estate Teams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #050505;
+  --card: #0d0d0d;
+  --card2: #111111;
+  --border: rgba(201,163,91,0.18);
+  --border-soft: rgba(201,163,91,0.08);
+  --gold: #C9A35B;
+  --gold-light: #e8c17a;
+  --gold-bright: #f0cb8a;
+  --gold-dim: rgba(201,163,91,0.06);
+  --gold-glow: rgba(201,163,91,0.15);
+  --cream: #f5f1e8;
+  --soft: #999999;
+  --muted: #666666;
+  --emerald: #10b981;
+  --red: #ff4d4d;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family:'DM Sans', sans-serif;
+  background:var(--black);
+  color:var(--cream);
+  min-height:100vh;
+  padding:0 24px 120px;
+  overflow-x:hidden;
+}
+
+/* BACKGROUND TEXTURE */
+.bg-grid {
+  position:fixed; top:0; left:0; right:0; bottom:0;
+  background-image:
+    linear-gradient(rgba(201,163,91,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,163,91,0.04) 1px, transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+  z-index:0;
+}
+
+.bg-glow {
+  position:fixed;
+  top:0; left:50%;
+  transform:translateX(-50%);
+  width:900px; height:600px;
+  background:radial-gradient(ellipse, rgba(201,163,91,0.06) 0%, transparent 65%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.container {
+  position:relative;
+  z-index:1;
+  max-width:1100px;
+  margin:0 auto;
+}
+
+/* ─── NAV ─── */
+nav {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:32px 0;
+  margin-bottom:72px;
+  border-bottom:1px solid var(--border-soft);
+}
+
+.nav-brand {
+  font-family:'Cormorant Garamond', serif;
+  font-size:26px;
+  font-weight:700;
+  color:#fff;
+  letter-spacing:3px;
+}
+
+.nav-back {
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--soft);
+  text-decoration:none;
+  transition:color 0.2s;
+}
+.nav-back:hover { color:var(--gold); }
+
+/* ─── GOLD DIVIDER ─── */
+.gold-line {
+  width:60px; height:2px;
+  background:linear-gradient(90deg, var(--gold), var(--gold-light));
+  margin:0 auto 20px;
+  border-radius:2px;
+}
+
+/* ─── HERO ─── */
+.hero {
+  text-align:center;
+  max-width:900px;
+  margin:0 auto 20px;
+}
+
+.hero-label {
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:20px;
+}
+
+.hero h1 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:68px;
+  font-weight:700;
+  line-height:1.05;
+  letter-spacing:-1.5px;
+  color:#fff;
+  margin-bottom:28px;
+}
+
+.hero h1 em {
+  font-style:italic;
+  color:var(--gold);
+}
+
+.hero p {
+  font-size:19px;
+  color:var(--soft);
+  font-weight:300;
+  line-height:1.7;
+  max-width:720px;
+  margin:0 auto 40px;
+}
+
+/* TRUST PILL */
+.trust-pill {
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:rgba(201,163,91,0.08);
+  border:1px solid rgba(201,163,91,0.25);
+  border-radius:100px;
+  padding:10px 22px;
+  font-size:12px;
+  font-weight:600;
+  color:var(--gold-light);
+  letter-spacing:0.3px;
+  margin-bottom:64px;
+}
+.trust-pill::before { content:'✦'; font-size:9px; color:var(--gold); }
+
+/* ─── STAT STRIP ─── */
+.stat-strip {
+  display:flex;
+  justify-content:center;
+  gap:0;
+  margin-bottom:80px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  overflow:hidden;
+  background:var(--card);
+}
+
+.stat-item {
+  flex:1;
+  padding:32px 24px;
+  text-align:center;
+  border-right:1px solid var(--border);
+  position:relative;
+}
+.stat-item:last-child { border-right:none; }
+
+.stat-item::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity:0.5;
+}
+
+.stat-value {
+  font-family:'Cormorant Garamond', serif;
+  font-size:40px;
+  font-weight:700;
+  color:var(--gold);
+  line-height:1;
+  margin-bottom:6px;
+}
+
+.stat-label {
+  font-size:12px;
+  color:var(--soft);
+  font-weight:400;
+  line-height:1.4;
+}
+
+/* ─── VIDEO SECTION ─── */
+.video-section {
+  margin-bottom:80px;
+}
+
+.video-section-label {
+  text-align:center;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:12px;
+}
+
+.video-section h2 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:38px;
+  font-weight:600;
+  color:#fff;
+  text-align:center;
+  margin-bottom:36px;
+}
+
+.video-outer {
+  position:relative;
+  max-width:860px;
+  margin:0 auto;
+}
+
+/* Gold corner accents */
+.video-outer::before,
+.video-outer::after {
+  content:'';
+  position:absolute;
+  width:28px; height:28px;
+  border-color:var(--gold);
+  border-style:solid;
+  z-index:2;
+}
+.video-outer::before {
+  top:-8px; left:-8px;
+  border-width:2px 0 0 2px;
+}
+.video-outer::after {
+  bottom:-8px; right:-8px;
+  border-width:0 2px 2px 0;
+}
+
+.video-wrapper {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:10px;
+  box-shadow:0 40px 80px rgba(0,0,0,0.7), 0 0 60px rgba(201,163,91,0.05);
+}
+
+.video-inner {
+  position:relative;
+  padding-bottom:56.25%;
+  height:0;
+  border-radius:12px;
+  overflow:hidden;
+}
+.video-inner iframe {
+  position:absolute; top:0; left:0;
+  width:100%; height:100%;
+  border:0;
+}
+
+/* ─── WHAT IT DOES ─── */
+.what-section {
+  margin-bottom:80px;
+}
+
+.section-title-block {
+  text-align:center;
+  margin-bottom:48px;
+}
+
+.section-tag {
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:12px;
+}
+
+.section-title-block h2 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:42px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:12px;
+}
+
+.section-title-block p {
+  font-size:15px;
+  color:var(--soft);
+  font-weight:300;
+  max-width:500px;
+  margin:0 auto;
+}
+
+.what-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:var(--border);
+  border-radius:20px;
+  overflow:hidden;
+  border:1px solid var(--border);
+}
+
+.what-item {
+  background:var(--card);
+  padding:36px 28px;
+  transition:background 0.25s;
+  position:relative;
+}
+
+.what-item:hover { background:var(--card2); }
+
+.what-item::after {
+  content:'';
+  position:absolute;
+  bottom:0; left:28px; right:28px;
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold-glow), transparent);
+  opacity:0;
+  transition:opacity 0.25s;
+}
+.what-item:hover::after { opacity:1; }
+
+.what-num {
+  font-family:'Cormorant Garamond', serif;
+  font-size:11px;
+  font-weight:700;
+  color:var(--gold);
+  letter-spacing:2px;
+  margin-bottom:20px;
+}
+
+.what-item strong {
+  display:block;
+  font-size:15px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:10px;
+  line-height:1.3;
+}
+
+.what-item p {
+  font-size:13px;
+  color:var(--soft);
+  line-height:1.6;
+  font-weight:300;
+}
+
+/* ─── PIPELINE ─── */
+.pipeline-section {
+  margin-bottom:80px;
+}
+
+.pipeline-header {
+  text-align:center;
+  margin-bottom:48px;
+}
+
+.pipeline-header h2 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:42px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:10px;
+}
+
+.pipeline-header p {
+  font-size:14px;
+  color:var(--soft);
+  font-weight:300;
+}
+
+.flow-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+
+.flow-column {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:36px;
+  position:relative;
+  overflow:hidden;
+}
+
+.flow-column::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, var(--gold), var(--gold-light), transparent);
+}
+
+.flow-column h3 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:22px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:28px;
+  padding-bottom:16px;
+  border-bottom:1px solid var(--border-soft);
+}
+
+.flow-timeline { display:flex; flex-direction:column; gap:0; }
+
+.flow-node {
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+  padding:16px 0;
+  border-bottom:1px solid var(--border-soft);
+}
+.flow-node:last-child { border-bottom:none; padding-bottom:0; }
+
+.node-index {
+  font-family:'Cormorant Garamond', serif;
+  font-size:12px;
+  font-weight:700;
+  color:var(--gold);
+  background:var(--gold-dim);
+  border:1px solid var(--border);
+  width:26px; height:26px;
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  margin-top:1px;
+}
+
+.node-content strong {
+  display:block;
+  font-size:13px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:3px;
+}
+
+.node-content p {
+  font-size:12px;
+  color:var(--soft);
+  line-height:1.5;
+  font-weight:300;
+}
+
+.data-badge-container { display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.data-badge {
+  font-size:10px;
+  background:rgba(201,163,91,0.1);
+  border:1px solid rgba(201,163,91,0.25);
+  color:var(--gold-light);
+  padding:2px 8px;
+  border-radius:4px;
+  font-weight:600;
+}
+
+.alert-tag {
+  display:inline-block;
+  margin-top:8px;
+  font-size:11px;
+  font-weight:600;
+  color:var(--emerald);
+  background:rgba(16,185,129,0.1);
+  border:1px solid rgba(16,185,129,0.2);
+  padding:3px 10px;
+  border-radius:4px;
+}
+
+/* ─── BENEFITS ─── */
+.benefits-section { margin-bottom:80px; }
+
+.benefits-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.benefit-box {
+  background:var(--card);
+  border:1px solid var(--border-soft);
+  border-radius:18px;
+  padding:36px 30px;
+  position:relative;
+  overflow:hidden;
+  transition:all 0.25s;
+}
+
+.benefit-box::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, var(--gold), var(--gold-light));
+  opacity:0;
+  transition:opacity 0.25s;
+}
+
+.benefit-box:hover {
+  border-color:rgba(201,163,91,0.3);
+  transform:translateY(-3px);
+  box-shadow:0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(201,163,91,0.06);
+}
+
+.benefit-box:hover::before { opacity:1; }
+
+.benefit-num {
+  font-family:'Cormorant Garamond', serif;
+  font-size:11px;
+  font-weight:700;
+  color:var(--gold);
+  letter-spacing:2px;
+  margin-bottom:16px;
+}
+
+.benefit-box h4 {
+  font-size:16px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:12px;
+  line-height:1.35;
+}
+
+.benefit-box p {
+  font-size:13px;
+  color:var(--soft);
+  line-height:1.65;
+  font-weight:300;
+}
+
+/* ─── COMPARISON ─── */
+.comparison-section { margin-bottom:80px; }
+
+.comparison-heading {
+  margin-bottom:40px;
+}
+
+.comparison-heading h2 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:42px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:8px;
+}
+
+.comparison-heading p {
+  font-size:14px;
+  color:var(--soft);
+  font-weight:300;
+}
+
+.comparison-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.comp-column {
+  border-radius:20px;
+  padding:40px;
+  position:relative;
+  overflow:hidden;
+}
+
+.comp-column.negative {
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.06);
+}
+
+.comp-column.positive {
+  background:rgba(201,163,91,0.05);
+  border:1px solid var(--border);
+}
+
+.comp-column.positive::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, var(--gold), var(--gold-light));
+}
+
+.comp-column h3 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:26px;
+  font-weight:600;
+  margin-bottom:28px;
+  padding-bottom:16px;
+}
+
+.comp-column.negative h3 {
+  color:var(--soft);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.comp-column.positive h3 {
+  color:var(--gold-light);
+  border-bottom:1px solid var(--border);
+}
+
+.comp-list { list-style:none; }
+.comp-list li {
+  font-size:14px;
+  line-height:1.65;
+  margin-bottom:16px;
+  padding-left:26px;
+  position:relative;
+}
+.comp-list li strong { font-weight:600; }
+.comp-list li::before { position:absolute; left:0; font-weight:700; font-size:14px; }
+.negative .comp-list li { color:var(--muted); }
+.negative .comp-list li strong { color:var(--soft); }
+.negative .comp-list li::before { content:'✕'; color:#ff4d4d; }
+.positive .comp-list li { color:rgba(245,241,232,0.7); }
+.positive .comp-list li strong { color:#fff; }
+.positive .comp-list li::before { content:'✓'; color:var(--emerald); }
+
+/* ─── DEMO ─── */
+.demo-section {
+  background:linear-gradient(135deg, rgba(201,163,91,0.08) 0%, rgba(201,163,91,0.03) 100%);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:64px;
+  text-align:center;
+  margin-bottom:80px;
+  position:relative;
+  overflow:hidden;
+}
+
+.demo-section::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, transparent, var(--gold), var(--gold-light), transparent);
+}
+
+.demo-pill {
+  display:inline-block;
+  font-size:10px;
+  font-weight:700;
+  color:#000;
+  background:var(--gold);
+  padding:4px 14px;
+  border-radius:100px;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  margin-bottom:20px;
+}
+
+.demo-section h2 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:40px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:14px;
+}
+
+.demo-section p {
+  font-size:15px;
+  color:var(--soft);
+  max-width:540px;
+  margin:0 auto 32px;
+  line-height:1.65;
+  font-weight:300;
+}
+
+/* ─── CTA ─── */
+.cta-section {
+  text-align:center;
+  padding:40px 0 20px;
+  border-top:1px solid var(--border-soft);
+}
+
+.cta-section h3 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:50px;
+  font-weight:700;
+  color:#fff;
+  line-height:1.1;
+  margin-bottom:16px;
+}
+
+.cta-section p {
+  font-size:16px;
+  color:var(--soft);
+  margin-bottom:36px;
+  font-weight:300;
+}
+
+/* ─── BUTTONS ─── */
+.btn-gold {
+  display:inline-block;
+  background:var(--gold);
+  color:#000;
+  padding:20px 52px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:all 0.25s;
+  box-shadow:0 8px 32px rgba(201,163,91,0.25);
+}
+.btn-gold:hover {
+  background:var(--gold-bright);
+  transform:translateY(-2px);
+  box-shadow:0 16px 48px rgba(201,163,91,0.35);
+}
+
+.btn-outline {
+  display:inline-block;
+  background:transparent;
+  color:var(--gold);
+  border:1px solid var(--border);
+  padding:18px 44px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:all 0.25s;
+}
+.btn-outline:hover {
+  background:var(--gold-dim);
+  border-color:var(--gold);
+  transform:translateY(-2px);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width:960px) {
+  .what-grid { grid-template-columns:repeat(2,1fr); }
+  .flow-grid { grid-template-columns:1fr; }
+  .benefits-grid { grid-template-columns:1fr 1fr; }
+  .stat-strip { flex-wrap:wrap; }
+  .stat-item { min-width:50%; border-bottom:1px solid var(--border); }
+}
+
+@media (max-width:680px) {
+  body { padding:0 16px 80px; }
+  .hero h1 { font-size:44px; }
+  .benefits-grid { grid-template-columns:1fr; }
+  .comparison-grid { grid-template-columns:1fr; }
+  .what-grid { grid-template-columns:1fr; }
+  .demo-section { padding:40px 24px; }
+  .cta-section h3 { font-size:34px; }
+  .stat-item { min-width:100%; }
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(18px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.hero-label  { animation:fadeUp 0.6s ease both; }
+.hero h1     { animation:fadeUp 0.7s 0.08s ease both; }
+.hero p      { animation:fadeUp 0.7s 0.15s ease both; }
+.trust-pill  { animation:fadeUp 0.7s 0.22s ease both; }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<div class="container">
+
+  <nav>
+    <div class="nav-brand">HERMIA</div>
+    <a href="index.html" class="nav-back">← Back to Main Site</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-label">Lead Prioritisation For Real Estate Teams</div>
+    <h1>Stop Wasting Time On<br><em>Buyers Going Nowhere</em></h1>
+    <p>Hermia helps real estate teams identify which enquiries deserve immediate attention. Qualifies inbound leads, extracts buyer intent, and organises serious buyers in your CRM — while your agents stay fully in control.</p>
+    <div class="trust-pill">No AI phone calls. No replacing agents. Your team stays fully in control.</div>
+  </section>
+
+  <!-- STAT STRIP -->
+  <div class="stat-strip">
+    <div class="stat-item">
+      <div class="stat-value">&lt;10s</div>
+      <div class="stat-label">Response to every inbound enquiry</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">100%</div>
+      <div class="stat-label">REA &amp; Domain leads captured automatically</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">24/7</div>
+      <div class="stat-label">Active including weekends &amp; public holidays</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">0</div>
+      <div class="stat-label">Leads missed while your team is offline</div>
+    </div>
+  </div>
+
+  <!-- VIDEO -->
+  <section class="video-section">
+    <div class="video-section-label">Watch It In Action</div>
+    <h2>See Hermia Handle A Real Lead Live</h2>
+    <div class="video-outer">
+      <div class="video-wrapper">
+        <div class="video-inner">
+          <iframe
+            src="https://www.loom.com/embed/fff7aeac826347ffad50d50a9596131b?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
+            webkitallowfullscreen mozallowfullscreen allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT IT DOES -->
+  <section class="what-section">
+    <div class="section-title-block">
+      <div class="section-tag">The System</div>
+      <div class="gold-line"></div>
+      <h2>What Hermia Actually Does</h2>
+      <p>Four steps. No complex setup. Works with your existing CRM from day one.</p>
+    </div>
+    <div class="what-grid">
+      <div class="what-item">
+        <div class="what-num">01</div>
+        <strong>Captures enquiries instantly</strong>
+        <p>REA and Domain enquiries enter the system the moment they arrive.</p>
+      </div>
+      <div class="what-item">
+        <div class="what-num">02</div>
+        <strong>Qualifies buyer intent</strong>
+        <p>Identifies serious buyers based on timing, finance status, and engagement signals.</p>
+      </div>
+      <div class="what-item">
+        <div class="what-num">03</div>
+        <strong>Highlights priority leads</strong>
+        <p>Your team instantly sees which buyers deserve immediate attention.</p>
+      </div>
+      <div class="what-item">
+        <div class="what-num">04</div>
+        <strong>Syncs into your CRM</strong>
+        <p>Everything stays organised without changing your existing workflow.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PIPELINE -->
+  <section class="pipeline-section">
+    <div class="pipeline-header">
+      <div class="section-tag">End-To-End Flow</div>
+      <div class="gold-line"></div>
+      <h2>Every Lead. Every Time.</h2>
+      <p>The complete journey from inbound enquiry to booked inspection — or hot lead alert.</p>
+    </div>
+    <div class="flow-grid">
+      <div class="flow-column">
+        <h3>Standard Conversion Track</h3>
+        <div class="flow-timeline">
+          <div class="flow-node">
+            <div class="node-index">1</div>
+            <div class="node-content">
+              <strong>Inbound Portal Enquiry Received</strong>
+              <p>Lead arrives from REA, Domain, or property channels.</p>
+            </div>
+          </div>
+          <div class="flow-node">
+            <div class="node-index">2</div>
+            <div class="node-content">
+              <strong>Instant Response</strong>
+              <p>A targeted reply triggers within seconds of enquiry.</p>
+            </div>
+          </div>
+          <div class="flow-node">
+            <div class="node-index">3</div>
+            <div class="node-content">
+              <strong>Buyer Qualification</strong>
+              <p>Hermia identifies serious buyers from live conversation signals.</p>
+              <div class="data-badge-container">
+                <span class="data-badge">Budget</span>
+                <span class="data-badge">Timeline</span>
+                <span class="data-badge">Intent</span>
+                <span class="data-badge">Finance Status</span>
+              </div>
+            </div>
+          </div>
+          <div class="flow-node">
+            <div class="node-index">4</div>
+            <div class="node-content">
+              <strong>Inspection Invitation</strong>
+              <p>Qualified buyer is prompted to lock in an open inspection time.</p>
+            </div>
+          </div>
+          <div class="flow-node">
+            <div class="node-index">5</div>
+            <div class="node-content">
+              <strong>Inspection Booked</strong>
+              <p>Buyer books into your schedule automatically. Your team gets notified instantly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-column">
+        <h3>Contingency Fallback Layer</h3>
+        <div class="flow-timeline">
+          <div class="flow-node">
+            <div class="node-index">6</div>
+            <div class="node-content">
+              <strong>Inspection Times Unavailable</strong>
+              <p>If times are full or unlisted, buyer is prompted: <strong style="color:var(--gold-light)">Type 'R'</strong>.</p>
+            </div>
+          </div>
+          <div class="flow-node">
+            <div class="node-index">7</div>
+            <div class="node-content">
+              <strong>Availability Captured</strong>
+              <p>System identifies when the prospect is available to view.</p>
+              <div class="data-badge-container">
+                <span class="data-badge">Weekdays</span>
+                <span class="data-badge">Weekends</span>
+                <span class="data-badge">Neither</span>
+              </div>
+            </div>
+          </div>
+          <div class="flow-node">
+            <div class="node-index">8</div>
+            <div class="node-content">
+              <strong>Clean Session Closure</strong>
+              <p>Conversation concludes transparently with buyer expectations managed.</p>
+            </div>
+          </div>
+          <div class="flow-node">
+            <div class="node-index">9</div>
+            <div class="node-content">
+              <strong>Live Hot Lead Notification</strong>
+              <p>Instant alert sent straight to the assigned agent's inbox.</p>
+              <span class="alert-tag">⚠ High-intent buyer waiting for inspection openings</span>
+            </div>
+          </div>
+          <div class="flow-node">
+            <div class="node-index">10</div>
+            <div class="node-content">
+              <strong>CRM Sync</strong>
+              <p>All lead data syncs directly into your CRM without changing your workflow.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="benefits-section">
+    <div class="section-title-block" style="text-align:left; margin-bottom:40px;">
+      <div class="section-tag">Why Teams Choose Hermia</div>
+      <h2 style="font-family:'Cormorant Garamond',serif; font-size:42px; font-weight:600; color:#fff; margin-top:8px;">What Hermia Automatically Solves</h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-box">
+        <div class="benefit-num">01</div>
+        <h4>Stop Calling Buyers Who Were Never Moving</h4>
+        <p>Most agencies reply too late. By the time your team responds, the buyer has moved on or booked elsewhere. Hermia responds within seconds — every time.</p>
+      </div>
+      <div class="benefit-box">
+        <div class="benefit-num">02</div>
+        <h4>Turn Portal Spam Into Qualified Buyers</h4>
+        <p>REA and Domain enquiries are incredibly noisy. Hermia filters serious buyers from time-wasters automatically. Your agents stop chasing dead leads.</p>
+      </div>
+      <div class="benefit-box">
+        <div class="benefit-num">03</div>
+        <h4>Catch Hot Buyers Before Competing Agents Do</h4>
+        <p>Vendors care about follow-up speed. When your agency responds instantly, inspections increase and vendors notice. Hermia protects your reputation systematically.</p>
+      </div>
+      <div class="benefit-box">
+        <div class="benefit-num">04</div>
+        <h4>Reduce Admin Without Missing Opportunities</h4>
+        <p>No more manual texting, missed callbacks, or forgotten follow-ups. Hermia handles front-end communication so your agents focus on listings and closing deals.</p>
+      </div>
+      <div class="benefit-box">
+        <div class="benefit-num">05</div>
+        <h4>Keep Your Agents Focused On Revenue</h4>
+        <p>Your staff clocks out. Hermia doesn't. At 11 PM, on weekends, over public holidays — every inbound lead is engaged and qualified automatically.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="comparison-section">
+    <div class="comparison-heading">
+      <div class="section-tag">The Difference</div>
+      <h2>Before &amp; After</h2>
+      <p>Here's what changes the moment Hermia goes live.</p>
+    </div>
+    <div class="comparison-grid">
+      <div class="comp-column negative">
+        <h3>Without Hermia</h3>
+        <ul class="comp-list">
+          <li><strong>Missed opportunities</strong> from late-night portal leads that go cold before morning.</li>
+          <li><strong>Slow responses</strong> allowing hot buyers to book with competing agencies.</li>
+          <li><strong>Admin overload</strong> from staff sorting through spam and tracking texts manually.</li>
+          <li><strong>Inconsistent execution</strong> when busy agents forget follow-ups or miss callbacks.</li>
+        </ul>
+      </div>
+      <div class="comp-column positive">
+        <h3>With Hermia</h3>
+        <ul class="comp-list">
+          <li><strong>Instant replies</strong> engaging 100% of portal enquiries within seconds.</li>
+          <li><strong>Live buyer intent signals</strong> to instantly identify serious buyers vs time-wasters.</li>
+          <li><strong>Direct calendar booking</strong> — inspections scheduled automatically into your system.</li>
+          <li><strong>Flawless consistency</strong> delivering a premium experience to every buyer, every time.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO -->
+  <section class="demo-section">
+    <div class="demo-pill">Interactive Demo</div>
+    <h2>Experience It Yourself</h2>
+    <p>See exactly how your buyers experience Hermia. Watch the qualification flow run live on your own device in real time.</p>
+    <a href="index sandbox triage.html" class="btn-outline">Test Live Triage →</a>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="gold-line" style="margin-bottom:32px;"></div>
+    <h3>The Agencies Winning<br>Respond First.</h3>
+    <p>Lead prioritisation for real estate teams that want to close more deals with less wasted time.</p>
+    <a href="b.html" class="btn-gold">Book a Demo</a>
+  </section>
+
+</div>
+</body>
+</html>
+
+
+<script src="/hermia-widget.js"></script>
