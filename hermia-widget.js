@@ -59,10 +59,16 @@ The brand is black, gold, white - elegant and trustworthy. You are here to help 
   /* ---------- INJECT STYLES ---------- */
   var css = `
   #hermia-widget { position: fixed; bottom: 28px; right: 28px; z-index: 999999; font-family: 'DM Sans', system-ui, sans-serif; }
-  #hermia-trigger { width: 62px; height: 62px; border-radius: 50%; background: #0c0c0c; border: 1.5px solid #C9A35B; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(201,163,91,.28); position: relative; transition: transform .25s ease; }
+  #hermia-trigger { width: 62px; height: 62px; border-radius: 50%; background: #0c0c0c; border: 1.5px solid #C9A35B; cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative; transition: transform .25s ease; animation: hermiaGlow 2.2s ease-in-out infinite; }
   #hermia-trigger:hover { transform: scale(1.07); }
-  .hermia-pulse { position: absolute; inset: -2px; border-radius: 50%; border: 1.5px solid #C9A35B; animation: hermiaRing 2.6s infinite; pointer-events: none; }
-  @keyframes hermiaRing { 0% { transform: scale(1); opacity:.7 } 100% { transform: scale(1.35); opacity:0 } }
+  @keyframes hermiaGlow {
+    0%,100% { box-shadow: 0 0 14px 2px rgba(201,163,91,.55), 0 0 30px 6px rgba(201,163,91,.25); }
+    50%     { box-shadow: 0 0 22px 5px rgba(201,163,91,.95), 0 0 48px 14px rgba(201,163,91,.5); }
+  }
+  /* Two expanding halo rings for the "look at me" effect */
+  .hermia-pulse { position: absolute; inset: -3px; border-radius: 50%; border: 2px solid rgba(201,163,91,.9); animation: hermiaRing 2.2s ease-out infinite; pointer-events: none; }
+  .hermia-pulse::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid rgba(201,163,91,.6); animation: hermiaRing 2.2s ease-out infinite; animation-delay: 1.1s; }
+  @keyframes hermiaRing { 0% { transform: scale(1); opacity:.85 } 100% { transform: scale(1.6); opacity:0 } }
   #hermia-window { position: absolute; bottom: 78px; right: 0; width: 380px; height: 560px; max-height: 78vh; background: #0c0c0c; border: 1px solid rgba(201,163,91,.22); border-radius: 20px; box-shadow: 0 24px 60px rgba(0,0,0,.85); display: flex; flex-direction: column; overflow: hidden; opacity: 0; transform: translateY(16px) scale(.97); pointer-events: none; transition: all .3s cubic-bezier(.25,1,.5,1); }
   #hermia-window.open { opacity: 1; transform: none; pointer-events: auto; }
   .hermia-header { padding: 16px 18px; background: #060606; border-bottom: 1px solid rgba(201,163,91,.15); display: flex; align-items: center; justify-content: space-between; }
