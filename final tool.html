@@ -1477,3 +1477,20 @@ document.querySelectorAll('.pillar-card, .flow-step, .ba-card, .stat-item, .punc
 
 <script src="/hermia-widget.js"></script>
 
+  <!-- DYNAMIC TICKER INJECTION -->
+<div id="hermia-ticker-anchor"></div>
+<script>
+  fetch('secure.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('hermia-ticker-anchor').innerHTML = html;
+      const inlineScript = document.getElementById('hermia-ticker-anchor').querySelector('script');
+      if(inlineScript) {
+        const runScript = document.createElement('script');
+        runScript.text = inlineScript.text;
+        document.body.appendChild(runScript);
+      }
+    }).catch(e => console.error(e));
+</script>
+
+
