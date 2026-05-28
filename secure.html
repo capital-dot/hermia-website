@@ -1,166 +1,222 @@
-<!-- THE SECURE GOLDEN HOUSE AI WIDGET -->
-<div id="hermia-secure-widget">
-  
-  <!-- FLOATING GOLDEN HOUSE TRIGGER -->
-  <button id="secure-trigger" onclick="toggleSecureChat()">
-    <svg class="house-icon" viewBox="0 0 24 24" width="26" height="26" stroke="#C9A35B" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermia Widget — Live Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0; min-height: 100vh;
+    background: radial-gradient(circle at 20% 20%, #1a1a1a, #050505 70%);
+    font-family: 'DM Sans', sans-serif; color: #f5f1e8;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .demo-note {
+    max-width: 480px; text-align: center; padding: 30px; opacity: .55; line-height: 1.6;
+  }
+  .demo-note h1 { font-family: 'Fraunces', serif; font-weight: 400; color: #C9A35B; }
+</style>
+</head>
+<body>
+
+<div class="demo-note">
+  <h1>Hermia</h1>
+  <p>This is a live test page. Tap the gold house bubble in the bottom-right corner to open the assistant and talk to it. Try saying <em>"hi"</em>, then ask it what the business does.</p>
+</div>
+
+<!-- ===================== HERMIA WIDGET ===================== -->
+<div id="hermia-widget">
+  <button id="hermia-trigger" aria-label="Open Hermia assistant" onclick="hermiaToggle()">
+    <svg viewBox="0 0 24 24" width="26" height="26" stroke="#C9A35B" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
       <polyline points="9 22 9 12 15 12 15 22"></polyline>
     </svg>
-    <span class="pulse-ring"></span>
+    <span class="hermia-pulse"></span>
   </button>
 
-  <!-- LUXURY AI INTERFACE WINDOW -->
-  <div id="secure-window">
-    <!-- HEADER -->
-    <div class="secure-header">
-      <div class="header-meta">
-        <div class="live-indicator"></div>
+  <div id="hermia-window" role="dialog" aria-label="Hermia assistant">
+    <div class="hermia-header">
+      <div class="hermia-headmeta">
+        <span class="hermia-live"></span>
         <div>
-          <h4>Hermia Core Intelligence</h4>
-          <p>Lead Infrastructure & Optimization</p>
+          <h4>Hermia</h4>
+          <p>Lead intelligence concierge</p>
         </div>
       </div>
-      <button class="close-widget" onclick="toggleSecureChat()">✕</button>
+      <button class="hermia-close" aria-label="Close" onclick="hermiaToggle()">&#10005;</button>
     </div>
 
-    <!-- CHAT CONVERSATION FRAME -->
-    <div class="secure-messages" id="secure-scroller">
-      <div class="secure-msg bot">
-        <div class="secure-bubble">
-          Welcome to Hermia. I am our core dynamic routing intelligence. Skip the reading—ask me any questions about backend lead interception, setups, or CRM integrations.
-          
-          <div class="smart-chips">
-            <button class="chip" onclick="askManusAI('How do I prioritize leads?')">How do I prioritize leads?</button>
-            <button class="chip" onclick="askManusAI('Show me top prospects')">Show me top prospects</button>
-          </div>
-        </div>
+    <div class="hermia-messages" id="hermia-scroller"></div>
+
+    <div class="hermia-footer">
+      <div class="hermia-inputwrap">
+        <input type="text" id="hermia-input" placeholder="Type a message…" autocomplete="off" onkeydown="hermiaKey(event)">
+        <button class="hermia-send" aria-label="Send" onclick="hermiaSend()">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#0c0c0c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
       </div>
     </div>
-
-    <!-- ENTRY FOOTER LAYER -->
-    <div class="secure-footer">
-      <div class="secure-input-wrapper">
-        <input type="text" id="secure-input" placeholder="Ask a question..." onkeypress="handleSecureKey(event)">
-        <button class="secure-send-btn" onclick="processSecureInput()">Send</button>
-      </div>
-    </div>
-
   </div>
 </div>
 
 <style>
-#hermia-secure-widget { position: fixed; bottom: 30px; right: 30px; z-index: 999999; font-family: 'DM Sans', sans-serif; color: #f5f1e8; }
-#secure-trigger { width: 64px; height: 64px; border-radius: 50%; background: #0c0c0c; border: 2px solid #C9A35B; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(201,163,91,0.25); position: relative; transition: transform 0.3s ease; }
-#secure-trigger:hover { transform: scale(1.08); background: #121212; }
-.pulse-ring { position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; border-radius: 50%; border: 2px solid #C9A35B; animation: ringGlow 2.5s infinite; pointer-events: none; }
-@keyframes ringGlow { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.3); opacity: 0; } }
-#secure-window { position: absolute; bottom: 80px; right: 0; width: 390px; height: 540px; background: #0c0c0c; border: 1px solid rgba(201,163,91,0.2); border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); display: flex; flex-direction: column; overflow: hidden; opacity: 0; transform: translateY(20px) scale(0.95); pointer-events: none; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
-#secure-window.active { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
-.secure-header { padding: 18px 20px; background: #050505; border-bottom: 1px solid rgba(201,163,91,0.15); display: flex; align-items: center; justify-content: space-between; }
-.header-meta { display: flex; align-items: center; gap: 10px; }
-.live-indicator { width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; }
-.secure-header h4 { font-size: 14px; font-weight: 600; color: #fff; margin: 0; }
-.secure-header p { font-size: 11px; color: #666; margin: 0; }
-.close-widget { background: transparent; border: none; color: #666; cursor: pointer; font-size: 14px; }
-.secure-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; background: rgba(5,5,5,0.4); }
-.secure-msg { display: flex; width: 100%; }
-.secure-msg.bot { justify-content: flex-start; }
-.secure-msg.user { justify-content: flex-end; }
-.secure-bubble { max-width: 88%; padding: 14px 18px; border-radius: 14px; font-size: 13.5px; line-height: 1.6; }
-.bot .secure-bubble { background: #121212; border: 1px solid rgba(201,163,91,0.1); color: #f5f1e8; border-top-left-radius: 4px; }
-.user .secure-bubble { background: rgba(201,163,91,0.06); border: 1px solid rgba(201,163,91,0.25); color: #fff; border-top-right-radius: 4px; }
-.smart-chips { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
-.chip { background: #050505; border: 1px solid rgba(201,163,91,0.15); color: #C9A35B; padding: 10px 14px; border-radius: 8px; font-size: 12.5px; text-align: left; cursor: pointer; transition: all 0.2s; }
-.chip:hover { border-color: #C9A35B; background: rgba(201,163,91,0.08); color: #e8c17a; }
-.secure-footer { padding: 16px; background: #050505; border-top: 1px solid rgba(201,163,91,0.1); }
-.secure-input-wrapper { display: flex; background: #0d0d0d; border: 1px solid rgba(201,163,91,0.15); border-radius: 10px; padding: 4px; align-items: center; }
-.secure-input-wrapper input { flex: 1; background: transparent; border: none; padding: 10px 12px; color: #fff; font-size: 13.5px; }
-.secure-input-wrapper input:focus { outline: none; }
-.secure-send-btn { background: #C9A35B; color: #000; border: none; padding: 8px 16px; border-radius: 7px; font-weight: 700; font-size: 11px; cursor: pointer; text-transform: uppercase; }
-.ai-typing { display: flex; gap: 5px; align-items: center; padding: 6px 10px !important; }
-.t-dot { width: 5px; height: 5px; background: #C9A35B; border-radius: 50%; opacity: 0.4; animation: pulseWave 1.3s infinite; }
-.t-dot:nth-child(2) { animation-delay: 0.15s; }
-.t-dot:nth-child(3) { animation-delay: 0.3s; }
-@keyframes pulseWave { 0%, 100% { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(-4px); opacity: 1; } }
-@media(max-width: 480px) { #secure-window { width: calc(100vw - 40px); height: 460px; bottom: 75px; right: -10px; } }
+  #hermia-widget { position: fixed; bottom: 28px; right: 28px; z-index: 999999; font-family: 'DM Sans', sans-serif; }
+
+  #hermia-trigger {
+    width: 62px; height: 62px; border-radius: 50%; background: #0c0c0c;
+    border: 1.5px solid #C9A35B; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 30px rgba(201,163,91,.28); position: relative; transition: transform .25s ease;
+  }
+  #hermia-trigger:hover { transform: scale(1.07); }
+  .hermia-pulse {
+    position: absolute; inset: -2px; border-radius: 50%; border: 1.5px solid #C9A35B;
+    animation: hermiaRing 2.6s infinite; pointer-events: none;
+  }
+  @keyframes hermiaRing { 0% { transform: scale(1); opacity:.7 } 100% { transform: scale(1.35); opacity:0 } }
+
+  #hermia-window {
+    position: absolute; bottom: 78px; right: 0; width: 380px; height: 560px; max-height: 78vh;
+    background: #0c0c0c; border: 1px solid rgba(201,163,91,.22); border-radius: 20px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.85); display: flex; flex-direction: column; overflow: hidden;
+    opacity: 0; transform: translateY(16px) scale(.97); pointer-events: none;
+    transition: all .3s cubic-bezier(.25,1,.5,1);
+  }
+  #hermia-window.open { opacity: 1; transform: none; pointer-events: auto; }
+
+  .hermia-header {
+    padding: 16px 18px; background: #060606; border-bottom: 1px solid rgba(201,163,91,.15);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .hermia-headmeta { display: flex; align-items: center; gap: 10px; }
+  .hermia-live { width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 9px #10b981; }
+  .hermia-header h4 { margin: 0; font-size: 14px; font-weight: 600; color: #fff; letter-spacing:.3px; }
+  .hermia-header p { margin: 0; font-size: 11px; color: #777; }
+  .hermia-close { background: transparent; border: none; color: #888; font-size: 15px; cursor: pointer; padding: 6px; line-height:1; border-radius:6px; }
+  .hermia-close:hover { color: #fff; background: rgba(255,255,255,.06); }
+
+  .hermia-messages { flex: 1; padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
+  .hermia-messages::-webkit-scrollbar { width: 6px; }
+  .hermia-messages::-webkit-scrollbar-thumb { background: rgba(201,163,91,.25); border-radius: 3px; }
+
+  .hermia-row { display: flex; width: 100%; }
+  .hermia-row.bot { justify-content: flex-start; }
+  .hermia-row.user { justify-content: flex-end; }
+  .hermia-bubble { max-width: 86%; padding: 12px 16px; border-radius: 14px; font-size: 13.5px; line-height: 1.6; white-space: pre-wrap; }
+  .bot .hermia-bubble { background: #161616; border: 1px solid rgba(201,163,91,.12); color: #efe9dc; border-top-left-radius: 4px; }
+  .user .hermia-bubble { background: rgba(201,163,91,.1); border: 1px solid rgba(201,163,91,.3); color: #fff; border-top-right-radius: 4px; }
+
+  .hermia-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .hermia-chip {
+    background: #060606; border: 1px solid rgba(201,163,91,.2); color: #C9A35B;
+    padding: 8px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; transition: all .2s; font-family: inherit;
+  }
+  .hermia-chip:hover { border-color: #C9A35B; background: rgba(201,163,91,.08); }
+
+  .hermia-footer { padding: 14px; background: #060606; border-top: 1px solid rgba(201,163,91,.1); }
+  .hermia-inputwrap { display: flex; align-items: center; gap: 8px; background: #0d0d0d; border: 1px solid rgba(201,163,91,.18); border-radius: 12px; padding: 5px 5px 5px 14px; }
+  .hermia-inputwrap input { flex: 1; background: transparent; border: none; color: #fff; font-size: 13.5px; font-family: inherit; }
+  .hermia-inputwrap input:focus { outline: none; }
+  .hermia-send { background: #C9A35B; border: none; width: 38px; height: 38px; border-radius: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background .2s; }
+  .hermia-send:hover { background: #e0b96e; }
+
+  .hermia-typing { display: flex; gap: 5px; padding: 4px 2px; }
+  .hermia-dot { width: 6px; height: 6px; background: #C9A35B; border-radius: 50%; opacity: .4; animation: hermiaWave 1.3s infinite; }
+  .hermia-dot:nth-child(2){ animation-delay:.15s } .hermia-dot:nth-child(3){ animation-delay:.3s }
+  @keyframes hermiaWave { 0%,100%{ transform: translateY(0); opacity:.4 } 50%{ transform: translateY(-4px); opacity:1 } }
+
+  @media(max-width:480px){ #hermia-window { width: calc(100vw - 32px); right: -6px; height: 70vh; } }
 </style>
 
-<!-- REAL AI BACKEND COUPLING SCRIPT -->
 <script>
-function toggleSecureChat() {
-  document.getElementById('secure-window').classList.toggle('active');
-}
+/* ============ HERMIA BRAIN ============ */
+const HERMIA_SYSTEM = `You are the AI concierge for Hermia, a premium real estate lead intelligence and pipeline prioritisation platform for agents and real estate teams.
 
-function handleSecureKey(e) {
-  if (e.key === 'Enter') processSecureInput();
-}
+Hermia helps agents stop wasting time on cold/low-intent leads by identifying serious buyers faster, prioritising hot leads, organising inbound enquiries, and improving speed-to-lead.
 
-function appendSecureMsg(text, side, isIndicator = false) {
-  const scroller = document.getElementById('secure-scroller');
-  const wrapper = document.createElement('div');
-  wrapper.className = `secure-msg ${side}`;
-  if(isIndicator) wrapper.id = 'ai-typing-indicator';
-  
-  const bubble = document.createElement('div');
-  bubble.className = 'secure-bubble';
-  bubble.innerHTML = text;
-  
-  wrapper.appendChild(bubble);
-  scroller.appendChild(wrapper);
-  scroller.scrollTop = scroller.scrollHeight;
-}
+CONVERSATION STYLE — this is the most important rule:
+- Talk like a normal, warm, intelligent human. Exactly like ChatGPT would.
+- If someone says "hi", just say hi back warmly and ask how you can help. NEVER say things like "your query has been validated against our framework". That is robotic and banned.
+- Keep replies short and natural. Match the person's energy.
+- Answer questions plainly: what Hermia does, how it works, is this a bot, pricing, setup, CRM integration.
+- Be calm, premium, helpful. Never pushy. Never spam a trial offer. Only mention booking a demo if it genuinely fits the conversation.
+- No corporate jargon, no fake technical language, no emojis unless they use them first.
+- If you don't know something, say so simply and suggest confirming it during onboarding.
 
-function showSecureTyping() {
-  appendSecureMsg(`<div class="ai-typing"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>`, 'bot', true);
-}
+The brand is black, gold, white — elegant and trustworthy. You are here to help and build trust, not to sell aggressively.`;
 
-function removeSecureTyping() {
-  const indicator = document.getElementById('ai-typing-indicator');
-  if (indicator) indicator.remove();
-}
+const hermiaHistory = [];
+let hermiaGreeted = false;
 
-// THIS FUNCTION COMMUNICATES DIRECTLY WITH MANUS'S LLM BACKEND
-async function messageBrainAPI(userText) {
-  showSecureTyping();
-  
-  try {
-    // We make a real live fetch request to the server endpoint Manus generated
-    // NOTE: If Manus used tRPC, this URL path might look like '/api/trpc/chat.sendMessage'
-    const response = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: userText })
-    });
-    
-    const data = await response.json();
-    removeSecureTyping();
-    
-    // Grabs the real intelligent response back from the LLM
-    const aiReply = data.reply || data.content || "Connection established. Core system parameters are operational.";
-    appendSecureMsg(aiReply, 'bot');
-    
-  } catch (error) {
-    removeSecureTyping();
-    // Elegant system fallback response if the server is restarting
-    appendSecureMsg("System pipeline communication handshake paused. Please try your technical query again in a moment.", 'bot');
+function hermiaToggle(){
+  const w = document.getElementById('hermia-window');
+  w.classList.toggle('open');
+  if(w.classList.contains('open') && !hermiaGreeted){
+    hermiaGreeted = true;
+    hermiaBot("Hey! I'm the Hermia assistant. Ask me anything — what we do, how it works, or whatever's on your mind.", true);
+    document.getElementById('hermia-input').focus();
   }
 }
+function hermiaKey(e){ if(e.key==='Enter') hermiaSend(); }
 
-function askManusAI(question) {
-  appendSecureMsg(question, 'user');
-  messageBrainAPI(question);
+function hermiaAppend(text, side){
+  const s = document.getElementById('hermia-scroller');
+  const row = document.createElement('div'); row.className = 'hermia-row '+side;
+  const b = document.createElement('div'); b.className = 'hermia-bubble'; b.textContent = text;
+  row.appendChild(b); s.appendChild(row); s.scrollTop = s.scrollHeight;
+  return b;
+}
+function hermiaBot(text, withChips){
+  const b = hermiaAppend(text, 'bot');
+  if(withChips){
+    const c = document.createElement('div'); c.className='hermia-chips';
+    ['What does Hermia do?','How does it work?','Is this a bot?'].forEach(q=>{
+      const chip=document.createElement('button'); chip.className='hermia-chip'; chip.textContent=q;
+      chip.onclick=()=>{ chip.parentElement.remove(); hermiaUserSay(q); };
+      c.appendChild(chip);
+    });
+    b.appendChild(c);
+  }
+}
+function hermiaTyping(show){
+  const s=document.getElementById('hermia-scroller');
+  if(show){
+    const row=document.createElement('div'); row.className='hermia-row bot'; row.id='hermia-typing';
+    row.innerHTML='<div class="hermia-bubble"><div class="hermia-typing"><span class="hermia-dot"></span><span class="hermia-dot"></span><span class="hermia-dot"></span></div></div>';
+    s.appendChild(row); s.scrollTop=s.scrollHeight;
+  } else { const t=document.getElementById('hermia-typing'); if(t) t.remove(); }
 }
 
-function processSecureInput() {
-  const inputEl = document.getElementById('secure-input');
-  const queryText = inputEl.value.trim();
-  if(!queryText) return;
-  
-  appendSecureMsg(queryText, 'user');
-  inputEl.value = '';
-  
-  // Sends your query straight to the dynamic AI backend
-  messageBrainAPI(queryText);
+function hermiaSend(){
+  const i=document.getElementById('hermia-input'); const t=i.value.trim();
+  if(!t) return; i.value=''; hermiaUserSay(t);
+}
+function hermiaUserSay(text){
+  hermiaAppend(text,'user');
+  hermiaHistory.push({role:'user',content:text});
+  hermiaAsk();
+}
+
+async function hermiaAsk(){
+  hermiaTyping(true);
+  try{
+    // ⬇️ This calls YOUR Manus backend. See hermia-backend.js for the server side.
+    const res = await fetch('/api/chat', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ system: HERMIA_SYSTEM, messages: hermiaHistory })
+    });
+    if(!res.ok) throw new Error('bad response');
+    const data = await res.json();
+    const reply = data.reply || "Sorry, I didn't catch that — could you rephrase?";
+    hermiaTyping(false);
+    hermiaBot(reply);
+    hermiaHistory.push({role:'assistant',content:reply});
+  }catch(e){
+    hermiaTyping(false);
+    hermiaBot("I'm having trouble connecting right now. Give it a moment and try again.");
+  }
 }
 </script>
+</body>
+</html>
+
