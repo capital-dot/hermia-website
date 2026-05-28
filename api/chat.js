@@ -22,7 +22,7 @@ export default async function handler(req, res) {
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 600,
         system: system,
         messages: messages
@@ -30,6 +30,12 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
+
+    // If Anthropic returned an error, log it so we can see what's wrong
+    if (data.error) {
+      console.error('Anthropic API error:', JSON.stringify(data.error));
+      return res.status(200).json({ reply: "I'm having a moment — please try again." });
+    }
 
     const reply = (data.content && data.content[0] && data.content[0].text)
       ? data.content[0].text
@@ -42,3 +48,4 @@ export default async function handler(req, res) {
     return res.status(500).json({ reply: "I'm having trouble connecting right now. Please try again shortly." });
   }
 }
+
