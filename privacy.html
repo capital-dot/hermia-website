@@ -3,160 +3,476 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy — Hermia Enterprise Lead Systems</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+  <title>Privacy Policy — Hermia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --black: #080808;
       --card: #111111;
+      --card2: #141414;
       --gold: #C9A35B;
       --gold-light: #e8c17a;
+      --gold-dim: rgba(201,163,91,0.07);
       --cream: #f5f1e8;
       --muted: #8a8580;
       --soft: #b8b5ad;
-      --border: rgba(201,163,91,0.15 );
+      --border: rgba(201,163,91,0.14);
+      --border-strong: rgba(201,163,91,0.32);
     }
+
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { 
-      font-family:'Inter', sans-serif; 
-      background:var(--black); 
-      color:var(--cream); 
-      line-height:1.8; 
-      padding:80px 24px; 
-      max-width:860px; 
-      margin:0 auto; 
+    html { scroll-behavior:smooth; }
+
+    body {
+      font-family:'DM Sans', sans-serif;
+      background:var(--black);
+      color:var(--cream);
+      min-height:100vh;
+      overflow-x:hidden;
     }
-    .header { text-align:center; margin-bottom:80px; }
-    .logo { width:64px; height:64px; margin:0 auto 24px; display:block; filter:drop-shadow(0 0 20px rgba(201,163,91,0.3)); }
-    h1 { 
-      font-family:'Cormorant Garamond', serif; 
-      font-size:48px; 
-      font-weight:700; 
-      color:#fff; 
-      letter-spacing:-1px; 
-      margin-bottom:12px; 
+
+    /* ── AMBIENT GLOWS ── */
+    .glow-tl {
+      position:fixed; top:-15%; left:-10%;
+      width:600px; height:600px;
+      background:radial-gradient(circle, rgba(201,163,91,0.10) 0%, transparent 70%);
+      filter:blur(90px); pointer-events:none; z-index:0;
     }
-    .meta { 
-      font-size:13px; 
-      font-weight:600;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      color:var(--gold); 
-      margin-bottom:60px; 
+    .glow-br {
+      position:fixed; bottom:-15%; right:-10%;
+      width:500px; height:500px;
+      background:radial-gradient(circle, rgba(201,163,91,0.07) 0%, transparent 70%);
+      filter:blur(90px); pointer-events:none; z-index:0;
     }
-    .nav-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      margin-bottom: 60px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 20px;
+
+    /* ── TOP NAV ── */
+    .top-nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      padding:18px 48px;
+      display:flex; align-items:center; justify-content:space-between;
+      background:rgba(8,8,8,0.92); backdrop-filter:blur(24px);
+      border-bottom:1px solid var(--border);
     }
-    .nav-tabs a {
-      color: var(--soft);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: color 0.3s;
+    .back-btn {
+      display:inline-flex; align-items:center; gap:9px;
+      color:var(--soft); text-decoration:none;
+      font-size:11px; font-weight:600;
+      letter-spacing:1.5px; text-transform:uppercase;
+      transition:color 0.25s;
     }
-    .nav-tabs a:hover, .nav-tabs a.active {
-      color: var(--gold);
-    }
-    h2 { 
+    .back-btn:hover { color:var(--gold); }
+    .nav-logo {
       font-family:'Cormorant Garamond', serif;
-      font-size:28px; 
-      font-weight:700; 
-      color:#fff; 
-      margin:56px 0 20px; 
-      border-left: 3px solid var(--gold);
-      padding-left: 20px;
+      font-size:20px; font-weight:600; color:var(--cream);
+      letter-spacing:-0.3px; text-decoration:none;
     }
-    p, li { 
-      font-size:15px; 
-      color:var(--soft); 
-      margin-bottom:18px; 
-      font-weight: 300;
-      text-align: justify;
+    .nav-badge {
+      font-size:10px; font-weight:700; letter-spacing:2px;
+      text-transform:uppercase; color:var(--gold);
+      background:var(--gold-dim); border:1px solid var(--border);
+      padding:5px 12px; border-radius:20px;
     }
-    ul { padding-left:24px; margin-bottom:24px; }
-    li { margin-bottom:10px; }
-    strong { color:#fff; font-weight:600; }
-    .legal-notice { 
-      background:rgba(201,163,91,0.05); 
-      border: 1px solid var(--border);
-      padding:32px; 
-      border-radius:16px; 
-      margin:40px 0; 
+
+    /* ── PAGE WRAPPER ── */
+    .page-wrap {
+      position:relative; z-index:1;
+      max-width:800px; margin:0 auto;
+      padding:148px 32px 100px;
     }
-    .legal-notice h4 {
-      color: var(--gold);
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 12px;
+
+    /* ── HERO HEADER ── */
+    .doc-header {
+      text-align:center;
+      padding-bottom:64px;
+      border-bottom:1px solid var(--border);
+      margin-bottom:64px;
     }
-    footer { 
-      margin-top:120px; 
-      text-align:center; 
-      font-size:13px; 
-      color:var(--muted); 
-      border-top:1px solid var(--border); 
-      padding-top:40px; 
+    .doc-eyebrow {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--gold-dim); border:1px solid var(--border);
+      padding:6px 18px; border-radius:100px;
+      font-size:10px; font-weight:700; letter-spacing:3px;
+      text-transform:uppercase; color:var(--gold); margin-bottom:28px;
     }
-    a { color: var(--gold); text-decoration: none; }
-    @media(max-width:600px){ body{padding:60px 20px;} h1 { font-size: 36px; } }
+    .doc-eyebrow-dot {
+      width:5px; height:5px; background:var(--gold);
+      border-radius:50%; opacity:0.7;
+    }
+    .doc-header h1 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(38px,6vw,62px); font-weight:700;
+      color:#fff; letter-spacing:-1.5px; line-height:1.06;
+      margin-bottom:18px;
+      text-shadow:0 0 40px rgba(201,163,91,0.2);
+    }
+    .doc-header h1 em { font-style:italic; color:var(--gold); }
+    .doc-meta-row {
+      display:flex; align-items:center; justify-content:center;
+      gap:20px; flex-wrap:wrap; margin-top:20px;
+    }
+    .doc-meta-pill {
+      display:flex; align-items:center; gap:7px;
+      font-size:11px; font-weight:500; color:var(--muted);
+      letter-spacing:0.3px;
+    }
+    .doc-meta-pill span {
+      font-size:9px; font-weight:700; letter-spacing:1.5px;
+      text-transform:uppercase; color:rgba(201,163,91,0.5);
+    }
+    .dot-sep {
+      width:3px; height:3px; background:var(--border-strong);
+      border-radius:50%;
+    }
+
+    /* ── TABS ── */
+    .doc-tabs {
+      display:flex; gap:4px;
+      background:var(--card); border:1px solid var(--border);
+      border-radius:12px; padding:4px;
+      margin-bottom:60px; width:fit-content; margin-left:auto; margin-right:auto;
+    }
+    .doc-tab {
+      padding:9px 22px; border-radius:8px;
+      font-size:11px; font-weight:700; letter-spacing:1.5px;
+      text-transform:uppercase; text-decoration:none;
+      color:var(--muted); transition:all 0.25s;
+    }
+    .doc-tab:hover { color:#fff; }
+    .doc-tab.active {
+      background:var(--gold-dim); border:1px solid var(--border-strong);
+      color:var(--gold);
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      margin-bottom:56px;
+      animation:fadeUp 0.5s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(16px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    .section-num-row {
+      display:flex; align-items:center; gap:14px; margin-bottom:18px;
+    }
+    .section-num {
+      font-family:'Cormorant Garamond', serif;
+      font-size:13px; font-weight:700; color:rgba(201,163,91,0.4);
+      letter-spacing:2px; min-width:26px;
+    }
+    .section-rule {
+      height:1px; flex:1;
+      background:linear-gradient(90deg, var(--border-strong), transparent);
+    }
+
+    .section h2 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(22px,3vw,30px); font-weight:700;
+      color:#fff; line-height:1.2; letter-spacing:-0.4px;
+      margin-bottom:20px;
+    }
+    .section h2 em { font-style:italic; color:var(--gold); }
+
+    .section p {
+      font-size:14px; color:var(--soft);
+      line-height:1.85; font-weight:300;
+      margin-bottom:16px;
+    }
+    .section p:last-child { margin-bottom:0; }
+    .section strong { color:#ddd; font-weight:500; }
+
+    /* ── LIST ── */
+    .doc-list {
+      list-style:none; padding:0;
+      display:flex; flex-direction:column; gap:12px;
+      margin-top:4px;
+    }
+    .doc-list li {
+      display:flex; gap:14px; align-items:flex-start;
+      font-size:14px; color:var(--soft); line-height:1.75; font-weight:300;
+    }
+    .doc-list li::before {
+      content:'';
+      display:block; min-width:5px; height:5px;
+      background:var(--gold); border-radius:50%; margin-top:9px; opacity:0.6;
+    }
+
+    /* ── NOTICE BOX ── */
+    .notice-box {
+      background:rgba(201,163,91,0.04);
+      border:1px solid rgba(201,163,91,0.18);
+      border-left:3px solid var(--gold);
+      border-radius:12px; padding:28px 30px;
+      margin:28px 0;
+    }
+    .notice-label {
+      font-size:9px; font-weight:700; letter-spacing:2.5px;
+      text-transform:uppercase; color:var(--gold);
+      margin-bottom:14px; opacity:0.85;
+    }
+    .notice-box p {
+      font-size:13px; color:var(--soft);
+      line-height:1.8; font-weight:300; margin-bottom:0;
+    }
+    .notice-box p strong { color:var(--cream); font-weight:500; }
+
+    /* ── CLASS CARDS ── */
+    .class-grid {
+      display:flex; flex-direction:column; gap:12px; margin-top:8px;
+    }
+    .class-card {
+      background:var(--card); border:1px solid var(--border);
+      border-radius:12px; padding:20px 22px;
+      display:flex; gap:16px; align-items:flex-start;
+      transition:border-color 0.25s;
+    }
+    .class-card:hover { border-color:var(--border-strong); }
+    .class-label {
+      font-size:10px; font-weight:700; letter-spacing:2px;
+      text-transform:uppercase; color:var(--gold);
+      background:var(--gold-dim); border:1px solid var(--border);
+      border-radius:6px; padding:4px 9px;
+      white-space:nowrap; margin-top:2px; flex-shrink:0;
+    }
+    .class-text {
+      font-size:13px; color:var(--soft); line-height:1.7; font-weight:300;
+    }
+    .class-text strong { color:#ddd; font-weight:500; }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      display:flex; align-items:center; gap:12px;
+      margin:56px 0 0;
+    }
+    .section-divider::before,
+    .section-divider::after {
+      content:''; flex:1; height:1px;
+      background:var(--border);
+    }
+    .section-divider-diamond {
+      width:5px; height:5px; background:var(--gold);
+      transform:rotate(45deg); opacity:0.4;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position:relative; z-index:1;
+      border-top:1px solid var(--border);
+      padding:48px 48px 40px;
+      background:rgba(0,0,0,0.25);
+    }
+    .footer-inner {
+      max-width:800px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; gap:20px;
+    }
+    .footer-brand {
+      font-family:'Cormorant Garamond', serif;
+      font-size:19px; font-weight:600; color:var(--cream);
+    }
+    .footer-brand small {
+      display:block; font-family:'DM Sans', sans-serif;
+      font-size:11px; font-weight:300; color:var(--muted);
+      letter-spacing:0.3px; margin-top:3px;
+    }
+    .footer-links {
+      display:flex; align-items:center; gap:18px;
+    }
+    .footer-link {
+      font-size:11px; font-weight:600; letter-spacing:1px;
+      text-transform:uppercase; color:var(--muted);
+      text-decoration:none; transition:color 0.2s;
+    }
+    .footer-link:hover { color:var(--gold); }
+    .footer-bottom {
+      max-width:800px; margin:24px auto 0;
+      padding-top:18px; border-top:1px solid rgba(201,163,91,0.06);
+      display:flex; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; gap:10px;
+    }
+    .footer-copy { font-size:11px; color:rgba(138,133,128,0.45); font-weight:300; }
+    .footer-abn {
+      display:inline-flex; align-items:center; gap:8px;
+    }
+    .footer-abn-badge {
+      font-size:9px; font-weight:700; letter-spacing:1.5px;
+      text-transform:uppercase; color:rgba(201,163,91,0.4);
+      background:rgba(201,163,91,0.05); border:1px solid rgba(201,163,91,0.1);
+      border-radius:4px; padding:3px 7px;
+    }
+    .footer-abn-num {
+      font-size:11px; color:rgba(138,133,128,0.4);
+      font-family:'Courier New', monospace; letter-spacing:0.5px;
+    }
+
+    @media(max-width:640px) {
+      .top-nav { padding:16px 20px; }
+      .page-wrap { padding:120px 20px 80px; }
+      .nav-badge { display:none; }
+      footer { padding:36px 20px 28px; }
+      .footer-inner { flex-direction:column; align-items:flex-start; }
+    }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo">
-    <h1>Privacy Policy & Governance</h1>
-    <p class="meta">Tier 0 Automated Data Infrastructure • Effective May 2026</p>
+<div class="glow-tl"></div>
+<div class="glow-br"></div>
+
+<!-- NAV -->
+<nav class="top-nav">
+  <a href="index.html" class="back-btn">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+    Back to Site
+  </a>
+  <a href="index.html" class="nav-logo">Hermia</a>
+  <span class="nav-badge">Legal &amp; Governance</span>
+</nav>
+
+<!-- MAIN -->
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="doc-eyebrow">
+      <span class="doc-eyebrow-dot"></span>
+      Legal Document
+    </div>
+    <h1>Privacy Policy<br><em>&amp; Governance</em></h1>
+    <div class="doc-meta-row">
+      <div class="doc-meta-pill"><span>Effective</span> May 2026</div>
+      <div class="dot-sep"></div>
+      <div class="doc-meta-pill"><span>Jurisdiction</span> Australia · UAE</div>
+      <div class="dot-sep"></div>
+      <div class="doc-meta-pill"><span>Standard</span> Tier 0 Infrastructure</div>
+    </div>
   </div>
 
-  <div class="nav-tabs">
-    <a href="#privacy" class="active">Privacy Policy</a>
-    <a href="/terms">Terms of Service</a>
+  <!-- TABS -->
+  <div class="doc-tabs">
+    <a href="#privacy" class="doc-tab active">Privacy Policy</a>
+    <a href="/terms" class="doc-tab">Terms of Service</a>
   </div>
 
+  <!-- SECTIONS -->
   <div id="privacy">
-    <h2>1. Statutory Compliance & Scope</h2>
-    <p>This Privacy Policy outlines the rigorous framework under which Hermia ("the Platform", "we", "us", or "our") processes operational data payloads. This governance structure is engineered to maintain absolute compliance with the <strong>Privacy Act 1988 (Cth)</strong> (including the Australian Privacy Principles), the <strong>UAE Federal Decree-Law No. 45 of 2021 on Personal Data Protection (PDPL)</strong>, and all corresponding local statutory obligations governing transactional data routing within real estate sectors.</p>
-    
-    <h2>2. Data Processor vs. Data Controller Separation</h2>
-    <p>The Client (the subscribing real estate agency, firm, or licensed corporate user) acts strictly as the <strong>Data Controller</strong>. The Client maintains absolute ownership, statutory liability, and directional authority over the methods of gathering, storing, and utilizing all buyer, tenant, or general prospect metrics. Hermia functions solely as a <strong>Data Processor</strong>, executing systemic data ingestion, triage parsing, categorization, and pipeline automation sequences entirely based on the direct technological settings and infrastructure mapping commands established by the Client.</p>
 
-    <div class="legal-notice">
-      <h4>Explicit Inbound Data Source Restriction</h4>
-      <p><strong>HERMIA DOES NOT SOURCE, HARVEST, DISCOVER, OR GENERATE LEADS.</strong> The Platform is a Tier 0 triage data layer that solely manipulates existing information packets directly supplied by the Client via secure software webhooks. Hermia never gathers raw personal information independently from consumers or public domains. The Client bears sole statutory responsibility for establishing a valid lawful basis and acquiring explicit opt-in consent from individuals before routing data payloads through the Platform's operational pipelines.</p>
+    <div class="section" style="animation-delay:0.05s">
+      <div class="section-num-row">
+        <span class="section-num">01</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Statutory Compliance <em>&amp; Scope</em></h2>
+      <p>This Privacy Policy outlines the rigorous framework under which Hermia ("the Platform", "we", "us", or "our") processes operational data payloads. This governance structure is engineered to maintain absolute compliance with the <strong>Privacy Act 1988 (Cth)</strong> (including the Australian Privacy Principles), the <strong>UAE Federal Decree-Law No. 45 of 2021 on Personal Data Protection (PDPL)</strong>, and all corresponding local statutory obligations governing transactional data routing within real estate sectors.</p>
     </div>
 
-    <h2>3. Zero-Credential Access Control Architectures</h2>
-    <p>To eliminate systemic structural exposure, Hermia operates an insulated, credential-free database interface. Integration channels linking to Customer Relationship Management (CRM) tools or mail distribution infrastructure utilize tokenized OAuth 2.0 communication pathways and isolated API parameters. At no phase of structural data parsing does Hermia store, log, cache, or maintain readable access to the raw cleartext database passwords or baseline master credentials belonging to the Client or its personnel.</p>
+    <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
-    <h2>4. Categorization of Processed Information</h2>
-    <p>Information passing through the automated processing arrays is managed across three strict technical classes:</p>
-    <ul>
-      <li><strong>Class A (Operational Corporate Metrics):</strong> Institutional corporate profiles, billing identifiers, ABN details, tax compliance registration metrics, and authorized administrator contact details necessary to maintain active platform subscription accounts.</li>
-      <li><strong>Class B (Client-Driven Input Payloads):</strong> Inbound inquiry variables (including prospect names, electronic mail addresses, phone identification values, and real estate requirement variables) explicitly routed by the Client from authorized real estate marketing channels.</li>
-      <li><strong>Class C (Automated Infrastructure Logs):</strong> Structured technical timestamps, automated validation outputs, and metadata confirmations recorded by automated communication pathways (such as SMS networks or WhatsApp application endpoints) during the real-time routing sequence.</li>
-    </ul>
+    <div class="section" style="animation-delay:0.10s; margin-top:56px;">
+      <div class="section-num-row">
+        <span class="section-num">02</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Data Processor vs. <em>Controller Separation</em></h2>
+      <p>The Client (the subscribing real estate agency, firm, or licensed corporate user) acts strictly as the <strong>Data Controller</strong>. The Client maintains absolute ownership, statutory liability, and directional authority over the methods of gathering, storing, and utilizing all buyer, tenant, or general prospect metrics.</p>
+      <p>Hermia functions solely as a <strong>Data Processor</strong>, executing systemic data ingestion, triage parsing, categorization, and pipeline automation sequences entirely based on the direct technological settings and infrastructure mapping commands established by the Client.</p>
 
-    <h2>5. Volatile Memory Processing & Sovereign Cross-Border Protection</h2>
-    <p>All data transformation routines execute strictly within highly secure, volatile cloud memory units. Data attributes are transiently retained only for the fleeting duration required to filter, parse, and securely transmit the clean data structure directly into the Client's destination CRM software environment. To secure regional operations across Australia and the UAE, all international pipeline components are encrypted utilizing rigid end-to-end 256-bit protocols. All network routing, traffic management, and perimeter firewalls are managed through specialized corporate data protection networks that strictly meet SOC2 compliance standards.</p>
+      <div class="notice-box">
+        <div class="notice-label">⚑ Explicit Inbound Data Source Restriction</div>
+        <p><strong>Hermia does not source, harvest, discover, or generate leads.</strong> The Platform is a Tier 0 triage data layer that solely manipulates existing information packets directly supplied by the Client via secure software webhooks. Hermia never gathers raw personal information independently from consumers or public domains. The Client bears sole statutory responsibility for establishing a valid lawful basis and acquiring explicit opt-in consent from individuals before routing data payloads through the Platform's operational pipelines.</p>
+      </div>
+    </div>
 
-    <h2>6. Subject Access Requests & Erasure Protocols</h2>
-    <p>Because Hermia does not maintain a permanent, centralized database of consumers or prospects, any individual seeking to exercise data access, rectification, or structural erasure rights under the Australian Privacy Principles or UAE PDPL must submit their inquiry directly to the respective real estate agency acting as the Data Controller. Upon receiving a certified instructional command from the Client, Hermia will instantly process secondary clearing routines to purge any matching operational execution records within volatile server storage arrays inside 30 days.</p>
+    <div class="section-divider"><div class="section-divider-diamond"></div></div>
+
+    <div class="section" style="animation-delay:0.15s; margin-top:56px;">
+      <div class="section-num-row">
+        <span class="section-num">03</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Zero-Credential <em>Access Control</em></h2>
+      <p>To eliminate systemic structural exposure, Hermia operates an insulated, credential-free database interface. Integration channels linking to Customer Relationship Management (CRM) tools or mail distribution infrastructure utilize tokenized OAuth 2.0 communication pathways and isolated API parameters. At no phase of structural data parsing does Hermia store, log, cache, or maintain readable access to the raw cleartext database passwords or baseline master credentials belonging to the Client or its personnel.</p>
+    </div>
+
+    <div class="section-divider"><div class="section-divider-diamond"></div></div>
+
+    <div class="section" style="animation-delay:0.20s; margin-top:56px;">
+      <div class="section-num-row">
+        <span class="section-num">04</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Categorization of <em>Processed Information</em></h2>
+      <p>Information passing through the automated processing arrays is managed across three strict technical classes:</p>
+
+      <div class="class-grid">
+        <div class="class-card">
+          <span class="class-label">Class A</span>
+          <div class="class-text"><strong>Operational Corporate Metrics</strong> — Institutional corporate profiles, billing identifiers, ABN details, tax compliance registration metrics, and authorized administrator contact details necessary to maintain active platform subscription accounts.</div>
+        </div>
+        <div class="class-card">
+          <span class="class-label">Class B</span>
+          <div class="class-text"><strong>Client-Driven Input Payloads</strong> — Inbound inquiry variables (including prospect names, electronic mail addresses, phone identification values, and real estate requirement variables) explicitly routed by the Client from authorized real estate marketing channels.</div>
+        </div>
+        <div class="class-card">
+          <span class="class-label">Class C</span>
+          <div class="class-text"><strong>Automated Infrastructure Logs</strong> — Structured technical timestamps, automated validation outputs, and metadata confirmations recorded by automated communication pathways (such as SMS networks or WhatsApp application endpoints) during the real-time routing sequence.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"><div class="section-divider-diamond"></div></div>
+
+    <div class="section" style="animation-delay:0.25s; margin-top:56px;">
+      <div class="section-num-row">
+        <span class="section-num">05</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Volatile Memory Processing <em>&amp; Cross-Border Protection</em></h2>
+      <p>All data transformation routines execute strictly within highly secure, volatile cloud memory units. Data attributes are transiently retained only for the fleeting duration required to filter, parse, and securely transmit the clean data structure directly into the Client's destination CRM software environment.</p>
+      <p>To secure regional operations across Australia and the UAE, all international pipeline components are encrypted utilizing rigid end-to-end 256-bit protocols. All network routing, traffic management, and perimeter firewalls are managed through specialized corporate data protection networks that strictly meet SOC2 compliance standards.</p>
+    </div>
+
+    <div class="section-divider"><div class="section-divider-diamond"></div></div>
+
+    <div class="section" style="animation-delay:0.30s; margin-top:56px;">
+      <div class="section-num-row">
+        <span class="section-num">06</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Subject Access Requests <em>&amp; Erasure Protocols</em></h2>
+      <p>Because Hermia does not maintain a permanent, centralized database of consumers or prospects, any individual seeking to exercise data access, rectification, or structural erasure rights under the Australian Privacy Principles or UAE PDPL must submit their inquiry directly to the respective real estate agency acting as the Data Controller.</p>
+      <p>Upon receiving a certified instructional command from the Client, Hermia will instantly process secondary clearing routines to purge any matching operational execution records within volatile server storage arrays inside 30 days.</p>
+    </div>
+
   </div>
+</div>
 
-  <footer>
-    © 2026 Hermia · ABN 75 434 177 026 · Victoria, Australia · Dubai Support Office  
-    <br><br>
-    <a href="mailto:capital@hermia.au">Governance, Compliance & Legal Counsel: capital@hermia.au</a>
-  </footer>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      Hermia
+      <small>AI Lead Qualification for Real Estate</small>
+    </div>
+    <div class="footer-links">
+      <a href="index.html" class="footer-link">Home</a>
+      <a href="/terms" class="footer-link">Terms</a>
+      <a href="mailto:capital@hermia.au" class="footer-link">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Hermia. All rights reserved. Victoria, Australia · Dubai Support Office</span>
+    <div class="footer-abn">
+      <span class="footer-abn-badge">ABN</span>
+      <span class="footer-abn-num">75 434 177 026</span>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>
