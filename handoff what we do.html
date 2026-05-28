@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hermia - Revenue Leakage Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:#080808; --card:#111111; --border:rgba(201,163,91,0.18); --gold:#C9A35B;
+      --gold-light:#e8c17a; --gold-dim:rgba(201,163,91,0.08); --cream:#f5f1e8;
+      --muted:#8a8580; --soft:#b8b5ad; --danger:#ef4444; --good:#22c55e;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:'DM Sans',sans-serif;background:radial-gradient(circle at top, #141414 0%, var(--black) 55%);
+      color:var(--cream);padding:40px 20px;min-height:100vh;display:flex;align-items:center;justify-content:center
+    }
+    .container{max-width:1000px;width:100%}
+    
+    /* Top Right Navigation Header */
+    .header-nav {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+    .nav-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(17, 17, 17, 0.6);
+      transition: all 0.2s ease;
+    }
+    .nav-back-btn:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+      background: rgba(201, 163, 91, 0.05);
+      transform: translateX(2px);
+    }
+
+    .hero{text-align:center;margin-bottom:32px}
+    h1{font-size:clamp(2rem,4vw,2.8rem);font-weight:700;line-height:1.1;letter-spacing:-0.03em;margin-bottom:12px}
+    .subtitle{color:var(--soft);font-size:1.05rem;max-width:760px;margin:0 auto 12px;line-height:1.6}
+    .trust-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:18px 0 0}
+    .trust-pill{border:1px solid var(--border);background:rgba(255,255,255,0.03);color:var(--soft);padding:10px 14px;border-radius:999px;font-size:.92rem}
+    
+    /* Region Switcher */
+    .region-switcher {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      padding: 6px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+    .region-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      padding: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+    .region-btn.active {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    .layout{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:start}
+    .calculator-card,.info-card{background:rgba(17,17,17,.96);border:1px solid var(--border);border-radius:18px;box-shadow:0 20px 40px rgba(0,0,0,.45)}
+    .calculator-card{padding:28px}
+    .info-card{padding:28px; display: flex; flex-direction: column; gap: 20px;}
+    .form-group{margin-bottom:22px}
+    label{display:block;font-size:.9rem;color:var(--soft);margin-bottom:8px;font-weight:500}
+    .field-help{font-size:.84rem;color:var(--muted);margin-top:8px;line-height:1.45}
+    .input-wrapper{position:relative;display:flex;align-items:center}
+    .input-prefix{position:absolute;left:16px;color:var(--muted);font-weight:500;pointer-events:none}
+    input[type="number"],input[type="range"]{width:100%;background:rgba(255,255,255,.03);border:1px solid var(--border);padding:14px 16px;border-radius:10px;color:var(--cream);font-size:1.05rem;outline:none;font-family:inherit;}
+    .has-prefix{padding-left:45px!important}
+    input[type="range"]{-webkit-appearance:none;padding:0;height:6px;background:rgba(201,163,91,.2);margin-top:10px}
+    input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer}
+    .slider-header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .slider-value{color:var(--gold);font-weight:700;font-size:1.05rem}
+    
+    .results-box{background:linear-gradient(180deg, rgba(201,163,91,.12), rgba(201,163,91,.06));border:1px solid rgba(201,163,91,.28);border-radius:14px;padding:22px;margin-top:24px;text-align:center}
+    .results-title{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:10px}
+    .loss-amount{font-size:clamp(2rem,4.5vw,2.8rem);font-weight:700;color:var(--danger);line-height:1.05;margin-bottom:6px}
+    .annual-loss{font-size:.98rem;color:var(--soft)}
+    .breakdown{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px}
+    .metric{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:left}
+    .metric .k{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px}
+    .metric .v{font-size:0.95rem;font-weight:700;color:var(--cream);overflow: hidden;text-overflow: ellipsis;}
+    
+    .cta{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+    .btn-primary{display:inline-flex;align-items:center;justify-content:center;background:var(--gold);color:var(--black);font-weight:700;padding:16px 18px;border-radius:10px;text-decoration:none;font-size:1.02rem;box-shadow:0 4px 14px rgba(201,163,91,.28);transition: background 0.2s;}
+    .btn-primary:hover{background:var(--gold-light)}
+    .btn-secondary{display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--cream);font-weight:600;padding:15px 18px;border-radius:10px;text-decoration:none;border:1px solid var(--border);transition: border 0.2s;}
+    .btn-secondary:hover{border-color:rgba(201,163,91,.45)}
+    
+    .section-title{font-size:.82rem;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:12px}
+    .info-card p,.info-card li{color:var(--soft);line-height:1.65;font-size:.95rem}
+    .info-card ul{list-style:none;display:grid;gap:12px}
+    .info-item{padding:14px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.02)}
+    .info-item strong{color:var(--cream); display: block; margin-bottom: 4px;}
+    
+    .how{margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+    .calc-note{font-size:.84rem;color:var(--muted);margin-top:8px;line-height:1.55}
+    .legal-disclaimer{margin-top:20px;font-size:.78rem;color:var(--muted);line-height:1.5;border-top:1px dashed rgba(201,163,91,0.15);padding-top:14px;}
+    .legal-disclaimer a{color:var(--soft);text-decoration:underline;}
+    
+    @media (max-width: 860px){ .layout{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header Navigation Section -->
+    <div class="header-nav">
+      <a href="what we do.html" class="nav-back-btn">
+        Back to Site
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+    </div>
+
+    <div class="hero">
+      <h1>Estimate Commission Lost to Slow Lead Response</h1>
+      <p class="subtitle">In real estate, speed-to-lead dictates your market share. Calculate how many pipeline opportunities drop off when inbound digital inquiries are left unaddressed or delayed.</p>
+      <div class="trust-row">
+        <div class="trust-pill">Optimised for Australian Agencies</div>
+        <div class="trust-pill">Optimised for Dubai Brokerages</div>
+        <div class="trust-pill">Powered by hermia.au</div>
+      </div>
+    </div>
+
+    <div class="layout">
+      <!-- Calculator Column -->
+      <div class="calculator-card">
+        <!-- Region Switcher Tabs -->
+        <div class="region-switcher">
+          <button type="button" class="region-btn active" id="btnAU" onclick="setRegion('AU')">Australia (AUD)</button>
+          <button type="button" class="region-btn" id="btnDXB" onclick="setRegion('DXB')">Dubai (AED)</button>
+        </div>
+
+        <div class="form-group">
+          <label for="monthlyLeads">Average Monthly Inbound Leads</label>
+          <input type="number" id="monthlyLeads" value="80" min="0" step="1" inputmode="numeric" />
+          <div class="field-help" id="leadsHelp">New portal inquiries (e.g., Realestate.com.au, Domain) or website leads per month.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="avgCommission">Average Gross Commission per Deal</label>
+          <div class="input-wrapper">
+            <span class="input-prefix" id="currencyPrefix">$</span>
+            <input type="number" id="avgCommission" class="has-prefix" value="16000" min="0" step="500" inputmode="decimal" />
+          </div>
+          <div class="field-help" id="commissionHelp">Average commission earned by your desk/office on a single standard transaction settlement.</div>
+        </div>
+
+        <div class="form-group">
+          <div class="slider-header">
+            <label for="estimatedLoss" style="margin-bottom:0">Estimated Lead Attrition Rate</label>
+            <span class="slider-value" id="sliderValue">35%</span>
+          </div>
+          <input type="range" id="estimatedLoss" min="5" max="80" value="35" step="1" />
+          <div class="field-help">The conservative percentage of warm leads lost due to response delays beyond 5 minutes.</div>
+        </div>
+
+        <!-- Dynamic Results Screen -->
+        <div class="results-box" aria-live="polite">
+          <div class="results-title">Estimated Monthly Revenue Leakage</div>
+          <div class="loss-amount" id="monthlyLossDisplay">$0</div>
+          <div class="annual-loss">Annualised Capital Loss: <span id="annualLossDisplay" style="color: var(--cream); font-weight: 700;">$0</span></div>
+          
+          <div class="breakdown">
+            <div class="metric">
+              <div class="k">Gross Leads</div>
+              <div class="v" id="leadCountDisplay">0</div>
+            </div>
+            <div class="metric">
+              <div class="k">Avg Comm.</div>
+              <div class="v" id="commissionDisplay">$0</div>
+            </div>
+            <div class="metric">
+              <div class="k">Drop-Off Rate</div>
+              <div class="v" id="lossRateDisplay">0%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="how">
+          <div class="section-title">Mathematical Formula</div>
+          <p class="calc-note">Monthly Revenue Leakage = Monthly Inbound Enquiries × Attrition Rate (%) × Average Settled Gross Commission. This calculation models pipeline slip, assuming standard industry lead-to-close conversions.</p>
+        </div>
+
+        <div class="cta">
+          <a href="appply.html" class="btn-primary">Book a System Demo</a>
+          <a href="cal.html" class="btn-secondary">Speak with an Consultant</a>
+        </div>
+      </div>
+
+      <!-- Contextual Intelligence Column -->
+      <div class="info-card">
+        <div>
+          <div class="section-title">The Cost of Delayed Contact</div>
+          <p>Modern consumers expect immediate validation. Data shows real estate leads contacted inside 5 minutes yield up to a 391% higher qualification rate over delayed outreach.</p>
+        </div>
+
+        <div>
+          <div class="section-title">Market Specific Dynamics</div>
+          <ul id="marketNotes">
+            <!-- Dynamically populated via JS to maintain ultra-relevance -->
+          </ul>
+        </div>
+
+        <div class="info-item">
+          <strong>The Hermia Advantage</strong>
+          <p>Hermia bridges the dead-zone between lead generation and sales outreach. Our intelligent workflow automates immediate responses, captures intent, and keeps your agency front-of-mind before competitors pick up the phone.</p>
+        </div>
+
+        <div class="legal-disclaimer">
+          <strong>Legal Disclaimer & Terms of Use</strong><br>
+          The output generated by this calculator serves strictly as an illustrative financial simulation and a directional estimate. It does not guarantee prospective revenues, exact transactional values, or savings. Real estate conversions fluctuate based on unique local variables, agent execution, historical lead sourcing, and market context. To learn how we safely process data, view our <a href="https://hermia.au/privacy" target="_blank">Privacy Policy</a>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Configuration Objects for Markets
+    const marketConfig = {
+      AU: {
+        currency: '$',
+        defaultCommission: 16000,
+        defaultLeads: 60,
+        leadsHelp: "New portal inquiries (e.g., Realestate.com.au, Domain) or local agency website leads per month.",
+        commissionHelp: "Typical average commission based on average residential gross sales value.",
+        bulletPoints: [
+          "<strong>Portal Fatigue:</strong> Australian buyers and vendors search aggressively across major localized channels. If your team delays response, they submit alternatives within seconds.",
+          "<strong>Compliance Focus:</strong> Secure data capture protocols match local regulatory frameworks seamlessly via hermia.au integrations."
+        ]
+      },
+      DXB: {
+        currency: 'AED ',
+        defaultCommission: 45000,
+        defaultLeads: 120,
+        leadsHelp: "Inbound digital campaigns, listing portal inquiries (e.g., Property Finder, Bayut, Dubizzle) or global web inquiries.",
+        commissionHelp: "Estimated gross agency commission based on standard secondary market or off-plan transaction splits.",
+        bulletPoints: [
+          "<strong>High-Velocity Ecosystem:</strong> Dubai real estate moves at hyper-speed. Global investors routinely reach out across multiple off-plan projects simultaneously.",
+          "<strong>Off-Plan & Secondary Realities:</strong> First-mover advantage determines who retains the investor client for exclusive portfolio representation."
+        ]
+      }
+    };
+
+    let currentRegion = 'AU';
+
+    // DOM Elements
+    const btnAU = document.getElementById('btnAU');
+    const btnDXB = document.getElementById('btnDXB');
+    const monthlyLeads = document.getElementById('monthlyLeads');
+    const avgCommission = document.getElementById('avgCommission');
+    const estimatedLoss = document.getElementById('estimatedLoss');
+    const sliderValue = document.getElementById('sliderValue');
+    
+    const currencyPrefix = document.getElementById('currencyPrefix');
+    const leadsHelp = document.getElementById('leadsHelp');
+    const commissionHelp = document.getElementById('commissionHelp');
+    const marketNotes = document.getElementById('marketNotes');
+
+    const monthlyLossDisplay = document.getElementById('monthlyLossDisplay');
+    const annualLossDisplay = document.getElementById('annualLossDisplay');
+    const leadCountDisplay = document.getElementById('leadCountDisplay');
+    const commissionDisplay = document.getElementById('commissionDisplay');
+    const lossRateDisplay = document.getElementById('lossRateDisplay');
+
+    // Helper function for beautiful localized numbers
+    function formatCurrency(amount, currencySymbol) {
+      const formattedNumber = Math.round(amount).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+      return currencySymbol === '$' ? `$${formattedNumber}` : `${formattedNumber} AED`;
+    }
+
+    function setRegion(region) {
+      currentRegion = region;
+      
+      // Toggle button active styling
+      if (region === 'AU') {
+        btnAU.classList.add('active');
+        btnDXB.classList.remove('active');
+      } else {
+        btnDXB.classList.add('active');
+        btnAU.classList.remove('active');
+      }
+
+      // Update static text configurations
+      const config = marketConfig[region];
+      currencyPrefix.textContent = config.currency;
+      leadsHelp.textContent = config.leadsHelp;
+      commissionHelp.textContent = config.commissionHelp;
+      
+      // Update default input figures
+      monthlyLeads.value = config.defaultLeads;
+      avgCommission.value = config.defaultCommission;
+
+      // Re-populate dynamic informational lists
+      marketNotes.innerHTML = '';
+      config.bulletPoints.forEach(text => {
+        const li = document.createElement('li');
+        li.className = 'info-item';
+        li.innerHTML = text;
+        marketNotes.appendChild(li);
+      });
+
+      calculateLeakage();
+    }
+
+    function calculateLeakage() {
+      const leads = parseFloat(monthlyLeads.value) || 0;
+      const commission = parseFloat(avgCommission.value) || 0;
+      const lossRate = parseFloat(estimatedLoss.value) || 0;
+      const currency = marketConfig[currentRegion].currency;
+
+      // UI Slider updates
+      sliderValue.textContent = `${lossRate}%`;
+
+      // Pipeline mathematical formulation 
+      const monthlyLoss = leads * (lossRate / 100) * commission;
+      const annualLoss = monthlyLoss * 12;
+
+      // Update calculations to DOM
+      monthlyLossDisplay.textContent = formatCurrency(monthlyLoss, currency);
+      annualLossDisplay.textContent = formatCurrency(annualLoss, currency);
+      
+      leadCountDisplay.textContent = leads.toLocaleString();
+      commissionDisplay.textContent = formatCurrency(commission, currency);
+      lossRateDisplay.textContent = `${lossRate}%`;
+    }
+
+    // Event Listeners for Live Form Interactions
+    monthlyLeads.addEventListener('input', calculateLeakage);
+    avgCommission.addEventListener('input', calculateLeakage);
+    estimatedLoss.addEventListener('input', calculateLeakage);
+
+    // Initialise Application State on Load
+    setRegion('AU');
+  </script>
+</body>
+</html>
