@@ -3,384 +3,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hermia — Private Briefing</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --black: #080808;
-  --card: #111111;
-  --border: rgba(201,163,91,0.15);
-  --gold: #C9A35B;
-  --gold-light: #e8c17a;
-  --gold-dim: rgba(201,163,91,0.08);
-  --cream: #f5f1e8;
-  --muted: #8a8580;
-  --soft: #b8b5ad;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family:'DM Sans',sans-serif;
-  background:var(--black);
-  color:var(--cream);
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:48px 24px;
-  overflow-x:hidden;
-}
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif; background: #0c0c0c; color: #f5f1e8;
+    height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+  }
+  .chat-header {
+    padding: 16px 20px; background: #050505; border-bottom: 1px solid rgba(201,163,91,0.15);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .header-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; }
+  .chat-header h4 { font-size: 14px; font-weight: 600; color: #fff; }
+  .chat-header p { font-size: 11px; color: #777; }
+  
+  .chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; background: rgba(5,5,5,0.4); }
+  .msg { display: flex; width: 100%; }
+  .msg.bot { justify-content: flex-start; }
+  .msg.user { justify-content: flex-end; }
+  .bubble { max-width: 85%; padding: 12px 16px; border-radius: 14px; font-size: 13.5px; line-height: 1.5; }
+  .bot .bubble { background: #121212; border: 1px solid rgba(201,163,91,0.1); color: #f5f1e8; border-top-left-radius: 4px; }
+  .user .bubble { background: rgba(201,163,91,0.08); border: 1px solid rgba(201,163,91,0.25); color: #fff; border-top-right-radius: 4px; }
 
-.bg-glow {
-  position:fixed;
-  top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  width:1000px; height:700px;
-  background:radial-gradient(ellipse, rgba(201,163,91,0.18) 0%, transparent 65%);
-  pointer-events:none;
-  filter:blur(80px);
-  z-index:0;
-}
+  .chips { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+  .chip {
+    background: #050505; border: 1px solid rgba(201,163,91,0.2); color: #C9A35B;
+    padding: 8px 12px; border-radius: 8px; font-size: 12px; text-align: left; cursor: pointer; transition: all 0.2s;
+  }
+  .chip:hover { border-color: #C9A35B; background: rgba(201,163,91,0.06); color: #e8c17a; }
 
-.brief-shell {
-  position:relative;
-  z-index:1;
-  width:100%;
-  max-width:540px;
-  background:linear-gradient(180deg, #131008 0%, #0a0a0a 100%);
-  border:1px solid var(--gold);
-  border-radius:28px;
-  padding:0;
-  overflow:hidden;
-  box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(201,163,91,0.18);
-}
-.brief-shell::before,
-.brief-shell::after {
-  content:'';
-  position:absolute;
-  width:24px; height:24px;
-  border-color:var(--gold);
-  border-style:solid;
-}
-.brief-shell::before { top:14px; right:14px; border-width:1px 1px 0 0; }
-.brief-shell::after  { bottom:14px; left:14px; border-width:0 0 1px 1px; }
-
-.brief-header {
-  text-align:center;
-  padding:48px 36px 32px;
-  border-bottom:1px solid var(--border);
-}
-.brief-tag {
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  background:var(--gold-dim);
-  border:1px solid var(--border);
-  padding:6px 16px;
-  border-radius:100px;
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  color:var(--gold);
-  margin-bottom:24px;
-}
-.brief-tag-dot {
-  width:6px; height:6px;
-  background:#10b981;
-  border-radius:50%;
-  box-shadow:0 0 10px #10b981;
-  animation:pulse 2s infinite;
-}
-@keyframes pulse {
-  0%,100% { opacity:1; }
-  50% { opacity:0.4; }
-}
-.brief-header h1 {
-  font-family:'Cormorant Garamond',serif;
-  font-size:36px;
-  font-weight:700;
-  color:#fff;
-  line-height:1.15;
-  margin-bottom:14px;
-  letter-spacing:-0.5px;
-}
-.brief-header h1 em {
-  font-style:italic;
-  color:var(--gold);
-  text-shadow:0 0 25px rgba(201,163,91,0.4);
-}
-.brief-header p {
-  font-size:14px;
-  color:var(--soft);
-  line-height:1.6;
-  font-weight:300;
-  max-width:380px;
-  margin:0 auto;
-}
-
-.brief-body {
-  padding:36px;
-}
-
-.advisor-card {
-  background:rgba(201,163,91,0.04);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:24px;
-  text-align:center;
-  margin-bottom:28px;
-}
-.advisor-avatar {
-  width:72px; height:72px;
-  background:linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-family:'Cormorant Garamond',serif;
-  font-size:32px;
-  font-weight:700;
-  color:#000;
-  margin:0 auto 14px;
-  box-shadow:0 8px 24px rgba(201,163,91,0.4);
-  position:relative;
-}
-.advisor-status {
-  position:absolute;
-  bottom:2px; right:2px;
-  width:16px; height:16px;
-  background:#10b981;
-  border:3px solid #0a0a0a;
-  border-radius:50%;
-}
-.advisor-name {
-  font-family:'Cormorant Garamond',serif;
-  font-size:22px;
-  font-weight:700;
-  color:#fff;
-  margin-bottom:4px;
-}
-.advisor-title {
-  font-size:10px;
-  font-weight:600;
-  letter-spacing:2.5px;
-  text-transform:uppercase;
-  color:var(--gold);
-  margin-bottom:18px;
-}
-.advisor-stats {
-  display:grid;
-  grid-template-columns:1fr 1px 1fr;
-  gap:14px;
-  padding-top:18px;
-  border-top:1px solid var(--border);
-}
-.stat-divider {
-  background:var(--border);
-}
-.stat-block {
-  text-align:center;
-}
-.stat-block-label {
-  font-size:9px;
-  font-weight:600;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  color:var(--muted);
-  margin-bottom:6px;
-}
-.stat-block-value {
-  font-family:'Cormorant Garamond',serif;
-  font-size:20px;
-  font-weight:700;
-  color:var(--gold-light);
-}
-
-.briefing-includes {
-  margin-bottom:28px;
-}
-.briefing-includes-label {
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:2.5px;
-  text-transform:uppercase;
-  color:var(--gold);
-  margin-bottom:14px;
-  text-align:center;
-}
-.includes-list {
-  list-style:none;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.includes-list li {
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
-  font-size:13px;
-  color:var(--soft);
-  line-height:1.5;
-  font-weight:300;
-}
-.includes-list li::before {
-  content:'◆';
-  font-size:7px;
-  color:var(--gold);
-  margin-top:6px;
-  flex-shrink:0;
-}
-.includes-list strong { color:#fff; font-weight:500; }
-
-.cta-block {
-  background:rgba(0,0,0,0.4);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:24px;
-  text-align:center;
-}
-.cta-block-hint {
-  font-size:11px;
-  color:var(--muted);
-  margin-bottom:16px;
-  letter-spacing:0.5px;
-}
-.cta-btn {
-  display:block;
-  width:100%;
-  background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);
-  color:#000;
-  padding:18px 20px;
-  border-radius:10px;
-  font-family:'DM Sans',sans-serif;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:2.5px;
-  text-transform:uppercase;
-  text-decoration:none;
-  transition:all 0.3s;
-  box-shadow:0 10px 30px rgba(201,163,91,0.3);
-  border:none;
-  cursor:pointer;
-}
-.cta-btn:hover {
-  filter:brightness(1.1);
-  transform:translateY(-2px);
-  box-shadow:0 14px 40px rgba(201,163,91,0.45);
-}
-
-.security-row {
-  margin-top:20px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  font-size:10px;
-  color:var(--muted);
-  letter-spacing:1px;
-}
-.security-row::before,
-.security-row::after {
-  content:'';
-  flex:1;
-  height:1px;
-  background:linear-gradient(90deg, transparent, var(--border), transparent);
-}
-.security-icon {
-  color:var(--gold);
-  opacity:0.6;
-}
-
-.brief-footer {
-  border-top:1px solid var(--border);
-  padding:20px 36px;
-  text-align:center;
-  font-size:10px;
-  color:var(--muted);
-  letter-spacing:1px;
-  text-transform:uppercase;
-}
-.brief-footer a {
-  color:var(--gold);
-  text-decoration:none;
-}
-
-@media (max-width:480px) {
-  .brief-header h1 { font-size:28px; }
-  .brief-header { padding:36px 24px 24px; }
-  .brief-body { padding:24px; }
-  .advisor-stats { grid-template-columns:1fr; }
-  .stat-divider { display:none; }
-}
+  .chat-footer { padding: 16px; background: #050505; border-top: 1px solid rgba(201,163,91,0.1); }
+  .input-wrap { display: flex; background: #0d0d0d; border: 1px solid rgba(201,163,91,0.15); border-radius: 10px; padding: 4px; align-items: center; }
+  .input-wrap input { flex: 1; background: transparent; border: none; padding: 10px 12px; color: #fff; font-size: 13px; }
+  .input-wrap input:focus { outline: none; }
+  .send-btn { background: #C9A35B; color: #000; border: none; padding: 8px 16px; border-radius: 7px; font-weight: 700; font-size: 11px; cursor: pointer; text-transform: uppercase; }
+  
+  .typing { display: flex; gap: 4px; align-items: center; padding: 8px 12px !important; }
+  .dot { width: 5px; height: 5px; background: #C9A35B; border-radius: 50%; opacity: 0.4; animation: wWave 1.3s infinite; }
+  .dot:nth-child(2) { animation-delay: 0.15s; }
+  .dot:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes wWave { 0%, 100__ { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(-4px); opacity: 1; } }
 </style>
 </head>
 <body>
 
-<div class="bg-glow"></div>
-
-<div class="brief-shell">
-
-  <div class="brief-header">
-    <div class="brief-tag">
-      <span class="brief-tag-dot"></span>
-      Private Appointment
+  <div class="chat-header">
+    <div class="header-dot"></div>
+    <div>
+      <h4>Hermia Core Node</h4>
+      <p>Instant Infrastructure QA</p>
     </div>
-    <h1>Reserve Your <em>Private Briefing</em></h1>
-    <p>A confidential walkthrough with Hermia's founding engineer. For agencies serious about owning their inbound pipeline.</p>
   </div>
 
-  <div class="brief-body">
-
-    <div class="advisor-card">
-      <div class="advisor-avatar">
-        H
-        <span class="advisor-status"></span>
-      </div>
-      <div class="advisor-name">Hermia Engineering</div>
-      <div class="advisor-title">Direct Founder Access</div>
-
-      <div class="advisor-stats">
-        <div class="stat-block">
-          <div class="stat-block-label">Briefing Length</div>
-          <div class="stat-block-value">25 min</div>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat-block">
-          <div class="stat-block-label">Response Window</div>
-          <div class="stat-block-value">&lt; 12hr</div>
+  <div class="chat-messages" id="scroller">
+    <div class="msg bot">
+      <div class="bubble">
+        Welcome to Hermia. Skip the reading—ask me any technical questions about our lead conversion infrastructure here.
+        <div class="chips">
+          <button class="chip" onclick="askPreset('Is this just another website chatbot?')">Is this just a website bot?</button>
+          <button class="chip" onclick="askPreset('Does the AI hallucinate info?')">Does the AI hallucinate?</button>
+          <button class="chip" onclick="askPreset('How long does it take to set up?')">How long to set up?</button>
         </div>
       </div>
     </div>
-
-    <div class="briefing-includes">
-      <div class="briefing-includes-label">What's covered</div>
-      <ul class="includes-list">
-        <li><strong>Live qualification walk-through</strong> on your actual portal flow</li>
-        <li><strong>CRM routing audit</strong> — HubSpot, Zoho, Rex, Pipedrive supported</li>
-        <li><strong>Lead loss analysis</strong> — quantify what you're leaking after hours</li>
-        <li><strong>Custom deployment plan</strong> tailored to your agency's enquiry volume</li>
-      </ul>
-    </div>
-
-    <div class="cta-block">
-      <div class="cta-block-hint">Limited briefings available this week</div>
-      <a href="calendar.html" class="cta-btn">Reserve My Slot →</a>
-      <div class="security-row">
-        <span class="security-icon">◆</span>
-        Private &amp; Confidential
-        <span class="security-icon">◆</span>
-      </div>
-    </div>
-
   </div>
 
-  <div class="brief-footer">
-    Hermia · <a href="mailto:capital@hermia.au">capital@hermia.au</a> · hermia.au
+  <div class="chat-footer">
+    <div class="input-wrap">
+      <input type="text" id="chat-input" placeholder="Ask about templates, setup, or CRMs..." onkeypress="handleKey(event)">
+      <button class="send-btn" onclick="processInput()">Send</button>
+    </div>
   </div>
 
-</div>
+<script>
+const scr = document.getElementById('scroller');
+const inp = document.getElementById('chat-input');
 
+function handleKey(e) { if (e.key === 'Enter') processInput(); }
+
+function append(text, side, isInd = false) {
+  const w = document.createElement('div'); w.className = `msg ${side}`; if(isInd) w.id = 'ind';
+  const b = document.createElement('div'); b.className = 'bubble'; b.innerHTML = text;
+  w.appendChild(b); scr.appendChild(w); scr.scrollTop = scr.scrollHeight;
+}
+
+function askPreset(q) {
+  append(q, 'user');
+  append(`<div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`, 'bot', true);
+  setTimeout(() => {
+    document.getElementById('ind').remove();
+    let a = "";
+    if (q.includes('website chatbot')) {
+      a = `<strong>No, we don't build website chat bars.</strong> Buyers ignore website popups.<br><br>Hermia is backend <strong>SMS Infrastructure</strong>. The split-second a lead registers on portals, Hermia instantly texts their smartphone text inbox directly.`;
+    } else if (q.includes('hallucinate')) {
+      a = `<strong>Zero legal liabilities or hallucinations.</strong> Hermia uses rigid, pre-fixed conversion templates. It captures budget and finance status within strict guardrails—100% computational accuracy, 24/7.`;
+    } else if (q.includes('setup')) {
+      a = `<strong>Full system deployment takes under 72 hours.</strong> Our engineers hook up your active property feeds and sync data straight into your CRM (Zoho, HubSpot, Pipedrive) without altering agent workflows.`;
+    }
+    append(a + `<br><br><a href="apply.html" target="_parent" style="display:inline-block; padding:8px 12px; background:#C9A35B; color:#000; font-size:11px; font-weight:700; text-transform:uppercase; text-decoration:none; border-radius:5px;">Claim 3-Day Workspace →</a>`, 'bot');
+  }, 1000);
+}
+
+function processInput() {
+  const txt = inp.value.trim(); if(!txt) return;
+  append(txt, 'user'); inp.value = '';
+  append(`<div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`, 'bot', true);
+  setTimeout(() => {
+    document.getElementById('ind').remove();
+    const l = txt.toLowerCase();
+    let reply = `Understood. Your operational metric ("${txt}") has been logged. Let's fast-track your setup parameters.`;
+    if(l.includes('chat') || l.includes('widget')) {
+      reply = `We simulate this on our site via text, but your actual buyers will get <strong>instant SMS text layers</strong> dropped right into their phone's native text messaging apps within 60 seconds.`;
+    } else if(l.includes('setup') || l.includes('time')) {
+      reply = `It takes exactly <strong>3 business days</strong> to connect Hermia's triage layers directly into your active CRM pipeline workspace.`;
+    }
+    append(reply + `<br><br><a href="apply.html" target="_parent" style="display:inline-block; padding:8px 12px; background:#C9A35B; color:#000; font-size:11px; font-weight:700; text-transform:uppercase; text-decoration:none; border-radius:5px;">Apply for Workspace Trial →</a>`, 'bot');
+  }, 1200);
+}
+</script>
 </body>
 </html>
+
 
