@@ -3,23 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apply — Hermia</title>
+<title>Book Custom CRM — Hermia</title>
+<meta name="description" content="Hermia builds custom CRM integrations for real estate agents. Tell us your setup and we'll handle everything.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --black:#050505; 
-  --card:#0c0c0c; 
-  --border:rgba(201,163,91,0.18);
-  --gold:#C9A35B; 
-  --gold-light:#e8c17a; 
-  --gold-dim:rgba(201,163,91,0.06);
-  --cream:#f5f1e8; 
-  --muted:#666666; 
-  --soft:#b8b8b8;
+  --black: #080808;
+  --card: #111111;
+  --card2: #141414;
+  --border: rgba(201,163,91,0.15);
+  --border-strong: rgba(201,163,91,0.35);
+  --gold: #C9A35B;
+  --gold-light: #e8c17a;
+  --gold-dim: rgba(201,163,91,0.08);
+  --cream: #f5f1e8;
+  --muted: #8a8580;
+  --soft: #b8b5ad;
+  --emerald: #10b981;
+  --red: #ef4444;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
   font-family:'DM Sans',sans-serif;
   background:var(--black);
   color:var(--cream);
@@ -27,258 +33,477 @@ body{
   overflow-x:hidden;
 }
 
-/* BACKGROUND ACCENTS */
-.bg-grid {
-  position:fixed; top:0; left:0; right:0; bottom:0;
-  background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 60px 60px;
-  opacity: 0.04;
-  pointer-events:none;
-  z-index:0;
+/* ── GLOWS ── */
+.bg-glow-1 {
+  position:fixed; top:-10%; left:-10%;
+  width:700px; height:700px;
+  background:radial-gradient(circle, rgba(201,163,91,0.12) 0%, transparent 70%);
+  filter:blur(100px); pointer-events:none; z-index:0;
 }
-.bg-glow {
-  position:fixed; top:10%; left:50%; transform:translate(-50%,-50%);
-  width:800px; height:800px;
-  background:radial-gradient(circle, rgba(201,163,91,0.06) 0%, transparent 60%);
-  pointer-events:none; filter:blur(100px); z-index:0;
+.bg-glow-2 {
+  position:fixed; bottom:-10%; right:-10%;
+  width:600px; height:600px;
+  background:radial-gradient(circle, rgba(201,163,91,0.08) 0%, transparent 70%);
+  filter:blur(100px); pointer-events:none; z-index:0;
 }
 
-nav{
+/* ── NAV ── */
+nav {
   position:fixed; top:0; left:0; right:0; z-index:100;
-  padding:24px 48px;
+  padding:20px 48px;
   display:flex; align-items:center; justify-content:space-between;
-  background:rgba(5,5,5,0.85); backdrop-filter:blur(24px);
-  border-bottom:1px solid rgba(201,163,91,0.1);
+  background:rgba(8,8,8,0.94); backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
 }
-.nav-brand{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:#fff;letter-spacing:1px;text-decoration:none;}
-.nav-back-btn{
-  color:var(--soft); text-decoration:none; font-size:12px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase;
-  border:1px solid var(--border); padding:10px 20px; border-radius:8px; transition:all 0.25s;
+.nav-back-btn {
+  display:inline-flex; align-items:center;
+  color:var(--soft); text-decoration:none;
+  font-size:11px; font-weight:600;
+  letter-spacing:1.5px; text-transform:uppercase;
+  transition:color 0.25s;
 }
-.nav-back-btn:hover{color:#fff; border-color:var(--gold); background:var(--gold-dim); box-shadow:0 0 20px rgba(201,163,91,0.15);}
+.nav-back-btn:hover { color:var(--gold); }
+.nav-logo {
+  display:flex; align-items:center; gap:12px; text-decoration:none;
+}
+.nav-logo img { width:34px; height:34px; }
+.nav-logo span {
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px; font-weight:600; color:var(--cream);
+}
+.nav-cta {
+  display:inline-block;
+  background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);
+  color:#000; padding:10px 22px; border-radius:8px;
+  font-size:12px; font-weight:700; letter-spacing:2px;
+  text-transform:uppercase; text-decoration:none;
+  box-shadow:0 4px 18px rgba(201,163,91,0.3);
+  transition:all 0.25s;
+}
+.nav-cta:hover { filter:brightness(1.1); transform:translateY(-1px); }
 
-.page{max-width:680px; margin:0 auto; padding:160px 24px 120px; position:relative; z-index:1;}
-.page-tag{font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:16px;}
-.page-title{font-family:'Cormorant Garamond',serif; font-size:clamp(44px,6vw,60px); font-weight:700; line-height:1.1; color:#fff; margin-bottom:20px; letter-spacing:-1px;}
-.page-title em{font-style:italic; color:var(--gold);}
-.page-sub{font-size:17px; color:var(--soft); line-height:1.7; font-weight:300; margin-bottom:48px;}
-
-.form-card{background:var(--card); border:1px solid var(--border); border-radius:24px; padding:52px 48px; position:relative; box-shadow:0 40px 90px rgba(0,0,0,0.6);}
-.form-card::before{content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent);}
-
-.field{margin-bottom:28px;}
-.field label{display:block; font-size:12px; font-weight:700; color:var(--soft); letter-spacing:1.5px; margin-bottom:12px; text-transform:uppercase;}
-.field input, .field select{
-  width:100%; padding:18px; background:#080808; border:1px solid rgba(201,163,91,0.25);
-  border-radius:12px; color:var(--cream); font-size:15px; transition:all 0.25s; font-family:'DM Sans',sans-serif;
-}
-.field input:focus, .field select:focus{outline:none; border-color:var(--gold); background:#121212; box-shadow:0 0 0 4px rgba(201,163,91,0.12);}
-.field select{
-  appearance:none; cursor:pointer;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%23C9A35B' d='M0 0l5 5 5-5z'/></svg>");
-  background-repeat:no-repeat; background-position:right 20px center; padding-right:48px;
-}
-.field input::placeholder{color:var(--muted);}
-
-/* CONDITIONAL DYNAMIC FIELD VISUALS */
-.conditional-field {
-  max-height: 0; opacity: 0; overflow: hidden; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); margin-bottom: 0;
-}
-.conditional-field.active {
-  max-height: 120px; opacity: 1; margin-bottom: 28px;
+/* ── PAGE LAYOUT ── */
+.page-wrap {
+  position:relative; z-index:1;
+  min-height:100vh;
+  display:grid; grid-template-columns:1fr 1fr;
+  padding-top:80px;
 }
 
-.field-row{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
-@media(max-width:560px){
-  .field-row{grid-template-columns:1fr; gap:0;}
-  .form-card{padding:36px 24px;}
+/* ── LEFT PANEL ── */
+.left-panel {
+  padding:80px 60px;
+  border-right:1px solid var(--border);
+  display:flex; flex-direction:column; justify-content:center;
+  background:linear-gradient(180deg, rgba(201,163,91,0.03) 0%, transparent 100%);
+}
+.left-tag {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--gold-dim); border:1px solid var(--border);
+  padding:6px 14px; border-radius:100px;
+  font-size:10px; font-weight:700; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--gold); margin-bottom:28px;
+  width:fit-content;
+}
+.left-tag-dot {
+  width:6px; height:6px; background:var(--emerald);
+  border-radius:50%; box-shadow:0 0 8px var(--emerald);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+.left-panel h1 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,4vw,56px); font-weight:700;
+  color:#fff; line-height:1.08; letter-spacing:-1.5px;
+  margin-bottom:20px;
+  text-shadow:0 0 40px rgba(201,163,91,0.25);
+}
+.left-panel h1 em { font-style:italic; color:var(--gold); }
+.left-panel p {
+  font-size:15px; color:var(--soft); line-height:1.7;
+  font-weight:300; margin-bottom:36px; max-width:440px;
 }
 
-.submit-btn{
-  width:100%; padding:20px; background:var(--gold); color:#000; font-size:13px; font-weight:700;
-  letter-spacing:2px; text-transform:uppercase; border:none; border-radius:12px; cursor:pointer;
-  transition:all 0.3s ease; box-shadow:0 15px 40px rgba(201,163,91,0.2); font-family:'DM Sans',sans-serif;
+/* ── WHAT'S INCLUDED LIST ── */
+.included-list {
+  display:flex; flex-direction:column; gap:14px; margin-bottom:40px;
 }
-.submit-btn:hover{background:var(--gold-light); transform:translateY(-2px); box-shadow:0 20px 50px rgba(201,163,91,0.35);}
-.submit-btn:disabled{opacity:0.5; cursor:not-allowed; transform:none;}
+.included-item {
+  display:flex; align-items:flex-start; gap:14px;
+}
+.inc-icon {
+  width:32px; height:32px; min-width:32px;
+  background:var(--gold-dim); border:1px solid var(--border-strong);
+  border-radius:8px; display:flex; align-items:center;
+  justify-content:center; font-size:15px; margin-top:1px;
+}
+.inc-text {}
+.inc-title { font-size:13px; font-weight:600; color:#fff; margin-bottom:2px; }
+.inc-desc { font-size:12px; color:var(--muted); font-weight:300; line-height:1.5; }
 
-.form-note{font-size:12px; color:var(--muted); text-align:center; margin-top:20px; font-style:italic;}
+/* ── TRUST STRIP ── */
+.trust-strip {
+  display:flex; gap:20px; flex-wrap:wrap;
+}
+.trust-item {
+  display:flex; align-items:center; gap:8px;
+  font-size:11px; font-weight:600; color:var(--muted);
+  letter-spacing:0.5px;
+}
+.trust-dot {
+  width:6px; height:6px; background:var(--emerald);
+  border-radius:50%; box-shadow:0 0 6px var(--emerald);
+}
 
-.security-footer {
-  display: flex; align-items: flex-start; gap: 16px; margin-top: 36px; padding: 24px;
-  background: var(--gold-dim); border: 1px dashed var(--border); border-radius: 16px;
+/* ── RIGHT PANEL (FORM) ── */
+.right-panel {
+  padding:80px 60px;
+  display:flex; flex-direction:column; justify-content:center;
 }
-.security-footer svg { width: 22px; height: 22px; fill: var(--gold); flex-shrink: 0; margin-top: 2px; }
-.security-footer p { font-size: 13px; line-height: 1.6; color: var(--soft); font-weight: 300; }
-.security-footer strong { color: var(--cream); font-weight: 600; }
+.form-header {
+  margin-bottom:36px;
+}
+.form-header h2 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px; font-weight:700; color:#fff;
+  letter-spacing:-0.5px; margin-bottom:8px;
+}
+.form-header p { font-size:13px; color:var(--muted); font-weight:300; line-height:1.6; }
 
-.success-state{display:none; text-align:center; padding:60px 0;}
-.success-icon{
-  width:80px; height:80px; border-radius:50%; background:var(--gold-dim); border:1px solid var(--gold);
-  display:flex; align-items:center; justify-content:center; margin:0 auto 32px; font-size:36px; color:var(--gold);
-  box-shadow:0 0 40px rgba(201,163,91,0.25);
+.form-body { display:flex; flex-direction:column; gap:20px; }
+
+.field-group {}
+.field-group label {
+  display:block; font-size:10px; font-weight:700;
+  letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--gold); margin-bottom:8px;
 }
-.success-state h2{font-family:'Cormorant Garamond',serif; font-size:40px; font-weight:700; color:#fff; margin-bottom:16px;}
-.success-state p{color:var(--soft); font-weight:300; line-height:1.6; margin-bottom:36px; font-size:16px;}
-.success-cta{
-  display:inline-block; background:var(--gold); color:#000; text-decoration:none; font-size:13px; font-weight:700;
-  letter-spacing:2px; text-transform:uppercase; padding:18px 44px; border-radius:12px; transition:all 0.3s;
-  box-shadow:0 10px 30px rgba(201,163,91,0.2); font-family:'DM Sans',sans-serif;
+.field-group input,
+.field-group select,
+.field-group textarea {
+  width:100%;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border); border-radius:10px;
+  padding:13px 16px; color:#fff;
+  font-family:'DM Sans',sans-serif; font-size:14px;
+  outline:none; transition:all 0.3s;
+  appearance:none; resize:none;
 }
-.success-cta:hover{background:var(--gold-light); transform:translateY(-2px); box-shadow:0 15px 40px rgba(201,163,91,0.35);}
+.field-group input:focus,
+.field-group select:focus,
+.field-group textarea:focus {
+  border-color:var(--gold); background:rgba(201,163,91,0.05);
+  box-shadow:0 0 0 3px rgba(201,163,91,0.08);
+}
+.field-group select option { background:#1a1a1a; }
+.field-group textarea { min-height:90px; }
+
+.field-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+/* ── CRM SELECTOR ── */
+.crm-selector { display:flex; flex-wrap:wrap; gap:8px; }
+.crm-option {
+  padding:8px 16px; border:1px solid var(--border);
+  border-radius:8px; cursor:pointer;
+  font-size:12px; font-weight:600; color:var(--muted);
+  transition:all 0.2s; user-select:none; background:var(--card2);
+}
+.crm-option:hover { border-color:var(--gold); color:var(--gold-light); }
+.crm-option.selected {
+  background:var(--gold-dim); border-color:var(--gold);
+  color:var(--gold-light);
+}
+
+/* ── SUBMIT BUTTON ── */
+.submit-btn {
+  width:100%;
+  background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);
+  color:#000; padding:18px 28px; border-radius:12px;
+  font-size:13px; font-weight:700; letter-spacing:2.5px;
+  text-transform:uppercase; cursor:pointer; border:none;
+  box-shadow:0 12px 32px rgba(201,163,91,0.35);
+  transition:all 0.3s; margin-top:4px;
+}
+.submit-btn:hover { filter:brightness(1.1); transform:translateY(-2px); box-shadow:0 16px 40px rgba(201,163,91,0.5); }
+
+.form-note {
+  font-size:11px; color:var(--muted); text-align:center;
+  margin-top:12px; font-weight:300; font-style:italic;
+}
+
+/* ── SUCCESS STATE ── */
+.success-state {
+  display:none; text-align:center; padding:40px 20px;
+}
+.success-state.visible { display:block; }
+.success-icon { font-size:48px; margin-bottom:20px; }
+.success-state h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:32px; font-weight:700; color:#fff;
+  margin-bottom:12px;
+}
+.success-state h3 em { font-style:italic; color:var(--gold); }
+.success-state p { font-size:14px; color:var(--soft); line-height:1.7; font-weight:300; margin-bottom:28px; }
+.success-back {
+  display:inline-block; color:var(--gold);
+  font-size:12px; font-weight:700; letter-spacing:1.5px;
+  text-transform:uppercase; text-decoration:none;
+  border:1px solid var(--border); padding:12px 24px; border-radius:8px;
+  transition:all 0.25s;
+}
+.success-back:hover { border-color:var(--gold); background:var(--gold-dim); }
+
+/* ── FOOTER ── */
+footer {
+  position:relative; z-index:1;
+  border-top:1px solid var(--border); padding:24px;
+  text-align:center; font-size:12px; color:var(--muted); letter-spacing:0.5px;
+}
+footer a { color:var(--gold); text-decoration:none; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px) {
+  nav { padding:18px 20px; }
+  .page-wrap { grid-template-columns:1fr; }
+  .left-panel { padding:60px 28px 40px; border-right:none; border-bottom:1px solid var(--border); }
+  .right-panel { padding:40px 28px 60px; }
+  .field-row { grid-template-columns:1fr; }
+}
 </style>
 </head>
 <body>
 
-<div class="bg-grid"></div>
-<div class="bg-glow"></div>
+<div class="bg-glow-1"></div>
+<div class="bg-glow-2"></div>
 
 <nav>
-  <a href="what we do.html" class="nav-brand">HERMIA</a>
-  <a href="final tool.html" class="nav-back-btn">← Back to Site</a>
+  <a href="what we do.html" class="nav-back-btn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    Back
+  </a>
+  <a href="find out.html" class="nav-logo">
+    <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" onerror="this.style.display='none'">
+    <span>Hermia</span>
+  </a>
+  <a href="apply-custom-crm.html" class="nav-cta">Standard Setup →</a>
 </nav>
 
-<div class="page">
-  <div class="page-tag">Infrastructure Request</div>
-  <h1 class="page-title">Apply for your<br><em>3-day trial workspace.</em></h1>
-  <p class="page-sub">Operational capacity is strictly capped across premium Australian and UAE networks. Submissions are vetted internally within 24 hours.</p>
+<div class="page-wrap">
 
-  <div class="form-card">
-    <div id="form-view">
-      
-      <div class="field">
-        <label>Operational Country / Market</label>
-        <select id="market" required>
-          <option value="" disabled selected>Select operating region</option>
-          <option value="Australia">🇦🇺 Australia — $260 AUD/mo</option>
-          <option value="UAE">🇦🇪 UAE / Dubai — AED 1,400/mo</option>
-        </select>
-      </div>
+  <div class="left-panel">
+    <div class="left-tag">
+      <span class="left-tag-dot"></span>
+      Custom CRM Integration
+    </div>
+    <h1>Your CRM.<br>Built <em>your way.</em></h1>
+    <p>Not every agency runs HubSpot or Rex. If you're on a custom stack, an internal build, or a platform we don't support out of the box — we build the integration for you, from scratch.</p>
 
-      <div class="field-row">
-        <div class="field">
-          <label>Full name</label>
-          <input type="text" id="name" placeholder="Jane Smith" required>
-        </div>
-        <div class="field">
-          <label>Phone number</label>
-          <input type="tel" id="phone" placeholder="+61 4XX XXX XXX" required>
+    <div class="included-list">
+      <div class="included-item">
+        <div class="inc-icon">🔌</div>
+        <div class="inc-text">
+          <div class="inc-title">Custom API Integration</div>
+          <div class="inc-desc">We connect Hermia directly to your CRM via your API endpoints — regardless of the platform.</div>
         </div>
       </div>
-
-      <div class="field">
-        <label>Email address</label>
-        <input type="email" id="email" placeholder="jane@youragency.com" required>
+      <div class="included-item">
+        <div class="inc-icon">📋</div>
+        <div class="inc-text">
+          <div class="inc-title">Field Mapping</div>
+          <div class="inc-desc">Every lead field maps to your exact CRM schema — budget, timeline, finance, intent, enquiry.</div>
+        </div>
       </div>
-
-      <div class="field">
-        <label>Agency name</label>
-        <input type="text" id="agency" placeholder="Your agency or brokerage" required>
+      <div class="included-item">
+        <div class="inc-icon">⚡</div>
+        <div class="inc-text">
+          <div class="inc-title">Done-For-You Build</div>
+          <div class="inc-desc">You don't touch a line of code. We scope, build, test, and deploy the integration end-to-end.</div>
+        </div>
       </div>
-
-      <div class="field">
-        <label>Current CRM Architecture</label>
-        <select id="crm" onchange="toggleCustomCrmField(this.value)">
-          <option value="" disabled selected>Select active CRM</option>
-          <option value="HubSpot">HubSpot</option>
-          <option value="Zoho">Zoho CRM</option>
-          <option value="Rex">Rex</option>
-          <option value="Pipedrive">Pipedrive</option>
-          <option value="Bitrix24">Bitrix24</option>
-          <option value="PropertyMe">PropertyMe</option>
-          <option value="Custom">Custom / In-House CRM (Specify Below) ⚡</option>
-          <option value="Other">Other</option>
-          <option value="None">No CRM Platform yet</option>
-        </select>
+      <div class="included-item">
+        <div class="inc-icon">🛡️</div>
+        <div class="inc-text">
+          <div class="inc-title">Ongoing Support</div>
+          <div class="inc-desc">Post-launch support included. If something breaks or you change platforms, we handle it.</div>
+        </div>
       </div>
-
-      <!-- INVISIBLE SMOOTH-REVEAL CUSTOM CRM INPUT -->
-      <div class="field conditional-field" id="custom-crm-wrapper">
-        <label>Bespoke / Custom CRM System Name</label>
-        <input type="text" id="custom_crm_name" placeholder="Enter custom software name...">
-      </div>
-
-      <button class="submit-btn" onclick="submitApplication()">Submit Application →</button>
-      <p class="form-note">Data streams straight to secure provisioning protocols.</p>
     </div>
 
-    <div class="success-state" id="success-view">
-      <div class="success-icon">✓</div>
-      <h2>Application Broadcasted.</h2>
-      <p>An infrastructure specialist will finalize your vetting parameter metrics shortly.</p>
-      <a href="what we do.html" class="success-cta">Back to Site</a>
+    <div class="trust-strip">
+      <div class="trust-item"><span class="trust-dot"></span> No voice calls</div>
+      <div class="trust-item"><span class="trust-dot"></span> ABN 75 434 177 026</div>
+      <div class="trust-item"><span class="trust-dot"></span> hermia.au</div>
     </div>
   </div>
 
-  <div class="security-footer" id="security-notice">
-    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
-    <p><strong>Enterprise Data Security:</strong> Powered by Unipile Systems. Built with verified Google OAuth security matrix standards and TLS 1.3 data encryption pipelines. Hermia strictly employs non-custodial credential routing configurations.</p>
+  <div class="right-panel">
+    <div id="form-state">
+      <div class="form-header">
+        <h2>Book Your Custom CRM</h2>
+        <p>Tell us your setup. We'll scope the build and come back to you within 24 hours.</p>
+      </div>
+
+      <div class="form-body">
+        <div class="field-row">
+          <div class="field-group">
+            <label>Full Name</label>
+            <input type="text" id="f-name" placeholder="James Thornton">
+          </div>
+          <div class="field-group">
+            <label>Agency Name</label>
+            <input type="text" id="f-agency" placeholder="Your Agency">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label>Email</label>
+            <input type="email" id="f-email" placeholder="you@agency.com.au">
+          </div>
+          <div class="field-group">
+            <label>Phone</label>
+            <input type="tel" id="f-phone" placeholder="+61 400 000 000">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Which CRM Are You On?</label>
+          <div class="crm-selector" id="crm-selector">
+            <div class="crm-option" onclick="toggleCRM(this)">HubSpot</div>
+            <div class="crm-option" onclick="toggleCRM(this)">Rex CRM</div>
+            <div class="crm-option" onclick="toggleCRM(this)">Zoho</div>
+            <div class="crm-option" onclick="toggleCRM(this)">Pipedrive</div>
+            <div class="crm-option" onclick="toggleCRM(this)">Bitrix24</div>
+            <div class="crm-option" onclick="toggleCRM(this)">Salesforce</div>
+            <div class="crm-option" onclick="toggleCRM(this)">Custom Build</div>
+            <div class="crm-option" onclick="toggleCRM(this)">Other</div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Monthly Enquiry Volume</label>
+          <select id="f-volume">
+            <option value="">Select range</option>
+            <option>Under 20 / month</option>
+            <option>20–50 / month</option>
+            <option>50–100 / month</option>
+            <option>100–200 / month</option>
+            <option>200+ / month</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label>Portals You Receive Leads From</label>
+          <select id="f-portals">
+            <option value="">Select primary portal</option>
+            <option>REA Group (realestate.com.au)</option>
+            <option>Domain</option>
+            <option>Property Finder</option>
+            <option>Bayut</option>
+            <option>Multiple Portals</option>
+            <option>Direct / Website Only</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label>Anything We Should Know</label>
+          <textarea id="f-notes" placeholder="e.g. We run a custom internal CRM built on Airtable. We receive 80 enquiries a month from REA and need leads routed to two separate pipelines based on property type."></textarea>
+        </div>
+
+        <button class="submit-btn" onclick="submitForm()">Book Custom CRM Build →</button>
+        <div class="form-note">No commitment required. We'll scope the build and send a proposal within 24 hours.</div>
+      </div>
+    </div>
+
+    <div class="success-state" id="success-state">
+      <div class="success-icon">✦</div>
+      <h3>Request <em>received.</em></h3>
+      <p>We'll review your setup and send you a custom scope within 24 hours. No calls, no meetings — just a clear proposal straight to your inbox.</p>
+      <a href="what we do.html" class="success-back">← Back to Hermia</a>
+    </div>
   </div>
+
 </div>
 
+<footer>
+  Hermia · <a href="mailto:capital@hermia.au">capital@hermia.au</a> · hermia.au · ABN 75 434 177 026
+</footer>
+
 <script>
-function toggleCustomCrmField(val) {
-  const customField = document.getElementById('custom-crm-wrapper');
-  if (val === 'Custom') {
-    customField.classList.add('active');
-    document.getElementById('custom_crm_name').required = true;
-  } else {
-    customField.classList.remove('active');
-    document.getElementById('custom_crm_name').required = false;
-  }
+function toggleCRM(el) {
+  el.classList.toggle('selected');
 }
 
-async function submitApplication() {
-  const btn = document.querySelector('.submit-btn');
-  const market = document.getElementById('market').value;
-  const name = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const agency = document.getElementById('agency').value.trim();
-  const crm = document.getElementById('crm').value;
-  const customCrmName = document.getElementById('custom_crm_name').value.trim();
+async function submitForm() {
+  const name = document.getElementById('f-name').value.trim();
+  const agency = document.getElementById('f-agency').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const volume = document.getElementById('f-volume').value;
+  const portals = document.getElementById('f-portals').value;
+  const notes = document.getElementById('f-notes').value.trim();
 
-  if (!market || !name || !phone || !email || !agency || !crm) {
-    alert('Please complete all required infrastructure fields.');
+  // Extract selected CRMs from custom picker elements
+  const selectedCRMs = Array.from(document.querySelectorAll('.crm-option.selected'))
+                            .map(el => el.textContent.trim());
+
+  if (!name || !email) {
+    const firstEmpty = !name
+      ? document.getElementById('f-name')
+      : document.getElementById('f-email');
+    firstEmpty.style.borderColor = 'var(--red)';
+    firstEmpty.focus();
+    setTimeout(() => { firstEmpty.style.borderColor = ''; }, 2000);
     return;
   }
-  
-  if (crm === 'Custom' && !customCrmName) {
-    alert('Please enter the name of your Custom CRM.');
-    return;
-  }
 
-  btn.textContent = 'Streaming Webhook Data...';
-  btn.disabled = true;
+  // Build payload layout containing all fields plus your OpenAI identifier hint
+  const formData = {
+    source_type: "C", 
+    name: name,
+    agency: agency,
+    email: email,
+    phone: phone,
+    selected_crms: selectedCRMs,
+    monthly_volume: volume,
+    lead_portals: portals,
+    notes: notes
+  };
 
   try {
+    // Send data asynchronously to Make webhook URL
     await fetch('https://hook.eu1.make.com/3hq3jwbtjc6afnfem9rhshxwqlyx838j', {
       method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        type: 'application',
-        country: market, 
-        name: name, 
-        number: phone, 
-        email: email, 
-        agency: agency, 
-        crm_type: crm,
-        custom_crm_name: crm === 'Custom' ? customCrmName : 'N/A',
-        source: 'hermia-apply-custom',
-        submitted_at: new Date().toISOString()
-      })
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
     });
-  } catch(e) {
-    console.error('System bypass error tracking:', e);
+  } catch (error) {
+    console.error('Submission error:', error);
   }
 
-  document.getElementById('form-view').style.display = 'none';
-  document.getElementById('success-view').style.display = 'block';
-  document.getElementById('security-notice').style.display = 'none';
-  window.scrollTo({top:0, behavior:'smooth'});
+  // Trigger visual success states
+  document.getElementById('form-state').style.opacity = '0';
+  document.getElementById('form-state').style.transform = 'translateY(10px)';
+  document.getElementById('form-state').style.transition = 'all 0.4s ease';
+
+  setTimeout(() => {
+    document.getElementById('form-state').style.display = 'none';
+    const s = document.getElementById('success-state');
+    s.style.display = 'block';
+    s.style.opacity = '0';
+    s.style.transform = 'translateY(10px)';
+    s.style.transition = 'all 0.4s ease';
+    setTimeout(() => {
+      s.style.opacity = '1';
+      s.style.transform = 'translateY(0)';
+    }, 50);
+  }, 400);
 }
 </script>
 
 </body>
 </html>
+
