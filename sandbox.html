@@ -3,25 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hermia — Lead Conversion Infrastructure</title>
+<title>Hermia — Lead Prioritisation For Real Estate Teams</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --black: #050505;
-  --card: #0c0c0c;
-  --border: rgba(201,163,91,0.15);
+  --card: #0d0d0d;
+  --card2: #111111;
+  --border: rgba(201,163,91,0.18);
+  --border-soft: rgba(201,163,91,0.08);
   --gold: #C9A35B;
   --gold-light: #e8c17a;
-  --gold-dim: rgba(201,163,91,0.05);
+  --gold-bright: #f0cb8a;
+  --gold-dim: rgba(201,163,91,0.06);
+  --gold-glow: rgba(201,163,91,0.15);
   --cream: #f5f1e8;
-  --muted: #777777;
-  --soft: #b8b8b8;
+  --soft: #999999;
+  --muted: #666666;
   --emerald: #10b981;
   --red: #ff4d4d;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
+
 body {
   font-family:'DM Sans', sans-serif;
   background:var(--black);
@@ -31,23 +36,24 @@ body {
   overflow-x:hidden;
 }
 
+/* BACKGROUND TEXTURE */
 .bg-grid {
   position:fixed; top:0; left:0; right:0; bottom:0;
-  background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 60px 60px;
-  opacity: 0.05;
+  background-image:
+    linear-gradient(rgba(201,163,91,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,163,91,0.04) 1px, transparent 1px);
+  background-size:60px 60px;
   pointer-events:none;
   z-index:0;
 }
 
 .bg-glow {
   position:fixed;
-  top:20%; left:50%;
-  transform:translate(-50%,-50%);
-  width:1000px; height:1000px;
-  background:radial-gradient(circle, rgba(201,163,91,0.04) 0%, transparent 60%);
+  top:0; left:50%;
+  transform:translateX(-50%);
+  width:900px; height:600px;
+  background:radial-gradient(ellipse, rgba(201,163,91,0.06) 0%, transparent 65%);
   pointer-events:none;
-  filter:blur(120px);
   z-index:0;
 }
 
@@ -58,53 +64,64 @@ body {
   margin:0 auto;
 }
 
-/* TOP NAVIGATION */
-.top-nav {
+/* ─── NAV ─── */
+nav {
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:32px 0;
-  margin-bottom:64px;
-  border-bottom:1px solid rgba(201,163,91,0.1);
-}
-
-.nav-back {
-  font-size:12px;
-  font-weight:600;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  color:var(--soft);
-  text-decoration:none;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  transition:color 0.2s;
-}
-
-.nav-back:hover {
-  color:var(--gold-light);
+  margin-bottom:72px;
+  border-bottom:1px solid var(--border-soft);
 }
 
 .nav-brand {
   font-family:'Cormorant Garamond', serif;
-  font-size:24px;
+  font-size:26px;
   font-weight:700;
   color:#fff;
-  letter-spacing:1px;
+  letter-spacing:3px;
 }
 
-/* HERO SECTION */
+.nav-back {
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--soft);
+  text-decoration:none;
+  transition:color 0.2s;
+}
+.nav-back:hover { color:var(--gold); }
+
+/* ─── GOLD DIVIDER ─── */
+.gold-line {
+  width:60px; height:2px;
+  background:linear-gradient(90deg, var(--gold), var(--gold-light));
+  margin:0 auto 20px;
+  border-radius:2px;
+}
+
+/* ─── HERO ─── */
 .hero {
   text-align:center;
-  max-width:920px;
-  margin:0 auto 48px;
+  max-width:900px;
+  margin:0 auto 20px;
+}
+
+.hero-label {
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:20px;
 }
 
 .hero h1 {
   font-family:'Cormorant Garamond', serif;
-  font-size:64px;
+  font-size:68px;
   font-weight:700;
-  line-height:1.1;
+  line-height:1.05;
   letter-spacing:-1.5px;
   color:#fff;
   margin-bottom:28px;
@@ -116,55 +133,85 @@ body {
 }
 
 .hero p {
-  font-size:20px;
+  font-size:19px;
   color:var(--soft);
   font-weight:300;
-  line-height:1.6;
-  max-width:760px;
+  line-height:1.7;
+  max-width:720px;
   margin:0 auto 40px;
 }
 
-/* LOOM VIDEO INTEGRATION FRAME */
-.video-wrapper {
-  max-width: 860px;
-  margin: 0 auto 80px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 12px;
-  box-shadow: 0 40px 80px rgba(0,0,0,0.6);
-}
-
-.video-container {
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-  height: 0;
-  overflow: hidden;
-  border-radius: 16px;
-}
-
-.video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-/* CORE EXECUTION FLOW INFRASTRUCTURE */
-.pipeline-container {
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:48px 40px;
-  margin-bottom:80px;
-  box-shadow:0 30px 60px rgba(0,0,0,0.5);
-}
-
-.pipeline-title {
-  text-align:center;
+/* TRUST PILL */
+.trust-pill {
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:rgba(201,163,91,0.08);
+  border:1px solid rgba(201,163,91,0.25);
+  border-radius:100px;
+  padding:10px 22px;
   font-size:12px;
+  font-weight:600;
+  color:var(--gold-light);
+  letter-spacing:0.3px;
+  margin-bottom:64px;
+}
+.trust-pill::before { content:'✦'; font-size:9px; color:var(--gold); }
+
+/* ─── STAT STRIP ─── */
+.stat-strip {
+  display:flex;
+  justify-content:center;
+  gap:0;
+  margin-bottom:80px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  overflow:hidden;
+  background:var(--card);
+}
+
+.stat-item {
+  flex:1;
+  padding:32px 24px;
+  text-align:center;
+  border-right:1px solid var(--border);
+  position:relative;
+}
+.stat-item:last-child { border-right:none; }
+
+.stat-item::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity:0.5;
+}
+
+.stat-value {
+  font-family:'Cormorant Garamond', serif;
+  font-size:40px;
+  font-weight:700;
+  color:var(--gold);
+  line-height:1;
+  margin-bottom:6px;
+}
+
+.stat-label {
+  font-size:12px;
+  color:var(--soft);
+  font-weight:400;
+  line-height:1.4;
+}
+
+/* ─── VIDEO SECTION ─── */
+.video-section {
+  margin-bottom:80px;
+}
+
+.video-section-label {
+  text-align:center;
+  font-size:11px;
   font-weight:700;
   letter-spacing:3px;
   text-transform:uppercase;
@@ -172,293 +219,561 @@ body {
   margin-bottom:12px;
 }
 
-.pipeline-subtitle {
+.video-section h2 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:38px;
+  font-weight:600;
+  color:#fff;
   text-align:center;
-  font-size:14px;
-  color:var(--soft);
-  margin-bottom:40px;
-  font-weight:300;
+  margin-bottom:36px;
 }
 
-.flow-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
+.video-outer {
+  position:relative;
+  max-width:860px;
+  margin:0 auto;
 }
 
-.flow-column {
-  background: rgba(255,255,255,0.01);
-  border: 1px solid rgba(201,163,91,0.08);
-  border-radius: 16px;
-  padding: 32px;
+/* Gold corner accents */
+.video-outer::before,
+.video-outer::after {
+  content:'';
+  position:absolute;
+  width:28px; height:28px;
+  border-color:var(--gold);
+  border-style:solid;
+  z-index:2;
+}
+.video-outer::before {
+  top:-8px; left:-8px;
+  border-width:2px 0 0 2px;
+}
+.video-outer::after {
+  bottom:-8px; right:-8px;
+  border-width:0 2px 2px 0;
 }
 
-.flow-column h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 24px;
-  color: #fff;
-  margin-bottom: 24px;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 12px;
+.video-wrapper {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:10px;
+  box-shadow:0 40px 80px rgba(0,0,0,0.7), 0 0 60px rgba(201,163,91,0.05);
 }
 
-.flow-timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.video-inner {
+  position:relative;
+  padding-bottom:56.25%;
+  height:0;
+  border-radius:12px;
+  overflow:hidden;
+}
+.video-inner iframe {
+  position:absolute; top:0; left:0;
+  width:100%; height:100%;
+  border:0;
 }
 
-.flow-node {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
+/* ─── WHAT IT DOES ─── */
+.what-section {
+  margin-bottom:80px;
 }
 
-.node-index {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--gold);
-  background: var(--gold-dim);
-  border: 1px solid var(--border);
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.node-content strong {
-  display: block;
-  font-size: 14px;
-  color: #fff;
-  margin-bottom: 4px;
-}
-
-.node-content p {
-  font-size: 13px;
-  color: var(--soft);
-  line-height: 1.5;
-}
-
-/* TRUST ELEMENTS & EXTRA CRITERIA DATA CARD */
-.data-badge-container {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
-  flex-wrap: wrap;
-}
-
-.data-badge {
-  font-size: 11px;
-  background: rgba(201,163,91,0.12);
-  border: 1px solid rgba(201,163,91,0.3);
-  color: var(--gold-light);
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-weight: 600;
-}
-
-/* BENEFITS SECTION */
-.section-header {
+.section-title-block {
   text-align:center;
   margin-bottom:48px;
 }
 
-.section-header h2 {
+.section-tag {
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:12px;
+}
+
+.section-title-block h2 {
   font-family:'Cormorant Garamond', serif;
-  font-size:44px;
+  font-size:42px;
   font-weight:600;
   color:#fff;
+  margin-bottom:12px;
 }
 
-.benefits-grid {
+.section-title-block p {
+  font-size:15px;
+  color:var(--soft);
+  font-weight:300;
+  max-width:500px;
+  margin:0 auto;
+}
+
+.what-grid {
   display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:24px;
-  margin-bottom:80px;
-}
-
-.benefit-box {
-  background:var(--card);
-  border:1px solid var(--border);
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:var(--border);
   border-radius:20px;
-  padding:36px;
-  transition:all 0.3s ease;
+  overflow:hidden;
+  border:1px solid var(--border);
 }
 
-.benefit-box:hover {
-  border-color:var(--gold);
-  transform:translateY(-2px);
+.what-item {
+  background:var(--card);
+  padding:36px 28px;
+  transition:background 0.25s;
+  position:relative;
 }
 
-.benefit-box h4 {
-  font-size:18px;
+.what-item:hover { background:var(--card2); }
+
+.what-item::after {
+  content:'';
+  position:absolute;
+  bottom:0; left:28px; right:28px;
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold-glow), transparent);
+  opacity:0;
+  transition:opacity 0.25s;
+}
+.what-item:hover::after { opacity:1; }
+
+.what-num {
+  font-family:'Cormorant Garamond', serif;
+  font-size:11px;
+  font-weight:700;
+  color:var(--gold);
+  letter-spacing:2px;
+  margin-bottom:20px;
+}
+
+.what-item strong {
+  display:block;
+  font-size:15px;
   font-weight:600;
   color:#fff;
-  margin-bottom:16px;
-  display:flex;
-  align-items:center;
-  gap:12px;
+  margin-bottom:10px;
+  line-height:1.3;
 }
 
-.benefit-dot {
-  width:6px; height:6px;
-  background:var(--gold);
-  border-radius:50%;
-}
-
-.benefit-box p {
-  font-size:14px;
+.what-item p {
+  font-size:13px;
   color:var(--soft);
   line-height:1.6;
   font-weight:300;
 }
 
-/* COMPARISON SECTION */
-.comparison-container {
+/* ─── PIPELINE ─── */
+.pipeline-section {
+  margin-bottom:80px;
+}
+
+.pipeline-header {
+  text-align:center;
+  margin-bottom:48px;
+}
+
+.pipeline-header h2 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:42px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:10px;
+}
+
+.pipeline-header p {
+  font-size:14px;
+  color:var(--soft);
+  font-weight:300;
+}
+
+.flow-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+
+.flow-column {
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:24px;
-  padding:48px;
-  margin-bottom:80px;
+  border-radius:20px;
+  padding:36px;
+  position:relative;
+  overflow:hidden;
+}
+
+.flow-column::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, var(--gold), var(--gold-light), transparent);
+}
+
+.flow-column h3 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:22px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:28px;
+  padding-bottom:16px;
+  border-bottom:1px solid var(--border-soft);
+}
+
+.flow-timeline { display:flex; flex-direction:column; gap:0; }
+
+.flow-node {
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+  padding:16px 0;
+  border-bottom:1px solid var(--border-soft);
+}
+.flow-node:last-child { border-bottom:none; padding-bottom:0; }
+
+.node-index {
+  font-family:'Cormorant Garamond', serif;
+  font-size:12px;
+  font-weight:700;
+  color:var(--gold);
+  background:var(--gold-dim);
+  border:1px solid var(--border);
+  width:26px; height:26px;
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  margin-top:1px;
+}
+
+.node-content strong {
+  display:block;
+  font-size:13px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:3px;
+}
+
+.node-content p {
+  font-size:12px;
+  color:var(--soft);
+  line-height:1.5;
+  font-weight:300;
+}
+
+.data-badge-container { display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.data-badge {
+  font-size:10px;
+  background:rgba(201,163,91,0.1);
+  border:1px solid rgba(201,163,91,0.25);
+  color:var(--gold-light);
+  padding:2px 8px;
+  border-radius:4px;
+  font-weight:600;
+}
+
+.alert-tag {
+  display:inline-block;
+  margin-top:8px;
+  font-size:11px;
+  font-weight:600;
+  color:var(--emerald);
+  background:rgba(16,185,129,0.1);
+  border:1px solid rgba(16,185,129,0.2);
+  padding:3px 10px;
+  border-radius:4px;
+}
+
+/* ─── BENEFITS ─── */
+.benefits-section { margin-bottom:80px; }
+
+.benefits-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.benefit-box {
+  background:var(--card);
+  border:1px solid var(--border-soft);
+  border-radius:18px;
+  padding:36px 30px;
+  position:relative;
+  overflow:hidden;
+  transition:all 0.25s;
+}
+
+.benefit-box::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, var(--gold), var(--gold-light));
+  opacity:0;
+  transition:opacity 0.25s;
+}
+
+.benefit-box:hover {
+  border-color:rgba(201,163,91,0.3);
+  transform:translateY(-3px);
+  box-shadow:0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(201,163,91,0.06);
+}
+
+.benefit-box:hover::before { opacity:1; }
+
+.benefit-num {
+  font-family:'Cormorant Garamond', serif;
+  font-size:11px;
+  font-weight:700;
+  color:var(--gold);
+  letter-spacing:2px;
+  margin-bottom:16px;
+}
+
+.benefit-box h4 {
+  font-size:16px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:12px;
+  line-height:1.35;
+}
+
+.benefit-box p {
+  font-size:13px;
+  color:var(--soft);
+  line-height:1.65;
+  font-weight:300;
+}
+
+/* ─── COMPARISON ─── */
+.comparison-section { margin-bottom:80px; }
+
+.comparison-heading {
+  margin-bottom:40px;
+}
+
+.comparison-heading h2 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:42px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:8px;
+}
+
+.comparison-heading p {
+  font-size:14px;
+  color:var(--soft);
+  font-weight:300;
 }
 
 .comparison-grid {
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:40px;
+  gap:20px;
+}
+
+.comp-column {
+  border-radius:20px;
+  padding:40px;
+  position:relative;
+  overflow:hidden;
+}
+
+.comp-column.negative {
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.06);
+}
+
+.comp-column.positive {
+  background:rgba(201,163,91,0.05);
+  border:1px solid var(--border);
+}
+
+.comp-column.positive::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, var(--gold), var(--gold-light));
 }
 
 .comp-column h3 {
   font-family:'Cormorant Garamond', serif;
-  font-size:28px;
+  font-size:26px;
   font-weight:600;
-  margin-bottom:24px;
-  padding-bottom:12px;
-  border-bottom:1px solid rgba(255,255,255,0.05);
+  margin-bottom:28px;
+  padding-bottom:16px;
 }
 
-.comp-column.negative h3 { color: var(--red); }
-.comp-column.positive h3 { color: var(--gold); }
-
-.comp-list {
-  list-style:none;
-}
-
-.comp-list li {
-  font-size:15px;
-  line-height:1.6;
-  margin-bottom:18px;
+.comp-column.negative h3 {
   color:var(--soft);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.comp-column.positive h3 {
+  color:var(--gold-light);
+  border-bottom:1px solid var(--border);
+}
+
+.comp-list { list-style:none; }
+.comp-list li {
+  font-size:14px;
+  line-height:1.65;
+  margin-bottom:16px;
+  padding-left:26px;
   position:relative;
-  padding-left:28px;
 }
-
-.comp-list li strong {
-  color: #fff;
-}
-
-.comp-list li::before {
-  position:absolute;
-  left:0;
-  font-weight:700;
-  font-size:16px;
-}
-
-.negative .comp-list li::before { content:'✕'; color:var(--red); }
+.comp-list li strong { font-weight:600; }
+.comp-list li::before { position:absolute; left:0; font-weight:700; font-size:14px; }
+.negative .comp-list li { color:var(--muted); }
+.negative .comp-list li strong { color:var(--soft); }
+.negative .comp-list li::before { content:'✕'; color:#ff4d4d; }
+.positive .comp-list li { color:rgba(245,241,232,0.7); }
+.positive .comp-list li strong { color:#fff; }
 .positive .comp-list li::before { content:'✓'; color:var(--emerald); }
 
-/* LIVE DEMO EXPERIENCE */
+/* ─── DEMO ─── */
 .demo-section {
-  background:linear-gradient(135deg, rgba(201,163,91,0.08) 0%, transparent 100%);
-  border:1px solid var(--gold);
+  background:linear-gradient(135deg, rgba(201,163,91,0.08) 0%, rgba(201,163,91,0.03) 100%);
+  border:1px solid var(--border);
   border-radius:24px;
-  padding:48px;
+  padding:64px;
   text-align:center;
   margin-bottom:80px;
+  position:relative;
+  overflow:hidden;
+}
+
+.demo-section::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, transparent, var(--gold), var(--gold-light), transparent);
+}
+
+.demo-pill {
+  display:inline-block;
+  font-size:10px;
+  font-weight:700;
+  color:#000;
+  background:var(--gold);
+  padding:4px 14px;
+  border-radius:100px;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  margin-bottom:20px;
 }
 
 .demo-section h2 {
   font-family:'Cormorant Garamond', serif;
-  font-size:38px;
+  font-size:40px;
   font-weight:600;
   color:#fff;
-  margin-bottom:16px;
+  margin-bottom:14px;
 }
 
 .demo-section p {
-  font-size:16px;
+  font-size:15px;
   color:var(--soft);
-  max-width:680px;
-  margin:0 auto 28px;
-  line-height:1.6;
+  max-width:540px;
+  margin:0 auto 32px;
+  line-height:1.65;
+  font-weight:300;
 }
 
-.demo-badge {
-  display:inline-block;
-  font-size:11px;
+/* ─── CTA ─── */
+.cta-section {
+  text-align:center;
+  padding:40px 0 20px;
+  border-top:1px solid var(--border-soft);
+}
+
+.cta-section h3 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:50px;
   font-weight:700;
-  color:#000;
-  background:var(--gold);
-  padding:4px 12px;
-  border-radius:4px;
-  text-transform:uppercase;
-  letter-spacing:1px;
+  color:#fff;
+  line-height:1.1;
   margin-bottom:16px;
 }
 
-/* CTA LAYOUT */
-.cta-block {
-  text-align:center;
-  max-width:650px;
-  margin:0 auto;
+.cta-section p {
+  font-size:16px;
+  color:var(--soft);
+  margin-bottom:36px;
+  font-weight:300;
 }
 
-.cta-block h3 {
-  font-family:'Cormorant Garamond', serif;
-  font-size:32px;
-  font-weight:600;
-  color:#fff;
-  margin-bottom:24px;
-}
-
-.cta-button {
+/* ─── BUTTONS ─── */
+.btn-gold {
   display:inline-block;
   background:var(--gold);
   color:#000;
-  padding:22px 56px;
-  border-radius:12px;
-  font-size:14px;
+  padding:20px 52px;
+  border-radius:10px;
+  font-size:12px;
   font-weight:700;
   letter-spacing:2px;
   text-transform:uppercase;
   text-decoration:none;
-  transition:all 0.3s;
-  box-shadow:0 15px 40px rgba(201,163,91,0.2);
+  transition:all 0.25s;
+  box-shadow:0 8px 32px rgba(201,163,91,0.25);
 }
-
-.cta-button:hover {
-  background:var(--gold-light);
+.btn-gold:hover {
+  background:var(--gold-bright);
   transform:translateY(-2px);
-  box-shadow:0 20px 50px rgba(201,163,91,0.3);
+  box-shadow:0 16px 48px rgba(201,163,91,0.35);
 }
 
-/* RESPONSIVE RE-FLOW */
-@media (max-width: 960px) {
-  .flow-grid { grid-template-columns: 1fr; gap:32px; }
+.btn-outline {
+  display:inline-block;
+  background:transparent;
+  color:var(--gold);
+  border:1px solid var(--border);
+  padding:18px 44px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:all 0.25s;
+}
+.btn-outline:hover {
+  background:var(--gold-dim);
+  border-color:var(--gold);
+  transform:translateY(-2px);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width:960px) {
+  .what-grid { grid-template-columns:repeat(2,1fr); }
+  .flow-grid { grid-template-columns:1fr; }
   .benefits-grid { grid-template-columns:1fr 1fr; }
+  .stat-strip { flex-wrap:wrap; }
+  .stat-item { min-width:50%; border-bottom:1px solid var(--border); }
 }
 
-@media (max-width: 760px) {
-  .comparison-grid { grid-template-columns:1fr; gap:32px; }
-  .benefits-grid { grid-template-columns:1fr; }
+@media (max-width:680px) {
   body { padding:0 16px 80px; }
-  .hero h1 { font-size:42px; }
-  .section-header h2 { font-size:32px; }
+  .hero h1 { font-size:44px; }
+  .benefits-grid { grid-template-columns:1fr; }
+  .comparison-grid { grid-template-columns:1fr; }
+  .what-grid { grid-template-columns:1fr; }
+  .demo-section { padding:40px 24px; }
+  .cta-section h3 { font-size:34px; }
+  .stat-item { min-width:100%; }
 }
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(18px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.hero-label  { animation:fadeUp 0.6s ease both; }
+.hero h1     { animation:fadeUp 0.7s 0.08s ease both; }
+.hero p      { animation:fadeUp 0.7s 0.15s ease both; }
+.trust-pill  { animation:fadeUp 0.7s 0.22s ease both; }
 </style>
 </head>
 <body>
@@ -468,26 +783,95 @@ body {
 
 <div class="container">
 
-  <header class="top-nav">
+  <nav>
     <div class="nav-brand">HERMIA</div>
     <a href="final tool.html" class="nav-back">← Back to Main Site</a>
-  </header>
+  </nav>
 
+  <!-- HERO -->
   <section class="hero">
-    <h1>Real Estate Teams Using Hermia Stop Losing Buyers To <em>Slow Follow-Up</em></h1>
-    <p>Hermia automatically responds to inbound property inquiries, qualifies serious buyers, follows up instantly, and books inspections directly into your calendar — 24/7.</p>
+    <div class="hero-label">Lead Prioritisation For Real Estate Teams</div>
+    <h1>Stop Wasting Time On<br><em>Buyers Going Nowhere</em></h1>
+    <p>Hermia helps real estate teams identify which enquiries deserve immediate attention. Qualifies inbound leads, extracts buyer intent, and organises serious buyers in your CRM — while your agents stay fully in control.</p>
+    <div class="trust-pill">No AI phone calls. No replacing agents. Your team stays fully in control.</div>
   </section>
 
-  <section class="video-wrapper">
-    <div class="video-container">
-      <iframe src="https://www.loom.com/embed/fff7aeac826347ffad50d50a9596131b?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  <!-- STAT STRIP -->
+  <div class="stat-strip">
+    <div class="stat-item">
+      <div class="stat-value">&lt;10s</div>
+      <div class="stat-label">Response to every inbound enquiry</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">100%</div>
+      <div class="stat-label">REA &amp; Domain leads captured automatically</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">24/7</div>
+      <div class="stat-label">Active including weekends &amp; public holidays</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">0</div>
+      <div class="stat-label">Leads missed while your team is offline</div>
+    </div>
+  </div>
+
+  <!-- VIDEO -->
+  <section class="video-section">
+    <div class="video-section-label">Watch It In Action</div>
+    <h2>See Hermia Handle A Real Lead Live</h2>
+    <div class="video-outer">
+      <div class="video-wrapper">
+        <div class="video-inner">
+          <iframe
+            src="https://www.loom.com/embed/fff7aeac826347ffad50d50a9596131b?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
+            webkitallowfullscreen mozallowfullscreen allowfullscreen>
+          </iframe>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="pipeline-container">
-    <div class="pipeline-title">Lead Conversion Infrastructure</div>
-    <div class="pipeline-subtitle">The Complete Operational Lifecycle For Every Inbound Inquiry</div>
-    
+  <!-- WHAT IT DOES -->
+  <section class="what-section">
+    <div class="section-title-block">
+      <div class="section-tag">The System</div>
+      <div class="gold-line"></div>
+      <h2>What Hermia Actually Does</h2>
+      <p>Four steps. No complex setup. Works with your existing CRM from day one.</p>
+    </div>
+    <div class="what-grid">
+      <div class="what-item">
+        <div class="what-num">01</div>
+        <strong>Captures enquiries instantly</strong>
+        <p>REA and Domain enquiries enter the system the moment they arrive.</p>
+      </div>
+      <div class="what-item">
+        <div class="what-num">02</div>
+        <strong>Qualifies buyer intent</strong>
+        <p>Identifies serious buyers based on timing, finance status, and engagement signals.</p>
+      </div>
+      <div class="what-item">
+        <div class="what-num">03</div>
+        <strong>Highlights priority leads</strong>
+        <p>Your team instantly sees which buyers deserve immediate attention.</p>
+      </div>
+      <div class="what-item">
+        <div class="what-num">04</div>
+        <strong>Syncs into your CRM</strong>
+        <p>Everything stays organised without changing your existing workflow.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PIPELINE -->
+  <section class="pipeline-section">
+    <div class="pipeline-header">
+      <div class="section-tag">End-To-End Flow</div>
+      <div class="gold-line"></div>
+      <h2>Every Lead. Every Time.</h2>
+      <p>The complete journey from inbound enquiry to booked inspection — or hot lead alert.</p>
+    </div>
     <div class="flow-grid">
       <div class="flow-column">
         <h3>Standard Conversion Track</h3>
@@ -495,22 +879,22 @@ body {
           <div class="flow-node">
             <div class="node-index">1</div>
             <div class="node-content">
-              <strong>Inbound Portal Inquiry Received</strong>
-              <p>The lead hits from REA, Domain, or property channels.</p>
+              <strong>Inbound Portal Enquiry Received</strong>
+              <p>Lead arrives from REA, Domain, or property channels.</p>
             </div>
           </div>
           <div class="flow-node">
             <div class="node-index">2</div>
             <div class="node-content">
-              <strong>Instant Operational Response</strong>
-              <p>System triggers a targeted conversational touchpoint within seconds.</p>
+              <strong>Instant Response</strong>
+              <p>A targeted reply triggers within seconds of enquiry.</p>
             </div>
           </div>
           <div class="flow-node">
             <div class="node-index">3</div>
             <div class="node-content">
-              <strong>Core Criteria Extraction</strong>
-              <p>Extracts deep contextual intent markers directly from live conversation threads.</p>
+              <strong>Buyer Qualification</strong>
+              <p>Hermia identifies serious buyers from live conversation signals.</p>
               <div class="data-badge-container">
                 <span class="data-badge">Budget</span>
                 <span class="data-badge">Timeline</span>
@@ -523,14 +907,14 @@ body {
             <div class="node-index">4</div>
             <div class="node-content">
               <strong>Inspection Invitation</strong>
-              <p>Prompts the qualified buyer to lock in an active open time allocation.</p>
+              <p>Qualified buyer is prompted to lock in an open inspection time.</p>
             </div>
           </div>
           <div class="flow-node">
             <div class="node-index">5</div>
             <div class="node-content">
-              <strong>Inspection Confirmed</strong>
-              <p>The asset successfully books directly into your system logistics pipeline.</p>
+              <strong>Inspection Booked</strong>
+              <p>Buyer books into your schedule automatically. Your team gets notified instantly.</p>
             </div>
           </div>
         </div>
@@ -543,14 +927,14 @@ body {
             <div class="node-index">6</div>
             <div class="node-content">
               <strong>Inspection Times Unavailable</strong>
-              <p>If times are full or unlisted, buyer is safely prompted to execute fallback: <strong>Type 'R'</strong>.</p>
+              <p>If times are full or unlisted, buyer is prompted: <strong style="color:var(--gold-light)">Type 'R'</strong>.</p>
             </div>
           </div>
           <div class="flow-node">
             <div class="node-index">7</div>
             <div class="node-content">
-              <strong>Availability Capture Loop</strong>
-              <p>System isolates structural constraints from the prospect immediately.</p>
+              <strong>Availability Captured</strong>
+              <p>System identifies when the prospect is available to view.</p>
               <div class="data-badge-container">
                 <span class="data-badge">Weekdays</span>
                 <span class="data-badge">Weekends</span>
@@ -562,24 +946,22 @@ body {
             <div class="node-index">8</div>
             <div class="node-content">
               <strong>Clean Session Closure</strong>
-              <p>Concludes conversation transparently, keeping user expectations perfectly managed.</p>
+              <p>Conversation concludes transparently with buyer expectations managed.</p>
             </div>
           </div>
           <div class="flow-node">
             <div class="node-index">9</div>
             <div class="node-content">
               <strong>Live Hot Lead Notification</strong>
-              <p>Sends an instant, actionable dispatch packet straight to the assigned agent's inbox.</p>
-              <div class="data-badge-container" style="color:var(--emerald); font-size:12px; font-weight:bold; margin-top:4px;">
-                ⚠️ Alert: High-intent buyer waiting for upcoming inspection openings.
-              </div>
+              <p>Instant alert sent straight to the assigned agent's inbox.</p>
+              <span class="alert-tag">⚠ High-intent buyer waiting for inspection openings</span>
             </div>
           </div>
           <div class="flow-node">
             <div class="node-index">10</div>
             <div class="node-content">
-              <strong>Pristine CRM Ingestion</strong>
-              <p>Syncs all collected data structures seamlessly into your central platform records workspace.</p>
+              <strong>CRM Sync</strong>
+              <p>All lead data syncs directly into your CRM without changing your workflow.</p>
             </div>
           </div>
         </div>
@@ -587,75 +969,87 @@ body {
     </div>
   </section>
 
-  <section class="section-header">
-    <h2>What Hermia Automatically Solves</h2>
+  <!-- BENEFITS -->
+  <section class="benefits-section">
+    <div class="section-title-block" style="text-align:left; margin-bottom:40px;">
+      <div class="section-tag">Why Teams Choose Hermia</div>
+      <h2 style="font-family:'Cormorant Garamond',serif; font-size:42px; font-weight:600; color:#fff; margin-top:8px;">What Hermia Automatically Solves</h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-box">
+        <div class="benefit-num">01</div>
+        <h4>Stop Calling Buyers Who Were Never Moving</h4>
+        <p>Most agencies reply too late. By the time your team responds, the buyer has moved on or booked elsewhere. Hermia responds within seconds — every time.</p>
+      </div>
+      <div class="benefit-box">
+        <div class="benefit-num">02</div>
+        <h4>Turn Portal Spam Into Qualified Buyers</h4>
+        <p>REA and Domain enquiries are incredibly noisy. Hermia filters serious buyers from time-wasters automatically. Your agents stop chasing dead leads.</p>
+      </div>
+      <div class="benefit-box">
+        <div class="benefit-num">03</div>
+        <h4>Catch Hot Buyers Before Competing Agents Do</h4>
+        <p>Vendors care about follow-up speed. When your agency responds instantly, inspections increase and vendors notice. Hermia protects your reputation systematically.</p>
+      </div>
+      <div class="benefit-box">
+        <div class="benefit-num">04</div>
+        <h4>Reduce Admin Without Missing Opportunities</h4>
+        <p>No more manual texting, missed callbacks, or forgotten follow-ups. Hermia handles front-end communication so your agents focus on listings and closing deals.</p>
+      </div>
+      <div class="benefit-box">
+        <div class="benefit-num">05</div>
+        <h4>Keep Your Agents Focused On Revenue</h4>
+        <p>Your staff clocks out. Hermia doesn't. At 11 PM, on weekends, over public holidays — every inbound lead is engaged and qualified automatically.</p>
+      </div>
+    </div>
   </section>
 
-  <section class="benefits-grid">
-    <div class="benefit-box">
-      <div class="benefit-num">01</div>
-      <h4><span class="benefit-dot"></span> Stop Losing Leads Overnight</h4>
-      <p>Most agencies reply too late. By the time your team responds, the buyer has already moved on, booked elsewhere, or forgotten they even enquired. Hermia responds instantly within seconds.</p>
+  <!-- COMPARISON -->
+  <section class="comparison-section">
+    <div class="comparison-heading">
+      <div class="section-tag">The Difference</div>
+      <h2>Before &amp; After</h2>
+      <p>Here's what changes the moment Hermia goes live.</p>
     </div>
-    <div class="benefit-box">
-      <div class="benefit-num">02</div>
-      <h4><span class="benefit-dot"></span> Turn Portal Spam Into Qualified Buyers</h4>
-      <p>REA and Domain inquiries are incredibly noisy. Hermia automatically filters serious buyers, investors, renters, sellers, and time-wasters. Your agents stop wasting hours chasing dead leads.</p>
-    </div>
-    <div class="benefit-box">
-      <div class="benefit-num">03</div>
-      <h4><span class="benefit-dot"></span> Speed Wins Listings</h4>
-      <p>Vendors care deeply about follow-up speed. When your agency responds instantly, buyers engage more, inspections increase, and vendors notice the operational superiority. Hermia systematically protects your brand reputation.</p>
-    </div>
-    <div class="benefit-box">
-      <div class="benefit-num">04</div>
-      <h4><span class="benefit-dot"></span> Eliminate Repetitive Admin Work</h4>
-      <p>No more manual texting, repetitive initial qualification, missed callbacks, or forgotten follow-ups. Hermia handles the front-end communication automatically so your agents can focus entirely on listings, negotiations, and closing deals.</p>
-    </div>
-    <div class="benefit-box">
-      <div class="benefit-num">05</div>
-      <h4><span class="benefit-dot"></span> After Hours Mode (24/7)</h4>
-      <p>Your staff clocks out. Hermia doesn't. At 11 PM, over weekends, during public holidays, or while your agents are driving to inspections, Hermia continues engaging and converting every single inbound lead instantly.</p>
-    </div>
-  </section>
-
-  <section class="comparison-container">
     <div class="comparison-grid">
       <div class="comp-column negative">
         <h3>Without Hermia</h3>
         <ul class="comp-list">
           <li><strong>Missed opportunities</strong> from late-night portal leads that go cold before morning.</li>
-          <li><strong>Slow responses</strong> allowing hot buyers to schedule inspections with competing agencies.</li>
-          <li><strong>Admin overload</strong> from staff spending hours sorting through spam and manual text tracking.</li>
-          <li><strong>Inconsistent execution</strong> when busy agents forget to log follow-ups or coordinate callbacks.</li>
+          <li><strong>Slow responses</strong> allowing hot buyers to book with competing agencies.</li>
+          <li><strong>Admin overload</strong> from staff sorting through spam and tracking texts manually.</li>
+          <li><strong>Inconsistent execution</strong> when busy agents forget follow-ups or miss callbacks.</li>
         </ul>
       </div>
       <div class="comp-column positive">
-        <h3>With Hermia Infrastructure</h3>
+        <h3>With Hermia</h3>
         <ul class="comp-list">
-          <li><strong>Instant automated replies</strong> engaging 100% of portal inquiries within seconds.</li>
-          <li><strong>Live qualification parameters</strong> to instantly identify serious buyers vs time-wasters.</li>
-          <li><strong>Direct calendar updates</strong> booking property inspections straight into system logs automatically.</li>
-          <li><strong>Flawless execution consistency</strong> delivering a premium, personalized experience to every pipeline asset.</li>
+          <li><strong>Instant replies</strong> engaging 100% of portal enquiries within seconds.</li>
+          <li><strong>Live buyer intent signals</strong> to instantly identify serious buyers vs time-wasters.</li>
+          <li><strong>Direct calendar booking</strong> — inspections scheduled automatically into your system.</li>
+          <li><strong>Flawless consistency</strong> delivering a premium experience to every buyer, every time.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <section class="demo-section" id="demo">
-    <div class="demo-badge">Interactive Experience</div>
-    <h2>Watch Hermia Handle A Real Lead Live</h2>
-    <p>Experience the product exactly as your buyers do. See how cleanly the criteria map runs and watch Hermia qualify and engage a live lead directly on your own mobile device in real time.</p>
-    <a href="gibberish.html" class="cta-button" style="padding: 16px 36px; font-size: 13px;">Test Live Triage</a>
+  <!-- DEMO -->
+  <section class="demo-section">
+    <div class="demo-pill">Interactive Demo</div>
+    <h2>Experience It Yourself</h2>
+    <p>See exactly how your buyers experience Hermia. Watch the qualification flow run live on your own device in real time.</p>
+    <a href="gibberish.html" class="btn-outline">Test Live Triage →</a>
   </section>
 
-  <section class="cta-block">
-    <h3>The Agencies Winning Attention Respond First.</h3>
-    <p style="color: var(--soft); margin-bottom: 24px; font-size: 15px; font-weight: 300;">Integrate the infrastructure designed to convert attention into commission.</p>
-    <a href="b.html" class="cta-button">Book a Demo</a>
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="gold-line" style="margin-bottom:32px;"></div>
+    <h3>The Agencies Winning<br>Respond First.</h3>
+    <p>Lead prioritisation for real estate teams that want to close more deals with less wasted time.</p>
+    <a href="b.html" class="btn-gold">Book a Demo</a>
   </section>
 
 </div>
-
 </body>
 </html>
+
