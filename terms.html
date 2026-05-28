@@ -3,139 +3,503 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terms of Service — Hermia Enterprise Lead Systems</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <title>Terms of Service — Hermia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --black: #0a0a0a;
+      --black: #080808;
       --card: #111111;
+      --card2: #141414;
       --gold: #C9A35B;
       --gold-light: #e8c17a;
+      --gold-dim: rgba(201,163,91,0.07);
       --cream: #f5f1e8;
-      --muted: #a8a39a;
-      --soft: #d4d0c7;
+      --muted: #8a8580;
+      --soft: #b8b5ad;
+      --border: rgba(201,163,91,0.14);
+      --border-strong: rgba(201,163,91,0.32);
     }
+
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { 
-      font-family:'Inter',system-ui,sans-serif; 
-      background:var(--black); 
-      color:var(--cream); 
-      line-height:1.75; 
-      padding:60px 20px; 
-      max-width:780px; 
-      margin:0 auto; 
+    html { scroll-behavior:smooth; }
+
+    body {
+      font-family:'DM Sans', sans-serif;
+      background:var(--black);
+      color:var(--cream);
+      min-height:100vh;
+      overflow-x:hidden;
     }
-    .header { text-align:center; margin-bottom:60px; }
-    .logo { width:72px; height:72px; margin:0 auto 20px; display:block; filter:drop-shadow(0 4px 25px rgba(201,163,91,0.35)); }
-    h1 { 
-      font-family:'Playfair Display',serif; 
-      font-size:42px; 
-      font-weight:700; 
-      color:#fff; 
-      letter-spacing:-1px; 
-      margin-bottom:8px; 
+
+    .glow-tl {
+      position:fixed; top:-15%; left:-10%;
+      width:600px; height:600px;
+      background:radial-gradient(circle, rgba(201,163,91,0.10) 0%, transparent 70%);
+      filter:blur(90px); pointer-events:none; z-index:0;
     }
-    .meta { 
-      font-size:14px; 
-      color:var(--muted); 
-      margin-bottom:48px; 
+    .glow-br {
+      position:fixed; bottom:-15%; right:-10%;
+      width:500px; height:500px;
+      background:radial-gradient(circle, rgba(201,163,91,0.07) 0%, transparent 70%);
+      filter:blur(90px); pointer-events:none; z-index:0;
     }
-    h2 { 
-      font-size:15px; 
-      font-weight:600; 
-      letter-spacing:2.5px; 
-      text-transform:uppercase; 
-      color:var(--gold); 
-      margin:48px 0 16px; 
+
+    /* ── NAV ── */
+    .top-nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      padding:18px 48px;
+      display:flex; align-items:center; justify-content:space-between;
+      background:rgba(8,8,8,0.92); backdrop-filter:blur(24px);
+      border-bottom:1px solid var(--border);
     }
-    p, li { 
-      font-size:16px; 
-      color:var(--soft); 
-      margin-bottom:14px; 
-      text-align: justify;
+    .back-btn {
+      display:inline-flex; align-items:center; gap:9px;
+      color:var(--soft); text-decoration:none;
+      font-size:11px; font-weight:600;
+      letter-spacing:1.5px; text-transform:uppercase;
+      transition:color 0.25s;
     }
-    ul { padding-left:24px; margin-bottom:20px; }
-    li { margin-bottom:8px; }
-    strong { color:#fff; font-weight:600; }
-    .highlight { 
-      background:rgba(201,163,91,0.08); 
-      border-left:4px solid var(--gold); 
-      padding:22px 26px; 
-      border-radius:0 12px 12px 0; 
-      margin:24px 0; 
+    .back-btn:hover { color:var(--gold); }
+    .nav-logo {
+      font-family:'Cormorant Garamond', serif;
+      font-size:20px; font-weight:600; color:var(--cream);
+      letter-spacing:-0.3px; text-decoration:none;
     }
-    footer { 
-      margin-top:100px; 
-      text-align:center; 
-      font-size:13.5px; 
-      color:var(--muted); 
-      border-top:1px solid rgba(201,163,91,0.2); 
-      padding-top:32px; 
+    .nav-badge {
+      font-size:10px; font-weight:700; letter-spacing:2px;
+      text-transform:uppercase; color:var(--gold);
+      background:var(--gold-dim); border:1px solid var(--border);
+      padding:5px 12px; border-radius:20px;
     }
-    @media(max-width:600px){ body{padding:40px 20px;} }
+
+    /* ── PAGE ── */
+    .page-wrap {
+      position:relative; z-index:1;
+      max-width:800px; margin:0 auto;
+      padding:148px 32px 100px;
+    }
+
+    /* ── HEADER ── */
+    .doc-header {
+      text-align:center;
+      padding-bottom:64px;
+      border-bottom:1px solid var(--border);
+      margin-bottom:64px;
+    }
+    .doc-eyebrow {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--gold-dim); border:1px solid var(--border);
+      padding:6px 18px; border-radius:100px;
+      font-size:10px; font-weight:700; letter-spacing:3px;
+      text-transform:uppercase; color:var(--gold); margin-bottom:28px;
+    }
+    .doc-eyebrow-dot {
+      width:5px; height:5px; background:var(--gold);
+      border-radius:50%; opacity:0.7;
+    }
+    .doc-header h1 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(38px,6vw,62px); font-weight:700;
+      color:#fff; letter-spacing:-1.5px; line-height:1.06;
+      margin-bottom:18px;
+      text-shadow:0 0 40px rgba(201,163,91,0.2);
+    }
+    .doc-header h1 em { font-style:italic; color:var(--gold); }
+    .doc-meta-row {
+      display:flex; align-items:center; justify-content:center;
+      gap:20px; flex-wrap:wrap; margin-top:20px;
+    }
+    .doc-meta-pill {
+      display:flex; align-items:center; gap:7px;
+      font-size:11px; font-weight:500; color:var(--muted);
+    }
+    .doc-meta-pill span {
+      font-size:9px; font-weight:700; letter-spacing:1.5px;
+      text-transform:uppercase; color:rgba(201,163,91,0.5);
+    }
+    .dot-sep {
+      width:3px; height:3px; background:var(--border-strong);
+      border-radius:50%;
+    }
+
+    /* ── TABS ── */
+    .doc-tabs {
+      display:flex; gap:4px;
+      background:var(--card); border:1px solid var(--border);
+      border-radius:12px; padding:4px;
+      margin-bottom:60px; width:fit-content;
+      margin-left:auto; margin-right:auto;
+    }
+    .doc-tab {
+      padding:9px 22px; border-radius:8px;
+      font-size:11px; font-weight:700; letter-spacing:1.5px;
+      text-transform:uppercase; text-decoration:none;
+      color:var(--muted); transition:all 0.25s;
+    }
+    .doc-tab:hover { color:#fff; }
+    .doc-tab.active {
+      background:var(--gold-dim); border:1px solid var(--border-strong);
+      color:var(--gold);
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      margin-bottom:56px;
+      animation:fadeUp 0.5s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(16px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .section-num-row {
+      display:flex; align-items:center; gap:14px; margin-bottom:18px;
+    }
+    .section-num {
+      font-family:'Cormorant Garamond', serif;
+      font-size:13px; font-weight:700; color:rgba(201,163,91,0.4);
+      letter-spacing:2px; min-width:26px;
+    }
+    .section-rule {
+      height:1px; flex:1;
+      background:linear-gradient(90deg, var(--border-strong), transparent);
+    }
+    .section h2 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(22px,3vw,30px); font-weight:700;
+      color:#fff; line-height:1.2; letter-spacing:-0.4px;
+      margin-bottom:20px;
+    }
+    .section h2 em { font-style:italic; color:var(--gold); }
+    .section p {
+      font-size:14px; color:var(--soft);
+      line-height:1.85; font-weight:300; margin-bottom:16px;
+    }
+    .section p:last-child { margin-bottom:0; }
+    .section strong { color:#ddd; font-weight:500; }
+
+    /* ── LIST ── */
+    .doc-list {
+      list-style:none; padding:0;
+      display:flex; flex-direction:column; gap:12px;
+      margin-top:4px;
+    }
+    .doc-list li {
+      display:flex; gap:14px; align-items:flex-start;
+      font-size:14px; color:var(--soft); line-height:1.75; font-weight:300;
+    }
+    .doc-list li::before {
+      content:''; display:block; min-width:5px; height:5px;
+      background:var(--gold); border-radius:50%;
+      margin-top:9px; opacity:0.6;
+    }
+    .doc-list li strong { color:#ddd; font-weight:500; }
+
+    /* ── NOTICE BOX ── */
+    .notice-box {
+      background:rgba(201,163,91,0.04);
+      border:1px solid rgba(201,163,91,0.18);
+      border-left:3px solid var(--gold);
+      border-radius:12px; padding:28px 30px;
+      margin:28px 0;
+    }
+    .notice-label {
+      font-size:9px; font-weight:700; letter-spacing:2.5px;
+      text-transform:uppercase; color:var(--gold);
+      margin-bottom:14px; opacity:0.85;
+    }
+    .notice-box p {
+      font-size:13px; color:var(--soft);
+      line-height:1.8; font-weight:300; margin-bottom:0;
+    }
+    .notice-box p strong { color:var(--cream); font-weight:500; }
+
+    /* ── FEES TABLE ── */
+    .fees-grid {
+      display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px;
+    }
+    .fee-card {
+      background:var(--card); border:1px solid var(--border);
+      border-radius:12px; padding:22px;
+      transition:border-color 0.25s;
+    }
+    .fee-card:hover { border-color:var(--border-strong); }
+    .fee-zone {
+      font-size:9px; font-weight:700; letter-spacing:2px;
+      text-transform:uppercase; color:var(--gold); margin-bottom:10px;
+    }
+    .fee-amount {
+      font-family:'Cormorant Garamond', serif;
+      font-size:28px; font-weight:700; color:#fff;
+      line-height:1; margin-bottom:6px;
+    }
+    .fee-period {
+      font-size:11px; color:var(--muted); font-weight:300; margin-bottom:10px;
+    }
+    .fee-waiver {
+      font-size:11px; color:rgba(16,185,129,0.8); font-weight:500;
+      background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.15);
+      border-radius:6px; padding:4px 10px; display:inline-block;
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      display:flex; align-items:center; gap:12px; margin:56px 0 0;
+    }
+    .section-divider::before, .section-divider::after {
+      content:''; flex:1; height:1px; background:var(--border);
+    }
+    .section-divider-diamond {
+      width:5px; height:5px; background:var(--gold);
+      transform:rotate(45deg); opacity:0.4;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position:relative; z-index:1;
+      border-top:1px solid var(--border);
+      padding:48px 48px 40px;
+      background:rgba(0,0,0,0.25);
+    }
+    .footer-inner {
+      max-width:800px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; gap:20px;
+    }
+    .footer-brand {
+      font-family:'Cormorant Garamond', serif;
+      font-size:19px; font-weight:600; color:var(--cream);
+    }
+    .footer-brand small {
+      display:block; font-family:'DM Sans', sans-serif;
+      font-size:11px; font-weight:300; color:var(--muted);
+      letter-spacing:0.3px; margin-top:3px;
+    }
+    .footer-links {
+      display:flex; align-items:center; gap:18px;
+    }
+    .footer-link {
+      font-size:11px; font-weight:600; letter-spacing:1px;
+      text-transform:uppercase; color:var(--muted);
+      text-decoration:none; transition:color 0.2s;
+    }
+    .footer-link:hover { color:var(--gold); }
+    .footer-bottom {
+      max-width:800px; margin:24px auto 0;
+      padding-top:18px; border-top:1px solid rgba(201,163,91,0.06);
+      display:flex; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; gap:10px;
+    }
+    .footer-copy { font-size:11px; color:rgba(138,133,128,0.45); font-weight:300; }
+    .footer-abn { display:inline-flex; align-items:center; gap:8px; }
+    .footer-abn-badge {
+      font-size:9px; font-weight:700; letter-spacing:1.5px;
+      text-transform:uppercase; color:rgba(201,163,91,0.4);
+      background:rgba(201,163,91,0.05); border:1px solid rgba(201,163,91,0.1);
+      border-radius:4px; padding:3px 7px;
+    }
+    .footer-abn-num {
+      font-size:11px; color:rgba(138,133,128,0.4);
+      font-family:'Courier New', monospace; letter-spacing:0.5px;
+    }
+
+    @media(max-width:640px) {
+      .top-nav { padding:16px 20px; }
+      .page-wrap { padding:120px 20px 80px; }
+      .nav-badge { display:none; }
+      .fees-grid { grid-template-columns:1fr; }
+      footer { padding:36px 20px 28px; }
+      .footer-inner { flex-direction:column; align-items:flex-start; }
+    }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo">
-    <h1>Terms of Service</h1>
-    <p class="meta">Effective 18 May 2026 • ABN 75 434 177 026</p>
+<div class="glow-tl"></div>
+<div class="glow-br"></div>
+
+<!-- NAV -->
+<nav class="top-nav">
+  <a href="index.html" class="back-btn">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+    Back to Site
+  </a>
+  <a href="index.html" class="nav-logo">Hermia</a>
+  <span class="nav-badge">Legal &amp; Governance</span>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="doc-eyebrow">
+      <span class="doc-eyebrow-dot"></span>
+      Legal Document
+    </div>
+    <h1>Terms of <em>Service</em></h1>
+    <div class="doc-meta-row">
+      <div class="doc-meta-pill"><span>Effective</span> 18 May 2026</div>
+      <div class="dot-sep"></div>
+      <div class="doc-meta-pill"><span>Jurisdiction</span> Victoria, Australia</div>
+      <div class="dot-sep"></div>
+      <div class="doc-meta-pill"><span>ABN</span> 75 434 177 026</div>
+    </div>
   </div>
 
-  <h2>1. Acceptance of Terms</h2>
-  <p>By accessing, integrating, or utilizing Hermia's systems ("Service"), you ("Client") agree to be bound unconditionally by these Terms of Service. If you do not agree, you are unauthorized to use the Service. This agreement constitutes a legally binding software service contract between you and Hermia (ABN 75 434 177 026).</p>
-
-  <h2>2. Scope of Service & Explicit Lead Generation Disclaimer</h2>
-  <p>Hermia operates strictly as a <strong>Tier 0 automated backend data infrastructure and triage layer</strong>. The Service utilizes automated, template-driven SMS and WhatsApp logic gates to verify, filter, and structure *existing* incoming real estate inquiries and route that intelligence into the Client's active CRM software.</p>
-  
-  <div class="highlight">
-    <strong>CRITICAL DISCLAIMER:</strong> Hermia is NOT a lead generation platform, marketing agency, or public-facing advertisement provider. Hermia does not find, source, capture, or generate new leads, prospects, buyers, or tenants. The Client maintains sole operational and financial responsibility for running its own marketing assets and feeding inbound inquiry data streams into Hermia's technical infrastructure layer via secure webhooks.
+  <!-- TABS -->
+  <div class="doc-tabs">
+    <a href="/privacy" class="doc-tab">Privacy Policy</a>
+    <a href="#" class="doc-tab active">Terms of Service</a>
   </div>
 
-  <h2>3. Eligibility</h2>
-  <p>The Service is restricted exclusively to corporate entities and licensed real estate brokerages or individual practitioners operating lawfully in Australia and the United Arab Emirates (UAE). By executing deployment, you represent and warrant that you hold active statutory real estate authority and are fully authorized to bind your agency to this agreement.</p>
+  <!-- SECTIONS -->
 
-  <h2>4. Infrastructure Fees and Settlement</h2>
-  <ul>
-    <li><strong>Australia Zone:</strong> $260 AUD per month (Launch Agreement: Initial deployment fee of $1,700 AUD is waived).</li>
-    <li><strong>UAE Zone:</strong> AED 1,400 per month (Launch Agreement: Initial deployment fee of AED 2,600 is waived).</li>
-    <li>All financial handling is routed securely through enterprise payment processors. Initial environment configurations and setup components become non-refundable immediately upon structural onboarding kickoff. Monthly recurring licensing fees are non-refundable for the active billing block. Hermia reserves the right to adjust recurring structure pricing by providing 30 days' explicit electronic notice.</li>
-  </ul>
+  <div class="section" style="animation-delay:0.05s">
+    <div class="section-num-row"><span class="section-num">01</span><div class="section-rule"></div></div>
+    <h2>Acceptance <em>of Terms</em></h2>
+    <p>By accessing, integrating, or utilizing Hermia's systems ("Service"), you ("Client") agree to be bound unconditionally by these Terms of Service. If you do not agree, you are unauthorized to use the Service. This agreement constitutes a legally binding software service contract between you and Hermia (ABN 75 434 177 026).</p>
+  </div>
 
-  <h2>5. Client Obligations & Controller Liabilities</h2>
-  <p>As a condition of using the platform infrastructure, the Client agrees to:</p>
-  <ul>
-    <li>Provide and maintain secure API tokens and authorized CRM permissions necessary to process data payloads.</li>
-    <li>Act strictly as the **Data Controller** under applicable sovereign laws, guaranteeing that all prospects have provided legal consent for contact before their data streams hit Hermia's infrastructure, complying fully with the <em>Spam Act 2003</em> (Cth), the <em>Do Not Call Register Act 2006</em> (Cth), and applicable UAE digital communication frameworks.</li>
-    <li>Prevent any systematic reverse-engineering, decompilation, routing-logic scraping, or cloning of Hermia's proprietary Tier 0 logic workflows, filters, and operational methodology.</li>
-  </ul>
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
-  <h2>6. Intellectual Property Rights</h2>
-  <p>All structural workflow configurations, data filtering pathways, logic gates, hardcoded template structures, underlying code, and brand systems remain the exclusive, absolute intellectual property of Hermia. The Client receives a limited, revocable, non-transferable, non-assignable operating license to pass data streams through the architecture solely during an active paid subscription tier.</p>
+  <div class="section" style="animation-delay:0.10s; margin-top:56px;">
+    <div class="section-num-row"><span class="section-num">02</span><div class="section-rule"></div></div>
+    <h2>Scope of Service <em>&amp; Disclaimer</em></h2>
+    <p>Hermia operates strictly as a <strong>Tier 0 automated backend data infrastructure and triage layer</strong>. The Service utilizes automated, template-driven SMS and WhatsApp logic gates to verify, filter, and structure existing incoming real estate inquiries and route that intelligence into the Client's active CRM software.</p>
+    <div class="notice-box">
+      <div class="notice-label">⚑ Critical Disclaimer</div>
+      <p><strong>Hermia is not a lead generation platform, marketing agency, or public-facing advertisement provider.</strong> Hermia does not find, source, capture, or generate new leads, prospects, buyers, or tenants. The Client maintains sole operational and financial responsibility for running its own marketing assets and feeding inbound inquiry data streams into Hermia's technical infrastructure layer via secure webhooks.</p>
+    </div>
+  </div>
 
-  <h2>7. Third-Party Platform Independence</h2>
-  <p>Hermia functions independently. Hermia is not officially affiliated with, sanctioned by, or partnered with any real estate listing portals, external CRM brand providers, global messaging applications, or web hosting architectures. All corporate trademarks, product symbols, and platform names visible in integrations belong entirely to their respective third-party owners.</p>
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
-  <h2>8. LIMITATION OF LIABILITY & FINANCIAL EXCLUSION</h2>
-  <p>THE SERVICE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" STRUCTURAL BASIS. TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL HERMIA OR ITS DEVELOPERS BE LIABLE FOR ANY INDIRECT, CONSEQUENTIAL, INCIDENTAL, SPECIAL, OR PUNITIVE DAMAGES. THIS EXCLUSION EXPLICITLY APPLIES TO LOST REAL ESTATE COMMISSIONS, UNSECURED PROPERTY PROPERTY SALES, LOSS OF CLIENT BROKERAGE REVENUE, LISTING CANCELATIONS, SYSTEM OFFLINE LATENCY, OR INBOUND METRIC DROPS. HERMIA'S TOTAL COMBINED RECOVERY LIABILITY FOR ANY DISPUTE DISCOVERED UNDER THIS AGREEMENT IS STRICTLY LIMITED TO THE EXACT TOTAL FEES PAID BY THE CLIENT TO HERMIA IN THE THREE (3) MONTH PERIOD IMMEDIATELY PRECEDING THE LEGAL CLAIM.</p>
+  <div class="section" style="animation-delay:0.13s; margin-top:56px;">
+    <div class="section-num-row"><span class="section-num">03</span><div class="section-rule"></div></div>
+    <h2><em>Eligibility</em></h2>
+    <p>The Service is restricted exclusively to corporate entities and licensed real estate brokerages or individual practitioners operating lawfully in Australia and the United Arab Emirates (UAE). By executing deployment, you represent and warrant that you hold active statutory real estate authority and are fully authorized to bind your agency to this agreement.</p>
+  </div>
 
-  <h2>9. Absolute Indemnification</h2>
-  <p>The Client agrees to fully indemnify, defend, and hold harmless Hermia and its operational developers against any and all legal suits, monetary fines, regulatory judgments, or administrative actions resulting from: (a) Client failure to secure proper user opt-in consent; (b) violations of local real estate advertising laws; or (c) transactional friction or property value discrepancies arising between the Client and its prospects.</p>
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
-  <h2>10. Termination and Environment Purging</h2>
-  <p>Either party may close the data processing tunnel by providing a 30-day electronic notice. Hermia retains the right to terminate access instantly if a breach of intellectual property or compliance logic occurs. Upon contract conclusion, lead processing pipelines are deactivated and all volatile transaction metadata logs are scrubbed from system memory blocks within 30 days.</p>
+  <div class="section" style="animation-delay:0.16s; margin-top:56px;">
+    <div class="section-num-row"><span class="section-num">04</span><div class="section-rule"></div></div>
+    <h2>Infrastructure Fees <em>&amp; Settlement</em></h2>
+    <div class="fees-grid">
+      <div class="fee-card">
+        <div class="fee-zone">🇦🇺 Australia Zone</div>
+        <div class="fee-amount">$260</div>
+        <div class="fee-period">AUD per month</div>
+        <span class="fee-waiver">✓ Setup fee waived on launch</span>
+      </div>
+      <div class="fee-card">
+        <div class="fee-zone">🇦🇪 UAE Zone</div>
+        <div class="fee-amount">AED 1,400</div>
+        <div class="fee-period">per month</div>
+        <span class="fee-waiver">✓ AED 2,600 setup fee waived</span>
+      </div>
+    </div>
+    <p style="margin-top:20px;">All financial handling is routed securely through enterprise payment processors. Initial environment configurations become non-refundable upon structural onboarding kickoff. Monthly recurring fees are non-refundable for the active billing block. Hermia reserves the right to adjust pricing with 30 days' electronic notice.</p>
+  </div>
 
-  <h2>11. Governing Law & Sovereign Jurisdiction</h2>
-  <p>These Terms, along with any transactional friction arising from platform execution, are governed explicitly by the laws of the **State of Victoria, Australia**. Both parties irrevocably submit to the exclusive territorial jurisdiction of the courts located within Melbourne, Victoria, Australia for any litigation or resolution proceedings.</p>
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
-  <h2>12. Governance Contact</h2>
-  <p>For official legal correspondence or system infrastructure questions: <a href="mailto:capital@hermia.au">capital@hermia.au</a></p>
+  <div class="section" style="animation-delay:0.19s; margin-top:56px;">
+    <div class="section-num-row"><span class="section-num">05</span><div class="section-rule"></div></div>
+    <h2>Client Obligations <em>&amp; Liabilities</em></h2>
+    <p>As a condition of using the platform infrastructure, the Client agrees to:</p>
+    <ul class="doc-list">
+      <li>Provide and maintain secure API tokens and authorized CRM permissions necessary to process data payloads.</li>
+      <li>Act strictly as the <strong>Data Controller</strong> under applicable sovereign laws, guaranteeing that all prospects have provided legal consent for contact before their data streams hit Hermia's infrastructure, complying fully with the <em>Spam Act 2003</em> (Cth), the <em>Do Not Call Register Act 2006</em> (Cth), and applicable UAE digital communication frameworks.</li>
+      <li>Prevent any systematic reverse-engineering, decompilation, routing-logic scraping, or cloning of Hermia's proprietary Tier 0 logic workflows, filters, and operational methodology.</li>
+    </ul>
+  </div>
 
-  <footer>
-    © 2026 Hermia • ABN 75 434 177 026<br>
-    <a href="/privacy" style="color:#C9A35B;">Privacy Policy</a> • <a href="/" style="color:#C9A35B;">Back to Hermia</a>
-  </footer>
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
+
+  <div class="section" style="animation-delay:0.22s; margin-top:56px;">
+    <div class="section-num-row"><span class="section-num">06</span><div class="section-rule"></div></div>
+    <h2>Intellectual <em>Property Rights</em></h2>
+    <p>All structural workflow configurations, data filtering pathways, logic gates, hardcoded template structures, underlying code, and brand systems remain the exclusive, absolute intellectual property of Hermia. The Client receives a limited, revocable, non-transferable, non-assignable operating license to pass data streams through the architecture solely during an active paid subscription tier.</p>
+  </div>
+
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
+
+  <div class="section" style="animation-delay:0.25s; margin-top:56px;">
+    <div class="section-num-row"><span class="section-num">07</span><div class="section-rule"></div></div>
+    <h2>Third-Party <em>Platform Independence</em></h2>
+    <p>Hermia functions independently. Hermia is not officially affiliated with, sanctioned by, or partnered with any real estate listing portals, external CRM brand providers, global messaging applications, or web hosting architectures. All corporate trademarks, product symbols, and platform names visible in integrations belong entirely to their respective third-party owners.</p>
+  </div>
+
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
+
+  <div class="section" style="animation-delay:0.28s; margin-top:56px;">
+    <div class="section-num-row"><span class="section-num">08</span><div class="section-rule"></div></div>
+    <h2>Limitation <em>of Liability</em></h2>
+    <div class="notice-box">
+      <div class="notice-label">⚑ Financial Exclusion</div>
+      <p>The Service is provided on an "as is" and "as available" basis. To the maximum extent permitted by law, Hermia shall not be liable for any indirect, consequential, incidental, special, or punitive damages — explicitly including lost real estate commissions, unsecured property sales, loss of client brokerage revenue, listing cancellations, system latency, or inbound metric drops. Hermia's total combined liability for any dispute is strictly limited to fees paid by the Client in the three (3) months immediately preceding the legal claim.</p>
+    </div>
+  </div>
+
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
+
+  <div class="section" style="animation-delay:0.31s; margin-top:56px;">
+    <div class="section-num-row"><span class="section-num">09</span><div class="section-rule"></div></div>
+    <h2>Absolute <em>Indemnification</em></h2>
+    <p>The Client agrees to fully indemnify, defend, and hold harmless Hermia and its operational developers against any and all legal suits, monetary fines, regulatory judgments, or administrative actions resulting from: (a) Client failure to secure proper user opt-in consent; (b) violations of local real estate advertising laws; or (c) transactional friction or property value discrepancies arising between the Client and its prospects.</p>
+  </div>
+
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
+
+  <div class="section" style="animation-delay:0.34s; margin-top:56px;">
+    <div class="section-num-row"><span class="section-num">10</span><div class="section-rule"></div></div>
+    <h2>Termination <em>&amp; Environment Purging</em></h2>
+    <p>Either party may close the data processing tunnel by providing a 30-day electronic notice. Hermia retains the right to terminate access instantly if a breach of intellectual property or compliance logic occurs. Upon contract conclusion, lead processing pipelines are deactivated and all volatile transaction metadata logs are scrubbed from system memory blocks within 30 days.</p>
+  </div>
+
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
+
+  <div class="section" style="animation-delay:0.37s; margin-top:56px;">
+    <div class="section-num-row"><span class="section-num">11</span><div class="section-rule"></div></div>
+    <h2>Governing Law <em>&amp; Jurisdiction</em></h2>
+    <p>These Terms are governed explicitly by the laws of the State of Victoria, Australia. Both parties irrevocably submit to the exclusive territorial jurisdiction of the courts located within Melbourne, Victoria, Australia for any litigation or resolution proceedings.</p>
+  </div>
+
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
+
+  <div class="section" style="animation-delay:0.40s; margin-top:56px;">
+    <div class="section-num-row"><span class="section-num">12</span><div class="section-rule"></div></div>
+    <h2>Governance <em>Contact</em></h2>
+    <p>For official legal correspondence or system infrastructure questions, contact us at <a href="mailto:capital@hermia.au" style="color:var(--gold); text-decoration:none;">capital@hermia.au</a></p>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      Hermia
+      <small>AI Lead Qualification for Real Estate</small>
+    </div>
+    <div class="footer-links">
+      <a href="index.html" class="footer-link">Home</a>
+      <a href="/privacy" class="footer-link">Privacy</a>
+      <a href="mailto:capital@hermia.au" class="footer-link">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Hermia. All rights reserved. Victoria, Australia · Dubai Support Office</span>
+    <div class="footer-abn">
+      <span class="footer-abn-badge">ABN</span>
+      <span class="footer-abn-num">75 434 177 026</span>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>
