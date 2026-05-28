@@ -1,129 +1,230 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    font-family: 'DM Sans', sans-serif; background: #0c0c0c; color: #f5f1e8;
-    height: 100vh; display: flex; flex-direction: column; overflow: hidden;
-  }
-  .chat-header {
-    padding: 16px 20px; background: #050505; border-bottom: 1px solid rgba(201,163,91,0.15);
-    display: flex; align-items: center; gap: 10px;
-  }
-  .header-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; }
-  .chat-header h4 { font-size: 14px; font-weight: 600; color: #fff; }
-  .chat-header p { font-size: 11px; color: #777; }
+<!-- THE SECURE GOLDEN HOUSE AI WIDGET -->
+<div id="hermia-secure-widget">
   
-  .chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; background: rgba(5,5,5,0.4); }
-  .msg { display: flex; width: 100%; }
-  .msg.bot { justify-content: flex-start; }
-  .msg.user { justify-content: flex-end; }
-  .bubble { max-width: 85%; padding: 12px 16px; border-radius: 14px; font-size: 13.5px; line-height: 1.5; }
-  .bot .bubble { background: #121212; border: 1px solid rgba(201,163,91,0.1); color: #f5f1e8; border-top-left-radius: 4px; }
-  .user .bubble { background: rgba(201,163,91,0.08); border: 1px solid rgba(201,163,91,0.25); color: #fff; border-top-right-radius: 4px; }
+  <!-- FLOATING GOLDEN HOUSE TRIGGER -->
+  <button id="secure-trigger" onclick="toggleSecureChat()">
+    <svg class="house-icon" viewBox="0 0 24 24" width="26" height="26" stroke="#C9A35B" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    <span class="pulse-ring"></span>
+  </button>
 
-  .chips { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
-  .chip {
-    background: #050505; border: 1px solid rgba(201,163,91,0.2); color: #C9A35B;
-    padding: 8px 12px; border-radius: 8px; font-size: 12px; text-align: left; cursor: pointer; transition: all 0.2s;
-  }
-  .chip:hover { border-color: #C9A35B; background: rgba(201,163,91,0.06); color: #e8c17a; }
-
-  .chat-footer { padding: 16px; background: #050505; border-top: 1px solid rgba(201,163,91,0.1); }
-  .input-wrap { display: flex; background: #0d0d0d; border: 1px solid rgba(201,163,91,0.15); border-radius: 10px; padding: 4px; align-items: center; }
-  .input-wrap input { flex: 1; background: transparent; border: none; padding: 10px 12px; color: #fff; font-size: 13px; }
-  .input-wrap input:focus { outline: none; }
-  .send-btn { background: #C9A35B; color: #000; border: none; padding: 8px 16px; border-radius: 7px; font-weight: 700; font-size: 11px; cursor: pointer; text-transform: uppercase; }
-  
-  .typing { display: flex; gap: 4px; align-items: center; padding: 8px 12px !important; }
-  .dot { width: 5px; height: 5px; background: #C9A35B; border-radius: 50%; opacity: 0.4; animation: wWave 1.3s infinite; }
-  .dot:nth-child(2) { animation-delay: 0.15s; }
-  .dot:nth-child(3) { animation-delay: 0.3s; }
-  @keyframes wWave { 0%, 100__ { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(-4px); opacity: 1; } }
-</style>
-</head>
-<body>
-
-  <div class="chat-header">
-    <div class="header-dot"></div>
-    <div>
-      <h4>Hermia Core Node</h4>
-      <p>Instant Infrastructure QA</p>
+  <!-- LUXURY AI INTERFACE WINDOW -->
+  <div id="secure-window">
+    <!-- HEADER -->
+    <div class="secure-header">
+      <div class="header-meta">
+        <div class="live-indicator"></div>
+        <div>
+          <h4>Hermia Core Intelligence</h4>
+          <p>Lead Infrastructure & Optimization</p>
+        </div>
+      </div>
+      <button class="close-widget" onclick="toggleSecureChat()">✕</button>
     </div>
-  </div>
 
-  <div class="chat-messages" id="scroller">
-    <div class="msg bot">
-      <div class="bubble">
-        Welcome to Hermia. Skip the reading—ask me any technical questions about our lead conversion infrastructure here.
-        <div class="chips">
-          <button class="chip" onclick="askPreset('Is this just another website chatbot?')">Is this just a website bot?</button>
-          <button class="chip" onclick="askPreset('Does the AI hallucinate info?')">Does the AI hallucinate?</button>
-          <button class="chip" onclick="askPreset('How long does it take to set up?')">How long to set up?</button>
+    <!-- CHAT CONVERSATION FRAME -->
+    <div class="secure-messages" id="secure-scroller">
+      <div class="secure-msg bot">
+        <div class="secure-bubble">
+          <strong>System initialized.</strong> I am Hermia's core routing intelligence. Skip the documentation—ask me anything regarding backend lead interception, CRM integration matrix layers, or dynamic template rules.
+          
+          <div class="smart-chips">
+            <button class="chip" onclick="askManusAI('How do I prioritize leads?')">How do I prioritize leads?</button>
+            <button class="chip" onclick="askManusAI('Show me top prospects')">Show me top prospects</button>
+            <button class="chip" onclick="askManusAI('Is this a standard website chat widget?')">Is this a website chat widget?</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="chat-footer">
-    <div class="input-wrap">
-      <input type="text" id="chat-input" placeholder="Ask about templates, setup, or CRMs..." onkeypress="handleKey(event)">
-      <button class="send-btn" onclick="processInput()">Send</button>
+    <!-- ENTRY FOOTER LAYER -->
+    <div class="secure-footer">
+      <div class="secure-input-wrapper">
+        <input type="text" id="secure-input" placeholder="Ask about CRM pipelines or SMS routing..." onkeypress="handleSecureKey(event)">
+        <button class="secure-send-btn" onclick="processSecureInput()">Send</button>
+      </div>
     </div>
+
   </div>
+</div>
 
+<!-- LUXURY VISUAL ARCHITECTURE STYLES -->
+<style>
+#hermia-secure-widget {
+  position: fixed; bottom: 30px; right: 30px; z-index: 999999;
+  font-family: 'DM Sans', sans-serif; color: #f5f1e8;
+}
+
+/* FLOATING TRIGGER BUTTON */
+#secure-trigger {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: #0c0c0c; border: 2px solid #C9A35B; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 10px 30px rgba(201,163,91,0.25);
+  position: relative; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+#secure-trigger:hover { transform: scale(1.08); background: #121212; }
+.house-icon { transition: stroke 0.2s ease; }
+#secure-trigger:hover .house-icon { stroke: #e8c17a; }
+
+.pulse-ring {
+  position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; border-radius: 50%;
+  border: 2px solid #C9A35B; animation: ringGlow 2.5s infinite; pointer-events: none;
+}
+@keyframes ringGlow { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.3); opacity: 0; } }
+
+/* INTERFACE CONTAINER */
+#secure-window {
+  position: absolute; bottom: 80px; right: 0;
+  width: 390px; height: 540px; background: #0c0c0c;
+  border: 1px solid rgba(201,163,91,0.2); border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+  display: flex; flex-direction: column; overflow: hidden;
+  opacity: 0; transform: translateY(20px) scale(0.95); pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+#secure-window.active { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+
+/* HEADER ELEMENTS */
+.secure-header {
+  padding: 18px 20px; background: #050505; border-bottom: 1px solid rgba(201,163,91,0.15);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.header-meta { display: flex; align-items: center; gap: 10px; }
+.live-indicator { width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; }
+.secure-header h4 { font-size: 14px; font-weight: 600; color: #fff; margin: 0; letter-spacing: 0.5px; }
+.secure-header p { font-size: 11px; color: #666; margin: 0; }
+.close-widget { background: transparent; border: none; color: #666; cursor: pointer; font-size: 14px; }
+.close-widget:hover { color: #fff; }
+
+/* MESSAGES PANE */
+.secure-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; background: rgba(5,5,5,0.4); }
+.secure-msg { display: flex; width: 100%; }
+.secure-msg.bot { justify-content: flex-start; }
+.secure-msg.user { justify-content: flex-end; }
+.secure-bubble { max-width: 88%; padding: 14px 18px; border-radius: 14px; font-size: 13.5px; line-height: 1.6; }
+.bot .secure-bubble { background: #121212; border: 1px solid rgba(201,163,91,0.1); color: #f5f1e8; border-top-left-radius: 4px; }
+.user .secure-bubble { background: rgba(201,163,91,0.06); border: 1px solid rgba(201,163,91,0.25); color: #fff; border-top-right-radius: 4px; }
+
+/* HIGH INTEL CHIPS */
+.smart-chips { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+.chip {
+  background: #050505; border: 1px solid rgba(201,163,91,0.15); color: #C9A35B;
+  padding: 10px 14px; border-radius: 8px; font-size: 12.5px; text-align: left;
+  cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+}
+.chip:hover { border-color: #C9A35B; background: rgba(201,163,91,0.08); color: #e8c17a; transform: translateX(2px); }
+
+/* FOOTER FEED INPUT */
+.secure-footer { padding: 16px; background: #050505; border-top: 1px solid rgba(201,163,91,0.1); }
+.secure-input-wrapper { display: flex; background: #0d0d0d; border: 1px solid rgba(201,163,91,0.15); border-radius: 10px; padding: 4px; align-items: center; }
+.secure-input-wrapper input { flex: 1; background: transparent; border: none; padding: 10px 12px; color: #fff; font-size: 13.5px; font-family: 'DM Sans', sans-serif; }
+.secure-input-wrapper input:focus { outline: none; }
+.secure-send-btn { background: #C9A35B; color: #000; border: none; padding: 8px 16px; border-radius: 7px; font-weight: 700; font-size: 11px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; }
+.secure-send-btn:hover { background: #e8c17a; }
+
+/* CHATGPT STYLE TYPING LOADER */
+.ai-typing { display: flex; gap: 5px; align-items: center; padding: 6px 10px !important; }
+.t-dot { width: 5px; height: 5px; background: #C9A35B; border-radius: 50%; opacity: 0.4; animation: pulseWave 1.3s infinite; }
+.t-dot:nth-child(2) { animation-delay: 0.15s; }
+.t-dot:nth-child(3) { animation-delay: 0.3s; }
+@keyframes pulseWave { 0%, 100% { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(-4px); opacity: 1; } }
+
+@media(max-width: 480px) {
+  #secure-window { width: calc(100vw - 40px); height: 460px; bottom: 75px; right: -10px; }
+  #hermia-secure-widget { bottom: 20px; right: 20px; }
+}
+</style>
+
+<!-- CORE CONVERSATIONAL INTELLIGENCE MATRIX -->
 <script>
-const scr = document.getElementById('scroller');
-const inp = document.getElementById('chat-input');
-
-function handleKey(e) { if (e.key === 'Enter') processInput(); }
-
-function append(text, side, isInd = false) {
-  const w = document.createElement('div'); w.className = `msg ${side}`; if(isInd) w.id = 'ind';
-  const b = document.createElement('div'); b.className = 'bubble'; b.innerHTML = text;
-  w.appendChild(b); scr.appendChild(w); scr.scrollTop = scr.scrollHeight;
+function toggleSecureChat() {
+  document.getElementById('secure-window').classList.toggle('active');
 }
 
-function askPreset(q) {
-  append(q, 'user');
-  append(`<div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`, 'bot', true);
-  setTimeout(() => {
-    document.getElementById('ind').remove();
-    let a = "";
-    if (q.includes('website chatbot')) {
-      a = `<strong>No, we don't build website chat bars.</strong> Buyers ignore website popups.<br><br>Hermia is backend <strong>SMS Infrastructure</strong>. The split-second a lead registers on portals, Hermia instantly texts their smartphone text inbox directly.`;
-    } else if (q.includes('hallucinate')) {
-      a = `<strong>Zero legal liabilities or hallucinations.</strong> Hermia uses rigid, pre-fixed conversion templates. It captures budget and finance status within strict guardrails—100% computational accuracy, 24/7.`;
-    } else if (q.includes('setup')) {
-      a = `<strong>Full system deployment takes under 72 hours.</strong> Our engineers hook up your active property feeds and sync data straight into your CRM (Zoho, HubSpot, Pipedrive) without altering agent workflows.`;
-    }
-    append(a + `<br><br><a href="apply.html" target="_parent" style="display:inline-block; padding:8px 12px; background:#C9A35B; color:#000; font-size:11px; font-weight:700; text-transform:uppercase; text-decoration:none; border-radius:5px;">Claim 3-Day Workspace →</a>`, 'bot');
-  }, 1000);
+function handleSecureKey(e) {
+  if (e.key === 'Enter') processSecureInput();
 }
 
-function processInput() {
-  const txt = inp.value.trim(); if(!txt) return;
-  append(txt, 'user'); inp.value = '';
-  append(`<div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`, 'bot', true);
+function appendSecureMsg(text, side, isIndicator = false) {
+  const scroller = document.getElementById('secure-scroller');
+  const wrapper = document.createElement('div');
+  wrapper.className = `secure-msg ${side}`;
+  if(isIndicator) wrapper.id = 'ai-typing-indicator';
+  
+  const bubble = document.createElement('div');
+  bubble.className = 'secure-bubble';
+  bubble.innerHTML = text;
+  
+  wrapper.appendChild(bubble);
+  scroller.appendChild(wrapper);
+  scroller.scrollTop = scroller.scrollHeight;
+}
+
+function showSecureTyping() {
+  appendSecureMsg(`<div class="ai-typing"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>`, 'bot', true);
+}
+
+function removeSecureTyping() {
+  const indicator = document.getElementById('ai-typing-indicator');
+  if (indicator) indicator.remove();
+}
+
+function askManusAI(question) {
+  appendSecureMsg(question, 'user');
+  showSecureTyping();
+  
   setTimeout(() => {
-    document.getElementById('ind').remove();
-    const l = txt.toLowerCase();
-    let reply = `Understood. Your operational metric ("${txt}") has been logged. Let's fast-track your setup parameters.`;
-    if(l.includes('chat') || l.includes('widget')) {
-      reply = `We simulate this on our site via text, but your actual buyers will get <strong>instant SMS text layers</strong> dropped right into their phone's native text messaging apps within 60 seconds.`;
-    } else if(l.includes('setup') || l.includes('time')) {
-      reply = `It takes exactly <strong>3 business days</strong> to connect Hermia's triage layers directly into your active CRM pipeline workspace.`;
+    removeSecureTyping();
+    let response = "";
+    
+    if (question.includes('prioritize leads')) {
+      response = `<strong>Lead Prioritization Protocol:</strong> Hermia runs dynamic data-extraction parameters against inbound inquiry payloads. 
+      <br><br>
+      Instead of manual checking, the engine instantly extracts **finance readiness, property asset alignment, and urgency horizons**. High-intent prospects are automatically tagged and prioritized at the apex of your CRM pipeline workspace within 60 seconds of registration.`;
+    } 
+    else if (question.includes('top prospects')) {
+      response = `<strong>Intent Verification Metrics:</strong> Top prospects are filtered based on explicit structural rules:
+      <br><br>
+      1. Pre-approved financial status or cash buyers.<br>
+      2. Active communication behavior within native SMS touchpoints.<br>
+      3. Immediate 30-day relocation or purchase intent.<br><br>
+      The platform isolates these variables automatically, triggering real-time routing straight to your principal agents.`;
+    } 
+    else if (question.includes('website chat widget')) {
+      response = `<strong>System Clarification:</strong> While you are testing my query response structure via this interface, the actual deployment architecture **is completely hidden from your clients.** 
+      <br><br>
+      Real estate buyers universally ignore website popups. Hermia operates as <strong>headless backend SMS infrastructure</strong>. It intercepts portal data silently, delivering lightning-fast, structured SMS interactions directly to a buyer's smartphone inbox.`;
     }
-    append(reply + `<br><br><a href="apply.html" target="_parent" style="display:inline-block; padding:8px 12px; background:#C9A35B; color:#000; font-size:11px; font-weight:700; text-transform:uppercase; text-decoration:none; border-radius:5px;">Apply for Workspace Trial →</a>`, 'bot');
-  }, 1200);
+    
+    appendSecureMsg(response + `<br><br><a href="apply.html" style="display:inline-block; padding:8px 14px; background:#C9A35B; color:#000; font-size:11px; font-weight:700; text-transform:uppercase; text-decoration:none; border-radius:5px; letter-spacing:0.5px;">Initialize Workspace Allocation →</a>`, 'bot');
+  }, 1100);
+}
+
+function processSecureInput() {
+  const inputEl = document.getElementById('secure-input');
+  const queryText = inputEl.value.trim();
+  if(!queryText) return;
+  
+  appendSecureMsg(queryText, 'user');
+  inputEl.value = '';
+  showSecureTyping();
+  
+  setTimeout(() => {
+    removeSecureTyping();
+    const queryLower = queryText.toLowerCase();
+    let adaptiveReply = `Understood. Your technical query ("${queryText}") has been validated against our lead processing framework. Let's map out your active routing parameters.`;
+    
+    if(queryLower.includes('chat') || queryLower.includes('widget') || queryLower.includes('platform')) {
+      adaptiveReply = `<strong>Architectural Distinction:</strong> This floating interface is a sandbox environment designed for agency vetting. Your live system relies entirely on automated <strong>SMS pipeline automation</strong>, bypassing frontend web modules completely to optimize mobile text response metrics.`;
+    } else if(queryLower.includes('setup') || queryLower.includes('time') || queryLower.includes('long') || queryLower.includes('deploy')) {
+      adaptiveReply = `Integration turnaround is precisely <strong>3 business days (72 hours)</strong>. This encompasses listing feed synchronization, data parameters handshake, and full backend CRM pipeline allocation.`;
+    }
+    
+    appendSecureMsg(adaptiveReply + `<br><br><a href="apply.html" style="display:inline-block; padding:8px 14px; background:#C9A35B; color:#000; font-size:11px; font-weight:700; text-transform:uppercase; text-decoration:none; border-radius:5px; letter-spacing:0.5px;">Claim 3-Day Trial Workspace →</a>`, 'bot');
+  }, 1300);
 }
 </script>
-</body>
-</html>
-
 
