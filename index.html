@@ -1580,3 +1580,22 @@ document.addEventListener('keydown', (e) => {
 </body>
 </html>
 <script src="/hermia-widget.js"></script>
+
+<!-- AUTOMATED HERMIA INJECTION LINK -->
+<div id="hermia-widget-destination"></div>
+<script>
+  fetch('secure.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('hermia-widget-destination').innerHTML = data;
+      // Re-initialize the script evaluation elements inside the loaded file
+      const oldScript = document.getElementById('hermia-widget-destination').querySelector('script');
+      if(oldScript) {
+        const newScript = document.createElement('script');
+        newScript.text = oldScript.text;
+        document.body.appendChild(newScript);
+      }
+    })
+    .catch(err => console.error('Error loading Hermia component:', err));
+</script>
+
