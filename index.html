@@ -1581,21 +1581,18 @@ document.addEventListener('keydown', (e) => {
 </html>
 <script src="/hermia-widget.js"></script>
 
-<!-- AUTOMATED HERMIA INJECTION LINK -->
-<div id="hermia-widget-destination"></div>
+<!-- DYNAMIC TICKER INJECTION -->
+<div id="hermia-ticker-anchor"></div>
 <script>
   fetch('secure.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('hermia-widget-destination').innerHTML = data;
-      // Re-initialize the script evaluation elements inside the loaded file
-      const oldScript = document.getElementById('hermia-widget-destination').querySelector('script');
-      if(oldScript) {
-        const newScript = document.createElement('script');
-        newScript.text = oldScript.text;
-        document.body.appendChild(newScript);
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('hermia-ticker-anchor').innerHTML = html;
+      const inlineScript = document.getElementById('hermia-ticker-anchor').querySelector('script');
+      if(inlineScript) {
+        const runScript = document.createElement('script');
+        runScript.text = inlineScript.text;
+        document.body.appendChild(runScript);
       }
-    })
-    .catch(err => console.error('Error loading Hermia component:', err));
+    }).catch(e => console.error(e));
 </script>
-
