@@ -3,199 +3,747 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Service Agreement • Hermia</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <title>Service Agreement — Hermia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --black: #0a0a0a;
+      --black: #080808;
       --card: #111111;
+      --card2: #141414;
       --gold: #C9A35B;
       --gold-light: #e8c17a;
+      --gold-dim: rgba(201,163,91,0.07);
       --cream: #f5f1e8;
-      --muted: #a8a39a;
-      --soft: #d4d0c7;
+      --muted: #8a8580;
+      --soft: #b8b5ad;
+      --border: rgba(201,163,91,0.14);
+      --border-strong: rgba(201,163,91,0.32);
+      --green: #10b981;
+      --red: #ef4444;
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Inter', sans-serif; background:var(--black); color:var(--cream); line-height:1.75; padding:60px 20px; max-width:800px; margin:0 auto; }
-    .header { text-align:center; margin-bottom:60px; }
-    .logo { width:72px; height:72px; margin:0 auto 20px; display:block; filter:drop-shadow(0 4px 25px rgba(201,163,91,0.35)); }
-    h1 { font-family:'Playfair Display', serif; font-size:42px; color:#fff; letter-spacing:-1px; }
-    .doc-meta { font-size:13px; color:var(--muted); margin-top:8px; text-transform:uppercase; letter-spacing:2px; }
-    h2 { font-size:15px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin:48px 0 16px; }
-    p, li { font-size:16px; color:var(--soft); margin-bottom:14px; text-align: justify; }
-    ul { padding-left:24px; margin-bottom:20px; }
-    .highlight-box { background:rgba(201,163,91,0.08); border:1px solid rgba(201,163,91,0.2); padding:30px; border-radius:16px; margin:32px 0; }
-    .strike { text-decoration:line-through; opacity:0.5; font-size:0.9em; }
-    .price-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
-    .agreement-card { background:var(--card); border:1px solid rgba(201,163,91,0.3); border-radius:24px; padding:44px; margin-top:52px; }
-    .pay-btn { display:block; text-align:center; padding:22px; border-radius:14px; font-weight:700; text-decoration:none; margin-top:16px; transition:0.3s; font-size:17px; cursor:pointer; border:none; width:100%; font-family:'Inter',sans-serif; }
-    .btn-au { background:var(--gold); color:#111; }
-    .btn-au:hover { background:var(--gold-light); transform:translateY(-3px); box-shadow:0 12px 30px rgba(201,163,91,0.3); }
-    .btn-uae { background:#fff; color:#111; margin-top:12px; }
-    .btn-uae:hover { background:#f5f1e8; transform:translateY(-3px); }
-    footer { margin-top:80px; text-align:center; font-size:13px; color:var(--muted); border-top:1px solid #222; padding-top:40px; }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'DM Sans', sans-serif;
+      background:var(--black);
+      color:var(--cream);
+      min-height:100vh;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    /* ── GLOWS ── */
+    .glow-tl {
+      position:fixed; top:-15%; left:-10%;
+      width:600px; height:600px;
+      background:radial-gradient(circle, rgba(201,163,91,0.10) 0%, transparent 70%);
+      filter:blur(90px); pointer-events:none; z-index:0;
+    }
+    .glow-br {
+      position:fixed; bottom:-15%; right:-10%;
+      width:500px; height:500px;
+      background:radial-gradient(circle, rgba(201,163,91,0.07) 0%, transparent 70%);
+      filter:blur(90px); pointer-events:none; z-index:0;
+    }
+
+    /* ── NAV ── */
+    .top-nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      padding:18px 48px;
+      display:flex; align-items:center; justify-content:space-between;
+      background:rgba(8,8,8,0.92); backdrop-filter:blur(24px);
+      border-bottom:1px solid var(--border);
+    }
+    .back-btn {
+      display:inline-flex; align-items:center; gap:9px;
+      color:var(--soft); text-decoration:none;
+      font-size:11px; font-weight:600;
+      letter-spacing:1.5px; text-transform:uppercase;
+      transition:color 0.25s;
+    }
+    .back-btn:hover { color:var(--gold); }
+    .nav-logo {
+      font-family:'Cormorant Garamond', serif;
+      font-size:20px; font-weight:600; color:var(--cream);
+      letter-spacing:-0.3px; text-decoration:none;
+    }
+    .nav-badge {
+      font-size:10px; font-weight:700; letter-spacing:2px;
+      text-transform:uppercase; color:var(--gold);
+      background:var(--gold-dim); border:1px solid var(--border);
+      padding:5px 12px; border-radius:20px;
+    }
+
+    /* ── PAGE ── */
+    .page-wrap {
+      position:relative; z-index:1;
+      max-width:820px; margin:0 auto;
+      padding:148px 32px 100px;
+    }
+
+    /* ── HEADER ── */
+    .doc-header {
+      text-align:center;
+      padding-bottom:64px;
+      border-bottom:1px solid var(--border);
+      margin-bottom:64px;
+    }
+    .doc-eyebrow {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--gold-dim); border:1px solid var(--border);
+      padding:6px 18px; border-radius:100px;
+      font-size:10px; font-weight:700; letter-spacing:3px;
+      text-transform:uppercase; color:var(--gold); margin-bottom:28px;
+    }
+    .doc-eyebrow-dot {
+      width:5px; height:5px; background:var(--gold);
+      border-radius:50%; opacity:0.7;
+    }
+    .doc-header h1 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(38px,6vw,64px); font-weight:700;
+      color:#fff; letter-spacing:-1.5px; line-height:1.06;
+      margin-bottom:18px;
+      text-shadow:0 0 40px rgba(201,163,91,0.2);
+    }
+    .doc-header h1 em { font-style:italic; color:var(--gold); }
+    .doc-meta-row {
+      display:flex; align-items:center; justify-content:center;
+      gap:20px; flex-wrap:wrap; margin-top:20px;
+    }
+    .doc-meta-pill {
+      display:flex; align-items:center; gap:7px;
+      font-size:11px; color:var(--muted);
+    }
+    .doc-meta-pill span {
+      font-size:9px; font-weight:700; letter-spacing:1.5px;
+      text-transform:uppercase; color:rgba(201,163,91,0.5);
+    }
+    .dot-sep { width:3px; height:3px; background:var(--border-strong); border-radius:50%; }
+
+    /* ── FOUNDING BADGE ── */
+    .founding-badge {
+      display:inline-flex; align-items:center; gap:10px;
+      background:linear-gradient(135deg, rgba(201,163,91,0.12), rgba(201,163,91,0.05));
+      border:1px solid var(--border-strong);
+      border-radius:12px; padding:12px 20px;
+      margin-bottom:28px;
+    }
+    .founding-badge-star { color:var(--gold); font-size:14px; }
+    .founding-badge-text {
+      font-size:11px; font-weight:700; letter-spacing:2px;
+      text-transform:uppercase; color:var(--gold-light);
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      margin-bottom:52px;
+      animation:fadeUp 0.5s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(16px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .section-num-row {
+      display:flex; align-items:center; gap:14px; margin-bottom:18px;
+    }
+    .section-num {
+      font-family:'Cormorant Garamond', serif;
+      font-size:13px; font-weight:700; color:rgba(201,163,91,0.4);
+      letter-spacing:2px; min-width:26px;
+    }
+    .section-rule {
+      height:1px; flex:1;
+      background:linear-gradient(90deg, var(--border-strong), transparent);
+    }
+    .section h2 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(22px,3vw,30px); font-weight:700;
+      color:#fff; line-height:1.2; letter-spacing:-0.4px;
+      margin-bottom:18px;
+    }
+    .section h2 em { font-style:italic; color:var(--gold); }
+    .section p {
+      font-size:14px; color:var(--soft);
+      line-height:1.85; font-weight:300; margin-bottom:14px;
+    }
+    .section p:last-child { margin-bottom:0; }
+    .section strong { color:#ddd; font-weight:500; }
+    .section em { color:var(--gold-light); font-style:italic; }
+
+    /* ── LIST ── */
+    .doc-list {
+      list-style:none; padding:0;
+      display:flex; flex-direction:column; gap:10px; margin-top:4px;
+    }
+    .doc-list li {
+      display:flex; gap:14px; align-items:flex-start;
+      font-size:14px; color:var(--soft); line-height:1.75; font-weight:300;
+    }
+    .doc-list li::before {
+      content:''; display:block; min-width:5px; height:5px;
+      background:var(--gold); border-radius:50%;
+      margin-top:9px; opacity:0.6;
+    }
+
+    /* ── NOTICE BOX ── */
+    .notice-box {
+      background:rgba(201,163,91,0.04);
+      border:1px solid rgba(201,163,91,0.18);
+      border-left:3px solid var(--gold);
+      border-radius:12px; padding:26px 28px; margin:24px 0;
+    }
+    .notice-label {
+      font-size:9px; font-weight:700; letter-spacing:2.5px;
+      text-transform:uppercase; color:var(--gold);
+      margin-bottom:12px; opacity:0.85;
+    }
+    .notice-box p {
+      font-size:13px; color:var(--soft);
+      line-height:1.8; font-weight:300; margin-bottom:0;
+    }
+    .notice-box p strong { color:var(--gold-light); font-weight:500; }
+
+    /* ── LIABILITY BOX ── */
+    .liability-box {
+      background:rgba(239,68,68,0.04);
+      border:1px solid rgba(239,68,68,0.15);
+      border-left:3px solid rgba(239,68,68,0.5);
+      border-radius:12px; padding:26px 28px; margin:24px 0;
+    }
+    .liability-label {
+      font-size:9px; font-weight:700; letter-spacing:2.5px;
+      text-transform:uppercase; color:#f87171;
+      margin-bottom:12px;
+    }
+    .liability-box p {
+      font-size:13px; color:var(--soft);
+      line-height:1.85; font-weight:300; margin-bottom:0;
+    }
+
+    /* ── PRICING CARDS ── */
+    .price-grid {
+      display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px 0;
+    }
+    .price-card {
+      background:var(--card); border:1px solid var(--border);
+      border-radius:14px; padding:24px;
+      transition:border-color 0.25s;
+    }
+    .price-card:hover { border-color:var(--border-strong); }
+    .price-zone {
+      font-size:9px; font-weight:700; letter-spacing:2px;
+      text-transform:uppercase; color:var(--gold); margin-bottom:12px;
+    }
+    .price-amount {
+      font-family:'Cormorant Garamond', serif;
+      font-size:36px; font-weight:700; color:#fff; line-height:1; margin-bottom:4px;
+    }
+    .price-period { font-size:11px; color:var(--muted); font-weight:300; margin-bottom:12px; }
+    .price-setup-was {
+      font-size:11px; color:rgba(138,133,128,0.4);
+      text-decoration:line-through; margin-bottom:4px;
+    }
+    .price-setup-free {
+      font-size:11px; font-weight:600;
+      color:rgba(16,185,129,0.8);
+      background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.15);
+      border-radius:6px; padding:3px 10px; display:inline-block;
+    }
+
+    /* ── SECTION DIVIDER ── */
+    .section-divider {
+      display:flex; align-items:center; gap:12px; margin:52px 0 0;
+    }
+    .section-divider::before, .section-divider::after {
+      content:''; flex:1; height:1px; background:var(--border);
+    }
+    .section-divider-diamond {
+      width:5px; height:5px; background:var(--gold);
+      transform:rotate(45deg); opacity:0.4;
+    }
+
+    /* ══════════════════════════════════════
+       AGREEMENT CARD
+    ══════════════════════════════════════ */
+    .agreement-card {
+      position:relative;
+      background:linear-gradient(145deg, rgba(201,163,91,0.06) 0%, var(--card) 60%);
+      border:1px solid var(--border-strong);
+      border-radius:24px;
+      padding:52px 48px;
+      margin-top:64px;
+      overflow:hidden;
+    }
+    /* Corner accents */
+    .agreement-card::before, .agreement-card::after {
+      content:''; position:absolute;
+      width:20px; height:20px;
+      border-color:var(--gold); border-style:solid;
+    }
+    .agreement-card::before { top:16px; right:16px; border-width:1px 1px 0 0; }
+    .agreement-card::after  { bottom:16px; left:16px; border-width:0 0 1px 1px; }
+
+    .agreement-header {
+      text-align:center; margin-bottom:40px;
+    }
+    .agreement-header h3 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:32px; font-weight:700; color:#fff;
+      letter-spacing:-0.5px; margin-bottom:8px;
+    }
+    .agreement-header h3 em { font-style:italic; color:var(--gold); }
+    .agreement-header p {
+      font-size:13px; color:var(--muted); font-weight:300;
+    }
+
+    /* Fields */
+    .field-group {
+      margin-bottom:22px;
+    }
+    .field-label {
+      display:block;
+      font-size:9px; font-weight:700; letter-spacing:2px;
+      text-transform:uppercase; color:rgba(201,163,91,0.6);
+      margin-bottom:10px;
+    }
+    .field-input {
+      width:100%; padding:14px 18px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid var(--border);
+      border-radius:10px;
+      color:var(--cream);
+      font-size:14px; font-family:'DM Sans', sans-serif;
+      outline:none; transition:all 0.25s;
+    }
+    .field-input::placeholder { color:var(--muted); }
+    .field-input:focus {
+      border-color:var(--gold);
+      background:rgba(201,163,91,0.04);
+      box-shadow:0 0 0 3px rgba(201,163,91,0.07);
+    }
+
+    /* Checkbox */
+    .checkbox-row {
+      display:flex; gap:14px; align-items:flex-start;
+      cursor:pointer;
+      background:rgba(255,255,255,0.02);
+      border:1px solid var(--border);
+      border-radius:12px; padding:18px 20px;
+      transition:all 0.25s; margin-bottom:28px;
+    }
+    .checkbox-row:hover { border-color:var(--border-strong); }
+    .checkbox-row input[type="checkbox"] {
+      width:18px; height:18px; min-width:18px;
+      accent-color:var(--gold); margin-top:2px; cursor:pointer;
+    }
+    .checkbox-text {
+      font-size:13px; color:var(--soft); line-height:1.65; font-weight:300;
+    }
+    .checkbox-text strong { color:#ddd; font-weight:500; }
+
+    /* Country buttons */
     .country-picker { display:none; }
     .country-picker.visible { display:block; }
-    input[type="text"], input[type="email"] { width:100%; padding:14px 18px; background:#1a1a1a; border:1px solid rgba(201,163,91,0.3); border-radius:10px; color:var(--cream); font-size:16px; font-family:'Inter',sans-serif; outline:none; transition:border 0.2s; }
-    input[type="text"]:focus, input[type="email"]:focus { border-color:var(--gold); }
-    .checkbox-row { display:flex; gap:12px; align-items:flex-start; cursor:pointer; }
-    .checkbox-row input { margin-top:4px; accent-color:var(--gold); width:18px; height:18px; flex-shrink:0; }
+
+    .payment-grid {
+      display:grid; grid-template-columns:1fr 1fr; gap:12px;
+    }
+    .pay-btn {
+      display:flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:18px 20px; border-radius:12px;
+      font-family:'DM Sans', sans-serif;
+      font-size:12px; font-weight:700;
+      letter-spacing:1.5px; text-transform:uppercase;
+      cursor:pointer; border:none;
+      transition:all 0.28s; text-decoration:none;
+      position:relative; overflow:hidden;
+    }
+    .pay-btn-content { display:flex; flex-direction:column; align-items:center; gap:3px; }
+    .pay-btn-flag { font-size:20px; }
+    .pay-btn-label { font-size:10px; font-weight:700; letter-spacing:2px; }
+    .pay-btn-price { font-size:13px; font-weight:700; opacity:0.8; letter-spacing:0.5px; }
+
+    .btn-au {
+      background:linear-gradient(135deg, #8a6820, #e8c17a, #a07828);
+      color:#000;
+      box-shadow:0 8px 24px rgba(201,163,91,0.28);
+    }
+    .btn-au:hover {
+      filter:brightness(1.1); transform:translateY(-3px);
+      box-shadow:0 14px 32px rgba(201,163,91,0.42);
+    }
+    .btn-uae {
+      background:rgba(255,255,255,0.06);
+      color:var(--cream);
+      border:1px solid var(--border-strong);
+    }
+    .btn-uae:hover {
+      background:rgba(255,255,255,0.10);
+      border-color:var(--gold);
+      transform:translateY(-3px);
+      box-shadow:0 14px 32px rgba(0,0,0,0.3);
+    }
+
+    /* Messages */
+    .warning-msg {
+      display:none; margin-top:12px;
+      font-size:12px; color:#f87171;
+      display:flex; align-items:center; gap:8px;
+    }
+    .warning-msg::before {
+      content:'!'; width:16px; height:16px; min-width:16px;
+      background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3);
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
+      font-size:10px; font-weight:700;
+    }
+    .sending-msg {
+      display:none; margin-top:16px;
+      text-align:center; font-size:13px; color:var(--gold);
+      font-weight:300; letter-spacing:0.5px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position:relative; z-index:1;
+      border-top:1px solid var(--border);
+      padding:48px 48px 40px;
+      background:rgba(0,0,0,0.25);
+    }
+    .footer-inner {
+      max-width:820px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; gap:20px;
+    }
+    .footer-brand {
+      font-family:'Cormorant Garamond', serif;
+      font-size:19px; font-weight:600; color:var(--cream);
+    }
+    .footer-brand small {
+      display:block; font-family:'DM Sans', sans-serif;
+      font-size:11px; font-weight:300; color:var(--muted);
+      letter-spacing:0.3px; margin-top:3px;
+    }
+    .footer-links { display:flex; align-items:center; gap:18px; }
+    .footer-link {
+      font-size:11px; font-weight:600; letter-spacing:1px;
+      text-transform:uppercase; color:var(--muted);
+      text-decoration:none; transition:color 0.2s;
+    }
+    .footer-link:hover { color:var(--gold); }
+    .footer-bottom {
+      max-width:820px; margin:24px auto 0;
+      padding-top:18px; border-top:1px solid rgba(201,163,91,0.06);
+      display:flex; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; gap:10px;
+    }
+    .footer-copy { font-size:11px; color:rgba(138,133,128,0.45); font-weight:300; }
+    .footer-abn { display:inline-flex; align-items:center; gap:8px; }
+    .footer-abn-badge {
+      font-size:9px; font-weight:700; letter-spacing:1.5px;
+      text-transform:uppercase; color:rgba(201,163,91,0.4);
+      background:rgba(201,163,91,0.05); border:1px solid rgba(201,163,91,0.1);
+      border-radius:4px; padding:3px 7px;
+    }
+    .footer-abn-num {
+      font-size:11px; color:rgba(138,133,128,0.4);
+      font-family:'Courier New', monospace; letter-spacing:0.5px;
+    }
+
+    @media(max-width:640px) {
+      .top-nav { padding:16px 20px; }
+      .page-wrap { padding:120px 20px 80px; }
+      .nav-badge { display:none; }
+      .price-grid { grid-template-columns:1fr; }
+      .payment-grid { grid-template-columns:1fr; }
+      .agreement-card { padding:32px 22px; }
+      footer { padding:36px 20px 28px; }
+      .footer-inner { flex-direction:column; align-items:flex-start; }
+    }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo">
-    <h1>Service Agreement</h1>
-    <p class="doc-meta">Founder's Special Selection • Automated Data Infrastructure</p>
+<div class="glow-tl"></div>
+<div class="glow-br"></div>
+
+<!-- NAV -->
+<nav class="top-nav">
+  <a href="index.html" class="back-btn">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+    Back to Site
+  </a>
+  <a href="index.html" class="nav-logo">Hermia</a>
+  <span class="nav-badge">Service Agreement</span>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="doc-eyebrow">
+      <span class="doc-eyebrow-dot"></span>
+      Legal Document
+    </div>
+    <div class="founding-badge">
+      <span class="founding-badge-star">★</span>
+      <span class="founding-badge-text">First 10 Founding Partners — Launch Tier</span>
+      <span class="founding-badge-star">★</span>
+    </div>
+    <h1>Service<br><em>Agreement</em></h1>
+    <div class="doc-meta-row">
+      <div class="doc-meta-pill"><span>Entity</span> Hermia · ABN 75 434 177 026</div>
+      <div class="dot-sep"></div>
+      <div class="doc-meta-pill"><span>Version</span> 1.0 — 18 May 2026</div>
+      <div class="dot-sep"></div>
+      <div class="doc-meta-pill"><span>Jurisdiction</span> Victoria, Australia</div>
+    </div>
   </div>
 
-  <h2>1. The Partnership</h2>
-  <p>This Legally Binding Software Service Agreement ("Agreement") is executed between <strong>Hermia</strong> ("Provider", ABN 75 434 177 026) and the subscribing business identity ("Client"). By entering signature configurations and executing initialization, the Client is secured under the restrictive <strong>First 10 Founding Partners Launch Tier</strong>.</p>
-
-  <h2>2. Scope of Service & Triage Infrastructure</h2>
-  <p>The Provider grants the Client a limited, revocable, non-transferable internal license to access the <strong>Hermia Lead Triage & Qualification Software</strong>. The system operates strictly as a backend automated data optimization layer that ingests incoming property inquiries via data webhooks, executes programmatic conversation structures via SMS and WhatsApp logic gates, scores conversation intent patterns, and transcribes structured datasets directly back into the Client's integrated Customer Relationship Management (CRM) tools.</p>
-
-  <div class="highlight-box" style="border-left: 4px solid var(--gold);">
-    <strong style="color: #fff; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; display: block; margin-bottom: 8px;">★ EXPLICIT INBOUND LEAD DISCLAIMER:</strong>
-    <p style="margin: 0; font-size: 15px; color: var(--gold-light);">Hermia is purely a post-inquiry qualification utility. The Provider does NOT source, buy, capture, advertise, or generate new leads, prospects, or listings. The Client maintains 100% financial and operational liability for running all forward marketing pipelines and driving inbound consumer inquiries into Hermia’s programmatic webhooks.</p>
+  <!-- SECTION 1 -->
+  <div class="section" style="animation-delay:0.05s">
+    <div class="section-num-row"><span class="section-num">01</span><div class="section-rule"></div></div>
+    <h2>The <em>Partnership</em></h2>
+    <p>This Legally Binding Software Service Agreement ("Agreement") is executed between <strong>Hermia</strong> ("Provider", ABN 75 434 177 026) and the subscribing business identity ("Client"). By entering signature configurations and executing initialization, the Client is secured under the restrictive <strong>First 10 Founding Partners Launch Tier</strong>.</p>
   </div>
 
-  <h2>3. Founding Partner Pricing & Automatic Renewal</h2>
-  <div class="highlight-box">
-    <div class="price-row">
-      <span>Professional Setup & Environment Integration</span>
-      <span class="strike">$1,700 AUD / AED 2,600</span>
-    </div>
-    <div class="price-row" style="color:var(--gold); font-weight:700;">
-      <span>Special Launch Offer</span>
-      <span><strong>No setup fee</strong></span>
-    </div>
-    <div style="height:1px; background:rgba(201,163,91,0.2); margin:15px 0;"></div>
-    <div class="price-row">
-      <strong>Monthly Software Licensing Access</strong>
-      <strong>$260 AUD / AED 1,400</strong>
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
+
+  <!-- SECTION 2 -->
+  <div class="section" style="animation-delay:0.08s; margin-top:52px;">
+    <div class="section-num-row"><span class="section-num">02</span><div class="section-rule"></div></div>
+    <h2>Scope of Service <em>&amp; Infrastructure</em></h2>
+    <p>The Provider grants the Client a limited, revocable, non-transferable internal license to access the <strong>Hermia Lead Triage &amp; Qualification Software</strong>. The system operates strictly as a backend automated data optimization layer that ingests incoming property inquiries via data webhooks, executes programmatic conversation structures via SMS and WhatsApp logic gates, scores conversation intent patterns, and transcribes structured datasets directly back into the Client's integrated CRM tools.</p>
+    <div class="notice-box">
+      <div class="notice-label">★ Explicit Inbound Lead Disclaimer</div>
+      <p><strong>Hermia is purely a post-inquiry qualification utility.</strong> The Provider does not source, buy, capture, advertise, or generate new leads, prospects, or listings. The Client maintains 100% financial and operational liability for running all forward marketing pipelines and driving inbound consumer inquiries into Hermia's programmatic webhooks.</p>
     </div>
   </div>
-  <p>All subscription models are processed securely via recurring billing networks. Subscriptions operate on a recurring month-to-month schedule and auto-renew systematically at the end of each billing loop using the Client’s stored payment method, unless canceled in line with Section 4.</p>
 
-  <h2>4. How to Cancel</h2>
-  <p>This is an agile software service with zero long-term contractual locking mechanisms. To stop recurring infrastructure operations, the Client must cleanly execute one of the following protocols:</p>
-  <ul>
-    <li>Provide explicit written notice to <strong>capital@hermia.au</strong> using the precise subject parameter "Cancel Subscription"; or</li>
-    <li>Directly initiate standard closure parameters within the self-managed <strong>Stripe Billing Portal</strong> link appended to all electronic system invoices.</li>
-  </ul>
-  <p>To avoid processing of the subsequent billing block, cancellation procedures must be completed at least <strong>48 hours prior</strong> to the scheduled automated renewal stamp.</p>
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
-  <h2>5. Compliance, Infrastructure Safeguards & Latency</h2>
-  <p>The Provider configures and maintains automated text-routing endpoints to comply with baseline regional processing formats. Because operations depend on external networks (Meta, WhatsApp API, telecom providers, cloud nodes), the Provider disclaims absolute warranties regarding continuous uptime or instant message deliverability. Network maintenance windows, API structural updates by third parties, or telecommunication filtering may introduce transient data latency outside the Provider's structural control.</p>
+  <!-- SECTION 3 -->
+  <div class="section" style="animation-delay:0.11s; margin-top:52px;">
+    <div class="section-num-row"><span class="section-num">03</span><div class="section-rule"></div></div>
+    <h2>Founding Partner Pricing <em>&amp; Renewal</em></h2>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="price-zone">🇦🇺 Australia</div>
+        <div class="price-amount">$260</div>
+        <div class="price-period">AUD per month</div>
+        <div class="price-setup-was">Setup fee $1,700 AUD</div>
+        <span class="price-setup-free">✓ No setup fee</span>
+      </div>
+      <div class="price-card">
+        <div class="price-zone">🇦🇪 UAE</div>
+        <div class="price-amount">AED 1,400</div>
+        <div class="price-period">per month</div>
+        <div class="price-setup-was">Setup fee AED 2,600</div>
+        <span class="price-setup-free">✓ No setup fee</span>
+      </div>
+    </div>
+    <p style="margin-top:16px;">All subscriptions operate on a recurring month-to-month schedule and auto-renew at the end of each billing loop using the Client's stored payment method, unless canceled in line with Section 4.</p>
+  </div>
 
-  <h2>6. AGGRESSIVE LIMITATION OF LIABILITY & INDEMNIFICATION</h2>
-  <p>THE SYSTEM IS PROVIDED ON AN "AS IS" ARCHITECTURAL BASIS. TO THE MAXIMUM EXTENT PERMITTED BY SVEREIGN LAW, IN NO EVENT SHALL HERMIA OR ITS SOFTWARE ARCHITECTS BE LIABLE FOR INDIRECT, INCIDENTAL, CONSEQUENTIAL, SPECIAL, OR PUNATIVE DAMAGES. THIS EXCLUSION COVERS LOSS OF REAL ESTATE AGENCY BROKERAGE COMMISSIONS, CONTRACT REVENUES, LISTING AGREEMENT CANCELLATIONS, REPUTATIONAL BLOCKS, OR THE DROPPING OF MARGINAL CLIENT DEALS. HERMIA'S TOTAL CUMULATIVE MONETARY LIABILITY FOR ANY CONTESTED CAUSE OF ACTION SHALL NEVER EXCEED THE SUM TOTAL OF FEES PAID BY THE CLIENT TO HERMIA IN THE EXACT THREE (3) MONTH PERIOD IMMEDIATELY PRECEDING THE FILED DISPUTE. THE CLIENT AGREES TO FULLY DEFEND AND INDEMNIFY THE PROVIDER AGAINST ALL ADMINISTRATIVE REVENUE FINES OR CLAIMS ARISING FROM OUTBOUND TEXT PATTERNS.</p>
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
-  <h2>7. Lead Data Ownership & Regulatory Consent Warranties</h2>
-  <p>The Client acts strictly as the **Data Controller** under global data laws. The Client warrants, covenants, and represents that it holds clear, explicit, documented opt-in consent from all real estate consumers before allowing any contact metadata to route into Hermia's technical processing arrays. The Client maintains non-transferable liability for compliance with the <em>Spam Act 2003</em> (Cth), the <em>Do Not Call Register Act 2006</em> (Cth), the <em>Australian Privacy Act 1988</em>, and the <em>UAE Personal Data Protection Law (PDPL) Decree-Law No. 45 of 2021</em>. Hermia operates as a **Data Processor** acting solely under the technological instructions mapped by the Client.</p>
+  <!-- SECTION 4 -->
+  <div class="section" style="animation-delay:0.14s; margin-top:52px;">
+    <div class="section-num-row"><span class="section-num">04</span><div class="section-rule"></div></div>
+    <h2>How to <em>Cancel</em></h2>
+    <p>This is an agile software service with zero long-term contractual locking mechanisms. To stop recurring infrastructure operations, the Client must cleanly execute one of the following protocols:</p>
+    <ul class="doc-list" style="margin-top:12px;">
+      <li>Provide explicit written notice to <strong>capital@hermia.au</strong> using the subject line <em>"Cancel Subscription"</em></li>
+      <li>Directly initiate closure within the self-managed <strong>Stripe Billing Portal</strong> link appended to all electronic system invoices</li>
+    </ul>
+    <p style="margin-top:14px;">To avoid processing of the subsequent billing block, cancellation must be completed at least <strong>48 hours prior</strong> to the scheduled automated renewal stamp.</p>
+  </div>
 
-  <h2>8. Intellectual Property & Code Protection</h2>
-  <p>All automated dialogue arrays, filtration logic gates, prompt architectures, software routing systems, code packages, and operational methodologies are verified trade secrets owned exclusively by Hermia. The Client is prohibited from performing script decompilation, reverse-engineering logic mapping, configuration cloning, or reselling any functional elements of the Hermia layout. Infraction triggers immediate service termination without notice or financial recourse.</p>
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
-  <h2>9. Governing Law & Dispute Forum</h2>
-  <p>This entire Service Agreement, along with any operational friction resulting from platform execution, is governed explicitly by the laws of the **State of Victoria, Australia**. Both parties irrevocably submit to the exclusive territorial jurisdiction of the courts located within Melbourne, Victoria, Australia for any litigation or resolution proceedings.</p>
+  <!-- SECTION 5 -->
+  <div class="section" style="animation-delay:0.17s; margin-top:52px;">
+    <div class="section-num-row"><span class="section-num">05</span><div class="section-rule"></div></div>
+    <h2>Compliance <em>&amp; Infrastructure Safeguards</em></h2>
+    <p>The Provider configures and maintains automated text-routing endpoints to comply with baseline regional processing formats. Because operations depend on external networks (Meta, WhatsApp API, telecom providers, cloud nodes), the Provider disclaims absolute warranties regarding continuous uptime or instant message deliverability. Network maintenance windows, API structural updates by third parties, or telecommunication filtering may introduce transient data latency outside the Provider's structural control.</p>
+  </div>
 
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
+
+  <!-- SECTION 6 -->
+  <div class="section" style="animation-delay:0.20s; margin-top:52px;">
+    <div class="section-num-row"><span class="section-num">06</span><div class="section-rule"></div></div>
+    <h2>Limitation of Liability <em>&amp; Indemnification</em></h2>
+    <div class="liability-box">
+      <div class="liability-label">⚑ Liability Exclusion</div>
+      <p>The system is provided on an "as is" architectural basis. To the maximum extent permitted by sovereign law, Hermia and its software architects shall not be liable for indirect, incidental, consequential, special, or punitive damages. This exclusion covers loss of real estate agency brokerage commissions, contract revenues, listing agreement cancellations, reputational blocks, or the dropping of marginal client deals. Hermia's total cumulative monetary liability for any contested cause of action shall never exceed the sum total of fees paid by the Client to Hermia in the exact three (3) month period immediately preceding the filed dispute. The Client agrees to fully defend and indemnify the Provider against all administrative revenue fines or claims arising from outbound text patterns.</p>
+    </div>
+  </div>
+
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
+
+  <!-- SECTION 7 -->
+  <div class="section" style="animation-delay:0.23s; margin-top:52px;">
+    <div class="section-num-row"><span class="section-num">07</span><div class="section-rule"></div></div>
+    <h2>Lead Data Ownership <em>&amp; Consent Warranties</em></h2>
+    <p>The Client acts strictly as the <strong>Data Controller</strong> under global data laws. The Client warrants and represents that it holds clear, explicit, documented opt-in consent from all real estate consumers before allowing any contact metadata to route into Hermia's technical processing arrays. The Client maintains non-transferable liability for compliance with the <em>Spam Act 2003</em> (Cth), the <em>Do Not Call Register Act 2006</em> (Cth), the <em>Australian Privacy Act 1988</em>, and the <em>UAE Personal Data Protection Law (PDPL) Decree-Law No. 45 of 2021</em>. Hermia operates as a <strong>Data Processor</strong> acting solely under the technological instructions mapped by the Client.</p>
+  </div>
+
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
+
+  <!-- SECTION 8 -->
+  <div class="section" style="animation-delay:0.26s; margin-top:52px;">
+    <div class="section-num-row"><span class="section-num">08</span><div class="section-rule"></div></div>
+    <h2>Intellectual Property <em>&amp; Code Protection</em></h2>
+    <p>All automated dialogue arrays, filtration logic gates, prompt architectures, software routing systems, code packages, and operational methodologies are verified trade secrets owned exclusively by Hermia. The Client is prohibited from performing script decompilation, reverse-engineering logic mapping, configuration cloning, or reselling any functional elements of the Hermia layout. Infraction triggers immediate service termination without notice or financial recourse.</p>
+  </div>
+
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
+
+  <!-- SECTION 9 -->
+  <div class="section" style="animation-delay:0.29s; margin-top:52px;">
+    <div class="section-num-row"><span class="section-num">09</span><div class="section-rule"></div></div>
+    <h2>Governing Law <em>&amp; Dispute Forum</em></h2>
+    <p>This entire Service Agreement, along with any operational friction resulting from platform execution, is governed explicitly by the laws of the <strong>State of Victoria, Australia</strong>. Both parties irrevocably submit to the exclusive territorial jurisdiction of the courts located within Melbourne, Victoria, Australia for any litigation or resolution proceedings.</p>
+  </div>
+
+  <!-- ══════════════════ AGREEMENT CARD ══════════════════ -->
   <div class="agreement-card">
-    <h3 style="text-align:center; margin-bottom:24px; font-family:'Playfair Display'; font-size:24px;">Accept Terms & Secure Spot</h3>
-
-    <div style="margin-bottom:20px;">
-      <label style="font-size:13px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:8px;">Full Name</label>
-      <input type="text" id="clientName" placeholder="Your full legal name" />
+    <div class="agreement-header">
+      <h3>Accept Terms &amp; <em>Secure Your Spot</em></h3>
+      <p>Enter your details below. Your name constitutes your electronic signature.</p>
     </div>
 
-    <div style="margin-bottom:24px;">
-      <label style="font-size:13px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:8px;">Email Address</label>
-      <input type="email" id="clientEmail" placeholder="Your email address" />
+    <div class="field-group">
+      <label class="field-label" for="clientName">Full Legal Name</label>
+      <input class="field-input" type="text" id="clientName" placeholder="Your full legal name" autocomplete="name">
     </div>
 
-    <label class="checkbox-row" style="margin-bottom:24px;">
+    <div class="field-group">
+      <label class="field-label" for="clientEmail">Email Address</label>
+      <input class="field-input" type="email" id="clientEmail" placeholder="Your email address" autocomplete="email">
+    </div>
+
+    <label class="checkbox-row" for="agreeCheckbox">
       <input type="checkbox" id="agreeCheckbox">
-      <span style="color:var(--soft); font-size:15px;">I have read and agree to the terms and conditions of this Service Agreement. I confirm the name entered above is accurate and constitutes my electronic signature, dated <span id="todayDate"></span>.</span>
+      <span class="checkbox-text">
+        I have read and agree to the terms and conditions of this Service Agreement. I confirm the name entered above is accurate and constitutes my <strong>electronic signature</strong>, dated <span id="todayDate" style="color:var(--gold-light);"></span>.
+      </span>
     </label>
 
     <div class="country-picker" id="countryPicker">
-      <button class="pay-btn btn-au" onclick="handlePayment('AU')">
-        🇦🇺 Secure Founding Spot ($260 AUD / month)
-      </button>
-      <button class="pay-btn btn-uae" onclick="handlePayment('UAE')">
-        🇦🇪 Secure Founding Spot (AED 1,400 / month)
-      </button>
+      <div style="font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(201,163,91,0.5); text-align:center; margin-bottom:14px;">Select Your Region to Continue</div>
+      <div class="payment-grid">
+        <button class="pay-btn btn-au" onclick="handlePayment('AU')">
+          <div class="pay-btn-content">
+            <span class="pay-btn-flag">🇦🇺</span>
+            <span class="pay-btn-label">Australia</span>
+            <span class="pay-btn-price">$260 AUD / month</span>
+          </div>
+        </button>
+        <button class="pay-btn btn-uae" onclick="handlePayment('UAE')">
+          <div class="pay-btn-content">
+            <span class="pay-btn-flag">🇦🇪</span>
+            <span class="pay-btn-label">UAE / Dubai</span>
+            <span class="pay-btn-price">AED 1,400 / month</span>
+          </div>
+        </button>
+      </div>
+      <p style="text-align:center; font-size:11px; color:var(--muted); margin-top:14px; font-weight:300; font-style:italic;">No setup fee during launch · Cancel anytime · 3-day free trial included</p>
     </div>
 
-    <p id="nameWarning" style="color:#e07070; font-size:14px; display:none; margin-top:12px;">Please enter your full name before agreeing.</p>
-    <p id="sendingMsg" style="color:var(--gold); font-size:14px; display:none; text-align:center; margin-top:12px;">Saving your agreement — redirecting to payment ✦</p>
+    <p id="nameWarning" class="warning-msg" style="display:none;">Please enter your full name before agreeing.</p>
+    <p id="sendingMsg" class="sending-msg">Saving your agreement — redirecting to payment ✦</p>
   </div>
 
-  <footer>
-    © 2026 Hermia · ABN 75 434 177 026<br>
-    Hermia is an independent software solution. All product names, logos, and brands are property of their respective owners. Use of these names, trademarks, and brands does not imply endorsement.<br><br>
-    <a href="/privacy" style="color:var(--muted);">Privacy Policy</a> &nbsp;·&nbsp; <a href="/terms" style="color:var(--muted);">Terms of Service</a>
-  </footer>
+</div><!-- /page-wrap -->
 
-  <script>
-    const WEBHOOK_URL = 'https://hook.eu1.make.com/55y5lsql5rmr8ju9cmlt9o5115q784ay';
-    const STRIPE_AU  = 'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04';
-    const STRIPE_UAE = 'https://buy.stripe.com/cNi5kFdvPdeY2W6cUA9EI05';
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      Hermia
+      <small>AI Lead Qualification for Real Estate</small>
+    </div>
+    <div class="footer-links">
+      <a href="index.html" class="footer-link">Home</a>
+      <a href="/privacy" class="footer-link">Privacy</a>
+      <a href="/terms" class="footer-link">Terms</a>
+      <a href="mailto:capital@hermia.au" class="footer-link">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Hermia. Independent software provider. All trademarks property of their respective owners.</span>
+    <div class="footer-abn">
+      <span class="footer-abn-badge">ABN</span>
+      <span class="footer-abn-num">75 434 177 026</span>
+    </div>
+  </div>
+</footer>
 
-    const today = new Date();
-    document.getElementById('todayDate').textContent = today.toLocaleDateString('en-AU', { day:'numeric', month:'long', year:'numeric' });
+<script>
+  const WEBHOOK_URL = 'https://hook.eu1.make.com/55y5lsql5rmr8ju9cmlt9o5115q784ay';
+  const STRIPE_AU   = 'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04';
+  const STRIPE_UAE  = 'https://buy.stripe.com/cNi5kFdvPdeY2W6cUA9EI05';
 
-    const checkbox = document.getElementById('agreeCheckbox');
-    const picker   = document.getElementById('countryPicker');
-    const warning  = document.getElementById('nameWarning');
+  // Set today's date
+  const today = new Date();
+  document.getElementById('todayDate').textContent = today.toLocaleDateString('en-AU', {
+    day:'numeric', month:'long', year:'numeric'
+  });
 
-    checkbox.addEventListener('change', function () {
-      const name = document.getElementById('clientName').value.trim();
-      if (this.checked && name.length > 2) {
-        picker.classList.add('visible');
-        warning.style.display = 'none';
-      } else if (this.checked && name.length <= 2) {
-        this.checked = false;
-        warning.style.display = 'block';
-      } else {
-        picker.classList.remove('visible');
-        warning.style.display = 'none';
-      }
-    });
+  const checkbox = document.getElementById('agreeCheckbox');
+  const picker   = document.getElementById('countryPicker');
+  const warning  = document.getElementById('nameWarning');
 
-    async function handlePayment(country) {
-      const name      = document.getElementById('clientName').value.trim();
-      const email     = document.getElementById('clientEmail').value.trim();
-      const stripeUrl = country === 'AU' ? STRIPE_AU : STRIPE_UAE;
-      const plan      = country === 'AU' ? '$260 AUD/month' : 'AED 1,400/month';
-
-      document.getElementById('sendingMsg').style.display = 'block';
-
-      const payload = {
-        full_name:        name,
-        email:            email || 'Not provided',
-        country:          country,
-        plan:             plan,
-        signed_at:        new Date().toISOString(),
-        agreed_to_terms:  true,
-        contract_version: '1.0 — 18 May 2026'
-      };
-
-      try {
-        await fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-      } catch (e) {
-        // Silent fail — still redirect regardless
-      }
-
-      setTimeout(() => { window.location.href = stripeUrl; }, 1200);
+  checkbox.addEventListener('change', function () {
+    const name = document.getElementById('clientName').value.trim();
+    if (this.checked && name.length > 2) {
+      picker.classList.add('visible');
+      warning.style.display = 'none';
+    } else if (this.checked && name.length <= 2) {
+      this.checked = false;
+      warning.style.display = 'flex';
+    } else {
+      picker.classList.remove('visible');
+      warning.style.display = 'none';
     }
-  </script>
+  });
+
+  async function handlePayment(country) {
+    const name      = document.getElementById('clientName').value.trim();
+    const email     = document.getElementById('clientEmail').value.trim();
+    const stripeUrl = country === 'AU' ? STRIPE_AU : STRIPE_UAE;
+    const plan      = country === 'AU' ? '$260 AUD/month' : 'AED 1,400/month';
+
+    document.getElementById('sendingMsg').style.display = 'block';
+
+    const payload = {
+      full_name:        name,
+      email:            email || 'Not provided',
+      country:          country,
+      plan:             plan,
+      signed_at:        new Date().toISOString(),
+      agreed_to_terms:  true,
+      contract_version: '1.0 — 18 May 2026'
+    };
+
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch (e) { /* Silent fail — still redirect */ }
+
+    setTimeout(() => { window.location.href = stripeUrl; }, 1200);
+  }
+</script>
 
 </body>
 </html>
