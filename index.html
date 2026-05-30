@@ -1177,37 +1177,234 @@ footer {
       <p class="hi-sub">To be clear &mdash; <b>we are not a CRM.</b> We are the AI layer that plugs directly into yours.</p>
     </div>
 
-    <!-- TIER 1 -->
-    <div class="hi-tier">
-      <div class="hi-tier-head">
-        <span class="hi-num one">1</span>
-        <span class="hi-tier-label gold">Native, out-of-the-box integrations</span>
-        <span class="hi-line gold"></span>
-      </div>
-      <div class="hi-cards">
-        <div class="hi-card native"><span class="hi-ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16a4 4 0 0 1-.88-7.9A5 5 0 0 1 16 7a4.5 4.5 0 0 1 1 8.9"/><path d="M9 13l2 2 4-4"/></svg></span><span class="hi-name">Salesforce</span><span class="hi-tag n">Native</span></div>
-        <div class="hi-card native"><span class="hi-ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M5 5l2.5 2.5M16.5 16.5 19 19M2 12h4M18 12h4"/></svg></span><span class="hi-name">HubSpot</span><span class="hi-tag n">Native</span></div>
-        <div class="hi-card native"><span class="hi-ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span><span class="hi-name">Zoho CRM</span><span class="hi-tag n">Native</span></div>
-        <div class="hi-card native"><span class="hi-ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><span class="hi-name">Bitrix24</span><span class="hi-tag n">Native</span></div>
-        <div class="hi-card native"><span class="hi-ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18V8M9 18V5M14 18v-7M19 18v-4"/></svg></span><span class="hi-name">Pipeline CRM</span><span class="hi-tag n">Native</span></div>
-      </div>
-    </div>
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM Integrations</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500&display=swap');
 
-    <!-- TIER 2 -->
-    <div class="hi-tier">
-      <div class="hi-tier-head">
-        <span class="hi-num two">2</span>
-        <span class="hi-tier-label dim">Custom connections &amp; specialist real-estate CRMs</span>
-        <span class="hi-line dim"></span>
-      </div>
-      <div class="hi-cards">
-        <div class="hi-card custom"><span class="hi-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg></span><span class="hi-name">Rex CRM</span><span class="hi-tag c">Custom</span></div>
-        <div class="hi-card custom"><span class="hi-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 21v-6h6v6"/></svg></span><span class="hi-name">PropertyMe</span><span class="hi-tag c">Custom</span></div>
-        <div class="hi-card custom"><span class="hi-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l3 6-9 12L3 9z"/><path d="M3 9h18M9 3 7.5 9 12 21M15 3l1.5 6L12 21"/></svg></span><span class="hi-name">Ruby CRM</span><span class="hi-tag c">Custom</span></div>
-        <div class="hi-card custom"><span class="hi-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="hi-name">PropSpace</span><span class="hi-tag c">Custom</span></div>
-        <div class="hi-card custom"><span class="hi-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><span class="hi-name">Apptivo</span><span class="hi-tag c">Custom</span></div>
-      </div>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0d0f;
+    --surface: #141416;
+    --border: #222226;
+    --gold: #c9a84c;
+    --gold-dim: rgba(201,168,76,0.15);
+    --silver: #7a8494;
+    --silver-dim: rgba(122,132,148,0.12);
+    --text: #e8e8ec;
+    --text-dim: #6b6b7a;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    padding: 2.5rem 1.5rem;
+    min-height: 100vh;
+  }
+
+  .container { max-width: 860px; margin: 0 auto; }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 2.5rem;
+  }
+
+  /* TIER WRAPPER */
+  .tier { margin-bottom: 2.8rem; }
+
+  .tier-head {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .tier-num {
+    font-family: 'Syne', sans-serif;
+    font-size: .72rem;
+    font-weight: 800;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .tier-num.one { background: var(--gold); color: #0d0d0f; }
+  .tier-num.two { background: var(--border); color: var(--silver); }
+
+  .tier-label {
+    font-family: 'Syne', sans-serif;
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    white-space: nowrap;
+  }
+  .tier-label.gold { color: var(--gold); }
+  .tier-label.dim  { color: var(--silver); }
+
+  .tier-line { flex: 1; height: 1px; }
+  .tier-line.gold { background: linear-gradient(90deg, var(--gold-dim), transparent); }
+  .tier-line.dim  { background: linear-gradient(90deg, var(--silver-dim), transparent); }
+
+  /* CARDS GRID */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: .85rem;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.1rem .9rem .9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .55rem;
+    transition: transform .18s, border-color .18s;
+    cursor: default;
+  }
+  .card:hover { transform: translateY(-2px); }
+  .card.native { border-color: rgba(201,168,76,.25); }
+  .card.native:hover { border-color: var(--gold); }
+  .card.custom { border-color: var(--border); }
+  .card.custom:hover { border-color: var(--silver); }
+
+  .card-icon { color: var(--text-dim); flex-shrink: 0; }
+  .card.native .card-icon { color: var(--gold); opacity: .75; }
+
+  .card-name {
+    font-family: 'Syne', sans-serif;
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .badge {
+    font-size: .62rem;
+    font-weight: 500;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    padding: .18rem .45rem;
+    border-radius: 4px;
+    margin-top: auto;
+  }
+  .badge.n { background: var(--gold-dim); color: var(--gold); }
+  .badge.c { background: var(--silver-dim); color: var(--silver); }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>CRM Integrations</h1>
+
+  <!-- TIER 1 -->
+  <div class="tier">
+    <div class="tier-head">
+      <span class="tier-num one">1</span>
+      <span class="tier-label gold">Native, out-of-the-box integrations</span>
+      <span class="tier-line gold"></span>
     </div>
+    <div class="cards">
+
+      <div class="card native">
+        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span>
+        <span class="card-name">Zoho CRM</span>
+        <span class="badge n">Native</span>
+      </div>
+
+      <div class="card native">
+        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18V8M9 18V5M14 18v-7M19 18v-4"/></svg></span>
+        <span class="card-name">Pipeline CRM</span>
+        <span class="badge n">Native</span>
+      </div>
+
+      <div class="card native">
+        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M5 5l2.5 2.5M16.5 16.5 19 19M2 12h4M18 12h4"/></svg></span>
+        <span class="card-name">Freshsales</span>
+        <span class="badge n">Native</span>
+      </div>
+
+      <div class="card native">
+        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        <span class="card-name">Follow Up Boss</span>
+        <span class="badge n">Native</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TIER 2 -->
+  <div class="tier">
+    <div class="tier-head">
+      <span class="tier-num two">2</span>
+      <span class="tier-label dim">Custom connections &amp; specialist real-estate CRMs</span>
+      <span class="tier-line dim"></span>
+    </div>
+    <div class="cards">
+
+      <div class="card custom">
+        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+        <span class="card-name">Salesforce</span>
+        <span class="badge c">Custom</span>
+      </div>
+
+      <div class="card custom">
+        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M5 5l2.5 2.5M16.5 16.5 19 19M2 12h4M18 12h4"/></svg></span>
+        <span class="card-name">HubSpot</span>
+        <span class="badge c">Custom</span>
+      </div>
+
+      <div class="card custom">
+        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+        <span class="card-name">Bitrix24</span>
+        <span class="badge c">Custom</span>
+      </div>
+
+      <div class="card custom">
+        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg></span>
+        <span class="card-name">Rex CRM</span>
+        <span class="badge c">Custom</span>
+      </div>
+
+      <div class="card custom">
+        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        <span class="card-name">PropSpace</span>
+        <span class="badge c">Custom</span>
+      </div>
+
+      <div class="card custom">
+        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l3 6-9 12L3 9z"/><path d="M3 9h18M9 3 7.5 9 12 21M15 3l1.5 6L12 21"/></svg></span>
+        <span class="card-name">Ruby CRM</span>
+        <span class="badge c">Custom</span>
+      </div>
+
+      <div class="card custom">
+        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 21v-6h6v6"/></svg></span>
+        <span class="card-name">PropertyMe</span>
+        <span class="badge c">Custom</span>
+      </div>
+
+      <div class="card custom">
+        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+        <span class="card-name">Apptivo</span>
+        <span class="badge c">Custom</span>
+      </div>
+     </div>
 
     <!-- CTA -->
     <div class="hi-cta-wrap">
