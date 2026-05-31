@@ -9,19 +9,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --black: #080808;
-  --card: #111111;
-  --card2: #141414;
-  --border: rgba(201,163,91,0.15);
-  --border-strong: rgba(201,163,91,0.35);
-  --gold: #C9A35B;
-  --gold-light: #e8c17a;
-  --gold-dim: rgba(201,163,91,0.08);
-  --cream: #f5f1e8;
-  --muted: #8a8580;
-  --soft: #b8b5ad;
-  --emerald: #10b981;
-  --red: #ef4444;
+  --black: #080808; --card: #111111; --card2: #141414;
+  --border: rgba(201,163,91,0.15); --border-strong: rgba(201,163,91,0.35);
+  --gold: #C9A35B; --gold-light: #e8c17a; --gold-dim: rgba(201,163,91,0.08);
+  --cream: #f5f1e8; --muted: #8a8580; --soft: #b8b5ad;
+  --emerald: #10b981; --red: #ef4444;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
@@ -119,8 +111,6 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:20px 48px; di
 .stat-num { font-family:'Cormorant Garamond',serif; font-size:60px; font-weight:700; color:var(--gold); line-height:1; margin-bottom:10px; text-shadow:0 0 30px rgba(201,163,91,0.4); }
 .stat-label { font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#fff; margin-bottom:6px; }
 .stat-sub { font-size:12px; color:var(--muted); font-weight:300; }
-
-/* ══════════════ PREVIEW TEASER SECTION ══════════════ */
 .preview-teaser-section { position:relative; z-index:1; max-width:1200px; margin:0 auto 120px; padding:0 24px; }
 .preview-teaser-wrap { background:var(--card); border:1px solid var(--border); border-radius:24px; overflow:hidden; box-shadow:0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(201,163,91,0.1); }
 .preview-teaser-content { display:grid; grid-template-columns:1fr 1fr; gap:0; align-items:center; }
@@ -133,8 +123,6 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:20px 48px; di
 .preview-teaser-text p { font-size:15px; color:var(--soft); line-height:1.7; margin-bottom:32px; font-weight:300; }
 .preview-teaser-cta { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828); color:#000; padding:16px 36px; border-radius:12px; font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; text-decoration:none; transition:all 0.3s; box-shadow:0 8px 24px rgba(201,163,91,0.3); cursor:pointer; border:none; }
 .preview-teaser-cta:hover { filter:brightness(1.1); transform:translateY(-2px); box-shadow:0 12px 32px rgba(201,163,91,0.4); }
-
-/* ══════════════ PRICING SECTION ══════════════ */
 .pricing-section { position:relative; z-index:1; max-width:1100px; margin:0 auto 120px; padding:0 24px; }
 .pricing-header { text-align:center; margin-bottom:80px; }
 .pricing-header h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(34px,5vw,56px); font-weight:700; color:#fff; line-height:1.08; letter-spacing:-1.5px; margin-bottom:18px; text-shadow:0 0 25px rgba(201,163,91,0.2); }
@@ -155,7 +143,6 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:20px 48px; di
 .pricing-check { width:20px; height:20px; min-width:20px; background:rgba(16,185,129,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; color:var(--emerald); font-weight:700; margin-top:1px; }
 .pricing-cta { display:block; width:100%; background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828); color:#000; padding:16px 0; border-radius:12px; font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; text-decoration:none; text-align:center; transition:all 0.3s; box-shadow:0 8px 20px rgba(201,163,91,0.3); border:none; cursor:pointer; }
 .pricing-cta:hover { filter:brightness(1.1); transform:translateY(-2px); box-shadow:0 12px 28px rgba(201,163,91,0.4); }
-
 .apply-section { position:relative; z-index:1; max-width:1100px; margin:0 auto 120px; padding:0 24px; }
 .apply-wrap { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:60px 48px; box-shadow:0 30px 60px rgba(0,0,0,0.4); }
 .apply-top { text-align:center; margin-bottom:48px; }
@@ -177,15 +164,6 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:20px 48px; di
 .success-state h3 { font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:700; color:#fff; margin-bottom:12px; }
 .success-state h3 em { font-style:italic; color:var(--gold); }
 .success-state p { font-size:15px; color:var(--soft); line-height:1.65; }
-
-.final-cta-section { position:relative; z-index:1; max-width:1100px; margin:0 auto 120px; padding:0 24px; }
-.final-cta-box { background:linear-gradient(135deg, rgba(201,163,91,0.08) 0%, var(--card) 100%); border:1px solid var(--border); border-radius:20px; padding:60px 48px; text-align:center; }
-.final-cta-box h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(32px,5vw,48px); font-weight:700; color:#fff; line-height:1.1; letter-spacing:-1px; margin-bottom:16px; }
-.final-cta-box h2 em { font-style:italic; color:var(--gold); }
-.final-cta-box p { font-size:16px; color:var(--soft); max-width:700px; margin:0 auto 32px; line-height:1.65; font-weight:300; }
-.final-cta-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:20px; }
-.final-cta-note { font-size:12px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; font-weight:600; }
-
 footer { position:relative; z-index:1; border-top:1px solid var(--border); background:rgba(0,0,0,0.4); padding:40px 24px; margin-top:120px; }
 .footer-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:24px; }
 .footer-logo { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:700; color:var(--cream); text-decoration:none; }
@@ -193,7 +171,6 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); backg
 .footer-links a { color:var(--soft); text-decoration:none; font-size:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase; transition:color 0.25s; }
 .footer-links a:hover { color:var(--gold); }
 .footer-copy { font-size:11px; color:var(--muted); letter-spacing:0.5px; }
-
 @media (max-width:768px) {
   nav { padding:16px 24px; }
   .section-shell { margin-bottom:80px; }
@@ -221,12 +198,16 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); backg
 <div class="bg-glow-2"></div>
 
 <nav>
+  <a href="index.html" class="nav-back-btn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    Back
+  </a>
   <div class="nav-logo">
     <span>Hermia</span>
   </div>
   <div class="nav-links">
     <a href="#apply" class="nav-link">Request Website</a>
-    <a href="#" class="nav-link cta">Get Started</a>
+    <a href="#apply" class="nav-link cta">Get Started</a>
   </div>
 </nav>
 
@@ -234,10 +215,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); backg
 <section class="hero">
   <div class="hero-bg-text">Websites</div>
   <div class="hero-inner">
-    <div class="hero-tag">
-      <span class="hero-tag-dot"></span>
-      For Agents & Agencies
-    </div>
+    <div class="hero-tag"><span class="hero-tag-dot"></span>For Agents & Agencies</div>
     <h1>Premium Real Estate Websites<br><em>Built for Results.</em></h1>
     <p class="hero-sub">Whether you're an independent agent or a growing agency, we build custom websites that showcase your business, qualify leads, and connect to your CRM. No templates. No compromises.</p>
     <div class="hero-cta-row">
@@ -270,11 +248,9 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); backg
 <!-- WHAT WE BUILD -->
 <div class="section-shell">
   <div class="divider">
-    <div class="divider-line"></div>
-    <div class="divider-diamond"></div>
+    <div class="divider-line"></div><div class="divider-diamond"></div>
     <div class="divider-label">What We Build</div>
-    <div class="divider-diamond"></div>
-    <div class="divider-line r"></div>
+    <div class="divider-diamond"></div><div class="divider-line r"></div>
   </div>
   <div class="section-header">
     <h2>Everything your website<br><em>needs to perform.</em></h2>
@@ -343,27 +319,9 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); backg
       <div style="background:rgba(201,163,91,0.04);border:1px solid rgba(201,163,91,0.15);border-radius:12px;padding:20px;">
         <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8a8580;margin-bottom:14px;">Website Enquiries · Today</div>
         <div style="display:flex;flex-direction:column;gap:10px;">
-          <div style="background:#111;border:1px solid rgba(201,163,91,0.2);border-left:3px solid #10b981;border-radius:8px;padding:12px 14px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-              <div style="font-size:11px;color:#fff;font-weight:600;">Priya Sharma</div>
-              <div style="background:#fef3c7;color:#92400e;font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px;">🔥 HOT</div>
-            </div>
-            <div style="font-size:10px;color:#8a8580;">$1.1M–$1.4M · Pre-approved · 3 weeks</div>
-          </div>
-          <div style="background:#111;border:1px solid rgba(201,163,91,0.12);border-left:3px solid #3b82f6;border-radius:8px;padding:12px 14px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-              <div style="font-size:11px;color:#fff;font-weight:600;">Marcus Webb</div>
-              <div style="background:#dbeafe;color:#1e40af;font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px;">📋 WARM</div>
-            </div>
-            <div style="font-size:10px;color:#8a8580;">$800k–$1M · Finance in progress · 6 weeks</div>
-          </div>
-          <div style="background:#111;border:1px solid rgba(201,163,91,0.08);border-left:3px solid #6b7280;border-radius:8px;padding:12px 14px;opacity:0.55;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-              <div style="font-size:11px;color:#fff;font-weight:600;">Anon Visitor</div>
-              <div style="background:#f3f4f6;color:#6b7280;font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px;">❄️ COLD</div>
-            </div>
-            <div style="font-size:10px;color:#8a8580;">Budget TBC · Just browsing · 6+ months</div>
-          </div>
+          <div style="background:#111;border:1px solid rgba(201,163,91,0.2);border-left:3px solid #10b981;border-radius:8px;padding:12px 14px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><div style="font-size:11px;color:#fff;font-weight:600;">Priya Sharma</div><div style="background:#fef3c7;color:#92400e;font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px;">🔥 HOT</div></div><div style="font-size:10px;color:#8a8580;">$1.1M–$1.4M · Pre-approved · 3 weeks</div></div>
+          <div style="background:#111;border:1px solid rgba(201,163,91,0.12);border-left:3px solid #3b82f6;border-radius:8px;padding:12px 14px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><div style="font-size:11px;color:#fff;font-weight:600;">Marcus Webb</div><div style="background:#dbeafe;color:#1e40af;font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px;">📋 WARM</div></div><div style="font-size:10px;color:#8a8580;">$800k–$1M · Finance in progress · 6 weeks</div></div>
+          <div style="background:#111;border:1px solid rgba(201,163,91,0.08);border-left:3px solid #6b7280;border-radius:8px;padding:12px 14px;opacity:0.55;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><div style="font-size:11px;color:#fff;font-weight:600;">Anon Visitor</div><div style="background:#f3f4f6;color:#6b7280;font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px;">❄️ COLD</div></div><div style="font-size:10px;color:#8a8580;">Budget TBC · Just browsing · 6+ months</div></div>
         </div>
         <div style="margin-top:14px;font-size:10px;color:#8a6820;font-weight:600;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;background:#8a6820;transform:rotate(45deg);display:inline-block;"></span>Qualified by Hermia · Via website enquiry form</div>
       </div>
@@ -384,15 +342,13 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); backg
 <!-- PREVIEW TEASER -->
 <div class="preview-teaser-section" id="preview">
   <div class="divider">
-    <div class="divider-line"></div>
-    <div class="divider-diamond"></div>
+    <div class="divider-line"></div><div class="divider-diamond"></div>
     <div class="divider-label">Live Preview</div>
-    <div class="divider-diamond"></div>
-    <div class="divider-line r"></div>
+    <div class="divider-diamond"></div><div class="divider-line r"></div>
   </div>
   <div class="preview-teaser-wrap">
     <div class="preview-teaser-content">
-      <div class="preview-teaser-image" style="background-image: url('https://d2xsxph8kpxj0f.cloudfront.net/310519663701704690/BGethwLGHUNNvHkWZp3mpK/hermia-website-mockup-Wbj78KSHojK4oiKLL5uQwM.webp'); background-size: cover; background-position: center;"></div>
+      <div class="preview-teaser-image" style="background-image:url('https://d2xsxph8kpxj0f.cloudfront.net/310519663701704690/BGethwLGHUNNvHkWZp3mpK/hermia-website-mockup-Wbj78KSHojK4oiKLL5uQwM.webp');background-size:cover;background-position:center;"></div>
       <div class="preview-teaser-text">
         <div class="preview-teaser-tag">Live Examples</div>
         <h2>See our <em>websites.</em></h2>
@@ -406,18 +362,15 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); backg
 <!-- PRICING -->
 <div class="pricing-section">
   <div class="divider">
-    <div class="divider-line"></div>
-    <div class="divider-diamond"></div>
+    <div class="divider-line"></div><div class="divider-diamond"></div>
     <div class="divider-label">Pricing</div>
-    <div class="divider-diamond"></div>
-    <div class="divider-line r"></div>
+    <div class="divider-diamond"></div><div class="divider-line r"></div>
   </div>
   <div class="pricing-header">
     <h2>Transparent Pricing<br><em>for Every Size.</em></h2>
     <p>Whether you're a solo agent or a multi-agent agency, we have a solution that fits your needs and budget.</p>
   </div>
   <div class="pricing-grid">
-    <!-- AGENT PRICING -->
     <div class="pricing-tier">
       <div class="pricing-tier-label">For Individual Agents</div>
       <h3>Agent Website</h3>
@@ -435,8 +388,6 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); backg
       </ul>
       <button class="pricing-cta" onclick="scrollToApply()">Request Agent Website →</button>
     </div>
-
-    <!-- AGENCY PRICING -->
     <div class="pricing-tier">
       <div class="pricing-tier-label">For Real Estate Agencies</div>
       <h3>Agency Website</h3>
@@ -462,11 +413,9 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); backg
 <!-- APPLY FORM -->
 <div class="apply-section" id="apply">
   <div class="divider">
-    <div class="divider-line"></div>
-    <div class="divider-diamond"></div>
+    <div class="divider-line"></div><div class="divider-diamond"></div>
     <div class="divider-label">Request Your Website</div>
-    <div class="divider-diamond"></div>
-    <div class="divider-line r"></div>
+    <div class="divider-diamond"></div><div class="divider-line r"></div>
   </div>
   <div class="apply-wrap">
     <div id="form-state">
@@ -477,12 +426,12 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); backg
       <div class="apply-form">
         <div class="apply-group"><label>Full Name</label><input type="text" id="w-name" placeholder="Your Name"></div>
         <div class="apply-group"><label>Email</label><input type="email" id="w-email" placeholder="you@agency.com.au"></div>
-        <div class="apply-group"><label>Mobile Number</label><input type="tel" id="w-phone" placeholder="+61 400 000 000"></div>
-        <div class="apply-group"><label>Agency / Business Name</label><input type="text" id="w-agency" placeholder="Your Agency"></div>
-        <div class="apply-group"><label>Business Type</label><select id="w-type"><option value="">Select type</option><option>Individual Agent</option><option>Agent Team</option><option>Real Estate Agency</option><option>Boutique Agency</option><option>Multi-Location Agency</option></select></div>
-        <div class="apply-group"><label>Market</label><select id="w-market"><option value="">Select market</option><option>Australia</option><option>Dubai / UAE</option><option>Both</option></select></div>
-        <div class="apply-group full"><label>Current Website (Optional)</label><input type="url" id="w-url" placeholder="https://youragency.com.au"></div>
-        <div class="apply-group full"><label>Project Details</label><textarea id="w-details" placeholder="Tell us about your business and what you're looking for — design preferences, CRM you use, any specific features needed."></textarea></div>
+        <div class="apply-group"><label>Mobile Number</label><input type="tel" placeholder="+61 400 000 000"></div>
+        <div class="apply-group"><label>Agency / Business Name</label><input type="text" placeholder="Your Agency"></div>
+        <div class="apply-group"><label>Business Type</label><select><option value="">Select type</option><option>Individual Agent</option><option>Agent Team</option><option>Real Estate Agency</option><option>Boutique Agency</option><option>Multi-Location Agency</option></select></div>
+        <div class="apply-group"><label>Market</label><select><option value="">Select market</option><option>Australia</option><option>Dubai / UAE</option><option>Both</option></select></div>
+        <div class="apply-group full"><label>Current Website (Optional)</label><input type="url" placeholder="https://youragency.com.au"></div>
+        <div class="apply-group full"><label>Project Details</label><textarea placeholder="Tell us about your business and what you're looking for — design preferences, CRM you use, any specific features needed."></textarea></div>
         <button class="apply-submit" onclick="submitWebsite()">Request My Website →</button>
         <div class="apply-note">No commitment required. Proposal within 24 hours.</div>
       </div>
@@ -497,10 +446,10 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); backg
 
 <footer>
   <div class="footer-inner">
-    <a href="#" class="footer-logo">Hermia</a>
+    <a href="index.html" class="footer-logo">Hermia</a>
     <div class="footer-links">
-      <a href="#">Home</a>
-      <a href="#">Why Agents Switch</a>
+      <a href="index.html">Home</a>
+      <a href="website system.html">Website System</a>
       <a href="mailto:capital@hermia.au">capital@hermia.au</a>
     </div>
     <div class="footer-copy">© 2026 Hermia · ABN 75 434 177 026 · hermia.au</div>
@@ -523,18 +472,15 @@ function submitWebsite() {
     fs.style.display = 'none';
     const s = document.getElementById('success-state');
     s.style.display = 'block'; s.style.opacity = '0'; s.style.transform = 'translateY(10px)'; s.style.transition = 'all 0.4s ease';
-    setTimeout(() => { s.style.opacity = '1'; s.style.transform = 'translateY(0)'; s.classList.add('visible'); }, 50);
+    setTimeout(() => { s.style.opacity = '1'; s.style.transform = 'translateY(0)'; }, 50);
   }, 400);
 }
-
 function scrollToApply() {
   document.getElementById('apply').scrollIntoView({ behavior: 'smooth' });
 }
-
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; } });
 }, { threshold: 0.1 });
-
 document.querySelectorAll('.feat-card, .process-step, .stat-item, .pricing-tier').forEach(el => {
   el.style.opacity = '0'; el.style.transform = 'translateY(28px)';
   el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
@@ -543,3 +489,4 @@ document.querySelectorAll('.feat-card, .process-step, .stat-item, .pricing-tier'
 </script>
 </body>
 </html>
+
