@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Website Examples | Hermia - Real Estate Websites</title>
+<meta name="description" content="Explore stunning real estate websites built by Hermia for agents and agencies in Australia and Dubai.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080808;
+  --card: #111111;
+  --card2: #141414;
+  --border: rgba(201,163,91,0.15);
+  --border-strong: rgba(201,163,91,0.35);
+  --gold: #C9A35B;
+  --gold-light: #e8c17a;
+  --gold-dim: rgba(201,163,91,0.08);
+  --cream: #f5f1e8;
+  --muted: #8a8580;
+  --soft: #b8b5ad;
+  --emerald: #10b981;
+  --red: #ef4444;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'DM Sans',sans-serif; background:var(--black); color:var(--cream); min-height:100vh; overflow-x:hidden; }
+.bg-glow-1 { position:fixed; top:-10%; left:-10%; width:800px; height:800px; background:radial-gradient(circle, rgba(201,163,91,0.13) 0%, transparent 70%); filter:blur(120px); pointer-events:none; z-index:0; }
+.bg-glow-2 { position:fixed; bottom:-15%; right:-10%; width:700px; height:700px; background:radial-gradient(circle, rgba(201,163,91,0.09) 0%, transparent 70%); filter:blur(100px); pointer-events:none; z-index:0; }
+
+nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:20px 48px; display:flex; align-items:center; justify-content:space-between; background:rgba(8,8,8,0.94); backdrop-filter:blur(24px); border-bottom:1px solid var(--border); }
+.nav-back { display:inline-flex; align-items:center; gap:8px; color:var(--soft); text-decoration:none; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; transition:all 0.25s; cursor:pointer; }
+.nav-back:hover { color:var(--gold); }
+.nav-logo { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:600; color:var(--cream); }
+.nav-right { display:flex; align-items:center; gap:20px; }
+
+.hero { position:relative; z-index:1; min-height:80vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:120px 24px 80px; overflow:hidden; }
+.hero-inner { position:relative; z-index:2; max-width:900px; }
+.hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(48px,8vw,80px); font-weight:700; line-height:1.05; letter-spacing:-2px; color:#fff; margin-bottom:24px; text-shadow:0 0 60px rgba(201,163,91,0.25); }
+.hero h1 em { font-style:italic; color:var(--gold); }
+.hero p { font-size:18px; color:var(--soft); max-width:700px; margin:0 auto 40px; line-height:1.65; font-weight:300; }
+
+.filter-section { position:relative; z-index:1; max-width:1200px; margin:0 auto 80px; padding:0 24px; }
+.filter-tabs { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+.filter-btn { background:transparent; border:1px solid var(--border); color:var(--soft); padding:12px 28px; border-radius:100px; font-size:12px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all 0.3s; }
+.filter-btn.active { background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828); color:#000; border-color:transparent; box-shadow:0 8px 24px rgba(201,163,91,0.35); }
+.filter-btn:hover:not(.active) { color:#fff; border-color:var(--gold); background:var(--gold-dim); }
+
+.gallery-section { position:relative; z-index:1; max-width:1300px; margin:0 auto 120px; padding:0 24px; }
+.gallery-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:40px; }
+
+.showcase-card { background:var(--card); border:1px solid var(--border); border-radius:24px; overflow:hidden; transition:all 0.4s ease; position:relative; }
+.showcase-card:hover { border-color:var(--gold); transform:translateY(-8px); box-shadow:0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(201,163,91,0.15); }
+.showcase-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--gold), transparent); opacity:0; transition:opacity 0.3s; z-index:10; }
+.showcase-card:hover::before { opacity:0.7; }
+
+.showcase-image { width:100%; height:280px; background:linear-gradient(135deg, rgba(201,163,91,0.1) 0%, rgba(201,163,91,0.05) 100%); display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; }
+.showcase-image img { width:100%; height:100%; object-fit:cover; }
+.showcase-image-overlay { position:absolute; top:0; left:0; right:0; bottom:0; background:linear-gradient(135deg, rgba(0,0,0,0.3) 0%, transparent 100%); opacity:0; transition:opacity 0.3s; }
+.showcase-card:hover .showcase-image-overlay { opacity:1; }
+
+.showcase-content { padding:36px 32px; }
+.showcase-tag { display:inline-flex; align-items:center; gap:6px; background:var(--gold-dim); border:1px solid var(--border); padding:5px 14px; border-radius:100px; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+.showcase-location { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+.showcase-title { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:700; color:#fff; margin-bottom:12px; line-height:1.1; }
+.showcase-desc { font-size:14px; color:var(--soft); line-height:1.65; margin-bottom:24px; font-weight:300; }
+.showcase-stats { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-bottom:24px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+.stat { }
+.stat-label { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:4px; }
+.stat-value { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:700; color:var(--gold); }
+.showcase-cta { display:inline-block; background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828); color:#000; padding:14px 32px; border-radius:12px; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; text-decoration:none; transition:all 0.3s; box-shadow:0 8px 20px rgba(201,163,91,0.3); border:none; cursor:pointer; }
+.showcase-cta:hover { filter:brightness(1.1); transform:translateY(-2px); box-shadow:0 12px 28px rgba(201,163,91,0.4); }
+
+.divider { display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:60px; }
+.divider-line { height:1px; width:80px; background:linear-gradient(90deg, transparent, var(--border-strong)); }
+.divider-line.r { background:linear-gradient(90deg, var(--border-strong), transparent); }
+.divider-diamond { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); opacity:0.7; }
+.divider-label { font-size:10px; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--gold); }
+
+.cta-section { position:relative; z-index:1; max-width:1100px; margin:0 auto 120px; padding:0 24px; }
+.cta-box { background:linear-gradient(135deg, rgba(201,163,91,0.08) 0%, var(--card) 100%); border:1px solid var(--border); border-radius:20px; padding:60px 48px; text-align:center; }
+.cta-box h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(32px,5vw,48px); font-weight:700; color:#fff; line-height:1.1; letter-spacing:-1px; margin-bottom:16px; }
+.cta-box h2 em { font-style:italic; color:var(--gold); }
+.cta-box p { font-size:16px; color:var(--soft); max-width:700px; margin:0 auto 32px; line-height:1.65; font-weight:300; }
+.cta-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+.btn-primary { display:inline-block; background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828); color:#000; padding:16px 40px; border-radius:12px; font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; text-decoration:none; transition:all 0.3s; box-shadow:0 12px 32px rgba(201,163,91,0.35); border:none; cursor:pointer; }
+.btn-primary:hover { filter:brightness(1.1); transform:translateY(-2px); box-shadow:0 16px 40px rgba(201,163,91,0.5); }
+.btn-ghost { display:inline-block; color:var(--soft); padding:16px 36px; border-radius:12px; font-size:13px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none; border:1px solid var(--border); transition:all 0.3s; }
+.btn-ghost:hover { color:#fff; border-color:var(--gold); background:var(--gold-dim); }
+
+.apply-section { position:relative; z-index:1; max-width:1100px; margin:0 auto 120px; padding:0 24px; }
+.apply-wrap { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:60px 48px; box-shadow:0 30px 60px rgba(0,0,0,0.4); }
+.apply-top { text-align:center; margin-bottom:48px; }
+.apply-top h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(32px,5vw,48px); font-weight:700; color:#fff; line-height:1.1; letter-spacing:-1px; margin-bottom:16px; }
+.apply-top h2 em { font-style:italic; color:var(--gold); }
+.apply-top p { font-size:16px; color:var(--soft); max-width:600px; margin:0 auto; line-height:1.65; font-weight:300; }
+.apply-form { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:900px; margin:0 auto; }
+.apply-group { display:flex; flex-direction:column; }
+.apply-group.full { grid-column:1/-1; }
+.apply-group label { font-size:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+.apply-group input, .apply-group select, .apply-group textarea { background:rgba(255,255,255,0.04); border:1px solid var(--border); color:var(--cream); padding:14px 16px; border-radius:10px; font-family:'DM Sans',sans-serif; font-size:14px; transition:all 0.3s; }
+.apply-group input:focus, .apply-group select:focus, .apply-group textarea:focus { outline:none; border-color:var(--gold); background:rgba(255,255,255,0.06); box-shadow:0 0 20px rgba(201,163,91,0.15); }
+.apply-group textarea { resize:vertical; min-height:100px; }
+.apply-submit { width:100%; grid-column:1/-1; background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828); color:#000; padding:18px 0; border-radius:12px; font-size:13px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; border:none; cursor:pointer; transition:all 0.3s; box-shadow:0 12px 32px rgba(201,163,91,0.35); }
+.apply-submit:hover { filter:brightness(1.1); transform:translateY(-2px); box-shadow:0 16px 40px rgba(201,163,91,0.5); }
+.apply-note { grid-column:1/-1; text-align:center; font-size:12px; color:var(--muted); margin-top:16px; letter-spacing:0.5px; }
+.success-state { grid-column:1/-1; text-align:center; display:none; }
+.success-icon { font-size:48px; margin-bottom:20px; }
+.success-state h3 { font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:700; color:#fff; margin-bottom:12px; }
+.success-state h3 em { font-style:italic; color:var(--gold); }
+.success-state p { font-size:15px; color:var(--soft); line-height:1.65; }
+
+footer { position:relative; z-index:1; border-top:1px solid var(--border); background:rgba(0,0,0,0.4); padding:40px 24px; margin-top:120px; }
+.footer-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:24px; }
+.footer-logo { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:700; color:var(--cream); text-decoration:none; }
+.footer-links { display:flex; gap:32px; }
+.footer-links a { color:var(--soft); text-decoration:none; font-size:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase; transition:color 0.25s; }
+.footer-links a:hover { color:var(--gold); }
+.footer-copy { font-size:11px; color:var(--muted); letter-spacing:0.5px; }
+
+@media (max-width:768px) {
+  nav { padding:16px 24px; }
+  .gallery-grid { grid-template-columns:1fr; gap:24px; }
+  .filter-tabs { gap:8px; }
+  .filter-btn { padding:10px 16px; font-size:10px; }
+  .apply-form { grid-template-columns:1fr; }
+  .apply-group.full { grid-column:1; }
+  .footer-inner { flex-direction:column; text-align:center; }
+  .footer-links { flex-direction:column; gap:12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-glow-1"></div>
+<div class="bg-glow-2"></div>
+
+<nav>
+  <a href="index.html" class="nav-back">
+    <span>←</span> Back to Website
+  </a>
+  <div class="nav-logo">Hermia</div>
+  <div class="nav-right"></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Our <em>Website Gallery.</em></h1>
+    <p>Explore stunning real estate websites we've built for agents and agencies across Australia and Dubai. Each site is custom-designed, fully optimised, and built to convert.</p>
+  </div>
+</section>
+
+<!-- FILTER TABS -->
+<div class="filter-section">
+  <div class="filter-tabs">
+    <button class="filter-btn active" onclick="filterGallery('all')">All Examples</button>
+    <button class="filter-btn" onclick="filterGallery('agent')">Agent Websites</button>
+    <button class="filter-btn" onclick="filterGallery('agency')">Agency Websites</button>
+    <button class="filter-btn" onclick="filterGallery('dubai')">Dubai</button>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery-section">
+  <div class="gallery-grid" id="gallery">
+    <!-- Agent - Sydney -->
+    <div class="showcase-card" data-category="agent">
+      <div class="showcase-image">
+        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663701704690/BGethwLGHUNNvHkWZp3mpK/agent-website-luxury-g7GgNoPguF2bKo9HAZU2Jx.webp" alt="Sarah Mitchell - Premium Properties Sydney">
+        <div class="showcase-image-overlay"></div>
+      </div>
+      <div class="showcase-content">
+        <div class="showcase-tag">Agent Website</div>
+        <div class="showcase-location">Sydney, Australia</div>
+        <h3 class="showcase-title">Sarah Mitchell</h3>
+        <p class="showcase-desc">Premium luxury agent specialising in waterfront properties across Sydney's most prestigious suburbs.</p>
+        <div class="showcase-stats">
+          <div class="stat">
+            <div class="stat-label">Total Sales</div>
+            <div class="stat-value">$450M+</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Clearance Rate</div>
+            <div class="stat-value">96%</div>
+          </div>
+        </div>
+        <button class="showcase-cta" onclick="scrollToApply()">Request Similar →</button>
+      </div>
+    </div>
+
+    <!-- Agency - Multi-Location -->
+    <div class="showcase-card" data-category="agency">
+      <div class="showcase-image">
+        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663701704690/BGethwLGHUNNvHkWZp3mpK/agency-website-modern-6Ewvy9CcwciVfNJwaX2k2F.webp" alt="Capital Realty Group - Multi-Location Agency">
+        <div class="showcase-image-overlay"></div>
+      </div>
+      <div class="showcase-content">
+        <div class="showcase-tag">Agency Website</div>
+        <div class="showcase-location">Australia</div>
+        <h3 class="showcase-title">Capital Realty Group</h3>
+        <p class="showcase-desc">Multi-location agency with 150+ agents across Australia. Features team profiles, property listings, and advanced lead management.</p>
+        <div class="showcase-stats">
+          <div class="stat">
+            <div class="stat-label">Agents</div>
+            <div class="stat-value">150+</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Sales Volume</div>
+            <div class="stat-value">$2B+</div>
+          </div>
+        </div>
+        <button class="showcase-cta" onclick="scrollToApply()">Request Similar →</button>
+      </div>
+    </div>
+
+    <!-- Dubai Luxury -->
+    <div class="showcase-card" data-category="dubai">
+      <div class="showcase-image">
+        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663701704690/BGethwLGHUNNvHkWZp3mpK/dubai-website-premium-WG65eWV4DoqpDhY7ADqhNd.webp" alt="Emirates Luxury Properties - Dubai">
+        <div class="showcase-image-overlay"></div>
+      </div>
+      <div class="showcase-content">
+        <div class="showcase-tag">Luxury Agency</div>
+        <div class="showcase-location">Dubai, UAE</div>
+        <h3 class="showcase-title">Emirates Luxury Properties</h3>
+        <p class="showcase-desc">Exclusive Dubai luxury property specialist. Showcasing Palm Jumeirah villas, Downtown penthouses, and premium investment properties.</p>
+        <div class="showcase-stats">
+          <div class="stat">
+            <div class="stat-label">Transactions</div>
+            <div class="stat-value">AED 1.8B+</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Client Satisfaction</div>
+            <div class="stat-value">98%</div>
+          </div>
+        </div>
+        <button class="showcase-cta" onclick="scrollToApply()">Request Similar →</button>
+      </div>
+    </div>
+
+    <!-- Additional Agent Example -->
+    <div class="showcase-card" data-category="agent">
+      <div class="showcase-image">
+        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663701704690/BGethwLGHUNNvHkWZp3mpK/hermia-website-mockup-Wbj78KSHojK4oiKLL5uQwM.webp" alt="James Thornton - Luxury Agent">
+        <div class="showcase-image-overlay"></div>
+      </div>
+      <div class="showcase-content">
+        <div class="showcase-tag">Agent Website</div>
+        <div class="showcase-location">Sydney, Australia</div>
+        <h3 class="showcase-title">James Thornton</h3>
+        <p class="showcase-desc">Elite luxury agent with 15+ years experience. Specialising in high-end residential sales across Sydney's Eastern Suburbs.</p>
+        <div class="showcase-stats">
+          <div class="stat">
+            <div class="stat-label">Career Sales</div>
+            <div class="stat-value">$500M+</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Avg DOM</div>
+            <div class="stat-value">15 days</div>
+          </div>
+        </div>
+        <button class="showcase-cta" onclick="scrollToApply()">Request Similar →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA SECTION -->
+<div class="cta-section">
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-label">Ready to Stand Out?</div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line r"></div>
+  </div>
+  <div class="cta-box">
+    <h2>Your website could be <em>next.</em></h2>
+    <p>Every site you see here started with a conversation. Tell us about your business, and we'll create something equally stunning for you.</p>
+    <div class="cta-btns">
+      <button class="btn-primary" onclick="scrollToApply()">Request Your Website →</button>
+      <a href="index.html" class="btn-ghost">Back to Home</a>
+    </div>
+  </div>
+</div>
+
+<!-- APPLICATION FORM -->
+<div class="apply-section" id="apply">
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-label">Get Started</div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line r"></div>
+  </div>
+  <div class="apply-wrap">
+    <div id="form-state">
+      <div class="apply-top">
+        <h2>Request Your <em>Website</em></h2>
+        <p>Tell us about your business. We'll scope the build and send a proposal within 24 hours.</p>
+      </div>
+      <div class="apply-form">
+        <div class="apply-group"><label>Full Name</label><input type="text" id="w-name" placeholder="Your Name"></div>
+        <div class="apply-group"><label>Email</label><input type="email" id="w-email" placeholder="you@agency.com.au"></div>
+        <div class="apply-group"><label>Mobile Number</label><input type="tel" id="w-phone" placeholder="+61 400 000 000"></div>
+        <div class="apply-group"><label>Agency / Business Name</label><input type="text" id="w-agency" placeholder="Your Agency"></div>
+        <div class="apply-group"><label>Business Type</label><select id="w-type"><option value="">Select type</option><option>Individual Agent</option><option>Agent Team</option><option>Real Estate Agency</option><option>Boutique Agency</option><option>Multi-Location Agency</option></select></div>
+        <div class="apply-group"><label>Market</label><select id="w-market"><option value="">Select market</option><option>Australia</option><option>Dubai / UAE</option><option>Both</option></select></div>
+        <div class="apply-group full"><label>Current Website (Optional)</label><input type="url" id="w-url" placeholder="https://youragency.com.au"></div>
+        <div class="apply-group full"><label>Project Details</label><textarea id="w-details" placeholder="Tell us about your business and what you're looking for — design preferences, CRM you use, any specific features needed."></textarea></div>
+        <button class="apply-submit" onclick="submitWebsite()">Request My Website →</button>
+        <div class="apply-note">No commitment required. Proposal within 24 hours.</div>
+      </div>
+    </div>
+    <div class="success-state" id="success-state">
+      <div class="success-icon">✦</div>
+      <h3>Request <em>received.</em></h3>
+      <p>We'll review your details and send a custom proposal within 24 hours. No calls, no meetings — just a clear scope straight to your inbox.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">Hermia</a>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="#apply">Get Started</a>
+      <a href="mailto:capital@hermia.au">capital@hermia.au</a>
+    </div>
+    <div class="footer-copy">© 2026 Hermia · ABN 75 434 177 026 · hermia.au</div>
+  </div>
+</footer>
+
+<script>
+function filterGallery(category) {
+  const cards = document.querySelectorAll('.showcase-card');
+  const buttons = document.querySelectorAll('.filter-btn');
+  
+  buttons.forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  cards.forEach(card => {
+    if (category === 'all' || card.dataset.category === category) {
+      card.style.display = 'block';
+      setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 10);
+    } else {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      setTimeout(() => { card.style.display = 'none'; }, 300);
+    }
+  });
+}
+
+function submitWebsite() {
+  const name = document.getElementById('w-name').value.trim();
+  const email = document.getElementById('w-email').value.trim();
+  if (!name || !email) {
+    const el = !name ? document.getElementById('w-name') : document.getElementById('w-email');
+    el.style.borderColor = 'var(--red)'; el.focus();
+    setTimeout(() => { el.style.borderColor = ''; }, 2000);
+    return;
+  }
+  const fs = document.getElementById('form-state');
+  fs.style.opacity = '0'; fs.style.transform = 'translateY(10px)'; fs.style.transition = 'all 0.4s ease';
+  setTimeout(() => {
+    fs.style.display = 'none';
+    const s = document.getElementById('success-state');
+    s.style.display = 'block'; s.style.opacity = '0'; s.style.transform = 'translateY(10px)'; s.style.transition = 'all 0.4s ease';
+    setTimeout(() => { s.style.opacity = '1'; s.style.transform = 'translateY(0)'; s.classList.add('visible'); }, 50);
+  }, 400);
+}
+
+function scrollToApply() {
+  document.getElementById('apply').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Animate cards on load
+document.querySelectorAll('.showcase-card').forEach((card, i) => {
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(20px)';
+  card.style.transition = `opacity 0.5s ease ${i * 0.1}s, transform 0.5s ease ${i * 0.1}s`;
+  setTimeout(() => {
+    card.style.opacity = '1';
+    card.style.transform = 'translateY(0)';
+  }, 50);
+});
+</script>
+</body>
+</html>
