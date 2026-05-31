@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hermia Websites | Premium Real Estate Websites</title>
-<meta name="description" content="Hermia builds premium real estate websites for elite agents in Australia and Dubai. Luxury design, lead-ready, CRM-connected.">
+<title>Hermia Websites | Premium Real Estate Websites for Agents & Agencies</title>
+<meta name="description" content="Hermia builds premium real estate websites for elite agents and agencies in Australia and Dubai. Luxury design, lead-ready, CRM-connected.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -120,241 +120,98 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:20px 48px; di
 .stat-label { font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#fff; margin-bottom:6px; }
 .stat-sub { font-size:12px; color:var(--muted); font-weight:300; }
 
-/* ══════════════ WEBSITE TRIAGE PREVIEW ══════════════ */
-.triage-section { position:relative; z-index:1; max-width:1200px; margin:0 auto 120px; padding:0 24px; }
-.triage-wrap { background:var(--card); border:1px solid var(--border); border-radius:24px; overflow:hidden; box-shadow:0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(201,163,91,0.1); }
+/* ══════════════ PREVIEW TEASER SECTION ══════════════ */
+.preview-teaser-section { position:relative; z-index:1; max-width:1200px; margin:0 auto 120px; padding:0 24px; }
+.preview-teaser-wrap { background:var(--card); border:1px solid var(--border); border-radius:24px; overflow:hidden; box-shadow:0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(201,163,91,0.1); }
+.preview-teaser-content { display:grid; grid-template-columns:1fr 1fr; gap:0; align-items:center; }
+.preview-teaser-image { background:linear-gradient(135deg, rgba(201,163,91,0.15) 0%, rgba(201,163,91,0.05) 100%); height:400px; display:flex; align-items:center; justify-content:center; font-size:120px; color:rgba(201,163,91,0.1); position:relative; overflow:hidden; }
+.preview-teaser-image::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; background:radial-gradient(circle at 30% 40%, rgba(201,163,91,0.12) 0%, transparent 60%); pointer-events:none; }
+.preview-teaser-text { padding:60px 48px; }
+.preview-teaser-tag { display:inline-flex; align-items:center; gap:8px; background:var(--gold-dim); border:1px solid var(--border); padding:6px 16px; border-radius:100px; font-size:10px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:20px; }
+.preview-teaser-text h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(28px,4vw,42px); font-weight:700; color:#fff; line-height:1.1; letter-spacing:-1px; margin-bottom:16px; }
+.preview-teaser-text h2 em { font-style:italic; color:var(--gold); }
+.preview-teaser-text p { font-size:15px; color:var(--soft); line-height:1.7; margin-bottom:32px; font-weight:300; }
+.preview-teaser-cta { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828); color:#000; padding:16px 36px; border-radius:12px; font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; text-decoration:none; transition:all 0.3s; box-shadow:0 8px 24px rgba(201,163,91,0.3); cursor:pointer; border:none; }
+.preview-teaser-cta:hover { filter:brightness(1.1); transform:translateY(-2px); box-shadow:0 12px 32px rgba(201,163,91,0.4); }
 
-/* Control bar */
-.triage-controls { background:rgba(0,0,0,0.5); border-bottom:1px solid var(--border); padding:20px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
-.triage-controls-left { display:flex; align-items:center; gap:16px; }
-.triage-live-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.25); padding:6px 14px; border-radius:100px; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--emerald); }
-.triage-live-dot { width:6px; height:6px; border-radius:50%; background:var(--emerald); box-shadow:0 0 8px var(--emerald); animation:pulse 1.5s infinite; }
-.triage-title { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:700; color:#fff; }
+/* ══════════════ PRICING SECTION ══════════════ */
+.pricing-section { position:relative; z-index:1; max-width:1100px; margin:0 auto 120px; padding:0 24px; }
+.pricing-header { text-align:center; margin-bottom:80px; }
+.pricing-header h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(34px,5vw,56px); font-weight:700; color:#fff; line-height:1.08; letter-spacing:-1.5px; margin-bottom:18px; text-shadow:0 0 25px rgba(201,163,91,0.2); }
+.pricing-header h2 em { font-style:italic; color:var(--gold); }
+.pricing-header p { font-size:17px; color:var(--soft); max-width:600px; margin:0 auto; line-height:1.65; font-weight:300; }
+.pricing-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:40px; }
+.pricing-tier { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:48px 40px; position:relative; overflow:hidden; transition:all 0.3s; }
+.pricing-tier:hover { border-color:var(--gold); box-shadow:0 30px 60px rgba(0,0,0,0.4), 0 0 40px rgba(201,163,91,0.12); }
+.pricing-tier::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--gold), transparent); opacity:0; transition:opacity 0.3s; }
+.pricing-tier:hover::before { opacity:0.6; }
+.pricing-tier-label { font-size:10px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+.pricing-tier h3 { font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:700; color:#fff; margin-bottom:8px; letter-spacing:-0.5px; }
+.pricing-tier-sub { font-size:13px; color:var(--soft); margin-bottom:28px; font-weight:300; }
+.pricing-price { font-family:'Cormorant Garamond',serif; font-size:56px; font-weight:700; color:var(--gold); line-height:1; margin-bottom:6px; text-shadow:0 0 20px rgba(201,163,91,0.3); }
+.pricing-period { font-size:12px; color:var(--muted); margin-bottom:36px; letter-spacing:1px; text-transform:uppercase; font-weight:600; }
+.pricing-features { list-style:none; display:flex; flex-direction:column; gap:14px; margin-bottom:40px; }
+.pricing-features li { display:flex; align-items:flex-start; gap:12px; font-size:14px; color:var(--soft); font-weight:300; line-height:1.55; }
+.pricing-check { width:20px; height:20px; min-width:20px; background:rgba(16,185,129,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; color:var(--emerald); font-weight:700; margin-top:1px; }
+.pricing-cta { display:block; width:100%; background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828); color:#000; padding:16px 0; border-radius:12px; font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; text-decoration:none; text-align:center; transition:all 0.3s; box-shadow:0 8px 20px rgba(201,163,91,0.3); border:none; cursor:pointer; }
+.pricing-cta:hover { filter:brightness(1.1); transform:translateY(-2px); box-shadow:0 12px 28px rgba(201,163,91,0.4); }
 
-/* Agent type toggle */
-.agent-toggle { display:flex; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
-.agent-btn { padding:9px 20px; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; border:none; background:transparent; color:var(--muted); transition:all 0.25s; font-family:'DM Sans',sans-serif; }
-.agent-btn.active { background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828); color:#000; }
-.agent-btn:hover:not(.active) { color:var(--cream); }
-
-/* Style tabs */
-.style-tabs { background:rgba(0,0,0,0.3); border-bottom:1px solid var(--border); padding:0 32px; display:flex; align-items:center; gap:4px; overflow-x:auto; }
-.style-tab { display:flex; align-items:center; gap:8px; padding:14px 20px; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; border:none; background:transparent; color:var(--muted); transition:all 0.25s; border-bottom:2px solid transparent; white-space:nowrap; font-family:'DM Sans',sans-serif; }
-.style-tab.active { color:var(--gold); border-bottom-color:var(--gold); }
-.style-tab:hover:not(.active) { color:var(--cream); }
-.style-tab-dot { width:8px; height:8px; border-radius:50%; }
-
-/* Browser chrome */
-.browser-chrome { background:rgba(0,0,0,0.4); border-bottom:1px solid rgba(255,255,255,0.06); padding:10px 20px; display:flex; align-items:center; gap:14px; }
-.browser-dots { display:flex; gap:6px; }
-.browser-dot { width:10px; height:10px; border-radius:50%; }
-.browser-dot.r { background:#ef4444; opacity:0.6; }
-.browser-dot.y { background:#f59e0b; opacity:0.6; }
-.browser-dot.g { background:#10b981; opacity:0.6; }
-.browser-bar { flex:1; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:5px 14px; font-size:11px; color:var(--muted); letter-spacing:0.3px; }
-
-/* Preview container */
-.preview-container { height:600px; overflow:hidden; position:relative; transition:all 0.4s ease; }
-.website-preview { width:100%; height:100%; overflow-y:auto; overflow-x:hidden; transition:all 0.4s ease; }
-
-/* ─── STYLE 1: LUXURY DARK ─── */
-.ws-luxury { background:#070709; font-family:'Cormorant Garamond',serif; }
-.ws-luxury .ws-nav { padding:20px 48px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(201,163,91,0.15); background:rgba(7,7,9,0.95); }
-.ws-luxury .ws-logo { font-size:22px; font-weight:700; color:#f5f1e8; letter-spacing:-0.5px; }
-.ws-luxury .ws-logo span { font-style:italic; color:#C9A35B; }
-.ws-luxury .ws-nav-links { display:flex; gap:28px; }
-.ws-luxury .ws-nav-link { font-family:'DM Sans',sans-serif; font-size:12px; color:rgba(245,241,232,0.5); letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
-.ws-luxury .ws-nav-cta { background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828); color:#000; padding:9px 22px; border-radius:7px; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
-.ws-luxury .ws-hero { padding:80px 48px 60px; text-align:center; position:relative; overflow:hidden; }
-.ws-luxury .ws-hero::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:800px; height:400px; background:radial-gradient(ellipse at 50% 0%, rgba(201,163,91,0.18) 0%, transparent 65%); pointer-events:none; }
-.ws-luxury .ws-hero-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(201,163,91,0.08); border:1px solid rgba(201,163,91,0.25); border-radius:100px; padding:5px 16px; font-family:'DM Sans',sans-serif; font-size:9px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:#C9A35B; margin-bottom:24px; }
-.ws-luxury .ws-hero-tag-dot { width:5px; height:5px; border-radius:50%; background:#10b981; box-shadow:0 0 6px #10b981; animation:pulse 2s infinite; }
-.ws-luxury .ws-hero h1 { font-size:clamp(36px,5vw,64px); font-weight:700; line-height:1.04; letter-spacing:-2px; color:#fff; margin-bottom:18px; }
-.ws-luxury .ws-hero h1 em { color:#C9A35B; }
-.ws-luxury .ws-hero p { font-family:'DM Sans',sans-serif; font-size:15px; color:rgba(245,241,232,0.55); max-width:480px; margin:0 auto 32px; line-height:1.65; font-weight:300; }
-.ws-luxury .ws-cta-row { display:flex; gap:12px; justify-content:center; }
-.ws-luxury .ws-btn-gold { background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828); color:#000; padding:14px 32px; border-radius:10px; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; cursor:pointer; box-shadow:0 8px 24px rgba(201,163,91,0.3); }
-.ws-luxury .ws-btn-ghost { background:transparent; color:rgba(245,241,232,0.6); border:1px solid rgba(201,163,91,0.25); padding:14px 28px; border-radius:10px; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; cursor:pointer; }
-.ws-luxury .ws-stats { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid rgba(201,163,91,0.12); border-bottom:1px solid rgba(201,163,91,0.12); background:rgba(201,163,91,0.02); }
-.ws-luxury .ws-stat { padding:24px; text-align:center; border-right:1px solid rgba(201,163,91,0.12); }
-.ws-luxury .ws-stat:last-child { border-right:none; }
-.ws-luxury .ws-stat-num { font-size:36px; font-weight:700; color:#C9A35B; line-height:1; margin-bottom:6px; }
-.ws-luxury .ws-stat-label { font-family:'DM Sans',sans-serif; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(245,241,232,0.4); }
-.ws-luxury .ws-listings { padding:40px 48px; }
-.ws-luxury .ws-listings-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; }
-.ws-luxury .ws-listings-title { font-size:24px; font-weight:700; color:#fff; letter-spacing:-0.5px; }
-.ws-luxury .ws-listings-title em { color:#C9A35B; }
-.ws-luxury .ws-listings-link { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#C9A35B; }
-.ws-luxury .ws-listings-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
-.ws-luxury .ws-listing-card { background:rgba(201,163,91,0.04); border:1px solid rgba(201,163,91,0.14); border-radius:14px; overflow:hidden; }
-.ws-luxury .ws-listing-img { height:110px; display:flex; align-items:center; justify-content:center; font-size:32px; }
-.ws-luxury .ws-listing-body { padding:14px; }
-.ws-luxury .ws-listing-price { font-size:16px; font-weight:700; color:#fff; margin-bottom:4px; }
-.ws-luxury .ws-listing-addr { font-family:'DM Sans',sans-serif; font-size:10px; color:rgba(245,241,232,0.45); margin-bottom:10px; }
-.ws-luxury .ws-listing-meta { display:flex; gap:10px; }
-.ws-luxury .ws-listing-tag { font-family:'DM Sans',sans-serif; font-size:9px; color:rgba(245,241,232,0.4); background:rgba(255,255,255,0.05); padding:3px 8px; border-radius:5px; }
-
-/* ─── STYLE 2: CLEAN WHITE ─── */
-.ws-clean { background:#fff; font-family:'DM Sans',sans-serif; }
-.ws-clean .ws-nav { padding:16px 40px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f0ede8; background:#fff; }
-.ws-clean .ws-logo { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:700; color:#1a1a1a; }
-.ws-clean .ws-logo span { color:#C9A35B; }
-.ws-clean .ws-nav-links { display:flex; gap:24px; }
-.ws-clean .ws-nav-link { font-size:12px; color:#666; letter-spacing:0.5px; cursor:pointer; }
-.ws-clean .ws-nav-cta { background:#1a1a1a; color:#fff; padding:9px 20px; border-radius:6px; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; }
-.ws-clean .ws-hero { background:linear-gradient(135deg, #faf8f4 0%, #f0ede4 100%); padding:60px 40px; display:grid; grid-template-columns:1.2fr 1fr; gap:48px; align-items:center; }
-.ws-clean .ws-hero-eyebrow { font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#C9A35B; margin-bottom:14px; }
-.ws-clean .ws-hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(30px,4vw,52px); font-weight:700; line-height:1.1; letter-spacing:-1px; color:#1a1a1a; margin-bottom:16px; }
-.ws-clean .ws-hero h1 em { color:#C9A35B; font-style:italic; }
-.ws-clean .ws-hero p { font-size:14px; color:#666; line-height:1.7; margin-bottom:28px; font-weight:300; }
-.ws-clean .ws-btn-dark { background:#1a1a1a; color:#fff; padding:13px 28px; border-radius:8px; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; display:inline-block; margin-right:10px; }
-.ws-clean .ws-btn-outline { background:transparent; color:#1a1a1a; border:1.5px solid #1a1a1a; padding:13px 24px; border-radius:8px; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; display:inline-block; }
-.ws-clean .ws-hero-visual { background:#fff; border-radius:16px; padding:24px; box-shadow:0 20px 60px rgba(0,0,0,0.1); }
-.ws-clean .ws-hero-visual-label { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#999; margin-bottom:14px; }
-.ws-clean .ws-lead-item { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid #f5f5f5; }
-.ws-clean .ws-lead-item:last-child { border-bottom:none; }
-.ws-clean .ws-lead-avatar { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; }
-.ws-clean .ws-lead-info { flex:1; }
-.ws-clean .ws-lead-name { font-size:12px; font-weight:600; color:#1a1a1a; }
-.ws-clean .ws-lead-detail { font-size:10px; color:#999; }
-.ws-clean .ws-lead-badge { font-size:9px; font-weight:700; padding:3px 8px; border-radius:5px; letter-spacing:1px; }
-.ws-clean .ws-services { padding:40px; background:#fff; }
-.ws-clean .ws-services h2 { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:700; color:#1a1a1a; margin-bottom:24px; letter-spacing:-0.5px; }
-.ws-clean .ws-services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-.ws-clean .ws-service-card { background:#faf8f4; border-radius:12px; padding:20px; }
-.ws-clean .ws-service-icon { font-size:24px; margin-bottom:10px; }
-.ws-clean .ws-service-title { font-size:13px; font-weight:700; color:#1a1a1a; margin-bottom:6px; }
-.ws-clean .ws-service-desc { font-size:11px; color:#888; line-height:1.6; }
-
-/* ─── STYLE 3: EDITORIAL ─── */
-.ws-editorial { background:#0d0c0b; font-family:'DM Sans',sans-serif; }
-.ws-editorial .ws-nav { padding:18px 40px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.08); }
-.ws-editorial .ws-logo { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:700; color:#f0ebe0; letter-spacing:2px; text-transform:uppercase; }
-.ws-editorial .ws-nav-links { display:flex; gap:28px; }
-.ws-editorial .ws-nav-link { font-size:11px; color:rgba(240,235,224,0.4); letter-spacing:2px; text-transform:uppercase; cursor:pointer; }
-.ws-editorial .ws-nav-cta { border:1px solid rgba(240,235,224,0.3); color:#f0ebe0; padding:8px 20px; border-radius:5px; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; cursor:pointer; }
-.ws-editorial .ws-hero { padding:60px 40px; display:grid; grid-template-columns:1fr 1fr; gap:0; min-height:280px; }
-.ws-editorial .ws-hero-left { border-right:1px solid rgba(255,255,255,0.08); padding-right:40px; display:flex; flex-direction:column; justify-content:space-between; }
-.ws-editorial .ws-issue { font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(240,235,224,0.35); margin-bottom:20px; }
-.ws-editorial .ws-hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(32px,4vw,56px); font-weight:700; line-height:1.04; letter-spacing:-1.5px; color:#f0ebe0; }
-.ws-editorial .ws-hero h1 em { color:#C9A35B; font-style:italic; }
-.ws-editorial .ws-hero-right { padding-left:40px; display:flex; flex-direction:column; justify-content:flex-end; }
-.ws-editorial .ws-hero p { font-size:13px; color:rgba(240,235,224,0.5); line-height:1.75; font-weight:300; margin-bottom:24px; }
-.ws-editorial .ws-btn-editorial { display:inline-flex; align-items:center; gap:10px; border-bottom:1px solid #C9A35B; padding-bottom:8px; font-size:10px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:#C9A35B; cursor:pointer; }
-.ws-editorial .ws-featured { padding:0 40px 40px; display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:1px; background:rgba(255,255,255,0.06); margin-top:1px; }
-.ws-editorial .ws-feat-item { background:#0d0c0b; padding:24px 20px; }
-.ws-editorial .ws-feat-item:first-child { padding:24px 30px 24px 20px; }
-.ws-editorial .ws-feat-cat { font-size:8px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(240,235,224,0.3); margin-bottom:12px; }
-.ws-editorial .ws-feat-price { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:700; color:#f0ebe0; margin-bottom:6px; }
-.ws-editorial .ws-feat-addr { font-size:11px; color:rgba(240,235,224,0.4); margin-bottom:12px; }
-.ws-editorial .ws-feat-tag { display:inline-block; font-size:8px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#C9A35B; border:1px solid rgba(201,163,91,0.3); padding:3px 8px; border-radius:3px; }
-
-/* ─── STYLE 4: MINIMAL ─── */
-.ws-minimal { background:#f9f7f4; font-family:'DM Sans',sans-serif; }
-.ws-minimal .ws-nav { padding:18px 40px; display:flex; align-items:center; justify-content:space-between; }
-.ws-minimal .ws-logo { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; color:#1a1a1a; }
-.ws-minimal .ws-nav-links { display:flex; gap:32px; }
-.ws-minimal .ws-nav-link { font-size:12px; color:#888; cursor:pointer; }
-.ws-minimal .ws-nav-cta { background:#C9A35B; color:#fff; padding:9px 22px; border-radius:100px; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; }
-.ws-minimal .ws-hero { padding:60px 40px; }
-.ws-minimal .ws-hero-kicker { font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#C9A35B; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
-.ws-minimal .ws-hero-kicker::before { content:''; display:block; width:24px; height:1px; background:#C9A35B; }
-.ws-minimal .ws-hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(36px,5vw,62px); font-weight:700; line-height:1.04; letter-spacing:-2px; color:#1a1a1a; margin-bottom:24px; max-width:600px; }
-.ws-minimal .ws-hero h1 em { color:#C9A35B; font-style:italic; }
-.ws-minimal .ws-hero-row { display:flex; align-items:flex-end; gap:48px; flex-wrap:wrap; }
-.ws-minimal .ws-hero p { font-size:14px; color:#666; line-height:1.75; max-width:340px; font-weight:300; }
-.ws-minimal .ws-btn-min { background:#1a1a1a; color:#fff; padding:14px 32px; border-radius:100px; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; white-space:nowrap; }
-.ws-minimal .ws-divider { height:1px; background:#e8e5e0; margin:0 40px; }
-.ws-minimal .ws-props { padding:32px 40px; display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-.ws-minimal .ws-prop { }
-.ws-minimal .ws-prop-img { height:120px; background:linear-gradient(135deg, #e8e4dc, #d4cfc6); border-radius:10px; margin-bottom:12px; display:flex; align-items:center; justify-content:center; font-size:28px; }
-.ws-minimal .ws-prop-price { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:700; color:#1a1a1a; margin-bottom:4px; }
-.ws-minimal .ws-prop-addr { font-size:11px; color:#888; margin-bottom:8px; }
-.ws-minimal .ws-prop-meta { display:flex; gap:12px; font-size:10px; color:#aaa; }
-
-/* Comparison bar */
-.triage-footer { background:rgba(0,0,0,0.4); border-top:1px solid var(--border); padding:16px 32px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
-.triage-footer-label { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
-.triage-tag { display:inline-flex; align-items:center; gap:6px; background:var(--gold-dim); border:1px solid var(--border); border-radius:100px; padding:4px 12px; font-size:10px; font-weight:600; color:var(--gold); }
-.triage-tag-dot { width:5px; height:5px; border-radius:50%; background:var(--emerald); }
-
-/* ── APPLY FORM ── */
-.apply-section { position:relative; z-index:1; max-width:900px; margin:0 auto 120px; padding:0 24px; }
-.apply-wrap { background:linear-gradient(135deg, rgba(201,163,91,0.06) 0%, var(--card) 100%); border:1px solid var(--gold); border-radius:24px; overflow:hidden; box-shadow:0 40px 80px rgba(0,0,0,0.5), 0 0 60px rgba(201,163,91,0.1); position:relative; }
-.apply-wrap::before,.apply-wrap::after { content:''; position:absolute; width:24px; height:24px; border-color:var(--gold); border-style:solid; }
-.apply-wrap::before { top:16px; right:16px; border-width:1px 1px 0 0; }
-.apply-wrap::after { bottom:16px; left:16px; border-width:0 0 1px 1px; }
-.apply-top { padding:52px 56px 0; text-align:center; }
-.apply-top h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(30px,4.5vw,48px); font-weight:700; color:#fff; letter-spacing:-1px; margin-bottom:12px; }
+.apply-section { position:relative; z-index:1; max-width:1100px; margin:0 auto 120px; padding:0 24px; }
+.apply-wrap { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:60px 48px; box-shadow:0 30px 60px rgba(0,0,0,0.4); }
+.apply-top { text-align:center; margin-bottom:48px; }
+.apply-top h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(32px,5vw,48px); font-weight:700; color:#fff; line-height:1.1; letter-spacing:-1px; margin-bottom:16px; }
 .apply-top h2 em { font-style:italic; color:var(--gold); }
-.apply-top p { font-size:15px; color:var(--soft); font-weight:300; line-height:1.65; max-width:520px; margin:0 auto 40px; }
-.apply-form { padding:0 56px 52px; display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.apply-group label { display:block; font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
-.apply-group input,.apply-group select,.apply-group textarea { width:100%; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:10px; padding:13px 16px; color:#fff; font-family:'DM Sans',sans-serif; font-size:14px; outline:none; transition:all 0.3s; appearance:none; resize:none; }
-.apply-group input:focus,.apply-group select:focus,.apply-group textarea:focus { border-color:var(--gold); background:rgba(201,163,91,0.05); box-shadow:0 0 0 3px rgba(201,163,91,0.08); }
-.apply-group select option { background:#1a1a1a; }
-.apply-group.full { grid-column:span 2; }
-.apply-group textarea { min-height:110px; }
-.apply-submit { grid-column:span 2; background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828); color:#000; padding:18px 28px; border-radius:12px; font-size:13px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; cursor:pointer; border:none; box-shadow:0 12px 32px rgba(201,163,91,0.35); transition:all 0.3s; margin-top:4px; }
-.apply-submit:hover { filter:brightness(1.1); transform:translateY(-2px); }
-.apply-note { grid-column:span 2; text-align:center; font-size:11px; color:var(--muted); font-style:italic; }
-.success-state { display:none; padding:80px 56px; text-align:center; }
-.success-state.visible { display:block; }
+.apply-top p { font-size:16px; color:var(--soft); max-width:600px; margin:0 auto; line-height:1.65; font-weight:300; }
+.apply-form { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:900px; margin:0 auto; }
+.apply-group { display:flex; flex-direction:column; }
+.apply-group.full { grid-column:1/-1; }
+.apply-group label { font-size:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+.apply-group input, .apply-group select, .apply-group textarea { background:rgba(255,255,255,0.04); border:1px solid var(--border); color:var(--cream); padding:14px 16px; border-radius:10px; font-family:'DM Sans',sans-serif; font-size:14px; transition:all 0.3s; }
+.apply-group input:focus, .apply-group select:focus, .apply-group textarea:focus { outline:none; border-color:var(--gold); background:rgba(255,255,255,0.06); box-shadow:0 0 20px rgba(201,163,91,0.15); }
+.apply-group textarea { resize:vertical; min-height:100px; }
+.apply-submit { width:100%; grid-column:1/-1; background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828); color:#000; padding:18px 0; border-radius:12px; font-size:13px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; border:none; cursor:pointer; transition:all 0.3s; box-shadow:0 12px 32px rgba(201,163,91,0.35); }
+.apply-submit:hover { filter:brightness(1.1); transform:translateY(-2px); box-shadow:0 16px 40px rgba(201,163,91,0.5); }
+.apply-note { grid-column:1/-1; text-align:center; font-size:12px; color:var(--muted); margin-top:16px; letter-spacing:0.5px; }
+.success-state { grid-column:1/-1; text-align:center; display:none; }
 .success-icon { font-size:48px; margin-bottom:20px; }
-.success-state h3 { font-family:'Cormorant Garamond',serif; font-size:36px; font-weight:700; color:#fff; margin-bottom:12px; }
+.success-state h3 { font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:700; color:#fff; margin-bottom:12px; }
 .success-state h3 em { font-style:italic; color:var(--gold); }
-.success-state p { font-size:15px; color:var(--soft); line-height:1.7; font-weight:300; }
-.final-cta-section { position:relative; z-index:1; max-width:1000px; margin:0 auto 80px; padding:0 24px; }
-.final-cta-box { background:linear-gradient(135deg, rgba(201,163,91,0.08) 0%, var(--card) 100%); border:1px solid var(--gold); border-radius:24px; padding:72px 56px; text-align:center; position:relative; overflow:hidden; }
-.final-cta-box::before,.final-cta-box::after { content:''; position:absolute; width:24px; height:24px; border-color:var(--gold); border-style:solid; }
-.final-cta-box::before { top:16px; right:16px; border-width:1px 1px 0 0; }
-.final-cta-box::after { bottom:16px; left:16px; border-width:0 0 1px 1px; }
-.final-cta-box h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(30px,4.5vw,50px); font-weight:700; color:#fff; margin-bottom:16px; letter-spacing:-0.5px; }
+.success-state p { font-size:15px; color:var(--soft); line-height:1.65; }
+
+.final-cta-section { position:relative; z-index:1; max-width:1100px; margin:0 auto 120px; padding:0 24px; }
+.final-cta-box { background:linear-gradient(135deg, rgba(201,163,91,0.08) 0%, var(--card) 100%); border:1px solid var(--border); border-radius:20px; padding:60px 48px; text-align:center; }
+.final-cta-box h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(32px,5vw,48px); font-weight:700; color:#fff; line-height:1.1; letter-spacing:-1px; margin-bottom:16px; }
 .final-cta-box h2 em { font-style:italic; color:var(--gold); }
-.final-cta-box p { font-size:16px; color:var(--soft); margin-bottom:36px; max-width:520px; margin-left:auto; margin-right:auto; line-height:1.65; font-weight:300; }
-.final-cta-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
-.final-cta-note { margin-top:20px; font-size:12px; color:var(--muted); font-style:italic; }
-footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:40px 24px; }
-.footer-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; }
-.footer-logo { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; color:var(--cream); text-decoration:none; }
-.footer-links { display:flex; gap:24px; flex-wrap:wrap; }
-.footer-links a { font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.25s; }
+.final-cta-box p { font-size:16px; color:var(--soft); max-width:700px; margin:0 auto 32px; line-height:1.65; font-weight:300; }
+.final-cta-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:20px; }
+.final-cta-note { font-size:12px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; font-weight:600; }
+
+footer { position:relative; z-index:1; border-top:1px solid var(--border); background:rgba(0,0,0,0.4); padding:40px 24px; margin-top:120px; }
+.footer-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:24px; }
+.footer-logo { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:700; color:var(--cream); text-decoration:none; }
+.footer-links { display:flex; gap:32px; }
+.footer-links a { color:var(--soft); text-decoration:none; font-size:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase; transition:color 0.25s; }
 .footer-links a:hover { color:var(--gold); }
-.footer-copy { font-size:11px; color:var(--muted); }
-@media(max-width:900px) {
-  nav { padding:18px 20px; }
-  .nav-links .nav-link:not(.cta) { display:none; }
-  .pillars-3 { grid-template-columns:1fr; }
-  .features-grid { grid-template-columns:1fr 1fr; }
+.footer-copy { font-size:11px; color:var(--muted); letter-spacing:0.5px; }
+
+@media (max-width:768px) {
+  nav { padding:16px 24px; }
+  .section-shell { margin-bottom:80px; }
+  .pillars-3, .features-grid { grid-template-columns:1fr; }
   .process-steps { grid-template-columns:1fr; }
   .process-step { border-right:none; border-bottom:1px solid var(--border); }
-  .process-arrow { display:none; }
-  .split-feature { grid-template-columns:1fr; gap:48px; }
-  .stats-inner { grid-template-columns:1fr 1fr; }
-  .stat-item { border-right:none; border-bottom:1px solid var(--border); padding:28px 0; }
-  .stat-item:last-child { border-bottom:none; }
-  .apply-top { padding:40px 28px 0; }
-  .apply-form { grid-template-columns:1fr; padding:0 28px 40px; }
-  .apply-group.full { grid-column:span 1; }
-  .apply-submit { grid-column:span 1; }
-  .apply-note { grid-column:span 1; }
-  .final-cta-box { padding:44px 28px; }
+  .process-step:last-child { border-bottom:none; }
+  .process-arrow { display:none !important; }
+  .split-feature { grid-template-columns:1fr; gap:40px; }
+  .stats-inner { grid-template-columns:repeat(2,1fr); }
+  .stat-item { padding:20px; }
+  .pricing-grid { grid-template-columns:1fr; }
+  .preview-teaser-content { grid-template-columns:1fr; }
+  .preview-teaser-image { height:250px; }
+  .apply-form { grid-template-columns:1fr; }
+  .apply-group.full { grid-column:1; }
   .footer-inner { flex-direction:column; text-align:center; }
-  .triage-controls { flex-direction:column; align-items:flex-start; }
-  .style-tabs { padding:0 20px; }
-  .ws-luxury .ws-listings-grid { grid-template-columns:1fr; }
-  .ws-clean .ws-hero { grid-template-columns:1fr; }
-  .ws-editorial .ws-hero { grid-template-columns:1fr; }
-  .ws-editorial .ws-hero-left { border-right:none; padding-right:0; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:24px; margin-bottom:24px; }
-  .ws-editorial .ws-hero-right { padding-left:0; }
-  .ws-editorial .ws-featured { grid-template-columns:1fr; }
-  .ws-minimal .ws-hero-row { flex-direction:column; }
-  .ws-minimal .ws-props { grid-template-columns:1fr; }
-  .ws-clean .ws-services-grid { grid-template-columns:1fr; }
-}
-@media(max-width:640px) {
-  .features-grid { grid-template-columns:1fr; }
-  .preview-container { height:500px; }
+  .footer-links { flex-direction:column; gap:12px; }
 }
 </style>
 </head>
@@ -364,362 +221,51 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
 <div class="bg-glow-2"></div>
 
 <nav>
-  <a href="index.html" class="nav-back-btn">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-    Back to Site
-  </a>
-  <a href="find out.html" class="nav-logo">
-    <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" onerror="this.style.display='none'">
+  <div class="nav-logo">
     <span>Hermia</span>
-  </a>
+  </div>
   <div class="nav-links">
-    <a href="website sandbox.html" class="nav-link">Why Agents Switch</a>
-    <a href="#apply" class="nav-link cta">Request My Website →</a>
+    <a href="#apply" class="nav-link">Request Website</a>
+    <a href="#" class="nav-link cta">Get Started</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg-text">WEBSITES</div>
+  <div class="hero-bg-text">Websites</div>
   <div class="hero-inner">
-    <div class="hero-tag"><span class="hero-tag-dot"></span>Premium Real Estate Websites · AU &amp; Dubai</div>
-    <h1>Your Website<br>Should <em>Close Deals.</em></h1>
-    <p class="hero-sub"><strong>Most agent websites are brochures.</strong><br>Hermia builds websites that qualify visitors, capture leads, and connect directly to your CRM — before you've even picked up the phone.</p>
-    <div class="hero-cta-row">
-      <a href="#apply" class="btn-primary">Request My Website →</a>
-      <a href="#preview" class="btn-ghost">See What We Build</a>
+    <div class="hero-tag">
+      <span class="hero-tag-dot"></span>
+      For Agents & Agencies
     </div>
-    <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
+    <h1>Premium Real Estate Websites<br><em>Built for Results.</em></h1>
+    <p class="hero-sub">Whether you're an independent agent or a growing agency, we build custom websites that showcase your business, qualify leads, and connect to your CRM. No templates. No compromises.</p>
+    <div class="hero-cta-row">
+      <a href="#apply" class="btn-primary">Request Your Website →</a>
+      <a href="#preview" class="btn-ghost">See Live Examples</a>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll to explore</span>
+      <div class="scroll-line"></div>
+    </div>
   </div>
 </section>
 
 <!-- MARQUEE -->
 <div class="marquee-strip">
   <div class="marquee-track">
-    <div class="marquee-item">Luxury Design <span>✦</span></div>
-    <div class="marquee-item">Lead-Ready <span>✦</span></div>
-    <div class="marquee-item">CRM Connected <span>✦</span></div>
-    <div class="marquee-item">Mobile First <span>✦</span></div>
-    <div class="marquee-item">Australia &amp; Dubai <span>✦</span></div>
-    <div class="marquee-item">SEO Foundations <span>✦</span></div>
-    <div class="marquee-item">Automation Ready <span>✦</span></div>
-    <div class="marquee-item">Done For You <span>✦</span></div>
-    <div class="marquee-item">Luxury Design <span>✦</span></div>
-    <div class="marquee-item">Lead-Ready <span>✦</span></div>
-    <div class="marquee-item">CRM Connected <span>✦</span></div>
-    <div class="marquee-item">Mobile First <span>✦</span></div>
-    <div class="marquee-item">Australia &amp; Dubai <span>✦</span></div>
-    <div class="marquee-item">SEO Foundations <span>✦</span></div>
-    <div class="marquee-item">Automation Ready <span>✦</span></div>
-    <div class="marquee-item">Done For You <span>✦</span></div>
+    <div class="marquee-item"><span>✦</span> Agents & Agencies</div>
+    <div class="marquee-item"><span>✦</span> Custom Design</div>
+    <div class="marquee-item"><span>✦</span> Lead Qualification</div>
+    <div class="marquee-item"><span>✦</span> CRM Integration</div>
+    <div class="marquee-item"><span>✦</span> Mobile Optimised</div>
+    <div class="marquee-item"><span>✦</span> Agents & Agencies</div>
+    <div class="marquee-item"><span>✦</span> Custom Design</div>
+    <div class="marquee-item"><span>✦</span> Lead Qualification</div>
+    <div class="marquee-item"><span>✦</span> CRM Integration</div>
+    <div class="marquee-item"><span>✦</span> Mobile Optimised</div>
   </div>
 </div>
-
-<!-- WHY -->
-<div class="section-shell" id="why">
-  <div class="section-header">
-    <div class="section-tag">Why It Matters</div>
-    <h2>Your website is your<br><em>first impression.</em></h2>
-    <p>Before a client calls, they've already judged you. A weak website costs you listings before you've even had the conversation.</p>
-  </div>
-  <div class="pillars-3">
-    <div class="pillar-3">
-      <div class="pillar-3-num">01</div>
-      <div class="pillar-3-icon">🏆</div>
-      <div class="pillar-3-eyebrow">Authority</div>
-      <h3>Win the Room Before You Walk In</h3>
-      <p>Luxury clients make snap judgements. A premium website signals that you operate at their level before you've even spoken. Credibility built in seconds.</p>
-    </div>
-    <div class="pillar-3">
-      <div class="pillar-3-num">02</div>
-      <div class="pillar-3-icon">🎯</div>
-      <div class="pillar-3-eyebrow">Conversion</div>
-      <h3>Turn Visitors Into Enquiries</h3>
-      <p>Clear enquiry pathways, strategic CTAs, and qualification-ready forms mean visitors don't just browse they contact you. Every page built to convert.</p>
-    </div>
-    <div class="pillar-3">
-      <div class="pillar-3-num">03</div>
-      <div class="pillar-3-icon">🔌</div>
-      <div class="pillar-3-eyebrow">Infrastructure</div>
-      <h3>Connected to Your Whole Stack</h3>
-      <p>CRM integrations, WhatsApp flows, calendar booking, and Hermia's lead qualification engine your website becomes the front door to your entire revenue system.</p>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ LIVE WEBSITE TRIAGE PREVIEW ══════════════ -->
-<div class="triage-section" id="preview">
-  <div class="section-header">
-    <div class="section-tag">Live Preview</div>
-    <h2>See exactly what<br><em>we'll build you.</em></h2>
-    <p>Toggle between agent types and click through real design styles — this is how we build. Each site is custom, connected to your CRM, and built to convert.</p>
-  </div>
-
-  <div class="triage-wrap">
-    <!-- Controls -->
-    <div class="triage-controls">
-      <div class="triage-controls-left">
-        <div class="triage-live-badge"><span class="triage-live-dot"></span>Live Preview</div>
-        <div class="triage-title">Website Design Triage</div>
-      </div>
-      <div class="agent-toggle">
-        <button class="agent-btn active" onclick="setAgent('residential', this)">🇦🇺 Residential</button>
-        <button class="agent-btn" onclick="setAgent('luxury', this)">🇦🇪 Luxury / Dubai</button>
-      </div>
-    </div>
-
-    <!-- Style Tabs -->
-    <div class="style-tabs">
-      <button class="style-tab active" onclick="setStyle('luxury', this)">
-        <span class="style-tab-dot" style="background:#C9A35B;"></span>Luxury Dark
-      </button>
-      <button class="style-tab" onclick="setStyle('clean', this)">
-        <span class="style-tab-dot" style="background:#e0d8cc;border:1px solid #999;"></span>Clean &amp; Light
-      </button>
-      <button class="style-tab" onclick="setStyle('editorial', this)">
-        <span class="style-tab-dot" style="background:#2a2520;border:1px solid #C9A35B;"></span>Editorial
-      </button>
-      <button class="style-tab" onclick="setStyle('minimal', this)">
-        <span class="style-tab-dot" style="background:#f0ede8;border:1px solid #ccc;"></span>Minimal
-      </button>
-    </div>
-
-    <!-- Browser Chrome -->
-    <div class="browser-chrome">
-      <div class="browser-dots">
-        <div class="browser-dot r"></div>
-        <div class="browser-dot y"></div>
-        <div class="browser-dot g"></div>
-      </div>
-      <div class="browser-bar" id="browser-url">yourname.com.au</div>
-    </div>
-
-    <!-- Preview -->
-    <div class="preview-container" id="preview-container">
-
-      <!-- LUXURY DARK -->
-      <div class="website-preview ws-luxury" id="style-luxury" style="display:block;">
-        <div class="ws-nav">
-          <div class="ws-logo"><span>James</span> Thornton</div>
-          <div class="ws-nav-links">
-            <div class="ws-nav-link">Listings</div>
-            <div class="ws-nav-link">About</div>
-            <div class="ws-nav-link">Results</div>
-          </div>
-          <div class="ws-nav-cta">Book Appraisal</div>
-        </div>
-        <div class="ws-hero">
-          <div class="ws-hero-tag"><span class="ws-hero-tag-dot"></span>Sydney's #1 Luxury Agent</div>
-          <h1>Property<br><em>Sold Different.</em></h1>
-          <p id="ws-hero-p">Consistently achieving record results for vendors across Sydney's most prestigious suburbs. When it matters most, you need someone who delivers.</p>
-          <div class="ws-cta-row">
-            <div class="ws-btn-gold">Request Appraisal →</div>
-            <div class="ws-btn-ghost">View Results</div>
-          </div>
-        </div>
-        <div class="ws-stats">
-          <div class="ws-stat"><div class="ws-stat-num" id="ws-stat-1">$186M</div><div class="ws-stat-label">Settled This Year</div></div>
-          <div class="ws-stat"><div class="ws-stat-num" id="ws-stat-2">97%</div><div class="ws-stat-label">Clearance Rate</div></div>
-          <div class="ws-stat"><div class="ws-stat-num" id="ws-stat-3">42</div><div class="ws-stat-label">Days Average DOM</div></div>
-        </div>
-        <div class="ws-listings">
-          <div class="ws-listings-header">
-            <div class="ws-listings-title">Current <em>Listings</em></div>
-            <div class="ws-listings-link">View All →</div>
-          </div>
-          <div class="ws-listings-grid">
-            <div class="ws-listing-card">
-              <div class="ws-listing-img" id="ws-listing-1-bg" style="background:linear-gradient(135deg, rgba(201,163,91,0.15), rgba(201,163,91,0.05));">🏠</div>
-              <div class="ws-listing-body">
-                <div class="ws-listing-price" id="ws-listing-1-price">$3,200,000</div>
-                <div class="ws-listing-addr" id="ws-listing-1-addr">14 Seaforth Crescent, Mosman NSW</div>
-                <div class="ws-listing-meta"><div class="ws-listing-tag">4 bed</div><div class="ws-listing-tag">3 bath</div><div class="ws-listing-tag">Auction</div></div>
-              </div>
-            </div>
-            <div class="ws-listing-card">
-              <div class="ws-listing-img" style="background:linear-gradient(135deg, rgba(201,163,91,0.12), rgba(201,163,91,0.04));">🏢</div>
-              <div class="ws-listing-body">
-                <div class="ws-listing-price" id="ws-listing-2-price">$1,750,000</div>
-                <div class="ws-listing-addr" id="ws-listing-2-addr">3/88 Kirribilli Ave, Kirribilli NSW</div>
-                <div class="ws-listing-meta"><div class="ws-listing-tag">2 bed</div><div class="ws-listing-tag">2 bath</div><div class="ws-listing-tag">EOI</div></div>
-              </div>
-            </div>
-            <div class="ws-listing-card">
-              <div class="ws-listing-img" style="background:linear-gradient(135deg, rgba(201,163,91,0.10), rgba(201,163,91,0.03));">🌊</div>
-              <div class="ws-listing-body">
-                <div class="ws-listing-price" id="ws-listing-3-price">$5,450,000</div>
-                <div class="ws-listing-addr" id="ws-listing-3-addr">1 Bayview Ave, Vaucluse NSW</div>
-                <div class="ws-listing-meta"><div class="ws-listing-tag">5 bed</div><div class="ws-listing-tag">4 bath</div><div class="ws-listing-tag">For Sale</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- CLEAN LIGHT -->
-      <div class="website-preview ws-clean" id="style-clean" style="display:none;">
-        <div class="ws-nav">
-          <div class="ws-logo"><span style="color:#C9A35B;">S</span>arah Mitchell Real Estate</div>
-          <div class="ws-nav-links">
-            <div class="ws-nav-link">Buy</div>
-            <div class="ws-nav-link">Sell</div>
-            <div class="ws-nav-link">Rent</div>
-            <div class="ws-nav-link">About</div>
-          </div>
-          <div class="ws-nav-cta">Free Appraisal</div>
-        </div>
-        <div class="ws-hero">
-          <div>
-            <div class="ws-hero-eyebrow" id="ws-clean-eyebrow">Melbourne's Trusted Agent Since 2011</div>
-            <h1 id="ws-clean-h1">Finding Your<br>Next <em>Chapter.</em></h1>
-            <p id="ws-clean-p">Personalised service. Proven results. Whether you're buying your first home or your fifth investment property — Sarah Mitchell makes it happen.</p>
-            <div>
-              <div class="ws-btn-dark">Find Properties</div>
-              <div class="ws-btn-outline">Get Appraisal</div>
-            </div>
-          </div>
-          <div class="ws-hero-visual">
-            <div class="ws-hero-visual-label">Active Leads — Today</div>
-            <div class="ws-lead-item">
-              <div class="ws-lead-avatar" style="background:#fef3c7;color:#92400e;">P</div>
-              <div class="ws-lead-info">
-                <div class="ws-lead-name">Priya S.</div>
-                <div class="ws-lead-detail" id="ws-lead-detail-1">Pre-approved · $950k budget · 3 weeks</div>
-              </div>
-              <div class="ws-lead-badge" style="background:#fef3c7;color:#92400e;">🔥 HOT</div>
-            </div>
-            <div class="ws-lead-item">
-              <div class="ws-lead-avatar" style="background:#dbeafe;color:#1e40af;">M</div>
-              <div class="ws-lead-info">
-                <div class="ws-lead-name">Marcus W.</div>
-                <div class="ws-lead-detail" id="ws-lead-detail-2">Finance in progress · $720k · 6 weeks</div>
-              </div>
-              <div class="ws-lead-badge" style="background:#dbeafe;color:#1e40af;">📋 WARM</div>
-            </div>
-            <div class="ws-lead-item">
-              <div class="ws-lead-avatar" style="background:#f3f4f6;color:#6b7280;">A</div>
-              <div class="ws-lead-info">
-                <div class="ws-lead-name">Anon Visitor</div>
-                <div class="ws-lead-detail">Budget TBC · Just browsing</div>
-              </div>
-              <div class="ws-lead-badge" style="background:#f3f4f6;color:#6b7280;">❄️ COLD</div>
-            </div>
-            <div style="margin-top:12px;font-size:9px;color:#C9A35B;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">✦ Qualified by Hermia</div>
-          </div>
-        </div>
-        <div class="ws-services">
-          <h2 id="ws-clean-services-h">How I Can Help</h2>
-          <div class="ws-services-grid">
-            <div class="ws-service-card"><div class="ws-service-icon">🏠</div><div class="ws-service-title" id="ws-svc-1">Residential Sales</div><div class="ws-service-desc" id="ws-svc-1-d">Strategic marketing and presentation to achieve the best price for your property.</div></div>
-            <div class="ws-service-card"><div class="ws-service-icon">🔑</div><div class="ws-service-title" id="ws-svc-2">Property Management</div><div class="ws-service-desc" id="ws-svc-2-d">Complete rental management — tenant screening, rent collection, maintenance.</div></div>
-            <div class="ws-service-card"><div class="ws-service-icon">📊</div><div class="ws-service-title" id="ws-svc-3">Free Appraisals</div><div class="ws-service-desc" id="ws-svc-3-d">Know what your property is worth today. No obligation, no sales pitch.</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- EDITORIAL -->
-      <div class="website-preview ws-editorial" id="style-editorial" style="display:none;">
-        <div class="ws-nav">
-          <div class="ws-logo" id="ws-ed-logo">THORNTON REALTY</div>
-          <div class="ws-nav-links">
-            <div class="ws-nav-link">Portfolio</div>
-            <div class="ws-nav-link">Market</div>
-            <div class="ws-nav-link">Journal</div>
-          </div>
-          <div class="ws-nav-cta">Enquire</div>
-        </div>
-        <div class="ws-hero">
-          <div class="ws-hero-left">
-            <div>
-              <div class="ws-issue" id="ws-ed-issue">Sydney Prestige · Est. 2008</div>
-              <h1 id="ws-ed-h1">Architecture<br>Meets <em>Ambition.</em></h1>
-            </div>
-            <div style="font-size:9px;font-weight:700;letter-spacing:2px;color:rgba(240,235,224,0.25);text-transform:uppercase;">Enquire for exclusive portfolio access</div>
-          </div>
-          <div class="ws-hero-right">
-            <p id="ws-ed-p">We represent prestige properties across Sydney's most coveted addresses. Every listing is approached with the care of a private art sale.</p>
-            <div class="ws-btn-editorial">View Current Portfolio →</div>
-          </div>
-        </div>
-        <div class="ws-featured">
-          <div class="ws-feat-item">
-            <div class="ws-feat-cat" id="ws-ed-cat-1">Featured Listing</div>
-            <div class="ws-feat-price" id="ws-ed-price-1">$8,750,000</div>
-            <div class="ws-feat-addr" id="ws-ed-addr-1">Wolseley Road, Point Piper NSW</div>
-            <div class="ws-feat-tag">By Negotiation</div>
-          </div>
-          <div class="ws-feat-item">
-            <div class="ws-feat-cat">Recent Result</div>
-            <div class="ws-feat-price" id="ws-ed-price-2">$4,200,000</div>
-            <div class="ws-feat-addr" id="ws-ed-addr-2">Raglan Street, Mosman NSW</div>
-            <div class="ws-feat-tag">Sold Prior to Auction</div>
-          </div>
-          <div class="ws-feat-item">
-            <div class="ws-feat-cat">Recent Result</div>
-            <div class="ws-feat-price" id="ws-ed-price-3">$3,100,000</div>
-            <div class="ws-feat-addr" id="ws-ed-addr-3">Roslyn Gardens, Elizabeth Bay NSW</div>
-            <div class="ws-feat-tag">Sold at Auction</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- MINIMAL -->
-      <div class="website-preview ws-minimal" id="style-minimal" style="display:none;">
-        <div class="ws-nav">
-          <div class="ws-logo" id="ws-min-logo">Chen Property</div>
-          <div class="ws-nav-links">
-            <div class="ws-nav-link">Buy</div>
-            <div class="ws-nav-link">Sell</div>
-            <div class="ws-nav-link">Lease</div>
-            <div class="ws-nav-link">About</div>
-          </div>
-          <div class="ws-nav-cta">Appraisal</div>
-        </div>
-        <div class="ws-hero">
-          <div class="ws-hero-kicker" id="ws-min-kicker">Eastern Suburbs · Sydney</div>
-          <h1 id="ws-min-h1">Sell Faster.<br>Buy <em>Smarter.</em></h1>
-          <div class="ws-hero-row">
-            <p id="ws-min-p">A boutique agency built on relationships and results. We don't take shortcuts — and our numbers prove it.</p>
-            <div class="ws-btn-min">Explore Listings →</div>
-          </div>
-        </div>
-        <div class="ws-divider"></div>
-        <div class="ws-props">
-          <div class="ws-prop">
-            <div class="ws-prop-img">🏠</div>
-            <div class="ws-prop-price" id="ws-min-p1">$1,250,000</div>
-            <div class="ws-prop-addr" id="ws-min-a1">12 Hardy St, Dover Heights</div>
-            <div class="ws-prop-meta"><span>3 bed</span><span>2 bath</span><span>Auction</span></div>
-          </div>
-          <div class="ws-prop">
-            <div class="ws-prop-img">🌿</div>
-            <div class="ws-prop-price" id="ws-min-p2">$2,100,000</div>
-            <div class="ws-prop-addr" id="ws-min-a2">7 Cliff St, Clovelly</div>
-            <div class="ws-prop-meta"><span>4 bed</span><span>3 bath</span><span>For Sale</span></div>
-          </div>
-          <div class="ws-prop">
-            <div class="ws-prop-img">🏙️</div>
-            <div class="ws-prop-price" id="ws-min-p3">$850,000</div>
-            <div class="ws-prop-addr" id="ws-min-a3">5/44 Ocean St, Bondi</div>
-            <div class="ws-prop-meta"><span>2 bed</span><span>1 bath</span><span>Sold</span></div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /preview-container -->
-
-    <!-- Footer tags -->
-    <div class="triage-footer">
-      <div class="triage-footer-label">Every site includes:</div>
-      <div class="triage-tag"><span class="triage-tag-dot"></span>Hermia Lead Qualification</div>
-      <div class="triage-tag"><span class="triage-tag-dot"></span>CRM Integration</div>
-      <div class="triage-tag"><span class="triage-tag-dot"></span>Mobile Optimised</div>
-      <div class="triage-tag"><span class="triage-tag-dot"></span>SEO Ready</div>
-      <div class="triage-tag"><span class="triage-tag-dot"></span>Done For You</div>
-    </div>
-
-  </div><!-- /triage-wrap -->
-</div><!-- /triage-section -->
 
 <!-- WHAT WE BUILD -->
 <div class="section-shell">
@@ -732,7 +278,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
   </div>
   <div class="section-header">
     <h2>Everything your website<br><em>needs to perform.</em></h2>
-    <p>Not a template. Not a drag-and-drop builder. A custom-built revenue asset designed specifically for your agency.</p>
+    <p>Not a template. Not a drag-and-drop builder. A custom-built revenue asset designed specifically for your business.</p>
   </div>
   <div class="features-grid">
     <div class="feat-card"><div class="feat-icon">✦</div><div class="feat-title">Luxury Design</div><div class="feat-desc">Clean, bespoke layouts that reflect the quality of your service. Designed to match the expectations of high-value clients.</div></div>
@@ -757,7 +303,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
       <div class="process-step-icon">📝</div>
       <div class="process-eyebrow">Discovery</div>
       <h3>Apply</h3>
-      <p>Tell us about your agency, your market, and your goals. We scope the build and send you a clear proposal — no calls needed.</p>
+      <p>Tell us about your business, your market, and your goals. We scope the build and send you a clear proposal — no calls needed.</p>
       <div class="process-arrow">→</div>
     </div>
     <div class="process-step">
@@ -788,13 +334,10 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
       <p>Open your CRM the next morning and the hot leads are already waiting, scored and ready to call.</p>
       <ul class="check-list">
         <li><span class="check-dot">✓</span>Connects to HubSpot, Rex, Zoho, Pipedrive, Bitrix24</li>
-        <li><span class="check-dot">✓</span>WhatsApp &amp; Email qualification flows built in</li>
+        <li><span class="check-dot">✓</span>WhatsApp & Email qualification flows built in</li>
         <li><span class="check-dot">✓</span>Hot / Warm / Cold scoring on every enquiry</li>
         <li><span class="check-dot">✓</span>Custom CRM integrations available</li>
       </ul>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;">
-        <a href="website what we do.html" class="btn-ghost">See The Full System</a>
-      </div>
     </div>
     <div class="split-visual">
       <div style="background:rgba(201,163,91,0.04);border:1px solid rgba(201,163,91,0.15);border-radius:12px;padding:20px;">
@@ -838,6 +381,84 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
   </div>
 </div>
 
+<!-- PREVIEW TEASER -->
+<div class="preview-teaser-section" id="preview">
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-label">Live Preview</div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line r"></div>
+  </div>
+  <div class="preview-teaser-wrap">
+    <div class="preview-teaser-content">
+      <div class="preview-teaser-image" style="background-image: url('https://d2xsxph8kpxj0f.cloudfront.net/310519663701704690/BGethwLGHUNNvHkWZp3mpK/hermia-website-mockup-Wbj78KSHojK4oiKLL5uQwM.webp'); background-size: cover; background-position: center;"></div>
+      <div class="preview-teaser-text">
+        <div class="preview-teaser-tag">Live Examples</div>
+        <h2>See our <em>websites.</em></h2>
+        <p>Explore live examples of real estate websites we've built for agents and agencies across Australia and Dubai. Each site is custom-designed, fully optimised, and connected to lead qualification systems.</p>
+        <a href="#websites" class="preview-teaser-cta">View Our Websites →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="pricing-section">
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-label">Pricing</div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line r"></div>
+  </div>
+  <div class="pricing-header">
+    <h2>Transparent Pricing<br><em>for Every Size.</em></h2>
+    <p>Whether you're a solo agent or a multi-agent agency, we have a solution that fits your needs and budget.</p>
+  </div>
+  <div class="pricing-grid">
+    <!-- AGENT PRICING -->
+    <div class="pricing-tier">
+      <div class="pricing-tier-label">For Individual Agents</div>
+      <h3>Agent Website</h3>
+      <p class="pricing-tier-sub">Perfect for independent agents and team leaders</p>
+      <div class="pricing-price">$2,500</div>
+      <div class="pricing-period">One-time build fee</div>
+      <ul class="pricing-features">
+        <li><span class="pricing-check">✓</span>Custom-designed website</li>
+        <li><span class="pricing-check">✓</span>Mobile optimised & fast-loading</li>
+        <li><span class="pricing-check">✓</span>Lead enquiry forms</li>
+        <li><span class="pricing-check">✓</span>Hermia lead qualification</li>
+        <li><span class="pricing-check">✓</span>CRM integration (HubSpot, Rex, Zoho)</li>
+        <li><span class="pricing-check">✓</span>SEO foundations</li>
+        <li><span class="pricing-check">✓</span>30 days of support included</li>
+      </ul>
+      <button class="pricing-cta" onclick="scrollToApply()">Request Agent Website →</button>
+    </div>
+
+    <!-- AGENCY PRICING -->
+    <div class="pricing-tier">
+      <div class="pricing-tier-label">For Real Estate Agencies</div>
+      <h3>Agency Website</h3>
+      <p class="pricing-tier-sub">For teams, multi-location agencies, and growing businesses</p>
+      <div class="pricing-price">$5,000</div>
+      <div class="pricing-period">One-time build fee</div>
+      <ul class="pricing-features">
+        <li><span class="pricing-check">✓</span>Custom-designed website</li>
+        <li><span class="pricing-check">✓</span>Mobile optimised & fast-loading</li>
+        <li><span class="pricing-check">✓</span>Advanced lead enquiry forms</li>
+        <li><span class="pricing-check">✓</span>Hermia lead qualification</li>
+        <li><span class="pricing-check">✓</span>CRM integration (all platforms)</li>
+        <li><span class="pricing-check">✓</span>Agent profiles & team pages</li>
+        <li><span class="pricing-check">✓</span>Advanced SEO & analytics</li>
+        <li><span class="pricing-check">✓</span>90 days of support included</li>
+        <li><span class="pricing-check">✓</span>Optional ongoing maintenance</li>
+      </ul>
+      <button class="pricing-cta" onclick="scrollToApply()">Request Agency Website →</button>
+    </div>
+  </div>
+</div>
+
 <!-- APPLY FORM -->
 <div class="apply-section" id="apply">
   <div class="divider">
@@ -851,14 +472,14 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
     <div id="form-state">
       <div class="apply-top">
         <h2>Request Your <em>Website</em></h2>
-        <p>Tell us about your agency. We'll scope the build and send a proposal within 24 hours — no calls, no meetings.</p>
+        <p>Tell us about your business. We'll scope the build and send a proposal within 24 hours — no calls, no meetings.</p>
       </div>
       <div class="apply-form">
-        <div class="apply-group"><label>Full Name</label><input type="text" id="w-name" placeholder="James Thornton"></div>
+        <div class="apply-group"><label>Full Name</label><input type="text" id="w-name" placeholder="Your Name"></div>
         <div class="apply-group"><label>Email</label><input type="email" id="w-email" placeholder="you@agency.com.au"></div>
         <div class="apply-group"><label>Mobile Number</label><input type="tel" id="w-phone" placeholder="+61 400 000 000"></div>
-        <div class="apply-group"><label>Agency Name</label><input type="text" id="w-agency" placeholder="Your Agency"></div>
-        <div class="apply-group"><label>Agent Type</label><select id="w-type"><option value="">Select type</option><option>Residential Agent</option><option>Luxury Agent</option><option>Commercial Agent</option><option>Property Manager</option><option>Agency Owner</option></select></div>
+        <div class="apply-group"><label>Agency / Business Name</label><input type="text" id="w-agency" placeholder="Your Agency"></div>
+        <div class="apply-group"><label>Business Type</label><select id="w-type"><option value="">Select type</option><option>Individual Agent</option><option>Agent Team</option><option>Real Estate Agency</option><option>Boutique Agency</option><option>Multi-Location Agency</option></select></div>
         <div class="apply-group"><label>Market</label><select id="w-market"><option value="">Select market</option><option>Australia</option><option>Dubai / UAE</option><option>Both</option></select></div>
         <div class="apply-group full"><label>Current Website (Optional)</label><input type="url" id="w-url" placeholder="https://youragency.com.au"></div>
         <div class="apply-group full"><label>Project Details</label><textarea id="w-details" placeholder="Tell us about your business and what you're looking for — design preferences, CRM you use, any specific features needed."></textarea></div>
@@ -874,25 +495,12 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
   </div>
 </div>
 
-<!-- FINAL CTA -->
-<div class="final-cta-section">
-  <div class="final-cta-box">
-    <h2>A strong online presence starts with a<br><em>professional website.</em></h2>
-    <p>Whether you're an independent agent or a growing agency, a website built by Hermia presents your business at the level your clients expect — and connects to the infrastructure that closes deals.</p>
-    <div class="final-cta-btns">
-      <a href="#apply" class="btn-primary">Request My Website →</a>
-      <a href="index.html" class="btn-ghost">Back to Home Page</a>
-    </div>
-    <div class="final-cta-note">No calls. No commitments. Just results.</div>
-  </div>
-</div>
-
 <footer>
   <div class="footer-inner">
-    <a href="find out.html" class="footer-logo">Hermia</a>
+    <a href="#" class="footer-logo">Hermia</a>
     <div class="footer-links">
-      <a href="index.html">Home</a>
-      <a href="website sandbox.html">Why Agents Switch</a>
+      <a href="#">Home</a>
+      <a href="#">Why Agents Switch</a>
       <a href="mailto:capital@hermia.au">capital@hermia.au</a>
     </div>
     <div class="footer-copy">© 2026 Hermia · ABN 75 434 177 026 · hermia.au</div>
@@ -900,163 +508,6 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
 </footer>
 
 <script>
-let currentAgent = 'residential';
-let currentStyle = 'luxury';
-
-const agentData = {
-  residential: {
-    url: 'youragency.com.au',
-    luxury: {
-      heroP: 'Consistently achieving record results for vendors across Sydney\'s most prestigious suburbs. When it matters most, you need someone who delivers.',
-      stat1: '$186M', stat2: '97%', stat3: '42',
-      p1: '$3,200,000', a1: '14 Seaforth Crescent, Mosman NSW',
-      p2: '$1,750,000', a2: '3/88 Kirribilli Ave, Kirribilli NSW',
-      p3: '$5,450,000', a3: '1 Bayview Ave, Vaucluse NSW',
-    },
-    clean: {
-      eyebrow: 'Melbourne\'s Trusted Agent Since 2011',
-      h1html: 'Finding Your<br>Next <em>Chapter.</em>',
-      p: 'Personalised service. Proven results. Whether you\'re buying your first home or your fifth investment property.',
-      lead1: 'Pre-approved · $950k budget · 3 weeks',
-      lead2: 'Finance in progress · $720k · 6 weeks',
-      servicesH: 'How I Can Help',
-      svc1: 'Residential Sales', svc1d: 'Strategic marketing and presentation to achieve the best price for your property.',
-      svc2: 'Property Management', svc2d: 'Complete rental management — tenant screening, rent collection, maintenance.',
-      svc3: 'Free Appraisals', svc3d: 'Know what your property is worth today. No obligation, no sales pitch.',
-    },
-    editorial: {
-      logo: 'THORNTON REALTY',
-      issue: 'Sydney Prestige · Est. 2008',
-      h1html: 'Architecture<br>Meets <em>Ambition.</em>',
-      p: 'We represent prestige properties across Sydney\'s most coveted addresses. Every listing is approached with the care of a private art sale.',
-      cat1: 'Featured Listing', price1: '$8,750,000', addr1: 'Wolseley Road, Point Piper NSW',
-      price2: '$4,200,000', addr2: 'Raglan Street, Mosman NSW',
-      price3: '$3,100,000', addr3: 'Roslyn Gardens, Elizabeth Bay NSW',
-    },
-    minimal: {
-      logo: 'Chen Property',
-      kicker: 'Eastern Suburbs · Sydney',
-      h1html: 'Sell Faster.<br>Buy <em>Smarter.</em>',
-      p: 'A boutique agency built on relationships and results. We don\'t take shortcuts — and our numbers prove it.',
-      p1: '$1,250,000', a1: '12 Hardy St, Dover Heights',
-      p2: '$2,100,000', a2: '7 Cliff St, Clovelly',
-      p3: '$850,000', a3: '5/44 Ocean St, Bondi',
-    }
-  },
-  luxury: {
-    url: 'youragency.ae',
-    luxury: {
-      heroP: 'Delivering exceptional results across Dubai\'s most iconic addresses. From Palm Jumeirah to Downtown — your property, sold at the right price.',
-      stat1: 'AED 2.1B', stat2: '99%', stat3: '28',
-      p1: 'AED 8,500,000', a1: 'Palm Jumeirah Frond M, Dubai',
-      p2: 'AED 4,200,000', a2: 'Downtown Dubai, Burj Khalifa Views',
-      p3: 'AED 12,000,000', a3: 'Dubai Hills Estate, Emirates Hills',
-    },
-    clean: {
-      eyebrow: 'Dubai\'s Premier Residential Agency',
-      h1html: 'Your Dubai<br>Property <em>Journey.</em>',
-      p: 'From first investment to forever home. We guide international and local buyers through Dubai\'s most dynamic property market.',
-      lead1: 'Cash buyer · AED 3.5M budget · 2 weeks',
-      lead2: 'Mortgage pre-approval · AED 2.1M · 4 weeks',
-      servicesH: 'What We Offer',
-      svc1: 'Sales & Acquisitions', svc1d: 'Expert guidance across residential and investment property sales in Dubai.',
-      svc2: 'Rental Management', svc2d: 'Full-service property management for landlords and developers.',
-      svc3: 'Investment Advisory', svc3d: 'ROI-focused investment strategy for local and overseas buyers.',
-    },
-    editorial: {
-      logo: 'CAPITAL PROPERTIES',
-      issue: 'Dubai Prestige · Est. 2014',
-      h1html: 'Where Luxury<br>Meets <em>Return.</em>',
-      p: 'Exclusive representation for Dubai\'s most distinguished properties. From private islands to penthouse residences.',
-      cat1: 'Exclusive Listing', price1: 'AED 22,000,000', addr1: 'Palm Jumeirah, Signature Villa',
-      price2: 'AED 9,500,000', addr2: 'Dubai Hills Estate, Golf Course View',
-      price3: 'AED 6,200,000', addr3: 'Downtown Dubai, Burj Khalifa District',
-    },
-    minimal: {
-      logo: 'Al Noor Properties',
-      kicker: 'Dubai · Abu Dhabi · UAE',
-      h1html: 'Invest Smarter.<br>Live <em>Better.</em>',
-      p: 'A boutique agency specialising in premium residential and commercial real estate across the UAE.',
-      p1: 'AED 3,800,000', a1: 'Business Bay, Canal Views',
-      p2: 'AED 7,200,000', a2: 'Palm Jumeirah, Garden Home',
-      p3: 'AED 1,950,000', a3: 'Dubai Marina, Studio 44',
-    }
-  }
-};
-
-function setAgent(agent, btn) {
-  currentAgent = agent;
-  document.querySelectorAll('.agent-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('browser-url').textContent = agentData[agent].url;
-  updateContent();
-}
-
-function setStyle(style, btn) {
-  currentStyle = style;
-  document.querySelectorAll('.style-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  ['luxury','clean','editorial','minimal'].forEach(s => {
-    document.getElementById('style-' + s).style.display = s === style ? 'block' : 'none';
-  });
-  updateContent();
-}
-
-function updateContent() {
-  const d = agentData[currentAgent];
-  const s = d[currentStyle];
-  if (!s) return;
-
-  if (currentStyle === 'luxury') {
-    document.getElementById('ws-hero-p').textContent = s.heroP;
-    document.getElementById('ws-stat-1').textContent = s.stat1;
-    document.getElementById('ws-stat-2').textContent = s.stat2;
-    document.getElementById('ws-stat-3').textContent = s.stat3;
-    document.getElementById('ws-listing-1-price').textContent = s.p1;
-    document.getElementById('ws-listing-1-addr').textContent = s.a1;
-    document.getElementById('ws-listing-2-price').textContent = s.p2;
-    document.getElementById('ws-listing-2-addr').textContent = s.a2;
-    document.getElementById('ws-listing-3-price').textContent = s.p3;
-    document.getElementById('ws-listing-3-addr').textContent = s.a3;
-  } else if (currentStyle === 'clean') {
-    document.getElementById('ws-clean-eyebrow').textContent = s.eyebrow;
-    document.getElementById('ws-clean-h1').innerHTML = s.h1html;
-    document.getElementById('ws-clean-p').textContent = s.p;
-    document.getElementById('ws-lead-detail-1').textContent = s.lead1;
-    document.getElementById('ws-lead-detail-2').textContent = s.lead2;
-    document.getElementById('ws-clean-services-h').textContent = s.servicesH;
-    document.getElementById('ws-svc-1').textContent = s.svc1;
-    document.getElementById('ws-svc-1-d').textContent = s.svc1d;
-    document.getElementById('ws-svc-2').textContent = s.svc2;
-    document.getElementById('ws-svc-2-d').textContent = s.svc2d;
-    document.getElementById('ws-svc-3').textContent = s.svc3;
-    document.getElementById('ws-svc-3-d').textContent = s.svc3d;
-  } else if (currentStyle === 'editorial') {
-    document.getElementById('ws-ed-logo').textContent = s.logo;
-    document.getElementById('ws-ed-issue').textContent = s.issue;
-    document.getElementById('ws-ed-h1').innerHTML = s.h1html;
-    document.getElementById('ws-ed-p').textContent = s.p;
-    document.getElementById('ws-ed-cat-1').textContent = s.cat1;
-    document.getElementById('ws-ed-price-1').textContent = s.price1;
-    document.getElementById('ws-ed-addr-1').textContent = s.addr1;
-    document.getElementById('ws-ed-price-2').textContent = s.price2;
-    document.getElementById('ws-ed-addr-2').textContent = s.addr2;
-    document.getElementById('ws-ed-price-3').textContent = s.price3;
-    document.getElementById('ws-ed-addr-3').textContent = s.addr3;
-  } else if (currentStyle === 'minimal') {
-    document.getElementById('ws-min-logo').textContent = s.logo;
-    document.getElementById('ws-min-kicker').textContent = s.kicker;
-    document.getElementById('ws-min-h1').innerHTML = s.h1html;
-    document.getElementById('ws-min-p').textContent = s.p;
-    document.getElementById('ws-min-p1').textContent = s.p1;
-    document.getElementById('ws-min-a1').textContent = s.a1;
-    document.getElementById('ws-min-p2').textContent = s.p2;
-    document.getElementById('ws-min-a2').textContent = s.a2;
-    document.getElementById('ws-min-p3').textContent = s.p3;
-    document.getElementById('ws-min-a3').textContent = s.a3;
-  }
-}
-
 function submitWebsite() {
   const name = document.getElementById('w-name').value.trim();
   const email = document.getElementById('w-email').value.trim();
@@ -1076,11 +527,15 @@ function submitWebsite() {
   }, 400);
 }
 
+function scrollToApply() {
+  document.getElementById('apply').scrollIntoView({ behavior: 'smooth' });
+}
+
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; } });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.pillar-3, .feat-card, .process-step, .stat-item').forEach(el => {
+document.querySelectorAll('.feat-card, .process-step, .stat-item, .pricing-tier').forEach(el => {
   el.style.opacity = '0'; el.style.transform = 'translateY(28px)';
   el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
   obs.observe(el);
