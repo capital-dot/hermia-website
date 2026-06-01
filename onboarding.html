@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermia — Welcome Aboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:      #07070a;
+  --card:       #0f0f12;
+  --card2:      #141418;
+  --border:     rgba(201,163,91,0.14);
+  --border-hi:  rgba(201,163,91,0.38);
+  --gold:       #C9A35B;
+  --gold-light: #e8c17a;
+  --gold-dim:   rgba(201,163,91,0.08);
+  --cream:      #f4f0e6;
+  --muted:      #7a7672;
+  --soft:       #b0ada5;
+  --green:      #10b981;
+  --red:        #ef4444;
+}
+
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'DM Sans',sans-serif;
+  background:var(--black);
+  color:var(--cream);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:40px 24px;
+  position:relative;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Background glow */
+.bg-glow {
+  position:fixed; top:0; left:50%; transform:translateX(-50%);
+  width:1200px; height:700px;
+  background:radial-gradient(ellipse at 50% 0%, rgba(201,163,91,0.18) 0%, transparent 60%);
+  pointer-events:none;
+  filter:blur(60px);
+  z-index:0;
+}
+.bg-grid {
+  position:fixed; inset:0;
+  background-image:
+    linear-gradient(rgba(201,163,91,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,163,91,0.03) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 80%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* Container */
+.container {
+  width:100%; max-width:520px;
+  position:relative; z-index:1;
+}
+
+/* Header */
+.header {
+  text-align:center;
+  margin-bottom:40px;
+}
+.logo-wrap {
+  display:inline-flex; align-items:center; gap:12px;
+  text-decoration:none; margin-bottom:28px;
+}
+.logo-wrap img {
+  width:42px; height:42px;
+  filter:drop-shadow(0 0 20px rgba(201,163,91,0.5));
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)}
+}
+.logo-wrap span {
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px; font-weight:600; color:var(--cream);
+}
+.success-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(16,185,129,0.08);
+  border:1px solid rgba(16,185,129,0.3);
+  border-radius:100px; padding:6px 18px;
+  font-size:11px; font-weight:600;
+  letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--green); margin-bottom:20px;
+}
+.success-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 8px var(--green);
+  animation:blink 2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.header h1 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:38px; font-weight:700;
+  color:#fff; line-height:1.1;
+  margin-bottom:10px;
+}
+.header h1 em { font-style:italic; color:var(--gold); }
+.header p {
+  font-size:15px; color:var(--soft);
+  line-height:1.65; font-weight:300;
+}
+
+/* Progress steps */
+.progress {
+  display:flex; align-items:center;
+  justify-content:center; gap:0;
+  margin-bottom:36px;
+}
+.step-item {
+  display:flex; flex-direction:column;
+  align-items:center; gap:6px;
+  position:relative;
+}
+.step-circle {
+  width:32px; height:32px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:600;
+  transition:all 0.3s;
+}
+.step-circle.done {
+  background:var(--green);
+  border:1px solid var(--green);
+  color:#fff;
+}
+.step-circle.active {
+  background:var(--gold);
+  border:1px solid var(--gold);
+  color:#000;
+  box-shadow:0 0 16px rgba(201,163,91,0.5);
+}
+.step-circle.pending {
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--muted);
+}
+.step-label {
+  font-size:9px; font-weight:600;
+  letter-spacing:1px; text-transform:uppercase;
+  color:var(--muted); white-space:nowrap;
+}
+.step-label.active { color:var(--gold); }
+.step-connector {
+  width:48px; height:1px;
+  background:var(--border);
+  margin-bottom:18px;
+  flex-shrink:0;
+}
+.step-connector.done { background:var(--green); }
+
+/* Card */
+.card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:40px;
+  position:relative;
+  overflow:hidden;
+}
+.card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent, rgba(201,163,91,0.4), transparent);
+}
+.card-corner {
+  position:absolute;
+}
+.card-corner.tr { top:14px; right:14px; width:18px; height:18px; border-top:1px solid var(--gold); border-right:1px solid var(--gold); }
+.card-corner.bl { bottom:14px; left:14px; width:18px; height:18px; border-bottom:1px solid var(--gold); border-left:1px solid var(--gold); }
+
+.card-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px; font-weight:600; color:#fff;
+  margin-bottom:6px;
+}
+.card-sub {
+  font-size:13px; color:var(--soft);
+  margin-bottom:28px; font-weight:300;
+}
+
+/* Form */
+.form-group {
+  margin-bottom:18px;
+}
+.form-label {
+  display:block;
+  font-size:11px; font-weight:600;
+  letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--gold); margin-bottom:8px;
+}
+.form-input {
+  width:100%;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px 16px;
+  font-family:'DM Sans',sans-serif;
+  font-size:14.5px; font-weight:400;
+  color:var(--cream);
+  transition:all 0.2s;
+  outline:none;
+}
+.form-input::placeholder { color:var(--muted); }
+.form-input:focus {
+  border-color:rgba(201,163,91,0.5);
+  background:rgba(201,163,91,0.03);
+  box-shadow:0 0 0 3px rgba(201,163,91,0.08);
+}
+.form-input.error {
+  border-color:rgba(239,68,68,0.5);
+  background:rgba(239,68,68,0.03);
+}
+.form-row {
+  display:grid; grid-template-columns:1fr 1fr; gap:14px;
+}
+.form-hint {
+  font-size:11.5px; color:var(--muted);
+  margin-top:6px; font-weight:300;
+}
+.form-hint.detected {
+  color:var(--green);
+  display:flex; align-items:center; gap:5px;
+}
+
+/* Country detected badge */
+.country-detected {
+  display:flex; align-items:center; gap:10px;
+  background:rgba(16,185,129,0.06);
+  border:1px solid rgba(16,185,129,0.2);
+  border-radius:8px; padding:10px 14px;
+  margin-bottom:18px;
+}
+.country-detected-icon { font-size:18px; }
+.country-detected-text { font-size:12.5px; color:var(--soft); }
+.country-detected-text strong { color:var(--green); font-weight:600; }
+
+/* Submit button */
+.btn-submit {
+  width:100%;
+  background:linear-gradient(135deg, #b8882a, #e8c17a, #a07828);
+  color:#000;
+  padding:16px 24px;
+  border-radius:11px;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px; font-weight:700;
+  letter-spacing:1.5px; text-transform:uppercase;
+  border:none; cursor:pointer;
+  margin-top:10px;
+  transition:all 0.28s;
+  box-shadow:0 8px 28px rgba(201,163,91,0.3);
+  display:flex; align-items:center; justify-content:center; gap:10px;
+}
+.btn-submit:hover:not(:disabled) {
+  filter:brightness(1.08);
+  transform:translateY(-2px);
+  box-shadow:0 12px 36px rgba(201,163,91,0.45);
+}
+.btn-submit:disabled {
+  opacity:0.6; cursor:not-allowed; transform:none;
+}
+.btn-arrow { font-size:16px; transition:transform 0.2s; }
+.btn-submit:hover .btn-arrow { transform:translateX(3px); }
+
+/* Spinner */
+.spinner {
+  width:16px; height:16px;
+  border:2px solid rgba(0,0,0,0.3);
+  border-top-color:#000;
+  border-radius:50%;
+  animation:spin 0.7s linear infinite;
+  display:none;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+.btn-submit.loading .spinner { display:block; }
+.btn-submit.loading .btn-text { display:none; }
+.btn-submit.loading .btn-arrow { display:none; }
+
+/* Error message */
+.error-msg {
+  background:rgba(239,68,68,0.08);
+  border:1px solid rgba(239,68,68,0.25);
+  border-radius:10px; padding:12px 16px;
+  font-size:13px; color:#f87171;
+  margin-top:14px; display:none;
+}
+
+/* Security note */
+.security-note {
+  display:flex; align-items:center; gap:10px;
+  margin-top:20px;
+  padding:14px 16px;
+  background:rgba(201,163,91,0.03);
+  border:1px solid var(--border);
+  border-radius:10px;
+}
+.security-note-icon { font-size:16px; color:var(--gold); }
+.security-note-text { font-size:12px; color:var(--muted); line-height:1.5; }
+.security-note-text strong { color:var(--soft); font-weight:500; }
+
+/* What happens next */
+.next-steps {
+  margin-top:28px;
+  border-top:1px solid var(--border);
+  padding-top:24px;
+}
+.next-steps-title {
+  font-size:10px; font-weight:600;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--muted); margin-bottom:14px;
+}
+.next-step-item {
+  display:flex; align-items:center; gap:12px;
+  padding:8px 0;
+  font-size:13px; color:var(--soft);
+}
+.next-step-num {
+  width:22px; height:22px; min-width:22px; border-radius:50%;
+  background:var(--gold-dim);
+  border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-size:10px; font-weight:600; color:var(--gold);
+}
+
+/* Success screen */
+.success-screen {
+  display:none;
+  text-align:center;
+  padding:20px 0;
+}
+.success-icon {
+  width:72px; height:72px;
+  background:rgba(16,185,129,0.1);
+  border:1px solid rgba(16,185,129,0.3);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:28px; margin:0 auto 20px;
+  animation:success-pop 0.5s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+@keyframes success-pop {
+  0%{transform:scale(0); opacity:0}
+  100%{transform:scale(1); opacity:1}
+}
+.success-screen h2 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px; font-weight:700; color:#fff;
+  margin-bottom:10px;
+}
+.success-screen h2 em { font-style:italic; color:var(--gold); }
+.success-screen p {
+  font-size:14px; color:var(--soft);
+  line-height:1.65; margin-bottom:24px;
+}
+.redirect-bar {
+  background:rgba(201,163,91,0.05);
+  border:1px solid var(--border);
+  border-radius:10px; padding:14px 18px;
+  font-size:13px; color:var(--soft);
+  display:flex; align-items:center; gap:10px;
+}
+.redirect-count {
+  font-weight:700; color:var(--gold);
+  min-width:20px; text-align:center;
+}
+
+/* Footer */
+.page-footer {
+  text-align:center; margin-top:28px;
+  font-size:11.5px; color:var(--muted);
+}
+.page-footer a { color:var(--muted); text-decoration:none; }
+.page-footer a:hover { color:var(--gold); }
+
+@media(max-width:480px) {
+  .card { padding:28px 22px; }
+  .form-row { grid-template-columns:1fr; }
+  .header h1 { font-size:30px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+<div class="bg-grid"></div>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <a href="https://www.hermia.au" class="logo-wrap">
+      <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia">
+      <span>Hermia</span>
+    </a>
+    <br>
+    <div class="success-badge">
+      <span class="success-dot"></span>
+      Payment Confirmed
+    </div>
+    <h1>Welcome to<br><em>Hermia.</em></h1>
+    <p>Let's get your account set up.<br>This takes less than 3 minutes.</p>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress">
+    <div class="step-item">
+      <div class="step-circle done">✓</div>
+      <div class="step-label">Payment</div>
+    </div>
+    <div class="step-connector done"></div>
+    <div class="step-item">
+      <div class="step-circle active">2</div>
+      <div class="step-label active">Your Details</div>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step-item">
+      <div class="step-circle pending">3</div>
+      <div class="step-label">Connect Gmail</div>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step-item">
+      <div class="step-circle pending">4</div>
+      <div class="step-label">Your CRM</div>
+    </div>
+  </div>
+
+  <!-- Card -->
+  <div class="card">
+    <div class="card-corner tr"></div>
+    <div class="card-corner bl"></div>
+
+    <!-- Form view -->
+    <div id="form-view">
+      <div class="card-title">Your Details</div>
+      <div class="card-sub">We need these to set up your Hermia account.</div>
+
+      <!-- Country detected (shown if passed via URL) -->
+      <div class="country-detected" id="country-banner" style="display:none;">
+        <div class="country-detected-icon" id="country-flag">🌍</div>
+        <div class="country-detected-text">
+          Location detected: <strong id="country-name">Australia</strong>
+        </div>
+      </div>
+
+      <form id="onboarding-form" novalidate>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="full_name">Full Name</label>
+            <input class="form-input" type="text" id="full_name" placeholder="Jane Smith" autocomplete="name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="agency_name">Agency Name</label>
+            <input class="form-input" type="text" id="agency_name" placeholder="Ray White Sydney" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <input class="form-input" type="email" id="email" placeholder="jane@raywhite.com.au" autocomplete="email" required>
+          <div class="form-hint">This is the Gmail you'll connect to Hermia</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="phone">Phone Number</label>
+          <input class="form-input" type="tel" id="phone" placeholder="+61 400 000 000" autocomplete="tel" required>
+          <div class="form-hint">Include your country code</div>
+        </div>
+
+        <input type="hidden" id="country_code" value="">
+        <input type="hidden" id="stripe_customer_id" value="">
+
+        <button type="submit" class="btn-submit" id="submit-btn">
+          <div class="spinner"></div>
+          <span class="btn-text">Save & Connect Gmail</span>
+          <span class="btn-arrow">→</span>
+        </button>
+
+        <div class="error-msg" id="error-msg"></div>
+
+      </form>
+
+      <div class="security-note">
+        <div class="security-note-icon">🔒</div>
+        <div class="security-note-text">
+          <strong>Your data is encrypted and secure.</strong> We never share your information with third parties. Read our <a href="https://www.hermia.au/privacy.html" style="color:var(--gold); text-decoration:none;">privacy policy</a>.
+        </div>
+      </div>
+
+      <div class="next-steps">
+        <div class="next-steps-title">What happens next</div>
+        <div class="next-step-item">
+          <div class="next-step-num">3</div>
+          Connect your Gmail so Hermia can read enquiry emails
+        </div>
+        <div class="next-step-item">
+          <div class="next-step-num">4</div>
+          Select and connect your CRM
+        </div>
+        <div class="next-step-item">
+          <div class="next-step-num">✓</div>
+          You're live — Hermia starts qualifying leads immediately
+        </div>
+      </div>
+    </div>
+
+    <!-- Success view -->
+    <div class="success-screen" id="success-view">
+      <div class="success-icon">✓</div>
+      <h2>Details <em>saved.</em></h2>
+      <p>Taking you to connect your Gmail now.<br>This is where the magic happens.</p>
+      <div class="redirect-bar">
+        <span>Redirecting to Gmail connection in</span>
+        <span class="redirect-count" id="countdown">3</span>
+        <span>seconds...</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <a href="https://www.hermia.au">hermia.au</a> &nbsp;·&nbsp;
+    <a href="https://www.hermia.au/privacy.html">Privacy</a> &nbsp;·&nbsp;
+    <a href="mailto:support@hermia.au">Support</a>
+  </div>
+
+</div>
+
+<script>
+// ─── CONFIG ───────────────────────────────────────────────────────────
+const SUPABASE_URL = 'https://fjovhxaupeidvkfhigff.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_8jqbPp3THF54CnpomkJ3vQ_DtqnSAfV';
+
+// Nylas OAuth URL — replace CLIENT_ID with your actual Nylas client ID
+const NYLAS_CLIENT_ID = 'YOUR_NYLAS_CLIENT_ID';
+const NYLAS_REDIRECT_URI = encodeURIComponent('https://capital-dot.github.io/hermia-website/crm.html');
+const NYLAS_AUTH_URL = `https://api.us.nylas.com/v3/connect/auth?client_id=${NYLAS_CLIENT_ID}&redirect_uri=${NYLAS_REDIRECT_URI}&response_type=code&access_type=online`;
+
+// ─── DETECT COUNTRY FROM URL PARAMS ──────────────────────────────────
+const params = new URLSearchParams(window.location.search);
+const countryCode = params.get('country') || '';
+const stripeCustomerId = params.get('customer') || '';
+
+const countryMap = {
+  'AU': { name: 'Australia', flag: '🇦🇺', dial: '+61' },
+  'AE': { name: 'UAE / Dubai', flag: '🇦🇪', dial: '+971' },
+  'US': { name: 'United States', flag: '🇺🇸', dial: '+1' },
+  'GB': { name: 'United Kingdom', flag: '🇬🇧', dial: '+44' },
+};
+
+if (countryCode && countryMap[countryCode]) {
+  const c = countryMap[countryCode];
+  document.getElementById('country-banner').style.display = 'flex';
+  document.getElementById('country-flag').textContent = c.flag;
+  document.getElementById('country-name').textContent = c.name;
+  document.getElementById('country_code').value = countryCode;
+  document.getElementById('phone').placeholder = c.dial + ' 400 000 000';
+}
+
+if (stripeCustomerId) {
+  document.getElementById('stripe_customer_id').value = stripeCustomerId;
+}
+
+// Pre-fill email if passed
+const emailParam = params.get('email');
+if (emailParam) {
+  document.getElementById('email').value = decodeURIComponent(emailParam);
+}
+
+// ─── FORM SUBMISSION ──────────────────────────────────────────────────
+document.getElementById('onboarding-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const btn = document.getElementById('submit-btn');
+  const errorMsg = document.getElementById('error-msg');
+
+  // Clear errors
+  errorMsg.style.display = 'none';
+  document.querySelectorAll('.form-input').forEach(i => i.classList.remove('error'));
+
+  // Get values
+  const fullName = document.getElementById('full_name').value.trim();
+  const agencyName = document.getElementById('agency_name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const country = document.getElementById('country_code').value || countryCode || 'Unknown';
+  const stripeId = document.getElementById('stripe_customer_id').value;
+
+  // Validate
+  let hasError = false;
+  if (!fullName) { document.getElementById('full_name').classList.add('error'); hasError = true; }
+  if (!agencyName) { document.getElementById('agency_name').classList.add('error'); hasError = true; }
+  if (!email || !email.includes('@')) { document.getElementById('email').classList.add('error'); hasError = true; }
+  if (!phone) { document.getElementById('phone').classList.add('error'); hasError = true; }
+
+  if (hasError) {
+    errorMsg.textContent = 'Please fill in all fields correctly.';
+    errorMsg.style.display = 'block';
+    return;
+  }
+
+  // Loading state
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  try {
+    // Save to Supabase customers table
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/customers`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Prefer': 'return=representation'
+      },
+      body: JSON.stringify({
+        full_name: fullName,
+        agency_name: agencyName,
+        email: email,
+        phone: phone,
+        country: country,
+        stripe_customer_id: stripeId || null,
+        payment_status: 'paid',
+        created_at: new Date().toISOString()
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.message || 'Failed to save details');
+    }
+
+    const data = await response.json();
+    const customerId = data[0]?.id;
+
+    // Save onboarding status
+    if (customerId) {
+      await fetch(`${SUPABASE_URL}/rest/v1/onboarding_status`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`
+        },
+        body: JSON.stringify({
+          customer_id: customerId,
+          payment_complete: true,
+          email_connected: false,
+          crm_connected: false,
+          onboarding_complete: false
+        })
+      });
+
+      // Store customer ID for next steps
+      sessionStorage.setItem('hermia_customer_id', customerId);
+      sessionStorage.setItem('hermia_email', email);
+    }
+
+    // Show success
+    document.getElementById('form-view').style.display = 'none';
+    document.getElementById('success-view').style.display = 'block';
+
+    // Countdown and redirect to Nylas
+    let count = 3;
+    const countdownEl = document.getElementById('countdown');
+    const interval = setInterval(() => {
+      count--;
+      countdownEl.textContent = count;
+      if (count <= 0) {
+        clearInterval(interval);
+        // Redirect to Nylas OAuth
+        window.location.href = NYLAS_AUTH_URL;
+      }
+    }, 1000);
+
+  } catch (err) {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+    errorMsg.textContent = err.message || 'Something went wrong. Please try again.';
+    errorMsg.style.display = 'block';
+  }
+});
+</script>
+
+</body>
+</html>
