@@ -165,7 +165,6 @@ nav {
   background:radial-gradient(ellipse, rgba(201,163,91,0.07) 0%, transparent 65%);
   pointer-events:none;
 }
-/* subtle grid texture */
 .hero::before {
   content:'';
   position:absolute; inset:0;
@@ -250,7 +249,6 @@ nav {
   background:var(--gold-dim);
 }
 
-/* trust micro-row */
 .hero-trust {
   margin-top:36px;
   display:flex; align-items:center; gap:20px;
@@ -442,29 +440,131 @@ nav {
 }
 .not-chatbot p strong { color:var(--cream); font-weight:500; }
 
-/* email callout */
-.email-callout {
-  margin-top:20px;
-  background:rgba(201,163,91,0.03);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:28px 36px;
-  display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;
+/* ═══════════════════════════════ INTEGRATION TRUST SECTION ═══════════════════════════════ */
+.hermia-integrations {
+  --gold:#C9A35B; --gold-bright:#e8c17a; --ink:#07070a;
+  position:relative; overflow:hidden; background:var(--ink);
+  padding:5rem 1.5rem;
+  border-top:1px solid rgba(201,163,91,0.14);
+  border-bottom:1px solid rgba(201,163,91,0.14);
+  color:#fff;
+  font-family:'DM Sans',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased;
 }
-.email-callout-icon {
-  width:48px; height:48px; min-width:48px;
-  background:var(--gold-dim);
-  border:1px solid var(--border);
-  border-radius:12px;
-  display:flex; align-items:center; justify-content:center; font-size:20px;
+.hermia-integrations * { box-sizing:border-box; }
+.hi-glow {
+  position:absolute; inset:0; pointer-events:none; opacity:.6;
+  background:
+    radial-gradient(55% 45% at 50% -5%, rgba(201,163,91,.18) 0%, transparent 65%),
+    radial-gradient(35% 35% at 85% 95%, rgba(201,163,91,.08) 0%, transparent 70%);
 }
-.email-callout h4 {
-  font-family:'Cormorant Garamond',serif;
-  font-size:20px; color:#fff; margin-bottom:7px;
+.hi-grid-tex {
+  position:absolute; inset:0; pointer-events:none; opacity:.05;
+  background-image:linear-gradient(rgba(255,255,255,.7) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.7) 1px,transparent 1px);
+  background-size:46px 46px;
 }
-.email-callout h4 em { font-style:italic; color:var(--gold); }
-.email-callout p { color:var(--soft); font-size:14.5px; line-height:1.6; font-weight:300; }
-.email-callout p em { color:var(--gold-light); font-style:italic; }
+.hi-wrap { position:relative; max-width:1080px; margin:0 auto; }
+.hi-head { text-align:center; max-width:640px; margin:0 auto; }
+.hi-pill {
+  display:inline-flex; align-items:center; gap:.55rem;
+  border:1px solid rgba(242,205,122,.32); background:rgba(242,205,122,.06);
+  padding:.4rem 1rem; border-radius:999px; font-size:.7rem; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase; color:#f4dca0;
+}
+.hi-dot {
+  width:6px; height:6px; border-radius:50%; background:#e8c17a;
+  animation:hiPulse 1.8s ease-in-out infinite;
+}
+@keyframes hiPulse { 0%,100%{opacity:1} 50%{opacity:.25} }
+.hi-h2 {
+  margin:1.5rem 0 0; font-family:'Cormorant Garamond',serif; font-weight:600;
+  font-size:clamp(2.1rem,5vw,3.1rem); line-height:1.05; letter-spacing:-.02em; color:#fff;
+}
+.hi-h2 .grad {
+  background:linear-gradient(90deg,#f4dca0,#C9A35B,#f4dca0);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hi-sub { margin:1.15rem 0 0; font-size:1.05rem; line-height:1.6; color:#b0ada5; }
+.hi-sub b { color:#e6ebf2; font-weight:700; }
+
+.hi-tier { margin-top:3.5rem; }
+.hi-tier-head { display:flex; align-items:center; gap:1rem; margin-bottom:1.6rem; }
+.hi-num {
+  display:flex; align-items:center; justify-content:center; width:28px; height:28px;
+  border-radius:8px; font-size:.78rem; font-weight:800;
+}
+.hi-num.one { background:rgba(242,205,122,.16); color:#e8c17a; box-shadow:inset 0 0 0 1px rgba(242,205,122,.32); }
+.hi-num.two { background:rgba(255,255,255,.10); color:#cdd6e2; box-shadow:inset 0 0 0 1px rgba(255,255,255,.16); }
+.hi-tier-label { font-size:.78rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; }
+.hi-tier-label.gold { color:#f4dca0; }
+.hi-tier-label.dim  { color:#cdd6e2; }
+.hi-line { height:1px; flex:1; }
+.hi-line.gold { background:linear-gradient(90deg,rgba(242,205,122,.35),transparent); }
+.hi-line.dim  { background:linear-gradient(90deg,rgba(255,255,255,.16),transparent); }
+
+.hi-cards {
+  display:grid; grid-template-columns:repeat(5,1fr); gap:1rem;
+}
+.hi-card {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:.75rem; text-align:center; padding:1.75rem 1rem; border-radius:18px;
+  transition:transform .3s ease, border-color .3s ease, background .3s ease, box-shadow .3s ease;
+}
+.hi-card.native { border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.03); }
+.hi-card.native:hover {
+  transform:translateY(-5px); border-color:rgba(242,205,122,.5);
+  background:rgba(242,205,122,.06); box-shadow:0 14px 40px -16px rgba(224,179,87,.5);
+}
+.hi-card.custom { border:1px dashed rgba(255,255,255,.14); background:rgba(255,255,255,.02); }
+.hi-card.custom:hover {
+  transform:translateY(-5px); border-color:rgba(242,205,122,.45);
+  background:rgba(255,255,255,.045);
+}
+.hi-ico { color:#e8c17a; transition:transform .3s ease, color .3s ease; }
+.hi-card.custom .hi-ico { color:#8a96a8; }
+.hi-card:hover .hi-ico { transform:scale(1.12); }
+.hi-card.custom:hover .hi-ico { color:#e8c17a; }
+.hi-name { font-size:.92rem; font-weight:600; color:#f4f0e6; }
+.hi-card.custom .hi-name { color:#b0ada5; }
+.hi-tag { font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; }
+.hi-tag.n { color:#4ade80; opacity:.85; }
+.hi-tag.c { color:#f4dca0; opacity:.78; }
+
+.hi-cta-wrap { margin-top:4rem; display:flex; justify-content:center; text-align:center; }
+.hi-cta {
+  position:relative; width:100%; max-width:560px; border-radius:24px;
+  border:1px solid rgba(242,205,122,.22);
+  background:linear-gradient(180deg,rgba(242,205,122,.08),transparent);
+  padding:2.5rem 2rem;
+}
+.hi-cta-kick { font-size:.72rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#f4dca0; opacity:.85; }
+.hi-cta-h { margin:.75rem 0 0; font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.55rem; color:#fff; }
+.hi-btn {
+  display:inline-flex; align-items:center; gap:.6rem; margin-top:1.5rem;
+  padding:.95rem 1.8rem; border-radius:999px; text-decoration:none;
+  font-size:.92rem; font-weight:800; color:#0a0a0f;
+  background:linear-gradient(90deg,#e8c17a,#C9A35B);
+  box-shadow:0 8px 30px -6px rgba(224,179,87,.6); transition:transform .3s ease, box-shadow .3s ease;
+}
+.hi-btn:hover { transform:scale(1.04); box-shadow:0 12px 42px -4px rgba(224,179,87,.85); }
+.hi-btn svg { transition:transform .3s ease; }
+.hi-btn:hover svg { transform:translateX(4px); }
+.hi-cta-note { margin:1.1rem auto 0; max-width:400px; font-size:.9rem; line-height:1.6; color:#b0ada5; }
+.hi-code {
+  background:rgba(255,255,255,.10); color:#f4dca0; padding:.1rem .4rem;
+  border-radius:5px; font-size:.82em; font-family:ui-monospace,monospace;
+}
+.hi-legal {
+  margin:3.5rem auto 0; max-width:720px; text-align:center;
+  font-size:.66rem; line-height:1.7; color:#7a7672;
+}
+
+@media(max-width:900px) { .hi-cards { grid-template-columns:repeat(3,1fr); } }
+@media(max-width:560px) {
+  .hi-cards { grid-template-columns:repeat(2,1fr); }
+  .hermia-integrations { padding:4rem 1.1rem; }
+}
 
 /* ═══════════════════════════════ DEMO SECTION ═══════════════════════════════ */
 .demo-section {
@@ -519,9 +619,7 @@ nav {
   font-size:13px; color:var(--soft);
   display:flex; align-items:center; gap:9px;
 }
-.demo-features li::before {
-  content:'◆'; font-size:6px; color:var(--gold);
-}
+.demo-features li::before { content:'◆'; font-size:6px; color:var(--gold); }
 .demo-cta {
   display:inline-block;
   background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);
@@ -1061,110 +1159,22 @@ footer {
     </div>
   </div>
 
+  <!-- NOT A CHATBOT callout — inside section-wrap where it belongs -->
+  <div class="not-chatbot">
+    <div class="not-chatbot-icon">⚙️</div>
+    <div>
+      <h3>Why Hermia is <em>not a chatbot</em> — and why that matters</h3>
+      <p>
+        AI chatbots improvise answers, misread context, and hallucinate. Hermia doesn't. <strong>Every question is scripted. Every valid answer is a letter choice. Every outcome is pre-defined by conditions.</strong>
+        Once the 3 questions are complete, the session closes permanently — the buyer's record is deleted. Any further messages from that number get no response. The system is sealed.
+        No open-ended conversation, no data drift, no unpredictable outputs. <strong>Just clean, structured qualification data in your CRM.</strong>
+      </p>
+    </div>
+  </div>
+</div>
 
-<!-- ═══════════════════════════════INTEGRATION TRUST SECTION  ═══════════════════════════════ -->
-
-<!-- ============================================================= -->
-<!--  HERMIA — INTEGRATION TRUST SECTION  (self-contained)          -->
-<!--  Drop anywhere in your page. No Tailwind / framework needed.   -->
-<!--  Custom CTA routes to: apply-custom-crm.html                   -->
-<!-- ============================================================= -->
+<!-- ═══════════════════════════════ INTEGRATION TRUST SECTION ═══════════════════════════════ -->
 <section class="hermia-integrations" id="integrations">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap');
-
-    .hermia-integrations{
-      --gold:#C9A35B; --gold-bright:#e8c17a; --ink:#07070a;
-      position:relative; overflow:hidden; background:var(--ink);
-      padding:5rem 1.5rem;
-      border-top:1px solid rgba(201,163,91,0.14);
-      border-bottom:1px solid rgba(201,163,91,0.14);
-      color:#fff;
-      font-family:'DM Sans','Sora',ui-sans-serif,system-ui,-apple-system,sans-serif;
-      -webkit-font-smoothing:antialiased;
-    }
-    .hermia-integrations *{box-sizing:border-box;}
-    .hi-glow{position:absolute; inset:0; pointer-events:none; opacity:.6;
-      background:
-        radial-gradient(55% 45% at 50% -5%, rgba(201,163,91,.18) 0%, transparent 65%),
-        radial-gradient(35% 35% at 85% 95%, rgba(201,163,91,.08) 0%, transparent 70%);}
-    .hi-grid-tex{position:absolute; inset:0; pointer-events:none; opacity:.05;
-      background-image:linear-gradient(rgba(255,255,255,.7) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.7) 1px,transparent 1px);
-      background-size:46px 46px;}
-    .hi-wrap{position:relative; max-width:1080px; margin:0 auto;}
-
-    .hi-head{text-align:center; max-width:640px; margin:0 auto;}
-    .hi-pill{display:inline-flex; align-items:center; gap:.55rem;
-      border:1px solid rgba(242,205,122,.32); background:rgba(242,205,122,.06);
-      padding:.4rem 1rem; border-radius:999px; font-size:.7rem; font-weight:700;
-      letter-spacing:.18em; text-transform:uppercase; color:#f4dca0;}
-    .hi-dot{width:6px; height:6px; border-radius:50%; background:var(--gold-bright);
-      animation:hiPulse 1.8s ease-in-out infinite;}
-    @keyframes hiPulse{0%,100%{opacity:1}50%{opacity:.25}}
-
-    .hi-h2{margin:1.5rem 0 0; font-family:'Fraunces',Georgia,serif; font-weight:600;
-      font-size:clamp(2.1rem,5vw,3.1rem); line-height:1.05; letter-spacing:-.02em; color:#fff;}
-    .hi-h2 .grad{background:linear-gradient(90deg,#f4dca0,var(--gold),#f4dca0);
-      -webkit-background-clip:text; background-clip:text; color:transparent;}
-    .hi-sub{margin:1.15rem 0 0; font-size:1.05rem; line-height:1.6; color:#b0ada5;}
-    .hi-sub b{color:#e6ebf2; font-weight:700;}
-
-    .hi-tier{margin-top:3.5rem;}
-    .hi-tier-head{display:flex; align-items:center; gap:1rem; margin-bottom:1.6rem;}
-    .hi-num{display:flex; align-items:center; justify-content:center; width:28px; height:28px;
-      border-radius:8px; font-size:.78rem; font-weight:800;}
-    .hi-num.one{background:rgba(242,205,122,.16); color:var(--gold-bright); box-shadow:inset 0 0 0 1px rgba(242,205,122,.32);}
-    .hi-num.two{background:rgba(255,255,255,.10); color:#cdd6e2; box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);}
-    .hi-tier-label{font-size:.78rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase;}
-    .hi-tier-label.gold{color:#f4dca0;} .hi-tier-label.dim{color:#cdd6e2;}
-    .hi-line{height:1px; flex:1;}
-    .hi-line.gold{background:linear-gradient(90deg,rgba(242,205,122,.35),transparent);}
-    .hi-line.dim{background:linear-gradient(90deg,rgba(255,255,255,.16),transparent);}
-
-    .hi-cards{display:grid; grid-template-columns:repeat(5,1fr); gap:1rem;}
-    .hi-card{display:flex; flex-direction:column; align-items:center; justify-content:center;
-      gap:.75rem; text-align:center; padding:1.75rem 1rem; border-radius:18px;
-      transition:transform .3s ease, border-color .3s ease, background .3s ease, box-shadow .3s ease;}
-    .hi-card.native{border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.03);}
-    .hi-card.native:hover{transform:translateY(-5px); border-color:rgba(242,205,122,.5);
-      background:rgba(242,205,122,.06); box-shadow:0 14px 40px -16px rgba(224,179,87,.5);}
-    .hi-card.custom{border:1px dashed rgba(255,255,255,.14); background:rgba(255,255,255,.02);}
-    .hi-card.custom:hover{transform:translateY(-5px); border-color:rgba(242,205,122,.45);
-      background:rgba(255,255,255,.045);}
-    .hi-ico{color:var(--gold-bright); transition:transform .3s ease, color .3s ease;}
-    .hi-card.custom .hi-ico{color:#8a96a8;}
-    .hi-card:hover .hi-ico{transform:scale(1.12);}
-    .hi-card.custom:hover .hi-ico{color:var(--gold-bright);}
-    .hi-name{font-size:.92rem; font-weight:600; color:#f4f0e6;}
-    .hi-card.custom .hi-name{color:#b0ada5;}
-    .hi-tag{font-size:.62rem; letter-spacing:.12em; text-transform:uppercase;}
-    .hi-tag.n{color:#4ade80; opacity:.85;} .hi-tag.c{color:#f4dca0; opacity:.78;}
-
-    .hi-cta-wrap{margin-top:4rem; display:flex; justify-content:center; text-align:center;}
-    .hi-cta{position:relative; width:100%; max-width:560px; border-radius:24px;
-      border:1px solid rgba(242,205,122,.22);
-      background:linear-gradient(180deg,rgba(242,205,122,.08),transparent);
-      padding:2.5rem 2rem;}
-    .hi-cta-kick{font-size:.72rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#f4dca0; opacity:.85;}
-    .hi-cta-h{margin:.75rem 0 0; font-family:'Fraunces',Georgia,serif; font-weight:600; font-size:1.55rem; color:#fff;}
-    .hi-btn{display:inline-flex; align-items:center; gap:.6rem; margin-top:1.5rem;
-      padding:.95rem 1.8rem; border-radius:999px; text-decoration:none;
-      font-size:.92rem; font-weight:800; color:#0a0a0f;
-      background:linear-gradient(90deg,var(--gold-bright),var(--gold));
-      box-shadow:0 8px 30px -6px rgba(224,179,87,.6); transition:transform .3s ease, box-shadow .3s ease;}
-    .hi-btn:hover{transform:scale(1.04); box-shadow:0 12px 42px -4px rgba(224,179,87,.85);}
-    .hi-btn svg{transition:transform .3s ease;} .hi-btn:hover svg{transform:translateX(4px);}
-    .hi-cta-note{margin:1.1rem auto 0; max-width:400px; font-size:.9rem; line-height:1.6; color:#b0ada5;}
-    .hi-code{background:rgba(255,255,255,.10); color:#f4dca0; padding:.1rem .4rem; border-radius:5px; font-size:.82em; font-family:ui-monospace,monospace;}
-
-    .hi-legal{margin:3.5rem auto 0; max-width:720px; text-align:center;
-      font-size:.66rem; line-height:1.7; color:#7a7672;}
-
-    @media(max-width:900px){ .hi-cards{grid-template-columns:repeat(3,1fr);} }
-    @media(max-width:560px){ .hi-cards{grid-template-columns:repeat(2,1fr);} .hermia-integrations{padding:4rem 1.1rem;} }
-  </style>
-
   <div class="hi-glow"></div>
   <div class="hi-grid-tex"></div>
 
@@ -1177,223 +1187,90 @@ footer {
       <p class="hi-sub">To be clear &mdash; <b>we are not a CRM.</b> We are the AI layer that plugs directly into yours.</p>
     </div>
 
-   <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CRM Integrations</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500&display=swap');
+    <!-- TIER 1: Native -->
+    <div class="hi-tier">
+      <div class="hi-tier-head">
+        <span class="hi-num one">1</span>
+        <span class="hi-tier-label gold">Native, out-of-the-box integrations</span>
+        <span class="hi-line gold"></span>
+      </div>
+      <div class="hi-cards">
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        <div class="hi-card native">
+          <span class="hi-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span>
+          <span class="hi-name">Zoho CRM</span>
+          <span class="hi-tag n">Native</span>
+        </div>
 
-  :root {
-    --bg: #0d0d0f;
-    --surface: #141416;
-    --border: #222226;
-    --gold: #c9a84c;
-    --gold-dim: rgba(201,168,76,0.15);
-    --silver: #7a8494;
-    --silver-dim: rgba(122,132,148,0.12);
-    --text: #e8e8ec;
-    --text-dim: #6b6b7a;
-  }
+        <div class="hi-card native">
+          <span class="hi-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18V8M9 18V5M14 18v-7M19 18v-4"/></svg></span>
+          <span class="hi-name">Pipedrive</span>
+          <span class="hi-tag n">Native</span>
+        </div>
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    padding: 2.5rem 1.5rem;
-    min-height: 100vh;
-  }
+        <div class="hi-card native">
+          <span class="hi-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M5 5l2.5 2.5M16.5 16.5 19 19M2 12h4M18 12h4"/></svg></span>
+          <span class="hi-name">Freshsales</span>
+          <span class="hi-tag n">Native</span>
+        </div>
 
-  .container { max-width: 860px; margin: 0 auto; }
+        <div class="hi-card native">
+          <span class="hi-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <span class="hi-name">Follow Up Boss</span>
+          <span class="hi-tag n">Native</span>
+        </div>
 
-  h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 700;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    margin-bottom: 2.5rem;
-  }
-
-  /* TIER WRAPPER */
-  .tier { margin-bottom: 2.8rem; }
-
-  .tier-head {
-    display: flex;
-    align-items: center;
-    gap: .75rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .tier-num {
-    font-family: 'Syne', sans-serif;
-    font-size: .72rem;
-    font-weight: 800;
-    width: 1.6rem;
-    height: 1.6rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .tier-num.one { background: var(--gold); color: #0d0d0f; }
-  .tier-num.two { background: var(--border); color: var(--silver); }
-
-  .tier-label {
-    font-family: 'Syne', sans-serif;
-    font-size: .8rem;
-    font-weight: 600;
-    letter-spacing: .06em;
-    white-space: nowrap;
-  }
-  .tier-label.gold { color: var(--gold); }
-  .tier-label.dim  { color: var(--silver); }
-
-  .tier-line { flex: 1; height: 1px; }
-  .tier-line.gold { background: linear-gradient(90deg, var(--gold-dim), transparent); }
-  .tier-line.dim  { background: linear-gradient(90deg, var(--silver-dim), transparent); }
-
-  /* CARDS GRID */
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: .85rem;
-  }
-
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.1rem .9rem .9rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: .55rem;
-    transition: transform .18s, border-color .18s;
-    cursor: default;
-  }
-  .card:hover { transform: translateY(-2px); }
-  .card.native { border-color: rgba(201,168,76,.25); }
-  .card.native:hover { border-color: var(--gold); }
-  .card.custom { border-color: var(--border); }
-  .card.custom:hover { border-color: var(--silver); }
-
-  .card-icon { color: var(--text-dim); flex-shrink: 0; }
-  .card.native .card-icon { color: var(--gold); opacity: .75; }
-
-  .card-name {
-    font-family: 'Syne', sans-serif;
-    font-size: .82rem;
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.2;
-  }
-
-  .badge {
-    font-size: .62rem;
-    font-weight: 500;
-    letter-spacing: .07em;
-    text-transform: uppercase;
-    padding: .18rem .45rem;
-    border-radius: 4px;
-    margin-top: auto;
-  }
-  .badge.n { background: var(--gold-dim); color: var(--gold); }
-  .badge.c { background: var(--silver-dim); color: var(--silver); }
-</style>
-</head>
-<body>
-<div class="container">
-  <h1>CRM Integrations</h1>
-
-  <!-- TIER 1 -->
-  <div class="tier">
-    <div class="tier-head">
-      <span class="tier-num one">1</span>
-      <span class="tier-label gold">Native, out-of-the-box integrations</span>
-      <span class="tier-line gold"></span>
+      </div>
     </div>
-    <div class="cards">
 
-      <div class="card native">
-        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span>
-        <span class="card-name">Zoho CRM</span>
-        <span class="badge n">Native</span>
+    <!-- TIER 2: Custom -->
+    <div class="hi-tier">
+      <div class="hi-tier-head">
+        <span class="hi-num two">2</span>
+        <span class="hi-tier-label dim">Custom connections &amp; specialist real-estate CRMs</span>
+        <span class="hi-line dim"></span>
       </div>
+      <div class="hi-cards">
 
-      <div class="card native">
-        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18V8M9 18V5M14 18v-7M19 18v-4"/></svg></span>
-        <span class="card-name">Pipedrive CRM</span>
-        <span class="badge n">Native</span>
+        <div class="hi-card custom">
+          <span class="hi-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+          <span class="hi-name">Salesforce</span>
+          <span class="hi-tag c">Custom</span>
+        </div>
+
+        <div class="hi-card custom">
+          <span class="hi-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M5 5l2.5 2.5M16.5 16.5 19 19M2 12h4M18 12h4"/></svg></span>
+          <span class="hi-name">HubSpot</span>
+          <span class="hi-tag c">Custom</span>
+        </div>
+
+        <div class="hi-card custom">
+          <span class="hi-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+          <span class="hi-name">Bitrix24</span>
+          <span class="hi-tag c">Custom</span>
+        </div>
+
+        <div class="hi-card custom">
+          <span class="hi-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg></span>
+          <span class="hi-name">Rex CRM</span>
+          <span class="hi-tag c">Custom</span>
+        </div>
+
+        <div class="hi-card custom">
+          <span class="hi-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <span class="hi-name">PropSpace</span>
+          <span class="hi-tag c">Custom</span>
+        </div>
+
+        <div class="hi-card custom">
+          <span class="hi-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l3 6-9 12L3 9z"/><path d="M3 9h18M9 3 7.5 9 12 21M15 3l1.5 6L12 21"/></svg></span>
+          <span class="hi-name">PropertyMe</span>
+          <span class="hi-tag c">Custom</span>
+        </div>
+
       </div>
-
-      <div class="card native">
-        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M5 5l2.5 2.5M16.5 16.5 19 19M2 12h4M18 12h4"/></svg></span>
-        <span class="card-name">Freshsales</span>
-        <span class="badge n">Native</span>
-      </div>
-
-      <div class="card native">
-        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-        <span class="card-name">Follow Up Boss</span>
-        <span class="badge n">Native</span>
-      </div>
-
     </div>
-  </div>
 
-  <!-- TIER 2 -->
-  <div class="tier">
-    <div class="tier-head">
-      <span class="tier-num two">2</span>
-      <span class="tier-label dim">Custom connections &amp; specialist real-estate CRMs</span>
-      <span class="tier-line dim"></span>
-    </div>
-    <div class="cards">
-
-      <div class="card custom">
-        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
-        <span class="card-name">Salesforce</span>
-        <span class="badge c">Custom</span>
-      </div>
-
-      <div class="card custom">
-        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M5 5l2.5 2.5M16.5 16.5 19 19M2 12h4M18 12h4"/></svg></span>
-        <span class="card-name">HubSpot</span>
-        <span class="badge c">Custom</span>
-      </div>
-
-      <div class="card custom">
-        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
-        <span class="card-name">Bitrix24</span>
-        <span class="badge c">Custom</span>
-      </div>
-
-      <div class="card custom">
-        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg></span>
-        <span class="card-name">Rex CRM</span>
-        <span class="badge c">Custom</span>
-      </div>
-
-      <div class="card custom">
-        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
-        <span class="card-name">PropSpace</span>
-        <span class="badge c">Custom</span>
-      </div>
-
-      <div class="card custom">
-        <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l3 6-9 12L3 9z"/><path d="M3 9h18M9 3 7.5 9 12 21M15 3l1.5 6L12 21"/></svg></span>
-        <span class="card-name">PropertyMe<</span>
-        <span class="badge c">Custom</span>
-      </div>
-
-     
     <!-- CTA -->
     <div class="hi-cta-wrap">
       <div class="hi-cta">
@@ -1413,21 +1290,8 @@ footer {
   </div>
 </section>
 
-    <!-- NOT A CHATBOT callout -->
-  <div class="not-chatbot">
-    <div class="not-chatbot-icon">⚙️</div>
-    <div>
-      <h3>Why Hermia is <em>not a chatbot</em> — and why that matters</h3>
-      <p>
-        AI chatbots improvise answers, misread context, and hallucinate. Hermia doesn't. <strong>Every question is scripted. Every valid answer is a letter choice. Every outcome is pre-defined by conditions.</strong>
-        Once the 3 questions are complete, the session closes permanently — the buyer's record is deleted. Any further messages from that number get no response. The system is sealed.
-        No open-ended conversation, no data drift, no unpredictable outputs. <strong>Just clean, structured qualification data in your CRM.</strong>
-      </p>
-    </div>
-  </div>
-
 <!-- ═══════════════════════════════ DEMO SECTION ═══════════════════════════════ -->
-<section class="demo-section divider-top" id="live-demo">
+<section class="demo-section" id="live-demo">
   <div class="demo-section-head">
     <div class="section-tag" style="display:inline-block;">Interactive Tool</div>
     <h2 class="section-title" style="margin:0 auto;">Don't take our word for it.<br><em>Run a live lead through it.</em></h2>
@@ -1746,6 +1610,8 @@ footer {
             <strong>No. Hermia is inbox-silent by design.</strong> Hot, Warm, and Cold leads all go directly into your CRM with zero email notification. The <em>only</em> email you'll ever get from Hermia is when a buyer wants to inspect a property you haven't listed times for yet. That's it. Your inbox stays quiet. Your CRM stays full.
           </div>
         </div>
+      </div>
+
     </div>
   </section>
 
@@ -1834,8 +1700,9 @@ document.addEventListener('keydown', (e) => {
 });
 </script>
 
-<!-- Hermia AI assistant (the glowing gold house bot) -->
+<!-- Hermia AI assistant -->
 <script src="/hermia-widget.js"></script>
 
 </body>
 </html>
+
