@@ -152,7 +152,7 @@ footer { border-top:1px solid rgba(201,163,91,0.15); padding:32px; font-size:12p
 
   <div class="calendar-header-text">
     <h1>Select a Date to <em>See How It Works</em></h1>
-    <p>Choose an available day on our custom booking window below to coordinate your private strategy call walkthrough.</p>
+    <p>Choose an available day below. Our AI consultant will call you instantly at your chosen time.</p>
   </div>
 
   <div class="hermia-cal-box">
@@ -176,7 +176,7 @@ footer { border-top:1px solid rgba(201,163,91,0.15); padding:32px; font-size:12p
   <div class="modal-box">
 
     <div id="modal-form-content">
-      <h3>Secure Your <em>Private Call</em></h3>
+      <h3>Get Your <em>Free Call</em></h3>
       <p id="selected-date-string">Selected Date</p>
 
       <form id="hermia-booking-form">
@@ -188,44 +188,42 @@ footer { border-top:1px solid rgba(201,163,91,0.15); padding:32px; font-size:12p
         </div>
 
         <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" name="email" required placeholder="name@agency.com">
+          <label>Mobile Number</label>
+          <input type="tel" name="phone" required placeholder="e.g. 0412 345 678">
         </div>
 
         <div class="form-group">
-          <label>Available Session Time</label>
+          <label>When should we call?</label>
           <select name="timeSlot" required>
-            <option value="" disabled selected>Select a time slot...</option>
-            <option value="10:00 AM">10:00 AM</option>
-            <option value="10:40 AM">10:40 AM</option>
-            <option value="11:20 AM">11:20 AM</option>
-            <option value="12:00 PM">12:00 PM</option>
-            <option value="12:40 PM">12:40 PM</option>
-            <option value="1:20 PM">1:20 PM</option>
-            <option value="2:00 PM">2:00 PM</option>
-            <option value="2:40 PM">2:40 PM</option>
-            <option value="3:20 PM">3:20 PM</option>
-            <option value="4:00 PM">4:00 PM (Final Slot)</option>
+            <option value="" disabled selected>Choose when to receive your call...</option>
+            <option value="now">Call me right now</option>
+            <option value="5min">In 5 minutes</option>
+            <option value="10min">In 10 minutes</option>
+            <option value="30min">In 30 minutes</option>
+            <option value="1hour">In 1 hour</option>
+            <option value="2hours">In 2 hours</option>
+            <option value="tomorrow_morning">Tomorrow morning</option>
+            <option value="tomorrow_afternoon">Tomorrow afternoon</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label>Target Marketplace / Region</label>
+          <label>Your Market</label>
           <input type="text" name="market" required placeholder="e.g. Australia or Dubai">
         </div>
 
         <div class="modal-actions">
           <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
-          <button type="submit" class="btn-submit" id="submit-btn-text">Done</button>
+          <button type="submit" class="btn-submit" id="submit-btn-text">Call Me Now</button>
         </div>
       </form>
     </div>
 
     <div id="modal-success-content" class="success-state">
-      <div class="success-icon">✓</div>
-      <h3>Call <em>Confirmed</em></h3>
-      <p>Your private session request has been securely processed.</p>
-      <p style="margin-top: 8px; font-size: 13px; color: var(--gold);">Preparing to securely redirect you back to the main site...</p>
+      <div class="success-icon">📞</div>
+      <h3>Jared is <em>Calling You</em></h3>
+      <p>Our AI consultant Jared is calling your number right now. Pick up — he'll answer all your questions and show you exactly how Hermia works.</p>
+      <p style="margin-top: 12px; font-size: 13px; color: var(--gold);">Redirecting you back to the site...</p>
       <div class="countdown-bar">
         <div class="countdown-progress"></div>
       </div>
@@ -262,7 +260,6 @@ function renderCalendar() {
 
   const now = new Date();
   const todayDateOnly = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const cutoffTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 16, 10, 0);
 
   for (let day = 1; day <= lastDay; day++) {
     const dayCell = document.createElement('div');
@@ -271,10 +268,8 @@ function renderCalendar() {
 
     const targetCellDate = new Date(year, month, day);
     const isPastDate = targetCellDate < todayDateOnly;
-    const isToday = (day === now.getDate() && month === now.getMonth() && year === now.getFullYear());
-    const isExpiredToday = isToday && (now > cutoffTime);
 
-    if (!isPastDate && !isExpiredToday) {
+    if (!isPastDate) {
       dayCell.classList.add('available');
       dayCell.onclick = () => openModal(day, month, year);
     }
@@ -292,7 +287,7 @@ function openModal(day, month, year) {
   const dateObj = new Date(year, month, day);
   const formattedString = dateObj.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-  document.getElementById('selected-date-string').innerText = `Selected Slot: ${formattedString}`;
+  document.getElementById('selected-date-string').innerText = `Selected: ${formattedString}`;
   document.getElementById('hidden-date-field').value = formattedString;
 
   document.getElementById('modal-form-content').style.display = 'block';
@@ -309,16 +304,16 @@ function closeModal() {
 document.getElementById('hermia-booking-form').addEventListener('submit', function(e) {
   e.preventDefault();
 
-  const btnText = document.getElementById('submit-btn-text');
-  btnText.innerText = "Processing...";
-  btnText.style.opacity = "0.7";
-  btnText.style.pointerEvents = "none";
+  const btn = document.getElementById('submit-btn-text');
+  btn.innerText = "Connecting...";
+  btn.style.opacity = "0.7";
+  btn.style.pointerEvents = "none";
 
   const formData = new FormData(this);
   const jsonPayload = {};
   formData.forEach((value, key) => { jsonPayload[key] = value; });
 
-  fetch('https://hook.eu1.make.com/8qf9ucs9aojq2dbvnil515ncaml38x7f', {
+  fetch('https://hook.eu1.make.com/b46xmp9ii32mq20nip92cn7ribx82c6j', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(jsonPayload)
@@ -326,16 +321,13 @@ document.getElementById('hermia-booking-form').addEventListener('submit', functi
   .then(() => {
     document.getElementById('modal-form-content').style.display = 'none';
     document.getElementById('modal-success-content').style.display = 'flex';
-
-    setTimeout(() => {
-      window.location.href = "index.html";
-    }, 3000);
+    setTimeout(() => { window.location.href = "index.html"; }, 4000);
   })
   .catch(error => {
-    alert("Network communication error.");
-    btnText.innerText = "Done";
-    btnText.style.opacity = "1";
-    btnText.style.pointerEvents = "auto";
+    alert("Something went wrong. Please try again.");
+    btn.innerText = "Call Me Now";
+    btn.style.opacity = "1";
+    btn.style.pointerEvents = "auto";
   });
 });
 
@@ -344,5 +336,3 @@ renderCalendar();
 
 </body>
 </html>
-
-<script src="/hermia-widget.js"></script>
