@@ -39,6 +39,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
 .card-corner.bl{bottom:14px;left:14px;width:18px;height:18px;border-bottom:1px solid var(--gold);border-left:1px solid var(--gold)}
 .step-view{display:none}
 .step-view.active{display:block}
+
+/* Gmail step */
 .gmail-icon{width:72px;height:72px;margin:0 auto 24px;background:rgba(234,67,53,0.1);border:1px solid rgba(234,67,53,0.25);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:32px}
 .connect-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:#fff;text-align:center;margin-bottom:8px}
 .connect-sub{font-size:14px;color:var(--soft);text-align:center;line-height:1.6;margin-bottom:28px;font-weight:300}
@@ -49,28 +51,57 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
 .connected-icon{width:36px;height:36px;min-width:36px;background:rgba(16,185,129,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--green)}
 .connected-text{font-size:13.5px;color:var(--soft)}
 .connected-text strong{color:var(--green);font-weight:600;display:block;margin-bottom:2px}
+
+/* CRM step */
+.crm-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:#fff;margin-bottom:6px}
+.crm-sub{font-size:14px;color:var(--soft);line-height:1.6;margin-bottom:20px;font-weight:300}
+.crm-section-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+
+/* Big 4 grid */
+.crm-big4{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.crm-card{border:1.5px solid var(--border);border-radius:14px;padding:18px 14px;cursor:pointer;transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;position:relative;overflow:hidden}
+.crm-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+.crm-card.selected{box-shadow:0 0 0 2px var(--gold), 0 8px 24px rgba(201,163,91,0.2)}
+.crm-card.selected::after{content:'✓';position:absolute;top:8px;right:10px;font-size:11px;font-weight:700;color:var(--gold)}
+.crm-logo{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;letter-spacing:1px;color:#fff}
+.crm-name{font-size:13px;font-weight:600;color:#fff}
+.crm-tagline{font-size:10px;color:var(--muted);line-height:1.3}
+
+/* More CRMs toggle */
+.more-toggle{display:flex;align-items:center;gap:10px;cursor:pointer;padding:12px 0;margin-bottom:8px;border:none;background:none;width:100%;text-align:left}
+.more-toggle-icon{width:24px;height:24px;border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);transition:all 0.2s;flex-shrink:0}
+.more-toggle-text{font-size:12.5px;color:var(--soft)}
+.more-toggle-arrow{margin-left:auto;font-size:10px;color:var(--muted);transition:transform 0.2s}
+.more-toggle.open .more-toggle-arrow{transform:rotate(180deg)}
+.more-toggle.open .more-toggle-icon{background:var(--gold-dim)}
+
+.crm-more-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;max-height:0;overflow:hidden;transition:max-height 0.3s ease}
+.crm-more-grid.open{max-height:400px}
+.crm-card-sm{border:1px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:10px;position:relative}
+.crm-card-sm:hover{border-color:var(--border-hi);background:var(--gold-dim)}
+.crm-card-sm.selected{border-color:var(--gold);background:rgba(201,163,91,0.06)}
+.crm-card-sm.selected::after{content:'✓';position:absolute;top:8px;right:10px;font-size:10px;color:var(--gold)}
+.crm-logo-sm{width:28px;height:28px;min-width:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff}
+.crm-name-sm{font-size:12px;font-weight:600;color:#fff}
+
+/* Other CRM */
+.other-wrap{margin-bottom:16px;max-height:0;overflow:hidden;transition:max-height 0.3s ease}
+.other-wrap.open{max-height:100px}
+.other-input{width:100%;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--cream);outline:none;transition:all 0.2s;margin-top:8px}
+.other-input:focus{border-color:rgba(201,163,91,0.5);background:rgba(201,163,91,0.03)}
+.other-input::placeholder{color:var(--muted)}
+
+/* Buttons */
 .btn-connect{width:100%;background:linear-gradient(135deg,#b8882a,#e8c17a,#a07828);color:#000;padding:16px 24px;border-radius:11px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.28s;box-shadow:0 8px 28px rgba(201,163,91,0.3);display:flex;align-items:center;justify-content:center;gap:10px}
 .btn-connect:hover:not(:disabled){filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 12px 36px rgba(201,163,91,0.45)}
 .btn-connect:disabled{opacity:0.6;cursor:not-allowed;transform:none}
-.crm-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:#fff;margin-bottom:8px}
-.crm-sub{font-size:14px;color:var(--soft);line-height:1.6;margin-bottom:24px;font-weight:300}
-.crm-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
-.crm-option{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;padding:16px 14px;cursor:pointer;transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
-.crm-option:hover{border-color:var(--border-hi);background:var(--gold-dim)}
-.crm-option.selected{border-color:var(--gold);background:rgba(201,163,91,0.08);box-shadow:0 0 0 3px rgba(201,163,91,0.1)}
-.crm-option-icon{font-size:24px}
-.crm-option-name{font-size:12.5px;font-weight:600;color:#fff}
-.crm-option-region{font-size:10px;color:var(--muted)}
-.crm-other{border:1px solid var(--border);border-radius:12px;padding:14px 16px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:12px;margin-bottom:20px}
-.crm-other:hover{border-color:var(--border-hi)}
-.crm-other.selected{border-color:var(--gold);background:var(--gold-dim)}
-.crm-other-text{font-size:13px;color:var(--soft)}
-.crm-other-text strong{color:#fff;font-weight:600}
 .error-msg{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:10px;padding:12px 16px;font-size:13px;color:#f87171;margin-top:14px;display:none}
 .spinner{width:16px;height:16px;border:2px solid rgba(0,0,0,0.3);border-top-color:#000;border-radius:50%;animation:spin 0.7s linear infinite;display:none}
 @keyframes spin{to{transform:rotate(360deg)}}
 .btn-connect.loading .spinner{display:block}
 .btn-connect.loading .btn-text,.btn-connect.loading .btn-arrow{display:none}
+
+/* Success */
 .success-screen{text-align:center;padding:20px 0}
 .success-icon{width:72px;height:72px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 20px;animation:pop 0.5s cubic-bezier(0.175,0.885,0.32,1.275)}
 @keyframes pop{0%{transform:scale(0);opacity:0}100%{transform:scale(1);opacity:1}}
@@ -79,11 +110,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
 .success-screen p{font-size:14px;color:var(--soft);line-height:1.65;margin-bottom:24px}
 .setup-items{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
 .setup-item{display:flex;align-items:center;gap:12px;background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.15);border-radius:10px;padding:12px 16px;font-size:13px;color:var(--soft)}
-.setup-item-icon{font-size:16px}
 .page-footer{text-align:center;margin-top:24px;font-size:11.5px;color:var(--muted)}
 .page-footer a{color:var(--muted);text-decoration:none}
 .page-footer a:hover{color:var(--gold)}
-@media(max-width:480px){.card{padding:28px 22px}.crm-grid{grid-template-columns:1fr}}
+@media(max-width:480px){.card{padding:28px 20px}.crm-big4,.crm-more-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -105,11 +135,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
     <div class="step-connector" id="connector3"></div>
     <div class="step-item"><div class="step-circle pending" id="step4-circle">4</div><div class="step-label" id="step4-label">Your CRM</div></div>
   </div>
+
   <div class="card">
     <div class="card-corner tr"></div>
     <div class="card-corner bl"></div>
 
-    <!-- STEP 3: Connect Gmail -->
+    <!-- STEP 3 -->
     <div class="step-view active" id="view-gmail">
       <div class="gmail-icon">📧</div>
       <div class="connect-title">Connect Your Gmail</div>
@@ -131,25 +162,74 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
       <div class="error-msg" id="gmail-error"></div>
     </div>
 
-    <!-- STEP 4: Pick CRM -->
+    <!-- STEP 4 -->
     <div class="step-view" id="view-crm">
       <div class="crm-title">Select Your CRM</div>
-      <div class="crm-sub">Which CRM do you currently use to manage your leads?</div>
-      <div class="crm-grid">
-        <div class="crm-option" onclick="selectCRM('zoho',this)"><div class="crm-option-icon">🟡</div><div class="crm-option-name">Zoho CRM</div><div class="crm-option-region">Global</div></div>
-        <div class="crm-option" onclick="selectCRM('followupboss',this)"><div class="crm-option-icon">🟠</div><div class="crm-option-name">Follow Up Boss</div><div class="crm-option-region">🇺🇸 USA</div></div>
-        <div class="crm-option" onclick="selectCRM('agentbox',this)"><div class="crm-option-icon">🔵</div><div class="crm-option-name">Agentbox</div><div class="crm-option-region">🇦🇺 Australia</div></div>
-        <div class="crm-option" onclick="selectCRM('rex',this)"><div class="crm-option-icon">🟣</div><div class="crm-option-name">Rex</div><div class="crm-option-region">🇦🇺 Australia</div></div>
-        <div class="crm-option" onclick="selectCRM('vaultre',this)"><div class="crm-option-icon">🔴</div><div class="crm-option-name">VaultRE</div><div class="crm-option-region">🇦🇺 Australia</div></div>
-        <div class="crm-option" onclick="selectCRM('propertyme',this)"><div class="crm-option-icon">🟢</div><div class="crm-option-name">PropertyMe</div><div class="crm-option-region">🇦🇺 Australia</div></div>
+      <div class="crm-sub">Which platform do you use to manage your leads?</div>
+
+      <!-- Big 4 -->
+      <div class="crm-section-label">Most Popular</div>
+      <div class="crm-big4">
+        <div class="crm-card" onclick="selectCRM('zoho',this)" style="background:linear-gradient(135deg,rgba(229,57,53,0.08),rgba(76,175,80,0.08));">
+          <div class="crm-logo" style="background:linear-gradient(135deg,#E53935,#43A047,#1E88E5,#F9A825);">Z</div>
+          <div class="crm-name">Zoho CRM</div>
+          <div class="crm-tagline">Global · All-in-one</div>
+        </div>
+        <div class="crm-card" onclick="selectCRM('followupboss',this)" style="background:rgba(30,120,180,0.08);">
+          <div class="crm-logo" style="background:linear-gradient(135deg,#F5A623,#1E78B4,#E53935);">fub</div>
+          <div class="crm-name">Follow Up Boss</div>
+          <div class="crm-tagline">USA · Real estate</div>
+        </div>
+        <div class="crm-card" onclick="selectCRM('freshsales',this)" style="background:rgba(233,150,64,0.08);">
+          <div class="crm-logo" style="background:#E99640; border-radius:50%;">fs</div>
+          <div class="crm-name">Freshsales</div>
+          <div class="crm-tagline">Global · Sales CRM</div>
+        </div>
+        <div class="crm-card" onclick="selectCRM('pipedrive',this)" style="background:rgba(34,95,56,0.08);">
+          <div class="crm-logo" style="background:#225F38;">PD</div>
+          <div class="crm-name">Pipedrive</div>
+          <div class="crm-tagline">Global · Pipeline</div>
+        </div>
       </div>
-      <div class="crm-other" id="crm-other-option" onclick="selectCRM('other',this)">
-        <div style="font-size:20px">➕</div>
-        <div class="crm-other-text"><strong>Other CRM</strong>Not listed? We'll set it up manually.</div>
+
+      <!-- More CRMs toggle -->
+      <button class="more-toggle" id="more-toggle" onclick="toggleMore()">
+        <div class="more-toggle-icon">+</div>
+        <div class="more-toggle-text">More CRM options</div>
+        <div class="more-toggle-arrow">▼</div>
+      </button>
+
+      <div class="crm-more-grid" id="more-grid">
+        <div class="crm-card-sm" onclick="selectCRM('agentbox',this)">
+          <div class="crm-logo-sm" style="background:#0052CC;">AB</div>
+          <div class="crm-name-sm">Agentbox</div>
+        </div>
+        <div class="crm-card-sm" onclick="selectCRM('rex',this)">
+          <div class="crm-logo-sm" style="background:#6B21A8;">Rex</div>
+          <div class="crm-name-sm">Rex</div>
+        </div>
+        <div class="crm-card-sm" onclick="selectCRM('vaultre',this)">
+          <div class="crm-logo-sm" style="background:#DC2626;">VRE</div>
+          <div class="crm-name-sm">VaultRE</div>
+        </div>
+        <div class="crm-card-sm" onclick="selectCRM('propertyme',this)">
+          <div class="crm-logo-sm" style="background:#16A34A;">PM</div>
+          <div class="crm-name-sm">PropertyMe</div>
+        </div>
+        <div class="crm-card-sm" onclick="selectCRM('other',this); toggleOther()">
+          <div class="crm-logo-sm" style="background:var(--muted);">+</div>
+          <div class="crm-name-sm">Other CRM</div>
+        </div>
       </div>
+
+      <!-- Other input -->
+      <div class="other-wrap" id="other-wrap">
+        <input type="text" class="other-input" id="other-crm-input" placeholder="Type your CRM name...">
+      </div>
+
       <button class="btn-connect" id="btn-crm" onclick="saveCRM()" disabled>
         <div class="spinner"></div>
-        <span class="btn-text">Continue →</span>
+        <span class="btn-text">Complete Setup →</span>
       </button>
       <div class="error-msg" id="crm-error"></div>
     </div>
@@ -161,14 +241,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
         <h2>You're all <em>set up.</em></h2>
         <p>Hermia is now connected to your Gmail and CRM. Your account will be activated within 24 hours.</p>
         <div class="setup-items">
-          <div class="setup-item"><div class="setup-item-icon">📧</div>Gmail connected and monitoring for enquiries</div>
-          <div class="setup-item"><div class="setup-item-icon">📅</div>Calendar access granted for inspection booking</div>
-          <div class="setup-item"><div class="setup-item-icon">🤖</div>Hermia will qualify your next lead automatically</div>
+          <div class="setup-item">📧 Gmail connected and monitoring for enquiries</div>
+          <div class="setup-item">📅 Calendar access granted for inspection booking</div>
+          <div class="setup-item">🤖 Hermia will qualify your next lead automatically</div>
         </div>
         <a href="https://www.hermia.au" class="btn-connect" style="text-decoration:none;display:flex"><span class="btn-text">Back to Hermia →</span></a>
       </div>
     </div>
   </div>
+
   <div class="page-footer">
     <a href="https://www.hermia.au">hermia.au</a> &nbsp;·&nbsp;
     <a href="https://www.hermia.au/privacy.html">Privacy</a> &nbsp;·&nbsp;
@@ -183,119 +264,67 @@ const GOOGLE_CLIENT_ID = '548122683628-orrfndehhqhbe4aeet0vcje5al3rck7d.apps.goo
 const REDIRECT_URI = 'https://capital-dot.github.io/hermia-website/crm.html';
 
 let selectedCRM = null;
+let otherOpen = false;
 const customerId = sessionStorage.getItem('hermia_customer_id');
 
-// Check if returning from Google OAuth
 window.addEventListener('load', async () => {
   const params = new URLSearchParams(window.location.search);
   const code = params.get('code');
   const error = params.get('error');
-
   if (error) {
-    const errorEl = document.getElementById('gmail-error');
-    errorEl.textContent = 'Gmail connection was cancelled. Please try again.';
-    errorEl.style.display = 'block';
+    const el = document.getElementById('gmail-error');
+    el.textContent = 'Gmail connection was cancelled. Please try again.';
+    el.style.display = 'block';
     return;
   }
-
-  if (code) {
-    // Exchange code for tokens via our Cloudflare worker
-    await handleGoogleCallback(code);
-  }
+  if (code) await handleGoogleCallback(code);
 });
 
 async function connectGmail() {
-  // Build Google OAuth URL
   const scope = encodeURIComponent([
     'https://www.googleapis.com/auth/gmail.readonly',
     'https://www.googleapis.com/auth/calendar',
-    'email',
-    'profile'
+    'email','profile'
   ].join(' '));
-
   const state = Math.random().toString(36).substring(2);
   sessionStorage.setItem('oauth_state', state);
-
-  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?` +
-    `client_id=${GOOGLE_CLIENT_ID}` +
-    `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
-    `&response_type=code` +
-    `&scope=${scope}` +
-    `&access_type=offline` +
-    `&prompt=consent` +
-    `&state=${state}`;
-
-  window.location.href = authUrl;
+  window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=${scope}&access_type=offline&prompt=consent&state=${state}`;
 }
 
 async function handleGoogleCallback(code) {
   const btn = document.getElementById('btn-gmail');
-  btn.classList.add('loading');
-  btn.disabled = true;
-
+  btn.classList.add('loading'); btn.disabled = true;
   try {
-    // Exchange code for tokens via Cloudflare worker
     const response = await fetch('https://hermia-auth.capital-fbc.workers.dev/api/google/token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        code: code,
-        redirect_uri: REDIRECT_URI
-      })
+      body: JSON.stringify({ code, redirect_uri: REDIRECT_URI })
     });
-
     const data = await response.json();
-
     if (!data.email) throw new Error('Failed to get account info');
-
-    // Save to Supabase
     await saveTokens(data);
-
-    // Show connected badge
     document.getElementById('connected-badge').style.display = 'flex';
     document.getElementById('connected-email').textContent = data.email;
-
-    // Clean URL
     window.history.replaceState({}, document.title, window.location.pathname);
-
-    // Move to CRM step
     setTimeout(() => moveToStep4(), 1500);
-
   } catch (err) {
-    btn.classList.remove('loading');
-    btn.disabled = false;
-    const errorEl = document.getElementById('gmail-error');
-    errorEl.textContent = 'Connection failed. Please try again.';
-    errorEl.style.display = 'block';
+    btn.classList.remove('loading'); btn.disabled = false;
+    const el = document.getElementById('gmail-error');
+    el.textContent = 'Connection failed. Please try again.';
+    el.style.display = 'block';
   }
 }
 
 async function saveTokens(data) {
   if (!customerId) return;
-
   await fetch(`${SUPABASE_URL}/rest/v1/email_connections`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`
-    },
-    body: JSON.stringify({
-      customer_id: customerId,
-      email: data.email,
-      google_access_token: data.access_token,
-      google_refresh_token: data.refresh_token,
-      connected_at: new Date().toISOString()
-    })
+    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
+    body: JSON.stringify({ customer_id: customerId, email: data.email, google_access_token: data.access_token, google_refresh_token: data.refresh_token, connected_at: new Date().toISOString() })
   });
-
   await fetch(`${SUPABASE_URL}/rest/v1/onboarding_status?customer_id=eq.${customerId}`, {
     method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`
-    },
+    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
     body: JSON.stringify({ email_connected: true })
   });
 }
@@ -313,49 +342,57 @@ function moveToStep4() {
 
 function selectCRM(crm, el) {
   selectedCRM = crm;
-  document.querySelectorAll('.crm-option,.crm-other').forEach(e => e.classList.remove('selected'));
+  document.querySelectorAll('.crm-card,.crm-card-sm').forEach(e => e.classList.remove('selected'));
   el.classList.add('selected');
   document.getElementById('btn-crm').disabled = false;
+}
+
+function toggleMore() {
+  const grid = document.getElementById('more-grid');
+  const toggle = document.getElementById('more-toggle');
+  grid.classList.toggle('open');
+  toggle.classList.toggle('open');
+  const icon = toggle.querySelector('.more-toggle-icon');
+  icon.textContent = grid.classList.contains('open') ? '−' : '+';
+}
+
+function toggleOther() {
+  const wrap = document.getElementById('other-wrap');
+  wrap.classList.toggle('open');
+  if (wrap.classList.contains('open')) {
+    setTimeout(() => document.getElementById('other-crm-input').focus(), 300);
+  }
 }
 
 async function saveCRM() {
   if (!selectedCRM) return;
   const btn = document.getElementById('btn-crm');
-  btn.classList.add('loading');
-  btn.disabled = true;
-
+  btn.classList.add('loading'); btn.disabled = true;
+  let crmValue = selectedCRM;
+  if (selectedCRM === 'other') {
+    const custom = document.getElementById('other-crm-input').value.trim();
+    if (custom) crmValue = custom;
+  }
   try {
     if (customerId) {
       await fetch(`${SUPABASE_URL}/rest/v1/customers?id=eq.${customerId}`, {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`
-        },
-        body: JSON.stringify({ crm_provider: selectedCRM })
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
+        body: JSON.stringify({ crm_provider: crmValue })
       });
-
       await fetch(`${SUPABASE_URL}/rest/v1/onboarding_status?customer_id=eq.${customerId}`, {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`
-        },
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
         body: JSON.stringify({ crm_connected: true, onboarding_complete: true })
       });
     }
-
     document.getElementById('view-crm').classList.remove('active');
     document.getElementById('view-success').classList.add('active');
     document.getElementById('step4-circle').className = 'step-circle done';
     document.getElementById('step4-circle').textContent = '✓';
     document.getElementById('step4-label').className = 'step-label';
-
   } catch(err) {
-    btn.classList.remove('loading');
-    btn.disabled = false;
+    btn.classList.remove('loading'); btn.disabled = false;
     document.getElementById('crm-error').textContent = 'Something went wrong. Please try again.';
     document.getElementById('crm-error').style.display = 'block';
   }
