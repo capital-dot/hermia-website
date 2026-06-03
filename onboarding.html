@@ -108,29 +108,18 @@
   input:focus{border-color:var(--gold); background:rgba(10,10,14,0.8); box-shadow:0 0 0 3px rgba(201,163,91,0.12)}
   input.err{border-color:#d4584f; box-shadow:0 0 0 3px rgba(212,88,79,0.12)}
 
-  /* phone with market / country-code selector */
-  .tel{position:relative; display:flex; gap:10px}
-  .cc-select{flex:none; display:flex; align-items:center; gap:8px; cursor:pointer;
-    background:rgba(8,8,11,0.6); border:1px solid var(--border); border-radius:12px;
-    padding:0 14px; color:var(--cream); font-family:inherit; font-size:15px; font-weight:400;
-    transition:border-color .25s, box-shadow .25s}
-  .cc-select:hover{border-color:rgba(201,163,91,0.4)}
-  .cc-select.open{border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,163,91,0.12)}
-  .cc-select .mkt{font-size:11px; letter-spacing:.08em; color:var(--gold-light); font-weight:500}
-  .cc-select .chev{color:var(--soft); font-size:11px; transition:transform .25s}
-  .cc-select.open .chev{transform:rotate(180deg)}
-  .tel input{flex:1; min-width:0}
-  .cc-menu{position:absolute; top:calc(100% + 8px); left:0; z-index:20; width:260px; max-width:100%;
-    background:rgba(15,15,18,0.96); backdrop-filter:blur(20px); border:1px solid var(--border); border-radius:14px;
-    padding:7px; box-shadow:0 24px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
-    opacity:0; transform:translateY(-6px) scale(.98); pointer-events:none; transition:.22s}
-  .cc-menu.open{opacity:1; transform:translateY(0) scale(1); pointer-events:auto}
-  .cc-menu button{width:100%; display:flex; align-items:center; justify-content:space-between; gap:10px;
-    background:none; border:none; cursor:pointer; color:var(--cream); font-family:inherit; font-size:14px;
-    padding:12px 13px; border-radius:9px; text-align:left; transition:background .18s}
-  .cc-menu button:hover{background:rgba(201,163,91,0.10)}
-  .cc-menu button.sel{background:rgba(201,163,91,0.08)}
-  .cc-menu button .code{color:var(--gold-light); font-weight:500}
+  /* market toggle (inline, no overlay) */
+  .mkt-toggle{display:inline-flex; gap:5px; background:rgba(8,8,11,0.6); border:1px solid var(--border); border-radius:12px; padding:5px; margin-bottom:11px}
+  .mkt-toggle button{background:none; border:none; cursor:pointer; color:var(--soft); font-family:inherit; font-size:13px; font-weight:500; padding:9px 15px; border-radius:8px; transition:.2s; white-space:nowrap}
+  .mkt-toggle button:hover{color:var(--cream)}
+  .mkt-toggle button.active{background:linear-gradient(135deg,var(--gold-light),var(--gold)); color:#1a1408; box-shadow:0 4px 12px rgba(201,163,91,0.3)}
+  /* phone input with fixed country-code prefix */
+  .tel{display:flex; align-items:center; background:rgba(8,8,11,0.6); border:1px solid var(--border); border-radius:12px; transition:border-color .25s, box-shadow .25s, background .25s}
+  .tel:focus-within{border-color:var(--gold); background:rgba(10,10,14,0.8); box-shadow:0 0 0 3px rgba(201,163,91,0.12)}
+  .tel.err{border-color:#d4584f; box-shadow:0 0 0 3px rgba(212,88,79,0.12)}
+  .tel .cc-fixed{flex:none; padding:15px 4px 15px 17px; color:var(--gold-light); font-weight:500; font-size:15px; user-select:none}
+  .tel input{flex:1; min-width:0; background:transparent; border:none; box-shadow:none; padding:15px 17px 15px 6px}
+  .tel input:focus{background:transparent; border:none; box-shadow:none}
   .err-msg{color:#e07a72; font-size:11.5px; margin-top:7px; display:none}
   .err-msg.show{display:block}
 
@@ -200,18 +189,14 @@
         <div class="err-msg" id="err-email">Please enter a valid email address.</div>
       </div>
       <div class="field">
-        <label for="phone">Phone Number <span class="hint">— we add the country code for you</span></label>
-        <div class="tel">
-          <div class="cc-select" id="ccBtn">
-            <span class="code" id="ccCode">+61</span>
-            <span class="mkt" id="ccMkt">AU</span>
-            <span class="chev">▾</span>
-          </div>
+        <label for="phone">Phone Number <span class="hint">Required</span></label>
+        <div class="mkt-toggle" id="mktToggle">
+          <button type="button" data-mkt="AU" data-code="+61" class="active">Australia +61</button>
+          <button type="button" data-mkt="UAE" data-code="+971">Dubai +971</button>
+        </div>
+        <div class="tel" id="telWrap">
+          <span class="cc-fixed" id="ccCode">+61</span>
           <input id="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="400 000 000" />
-          <div class="cc-menu" id="ccMenu">
-            <button type="button" data-mkt="AU" data-code="+61" class="sel">Australia <span class="code">+61</span></button>
-            <button type="button" data-mkt="UAE" data-code="+971">Dubai (UAE) <span class="code">+971</span></button>
-          </div>
         </div>
         <div class="err-msg" id="err-phone">Please enter a valid phone number.</div>
       </div>
@@ -233,22 +218,21 @@
   const $ = id => document.getElementById(id);
   const fields = ['fullName','agency','email','phone'];
 
-  function showErr(id, on){ $(id).classList.toggle('err', on); $('err-'+id).classList.toggle('show', on); }
+  function showErr(id, on){
+    const target = id === 'phone' ? $('telWrap') : $(id);
+    if(target) target.classList.toggle('err', on);
+    $('err-'+id).classList.toggle('show', on);
+  }
   fields.forEach(id => $(id).addEventListener('input', () => showErr(id, false)));
 
-  /* market / country-code selector */
+  /* market toggle — inline, no overlay */
   let dialCode = '+61';
-  const ccBtn = $('ccBtn'), ccMenu = $('ccMenu');
-  ccBtn.addEventListener('click', (e) => { e.stopPropagation(); ccBtn.classList.toggle('open'); ccMenu.classList.toggle('open'); });
-  document.addEventListener('click', () => { ccBtn.classList.remove('open'); ccMenu.classList.remove('open'); });
-  ccMenu.addEventListener('click', (e) => e.stopPropagation());
-  ccMenu.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#mktToggle button').forEach(b => b.addEventListener('click', () => {
     dialCode = b.dataset.code;
     $('ccCode').textContent = dialCode;
-    $('ccMkt').textContent = b.dataset.mkt;
-    ccMenu.querySelectorAll('button').forEach(x => x.classList.toggle('sel', x === b));
-    ccBtn.classList.remove('open'); ccMenu.classList.remove('open');
+    document.querySelectorAll('#mktToggle button').forEach(x => x.classList.toggle('active', x === b));
     showErr('phone', false);
+    $('phone').focus();
   }));
 
   function validate(){
