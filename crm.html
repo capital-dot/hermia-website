@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hermia — Connect Your Gmail</title>
+<title>Hermia — Connect Your CRM</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@nangohq/frontend/dist/index.js"></script>
 <style>
 :root {
   --black:#07070a;--card:#0f0f12;--border:rgba(201,163,91,0.14);--border-hi:rgba(201,163,91,0.38);
@@ -56,25 +57,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
 .crm-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:#fff;margin-bottom:6px}
 .crm-sub{font-size:14px;color:var(--soft);line-height:1.6;margin-bottom:20px;font-weight:300}
 .crm-section-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-
-/* Big 4 grid */
 .crm-big4{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
 .crm-card{border:1.5px solid var(--border);border-radius:14px;padding:18px 14px;cursor:pointer;transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;position:relative;overflow:hidden}
 .crm-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
-.crm-card.selected{box-shadow:0 0 0 2px var(--gold), 0 8px 24px rgba(201,163,91,0.2)}
+.crm-card.selected{box-shadow:0 0 0 2px var(--gold),0 8px 24px rgba(201,163,91,0.2)}
 .crm-card.selected::after{content:'✓';position:absolute;top:8px;right:10px;font-size:11px;font-weight:700;color:var(--gold)}
 .crm-logo{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;letter-spacing:1px;color:#fff}
 .crm-name{font-size:13px;font-weight:600;color:#fff}
 .crm-tagline{font-size:10px;color:var(--muted);line-height:1.3}
-
-/* More CRMs toggle */
 .more-toggle{display:flex;align-items:center;gap:10px;cursor:pointer;padding:12px 0;margin-bottom:8px;border:none;background:none;width:100%;text-align:left}
 .more-toggle-icon{width:24px;height:24px;border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);transition:all 0.2s;flex-shrink:0}
 .more-toggle-text{font-size:12.5px;color:var(--soft)}
 .more-toggle-arrow{margin-left:auto;font-size:10px;color:var(--muted);transition:transform 0.2s}
 .more-toggle.open .more-toggle-arrow{transform:rotate(180deg)}
 .more-toggle.open .more-toggle-icon{background:var(--gold-dim)}
-
 .crm-more-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;max-height:0;overflow:hidden;transition:max-height 0.3s ease}
 .crm-more-grid.open{max-height:400px}
 .crm-card-sm{border:1px solid var(--border);border-radius:10px;padding:12px 10px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:10px;position:relative}
@@ -83,13 +79,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
 .crm-card-sm.selected::after{content:'✓';position:absolute;top:8px;right:10px;font-size:10px;color:var(--gold)}
 .crm-logo-sm{width:28px;height:28px;min-width:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff}
 .crm-name-sm{font-size:12px;font-weight:600;color:#fff}
-
-/* Other CRM */
 .other-wrap{margin-bottom:16px;max-height:0;overflow:hidden;transition:max-height 0.3s ease}
 .other-wrap.open{max-height:100px}
 .other-input{width:100%;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--cream);outline:none;transition:all 0.2s;margin-top:8px}
 .other-input:focus{border-color:rgba(201,163,91,0.5);background:rgba(201,163,91,0.03)}
 .other-input::placeholder{color:var(--muted)}
+
+/* Freshsales API key input */
+.api-key-wrap{margin-bottom:16px;display:none}
+.api-key-wrap.show{display:block}
+.api-key-label{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:block}
+.api-key-input{width:100%;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--cream);outline:none;transition:all 0.2s}
+.api-key-input:focus{border-color:rgba(201,163,91,0.5);background:rgba(201,163,91,0.03)}
+.api-key-input::placeholder{color:var(--muted)}
+.api-key-hint{font-size:11px;color:var(--muted);margin-top:6px}
+.api-key-hint a{color:var(--gold);text-decoration:none}
 
 /* Buttons */
 .btn-connect{width:100%;background:linear-gradient(135deg,#b8882a,#e8c17a,#a07828);color:#000;padding:16px 24px;border-radius:11px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.28s;box-shadow:0 8px 28px rgba(201,163,91,0.3);display:flex;align-items:center;justify-content:center;gap:10px}
@@ -167,10 +171,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
       <div class="crm-title">Select Your CRM</div>
       <div class="crm-sub">Which platform do you use to manage your leads?</div>
 
-      <!-- Big 4 -->
       <div class="crm-section-label">Most Popular</div>
       <div class="crm-big4">
-        <div class="crm-card" onclick="selectCRM('zoho',this)" style="background:linear-gradient(135deg,rgba(229,57,53,0.08),rgba(76,175,80,0.08));">
+        <div class="crm-card" onclick="selectCRM('zoho-crm',this)" style="background:linear-gradient(135deg,rgba(229,57,53,0.08),rgba(76,175,80,0.08));">
           <div class="crm-logo" style="background:linear-gradient(135deg,#E53935,#43A047,#1E88E5,#F9A825);">Z</div>
           <div class="crm-name">Zoho CRM</div>
           <div class="crm-tagline">Global · All-in-one</div>
@@ -181,7 +184,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
           <div class="crm-tagline">USA · Real estate</div>
         </div>
         <div class="crm-card" onclick="selectCRM('freshsales',this)" style="background:rgba(233,150,64,0.08);">
-          <div class="crm-logo" style="background:#E99640; border-radius:50%;">fs</div>
+          <div class="crm-logo" style="background:#E99640;border-radius:50%;">fs</div>
           <div class="crm-name">Freshsales</div>
           <div class="crm-tagline">Global · Sales CRM</div>
         </div>
@@ -192,7 +195,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
         </div>
       </div>
 
-      <!-- More CRMs toggle -->
+      <!-- Freshsales API key input -->
+      <div class="api-key-wrap" id="freshsales-key-wrap">
+        <label class="api-key-label">Freshsales API Key</label>
+        <input type="text" class="api-key-input" id="freshsales-api-key" placeholder="Paste your Freshsales API key here">
+        <div class="api-key-hint">Find it in Freshsales → Profile → API Settings. <a href="https://support.freshsales.io/en/support/solutions/articles/50000002609" target="_blank">Learn more →</a></div>
+      </div>
+
       <button class="more-toggle" id="more-toggle" onclick="toggleMore()">
         <div class="more-toggle-icon">+</div>
         <div class="more-toggle-text">More CRM options</div>
@@ -200,6 +209,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
       </button>
 
       <div class="crm-more-grid" id="more-grid">
+        <div class="crm-card-sm" onclick="selectCRM('monday',this)">
+          <div class="crm-logo-sm" style="background:linear-gradient(135deg,#FF3D57,#FFCB00);">Mo</div>
+          <div class="crm-name-sm">Monday.com</div>
+        </div>
+        <div class="crm-card-sm" onclick="selectCRM('hubspot',this)">
+          <div class="crm-logo-sm" style="background:#FF7A59;">HS</div>
+          <div class="crm-name-sm">HubSpot</div>
+        </div>
         <div class="crm-card-sm" onclick="selectCRM('agentbox',this)">
           <div class="crm-logo-sm" style="background:#0052CC;">AB</div>
           <div class="crm-name-sm">Agentbox</div>
@@ -216,20 +233,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
           <div class="crm-logo-sm" style="background:#16A34A;">PM</div>
           <div class="crm-name-sm">PropertyMe</div>
         </div>
-        <div class="crm-card-sm" onclick="selectCRM('other',this); toggleOther()">
+        <div class="crm-card-sm" onclick="selectCRM('other',this);toggleOther()">
           <div class="crm-logo-sm" style="background:var(--muted);">+</div>
           <div class="crm-name-sm">Other CRM</div>
         </div>
       </div>
 
-      <!-- Other input -->
       <div class="other-wrap" id="other-wrap">
         <input type="text" class="other-input" id="other-crm-input" placeholder="Type your CRM name...">
       </div>
 
-      <button class="btn-connect" id="btn-crm" onclick="saveCRM()" disabled>
+      <button class="btn-connect" id="btn-crm" onclick="handleCRMConnect()" disabled>
         <div class="spinner"></div>
-        <span class="btn-text">Complete Setup →</span>
+        <span class="btn-text">Connect CRM →</span>
       </button>
       <div class="error-msg" id="crm-error"></div>
     </div>
@@ -262,6 +278,14 @@ const SUPABASE_URL = 'https://fjovhxaupeidvkfhigff.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_8jqbPp3THF54CnpomkJ3vQ_DtqnSAfV';
 const GOOGLE_CLIENT_ID = '548122683628-orrfndehhqhbe4aeet0vcje5al3rck7d.apps.googleusercontent.com';
 const REDIRECT_URI = 'https://onboarding.hermia.au/crm.html';
+const NANGO_PUBLIC_KEY = 'a244b76c-75c7-4bc0-b47c-efca73196b0d';
+
+// CRMs that use Nango OAuth
+const NANGO_CRMS = ['zoho-crm', 'pipedrive', 'monday', 'hubspot', 'followupboss'];
+// CRMs that use API key
+const APIKEY_CRMS = ['freshsales'];
+// CRMs not yet in Nango (manual setup)
+const MANUAL_CRMS = ['agentbox', 'rex', 'vaultre', 'propertyme', 'other'];
 
 let selectedCRM = null;
 let otherOpen = false;
@@ -345,6 +369,18 @@ function selectCRM(crm, el) {
   document.querySelectorAll('.crm-card,.crm-card-sm').forEach(e => e.classList.remove('selected'));
   el.classList.add('selected');
   document.getElementById('btn-crm').disabled = false;
+
+  // Show/hide Freshsales API key input
+  const fsWrap = document.getElementById('freshsales-key-wrap');
+  fsWrap.classList.toggle('show', crm === 'freshsales');
+
+  // Update button text
+  const btn = document.getElementById('btn-crm');
+  if (NANGO_CRMS.includes(crm)) {
+    btn.querySelector('.btn-text').textContent = 'Connect ' + el.querySelector('.crm-name, .crm-name-sm').textContent + ' →';
+  } else {
+    btn.querySelector('.btn-text').textContent = 'Complete Setup →';
+  }
 }
 
 function toggleMore() {
@@ -352,8 +388,7 @@ function toggleMore() {
   const toggle = document.getElementById('more-toggle');
   grid.classList.toggle('open');
   toggle.classList.toggle('open');
-  const icon = toggle.querySelector('.more-toggle-icon');
-  icon.textContent = grid.classList.contains('open') ? '−' : '+';
+  toggle.querySelector('.more-toggle-icon').textContent = grid.classList.contains('open') ? '−' : '+';
 }
 
 function toggleOther() {
@@ -364,38 +399,124 @@ function toggleOther() {
   }
 }
 
-async function saveCRM() {
+async function handleCRMConnect() {
   if (!selectedCRM) return;
   const btn = document.getElementById('btn-crm');
+  const errorEl = document.getElementById('crm-error');
+  errorEl.style.display = 'none';
+
+  if (NANGO_CRMS.includes(selectedCRM)) {
+    // Use Nango OAuth
+    await connectViaNango();
+  } else if (APIKEY_CRMS.includes(selectedCRM)) {
+    // Use API key
+    await saveAPIKeyCRM();
+  } else {
+    // Manual/other CRMs
+    await saveManualCRM();
+  }
+}
+
+async function connectViaNango() {
+  const btn = document.getElementById('btn-crm');
   btn.classList.add('loading'); btn.disabled = true;
+
+  try {
+    const nango = new Nango({ publicKey: NANGO_PUBLIC_KEY });
+    const connectionId = customerId || 'agent_' + Date.now();
+
+    const result = await nango.auth(selectedCRM, connectionId);
+
+    // Save to Supabase
+    await saveCRMConnection(selectedCRM, connectionId, null);
+    showSuccess();
+
+  } catch (err) {
+    btn.classList.remove('loading'); btn.disabled = false;
+    document.getElementById('crm-error').textContent = 'CRM connection failed. Please try again.';
+    document.getElementById('crm-error').style.display = 'block';
+  }
+}
+
+async function saveAPIKeyCRM() {
+  const btn = document.getElementById('btn-crm');
+  const apiKey = document.getElementById('freshsales-api-key').value.trim();
+
+  if (!apiKey) {
+    document.getElementById('crm-error').textContent = 'Please enter your API key.';
+    document.getElementById('crm-error').style.display = 'block';
+    return;
+  }
+
+  btn.classList.add('loading'); btn.disabled = true;
+
+  try {
+    await saveCRMConnection(selectedCRM, null, apiKey);
+    showSuccess();
+  } catch (err) {
+    btn.classList.remove('loading'); btn.disabled = false;
+    document.getElementById('crm-error').textContent = 'Something went wrong. Please try again.';
+    document.getElementById('crm-error').style.display = 'block';
+  }
+}
+
+async function saveManualCRM() {
+  const btn = document.getElementById('btn-crm');
+  btn.classList.add('loading'); btn.disabled = true;
+
   let crmValue = selectedCRM;
   if (selectedCRM === 'other') {
     const custom = document.getElementById('other-crm-input').value.trim();
     if (custom) crmValue = custom;
   }
+
   try {
-    if (customerId) {
-      await fetch(`${SUPABASE_URL}/rest/v1/customers?id=eq.${customerId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
-        body: JSON.stringify({ crm_provider: crmValue })
-      });
-      await fetch(`${SUPABASE_URL}/rest/v1/onboarding_status?customer_id=eq.${customerId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
-        body: JSON.stringify({ crm_connected: true, onboarding_complete: true })
-      });
-    }
-    document.getElementById('view-crm').classList.remove('active');
-    document.getElementById('view-success').classList.add('active');
-    document.getElementById('step4-circle').className = 'step-circle done';
-    document.getElementById('step4-circle').textContent = '✓';
-    document.getElementById('step4-label').className = 'step-label';
-  } catch(err) {
+    await saveCRMConnection(crmValue, null, null);
+    showSuccess();
+  } catch (err) {
     btn.classList.remove('loading'); btn.disabled = false;
     document.getElementById('crm-error').textContent = 'Something went wrong. Please try again.';
     document.getElementById('crm-error').style.display = 'block';
   }
+}
+
+async function saveCRMConnection(provider, connectionId, apiKey) {
+  if (!customerId) return;
+
+  // Update customers table
+  await fetch(`${SUPABASE_URL}/rest/v1/customers?id=eq.${customerId}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
+    body: JSON.stringify({ crm_provider: provider })
+  });
+
+  // Save to crm_connections table
+  await fetch(`${SUPABASE_URL}/rest/v1/crm_connections`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
+    body: JSON.stringify({
+      customer_id: customerId,
+      crm_provider: provider,
+      connection_id: connectionId,
+      api_key: apiKey,
+      connected_at: new Date().toISOString()
+    })
+  });
+
+  // Update onboarding status
+  await fetch(`${SUPABASE_URL}/rest/v1/onboarding_status?customer_id=eq.${customerId}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
+    body: JSON.stringify({ crm_connected: true, onboarding_complete: true })
+  });
+}
+
+function showSuccess() {
+  document.getElementById('view-crm').classList.remove('active');
+  document.getElementById('view-success').classList.add('active');
+  document.getElementById('step4-circle').className = 'step-circle done';
+  document.getElementById('step4-circle').textContent = '✓';
+  document.getElementById('step4-label').className = 'step-label';
 }
 </script>
 </body>
