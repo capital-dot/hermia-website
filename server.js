@@ -44,71 +44,42 @@ async function sendSlack(message) {
   }
 }
 
-const SYSTEM_PROMPT = `You are Jared, a sales consultant for Hermia. You are on a live phone call with a real estate agent. You are NOT a robot — you are a real, warm, confident human salesperson. Your one and only goal is to SELL. Always be closing.
+function buildSystemPrompt(name, market) {
+  return `You are Jared, a sales consultant at Hermia. You are on a live phone call with a real estate agent named ${name} from ${market}. You called them — they booked this call through the Hermia website to learn more.
 
-STRICT RULES:
-- Maximum 2 sentences per response. Never more.
-- Ask only ONE question at a time. Wait for their answer.
-- Never dump features. Reveal solutions one at a time after they confirm the pain.
-- Never say "I'd be happy to", "Certainly", "Great question", "Absolutely", "As an AI"
-- Sound like a real person. Always respond to what they actually said first.
-- DO NOT give out free information. Every piece of information you share must push toward the close.
-- ALWAYS be selling. If they go off topic, bring it back to the close.
-- Never let the conversation go cold. Always end your response with a question or a close.
+YOU ARE A REAL HUMAN. You are warm, natural, confident, and conversational. You do NOT sound like a robot or a script.
 
-WHAT HERMIA DOES (reveal piece by piece only as needed):
-- Responds to every inquiry from Domain, REA, Property Finder or Bayut within 30 seconds via WhatsApp and SMS — even at 2am
-- Asks buyers 3 qualification questions: timeline, budget, finance status
-- Scores every lead Hot, Warm or Cold so agent knows who to call first
-- Books inspection slots automatically
-- Pushes full lead profile into CRM automatically — zero manual work
-- Works with Zoho, Rex, HubSpot, Pipedrive, Monday CRM and most major CRMs — including direct phone call automation and lead management inside those systems
-- Weekly Pipeline Intelligence report every Monday
-- 3-day free trial, no credit card, cancel anytime
-- Website: hermia.au
+YOUR PERSONALITY:
+- Talk like a real person. Use natural filler like "yeah", "look", "honestly", "I get that"
+- Actually LISTEN to what they say and respond to it directly first
+- Never jump ahead. Never recite a pitch. React to them.
+- You are confident but not pushy. You let the sale come naturally.
+- Short responses. Max 2 sentences. One question at a time.
+- Never say "Great question", "Absolutely", "Certainly", "I'd be happy to", "As an AI"
 
-ABOUT THE FOUNDER (only share if asked — then sell it):
-- Founded by Archie, a seasoned professional architect and software engineer
-- Archie built the entire infrastructure and software system behind Octovera, which is the technology engine that powers Hermia
-- Hermia is the product built on top of that infrastructure — purpose-built for real estate lead automation
-- The tech is enterprise-grade: custom-built automation pipelines, AI qualification layers, CRM sync architecture, and real-time lead scoring
-- But don't dwell on this — pivot back to the sale: "What matters for you is that your leads are being qualified automatically, your CRM is being updated without you touching it, and you never miss a hot buyer again."
+THE ONE THING YOU ARE SELLING:
+Real estate agents waste hours every day chasing leads they don't understand. They have 50 inquiries and no idea which one is ready to buy today. Hermia fixes that. It qualifies every lead automatically — within 30 seconds of the inquiry coming in — and tells the agent exactly who to call first. Hot, warm, cold. No guessing. The agent just calls the hot ones and closes deals.
 
-CONVERSATION FLOW:
+That's it. That's the whole thing. Everything else (CRM sync, WhatsApp, booking inspections, reports) is just detail that comes up naturally if they ask.
 
-PHASE 1 — OPEN (after recording notice):
-"Hey [name], this is Jared from Hermia. Quick question — when a new inquiry comes in from Domain or REA, what actually happens on your end right now?"
+HOW TO HANDLE THEIR QUESTIONS:
+- If they ask how it works: "Basically the second an inquiry comes in from REA or Domain, Hermia jumps on it — qualifies them, figures out their timeline and budget, then scores them hot warm or cold. You just wake up and know exactly who to call."
+- If they ask about CRM: "Yeah we sync into basically everything — Zoho, Rex, HubSpot, Pipedrive, Monday, most of them. It all lands in there automatically."
+- If they ask about the founder: "Archie built the whole thing — he's an architect and software engineer, built the entire infrastructure through Octovera which powers Hermia. But honestly the tech side is less interesting than what it does for your pipeline."
+- If they ask about pricing: "We do a 3-day free trial, no credit card, nothing to lose. If it doesn't work you cancel and it costs you zero."
+- If they seem unsure: "Look, what's your biggest headache right now with leads?" — get them talking about their pain.
 
-PHASE 2 — RESPONSE TIME:
-"How long does it usually take you to respond?"
-"And in that time, do you know if they've already messaged two or three other agents?"
+THE CORE PAIN TO UNCOVER (naturally, not as a script):
+Agents are guessing. They respond to 50 inquiries and spend equal energy on someone browsing as someone ready to buy tomorrow. That's the problem. Once they admit that — "yeah I don't really know which ones are serious" — that's when you say: "That's exactly what Hermia solves."
 
-PHASE 3 — QUALIFICATION PAIN:
-"Out of all your inquiries right now, do you know which one wants to buy in the next 30 days?"
-When no: "That's the problem — you're spending the same energy on someone browsing as someone ready to sign tomorrow."
+ALWAYS BE MOVING TOWARD THE CLOSE:
+The close is: "Try it free for 3 days at hermia.au — connects in 5 minutes and you'll see a difference in the first 24 hours."
+Weave it in naturally. Don't dump it. When they've understood the value, close.
 
-PHASE 4 — INTRODUCE HERMIA:
-"That's exactly what Hermia fixes. The second an inquiry hits, we respond within 30 seconds automatically and start qualifying them while you sleep."
-"By the time you check your phone, Hermia has already told you who's hot, who's warm, and who's just window shopping."
+RECORDING NOTICE: The call is being recorded for training. This was already announced at the start. Do not repeat it.
 
-PHASE 5 — CRM:
-"What CRM are you on?"
-"Perfect — Hermia pushes everything straight in. Budget, timeline, finance status, inspection availability — all done automatically, including triggering phone call workflows if your CRM supports it. You don't touch anything."
-
-PHASE 6 — CLOSE:
-"We do a 3-day free trial — no credit card, no commitment."
-"In 3 days you'll see exactly which of your current inquiries is ready to buy. Does that sound worth testing?"
-
-PHASE 7 — OBJECTIONS:
-Busy: "That's exactly why Hermia exists — it runs while you're busy. Takes 5 minutes to set up."
-Has system: "What does your system do when an inquiry comes in at midnight on Saturday?"
-Wants founder / more info: "Archie built the entire system from the ground up — but honestly the trial will show you more in 3 days than any conversation can. Want me to get you started?"
-Price: "The trial is completely free. If it doesn't book more inspections, cancel and it costs you nothing."
-Not sure: "What's the one thing that would make this a no-brainer for you?" — then close on that.
-
-PHASE 8 — FINAL CLOSE:
-"Go to hermia dot au and start your free trial — connects to your inbox in 5 minutes."
-"You'll see a difference in the first 24 hours. I'll let you go — but don't sleep on this, the agents using it right now are already pulling ahead."`;
+Remember: you called ${name}. They booked this. They want to know more. Your job is to have a real conversation, understand their situation, and show them that Hermia solves their exact problem.`;
+}
 
 async function makeCall(phone, name, callId) {
   try {
@@ -132,16 +103,14 @@ app.post("/trigger-call", async (req, res) => {
   const { phone, name, email, market, timeSlot, date } = req.body;
   if (!phone || !name) return res.status(400).json({ error: "phone and name required" });
 
-  // Normalise to E.164 — form should already send clean number but handle fallback
   let digits = phone.replace(/\s+/g, "");
   if (!digits.startsWith("+")) {
     digits = digits.replace(/\D/g, "");
     if (digits.startsWith("61") && !digits.startsWith("610")) digits = "+" + digits;
     else if (digits.startsWith("971") && !digits.startsWith("9710")) digits = "+" + digits;
-    else if (digits.startsWith("0")) digits = "+61" + digits.slice(1);
-    else digits = "+" + digits;
+    else if (digits.startsWith("0")) digits = (market === "UAE" ? "+971" : "+61") + digits.slice(1);
+    else digits = (market === "UAE" ? "+971" : "+61") + digits;
   }
-  // Strip double-zero after country code e.g. +610404 → +61404
   digits = digits.replace(/^\+61(0)/, "+61").replace(/^\+971(0)/, "+971");
 
   const callId = `call_${Date.now()}`;
@@ -159,59 +128,70 @@ app.post("/trigger-call", async (req, res) => {
   }
 
   setTimeout(() => makeCall(digits, name, callId), delayMs);
-
-  res.json({
-    success: true,
-    callId,
-    message: delayMs === 0 ? "Calling now" : `Call scheduled in ${delayMins} minutes`,
-  });
+  res.json({ success: true, callId, message: delayMs === 0 ? "Calling now" : `Call scheduled in ${delayMins} minutes` });
 });
 
 app.post("/voice", (req, res) => {
   const { callId, name } = req.query;
   const twiml = new twilio.twiml.VoiceResponse();
+  const conv = conversations[callId];
+  const market = conv?.market || "Australia";
+  const isUAE = market === "UAE";
+  const voice = isUAE ? "Polly.Zeina" : "Polly.Matthew-Neural";
+  const language = isUAE ? "ar-XA" : "en-AU";
 
-  // Recording notice — legal compliance
-  const recordingNotice = `Before we begin — just to let you know, this call may be recorded for training and quality purposes. If you do not wish to be recorded, please press 2 now. Otherwise, stay on the line and we'll get started.`;
+  // Recording notice
+  const recordingNotice = isUAE
+    ? `مرحباً، هذه المكالمة قد تُسجَّل لأغراض التدريب وضمان الجودة. إذا كنت لا ترغب في التسجيل، اضغط 2 الآن.`
+    : `Just so you know, this call may be recorded for training and quality purposes. If you'd prefer not to be recorded, press 2 now.`;
 
-  const greeting = `Hey ${name}, this is Jared from Hermia — you booked a call to see how we work. Quick question — when a new inquiry comes in from Domain or REA, what actually happens on your end right now?`;
+  const greeting = isUAE
+    ? `أهلاً ${name}، معك جاريد من هيرميا — شكراً لحجزك هذه المكالمة. كيف يمكنني مساعدتك اليوم؟`
+    : `Hey ${name}! It's Jared from Hermia — thanks for booking a call with us. So what did you want to know?`;
 
-  if (conversations[callId]) {
-    conversations[callId].messages.push({ role: "assistant", content: greeting });
-    conversations[callId].transcript.push(`Jared: ${greeting}`);
+  if (conv) {
+    conv.messages.push({ role: "assistant", content: greeting });
+    conv.transcript.push(`Jared: ${greeting}`);
   }
 
-  // Play recording notice, gather key press 2 to opt out
-  const gather = twiml.gather({ numDigits: 1, action: `${BASE_URL}/recording-choice?callId=${callId}&name=${encodeURIComponent(name)}`, timeout: 5 });
-  gather.say({ voice: "Polly.Matthew-Neural", language: "en-AU" }, recordingNotice);
+  const gather = twiml.gather({
+    numDigits: 1,
+    action: `${BASE_URL}/recording-choice?callId=${callId}&name=${encodeURIComponent(name)}`,
+    timeout: 4
+  });
+  gather.say({ voice, language }, recordingNotice);
 
-  // If no key pressed, proceed to call anyway
-  twiml.say({ voice: "Polly.Matthew-Neural", language: "en-AU" }, greeting);
-  twiml.gather({ input: "speech", action: `${BASE_URL}/respond?callId=${callId}`, speechTimeout: "auto", language: "en-AU", timeout: 10 });
-  twiml.say({ voice: "Polly.Matthew-Neural", language: "en-AU" }, "Hey, still there?");
-  twiml.gather({ input: "speech", action: `${BASE_URL}/respond?callId=${callId}`, speechTimeout: "auto", language: "en-AU", timeout: 8 });
+  // No key press — go straight to greeting
+  twiml.say({ voice, language }, greeting);
+  twiml.gather({ input: "speech", action: `${BASE_URL}/respond?callId=${callId}`, speechTimeout: "auto", language: isUAE ? "ar-XA" : "en-AU", timeout: 10 });
+  twiml.say({ voice, language }, isUAE ? "هل أنت هناك؟" : "Hey, still there?");
+  twiml.gather({ input: "speech", action: `${BASE_URL}/respond?callId=${callId}`, speechTimeout: "auto", language: isUAE ? "ar-XA" : "en-AU", timeout: 8 });
   twiml.hangup();
 
   res.type("text/xml").send(twiml.toString());
 });
 
-// Handle recording opt-out key press
 app.post("/recording-choice", (req, res) => {
   const { callId, name } = req.query;
   const digit = req.body.Digits;
   const twiml = new twilio.twiml.VoiceResponse();
+  const conv = conversations[callId];
+  const isUAE = conv?.market === "UAE";
+  const voice = isUAE ? "Polly.Zeina" : "Polly.Matthew-Neural";
+  const language = isUAE ? "ar-XA" : "en-AU";
 
-  const greeting = `Hey ${name}, this is Jared from Hermia — you booked a call to see how we work. Quick question — when a new inquiry comes in from Domain or REA, what actually happens on your end right now?`;
+  const greeting = isUAE
+    ? `أهلاً ${name}، معك جاريد من هيرميا — شكراً لحجزك هذه المكالمة. كيف يمكنني مساعدتك اليوم؟`
+    : `Hey ${name}! It's Jared from Hermia — thanks for booking a call with us. So what did you want to know?`;
 
   if (digit === "2") {
-    // Noted opt-out — still proceed with call (recording handled at Twilio level separately)
-    twiml.say({ voice: "Polly.Matthew-Neural", language: "en-AU" }, "No problem, noted. Let's get started.");
+    twiml.say({ voice, language }, isUAE ? "حسناً، لن يتم التسجيل. لنبدأ." : "No worries, noted.");
   }
 
-  twiml.say({ voice: "Polly.Matthew-Neural", language: "en-AU" }, greeting);
-  twiml.gather({ input: "speech", action: `${BASE_URL}/respond?callId=${callId}`, speechTimeout: "auto", language: "en-AU", timeout: 10 });
-  twiml.say({ voice: "Polly.Matthew-Neural", language: "en-AU" }, "Hey, still there?");
-  twiml.gather({ input: "speech", action: `${BASE_URL}/respond?callId=${callId}`, speechTimeout: "auto", language: "en-AU", timeout: 8 });
+  twiml.say({ voice, language }, greeting);
+  twiml.gather({ input: "speech", action: `${BASE_URL}/respond?callId=${callId}`, speechTimeout: "auto", language, timeout: 10 });
+  twiml.say({ voice, language }, isUAE ? "هل أنت هناك؟" : "Hey, still there?");
+  twiml.gather({ input: "speech", action: `${BASE_URL}/respond?callId=${callId}`, speechTimeout: "auto", language, timeout: 8 });
   twiml.hangup();
 
   res.type("text/xml").send(twiml.toString());
@@ -221,27 +201,28 @@ app.post("/respond", async (req, res) => {
   const { callId } = req.query;
   const userSpeech = req.body.SpeechResult || "";
   const twiml = new twilio.twiml.VoiceResponse();
-  const conv = conversations[callId] || { messages: [], transcript: [], leadName: "" };
+  const conv = conversations[callId] || { messages: [], transcript: [], leadName: "", market: "Australia" };
+  const isUAE = conv.market === "UAE";
+  const voice = isUAE ? "Polly.Zeina" : "Polly.Matthew-Neural";
+  const language = isUAE ? "ar-XA" : "en-AU";
 
   console.log(`🎤 Lead: "${userSpeech}"`);
 
-  const hangupWords = ["goodbye", "bye", "no thanks", "not interested", "hang up", "gotta go", "call back"];
+  const hangupWords = ["goodbye", "bye", "no thanks", "not interested", "hang up", "gotta go", "وداعاً", "إلى اللقاء", "لا شكراً"];
   if (hangupWords.some(w => userSpeech.toLowerCase().includes(w))) {
-    const farewell = "No worries at all — jump onto hermia dot au for the free trial anytime. Have a great day!";
-    twiml.say({ voice: "Polly.Matthew-Neural", language: "en-AU" }, farewell);
+    const farewell = isUAE
+      ? "لا بأس على الإطلاق — تفضل بزيارة hermia.au لتجربة مجانية في أي وقت. يوم سعيد!"
+      : "No worries at all — jump onto hermia.au for the free trial anytime. Have a great day!";
+    twiml.say({ voice, language }, farewell);
     twiml.hangup();
-
-    conv.transcript.push(`Lead: ${userSpeech}`);
-    conv.transcript.push(`Jared: ${farewell}`);
-    const summary = conv.transcript.join("\n").slice(0, 2800);
-    await sendSlack(`📋 *Call ended — ${conv.leadName}*\n\`\`\`${summary}\`\`\``);
-
+    conv.transcript.push(`Lead: ${userSpeech}`, `Jared: ${farewell}`);
+    await sendSlack(`📋 *Call ended — ${conv.leadName}*\n\`\`\`${conv.transcript.join("\n").slice(0, 2800)}\`\`\``);
     return res.type("text/xml").send(twiml.toString());
   }
 
   if (!userSpeech.trim()) {
-    twiml.say({ voice: "Polly.Matthew-Neural", language: "en-AU" }, "Sorry, didn't catch that — could you say that again?");
-    twiml.gather({ input: "speech", action: `${BASE_URL}/respond?callId=${callId}`, speechTimeout: "auto", language: "en-AU", timeout: 10 });
+    twiml.say({ voice, language }, isUAE ? "عذراً، لم أسمع ذلك — هل يمكنك التكرار؟" : "Sorry, didn't catch that — could you say that again?");
+    twiml.gather({ input: "speech", action: `${BASE_URL}/respond?callId=${callId}`, speechTimeout: "auto", language, timeout: 10 });
     return res.type("text/xml").send(twiml.toString());
   }
 
@@ -249,29 +230,30 @@ app.post("/respond", async (req, res) => {
   conv.transcript.push(`Lead: ${userSpeech}`);
 
   try {
+    const systemPrompt = buildSystemPrompt(conv.leadName, conv.market);
     const response = await anthropic.messages.create({
       model: "claude-sonnet-4-20250514",
-      max_tokens: 150,
-      system: SYSTEM_PROMPT,
+      max_tokens: 120,
+      system: systemPrompt,
       messages: conv.messages,
     });
 
-    const reply = response.content[0]?.text || "Could you say that again?";
+    const reply = response.content[0]?.text || (isUAE ? "هل يمكنك التكرار؟" : "Could you say that again?");
     console.log(`🤖 Jared: "${reply}"`);
 
     conv.messages.push({ role: "assistant", content: reply });
     conv.transcript.push(`Jared: ${reply}`);
     conversations[callId] = conv;
 
-    twiml.say({ voice: "Polly.Matthew-Neural", language: "en-AU" }, reply);
-    twiml.gather({ input: "speech", action: `${BASE_URL}/respond?callId=${callId}`, speechTimeout: "auto", language: "en-AU", timeout: 12 });
-    twiml.say({ voice: "Polly.Matthew-Neural", language: "en-AU" }, "Still there?");
-    twiml.gather({ input: "speech", action: `${BASE_URL}/respond?callId=${callId}`, speechTimeout: "auto", timeout: 8 });
+    twiml.say({ voice, language }, reply);
+    twiml.gather({ input: "speech", action: `${BASE_URL}/respond?callId=${callId}`, speechTimeout: "auto", language, timeout: 12 });
+    twiml.say({ voice, language }, isUAE ? "هل أنت هناك؟" : "Still there?");
+    twiml.gather({ input: "speech", action: `${BASE_URL}/respond?callId=${callId}`, speechTimeout: "auto", language, timeout: 8 });
     twiml.hangup();
 
   } catch (err) {
     console.error(`❌ Claude error: ${err.message}`);
-    twiml.say({ voice: "Polly.Matthew-Neural", language: "en-AU" }, "Quick tech hiccup — head to hermia dot au for the free trial. Thanks!");
+    twiml.say({ voice, language }, isUAE ? "عذراً، حدث خطأ تقني — تفضل بزيارة hermia.au" : "Quick tech hiccup — head to hermia.au for the free trial. Thanks!");
     twiml.hangup();
   }
 
