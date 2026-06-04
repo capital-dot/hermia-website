@@ -111,6 +111,8 @@
   .more .grid{margin-bottom:0}
 
   .keybox{margin-top:18px; display:none}
+  .keynote{color:var(--soft); font-size:11.5px; line-height:1.5; margin-top:9px}
+  .keynote b{color:var(--gold-light); font-weight:500}
   .keybox.show{display:block; animation:fadeUp .4s forwards}
   label{display:block; font-size:12.5px; color:var(--cream); margin-bottom:9px}
   input{width:100%; background:rgba(8,8,11,0.6); border:1px solid var(--border); border-radius:12px;
@@ -211,6 +213,7 @@
       <div class="keybox" id="keybox">
         <label id="keyLabel" for="crmKey">API Key</label>
         <input id="crmKey" type="text" placeholder="Paste your API key…" />
+        <div class="keynote" id="keyNote"></div>
       </div>
 
       <button class="btn" id="crmBtn" disabled><span class="spin"></span><span class="btn-text">Select a CRM to continue</span></button>
@@ -259,8 +262,14 @@
 <script>
   const SUPABASE_URL = 'https://fjovhxaupeidvkfhigff.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_8jqbPp3THF54CnpomkJ3vQ_DtqnSAfV';
-  const NANGO_KEY    = 'a244b76c-75c7-4bc0-b47c-efca73196b0d';
   const NYLAS_URL    = 'https://api.us.nylas.com/v3/connect/auth?client_id=0fef4162-8c07-4903-8fde-2fe96806ad29&response_type=token&access_type=online&scope=https://www.googleapis.com/auth/gmail.readonly';
+
+  // === Nango Connect ===
+  // Paste your deployed Worker URL here (from nango-session-worker.js):
+  const NANGO_SESSION_URL = 'https://hermia-nango.capital-fbc.workers.dev';
+  // CRMs you've configured in Nango with credentials → real OAuth Connect flow.
+  // Add a provider key here once it's set up in Nango (e.g. 'hubspot','followupboss').
+  const LIVE_OAUTH = new Set(['monday', 'pipedrive', 'zoho-crm', 'freshsales']);
 
   const customerId = sessionStorage.getItem('hermia_customer_id') || null;
   const email      = sessionStorage.getItem('hermia_email') || null;
@@ -281,7 +290,7 @@
   const CRMS = {
     zoho:        {name:'Zoho CRM',      conn:'nango',  provider:'zoho-crm',     mark:'Z', mbg:'linear-gradient(135deg,#e42527,#089949 45%,#226db4 75%,#f9b21d)'},
     followupboss:{name:'Follow Up Boss',conn:'nango',  provider:'followupboss', mark:'F', mbg:'linear-gradient(135deg,#2b6cb0,#ed8936 55%,#e53e3e)'},
-    freshsales:  {name:'Freshsales',    conn:'apikey', provider:null,           mark:'F', mbg:'linear-gradient(135deg,#f0a85a,#E99640)'},
+    freshsales:  {name:'Freshsales',    conn:'nango',  provider:'freshsales',   mark:'F', mbg:'linear-gradient(135deg,#f0a85a,#E99640)'},
     pipedrive:   {name:'Pipedrive',     conn:'nango',  provider:'pipedrive',    mark:'P', mbg:'linear-gradient(135deg,#2f7d4b,#225F38)'},
     monday:      {name:'Monday.com',    conn:'nango',  provider:'monday',       mark:'M', mbg:'linear-gradient(135deg,#e2445c,#fdab3d)'},
     hubspot:     {name:'HubSpot',       conn:'nango',  provider:'hubspot',      mark:'H', mbg:'linear-gradient(135deg,#ff8f6b,#FF7A59)'},
@@ -308,11 +317,17 @@
     selected = key;
     document.querySelectorAll('.crm').forEach(el => el.classList.toggle('sel', el.dataset.key === key));
     const c = CRMS[key]; const kb = $('keybox');
-    if(c.conn === 'apikey'){ kb.classList.add('show'); $('keyLabel').textContent = c.name + ' API Key'; $('crmKey').placeholder = 'Paste your ' + c.name + ' API key…'; }
-    else if(c.conn === 'other'){ kb.classList.add('show'); $('keyLabel').textContent = 'Which CRM do you use?'; $('crmKey').placeholder = 'Enter your CRM name…'; }
-    else { kb.classList.remove('show'); }
+    $('crmKey').value = '';
+    if(c.conn === 'apikey'){
+      kb.classList.add('show'); $('keyLabel').textContent = c.name + ' API Key';
+      $('crmKey').placeholder = 'Paste your ' + c.name + ' API key…';
+      $('keyNote').innerHTML = 'Find this in <b>' + c.name + ' → Settings → API Settings</b>.';
+    } else if(c.conn === 'other'){
+      kb.classList.add('show'); $('keyLabel').textContent = 'Which CRM do you use?';
+      $('crmKey').placeholder = 'Enter your CRM name…'; $('keyNote').innerHTML = '';
+    } else { kb.classList.remove('show'); $('keyNote').innerHTML = ''; }
     const btn = $('crmBtn'); btn.disabled = false;
-    btn.querySelector('.btn-text').textContent = c.conn === 'nango' ? 'Connect ' + c.name + ' →' : 'Continue →';
+    btn.querySelector('.btn-text').textContent = isLiveOAuth(c) ? 'Connect ' + c.name + ' →' : 'Continue →';
   }
 
   $('moreToggle').addEventListener('click', () => { $('moreToggle').classList.toggle('open'); $('moreWrap').classList.toggle('open'); });
@@ -323,35 +338,86 @@
     setTimeout(() => t.classList.remove('show'), 1700);
   }
 
+  function isLiveOAuth(c){ return c.conn === 'nango' && LIVE_OAUTH.has(c.provider); }
+  function resetBtn(btn, c){ btn.disabled = false; btn.classList.remove('loading'); btn.querySelector('.btn-text').textContent = isLiveOAuth(c) ? 'Connect ' + c.name + ' →' : 'Continue →'; }
+
+  async function saveCrm(providerName, connId, apiKey){
+    await sb('crm_connections', { method:'POST', headers:{ Prefer:'return=minimal' },
+      body: JSON.stringify({ customer_id:customerId, crm_provider:providerName, connection_id:connId, api_key:apiKey, connected_at:new Date().toISOString() }) });
+    if(customerId){
+      await sb('customers?id=eq.' + customerId, { method:'PATCH', headers:{ Prefer:'return=minimal' }, body: JSON.stringify({ crm_provider:providerName }) });
+      await sb('onboarding_status?customer_id=eq.' + customerId, { method:'PATCH', headers:{ Prefer:'return=minimal' }, body: JSON.stringify({ crm_connected:true }) });
+    }
+  }
+
   $('crmBtn').addEventListener('click', connectCrm);
   async function connectCrm(){
     if(!selected) return;
     const c = CRMS[selected]; const btn = $('crmBtn'); const status = $('crmStatus');
     status.classList.remove('show');
-    let apiKey = null, providerName = selected;
-    if(c.conn === 'apikey' || c.conn === 'other'){
-      const v = $('crmKey').value.trim();
-      if(!v){ status.textContent = c.conn==='other' ? 'Please enter your CRM name.' : 'Please paste your API key.'; status.classList.add('show'); return; }
-      if(c.conn === 'apikey') apiKey = v; else providerName = 'other:' + v;
-    }
+    const v = $('crmKey').value.trim();
+    if(c.conn === 'apikey' && !v){ status.textContent = 'Please paste your API key.'; status.classList.add('show'); return; }
+    if(c.conn === 'other' && !v){ status.textContent = 'Please enter your CRM name.'; status.classList.add('show'); return; }
+
     btn.disabled = true; btn.classList.add('loading'); btn.querySelector('.btn-text').textContent = 'Connecting…';
+
+    // Real OAuth via Nango Connect UI (agent logs in to their CRM, never sees Nango)
+    if(isLiveOAuth(c)){ return startNangoConnect(c, btn, status); }
+
+    // Non-OAuth: API key / manual name → save straight to Supabase
     try{
-      const connectionId = customerId || 'agent_' + Date.now();
-      if(c.conn === 'nango'){ const nango = new Nango({ publicKey: NANGO_KEY }); await nango.auth(c.provider, connectionId); }
-      await sb('crm_connections', { method:'POST', headers:{ Prefer:'return=minimal' },
-        body: JSON.stringify({ customer_id:customerId, crm_provider:providerName, connection_id:connectionId, api_key:apiKey, connected_at:new Date().toISOString() }) });
-      if(customerId){
-        await sb('customers?id=eq.' + customerId, { method:'PATCH', headers:{ Prefer:'return=minimal' }, body: JSON.stringify({ crm_provider:providerName }) });
-        await sb('onboarding_status?customer_id=eq.' + customerId, { method:'PATCH', headers:{ Prefer:'return=minimal' }, body: JSON.stringify({ crm_connected:true }) });
-      }
-      showToast(c.name + ' connected');
+      let apiKey = null, providerName = c.provider || selected;
+      if(c.conn === 'apikey') apiKey = v;
+      else if(c.conn === 'other') providerName = 'other:' + v;
+      await saveCrm(providerName, null, apiKey);
+      showToast(c.name + ' saved');
       setTimeout(goToGmail, 900);
     }catch(e){
       console.error(e);
-      status.textContent = (''+e).includes('closed') || (''+e).includes('cancel') ? 'Connection cancelled. Please try again.' : 'Couldn\'t connect that CRM. Please try again.';
-      status.classList.add('show');
-      btn.disabled = false; btn.classList.remove('loading'); btn.querySelector('.btn-text').textContent = 'Connect ' + c.name + ' →';
+      status.textContent = 'Couldn\'t save that. Please try again.';
+      status.classList.add('show'); resetBtn(btn, c);
     }
+  }
+
+  async function startNangoConnect(c, btn, status){
+    let token;
+    try{
+      const r = await fetch(NANGO_SESSION_URL, {
+        method:'POST', headers:{ 'Content-Type':'application/json' },
+        body: JSON.stringify({ customerId, email, displayName: email, integration: c.provider })
+      });
+      const d = await r.json();
+      token = d.sessionToken;
+      if(!token) throw new Error(d.error || 'no session token');
+    }catch(e){
+      console.error(e);
+      status.textContent = 'Couldn\'t start the secure connection. Please try again.';
+      status.classList.add('show'); resetBtn(btn, c); return;
+    }
+
+    let finished = false;
+    const nango = new Nango();
+    const connect = nango.openConnectUI({
+      onEvent: async (event) => {
+        if(event.type === 'connect'){
+          finished = true;
+          try{
+            const connId = event.payload && event.payload.connectionId;
+            const provKey = (event.payload && event.payload.providerConfigKey) || c.provider;
+            await saveCrm(provKey, connId || null, null);
+            showToast(c.name + ' connected');
+            setTimeout(goToGmail, 900);
+          }catch(e){
+            console.error(e);
+            status.textContent = 'Connected, but saving failed. Please try again.';
+            status.classList.add('show'); resetBtn(btn, c);
+          }
+        } else if(event.type === 'close' && !finished){
+          resetBtn(btn, c);
+        }
+      }
+    });
+    connect.setSessionToken(token);
   }
 
   function goToGmail(){
@@ -400,3 +466,4 @@
 </script>
 </body>
 </html>
+
