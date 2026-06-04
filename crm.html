@@ -7,7 +7,29 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
-<script src="https://unpkg.com/@nangohq/frontend/dist/index.js"></script>
+<script type="module">
+  // Nango's frontend SDK is an ES module — load it properly and expose it globally.
+  // jsDelivr's +esm endpoint is fast and browser-ready; unpkg is a fallback.
+  (async () => {
+    const sources = [
+      'https://cdn.jsdelivr.net/npm/@nangohq/frontend/+esm',
+      'https://unpkg.com/@nangohq/frontend?module'
+    ];
+    for (const url of sources) {
+      try {
+        const mod = await import(url);
+        window.Nango = mod.default || mod.Nango || mod;
+        if (typeof window.Nango === 'function') {
+          window.dispatchEvent(new Event('nango-ready'));
+          return;
+        }
+      } catch (e) {
+        console.error('[Hermia] Nango SDK failed from', url, e);
+      }
+    }
+    console.error('[Hermia] Nango SDK could not load from any CDN');
+  })();
+</script>
 <style>
   :root{
     --bg:#07070a; --gold:#C9A35B; --gold-light:#e8c17a; --cream:#f4f0e6;
@@ -382,8 +404,14 @@
   async function startNangoConnect(c, btn, status){
     // record the chosen CRM name in Supabase immediately — before they sign in
     if(customerId){ try{ await sb('customers?id=eq.' + customerId, { method:'PATCH', headers:{ Prefer:'return=minimal' }, body: JSON.stringify({ crm_provider: c.provider }) }); }catch(e){} }
-    // the Nango SDK must have loaded
-    if(typeof Nango === 'undefined'){
+    // the Nango SDK loads asynchronously — wait briefly for it before giving up
+    const nangoReady = (typeof window.Nango === 'function') ? true : await new Promise(resolve => {
+      let done = false;
+      const ok = () => { if(!done){ done = true; resolve(true); } };
+      window.addEventListener('nango-ready', ok, { once:true });
+      setTimeout(() => { if(!done){ done = true; resolve(typeof window.Nango === 'function'); } }, 6000);
+    });
+    if(!nangoReady){
       status.textContent = 'Secure connection library didn\u2019t load \u2014 check your internet and refresh the page.';
       status.classList.add('show'); resetBtn(btn, c); return;
     }
