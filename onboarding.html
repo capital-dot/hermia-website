@@ -169,9 +169,9 @@
     </div>
 
     <div class="card">
-      <div class="eyebrow">Step 2 of 4</div>
-      <h1>Tell us about you</h1>
-      <p class="sub">A few details so Hermia can tailor lead qualification to your agency.</p>
+      <div class="eyebrow">Step 2 of 4 · Your details</div>
+      <h1>Welcome to Hermia</h1>
+      <p class="sub">A few details so Hermia can tailor lead qualification to your agency — then we'll connect your CRM.</p>
 
       <div class="field">
         <label for="fullName">Full Name</label>
@@ -189,7 +189,7 @@
         <div class="err-msg" id="err-email">Please enter a valid email address.</div>
       </div>
       <div class="field">
-        <label for="phone">Phone Number <span class="hint">Required</span></label>
+        <label for="phone">Phone Number <span class="hint">— we add the country code for you</span></label>
         <div class="mkt-toggle" id="mktToggle">
           <button type="button" data-mkt="AU" data-code="+61" class="active">Australia +61</button>
           <button type="button" data-mkt="UAE" data-code="+971">Dubai +971</button>
@@ -226,6 +226,7 @@
   fields.forEach(id => $(id).addEventListener('input', () => showErr(id, false)));
 
   /* market toggle — inline, no overlay */
+  const COUNTRY = { '+61':'Australia', '+971':'United Arab Emirates' };
   let dialCode = '+61';
   document.querySelectorAll('#mktToggle button').forEach(b => b.addEventListener('click', () => {
     dialCode = b.dataset.code;
@@ -244,7 +245,8 @@
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showErr('email', true); ok=false; }
     if(local.length < 6 || local.length > 12){ showErr('phone', true); ok=false; }
     const phone = ok ? dialCode + ' ' + local : null;
-    return ok ? { name, ag, email, phone } : null;
+    const country = COUNTRY[dialCode] || 'Australia';
+    return ok ? { name, ag, email, phone, country } : null;
   }
 
   async function sb(path, opts){
@@ -264,7 +266,7 @@
     btn.disabled=true; btn.classList.add('loading'); btn.querySelector('.btn-text').textContent='Saving…';
     try{
       const res = await sb('customers', { method:'POST', headers:{ Prefer:'return=representation' },
-        body: JSON.stringify({ full_name:data.name, agency_name:data.ag, email:data.email, phone:data.phone, payment_status:'paid' }) });
+        body: JSON.stringify({ full_name:data.name, agency_name:data.ag, email:data.email, phone:data.phone, country:data.country, payment_status:'paid' }) });
       const rows = await res.json();
       const customerId = rows[0].id;
       await sb('onboarding_status', { method:'POST', headers:{ Prefer:'return=minimal' },
@@ -281,3 +283,4 @@
 </script>
 </body>
 </html>
+
