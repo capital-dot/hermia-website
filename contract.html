@@ -4,201 +4,133 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Service Agreement • Hermia</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --black: #0a0a0a;
-      --card: #111111;
-      --gold: #C9A35B;
-      --gold-light: #e8c17a;
-      --cream: #f5f1e8;
-      --muted: #a8a39a;
-      --soft: #d4d0c7;
-      --dark-grey: #1a1a1a;
-      --light-grey: #2a2a2a;
+    :root{
+      --black:#07070a; --card:#0f0f12; --card2:#141418; --border:rgba(201,163,91,0.15); --border-hi:rgba(201,163,91,0.40);
+      --gold:#C9A35B; --gold-light:#e8c17a; --gold-dim:rgba(201,163,91,0.08);
+      --cream:#f4f0e6; --muted:#7a7672; --soft:#b0ada5; --green:#10b981;
+      --display:'Cormorant Garamond',serif;
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:
-      'Inter', sans-serif;
-      background:var(--black);
-      color:var(--cream);
-      line-height:1.75;
-      padding:60px 20px;
-      max-width:900px; /* Increased max-width for a more spacious feel */
-      margin:0 auto;
-      font-size: 16px; /* Base font size for better readability */
-    }
-    .header { text-align:center; margin-bottom:60px; }
-    .logo { width:80px; height:80px; margin:0 auto 20px; display:block; filter:drop-shadow(0 4px 30px rgba(201,163,91,0.4)); }
-    h1 { font-family:
-      'Playfair Display', serif;
-      font-size:52px; /* Larger heading for impact */
-      color:#fff;
-      letter-spacing:-1.5px;
-      margin-bottom:10px;
-    }
-    .doc-meta { font-size:14px; color:var(--muted); margin-top:8px; text-transform:uppercase; letter-spacing:2.5px; font-weight:500; }
-    h2 { font-size:24px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; color:var(--gold); margin:60px 0 20px; border-bottom:1px solid rgba(201,163,91,0.2); padding-bottom:10px; }
-    h3 { font-family:
-      'Playfair Display', serif;
-      font-size:28px;
-      color:#fff;
-      text-align:center;
-      margin-bottom:30px;
-    }
-    p, li { font-size:16px; color:var(--soft); margin-bottom:18px; line-height:1.8; }
-    ul { padding-left:28px; margin-bottom:25px; }
-    li { margin-bottom:10px; }
-    strong { color:var(--cream); font-weight:600; }
-    em { font-style:italic; color:var(--gold-light); }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--black);color:var(--cream);line-height:1.78;font-size:16px;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;}
+    body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+    ::selection{background:rgba(201,163,91,0.28);color:#fff;}
+    .bg-glow{position:fixed;top:-220px;left:50%;transform:translateX(-50%);width:1100px;height:720px;background:radial-gradient(ellipse at 50% 8%,rgba(201,163,91,0.15) 0%,transparent 62%);pointer-events:none;filter:blur(54px);z-index:0;}
 
-    .highlight-box {
-      background:var(--dark-grey);
-      border:1px solid rgba(201,163,91,0.3);
-      padding:35px;
-      border-radius:18px;
-      margin:40px 0;
-      box-shadow:0 10px 30px rgba(0,0,0,0.3);
-    }
-    .strike { text-decoration:line-through; opacity:0.6; font-size:0.95em; }
-    .price-row {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:12px;
-      font-size:17px;
-    }
-    .price-row span { color:var(--soft); }
-    .price-row strong { color:var(--cream); font-weight:700; }
-    .price-row.special { color:var(--gold); font-weight:700; }
+    .wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:80px 24px 60px;}
 
-    .agreement-card {
-      background:var(--card);
-      border:1px solid rgba(201,163,91,0.4);
-      border-radius:28px;
-      padding:50px;
-      margin-top:60px;
-      box-shadow:0 15px 40px rgba(0,0,0,0.4);
-    }
-    .pay-btn {
-      display:block;
-      text-align:center;
-      padding:24px;
-      border-radius:16px;
-      font-weight:700;
-      text-decoration:none;
-      margin-top:20px;
-      transition:all 0.3s ease;
-      font-size:18px;
-      cursor:pointer;
-      border:none;
-      width:100%;
-      font-family:
-      'Inter', sans-serif;
-      letter-spacing:1px;
-      text-transform:uppercase;
-    }
-    .btn-au {
-      background:linear-gradient(90deg, #8a6820, #e8c17a, #a07828);
-      color:#000;
-      box-shadow:0 8px 20px rgba(201,163,91,0.3);
-    }
-    .btn-au:hover { filter:brightness(1.1); transform:translateY(-3px); box-shadow:0 12px 30px rgba(201,163,91,0.4); }
-    .btn-uae {
-      background:#fff;
-      color:#111;
-      margin-top:15px;
-      box-shadow:0 8px 20px rgba(255,255,255,0.15);
-    }
-    .btn-uae:hover { background:#f5f1e8; transform:translateY(-3px); box-shadow:0 12px 30px rgba(255,255,255,0.25); }
+    .header{text-align:center;margin-bottom:24px;}
+    .logo{width:78px;height:78px;margin:0 auto 22px;display:block;filter:drop-shadow(0 0 30px rgba(201,163,91,0.45));}
+    h1{font-family:var(--display);font-size:clamp(40px,7vw,58px);font-weight:600;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:10px;}
+    h1 em{font-style:italic;color:var(--gold);}
+    .doc-meta{font-size:12px;color:var(--gold);margin-top:10px;text-transform:uppercase;letter-spacing:3px;font-weight:600;}
 
-    footer {
-      margin-top:100px;
-      text-align:center;
-      font-size:14px;
-      color:var(--muted);
-      border-top:1px solid var(--light-grey);
-      padding-top:40px;
-      line-height:1.6;
-    }
-    footer a { color:var(--muted); text-decoration:none; }
-    footer a:hover { color:var(--gold); }
+    /* prepared-for banner */
+    .prepared{max-width:520px;margin:30px auto 0;display:none;align-items:center;justify-content:center;gap:10px;padding:13px 22px;border:1px solid var(--border-hi);background:var(--gold-dim);border-radius:100px;font-size:13px;color:var(--cream);text-align:center;}
+    .prepared.show{display:flex;}
+    .prepared b{color:var(--gold-light);font-weight:600;}
+    .prepared .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
 
-    .country-picker { display:none; margin-top:30px; }
-    .country-picker.visible { display:block; }
+    h2{font-size:15px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin:56px 0 18px;border-bottom:1px solid var(--border);padding-bottom:11px;display:flex;align-items:baseline;gap:12px;}
+    h2 .clause-no{font-family:var(--display);font-size:24px;font-weight:600;color:var(--gold-light);line-height:1;}
+    h3{font-family:var(--display);font-size:30px;font-weight:600;color:#fff;text-align:center;margin-bottom:30px;}
+    p,li{font-size:15.5px;color:var(--soft);margin-bottom:18px;line-height:1.82;font-weight:300;}
+    ul{padding-left:26px;margin-bottom:24px;}
+    li{margin-bottom:10px;}
+    strong{color:var(--cream);font-weight:600;}
+    em{font-style:italic;color:var(--gold-light);}
 
-    .checkbox-row {
-      display:flex;
-      gap:15px;
-      align-items:flex-start;
-      cursor:pointer;
-      margin-bottom:30px;
-      padding:15px;
-      background:var(--dark-grey);
-      border:1px solid rgba(201,163,91,0.2);
-      border-radius:12px;
-      transition:all 0.2s ease;
-    }
-    .checkbox-row:hover { border-color:var(--gold); box-shadow:0 0 15px rgba(201,163,91,0.1); }
-    .checkbox-row input { margin-top:3px; accent-color:var(--gold); width:20px; height:20px; flex-shrink:0; }
-    .checkbox-row span { color:var(--soft); font-size:16px; line-height:1.6; }
+    .highlight-box{background:linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.005)),var(--card);border:1px solid var(--border-hi);padding:34px;border-radius:18px;margin:36px 0;box-shadow:0 20px 50px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.05);position:relative;overflow:hidden;}
+    .highlight-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent);}
+    .strike{text-decoration:line-through;opacity:0.55;font-size:0.95em;}
+    .price-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;font-size:16px;gap:14px;}
+    .price-row span{color:var(--soft);}
+    .price-row strong{color:var(--cream);font-weight:600;}
+    .price-row.special{color:var(--gold);}
+    .price-row.special strong{color:var(--gold-light);}
 
-    #validationWarning, #sendingMsg {
-      font-size:15px;
-      margin-top:20px;
-      text-align:center;
-      font-weight:500;
-      padding:10px;
-      border-radius:8px;
-    }
-    #validationWarning { color:#e07070; background:rgba(224,112,112,0.1); border:1px solid rgba(224,112,112,0.3); display:none; }
-    #sendingMsg { color:var(--gold); background:rgba(201,163,91,0.1); border:1px solid rgba(201,163,91,0.3); display:none; }
+    .agreement-card{position:relative;overflow:hidden;background:linear-gradient(150deg,rgba(201,163,91,0.06) 0%,var(--card) 55%);border:1px solid var(--gold);border-radius:26px;padding:50px;margin-top:60px;box-shadow:0 30px 80px rgba(0,0,0,0.5),0 0 60px rgba(201,163,91,0.1);}
+    .agreement-card::before,.agreement-card::after{content:'';position:absolute;width:16px;height:16px;border-color:var(--gold);border-style:solid;}
+    .agreement-card::before{top:16px;right:16px;border-width:1px 1px 0 0;}
+    .agreement-card::after{bottom:16px;left:16px;border-width:0 0 1px 1px;}
 
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      h1 { font-size:42px; }
-      h2 { font-size:20px; }
-      h3 { font-size:24px; }
-      body { font-size:15px; padding:40px 15px; }
-      .agreement-card { padding:30px; }
-      .highlight-box { padding:25px; }
-      .checkbox-row { gap:10px; padding:12px; }
-      .checkbox-row span { font-size:15px; }
+    .checkbox-row{display:flex;gap:15px;align-items:flex-start;cursor:pointer;margin-bottom:28px;padding:18px;background:#0b0b0e;border:1px solid var(--border);border-radius:13px;transition:all 0.2s;}
+    .checkbox-row:hover{border-color:var(--gold);box-shadow:0 0 16px rgba(201,163,91,0.12);}
+    .checkbox-row input{margin-top:3px;accent-color:var(--gold);width:20px;height:20px;flex-shrink:0;}
+    .checkbox-row span{color:var(--soft);font-size:14.5px;line-height:1.65;font-weight:300;}
+    .checkbox-row span b{color:var(--cream);font-weight:600;}
+
+    .country-picker{display:none;}
+    .country-picker.visible{display:block;}
+    .pay-btn{position:relative;overflow:hidden;display:block;text-align:center;padding:22px;border-radius:14px;font-weight:700;text-decoration:none;margin-top:14px;transition:all 0.3s;font-size:15px;cursor:pointer;width:100%;font-family:'DM Sans',sans-serif;letter-spacing:1.5px;text-transform:uppercase;}
+    .btn-gold{background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#1a1408;border:none;box-shadow:0 10px 28px rgba(201,163,91,0.3);}
+    .btn-gold::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,0.55),transparent);transform:skewX(-18deg);transition:left 0.6s;}
+    .btn-gold:hover{filter:brightness(1.07);transform:translateY(-3px);box-shadow:0 14px 36px rgba(201,163,91,0.42);}
+    .btn-gold:hover::after{left:150%;}
+    .btn-outline{background:transparent;color:var(--gold);border:1px solid var(--border-hi);}
+    .btn-outline:hover{background:var(--gold-dim);border-color:var(--gold);transform:translateY(-2px);}
+
+    #validationWarning,#sendingMsg{font-size:14px;margin-top:20px;text-align:center;font-weight:500;padding:12px;border-radius:10px;}
+    #validationWarning{color:#e07070;background:rgba(224,112,112,0.1);border:1px solid rgba(224,112,112,0.3);display:none;}
+    #sendingMsg{color:var(--gold);background:var(--gold-dim);border:1px solid var(--border-hi);display:none;}
+
+    footer{margin-top:90px;text-align:center;font-size:13px;color:var(--muted);border-top:1px solid var(--border);padding-top:40px;line-height:1.7;font-weight:300;}
+    footer a{color:var(--muted);text-decoration:none;}
+    footer a:hover{color:var(--gold);}
+
+    @media(max-width:768px){
+      h1{font-size:40px;}
+      h3{font-size:25px;}
+      body{font-size:15px;}
+      .wrap{padding:60px 16px 40px;}
+      .agreement-card{padding:32px 24px;}
+      .highlight-box{padding:24px;}
     }
   </style>
 </head>
 <body>
+<div class="bg-glow"></div>
+
+<div class="wrap">
 
   <div class="header">
     <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia Logo" class="logo">
-    <h1>Service Agreement</h1>
-    <p class="doc-meta">Founder's Special Selection</p>
+    <h1>Service <em>Agreement</em></h1>
+    <p class="doc-meta">Founding Partner Selection</p>
   </div>
 
-  <h2>1. The Partnership</h2>
+  <div class="prepared" id="preparedBanner">
+    <span class="dot"></span>
+    <span>Prepared for <b id="preparedName">you</b><span id="preparedAgency"></span></span>
+  </div>
+
+  <h2><span class="clause-no">1</span> The Partnership</h2>
   <p>This Agreement is entered into between <strong>Hermia</strong> ("Provider", ABN 75 434 177 026) and the Client. By proceeding, the Client is secured as one of the <strong>First 10 Founding Partners</strong>.</p>
 
-  <h2>2. Hermia Lead Prioritisation Software</h2>
+  <h2><span class="clause-no">2</span> Hermia Lead Prioritisation Software</h2>
   <p>The Provider delivers a proprietary automated system designed to intercept, read, and instantly respond to the Client's <strong>existing inbound enquiries</strong> via SMS and WhatsApp. The system functions explicitly as an analytics and triage tool: parsing incoming message data, validating intent, scoring priority (Hot/Warm/Cold), and identifying enquirers prepared to transact immediately so that the Client can avoid wasting resources on long-term or stagnant leads.</p>
 
-  <h2>3. Founding Partner Pricing</h2>
+  <h2><span class="clause-no">3</span> Founding Partner Pricing</h2>
   <div class="highlight-box">
     <div class="price-row">
-      <span>Professional Setup & Integration</span>
+      <span>Professional Setup &amp; Integration</span>
       <span class="strike">$1,700 AUD / AED 2,600</span>
     </div>
     <div class="price-row special">
       <span>Special Launch Offer</span>
       <span><strong>No setup fee</strong></span>
     </div>
-    <div style="height:1px; background:rgba(201,163,91,0.2); margin:20px 0;"></div>
+    <div style="height:1px;background:var(--border);margin:20px 0;"></div>
     <div class="price-row">
       <strong>Monthly Software Access</strong>
       <strong>$260 AUD / AED 1,400</strong>
     </div>
   </div>
 
-  <h2>4. How to Cancel</h2>
+  <h2><span class="clause-no">4</span> How to Cancel</h2>
   <p>This is a month-to-month service with no long-term lock-in. To cancel, the Client must simply:</p>
   <ul>
     <li>Send an email to <strong>capital@hermia.au</strong> with the subject line "Cancel Subscription"; or</li>
@@ -206,40 +138,33 @@
   </ul>
   <p>Cancellations must be made at least <strong>48 hours before</strong> the next billing date to avoid further charges.</p>
 
-  <h2>5. Compliance & Security</h2>
+  <h2><span class="clause-no">5</span> Compliance &amp; Security</h2>
   <p>The Provider maintains all communication infrastructure to meet Australian and UAE telecommunication standards. This includes the use of dedicated mobile numbers to ensure 100% deliverability and compliance with the <em>Australian Privacy Act 1988</em> and <em>UAE Data Law No. 45/2021</em>.</p>
 
-  <h2>6. Absolute Lead Generation Disclaimer</h2>
+  <h2><span class="clause-no">6</span> Absolute Lead Generation Disclaimer</h2>
   <p><strong>Hermia does not generate marketing leads, run ad campaigns, or source cold business prospects.</strong> The Client is entirely responsible for driving their own volume of organic or paid property enquiries. Hermia’s sole liability is processing, parsing, and triaging the active flow of enquiries generated directly by the Client. The Provider is not responsible for baseline marketplace shifts, final agent conversion rates, or transactional outcomes.</p>
 
-  <h2>7. Lead Data & Consent</h2>
+  <h2><span class="clause-no">7</span> Lead Data &amp; Consent</h2>
   <p>The Client warrants that they have obtained all necessary consents from property enquirers before passing their contact details to Hermia for processing. The Client is solely responsible for compliance with the <em>Spam Act 2003</em> (Cth), the <em>Australian Privacy Act 1988</em>, and any applicable UAE telecommunications regulations in relation to lead consent. Hermia processes lead data solely as a service provider acting on the Client's instructions.</p>
 
-  <h2>8. Intellectual Property</h2>
+  <h2><span class="clause-no">8</span> Intellectual Property</h2>
   <p>Hermia's conversation flows, qualification logic, scoring methodology, and system architecture are proprietary trade secrets owned exclusively by Hermia. The Client may not reproduce, copy, share, reverse engineer, or resell any part of the Hermia system. Breach of this clause entitles Hermia to immediate termination without refund.</p>
 
-  <h2>9. Governing Law</h2>
+  <h2><span class="clause-no">9</span> Governing Law</h2>
   <p>This Agreement is governed by the laws of Victoria, Australia. Any disputes will be subject to the exclusive jurisdiction of the courts of Victoria.</p>
 
   <div class="agreement-card">
-    <h3>Accept Terms & Secure Spot</h3>
+    <h3>Accept Terms &amp; Secure Spot</h3>
 
     <label class="checkbox-row">
       <input type="checkbox" id="agreeCheckbox">
-      <span>I have read and agree to the terms and conditions of this Service Agreement. I confirm my agreement is accurate and constitutes my electronic signature, dated <span id="todayDate"></span>.</span>
+      <span id="agreeText">I have read and agree to the terms and conditions of this Service Agreement. I confirm my agreement is accurate and constitutes my electronic signature, dated <span id="todayDate"></span>.</span>
     </label>
 
-    <div class="country-picker" id="countryPicker">
-      <button class="pay-btn btn-au" onclick="handlePayment('AU')">
-        🇦🇺 Secure Founding Spot ($260 AUD / month)
-      </button>
-      <button class="pay-btn btn-uae" onclick="handlePayment('UAE')">
-        🇦🇪 Secure Founding Spot (AED 1,400 / month)
-      </button>
-    </div>
+    <div class="country-picker" id="countryPicker"></div>
 
     <p id="validationWarning"></p>
-    <p id="sendingMsg">Saving your agreement — redirecting to payment ✦</p>
+    <p id="sendingMsg">Saving your agreement — redirecting to secure payment ✦</p>
   </div>
 
   <footer>
@@ -248,65 +173,89 @@
     <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms.html">Terms of Service</a>
   </footer>
 
-  <script>
-    const WEBHOOK_URL = 'https://hook.eu1.make.com/55y5lsql5rmr8ju9cmlt9o5115q784ay';
-    const STRIPE_AU  = 'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04';
-    const STRIPE_UAE = 'https://buy.stripe.com/cNi5kFdvPdeY2W6cUA9EI05';
+</div>
 
-    const today = new Date();
-    document.getElementById('todayDate').textContent = today.toLocaleDateString('en-AU', { day:'numeric', month:'long', year:'numeric' });
+<script>
+  const WEBHOOK_URL = 'https://hook.eu1.make.com/55y5lsql5rmr8ju9cmlt9o5115q784ay';
+  const STRIPE_AU  = 'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04';
+  const STRIPE_UAE = 'https://buy.stripe.com/cNi5kFdvPdeY2W6cUA9EI05';
 
-    const checkbox = document.getElementById('agreeCheckbox');
-    const picker   = document.getElementById('countryPicker');
-    const warning  = document.getElementById('validationWarning');
-    const sendingMsg = document.getElementById('sendingMsg');
+  // ── pull the applicant's details forward from the apply page ──
+  let applicant = {};
+  try { applicant = JSON.parse(sessionStorage.getItem('hermia_applicant') || '{}'); } catch(e){}
+  const A_NAME   = applicant.name   || sessionStorage.getItem('hermia_name')   || '';
+  const A_EMAIL  = applicant.email  || sessionStorage.getItem('hermia_email')  || '';
+  const A_AGENCY = applicant.agency || sessionStorage.getItem('hermia_agency') || '';
+  const A_MARKET = applicant.market || sessionStorage.getItem('hermia_market') || '';
 
-    // Initial state: hide picker and messages
-    picker.classList.remove('visible');
-    warning.style.display = 'none';
-    sendingMsg.style.display = 'none';
+  // date
+  const today = new Date();
+  document.getElementById('todayDate').textContent =
+    today.toLocaleDateString('en-AU', { day:'numeric', month:'long', year:'numeric' });
 
-    checkbox.addEventListener('change', function () {
-      if (this.checked) {
-        picker.classList.add('visible');
-        warning.style.display = 'none';
-      } else {
-        picker.classList.remove('visible');
-        warning.style.display = 'none';
-      }
-    });
+  // personalise
+  if (A_NAME) {
+    document.getElementById('preparedName').textContent = A_NAME;
+    if (A_AGENCY) document.getElementById('preparedAgency').textContent = ' · ' + A_AGENCY;
+    document.getElementById('preparedBanner').classList.add('show');
+    document.getElementById('agreeText').innerHTML =
+      'I, <b>' + A_NAME + '</b>, have read and agree to the terms of this Service Agreement. I confirm this constitutes my electronic signature, dated <span id="todayDate2">' +
+      today.toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'}) + '</span>.';
+  }
 
-    async function handlePayment(country) {
-      const stripeUrl = country === 'AU' ? STRIPE_AU : STRIPE_UAE;
-      const plan      = country === 'AU' ? '$260 AUD/month' : 'AED 1,400/month';
+  const checkbox = document.getElementById('agreeCheckbox');
+  const picker   = document.getElementById('countryPicker');
+  const warning  = document.getElementById('validationWarning');
+  const sendingMsg = document.getElementById('sendingMsg');
 
-      sendingMsg.style.display = 'block';
-
-      const payload = {
-        full_name:        'Agreed via Checkbox',
-        email:            'Agreed via Checkbox',
-        country:          country,
-        plan:             plan,
-        signed_at:        new Date().toISOString(),
-        agreed_to_terms:  true,
-        contract_version: '1.2 — Explicit Disclaimers Added'
-      };
-
-      try {
-        await fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-      } catch (e) {
-        // Silent fail — still redirect regardless
-      }
-
-      setTimeout(() => { window.location.href = stripeUrl; }, 1200);
+  // build the pay button(s) — one button if we know the market, otherwise both
+  function buildButtons(){
+    if (A_MARKET === 'Australia') {
+      picker.innerHTML = '<button class="pay-btn btn-gold" onclick="handlePayment(\'AU\')">🇦🇺 Secure Founding Spot — $260 AUD / month</button>';
+    } else if (A_MARKET === 'UAE') {
+      picker.innerHTML = '<button class="pay-btn btn-gold" onclick="handlePayment(\'UAE\')">🇦🇪 Secure Founding Spot — AED 1,400 / month</button>';
+    } else {
+      picker.innerHTML =
+        '<button class="pay-btn btn-gold" onclick="handlePayment(\'AU\')">🇦🇺 Secure Founding Spot — $260 AUD / month</button>' +
+        '<button class="pay-btn btn-outline" onclick="handlePayment(\'UAE\')">🇦🇪 Secure Founding Spot — AED 1,400 / month</button>';
     }
-  </script>
+  }
+  buildButtons();
+
+  checkbox.addEventListener('change', function () {
+    if (this.checked) { picker.classList.add('visible'); warning.style.display='none'; }
+    else { picker.classList.remove('visible'); }
+  });
+
+  async function handlePayment(country) {
+    const stripeUrl = country === 'AU' ? STRIPE_AU : STRIPE_UAE;
+    const plan      = country === 'AU' ? '$260 AUD/month' : 'AED 1,400/month';
+
+    sendingMsg.style.display = 'block';
+
+    const payload = {
+      full_name:        A_NAME  || 'Agreed via Checkbox',
+      email:            A_EMAIL || 'Agreed via Checkbox',
+      agency:           A_AGENCY || '',
+      country:          country,
+      plan:             plan,
+      signed_at:        new Date().toISOString(),
+      agreed_to_terms:  true,
+      contract_version: '1.3 — Carried details from apply'
+    };
+
+    try {
+      await fetch(WEBHOOK_URL, {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch (e) {}
+
+    setTimeout(() => { window.location.href = stripeUrl; }, 1200);
+  }
+</script>
 
 </body>
 </html>
-
 
