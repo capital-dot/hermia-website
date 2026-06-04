@@ -266,10 +266,10 @@
 
   // === Nango Connect ===
   // Paste your deployed Worker URL here (from nango-session-worker.js):
-const NANGO_SESSION_URL = 'https://hermianango.capital-fbc.workers.dev';
+  const NANGO_SESSION_URL = 'https://hermianango.capital-fbc.workers.dev';
   // CRMs you've configured in Nango with credentials → real OAuth Connect flow.
   // Add a provider key here once it's set up in Nango (e.g. 'hubspot','followupboss').
-  const LIVE_OAUTH = new Set(['monday', 'pipedrive', 'zoho-crm', 'freshsales']);
+  const LIVE_OAUTH = new Set(['monday', 'pipedrive', 'zoho-crm', 'freshsales', 'followupboss']);
 
   const customerId = sessionStorage.getItem('hermia_customer_id') || null;
   const email      = sessionStorage.getItem('hermia_email') || null;
@@ -380,6 +380,8 @@ const NANGO_SESSION_URL = 'https://hermianango.capital-fbc.workers.dev';
   }
 
   async function startNangoConnect(c, btn, status){
+    // record the chosen CRM name in Supabase immediately — before they sign in
+    if(customerId){ try{ await sb('customers?id=eq.' + customerId, { method:'PATCH', headers:{ Prefer:'return=minimal' }, body: JSON.stringify({ crm_provider: c.provider }) }); }catch(e){} }
     let token;
     try{
       const r = await fetch(NANGO_SESSION_URL, {
@@ -438,6 +440,10 @@ const NANGO_SESSION_URL = 'https://hermianango.capital-fbc.workers.dev';
     status.classList.remove('show');
     const grant = $('grantId').value.trim();
     if(requireGrant && !grant){ status.textContent = 'Paste your Grant ID, or choose "connect later" below.'; status.classList.add('show'); return; }
+    if(grant && !/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(grant)){
+      status.textContent = 'That doesn\u2019t look like a Nylas Grant ID (it should look like 8f2c1a4b-\u2026-\u2026). Make sure you copied the Grant ID, not your email address.';
+      status.classList.add('show'); return;
+    }
     btn.disabled = true; btn.classList.add('loading'); btn.querySelector('.btn-text').textContent = 'Finishing…';
     try{
       if(grant){
@@ -466,4 +472,3 @@ const NANGO_SESSION_URL = 'https://hermianango.capital-fbc.workers.dev';
 </script>
 </body>
 </html>
-
