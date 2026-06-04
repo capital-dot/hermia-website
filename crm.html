@@ -7,6 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+<!-- warm up the connection library + Nango servers so the Connect window opens fast -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="preconnect" href="https://api.nango.dev" crossorigin />
+<link rel="preconnect" href="https://connect.nango.dev" crossorigin />
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@nangohq/frontend/+esm" />
 <script type="module">
   // Nango's frontend SDK is an ES module — load it properly and expose it globally.
   // jsDelivr's +esm endpoint is fast and browser-ready; unpkg is a fallback.
@@ -522,3 +527,4 @@
 </script>
 </body>
 </html>
+
