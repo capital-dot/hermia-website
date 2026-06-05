@@ -199,6 +199,24 @@
   .toast svg{width:16px; height:16px; stroke:var(--green); stroke-width:3}
 
   .hide{display:none !important}
+
+  /* mandatory grant warning */
+  .reqwarn{margin:14px 0 4px;padding:13px 16px;border-radius:11px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.45);color:#ffb4b4;font-size:13px;line-height:1.55}
+  .reqwarn b{color:#ff8585}
+
+  /* field-creation screen */
+  .fieldlist{display:flex;flex-direction:column;gap:9px;margin:8px 0 22px}
+  .fieldrow{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#0b0b0e;border:1px solid rgba(201,163,91,0.22);border-radius:10px;padding:13px 16px}
+  .fieldname{font-family:'DM Sans',monospace;font-size:15px;font-weight:600;color:#f4f0e6;letter-spacing:0.2px}
+  .fieldtype{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#C9A35B;background:rgba(201,163,91,0.1);border:1px solid rgba(201,163,91,0.25);border-radius:5px;padding:3px 9px}
+  .scarywarn{display:flex;gap:13px;align-items:flex-start;margin:6px 0 22px;padding:18px 18px;border-radius:13px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.5)}
+  .scarywarn .wico{font-size:20px;line-height:1.2;flex-shrink:0}
+  .scarywarn p{font-size:13.5px;line-height:1.6;color:#ffc9c9;margin:0}
+  .scarywarn b{color:#ff8585}
+  .remind{display:flex;align-items:center;gap:11px;margin:0 0 20px;padding:14px 16px;background:rgba(201,163,91,0.05);border:1px solid rgba(201,163,91,0.2);border-radius:11px;cursor:pointer}
+  .remind input{width:18px;height:18px;accent-color:#C9A35B;cursor:pointer;flex-shrink:0}
+  .remind span{font-size:13.5px;color:#b0ada5;line-height:1.5}
+
   @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
   @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes draw{to{stroke-dashoffset:0}}
@@ -260,12 +278,32 @@
         <li class="never"><span class="pc"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg></span>Read-only — never sends, edits or deletes anything</li>
       </ul>
 
-      <button class="btn" id="nylasBtn">Open Nylas to Connect Gmail →</button>
-      <div class="note">After connecting, Nylas will show you a <b>Grant ID</b>. Copy it and paste it below.</div>
-      <input id="grantId" type="text" placeholder="Paste your Nylas Grant ID here…" />
-      <button class="btn" id="gmailBtn"><span class="spin"></span><span class="btn-text">Save &amp; Complete Setup →</span></button>
-      <button class="skip" id="skipGmail">I'll connect Gmail later — finish setup</button>
-      <div class="statusmsg bad" id="gmailStatus">Couldn't save that. Please try again.</div>
+      <button class="btn" id="nylasBtn">Connect Gmail Securely →</button>
+      <div class="note">You'll sign in with Google, approve <b>read-only</b> access, and come straight back here automatically — nothing to copy or paste.</div>
+      <button class="skip" id="skipGmail">I'll connect Gmail later — continue</button>
+      <div class="statusmsg bad" id="gmailStatus">Couldn't finish connecting Gmail. Please try again.</div>
+    </div>
+
+    <!-- STEP 5: CREATE CRM FIELDS -->
+    <div class="card hide" id="view-fields">
+      <div class="eyebrow">Last step</div>
+      <h1>Create these fields in your CRM</h1>
+      <p class="sub">Hermia fills these fields on every qualified lead. Create them in your CRM <b>exactly</b> as written below — same spelling, same capitals, same underscores.</p>
+
+      <div class="fieldlist" id="fieldList"></div>
+
+      <div class="scarywarn">
+        <div class="wico">🚫</div>
+        <p><b>These must match exactly.</b> If a field name is spelled differently, has a space instead of an underscore, or is missing, that lead's data <b>will not arrive</b> in your CRM — and it fails silently, with no error. Name &amp; Email &amp; Phone already exist in your CRM by default; only create the ones listed above.</p>
+      </div>
+
+      <label class="remind">
+        <input type="checkbox" id="remindMe" checked />
+        <span>Email me this field list as a reminder, so I can set it up properly later.</span>
+      </label>
+
+      <button class="btn" id="fieldsBtn"><span class="spin"></span><span class="btn-text">I've Created These Fields — Finish →</span></button>
+      <div class="statusmsg bad" id="fieldsStatus">Something went wrong. Please try again.</div>
     </div>
 
     <!-- SUCCESS -->
@@ -289,7 +327,35 @@
 <script>
   const SUPABASE_URL = 'https://fjovhxaupeidvkfhigff.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_8jqbPp3THF54CnpomkJ3vQ_DtqnSAfV';
-  const NYLAS_URL    = 'https://api.us.nylas.com/v3/connect/auth?client_id=0fef4162-8c07-4903-8fde-2fe96806ad29&response_type=token&access_type=online&scope=https://www.googleapis.com/auth/gmail.readonly';
+  const NYLAS_CLIENT_ID = '0fef4162-8c07-4903-8fde-2fe96806ad29';
+  const NYLAS_REDIRECT  = 'https://onboarding.hermia.au/crm.html'; // must match the Callback URI you added in Nylas
+  // Paste your deployed Nylas worker URL here (from nylas-callback-worker.js):
+  const NYLAS_TOKEN_URL = 'https://hermia-nylas.capital-fbc.workers.dev';
+  function nylasAuthUrl(){
+    const p = new URLSearchParams({
+      client_id: NYLAS_CLIENT_ID,
+      redirect_uri: NYLAS_REDIRECT,
+      response_type: 'code',
+      access_type: 'offline',
+      scope: 'https://www.googleapis.com/auth/gmail.readonly'
+    });
+    if(customerId) p.set('state', customerId);
+    return 'https://api.us.nylas.com/v3/connect/auth?' + p.toString();
+  }
+
+  // === Fields the agent must create in their CRM (EXACT names) ===
+  // To change a name later, just edit it here — the screen updates automatically.
+  const REQUIRED_FIELDS = [
+    { name:'Hermia_Status',    type:'Single Line' },
+    { name:'Target_location',  type:'Single Line' },
+    { name:'Timeline',         type:'Single Line' },
+    { name:'Intent',           type:'Single Line' },
+    { name:'Financial_status', type:'Single Line' },
+    { name:'Budget_range',     type:'Single Line' },
+    { name:'Description',      type:'Multi-Line'  }
+  ];
+  // Paste your Make webhook here to email agents the field reminder. Leave '' to skip the email.
+  const FIELDS_WEBHOOK = '';
 
   // === Nango Connect ===
   // Paste your deployed Worker URL here (from nango-session-worker.js):
@@ -372,7 +438,7 @@
     await sb('crm_connections', { method:'POST', headers:{ Prefer:'return=minimal' },
       body: JSON.stringify({ customer_id:customerId, crm_provider:providerName, connection_id:connId, api_key:apiKey, connected_at:new Date().toISOString() }) });
     if(customerId){
-      await sb('customers?id=eq.' + customerId, { method:'PATCH', headers:{ Prefer:'return=minimal' }, body: JSON.stringify({ crm_provider:providerName }) });
+      await sb('customers?id=eq.' + customerId, { method:'PATCH', headers:{ Prefer:'return=minimal' }, body: JSON.stringify({ crm_provider:providerName, connection_id:connId }) });
       await sb('onboarding_status?customer_id=eq.' + customerId, { method:'PATCH', headers:{ Prefer:'return=minimal' }, body: JSON.stringify({ crm_connected:true }) });
     }
   }
@@ -453,10 +519,16 @@
         onEvent: async (event) => {
           if(event.type === 'connect'){
             finished = true;
+            console.log('[Hermia] connect event payload:', JSON.stringify(event && event.payload));
             try{
-              const connId = event.payload && event.payload.connectionId;
-              const provKey = (event.payload && event.payload.providerConfigKey) || c.provider;
-              await saveCrm(provKey, connId || null, null);
+              const p = (event && event.payload) || {};
+              const conn = p.connection || {};
+              const connId = p.connectionId || p.connection_id ||
+                             conn.connectionId || conn.connection_id || conn.id || null;
+              const provKey = p.providerConfigKey || p.provider_config_key ||
+                              conn.providerConfigKey || conn.provider_config_key || c.provider;
+              await saveCrm(provKey, connId, null);
+              if(!connId) console.warn('[Hermia] connected but no connectionId in event payload');
               showToast(c.name + ' connected');
               setTimeout(goToGmail, 900);
             }catch(e){
@@ -486,45 +558,113 @@
     window.scrollTo({top:0, behavior:'smooth'});
   }
 
-  $('nylasBtn').addEventListener('click', () => window.open(NYLAS_URL, '_blank', 'noopener'));
-  $('gmailBtn').addEventListener('click', () => completeSetup(true));
+  // Connect Gmail → send the agent to Nylas in this same tab; they return to crm.html?code=...
+  $('nylasBtn').addEventListener('click', () => { window.location.href = nylasAuthUrl(); });
+  // "connect later" → no grant, but finish onboarding and move to the fields screen
   $('skipGmail').addEventListener('click', () => completeSetup(false));
 
-  async function completeSetup(requireGrant){
-    const btn = $('gmailBtn'); const status = $('gmailStatus');
-    status.classList.remove('show');
-    const grant = $('grantId').value.trim();
-    if(requireGrant && !grant){ status.textContent = 'Paste your Grant ID, or choose "connect later" below.'; status.classList.add('show'); return; }
-    if(grant && !/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(grant)){
-      status.textContent = 'That doesn\u2019t look like a Nylas Grant ID (it should look like 8f2c1a4b-\u2026-\u2026). Make sure you copied the Grant ID, not your email address.';
-      status.classList.add('show'); return;
+  async function completeSetup(){
+    if(customerId){
+      try{ await sb('onboarding_status?customer_id=eq.' + customerId, { method:'PATCH', headers:{ Prefer:'return=minimal' },
+        body: JSON.stringify({ email_connected:false, onboarding_complete:true }) }); }catch(e){ console.error(e); }
     }
-    btn.disabled = true; btn.classList.add('loading'); btn.querySelector('.btn-text').textContent = 'Finishing…';
-    try{
-      if(grant){
-        await sb('email_connections', { method:'POST', headers:{ Prefer:'return=minimal' },
-          body: JSON.stringify({ customer_id:customerId, nylas_grant_id:grant, email:email, connected_at:new Date().toISOString() }) });
-      }
-      if(customerId){
-        await sb('onboarding_status?customer_id=eq.' + customerId, { method:'PATCH', headers:{ Prefer:'return=minimal' },
-          body: JSON.stringify({ email_connected: !!grant, onboarding_complete:true }) });
-      }
-      showSuccess();
-    }catch(e){
-      console.error(e);
-      status.textContent = 'Couldn\'t save that. Please try again.';
-      status.classList.add('show');
-      btn.disabled = false; btn.classList.remove('loading'); btn.querySelector('.btn-text').textContent = 'Save & Complete Setup →';
-    }
+    goToFields();
   }
 
+  // When Nylas redirects back here with ?code=..., finish automatically (no paste).
+  async function finishNylas(code, stateCustomer){
+    const status = $('gmailStatus'); status.classList.remove('show');
+    const btn = $('nylasBtn'); btn.disabled = true; btn.textContent = 'Finishing Gmail connection…';
+    const cust = stateCustomer || customerId;
+    let grant, gmail;
+    try{
+      const r = await fetch(NYLAS_TOKEN_URL, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ code }) });
+      const d = await r.json();
+      if(!r.ok || !d.grant_id) throw new Error(d.error || 'no grant returned');
+      grant = d.grant_id; gmail = d.email || email;
+    }catch(e){
+      console.error('[Hermia] nylas exchange failed:', e);
+      status.textContent = 'Couldn\u2019t finish connecting Gmail \u2014 ' + (e.message || 'please try again') + '.';
+      status.classList.add('show');
+      btn.disabled = false; btn.textContent = 'Connect Gmail Securely →';
+      history.replaceState({}, '', location.pathname); // drop the used code
+      return;
+    }
+    try{
+      await sb('email_connections', { method:'POST', headers:{ Prefer:'return=minimal' },
+        body: JSON.stringify({ customer_id:cust, nylas_grant_id:grant, email:gmail, connected_at:new Date().toISOString() }) });
+      if(cust){
+        try{ await sb('customers?id=eq.' + cust, { method:'PATCH', headers:{ Prefer:'return=minimal' }, body: JSON.stringify({ nylas_grant_id:grant }) }); }
+        catch(e){ console.warn('[Hermia] add a nylas_grant_id column to customers:', e); }
+        await sb('onboarding_status?customer_id=eq.' + cust, { method:'PATCH', headers:{ Prefer:'return=minimal' },
+          body: JSON.stringify({ email_connected:true, onboarding_complete:true }) });
+      }
+    }catch(e){ console.error('[Hermia] save grant failed:', e); }
+    history.replaceState({}, '', location.pathname); // clean ?code from the URL
+    goToFields();
+  }
+
+  // If we arrived back from Nylas, jump straight to the Gmail card and finish.
+  (function handleNylasReturn(){
+    const params = new URLSearchParams(location.search);
+    const code = params.get('code');
+    if(!code) return;
+    $('view-crm').classList.add('hide'); $('view-gmail').classList.remove('hide');
+    $('step-crm').classList.replace('active','done');
+    $('step-crm').querySelector('.dot').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    $('step-gmail').classList.add('active');
+    $('progressline').style.width = 'calc(100% - 68px)';
+    finishNylas(code, params.get('state'));
+  })();
+
   function showSuccess(){
-    $('view-gmail').classList.add('hide'); $('view-success').classList.remove('hide');
+    $('view-gmail').classList.add('hide'); $('view-fields').classList.add('hide'); $('view-success').classList.remove('hide');
     $('step-gmail').classList.replace('active','done');
     $('step-gmail').querySelector('.dot').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
     window.scrollTo({top:0, behavior:'smooth'});
   }
+
+  // ---- Step 5: create-these-fields screen ----
+  // render the field checklist from REQUIRED_FIELDS
+  $('fieldList').innerHTML = REQUIRED_FIELDS.map(f =>
+    '<div class="fieldrow"><span class="fieldname">' + f.name + '</span><span class="fieldtype">' + f.type + '</span></div>'
+  ).join('');
+
+  function goToFields(){
+    $('view-gmail').classList.add('hide'); $('view-fields').classList.remove('hide');
+    $('step-gmail').classList.replace('active','done');
+    $('step-gmail').querySelector('.dot').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  $('fieldsBtn').addEventListener('click', async () => {
+    const btn = $('fieldsBtn'); const status = $('fieldsStatus');
+    status.classList.remove('show');
+    btn.disabled = true; btn.classList.add('loading'); btn.querySelector('.btn-text').textContent = 'Finishing…';
+
+    // fire the reminder webhook (best-effort — never blocks finishing)
+    const wantsEmail = $('remindMe').checked;
+    if(wantsEmail && FIELDS_WEBHOOK){
+      const chosen = selected && CRMS[selected] ? CRMS[selected] : null;
+      try{
+        await fetch(FIELDS_WEBHOOK, {
+          method:'POST', mode:'no-cors', headers:{ 'Content-Type':'application/json' },
+          body: JSON.stringify({
+            type:'crm_fields_reminder',
+            customer_id: customerId,
+            email: email,
+            crm_provider: chosen ? chosen.provider : null,
+            crm_name: chosen ? chosen.name : null,
+            fields: REQUIRED_FIELDS,
+            sent_at: new Date().toISOString()
+          })
+        });
+      }catch(e){ console.warn('[Hermia] fields reminder webhook failed:', e); }
+    }
+
+    showSuccess();
+  });
+
 </script>
 </body>
 </html>
-
