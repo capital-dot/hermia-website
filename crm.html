@@ -7,14 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
-<!-- warm up the connection library + Nango servers so the Connect window opens fast -->
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 <link rel="preconnect" href="https://api.nango.dev" crossorigin />
 <link rel="preconnect" href="https://connect.nango.dev" crossorigin />
 <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@nangohq/frontend/+esm" />
 <script type="module">
-  // Nango's frontend SDK is an ES module — load it properly and expose it globally.
-  // jsDelivr's +esm endpoint is fast and browser-ready; unpkg is a fallback.
   (async () => {
     const sources = [
       'https://cdn.jsdelivr.net/npm/@nangohq/frontend/+esm',
@@ -47,7 +44,6 @@
     min-height:100vh; display:flex; flex-direction:column; align-items:center;
     padding:54px 20px 90px; position:relative; overflow-x:hidden; -webkit-font-smoothing:antialiased}
 
-  /* layered background */
   .bg{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
   .bloom{position:absolute; inset:0;
     background:
@@ -74,7 +70,6 @@
 
   .wrap{position:relative; z-index:2; width:100%; max-width:620px; display:flex; flex-direction:column; align-items:center}
 
-  /* levitating logo */
   .logo-wrap{position:relative; margin-bottom:44px; display:grid; place-items:center}
   .logo-wrap::before{content:''; position:absolute; width:160px; height:160px; border-radius:50%;
     background:radial-gradient(circle, rgba(201,163,91,0.28), transparent 65%); filter:blur(14px); animation:halo 5s ease-in-out infinite; z-index:0}
@@ -84,7 +79,6 @@
   @keyframes halo{0%,100%{opacity:.55;transform:scale(.92)}50%{opacity:.95;transform:scale(1.06)}}
   @keyframes logoIn{from{opacity:0;transform:translateY(-8px) scale(.96)}to{opacity:1}}
 
-  /* stepper */
   .steps{display:flex; align-items:flex-start; justify-content:space-between; width:100%; max-width:490px; margin-bottom:50px; position:relative; opacity:0; animation:fadeUp .7s .14s forwards}
   .steps::before{content:''; position:absolute; top:16px; left:34px; right:34px; height:1.5px; background:var(--border)}
   .progressline{position:absolute; top:16px; left:34px; height:1.5px; width:0; background:linear-gradient(90deg,var(--gold-light),var(--gold)); box-shadow:0 0 8px rgba(201,163,91,0.5); transition:width .6s ease; z-index:0}
@@ -97,7 +91,6 @@
   .step .label{font-size:10.5px; letter-spacing:.14em; color:var(--soft); text-align:center; max-width:84px; line-height:1.3; text-transform:uppercase; font-weight:400}
   .step.active .label{color:var(--cream)} .step.done .label{color:var(--gold-light)}
 
-  /* glass card */
   .card{position:relative; width:100%; border-radius:24px; padding:44px 38px;
     background:linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.006));
     backdrop-filter:blur(22px) saturate(115%); -webkit-backdrop-filter:blur(22px) saturate(115%);
@@ -111,7 +104,6 @@
   h1{font-family:'Cormorant Garamond',serif; font-weight:600; font-size:42px; line-height:1.02; margin-bottom:12px}
   .sub{color:var(--soft); font-size:15px; line-height:1.55; margin-bottom:34px}
 
-  /* CRM grid — clean, no subtitle */
   .grid{display:grid; grid-template-columns:1fr 1fr; gap:15px}
   .crm{position:relative; cursor:pointer; border:1px solid var(--border); background:rgba(8,8,11,0.5);
     border-radius:17px; padding:24px 20px; transition:transform .2s, border-color .25s, box-shadow .25s, background .25s;
@@ -165,7 +157,6 @@
   .statusmsg{margin-top:18px; text-align:center; font-size:13px; display:none}
   .statusmsg.show{display:block} .statusmsg.bad{color:#e07a72}
 
-  /* gmail step */
   .gcard{text-align:center}
   .gicon{width:72px; height:72px; margin:0 auto 6px; border-radius:18px; background:rgba(8,8,11,0.6); border:1px solid var(--border); display:grid; place-items:center; box-shadow:inset 0 1px 0 rgba(255,255,255,0.06)}
   .gicon svg{width:34px;height:34px}
@@ -177,7 +168,6 @@
   .note{background:rgba(8,8,11,0.6); border:1px solid var(--border); border-radius:13px; padding:15px 17px; margin:22px 0 18px; text-align:left; font-size:13px; color:var(--soft); line-height:1.55}
   .note b{color:var(--gold-light); font-weight:500}
 
-  /* success */
   .success{text-align:center; padding:14px 0}
   .check{position:relative; width:100px; height:100px; margin:0 auto 28px; display:grid; place-items:center; border-radius:50%;
     background:radial-gradient(circle, rgba(16,185,129,0.20), rgba(16,185,129,0.03)); animation:pop .55s cubic-bezier(.2,.9,.3,1.4) both}
@@ -190,7 +180,6 @@
   .conf .cc{width:26px; height:26px; flex:none; border-radius:50%; background:rgba(16,185,129,0.14); display:grid; place-items:center}
   .conf .cc svg{width:14px; height:14px; stroke:var(--green); stroke-width:3}
 
-  /* connect toast */
   .toast{position:fixed; left:50%; bottom:40px; transform:translateX(-50%) translateY(24px);
     background:rgba(16,185,129,0.13); border:1px solid rgba(16,185,129,0.55); color:#bff3df;
     padding:13px 22px; border-radius:999px; font-size:14px; font-weight:400; display:flex; align-items:center; gap:10px;
@@ -200,11 +189,6 @@
 
   .hide{display:none !important}
 
-  /* mandatory grant warning */
-  .reqwarn{margin:14px 0 4px;padding:13px 16px;border-radius:11px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.45);color:#ffb4b4;font-size:13px;line-height:1.55}
-  .reqwarn b{color:#ff8585}
-
-  /* field-creation screen */
   .fieldlist{display:flex;flex-direction:column;gap:9px;margin:8px 0 22px}
   .fieldrow{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#0b0b0e;border:1px solid rgba(201,163,91,0.22);border-radius:10px;padding:13px 16px}
   .fieldname{font-family:'DM Sans',monospace;font-size:15px;font-weight:600;color:#f4f0e6;letter-spacing:0.2px}
@@ -311,11 +295,11 @@
       <div class="success">
         <div class="check"><svg viewBox="0 0 24 24"><polyline class="path" points="20 6 9 17 4 12"/></svg></div>
         <h1>You're all set up.</h1>
-        <p class="sub" style="margin-bottom:0">Hermia is now monitoring your inbox. We'll qualify your next lead automatically.</p>
+        <p class="sub" style="margin-bottom:0">Hermia is now monitoring your leads. We'll qualify your next lead automatically.</p>
         <ul class="conf">
-          <li><span class="cc"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Inbox monitoring is live</li>
+          <li><span class="cc"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>CRM webhook is live</li>
           <li><span class="cc"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Lead qualification is active</li>
-          <li><span class="cc"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Pushing leads to your CRM</li>
+          <li><span class="cc"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Pushing qualified data back to your CRM</li>
         </ul>
         <a class="btn" href="https://www.hermia.au" style="display:block;text-decoration:none;text-align:center">Back to Hermia →</a>
       </div>
@@ -325,26 +309,18 @@
   <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span id="toastText">Connected</span></div>
 
 <script>
-  const SUPABASE_URL = 'https://fjovhxaupeidvkfhigff.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_8jqbPp3THF54CnpomkJ3vQ_DtqnSAfV';
-  const NYLAS_CLIENT_ID = '0fef4162-8c07-4903-8fde-2fe96806ad29';
-  const NYLAS_REDIRECT  = 'https://onboarding.hermia.au/crm.html'; // must match the Callback URI you added in Nylas
-  // Paste your deployed Nylas worker URL here (from nylas-callback-worker.js):
-  const NYLAS_TOKEN_URL = 'https://hermia-nylas.capital-fbc.workers.dev';
-  function nylasAuthUrl(){
-    const p = new URLSearchParams({
-      client_id: NYLAS_CLIENT_ID,
-      redirect_uri: NYLAS_REDIRECT,
-      response_type: 'code',
-      access_type: 'offline',
-      scope: 'https://www.googleapis.com/auth/gmail.readonly'
-    });
-    if(customerId) p.set('state', customerId);
-    return 'https://api.us.nylas.com/v3/connect/auth?' + p.toString();
-  }
+  // ============================================================================
+  // CONFIG
+  // ============================================================================
+  const SUPABASE_URL      = 'https://fjovhxaupeidvkfhigff.supabase.co';
+  const SUPABASE_KEY      = 'sb_publishable_8jqbPp3THF54CnpomkJ3vQ_DtqnSAfV';
+  const NYLAS_CLIENT_ID   = '0fef4162-8c07-4903-8fde-2fe96806ad29';
+  const NYLAS_REDIRECT    = 'https://onboarding.hermia.au/crm.html';
+  const NYLAS_TOKEN_URL   = 'https://hermia-nylas.capital-fbc.workers.dev';
+  // The same Worker now handles BOTH session tokens (POST /) and webhook
+  // registration (POST /register-webhook). Secret key lives there — never here.
+  const NANGO_SESSION_URL = 'https://hermianango.capital-fbc.workers.dev';
 
-  // === Fields the agent must create in their CRM (EXACT names) ===
-  // To change a name later, just edit it here — the screen updates automatically.
   const REQUIRED_FIELDS = [
     { name:'Hermia_Status',    type:'Single Line' },
     { name:'Target_location',  type:'Single Line' },
@@ -354,23 +330,19 @@
     { name:'Budget_range',     type:'Single Line' },
     { name:'Description',      type:'Multi-Line'  }
   ];
-  // Paste your Make webhook here to email agents the field reminder. Leave '' to skip the email.
   const FIELDS_WEBHOOK = '';
 
-  // === Nango Connect ===
-  // Paste your deployed Worker URL here (from nango-session-worker.js):
-  const NANGO_SESSION_URL = 'https://hermianango.capital-fbc.workers.dev';
-  // CRMs you've configured in Nango with credentials → real OAuth Connect flow.
-  // Add a provider key here once it's set up in Nango (e.g. 'hubspot','followupboss').
   const LIVE_OAUTH = new Set(['monday', 'pipedrive', 'zoho-crm', 'freshsales', 'followupboss']);
 
   const customerId = sessionStorage.getItem('hermia_customer_id') || null;
   const email      = sessionStorage.getItem('hermia_email') || null;
   const $ = id => document.getElementById(id);
 
-  // progress line fill (step 3 of 4 active)
   requestAnimationFrame(() => { $('progressline').style.width = 'calc((100% - 68px) * 0.66)'; });
 
+  // ============================================================================
+  // SUPABASE HELPER
+  // ============================================================================
   async function sb(path, opts){
     const res = await fetch(SUPABASE_URL + '/rest/v1/' + path, {
       ...opts,
@@ -380,6 +352,9 @@
     return res;
   }
 
+  // ============================================================================
+  // CRM DEFINITIONS
+  // ============================================================================
   const CRMS = {
     zoho:        {name:'Zoho CRM',      conn:'nango',  provider:'zoho-crm',     mark:'Z', mbg:'linear-gradient(135deg,#e42527,#089949 45%,#226db4 75%,#f9b21d)'},
     followupboss:{name:'Follow Up Boss',conn:'nango',  provider:'followupboss', mark:'F', mbg:'linear-gradient(135deg,#2b6cb0,#ed8936 55%,#e53e3e)'},
@@ -434,6 +409,9 @@
   function isLiveOAuth(c){ return c.conn === 'nango' && LIVE_OAUTH.has(c.provider); }
   function resetBtn(btn, c){ btn.disabled = false; btn.classList.remove('loading'); btn.querySelector('.btn-text').textContent = isLiveOAuth(c) ? 'Connect ' + c.name + ' →' : 'Continue →'; }
 
+  // ============================================================================
+  // SAVE CRM TO SUPABASE
+  // ============================================================================
   async function saveCrm(providerName, connId, apiKey){
     await sb('crm_connections', { method:'POST', headers:{ Prefer:'return=minimal' },
       body: JSON.stringify({ customer_id:customerId, crm_provider:providerName, connection_id:connId, api_key:apiKey, connected_at:new Date().toISOString() }) });
@@ -443,6 +421,43 @@
     }
   }
 
+  // ============================================================================
+  // REGISTER WEBHOOK — fires silently after OAuth, agent never sees it
+  // The actual Nango proxy call happens inside the Worker (secret key stays safe)
+  // ============================================================================
+  async function registerWebhook(provider, connectionId) {
+    try {
+      const r = await fetch(NANGO_SESSION_URL + '/register-webhook', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ provider, connectionId, customerId })
+      });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok || d.ok === false) {
+        // Log the failure but never show it to the agent — it must not block onboarding
+        console.warn('[Hermia] webhook registration failed for', provider, d);
+      } else {
+        console.log('[Hermia] webhook registered for', provider, d);
+        // If Monday returned a boardId, store it in Supabase for scenario 2
+        if (provider === 'monday' && d.boardId && customerId) {
+          try {
+            await sb('customers?id=eq.' + customerId, {
+              method:  'PATCH',
+              headers: { Prefer: 'return=minimal' },
+              body:    JSON.stringify({ monday_board_id: d.boardId })
+            });
+          } catch(e) { console.warn('[Hermia] could not store monday_board_id:', e); }
+        }
+      }
+    } catch(e) {
+      // Network error — log, never block
+      console.warn('[Hermia] webhook registration network error:', e);
+    }
+  }
+
+  // ============================================================================
+  // CONNECT BUTTON
+  // ============================================================================
   $('crmBtn').addEventListener('click', connectCrm);
   async function connectCrm(){
     if(!selected) return;
@@ -454,10 +469,8 @@
 
     btn.disabled = true; btn.classList.add('loading'); btn.querySelector('.btn-text').textContent = 'Connecting…';
 
-    // Real OAuth via Nango Connect UI (agent logs in to their CRM, never sees Nango)
     if(isLiveOAuth(c)){ return startNangoConnect(c, btn, status); }
 
-    // Non-OAuth: API key / manual name → save straight to Supabase
     try{
       let apiKey = null, providerName = c.provider || selected;
       if(c.conn === 'apikey') apiKey = v;
@@ -472,10 +485,12 @@
     }
   }
 
+  // ============================================================================
+  // NANGO OAUTH CONNECT
+  // ============================================================================
   async function startNangoConnect(c, btn, status){
-    // record the chosen CRM name in Supabase immediately — before they sign in
     if(customerId){ try{ await sb('customers?id=eq.' + customerId, { method:'PATCH', headers:{ Prefer:'return=minimal' }, body: JSON.stringify({ crm_provider: c.provider }) }); }catch(e){} }
-    // the Nango SDK loads asynchronously — wait briefly for it before giving up
+
     const nangoReady = (typeof window.Nango === 'function') ? true : await new Promise(resolve => {
       let done = false;
       const ok = () => { if(!done){ done = true; resolve(true); } };
@@ -489,7 +504,6 @@
 
     let token;
     try{
-      // don't let the handshake hang forever — abort after 15s
       const ctrl = new AbortController();
       const timer = setTimeout(() => ctrl.abort(), 15000);
       const r = await fetch(NANGO_SESSION_URL, {
@@ -500,7 +514,7 @@
       clearTimeout(timer);
       const raw = await r.text();
       let d = {};
-      try{ d = JSON.parse(raw); }catch(_){ /* not JSON */ }
+      try{ d = JSON.parse(raw); }catch(_){}
       if(!r.ok) throw new Error('server ' + r.status + ': ' + (d.error || raw.slice(0,120)));
       token = d.sessionToken;
       if(!token) throw new Error(d.error || 'no session token returned');
@@ -511,7 +525,6 @@
       status.classList.add('show'); resetBtn(btn, c); return;
     }
 
-    // open the Nango sign-in window — guard against SDK errors so it can't hang on "Connecting…"
     try{
       let finished = false;
       const nango = new Nango();
@@ -527,8 +540,14 @@
                              conn.connectionId || conn.connection_id || conn.id || null;
               const provKey = p.providerConfigKey || p.provider_config_key ||
                               conn.providerConfigKey || conn.provider_config_key || c.provider;
+
+              // 1. Save to Supabase
               await saveCrm(provKey, connId, null);
-              if(!connId) console.warn('[Hermia] connected but no connectionId in event payload');
+
+              // 2. Register webhook inside their CRM — silent, non-blocking
+              //    Don't await so it never delays moving to the next step
+              if(connId) registerWebhook(provKey, connId);
+
               showToast(c.name + ' connected');
               setTimeout(goToGmail, 900);
             }catch(e){
@@ -549,6 +568,9 @@
     }
   }
 
+  // ============================================================================
+  // NAVIGATION
+  // ============================================================================
   function goToGmail(){
     $('view-crm').classList.add('hide'); $('view-gmail').classList.remove('hide');
     $('step-crm').classList.replace('active','done');
@@ -558,9 +580,17 @@
     window.scrollTo({top:0, behavior:'smooth'});
   }
 
-  // Connect Gmail → send the agent to Nylas in this same tab; they return to crm.html?code=...
+  function nylasAuthUrl(){
+    const p = new URLSearchParams({
+      client_id: NYLAS_CLIENT_ID, redirect_uri: NYLAS_REDIRECT,
+      response_type: 'code', access_type: 'offline',
+      scope: 'https://www.googleapis.com/auth/gmail.readonly'
+    });
+    if(customerId) p.set('state', customerId);
+    return 'https://api.us.nylas.com/v3/connect/auth?' + p.toString();
+  }
+
   $('nylasBtn').addEventListener('click', () => { window.location.href = nylasAuthUrl(); });
-  // "connect later" → no grant, but finish onboarding and move to the fields screen
   $('skipGmail').addEventListener('click', () => completeSetup(false));
 
   async function completeSetup(){
@@ -571,7 +601,6 @@
     goToFields();
   }
 
-  // When Nylas redirects back here with ?code=..., finish automatically (no paste).
   async function finishNylas(code, stateCustomer){
     const status = $('gmailStatus'); status.classList.remove('show');
     const btn = $('nylasBtn'); btn.disabled = true; btn.textContent = 'Finishing Gmail connection…';
@@ -587,7 +616,7 @@
       status.textContent = 'Couldn\u2019t finish connecting Gmail \u2014 ' + (e.message || 'please try again') + '.';
       status.classList.add('show');
       btn.disabled = false; btn.textContent = 'Connect Gmail Securely →';
-      history.replaceState({}, '', location.pathname); // drop the used code
+      history.replaceState({}, '', location.pathname);
       return;
     }
     try{
@@ -600,11 +629,10 @@
           body: JSON.stringify({ email_connected:true, onboarding_complete:true }) });
       }
     }catch(e){ console.error('[Hermia] save grant failed:', e); }
-    history.replaceState({}, '', location.pathname); // clean ?code from the URL
+    history.replaceState({}, '', location.pathname);
     goToFields();
   }
 
-  // If we arrived back from Nylas, jump straight to the Gmail card and finish.
   (function handleNylasReturn(){
     const params = new URLSearchParams(location.search);
     const code = params.get('code');
@@ -617,15 +645,9 @@
     finishNylas(code, params.get('state'));
   })();
 
-  function showSuccess(){
-    $('view-gmail').classList.add('hide'); $('view-fields').classList.add('hide'); $('view-success').classList.remove('hide');
-    $('step-gmail').classList.replace('active','done');
-    $('step-gmail').querySelector('.dot').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-    window.scrollTo({top:0, behavior:'smooth'});
-  }
-
-  // ---- Step 5: create-these-fields screen ----
-  // render the field checklist from REQUIRED_FIELDS
+  // ============================================================================
+  // FIELDS SCREEN
+  // ============================================================================
   $('fieldList').innerHTML = REQUIRED_FIELDS.map(f =>
     '<div class="fieldrow"><span class="fieldname">' + f.name + '</span><span class="fieldtype">' + f.type + '</span></div>'
   ).join('');
@@ -637,34 +659,30 @@
     window.scrollTo({top:0, behavior:'smooth'});
   }
 
+  function showSuccess(){
+    $('view-gmail').classList.add('hide'); $('view-fields').classList.add('hide'); $('view-success').classList.remove('hide');
+    $('step-gmail').classList.replace('active','done');
+    $('step-gmail').querySelector('.dot').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
   $('fieldsBtn').addEventListener('click', async () => {
     const btn = $('fieldsBtn'); const status = $('fieldsStatus');
     status.classList.remove('show');
     btn.disabled = true; btn.classList.add('loading'); btn.querySelector('.btn-text').textContent = 'Finishing…';
-
-    // fire the reminder webhook (best-effort — never blocks finishing)
     const wantsEmail = $('remindMe').checked;
     if(wantsEmail && FIELDS_WEBHOOK){
       const chosen = selected && CRMS[selected] ? CRMS[selected] : null;
       try{
         await fetch(FIELDS_WEBHOOK, {
           method:'POST', mode:'no-cors', headers:{ 'Content-Type':'application/json' },
-          body: JSON.stringify({
-            type:'crm_fields_reminder',
-            customer_id: customerId,
-            email: email,
-            crm_provider: chosen ? chosen.provider : null,
-            crm_name: chosen ? chosen.name : null,
-            fields: REQUIRED_FIELDS,
-            sent_at: new Date().toISOString()
-          })
+          body: JSON.stringify({ type:'crm_fields_reminder', customer_id:customerId, email, crm_provider:chosen?.provider, crm_name:chosen?.name, fields:REQUIRED_FIELDS, sent_at:new Date().toISOString() })
         });
       }catch(e){ console.warn('[Hermia] fields reminder webhook failed:', e); }
     }
-
     showSuccess();
   });
-
 </script>
 </body>
 </html>
+
