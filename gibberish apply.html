@@ -5,80 +5,88 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Apply — Hermia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --black:#080808; --card:#111; --border:rgba(201,163,91,0.15);
+:root{
+  --black:#07070a; --card:#0f0f12; --border:rgba(201,163,91,0.15); --border-hi:rgba(201,163,91,0.40);
   --gold:#C9A35B; --gold-light:#e8c17a; --gold-dim:rgba(201,163,91,0.08);
-  --cream:#f5f1e8; --muted:#8a8580; --soft:#b8b5ad; --green:#10b981;
+  --cream:#f4f0e6; --muted:#7a7672; --soft:#b0ada5; --green:#10b981;
+  --display:'Cormorant Garamond',serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream);min-height:100vh;}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,8,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--black);color:var(--cream);min-height:100vh;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+::selection{background:rgba(201,163,91,0.28);color:#fff;}
+.bg-glow{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:1100px;height:700px;background:radial-gradient(ellipse at 50% 10%,rgba(201,163,91,0.16) 0%,transparent 62%);pointer-events:none;filter:blur(50px);z-index:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,7,10,0.86);backdrop-filter:blur(26px) saturate(120%);border-bottom:1px solid var(--border);}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
-.nav-logo img{width:34px;height:34px;}
-.nav-logo span{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--cream);}
-.nav-back-btn{color:var(--soft);text-decoration:none;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border);padding:10px 18px;border-radius:8px;transition:all 0.25s;}
-.nav-back-btn:hover{color:#fff;border-color:var(--gold);background:var(--gold-dim);box-shadow:0 0 15px rgba(201,163,91,0.2);}
-.page{max-width:680px;margin:0 auto;padding:140px 24px 100px;}
+.nav-logo img{width:34px;height:34px;filter:drop-shadow(0 4px 14px rgba(201,163,91,0.3));}
+.nav-logo span{font-family:var(--display);font-size:22px;font-weight:600;color:var(--cream);}
+.nav-back-btn{color:var(--soft);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border);padding:10px 18px;border-radius:9px;transition:all 0.25s;}
+.nav-back-btn:hover{color:#fff;border-color:var(--gold);background:var(--gold-dim);box-shadow:0 0 16px rgba(201,163,91,0.2);}
+.page{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:140px 24px 100px;}
 .page-tag{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
-.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,64px);font-weight:700;line-height:1.05;color:#fff;margin-bottom:16px;letter-spacing:-1px;}
-.page-title em{font-style:italic;color:var(--gold);text-shadow:0 0 25px rgba(201,163,91,0.35);}
-.page-sub{font-size:16px;color:var(--soft);line-height:1.7;font-weight:300;margin-bottom:36px;max-width:520px;}
+.page-title{font-family:var(--display);font-size:clamp(42px,6vw,68px);font-weight:600;line-height:1.03;color:#fff;margin-bottom:16px;letter-spacing:-1px;}
+.page-title em{font-style:italic;color:var(--gold);text-shadow:0 0 28px rgba(201,163,91,0.4);}
+.page-sub{font-size:16px;color:var(--soft);line-height:1.7;font-weight:300;margin-bottom:36px;max-width:500px;}
 .flow-steps{display:flex;align-items:center;gap:10px;margin-bottom:44px;flex-wrap:wrap;}
 .flow-step{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--muted);}
 .flow-step .n{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;border:1px solid var(--border);color:var(--muted);}
 .flow-step.active .n{background:var(--gold);color:#1a1408;border-color:var(--gold);box-shadow:0 0 14px rgba(201,163,91,0.4);}
 .flow-step.active{color:var(--cream);}
 .flow-line{width:24px;height:1px;background:var(--border);}
-.form-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:48px 44px;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.5);}
-.form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
-.field{margin-bottom:28px;}
-.field label{display:block;font-size:13px;font-weight:600;color:var(--soft);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase;}
-.field input,.field select{width:100%;padding:16px 18px;background:#0d0d0d;border:1px solid rgba(201,163,91,0.25);border-radius:10px;color:var(--cream);font-size:15px;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
-.field input:focus,.field select:focus{outline:none;border-color:var(--gold);background:#1a1a1a;box-shadow:0 0 0 4px rgba(201,163,91,0.15);}
+.form-card{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.006)),var(--card);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:22px;padding:46px 42px;box-shadow:0 34px 90px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.06);}
+.form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent);}
+.field{margin-bottom:24px;}
+.field label{display:block;font-size:12.5px;font-weight:500;color:var(--soft);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase;}
+.field input,.field select{width:100%;padding:16px 18px;background:#0b0b0e;border:1px solid rgba(201,163,91,0.22);border-radius:11px;color:var(--cream);font-size:15px;transition:all 0.2s;font-family:'DM Sans',sans-serif;font-weight:300;}
+.field input:focus,.field select:focus{outline:none;border-color:var(--gold);background:#141017;box-shadow:0 0 0 4px rgba(201,163,91,0.14);}
 .field select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%23C9A35B' d='M0 0l5 5 5-5z'/></svg>");background-repeat:no-repeat;background-position:right 18px center;padding-right:42px;}
 .field input::placeholder{color:var(--muted);}
 .field select:disabled{opacity:0.5;cursor:not-allowed;}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
 @media(max-width:520px){.field-row{grid-template-columns:1fr;}}
-.submit-btn{width:100%;padding:18px;background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#000;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:10px;cursor:pointer;transition:all 0.3s;box-shadow:0 10px 30px rgba(201,163,91,0.25);font-family:'DM Sans',sans-serif;}
-.submit-btn:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 14px 40px rgba(201,163,91,0.4);}
-.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.submit-btn{position:relative;overflow:hidden;width:100%;padding:18px;background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#1a1408;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:11px;cursor:pointer;transition:all 0.3s;box-shadow:0 12px 32px rgba(201,163,91,0.28);font-family:'DM Sans',sans-serif;margin-top:6px;}
+.submit-btn::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,0.55),transparent);transform:skewX(-18deg);transition:left 0.6s;}
+.submit-btn:hover{filter:brightness(1.07);transform:translateY(-2px);box-shadow:0 16px 42px rgba(201,163,91,0.42);}
+.submit-btn:hover::after{left:150%;}
+.submit-btn:disabled{opacity:0.55;cursor:not-allowed;transform:none;}
 .form-note{font-size:12px;color:var(--muted);text-align:center;margin-top:16px;font-style:italic;}
-.security-footer{display:flex;align-items:flex-start;gap:14px;margin-top:32px;padding:20px 24px;background:rgba(201,163,91,0.03);border:1px dashed var(--border);border-radius:12px;}
-.security-footer svg{width:20px;height:20px;fill:var(--gold);flex-shrink:0;margin-top:2px;}
-.security-footer p{font-size:13px;line-height:1.6;color:var(--soft);font-weight:300;}
-.security-footer strong{color:var(--cream);font-weight:500;}
 .verify{display:none;text-align:center;padding:20px 0 10px;}
 .verify.show{display:block;animation:fadeUp .4s ease both;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .v-spinner{width:54px;height:54px;margin:0 auto 26px;border:2.5px solid rgba(201,163,91,0.18);border-top-color:var(--gold);border-radius:50%;animation:spin .85s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
-.verify h2{font-family:'Cormorant Garamond',serif;font-size:33px;font-weight:600;color:#fff;margin-bottom:8px;}
+.verify h2{font-family:var(--display);font-size:33px;font-weight:600;color:#fff;margin-bottom:8px;}
 .verify .v-tag{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:26px;}
 .v-steps{list-style:none;max-width:330px;margin:0 auto;text-align:left;display:flex;flex-direction:column;gap:15px;}
 .v-steps li{display:flex;align-items:center;gap:13px;font-size:14.5px;color:var(--muted);transition:color .3s;font-weight:300;}
-.v-steps li .vdot{width:21px;height:21px;border-radius:50%;border:1.5px solid var(--border);flex-shrink:0;position:relative;transition:all .3s;}
+.v-steps li .vdot{width:21px;height:21px;border-radius:50%;border:1.5px solid var(--border-hi);flex-shrink:0;position:relative;transition:all .3s;}
 .v-steps li.done{color:var(--cream);}
 .v-steps li.done .vdot{background:rgba(16,185,129,0.15);border-color:var(--green);}
 .v-steps li.done .vdot::after{content:'';position:absolute;left:6.5px;top:3px;width:5px;height:9px;border:solid var(--green);border-width:0 2px 2px 0;transform:rotate(45deg);}
+.security-footer{display:flex;align-items:flex-start;gap:14px;margin-top:30px;padding:20px 24px;background:rgba(201,163,91,0.03);border:1px dashed var(--border);border-radius:13px;}
+.security-footer svg{width:20px;height:20px;fill:var(--gold);flex-shrink:0;margin-top:2px;}
+.security-footer p{font-size:13px;line-height:1.6;color:var(--soft);font-weight:300;}
+.security-footer strong{color:var(--cream);font-weight:500;}
 </style>
 </head>
 <body>
+<div class="bg-glow"></div>
 
 <nav>
   <a href="index.html" class="nav-logo">
     <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia">
     <span>Hermia</span>
   </a>
-  <a href="gibberish.html" class="nav-back-btn">← Back to Site</a>
+  <a href="index.html" class="nav-back-btn">← Back to Site</a>
 </nav>
 
 <div class="page">
-  <div class="page-tag">Application</div>
-  <h1 class="page-title">Claim a founding<br><em>partner spot.</em></h1>
-  <p class="page-sub">A few quick questions about your pipeline. The moment you apply, you're taken straight to your founding-partner agreement — no waiting on email.</p>
+  <div class="page-tag">Start Free Trial</div>
+  <h1 class="page-title">Get Hermia<br><em>working for you.</em></h1>
+  <p class="page-sub">A few quick questions about your pipeline. You'll go straight to your agreement — no waiting on email.</p>
 
   <div class="flow-steps">
     <div class="flow-step active"><span class="n">1</span> Apply</div>
@@ -90,7 +98,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
 
   <div class="form-card">
     <div id="form-view">
-
       <div class="field">
         <label>Which market?</label>
         <select id="market" required>
@@ -99,7 +106,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
           <option value="UAE">🇦🇪 UAE / Dubai — AED 1,400/mo</option>
         </select>
       </div>
-
       <div class="field-row">
         <div class="field">
           <label>Full name</label>
@@ -110,14 +116,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
           <input type="tel" id="phone" placeholder="+61 4XX XXX XXX" required>
         </div>
       </div>
-
       <div class="field">
         <label>Where do your enquiries come from?</label>
         <select id="source" required disabled>
           <option value="" disabled selected>Select your market first</option>
         </select>
       </div>
-
       <div class="field">
         <label>Buyer enquiries you get a week</label>
         <select id="volume" required>
@@ -128,8 +132,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
           <option value="60+">60+ a week</option>
         </select>
       </div>
-
-      <button class="submit-btn" id="submitBtn" onclick="submitApplication()">Apply &amp; Review Agreement →</button>
+      <button class="submit-btn" id="submitBtn" onclick="submitApplication()">Start Free Trial →</button>
       <p class="form-note">No email back-and-forth — you go straight to the agreement.</p>
     </div>
 
@@ -139,7 +142,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
       <h2>Verifying your details</h2>
       <ul class="v-steps">
         <li id="vs1"><span class="vdot"></span> Validating contact details</li>
-        <li id="vs2"><span class="vdot"></span> Confirming founding-partner eligibility</li>
+        <li id="vs2"><span class="vdot"></span> Checking eligibility</li>
         <li id="vs3"><span class="vdot"></span> Preparing your agreement</li>
       </ul>
     </div>
@@ -214,6 +217,6 @@ async function submitApplication() {
   setTimeout(() => { window.location.href = CONTRACT_URL; }, 2500);
 }
 </script>
-
 </body>
 </html>
+
