@@ -324,6 +324,29 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
 @media (max-width:680px) { #pricing { padding:76px 18px 100px; } .pricing-panel { flex-direction:column; max-width:340px; gap:14px; } .p-divider { display:none; } .p-card:first-child { border-radius:18px; border:1px solid rgba(201,163,91,0.2); } .p-card:last-child { border-radius:18px; } .p-amount { font-size:70px; } .p-card { padding:44px 26px 38px; } }
 @media (max-width:600px) { table td, table th { font-size:13px !important; padding:12px 14px !important; } }
 @media (max-width:640px) { .hero h1 { font-size:48px; letter-spacing:-1.5px; } footer { grid-template-columns:1fr; } .footer-bottom { flex-direction:column; gap:8px; text-align:center; padding:24px 20px; } }
+
+/* ── VISUAL PIPELINE ── */
+.pipeline-wrap { max-width:780px; margin:60px auto 0; }
+.pipeline-node {
+  display:flex; align-items:flex-start; gap:24px; position:relative;
+}
+.pipeline-node:not(:last-child)::after {
+  content:''; position:absolute; left:27px; top:58px;
+  width:2px; height:calc(100% - 14px);
+  background:linear-gradient(180deg, var(--gold), rgba(201,163,91,0.1));
+}
+.pipeline-icon {
+  width:56px; height:56px; min-width:56px; border-radius:16px;
+  background:var(--gold-dim); border:1px solid var(--border-hi);
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; position:relative; z-index:1;
+  box-shadow:0 0 0 6px var(--black), 0 0 20px rgba(201,163,91,0.15);
+}
+.pipeline-body { padding:10px 0 40px; }
+.pipeline-source { font-size:10.5px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
+.pipeline-title { font-size:19px; font-weight:600; color:#fff; margin-bottom:6px; }
+.pipeline-desc { font-size:14px; color:var(--soft); line-height:1.6; font-weight:300; }
+.pipeline-tag { display:inline-block; margin-top:8px; font-size:10px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--green); background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.25); padding:4px 10px; border-radius:999px; }
 </style>
 </head>
 <body>
@@ -374,8 +397,8 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
   </div>
   <div style="margin-top:28px; display:flex; justify-content:center; flex-wrap:wrap; gap:12px;">
     <div style="padding:10px 16px; border:1px solid var(--border); border-radius:999px; font-size:12px; color:var(--soft); background:rgba(201,163,91,0.03);">Built specifically for high-intent property enquiries</div>
-    <div style="padding:10px 16px; border:1px solid var(--border); border-radius:999px; font-size:12px; color:var(--soft); background:rgba(201,163,91,0.03);">Structured qualification logic — not AI guessing</div>
-    <div style="padding:10px 16px; border:1px solid var(--border); border-radius:999px; font-size:12px; color:var(--soft); background:rgba(201,163,91,0.03);">Operational infrastructure for real estate teams</div>
+    <div style="padding:10px 16px; border:1px solid var(--border); border-radius:999px; font-size:12px; color:var(--soft); background:rgba(201,163,91,0.03);">Fixed questions. Fixed answers. No AI guessing.</div>
+    <div style="padding:10px 16px; border:1px solid var(--border); border-radius:999px; font-size:12px; color:var(--soft); background:rgba(201,163,91,0.03);">Works while you sleep, inspect, or close deals</div>
   </div>
 </div>
 
@@ -414,20 +437,60 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
       <iframe src="https://www.loom.com/embed/30278ab7cc2a47b6930e69e7ff64e14e" allowfullscreen></iframe>
     </div>
   </div>
-  <div class="steps">
-    <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Buyer enquires from REA, Domain, or Property Finder</h3><p>The instant a buyer taps "Contact Agent", Hermia captures the lead data from the webhook — before you've even been notified. No manual check-in required.</p><span class="step-tag">Instant portal integration</span></div></div>
-    <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Hermia sends 3 qualification questions via WhatsApp &amp; SMS</h3><p>The buyer gets a message from your digital assistant — not you pretending to be online at 11pm. Hermia introduces itself and asks three short, structured questions. Timeline. Budget. Finance flexibility. The answers are letter-choices (A/B/C/D) — fast to reply, clean to process.</p><span class="step-tag">Structured qualification workflow</span></div></div>
-    <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Inspection requests are handled automatically</h3><p>If the buyer wants to view a property, Hermia checks your listed inspection times and books them in. If you haven't listed times yet, Hermia sends you the only email you'll ever get from it: <em>"This buyer wants to view. Add times."</em> That's it. No other notifications.</p><span class="step-tag">Zero back-and-forth scheduling</span></div></div>
-    <div class="step"><div class="step-num">4</div><div class="step-content"><h3>Every lead is scored Hot, Warm, or Cold — based on logic, not AI guesswork</h3><p>Hermia's scoring is fully condition-based — every path is predetermined. Pre-approved and moving within 4 weeks? Hot. 1–3 month window? Warm. Early research? Cold. No hallucinations. No surprises. Just consistent, auditable logic that ranks every lead the same way, every time.</p><span class="step-tag">Logic-based scoring — predictable every time</span></div></div>
-    <div class="step"><div class="step-num">5</div><div class="step-content"><h3>Your CRM is pre-filled before you open your laptop</h3><p>Name, number, budget, timeline, finance status, property interest, lead score — all silently synced into your CRM. <strong>No digest emails. No "hot lead" pings.</strong> You open your CRM at 8am and the pipeline is already built. Start calling Hot leads immediately.</p><span class="step-tag">Zero inbox noise · Pure pipeline</span></div></div>
-  </div>
-  <div class="not-chatbot">
-    <div class="not-chatbot-icon">⚙️</div>
-    <div>
-      <h3>Why Hermia is <em>not a chatbot</em> — and why that matters</h3>
-      <p>AI chatbots improvise answers, misread context, and hallucinate. Hermia doesn't. <strong>Every question is scripted. Every valid answer is a letter choice. Every outcome is pre-defined by conditions.</strong> Once the 3 questions are complete, the session closes permanently — the buyer's record is deleted. Any further messages from that number get no response. The system is sealed. No open-ended conversation, no guessing, no unpredictable outputs. <strong>Just clean, structured qualification data in your CRM.</strong></p>
+  <div class="pipeline-wrap">
+
+    <div class="pipeline-node">
+      <div class="pipeline-icon">🏠</div>
+      <div class="pipeline-body">
+        <div class="pipeline-source">Trigger</div>
+        <div class="pipeline-title">Buyer enquires on REA, Domain, or Property Finder</div>
+        <div class="pipeline-desc">The moment a buyer taps "Contact Agent", Hermia captures the lead. Before you've seen a notification.</div>
+        <span class="pipeline-tag">Instant · No manual check-in</span>
+      </div>
     </div>
+
+    <div class="pipeline-node">
+      <div class="pipeline-icon">💬</div>
+      <div class="pipeline-body">
+        <div class="pipeline-source">Step 1</div>
+        <div class="pipeline-title">3 qualification questions sent via WhatsApp &amp; SMS</div>
+        <div class="pipeline-desc">Timeline. Budget. Finance status. Simple letter choices — A, B, C or D. Fast to reply. Clean to process. Not a chatbot conversation.</div>
+        <span class="pipeline-tag">Under 30 seconds</span>
+      </div>
+    </div>
+
+    <div class="pipeline-node">
+      <div class="pipeline-icon">📅</div>
+      <div class="pipeline-body">
+        <div class="pipeline-source">Step 2</div>
+        <div class="pipeline-title">Inspection requests booked automatically</div>
+        <div class="pipeline-desc">Buyer wants to view? Hermia checks your listed times and books them in. No calls. No back-and-forth. The only message you ever get is: <em>"Add inspection times."</em></div>
+        <span class="pipeline-tag">Zero scheduling effort</span>
+      </div>
+    </div>
+
+    <div class="pipeline-node">
+      <div class="pipeline-icon">🔥</div>
+      <div class="pipeline-body">
+        <div class="pipeline-source">Step 3</div>
+        <div class="pipeline-title">Lead scored Hot, Warm, or Cold</div>
+        <div class="pipeline-desc">Pre-approved and moving within 4 weeks? Hot. 1–3 months? Warm. Early research? Cold. Fixed logic. No AI guessing. Every lead scored the same way, every time.</div>
+        <span class="pipeline-tag">Consistent · Auditable</span>
+      </div>
+    </div>
+
+    <div class="pipeline-node">
+      <div class="pipeline-icon">✅</div>
+      <div class="pipeline-body">
+        <div class="pipeline-source">Result</div>
+        <div class="pipeline-title">CRM pre-filled before you open your laptop</div>
+        <div class="pipeline-desc">Name, number, budget, timeline, finance, lead score — all in your CRM. No typing. No pings. You open your pipeline at 8am and your day is already built.</div>
+        <span class="pipeline-tag">Pure pipeline · Zero inbox noise</span>
+      </div>
+    </div>
+
   </div>
+
 </div>
 
 <!-- ═══════════ INTEGRATION SECTION — UPDATED WITH REAL LOGOS ═══════════ -->
@@ -588,23 +651,7 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
 </div>
 
 <div class="trust-section">
-  <div class="trust-inner">
-    <div class="make-seal-wrap">
-      <div class="make-seal"><div class="make-seal-logo">MAKE</div><div class="make-seal-sub">Certified</div></div>
-      <div class="make-seal-check">✓</div>
-    </div>
-    <div class="trust-copy">
-      <div class="trust-copy-tag">Built on Enterprise Infrastructure</div>
-      <h3>Make Certified<br><em>Professional Architect.</em></h3>
-      <p>Hermia is built by a <strong>Make Certified Level 3 Professional</strong> — the same automation infrastructure that powers enterprise workflows at Spotify, Adobe, and Cisco. Your lead data is handled with enterprise-grade reliability.</p>
-      <div class="trust-checks">
-        <div class="trust-check"><div class="trust-check-icon">✓</div><span><strong>Independently Verified</strong> — Credentials issued directly by Make.com</span></div>
-        <div class="trust-check"><div class="trust-check-icon">✓</div><span><strong>Redundant Error-Handling</strong> — No lead drops, no missed enquiries</span></div>
-        <div class="trust-check"><div class="trust-check-icon">✓</div><span><strong>Compliance Ready</strong> — Built for Australian Privacy Act 1988 and UAE standards</span></div>
-        <div class="trust-check"><div class="trust-check-icon">✓</div><span><strong>Zero External Storage</strong> — Data processed and pushed directly to your CRM</span></div>
-      </div>
-    </div>
-  </div>
+  <div class="trust-inner" style="justify-content:center; max-width:860px;">
     <!-- WHY HERMIA EXISTS -->
     <div style="width:100%; max-width:1060px; margin:52px auto 0; padding:36px 40px; border:1px solid var(--border-hi); border-radius:20px; background:linear-gradient(135deg, rgba(201,163,91,0.06), var(--card) 60%); box-shadow:0 20px 50px rgba(0,0,0,0.35);">
       <div class="section-tag" style="margin-bottom:12px;">Why Hermia Exists</div>
@@ -625,9 +672,9 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
     <div class="why-card"><div class="why-icon">⌚</div><h3>Live in your business within 24 hours</h3><p>Full onboarding done for you. Connected to Domain, REA, Property Finder, Bayut, and your CRM in one working day.</p></div>
     <div class="why-card"><div class="why-icon">⚙️</div><h3>Plugs into the CRM you already use</h3><p>HubSpot, Zoho, Rex, Pipedrive, Bitrix24. Hermia pushes structured lead data directly where you manage your pipeline.</p></div>
     <div class="why-card"><div class="why-icon">🛡️</div><h3>No AI hallucinations. Ever.</h3><p>Every question is scripted. Every answer is a letter choice. Every outcome is defined by conditions. No surprises.</p></div>
-    <div class="why-card"><div class="why-icon">🏛️</div><h3>Enterprise reliability, solo-agent price</h3><p>The same automation backbone trusted by Spotify, Adobe, and Cisco — priced for one agent, not one enterprise.</p></div>
-    <div class="why-card"><div class="why-icon">✉️</div><h3>Spam Act 2003 Compliant</h3><p>Every automated message identifies your agency and includes a working STOP/unsubscribe. 100% legal, always.</p></div>
-    <div class="why-card"><div class="why-icon">🔒</div><h3>Privacy Act 1988 Guardrails</h3><p>Enquiry data is intercepted, processed, and pushed to your CRM with full encryption and zero external data sharing.</p></div>
+    <div class="why-card"><div class="why-icon">🏛️</div><h3>Built to handle your busiest days</h3><p>Designed to handle hundreds of enquiries without slowing down — even during open home season when every agent is stretched.</p></div>
+    <div class="why-card"><div class="why-icon">✉️</div><h3>Every message is above board</h3><p>Every automated message identifies your agency and includes a STOP option. Fully legal under Australian and UAE regulations.</p></div>
+    <div class="why-card"><div class="why-icon">🔒</div><h3>Your data stays yours</h3><p>Lead data is processed and pushed directly to your CRM. Nothing is stored externally. Nothing is shared.</p></div>
   </div>
 </section>
 
@@ -745,11 +792,7 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
   </div>
 </div>
 
-<section style="border-top:1px solid var(--border); padding:80px 24px; text-align:center; background:rgba(201,163,91,0.015);">
-  <div class="section-tag" style="display:inline-block;">Enterprise Reliability</div>
-  <h2 class="section-title" style="margin:0 auto; max-width:760px;">Built to operate quietly,<br><em>reliably, and at scale.</em></h2>
-  <p class="section-body" style="margin:18px auto 0;">Hermia was designed to behave like infrastructure — not software demanding constant attention. Every workflow is structured, deterministic, auditable, and built for operational consistency.</p>
-</section>
+
 
 <footer>
   <div>
@@ -761,7 +804,7 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
   <div class="footer-col"><h4>Contact &amp; Legal</h4><a href="mailto:capital@hermia.au">capital@hermia.au</a><a href="calendar.html">Reserve My Slot</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></div>
 </footer>
 <div class="footer-bottom">
-  <p>© 2026 Hermia · ABN 75 434 177 026 · Independent software provider. All trademarks property of their respective owners. Powered by Make.</p>
+  <p>© 2026 Hermia · ABN 75 434 177 026 · Independent software provider. All trademarks property of their respective owners..</p>
   <p style="color:var(--muted);">Not a chatbot. Not a CRM. The qualification layer.</p>
 </div>
 
