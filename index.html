@@ -322,6 +322,7 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
 @media (max-width:960px) { nav { padding:16px 22px; } .nav-links { display:none; } footer { grid-template-columns:1fr 1fr; padding:40px 24px; } .stats-bar { padding:40px 24px; } .stat { border-right:none; padding:18px 24px; border-bottom:1px solid var(--border); } .stat:last-child { border-bottom:none; } }
 @media (max-width:768px) { .demo-promo-grid { grid-template-columns:1fr; gap:28px; } .demo-promo { padding:38px 26px; } .problem-cards { flex-direction:column; align-items:center; } .not-chatbot { grid-template-columns:1fr; } }
 @media (max-width:680px) { #pricing { padding:76px 18px 100px; } .pricing-panel { flex-direction:column; max-width:340px; gap:14px; } .p-divider { display:none; } .p-card:first-child { border-radius:18px; border:1px solid rgba(201,163,91,0.2); } .p-card:last-child { border-radius:18px; } .p-amount { font-size:70px; } .p-card { padding:44px 26px 38px; } }
+@media (max-width:600px) { table td, table th { font-size:13px !important; padding:12px 14px !important; } }
 @media (max-width:640px) { .hero h1 { font-size:48px; letter-spacing:-1.5px; } footer { grid-template-columns:1fr; } .footer-bottom { flex-direction:column; gap:8px; text-align:center; padding:24px 20px; } }
 </style>
 </head>
@@ -417,14 +418,14 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
     <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Buyer enquires from REA, Domain, or Property Finder</h3><p>The instant a buyer taps "Contact Agent", Hermia captures the lead data from the webhook — before you've even been notified. No manual check-in required.</p><span class="step-tag">Instant portal integration</span></div></div>
     <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Hermia sends 3 qualification questions via WhatsApp &amp; SMS</h3><p>The buyer gets a message from your digital assistant — not you pretending to be online at 11pm. Hermia introduces itself and asks three short, structured questions. Timeline. Budget. Finance flexibility. The answers are letter-choices (A/B/C/D) — fast to reply, clean to process.</p><span class="step-tag">Structured qualification workflow</span></div></div>
     <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Inspection requests are handled automatically</h3><p>If the buyer wants to view a property, Hermia checks your listed inspection times and books them in. If you haven't listed times yet, Hermia sends you the only email you'll ever get from it: <em>"This buyer wants to view. Add times."</em> That's it. No other notifications.</p><span class="step-tag">Zero back-and-forth scheduling</span></div></div>
-    <div class="step"><div class="step-num">4</div><div class="step-content"><h3>Every lead is scored Hot, Warm, or Cold — based on logic, not AI guesswork</h3><p>Hermia's scoring is fully condition-based — every path is predetermined. Pre-approved and moving within 4 weeks? Hot. 1–3 month window? Warm. Early research? Cold. No hallucinations. No surprises. Just consistent, auditable logic that ranks every lead the same way, every time.</p><span class="step-tag">Deterministic scoring — not AI chat</span></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><h3>Every lead is scored Hot, Warm, or Cold — based on logic, not AI guesswork</h3><p>Hermia's scoring is fully condition-based — every path is predetermined. Pre-approved and moving within 4 weeks? Hot. 1–3 month window? Warm. Early research? Cold. No hallucinations. No surprises. Just consistent, auditable logic that ranks every lead the same way, every time.</p><span class="step-tag">Logic-based scoring — predictable every time</span></div></div>
     <div class="step"><div class="step-num">5</div><div class="step-content"><h3>Your CRM is pre-filled before you open your laptop</h3><p>Name, number, budget, timeline, finance status, property interest, lead score — all silently synced into your CRM. <strong>No digest emails. No "hot lead" pings.</strong> You open your CRM at 8am and the pipeline is already built. Start calling Hot leads immediately.</p><span class="step-tag">Zero inbox noise · Pure pipeline</span></div></div>
   </div>
   <div class="not-chatbot">
     <div class="not-chatbot-icon">⚙️</div>
     <div>
       <h3>Why Hermia is <em>not a chatbot</em> — and why that matters</h3>
-      <p>AI chatbots improvise answers, misread context, and hallucinate. Hermia doesn't. <strong>Every question is scripted. Every valid answer is a letter choice. Every outcome is pre-defined by conditions.</strong> Once the 3 questions are complete, the session closes permanently — the buyer's record is deleted. Any further messages from that number get no response. The system is sealed. No open-ended conversation, no data drift, no unpredictable outputs. <strong>Just clean, structured qualification data in your CRM.</strong></p>
+      <p>AI chatbots improvise answers, misread context, and hallucinate. Hermia doesn't. <strong>Every question is scripted. Every valid answer is a letter choice. Every outcome is pre-defined by conditions.</strong> Once the 3 questions are complete, the session closes permanently — the buyer's record is deleted. Any further messages from that number get no response. The system is sealed. No open-ended conversation, no guessing, no unpredictable outputs. <strong>Just clean, structured qualification data in your CRM.</strong></p>
     </div>
   </div>
 </div>
@@ -550,7 +551,7 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
           <li>Full 3-question qualification sequence</li>
           <li>Live Hot / Warm / Cold tier scoring</li>
           <li>Gibberish kill-switch in action</li>
-          <li>CRM telemetry dashboard preview</li>
+          <li>Live CRM pipeline preview — see how leads flow in</li>
           <li>Inspection booking flow walkthrough</li>
         </ul>
         <a href="gibberish.html" class="demo-cta">Launch Live Demo →</a>
@@ -604,6 +605,14 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
       </div>
     </div>
   </div>
+    <!-- WHY HERMIA EXISTS -->
+    <div style="width:100%; max-width:1060px; margin:52px auto 0; padding:36px 40px; border:1px solid var(--border-hi); border-radius:20px; background:linear-gradient(135deg, rgba(201,163,91,0.06), var(--card) 60%); box-shadow:0 20px 50px rgba(0,0,0,0.35);">
+      <div class="section-tag" style="margin-bottom:12px;">Why Hermia Exists</div>
+      <p style="font-size:16px; color:var(--soft); line-height:1.75; font-weight:300; max-width:780px; margin:0;">
+        Most agents spend thousands generating enquiries — then lose buyers because leads arrive after hours, during open homes, or while they're with another client. <strong style="color:var(--cream);">Hermia exists for one reason:</strong> to make sure every single enquiry gets a response within 30 seconds, gets qualified automatically, and lands in your CRM ready to act on. No missed opportunities. No wasted calls. No leads going cold while you sleep.
+      </p>
+    </div>
+
 </div>
 
 <section class="why-section">
@@ -619,6 +628,49 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
     <div class="why-card"><div class="why-icon">🏛️</div><h3>Enterprise reliability, solo-agent price</h3><p>The same automation backbone trusted by Spotify, Adobe, and Cisco — priced for one agent, not one enterprise.</p></div>
     <div class="why-card"><div class="why-icon">✉️</div><h3>Spam Act 2003 Compliant</h3><p>Every automated message identifies your agency and includes a working STOP/unsubscribe. 100% legal, always.</p></div>
     <div class="why-card"><div class="why-icon">🔒</div><h3>Privacy Act 1988 Guardrails</h3><p>Enquiry data is intercepted, processed, and pushed to your CRM with full encryption and zero external data sharing.</p></div>
+  </div>
+</section>
+
+
+<!-- COMPARISON TABLE -->
+<section style="border-top:1px solid var(--border); padding:88px 24px; text-align:center; background:rgba(201,163,91,0.012);">
+  <div style="max-width:900px; margin:0 auto;">
+    <div class="section-tag" style="display:inline-block;">The Difference</div>
+    <h2 class="section-title" style="margin:8px auto 16px;">What changes<br><em>the week you go live.</em></h2>
+    <p class="section-body" style="margin:0 auto 52px;">Every row on the left is a commission opportunity you're losing right now.</p>
+
+    <div style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
+      <table style="width:100%; border-collapse:collapse; font-family:'DM Sans',sans-serif; text-align:left;">
+        <thead>
+          <tr>
+            <th style="padding:16px 24px; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#ef4444; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.2); border-radius:12px 0 0 0; width:50%;">Without Hermia</th>
+            <th style="padding:16px 24px; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--green); background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.2); border-radius:0 12px 0 0; width:50%;">With Hermia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:17px 24px; font-size:14.5px; color:var(--soft); background:rgba(239,68,68,0.03); border:1px solid rgba(239,68,68,0.1);">Call 10 leads — 7 aren't serious</td>
+            <td style="padding:17px 24px; font-size:14.5px; color:var(--cream); background:rgba(16,185,129,0.03); border:1px solid rgba(16,185,129,0.1);">Call 3 hot leads — all pre-qualified before you dial</td>
+          </tr>
+          <tr>
+            <td style="padding:17px 24px; font-size:14.5px; color:var(--soft); background:rgba(239,68,68,0.03); border:1px solid rgba(239,68,68,0.1);">Type every lead manually into CRM</td>
+            <td style="padding:17px 24px; font-size:14.5px; color:var(--cream); background:rgba(16,185,129,0.03); border:1px solid rgba(16,185,129,0.1);">CRM auto-filled — name, budget, timeline, finance status</td>
+          </tr>
+          <tr>
+            <td style="padding:17px 24px; font-size:14.5px; color:var(--soft); background:rgba(239,68,68,0.03); border:1px solid rgba(239,68,68,0.1);">Miss after-hours and weekend enquiries</td>
+            <td style="padding:17px 24px; font-size:14.5px; color:var(--cream); background:rgba(16,185,129,0.03); border:1px solid rgba(16,185,129,0.1);">Every enquiry responded to in 30 seconds — 24/7</td>
+          </tr>
+          <tr>
+            <td style="padding:17px 24px; font-size:14.5px; color:var(--soft); background:rgba(239,68,68,0.03); border:1px solid rgba(239,68,68,0.1);">Book inspections manually by phone</td>
+            <td style="padding:17px 24px; font-size:14.5px; color:var(--cream); background:rgba(16,185,129,0.03); border:1px solid rgba(16,185,129,0.1);">Inspections booked automatically — zero back-and-forth</td>
+          </tr>
+          <tr>
+            <td style="padding:17px 24px; font-size:14.5px; color:var(--soft); background:rgba(239,68,68,0.03); border:1px solid rgba(239,68,68,0.1); border-radius:0 0 0 12px;">No idea who's a hot buyer until you've wasted a call</td>
+            <td style="padding:17px 24px; font-size:14.5px; color:var(--cream); background:rgba(16,185,129,0.03); border:1px solid rgba(16,185,129,0.1); border-radius:0 0 12px 0;">Hot / Warm / Cold ranked before you open your CRM</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
@@ -677,7 +729,7 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
       <p class="section-body" style="margin:18px auto 0;">The questions agents ask most on demo calls.</p>
     </div>
     <div class="faq-list">
-      <div class="faq-item"><button class="faq-q"><span>Is this just another AI chatbot?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>No — and this is the most important distinction.</strong> Chatbots have open-ended AI conversations that improvise and hallucinate. Hermia is a <em>condition-based qualification system</em>. Every question is pre-written and fixed. Every valid answer is a letter choice (A/B/C/D). Every scoring outcome is determined by logic conditions — not AI inference. The moment a buyer completes the 3 questions, the session closes permanently and their record is deleted. Any further messages get no response. There is no conversation — just a structured interview that produces clean, auditable data.</div></div></div>
+      <div class="faq-item"><button class="faq-q"><span>Is this just another AI chatbot?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>No — and this is the most important distinction.</strong> Chatbots have open-ended AI conversations that improvise and hallucinate. Hermia is a <em>structured qualification system built on fixed logic</em>. Every question is pre-written and fixed. Every valid answer is a letter choice (A/B/C/D). Every scoring outcome is determined by logic conditions — not AI inference. The moment a buyer completes the 3 questions, the session closes permanently and their record is deleted. Any further messages get no response. There is no conversation — just a structured interview that produces clean, auditable data.</div></div></div>
       <div class="faq-item"><button class="faq-q"><span>Which CRMs does Hermia connect to?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>HubSpot, Zoho, Rex, Pipedrive, and Bitrix24</strong> are all supported natively. If you use something else, we build the integration for you during onboarding — included in setup at no extra cost. Hermia pushes <em>structured fields</em> (timeline, budget, finance status, tier score, contact info, property interest) — not raw transcripts.</div></div></div>
       <div class="faq-item"><button class="faq-q"><span>Will I get notification emails every time a lead comes in?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>No. Hermia is inbox-silent by design.</strong> Hot, Warm, and Cold leads all go directly into your CRM with zero email notification. The <em>only</em> email you'll ever get from Hermia is when a buyer wants to inspect a property you haven't listed times for yet. That's it. Your inbox stays quiet. Your CRM stays full.</div></div></div>
     </div>
