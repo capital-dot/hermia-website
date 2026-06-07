@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Hermia · Connect Your Tools</title>
+<title>Hermia · Connect Your CRM</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
@@ -25,9 +25,7 @@
           window.dispatchEvent(new Event('nango-ready'));
           return;
         }
-      } catch (e) {
-        console.error('[Hermia] Nango SDK failed from', url, e);
-      }
+      } catch (e) { console.error('[Hermia] Nango SDK failed from', url, e); }
     }
     console.error('[Hermia] Nango SDK could not load from any CDN');
   })();
@@ -79,6 +77,7 @@
   @keyframes halo{0%,100%{opacity:.55;transform:scale(.92)}50%{opacity:.95;transform:scale(1.06)}}
   @keyframes logoIn{from{opacity:0;transform:translateY(-8px) scale(.96)}to{opacity:1}}
 
+  /* 4-step stepper — unchanged visually */
   .steps{display:flex; align-items:flex-start; justify-content:space-between; width:100%; max-width:490px; margin-bottom:50px; position:relative; opacity:0; animation:fadeUp .7s .14s forwards}
   .steps::before{content:''; position:absolute; top:16px; left:34px; right:34px; height:1.5px; background:var(--border)}
   .progressline{position:absolute; top:16px; left:34px; height:1.5px; width:0; background:linear-gradient(90deg,var(--gold-light),var(--gold)); box-shadow:0 0 8px rgba(201,163,91,0.5); transition:width .6s ease; z-index:0}
@@ -151,23 +150,23 @@
   .btn:disabled{filter:grayscale(.5) brightness(.8); cursor:not-allowed; opacity:.6}
   .btn .spin{display:none; width:16px; height:16px; border:2px solid rgba(26,20,8,.35); border-top-color:#1a1408; border-radius:50%; animation:spin .7s linear infinite; vertical-align:-3px; margin-right:8px}
   .btn.loading .spin{display:inline-block}
-
-  .skip{display:block; width:100%; margin-top:14px; background:none; border:none; color:var(--soft); font-family:inherit; font-size:12.5px; cursor:pointer; transition:.2s}
-  .skip:hover{color:var(--cream)}
   .statusmsg{margin-top:18px; text-align:center; font-size:13px; display:none}
   .statusmsg.show{display:block} .statusmsg.bad{color:#e07a72}
 
-  .gcard{text-align:center}
-  .gicon{width:72px; height:72px; margin:0 auto 6px; border-radius:18px; background:rgba(8,8,11,0.6); border:1px solid var(--border); display:grid; place-items:center; box-shadow:inset 0 1px 0 rgba(255,255,255,0.06)}
-  .gicon svg{width:34px;height:34px}
-  .perms{list-style:none; text-align:left; margin:24px 0 4px; display:flex; flex-direction:column; gap:13px}
-  .perms li{display:flex; align-items:center; gap:12px; font-size:13.5px; color:var(--cream)}
-  .perms .pc{width:24px;height:24px;flex:none;border-radius:7px;background:rgba(201,163,91,0.12);display:grid;place-items:center}
-  .perms .pc svg{width:13px;height:13px;stroke:var(--gold-light);stroke-width:2}
-  .perms .never{color:var(--soft)}
-  .note{background:rgba(8,8,11,0.6); border:1px solid var(--border); border-radius:13px; padding:15px 17px; margin:22px 0 18px; text-align:left; font-size:13px; color:var(--soft); line-height:1.55}
-  .note b{color:var(--gold-light); font-weight:500}
+  /* FIELDS */
+  .fieldlist{display:flex;flex-direction:column;gap:9px;margin:8px 0 22px}
+  .fieldrow{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#0b0b0e;border:1px solid rgba(201,163,91,0.22);border-radius:10px;padding:13px 16px}
+  .fieldname{font-family:'DM Sans',monospace;font-size:15px;font-weight:600;color:#f4f0e6;letter-spacing:0.2px}
+  .fieldtype{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#C9A35B;background:rgba(201,163,91,0.1);border:1px solid rgba(201,163,91,0.25);border-radius:5px;padding:3px 9px}
+  .scarywarn{display:flex;gap:13px;align-items:flex-start;margin:6px 0 22px;padding:18px 18px;border-radius:13px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.5)}
+  .scarywarn .wico{font-size:20px;line-height:1.2;flex-shrink:0}
+  .scarywarn p{font-size:13.5px;line-height:1.6;color:#ffc9c9;margin:0}
+  .scarywarn b{color:#ff8585}
+  .remind{display:flex;align-items:center;gap:11px;margin:0 0 20px;padding:14px 16px;background:rgba(201,163,91,0.05);border:1px solid rgba(201,163,91,0.2);border-radius:11px;cursor:pointer}
+  .remind input{width:18px;height:18px;accent-color:#C9A35B;cursor:pointer;flex-shrink:0}
+  .remind span{font-size:13.5px;color:#b0ada5;line-height:1.5}
 
+  /* SUCCESS */
   .success{text-align:center; padding:14px 0}
   .check{position:relative; width:100px; height:100px; margin:0 auto 28px; display:grid; place-items:center; border-radius:50%;
     background:radial-gradient(circle, rgba(16,185,129,0.20), rgba(16,185,129,0.03)); animation:pop .55s cubic-bezier(.2,.9,.3,1.4) both}
@@ -189,18 +188,6 @@
 
   .hide{display:none !important}
 
-  .fieldlist{display:flex;flex-direction:column;gap:9px;margin:8px 0 22px}
-  .fieldrow{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#0b0b0e;border:1px solid rgba(201,163,91,0.22);border-radius:10px;padding:13px 16px}
-  .fieldname{font-family:'DM Sans',monospace;font-size:15px;font-weight:600;color:#f4f0e6;letter-spacing:0.2px}
-  .fieldtype{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#C9A35B;background:rgba(201,163,91,0.1);border:1px solid rgba(201,163,91,0.25);border-radius:5px;padding:3px 9px}
-  .scarywarn{display:flex;gap:13px;align-items:flex-start;margin:6px 0 22px;padding:18px 18px;border-radius:13px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.5)}
-  .scarywarn .wico{font-size:20px;line-height:1.2;flex-shrink:0}
-  .scarywarn p{font-size:13.5px;line-height:1.6;color:#ffc9c9;margin:0}
-  .scarywarn b{color:#ff8585}
-  .remind{display:flex;align-items:center;gap:11px;margin:0 0 20px;padding:14px 16px;background:rgba(201,163,91,0.05);border:1px solid rgba(201,163,91,0.2);border-radius:11px;cursor:pointer}
-  .remind input{width:18px;height:18px;accent-color:#C9A35B;cursor:pointer;flex-shrink:0}
-  .remind span{font-size:13.5px;color:#b0ada5;line-height:1.5}
-
   @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
   @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes draw{to{stroke-dashoffset:0}}
@@ -221,19 +208,32 @@
       <img class="logo" src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" />
     </div>
 
+    <!-- STEPPER: Payment → Details → Connect CRM → Go Live -->
     <div class="steps">
       <div class="progressline" id="progressline"></div>
-      <div class="step done"><div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="label">Payment</div></div>
-      <div class="step done"><div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="label">Details</div></div>
-      <div class="step active" id="step-crm"><div class="dot">3</div><div class="label">Connect CRM</div></div>
-      <div class="step" id="step-gmail"><div class="dot">4</div><div class="label">Connect Gmail</div></div>
+      <div class="step done">
+        <div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="label">Payment</div>
+      </div>
+      <div class="step done">
+        <div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="label">Details</div>
+      </div>
+      <div class="step active" id="step-crm">
+        <div class="dot">3</div>
+        <div class="label">Connect CRM</div>
+      </div>
+      <div class="step" id="step-live">
+        <div class="dot">4</div>
+        <div class="label">Go Live</div>
+      </div>
     </div>
 
-    <!-- STEP 3: CRM -->
+    <!-- STEP 3: CRM SELECTION -->
     <div class="card" id="view-crm">
       <div class="eyebrow">Step 3 of 4</div>
       <h1>Connect your CRM</h1>
-      <p class="sub">Hermia pushes qualified leads straight into your CRM. Pick the one you use.</p>
+      <p class="sub">Hermia pushes qualified leads straight into your CRM. Pick the one you use — we'll register the connection automatically.</p>
 
       <div class="grid" id="big4"></div>
       <button class="more-toggle" id="moreToggle">More CRMs <span class="chev">▾</span></button>
@@ -249,41 +249,22 @@
       <div class="statusmsg bad" id="crmStatus">Couldn't connect that CRM. Please try again.</div>
     </div>
 
-    <!-- STEP 4: GMAIL -->
-    <div class="card gcard hide" id="view-gmail">
-      <div class="eyebrow">Step 4 of 4</div>
-      <div class="gicon"><svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="5" width="19" height="14" rx="2.5" stroke="#C9A35B" stroke-width="1.6"/><path d="M3 6.5l9 6 9-6" stroke="#e8c17a" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-      <h1>Connect your Gmail</h1>
-      <p class="sub">Hermia reads your property enquiry emails so it can qualify every lead the moment it lands.</p>
-
-      <ul class="perms">
-        <li><span class="pc"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5h20v11H2z"/><path d="M2 7l10 7 10-7"/></svg></span>Reads incoming property enquiry emails</li>
-        <li><span class="pc"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>Identifies and qualifies new leads automatically</li>
-        <li class="never"><span class="pc"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg></span>Read-only — never sends, edits or deletes anything</li>
-      </ul>
-
-      <button class="btn" id="nylasBtn">Connect Gmail Securely →</button>
-      <div class="note">You'll sign in with Google, approve <b>read-only</b> access, and come straight back here automatically — nothing to copy or paste.</div>
-      <button class="skip" id="skipGmail">I'll connect Gmail later — continue</button>
-      <div class="statusmsg bad" id="gmailStatus">Couldn't finish connecting Gmail. Please try again.</div>
-    </div>
-
-    <!-- STEP 5: CREATE CRM FIELDS -->
+    <!-- STEP 4: CRM FIELDS -->
     <div class="card hide" id="view-fields">
-      <div class="eyebrow">Last step</div>
+      <div class="eyebrow">Step 4 of 4 · Last step</div>
       <h1>Create these fields in your CRM</h1>
-      <p class="sub">Hermia fills these fields on every qualified lead. Create them in your CRM <b>exactly</b> as written below — same spelling, same capitals, same underscores.</p>
+      <p class="sub">Hermia writes qualified lead data into these fields. Create them <b>exactly</b> as written below — same spelling, same capitals, same underscores.</p>
 
       <div class="fieldlist" id="fieldList"></div>
 
       <div class="scarywarn">
         <div class="wico">🚫</div>
-        <p><b>These must match exactly.</b> If a field name is spelled differently, has a space instead of an underscore, or is missing, that lead's data <b>will not arrive</b> in your CRM — and it fails silently, with no error. Name &amp; Email &amp; Phone already exist in your CRM by default; only create the ones listed above.</p>
+        <p><b>These must match exactly.</b> If a field name is spelled differently or is missing, that lead's data <b>will not arrive</b> in your CRM — and it fails silently. Name, Email &amp; Phone already exist by default; only create the ones listed above.</p>
       </div>
 
       <label class="remind">
         <input type="checkbox" id="remindMe" checked />
-        <span>Email me this field list as a reminder, so I can set it up properly later.</span>
+        <span>Email me this field list as a reminder so I can set it up properly.</span>
       </label>
 
       <button class="btn" id="fieldsBtn"><span class="spin"></span><span class="btn-text">I've Created These Fields — Finish →</span></button>
@@ -294,12 +275,12 @@
     <div class="card hide" id="view-success">
       <div class="success">
         <div class="check"><svg viewBox="0 0 24 24"><polyline class="path" points="20 6 9 17 4 12"/></svg></div>
-        <h1>You're all set up.</h1>
-        <p class="sub" style="margin-bottom:0">Hermia is now monitoring your leads. We'll qualify your next lead automatically.</p>
+        <h1>You're live.</h1>
+        <p class="sub" style="margin-bottom:0">Hermia is now monitoring your CRM. Your next lead gets qualified automatically.</p>
         <ul class="conf">
-          <li><span class="cc"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>CRM webhook is live</li>
-          <li><span class="cc"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Lead qualification is active</li>
-          <li><span class="cc"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Pushing qualified data back to your CRM</li>
+          <li><span class="cc"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>CRM webhook registered — leads flow instantly</li>
+          <li><span class="cc"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>WhatsApp qualification is active</li>
+          <li><span class="cc"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Hot / Warm / Cold scores push back to your CRM</li>
         </ul>
         <a class="btn" href="https://www.hermia.au" style="display:block;text-decoration:none;text-align:center">Back to Hermia →</a>
       </div>
@@ -314,11 +295,6 @@
   // ============================================================================
   const SUPABASE_URL      = 'https://fjovhxaupeidvkfhigff.supabase.co';
   const SUPABASE_KEY      = 'sb_publishable_8jqbPp3THF54CnpomkJ3vQ_DtqnSAfV';
-  const NYLAS_CLIENT_ID   = '0fef4162-8c07-4903-8fde-2fe96806ad29';
-  const NYLAS_REDIRECT    = 'https://onboarding.hermia.au/crm.html';
-  const NYLAS_TOKEN_URL   = 'https://hermia-nylas.capital-fbc.workers.dev';
-  // The same Worker now handles BOTH session tokens (POST /) and webhook
-  // registration (POST /register-webhook). Secret key lives there — never here.
   const NANGO_SESSION_URL = 'https://hermianango.capital-fbc.workers.dev';
 
   const REQUIRED_FIELDS = [
@@ -423,7 +399,6 @@
 
   // ============================================================================
   // REGISTER WEBHOOK — fires silently after OAuth, agent never sees it
-  // The actual Nango proxy call happens inside the Worker (secret key stays safe)
   // ============================================================================
   async function registerWebhook(provider, connectionId) {
     try {
@@ -434,11 +409,9 @@
       });
       const d = await r.json().catch(() => ({}));
       if (!r.ok || d.ok === false) {
-        // Log the failure but never show it to the agent — it must not block onboarding
         console.warn('[Hermia] webhook registration failed for', provider, d);
       } else {
         console.log('[Hermia] webhook registered for', provider, d);
-        // If Monday returned a boardId, store it in Supabase for scenario 2
         if (provider === 'monday' && d.boardId && customerId) {
           try {
             await sb('customers?id=eq.' + customerId, {
@@ -450,7 +423,6 @@
         }
       }
     } catch(e) {
-      // Network error — log, never block
       console.warn('[Hermia] webhook registration network error:', e);
     }
   }
@@ -477,7 +449,7 @@
       else if(c.conn === 'other') providerName = 'other:' + v;
       await saveCrm(providerName, null, apiKey);
       showToast(c.name + ' saved');
-      setTimeout(goToGmail, 900);
+      setTimeout(goToFields, 900);
     }catch(e){
       console.error(e);
       status.textContent = 'Couldn\'t save that. Please try again.';
@@ -541,15 +513,13 @@
               const provKey = p.providerConfigKey || p.provider_config_key ||
                               conn.providerConfigKey || conn.provider_config_key || c.provider;
 
-              // 1. Save to Supabase
               await saveCrm(provKey, connId, null);
 
-              // 2. Register webhook inside their CRM — silent, non-blocking
-              //    Don't await so it never delays moving to the next step
+              // Register webhook silently — does not block onboarding
               if(connId) registerWebhook(provKey, connId);
 
               showToast(c.name + ' connected');
-              setTimeout(goToGmail, 900);
+              setTimeout(goToFields, 900);
             }catch(e){
               console.error('[Hermia] save error:', e);
               status.textContent = 'Connected, but saving failed. Please try again.';
@@ -571,79 +541,23 @@
   // ============================================================================
   // NAVIGATION
   // ============================================================================
-  function goToGmail(){
-    $('view-crm').classList.add('hide'); $('view-gmail').classList.remove('hide');
+  function goToFields(){
+    $('view-crm').classList.add('hide');
+    $('view-fields').classList.remove('hide');
     $('step-crm').classList.replace('active','done');
     $('step-crm').querySelector('.dot').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-    $('step-gmail').classList.add('active');
+    $('step-live').classList.add('active');
     $('progressline').style.width = 'calc(100% - 68px)';
     window.scrollTo({top:0, behavior:'smooth'});
   }
 
-  function nylasAuthUrl(){
-    const p = new URLSearchParams({
-      client_id: NYLAS_CLIENT_ID, redirect_uri: NYLAS_REDIRECT,
-      response_type: 'code', access_type: 'offline',
-      scope: 'https://www.googleapis.com/auth/gmail.readonly'
-    });
-    if(customerId) p.set('state', customerId);
-    return 'https://api.us.nylas.com/v3/connect/auth?' + p.toString();
+  function showSuccess(){
+    $('view-fields').classList.add('hide');
+    $('view-success').classList.remove('hide');
+    $('step-live').classList.replace('active','done');
+    $('step-live').querySelector('.dot').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    window.scrollTo({top:0, behavior:'smooth'});
   }
-
-  $('nylasBtn').addEventListener('click', () => { window.location.href = nylasAuthUrl(); });
-  $('skipGmail').addEventListener('click', () => completeSetup(false));
-
-  async function completeSetup(){
-    if(customerId){
-      try{ await sb('onboarding_status?customer_id=eq.' + customerId, { method:'PATCH', headers:{ Prefer:'return=minimal' },
-        body: JSON.stringify({ email_connected:false, onboarding_complete:true }) }); }catch(e){ console.error(e); }
-    }
-    goToFields();
-  }
-
-  async function finishNylas(code, stateCustomer){
-    const status = $('gmailStatus'); status.classList.remove('show');
-    const btn = $('nylasBtn'); btn.disabled = true; btn.textContent = 'Finishing Gmail connection…';
-    const cust = stateCustomer || customerId;
-    let grant, gmail;
-    try{
-      const r = await fetch(NYLAS_TOKEN_URL, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ code }) });
-      const d = await r.json();
-      if(!r.ok || !d.grant_id) throw new Error(d.error || 'no grant returned');
-      grant = d.grant_id; gmail = d.email || email;
-    }catch(e){
-      console.error('[Hermia] nylas exchange failed:', e);
-      status.textContent = 'Couldn\u2019t finish connecting Gmail \u2014 ' + (e.message || 'please try again') + '.';
-      status.classList.add('show');
-      btn.disabled = false; btn.textContent = 'Connect Gmail Securely →';
-      history.replaceState({}, '', location.pathname);
-      return;
-    }
-    try{
-      await sb('email_connections', { method:'POST', headers:{ Prefer:'return=minimal' },
-        body: JSON.stringify({ customer_id:cust, nylas_grant_id:grant, email:gmail, connected_at:new Date().toISOString() }) });
-      if(cust){
-        try{ await sb('customers?id=eq.' + cust, { method:'PATCH', headers:{ Prefer:'return=minimal' }, body: JSON.stringify({ nylas_grant_id:grant }) }); }
-        catch(e){ console.warn('[Hermia] add a nylas_grant_id column to customers:', e); }
-        await sb('onboarding_status?customer_id=eq.' + cust, { method:'PATCH', headers:{ Prefer:'return=minimal' },
-          body: JSON.stringify({ email_connected:true, onboarding_complete:true }) });
-      }
-    }catch(e){ console.error('[Hermia] save grant failed:', e); }
-    history.replaceState({}, '', location.pathname);
-    goToFields();
-  }
-
-  (function handleNylasReturn(){
-    const params = new URLSearchParams(location.search);
-    const code = params.get('code');
-    if(!code) return;
-    $('view-crm').classList.add('hide'); $('view-gmail').classList.remove('hide');
-    $('step-crm').classList.replace('active','done');
-    $('step-crm').querySelector('.dot').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-    $('step-gmail').classList.add('active');
-    $('progressline').style.width = 'calc(100% - 68px)';
-    finishNylas(code, params.get('state'));
-  })();
 
   // ============================================================================
   // FIELDS SCREEN
@@ -651,20 +565,6 @@
   $('fieldList').innerHTML = REQUIRED_FIELDS.map(f =>
     '<div class="fieldrow"><span class="fieldname">' + f.name + '</span><span class="fieldtype">' + f.type + '</span></div>'
   ).join('');
-
-  function goToFields(){
-    $('view-gmail').classList.add('hide'); $('view-fields').classList.remove('hide');
-    $('step-gmail').classList.replace('active','done');
-    $('step-gmail').querySelector('.dot').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-    window.scrollTo({top:0, behavior:'smooth'});
-  }
-
-  function showSuccess(){
-    $('view-gmail').classList.add('hide'); $('view-fields').classList.add('hide'); $('view-success').classList.remove('hide');
-    $('step-gmail').classList.replace('active','done');
-    $('step-gmail').querySelector('.dot').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-    window.scrollTo({top:0, behavior:'smooth'});
-  }
 
   $('fieldsBtn').addEventListener('click', async () => {
     const btn = $('fieldsBtn'); const status = $('fieldsStatus');
@@ -680,9 +580,14 @@
         });
       }catch(e){ console.warn('[Hermia] fields reminder webhook failed:', e); }
     }
+    if(customerId){
+      try{ await sb('onboarding_status?customer_id=eq.' + customerId, { method:'PATCH', headers:{ Prefer:'return=minimal' },
+        body: JSON.stringify({ onboarding_complete:true }) }); }catch(e){ console.error(e); }
+    }
     showSuccess();
   });
 </script>
 </body>
 </html>
+
 
