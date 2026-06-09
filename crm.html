@@ -331,7 +331,7 @@
     { name:'Description',      type:'Multi-Line'  }
   ];
   const FIELDS_WEBHOOK = '';
-  const LIVE_OAUTH = new Set(['monday', 'pipedrive', 'zoho-crm', 'freshsales', 'followupboss']);
+  const LIVE_OAUTH = new Set(['monday', 'pipedrive', 'zoho-crm', 'freshsales', 'followupboss', 'salesforce']);
 
   const customerId = sessionStorage.getItem('hermia_customer_id') || null;
   const email      = sessionStorage.getItem('hermia_email') || null;
@@ -364,8 +364,9 @@
     freshsales:  {name:'Freshsales',    conn:'nango',  provider:'freshsales',   mark:'F', mbg:'linear-gradient(135deg,#f0a85a,#E99640)'},
     pipedrive:   {name:'Pipedrive',     conn:'nango',  provider:'pipedrive',    mark:'P', mbg:'linear-gradient(135deg,#2f7d4b,#225F38)'},
     monday:      {name:'Monday.com',    conn:'nango',  provider:'monday',       mark:'M', mbg:'linear-gradient(135deg,#e2445c,#fdab3d)'},
+    salesforce:  {name:'Salesforce',    conn:'nango',  provider:'salesforce',   mark:'S', mbg:'linear-gradient(135deg,#00A1E0,#0070D2)'},
   };
-  const BIG4 = ['zoho','followupboss','freshsales','pipedrive','monday'];
+  const BIG4 = ['zoho','followupboss','freshsales','pipedrive','monday','salesforce'];
   const MORE = [];
   let selected = null;
 
