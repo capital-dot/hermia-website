@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hermia — Every Enquiry Qualified. Every Inspection Booked. Zero Effort.</title>
-<meta name="description" content="Hermia qualifies every buyer enquiry in 30 seconds via WhatsApp &amp; SMS, books inspections automatically, and pushes ranked leads into your CRM — Hot, Warm, or Cold. Not a chatbot. Not a CRM. The layer between your portal and your pipeline.">
+<title>Hermia — Automated Lead Qualification Software for Real Estate Agents in Australia & Dubai</title>
+<meta name="description" content="Hermia automatically qualifies every property enquiry via WhatsApp and SMS, ranks leads Hot, Warm or Cold, and pushes full qualification data directly into your CRM. Built for real estate agents in Australia and Dubai. No chatbot. No manual follow-up.">
+<meta name="keywords" content="real estate lead qualification, property enquiry software, CRM automation real estate, lead qualification Australia, lead qualification Dubai, real estate agent software, property lead management, WhatsApp lead qualification">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
@@ -161,16 +162,12 @@ nav { position:fixed; top:0; left:0; right:0; z-index:200; padding:16px 52px; di
 .hi-card.native:hover { transform:translateY(-5px); border-color:rgba(242,205,122,.5); background:rgba(242,205,122,.06); box-shadow:0 14px 40px -16px rgba(224,179,87,.5); }
 .hi-card.custom { border:1px dashed rgba(255,255,255,.14); background:rgba(255,255,255,.02); }
 .hi-card.custom:hover { transform:translateY(-5px); border-color:rgba(242,205,122,.45); background:rgba(255,255,255,.045); }
-
-/* ── UPDATED: .hi-ico now handles real logo images ── */
 .hi-ico { display:flex; align-items:center; justify-content:center; width:52px; height:52px; transition:transform .3s ease; }
 .hi-ico img { width:44px; height:44px; object-fit:contain; border-radius:10px; transition:transform .3s ease; filter:drop-shadow(0 2px 8px rgba(0,0,0,0.35)); }
 .hi-card:hover .hi-ico img { transform:scale(1.12); }
-/* Fallback SVG styling kept */
 .hi-ico svg { color:#e8c17a; }
 .hi-card.custom .hi-ico svg { color:#8a96a8; }
 .hi-card.custom:hover .hi-ico svg { color:#e8c17a; }
-
 .hi-name { font-size:.92rem; font-weight:600; color:#f4f0e6; }
 .hi-card.custom .hi-name { color:#b0ada5; }
 .hi-tag { font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; }
@@ -327,21 +324,9 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
 
 /* ── VISUAL PIPELINE ── */
 .pipeline-wrap { max-width:780px; margin:60px auto 0; }
-.pipeline-node {
-  display:flex; align-items:flex-start; gap:24px; position:relative;
-}
-.pipeline-node:not(:last-child)::after {
-  content:''; position:absolute; left:27px; top:58px;
-  width:2px; height:calc(100% - 14px);
-  background:linear-gradient(180deg, var(--gold), rgba(201,163,91,0.1));
-}
-.pipeline-icon {
-  width:56px; height:56px; min-width:56px; border-radius:16px;
-  background:var(--gold-dim); border:1px solid var(--border-hi);
-  display:flex; align-items:center; justify-content:center;
-  font-size:20px; position:relative; z-index:1;
-  box-shadow:0 0 0 6px var(--black), 0 0 20px rgba(201,163,91,0.15);
-}
+.pipeline-node { display:flex; align-items:flex-start; gap:24px; position:relative; }
+.pipeline-node:not(:last-child)::after { content:''; position:absolute; left:27px; top:58px; width:2px; height:calc(100% - 14px); background:linear-gradient(180deg, var(--gold), rgba(201,163,91,0.1)); }
+.pipeline-icon { width:56px; height:56px; min-width:56px; border-radius:16px; background:var(--gold-dim); border:1px solid var(--border-hi); display:flex; align-items:center; justify-content:center; font-size:20px; position:relative; z-index:1; box-shadow:0 0 0 6px var(--black), 0 0 20px rgba(201,163,91,0.15); }
 .pipeline-body { padding:10px 0 40px; }
 .pipeline-source { font-size:10.5px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
 .pipeline-title { font-size:19px; font-weight:600; color:#fff; margin-bottom:6px; }
@@ -493,7 +478,6 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
 
 </div>
 
-<!-- ═══════════ INTEGRATION SECTION — UPDATED WITH REAL LOGOS ═══════════ -->
 <section class="hermia-integrations" id="integrations">
   <div class="hi-glow"></div>
   <div class="hi-grid-tex"></div>
@@ -501,7 +485,7 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
     <div class="hi-head">
       <span class="hi-pill"><span class="hi-dot"></span>Works with your stack</span>
       <h2 class="hi-h2">We integrate with your <span class="grad">existing CRM</span></h2>
-      <p class="hi-sub">To be clear &mdash; <b>we are not a CRM.</b> We are the AI layer that plugs directly into yours.</p>
+      <p class="hi-sub">To be clear &mdash; <b>we are not a CRM.</b> We are the qualification layer that plugs directly into yours.</p>
     </div>
 
     <div class="hi-tier">
@@ -511,37 +495,31 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
         <span class="hi-line gold"></span>
       </div>
       <div class="hi-cards">
-
         <div class="hi-card native">
           <span class="hi-ico"><img src="https://logo.clearbit.com/zoho.com" alt="Zoho CRM" loading="lazy"></span>
           <span class="hi-name">Zoho CRM</span>
           <span class="hi-tag n">Native</span>
         </div>
-
         <div class="hi-card native">
           <span class="hi-ico"><img src="https://logo.clearbit.com/pipedrive.com" alt="Pipedrive" loading="lazy"></span>
           <span class="hi-name">Pipedrive</span>
           <span class="hi-tag n">Native</span>
         </div>
-
         <div class="hi-card native">
           <span class="hi-ico"><img src="https://logo.clearbit.com/freshsales.io" alt="Freshsales" loading="lazy"></span>
           <span class="hi-name">Freshsales</span>
           <span class="hi-tag n">Native</span>
         </div>
-
         <div class="hi-card native">
           <span class="hi-ico"><img src="https://logo.clearbit.com/followupboss.com" alt="Follow Up Boss" loading="lazy"></span>
           <span class="hi-name">Follow Up Boss</span>
           <span class="hi-tag n">Native</span>
         </div>
-
         <div class="hi-card native">
           <span class="hi-ico"><img src="https://logo.clearbit.com/monday.com" alt="Monday CRM" loading="lazy"></span>
           <span class="hi-name">Monday CRM</span>
           <span class="hi-tag n">Native</span>
         </div>
-
       </div>
     </div>
 
@@ -552,37 +530,31 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
         <span class="hi-line dim"></span>
       </div>
       <div class="hi-cards">
-
         <div class="hi-card custom">
           <span class="hi-ico"><img src="https://logo.clearbit.com/salesforce.com" alt="Salesforce" loading="lazy"></span>
           <span class="hi-name">Salesforce</span>
           <span class="hi-tag c">Custom</span>
         </div>
-
         <div class="hi-card custom">
           <span class="hi-ico"><img src="https://logo.clearbit.com/hubspot.com" alt="HubSpot" loading="lazy"></span>
           <span class="hi-name">HubSpot</span>
           <span class="hi-tag c">Custom</span>
         </div>
-
         <div class="hi-card custom">
           <span class="hi-ico"><img src="https://logo.clearbit.com/rexsoftware.com" alt="Rex CRM" loading="lazy"></span>
           <span class="hi-name">Rex CRM</span>
           <span class="hi-tag c">Custom</span>
         </div>
-
         <div class="hi-card custom">
           <span class="hi-ico"><img src="https://logo.clearbit.com/propspace.com" alt="PropSpace" loading="lazy"></span>
           <span class="hi-name">PropSpace</span>
           <span class="hi-tag c">Custom</span>
         </div>
-
         <div class="hi-card custom">
           <span class="hi-ico"><img src="https://logo.clearbit.com/propertyme.com.au" alt="PropertyMe" loading="lazy"></span>
           <span class="hi-name">PropertyMe</span>
           <span class="hi-tag c">Custom</span>
         </div>
-
       </div>
     </div>
 
@@ -652,14 +624,13 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
 
 <div class="trust-section">
   <div class="trust-inner" style="justify-content:center; max-width:860px;">
-    <!-- WHY HERMIA EXISTS -->
     <div style="width:100%; max-width:1060px; margin:52px auto 0; padding:36px 40px; border:1px solid var(--border-hi); border-radius:20px; background:linear-gradient(135deg, rgba(201,163,91,0.06), var(--card) 60%); box-shadow:0 20px 50px rgba(0,0,0,0.35);">
       <div class="section-tag" style="margin-bottom:12px;">Why Hermia Exists</div>
       <p style="font-size:16px; color:var(--soft); line-height:1.75; font-weight:300; max-width:780px; margin:0;">
         Most agents spend thousands generating enquiries — then lose buyers because leads arrive after hours, during open homes, or while they're with another client. <strong style="color:var(--cream);">Hermia exists for one reason:</strong> to make sure every single enquiry gets a response within 30 seconds, gets qualified automatically, and lands in your CRM ready to act on. No missed opportunities. No wasted calls. No leads going cold while you sleep.
       </p>
     </div>
-
+  </div>
 </div>
 
 <section class="why-section">
@@ -671,21 +642,18 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
     <div class="why-card"><div class="why-icon">✕</div><h3>Walk away anytime</h3><p>No contracts. No lock-in. No exit fees. Cancel the moment Hermia stops earning its place in your workflow.</p></div>
     <div class="why-card"><div class="why-icon">⌚</div><h3>Live in your business within 24 hours</h3><p>Full onboarding done for you. Connected to Domain, REA, Property Finder, Bayut, and your CRM in one working day.</p></div>
     <div class="why-card"><div class="why-icon">⚙️</div><h3>Plugs into the CRM you already use</h3><p>HubSpot, Zoho, Rex, Pipedrive, Bitrix24. Hermia pushes structured lead data directly where you manage your pipeline.</p></div>
-    <div class="why-card"><div class="why-icon">🛡️</div><h3>No AI hallucinations. Ever.</h3><p>Every question is scripted. Every answer is a letter choice. Every outcome is defined by conditions. No surprises.</p></div>
+    <div class="why-card"><div class="why-icon">🛡️</div><h3>No hallucinations. Ever.</h3><p>Every question is scripted. Every answer is a letter choice. Every outcome is defined by conditions. No surprises.</p></div>
     <div class="why-card"><div class="why-icon">🏛️</div><h3>Built to handle your busiest days</h3><p>Designed to handle hundreds of enquiries without slowing down — even during open home season when every agent is stretched.</p></div>
     <div class="why-card"><div class="why-icon">✉️</div><h3>Every message is above board</h3><p>Every automated message identifies your agency and includes a STOP option. Fully legal under Australian and UAE regulations.</p></div>
     <div class="why-card"><div class="why-icon">🔒</div><h3>Your data stays yours</h3><p>Lead data is processed and pushed directly to your CRM. Nothing is stored externally. Nothing is shared.</p></div>
   </div>
 </section>
 
-
-<!-- COMPARISON TABLE -->
 <section style="border-top:1px solid var(--border); padding:88px 24px; text-align:center; background:rgba(201,163,91,0.012);">
   <div style="max-width:900px; margin:0 auto;">
     <div class="section-tag" style="display:inline-block;">The Difference</div>
     <h2 class="section-title" style="margin:8px auto 16px;">What changes<br><em>the week you go live.</em></h2>
     <p class="section-body" style="margin:0 auto 52px;">Every row on the left is a commission opportunity you're losing right now.</p>
-
     <div style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
       <table style="width:100%; border-collapse:collapse; font-family:'DM Sans',sans-serif; text-align:left;">
         <thead>
@@ -776,7 +744,7 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
       <p class="section-body" style="margin:18px auto 0;">The questions agents ask most on demo calls.</p>
     </div>
     <div class="faq-list">
-      <div class="faq-item"><button class="faq-q"><span>Is this just another AI chatbot?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>No — and this is the most important distinction.</strong> Chatbots have open-ended AI conversations that improvise and hallucinate. Hermia is a <em>structured qualification system built on fixed logic</em>. Every question is pre-written and fixed. Every valid answer is a letter choice (A/B/C/D). Every scoring outcome is determined by logic conditions — not AI inference. The moment a buyer completes the 3 questions, the session closes permanently and their record is deleted. Any further messages get no response. There is no conversation — just a structured interview that produces clean, auditable data.</div></div></div>
+      <div class="faq-item"><button class="faq-q"><span>Is this just another chatbot?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>No — and this is the most important distinction.</strong> Chatbots have open-ended conversations that improvise and hallucinate. Hermia is a <em>structured qualification system built on fixed logic</em>. Every question is pre-written and fixed. Every valid answer is a letter choice (A/B/C/D). Every scoring outcome is determined by logic conditions — not inference. The moment a buyer completes the 3 questions, the session closes permanently and their record is deleted. Any further messages get no response. There is no conversation — just a structured interview that produces clean, auditable data.</div></div></div>
       <div class="faq-item"><button class="faq-q"><span>Which CRMs does Hermia connect to?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>HubSpot, Zoho, Rex, Pipedrive, and Bitrix24</strong> are all supported natively. If you use something else, we build the integration for you during onboarding — included in setup at no extra cost. Hermia pushes <em>structured fields</em> (timeline, budget, finance status, tier score, contact info, property interest) — not raw transcripts.</div></div></div>
       <div class="faq-item"><button class="faq-q"><span>Will I get notification emails every time a lead comes in?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>No. Hermia is inbox-silent by design.</strong> Hot, Warm, and Cold leads all go directly into your CRM with zero email notification. The <em>only</em> email you'll ever get from Hermia is when a buyer wants to inspect a property you haven't listed times for yet. That's it. Your inbox stays quiet. Your CRM stays full.</div></div></div>
     </div>
@@ -792,8 +760,6 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
   </div>
 </div>
 
-
-
 <footer>
   <div>
     <a href="#" class="footer-logo"><img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia"><span>Hermia</span></a>
@@ -804,7 +770,7 @@ footer { border-top:1px solid var(--border); padding:52px 52px; display:grid; gr
   <div class="footer-col"><h4>Contact &amp; Legal</h4><a href="mailto:capital@hermia.au">capital@hermia.au</a><a href="calendar.html">Reserve My Slot</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></div>
 </footer>
 <div class="footer-bottom">
-  <p>© 2026 Hermia · ABN 75 434 177 026 · Independent software provider. All trademarks property of their respective owners..</p>
+  <p>© 2026 Hermia · ABN 75 434 177 026 · Independent software provider. All trademarks property of their respective owners.</p>
   <p style="color:var(--muted);">Not a chatbot. Not a CRM. The qualification layer.</p>
 </div>
 
@@ -832,3 +798,4 @@ document.addEventListener('keydown', (e) => {
 <script src="/hermia-widget.js"></script>
 </body>
 </html>
+
