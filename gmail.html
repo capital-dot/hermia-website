@@ -95,20 +95,30 @@
   .btn{position:relative;overflow:hidden;width:100%;padding:17px;border:none;border-radius:13px;cursor:pointer;
     font-family:'DM Sans',sans-serif;font-weight:600;font-size:15px;color:#1a1408;
     background:linear-gradient(135deg,var(--gold-light),var(--gold));
-    transition:transform .18s,box-shadow .25s;box-shadow:0 14px 34px rgba(201,163,91,0.22);
+    transition:transform .18s,box-shadow .25s,opacity .2s;box-shadow:0 14px 34px rgba(201,163,91,0.22);
     display:flex;align-items:center;justify-content:center;gap:11px}
   .btn::after{content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;
     background:linear-gradient(100deg,transparent,rgba(255,255,255,0.5),transparent);transform:skewX(-18deg);transition:left .6s}
-  .btn:hover{transform:translateY(-2px);box-shadow:0 20px 46px rgba(201,163,91,0.32)}
-  .btn:hover::after{left:130%}
+  .btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 20px 46px rgba(201,163,91,0.32)}
+  .btn:hover:not(:disabled)::after{left:130%}
   .btn:active{transform:translateY(0)}
+  .btn:disabled{opacity:.55;cursor:not-allowed}
 
   .google-icon{width:19px;height:19px;flex-shrink:0}
+
+  /* Spinner inside button */
+  .spinner{width:18px;height:18px;border:2px solid rgba(26,20,8,0.3);border-top-color:#1a1408;
+    border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+  @keyframes spin{to{transform:rotate(360deg)}}
 
   .powered{margin-top:20px;display:flex;align-items:center;justify-content:center;gap:8px;
     color:var(--soft);font-size:11.5px;letter-spacing:.04em}
   .powered-divider{width:1px;height:12px;background:var(--border)}
-  .powered-logo{height:13px;opacity:.55;filter:grayscale(1)}
+
+  .error-banner{display:none;margin-top:16px;padding:12px 16px;border-radius:10px;
+    background:rgba(220,80,80,0.1);border:1px solid rgba(220,80,80,0.25);
+    color:#e08080;font-size:13px;line-height:1.5;text-align:center}
+  .error-banner.visible{display:block}
 
   @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
   @media(max-width:480px){.card{padding:34px 24px}h1{font-size:34px}.float{display:none}}
@@ -178,38 +188,83 @@
       </div>
     </div>
 
-    <button class="btn" onclick="connectGmail()">
+    <button class="btn" id="connectBtn" onclick="connectGmail()">
       <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
         <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
         <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
         <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
       </svg>
-      Authorise with Google →
+      Authorise with Google
     </button>
 
+    <div class="error-banner" id="errorBanner">
+      Unable to generate a connection link. Please refresh the page and try again.
+    </div>
+
     <div class="powered">
-      <span>Secured by</span>
-      <div class="powered-divider"></div>
-      <img class="powered-logo" src="https://cdn.prod.website-files.com/65b97df5e9815cb9b1ebef1a/65b97df5e9815cb9b1ebef4d_aurinko-logo.svg" alt="Aurinko" onerror="this.replaceWith(document.createTextNode('Aurinko'))" />
+      <span>Secured by Composio</span>
     </div>
   </div>
 </div>
 
 <script>
-  const AURINKO_CLIENT_ID = '2ff697a8da520565768af79b85ab150d';
-  const RETURN_URL        = 'https://onboarding.hermia.au/crm.html';
+  const WORKER = 'https://hermianango.capital-fbc.workers.dev';
 
-  function connectGmail() {
-    const params = new URLSearchParams({
-      clientId:     AURINKO_CLIENT_ID,
-      serviceType:  'Google',
-      scopes:       'Mail.Read',
-      responseType: 'code',
-      returnUrl:    RETURN_URL
-    });
-    window.location.href = 'https://api.aurinko.io/v1/auth/authorize?' + params.toString();
+  async function connectGmail() {
+    const btn = document.getElementById('connectBtn');
+    const errorBanner = document.getElementById('errorBanner');
+
+    // Show loading state
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner"></div> Connecting...';
+    errorBanner.classList.remove('visible');
+
+    const customerId = sessionStorage.getItem('hermia_customer_id');
+    const email      = sessionStorage.getItem('hermia_email');
+
+    if (!customerId) {
+      showError('Session expired. Please restart onboarding from the beginning.');
+      return;
+    }
+
+    try {
+      const res = await fetch(WORKER + '/composio-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ customerId, email }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.redirectUrl) {
+        throw new Error(data.error || 'No redirect URL returned');
+      }
+
+      window.location.href = data.redirectUrl;
+
+    } catch (err) {
+      console.error('Composio link error:', err);
+      showError('Unable to generate a connection link. Please try again.');
+    }
+  }
+
+  function showError(msg) {
+    const btn = document.getElementById('connectBtn');
+    const errorBanner = document.getElementById('errorBanner');
+    btn.disabled = false;
+    btn.innerHTML = `
+      <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+      </svg>
+      Authorise with Google`;
+    errorBanner.textContent = msg;
+    errorBanner.classList.add('visible');
   }
 </script>
 </body>
 </html>
+
