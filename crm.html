@@ -10,7 +10,6 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 <link rel="preconnect" href="https://api.nango.dev" crossorigin />
 <link rel="preconnect" href="https://connect.nango.dev" crossorigin />
-<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@nangohq/frontend/+esm" />
 <script type="module">
   (async () => {
     const sources = [
@@ -424,6 +423,41 @@
   function resetBtn(btn, c){ btn.disabled = false; btn.classList.remove('loading'); btn.querySelector('.btn-text').textContent = isLiveOAuth(c) ? 'Connect ' + c.name + ' →' : 'Continue →'; }
 
   // ============================================================================
+  // GMAIL TRIGGER AUTO-ACTIVATION
+  // Composio redirects back here after Gmail OAuth with query params like:
+  //   crm.html?status=success&connected_account_id=ca_xxxx
+  // This block forwards that ID to the worker, which creates the Gmail
+  // trigger and saves the mapping to the customer row in Supabase.
+  // Runs once per connected_account_id (guarded via sessionStorage).
+  // ============================================================================
+  (async function activateGmailTrigger(){
+    const params = new URLSearchParams(location.search);
+    const caId = params.get('connected_account_id');
+    if(!caId) return;
+
+    const guardKey = 'hermia_gmail_activated_' + caId;
+    if(sessionStorage.getItem(guardKey)) return;
+
+    try{
+      const r = await fetch(NANGO_SESSION_URL + '/activate-gmail', {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json' },
+        body: JSON.stringify({ connectedAccountId: caId, customerId: customerId })
+      });
+      const d = await r.json().catch(() => ({}));
+      if(r.ok && d.ok){
+        sessionStorage.setItem(guardKey, '1');
+        showToast('Gmail connected — lead monitoring active');
+        console.log('[Hermia] Gmail trigger active:', d.triggerId);
+      } else {
+        console.error('[Hermia] activate-gmail failed:', d);
+      }
+    }catch(e){
+      console.error('[Hermia] activate-gmail error:', e);
+    }
+  })();
+
+  // ============================================================================
   // LOAD MONDAY BOARDS — called after OAuth success
   // ============================================================================
   async function loadMondayBoards(connectionId){
@@ -659,4 +693,5 @@
 </script>
 </body>
 </html>
+
 
