@@ -106,7 +106,6 @@
 
   .google-icon{width:19px;height:19px;flex-shrink:0}
 
-  /* Spinner inside button */
   .spinner{width:18px;height:18px;border:2px solid rgba(26,20,8,0.3);border-top-color:#1a1408;
     border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
   @keyframes spin{to{transform:rotate(360deg)}}
@@ -199,23 +198,36 @@
     </button>
 
     <div class="error-banner" id="errorBanner">
-      Unable to generate a connection link. Please refresh the page and try again.
+      Unable to start the connection. Please refresh the page and try again.
     </div>
 
     <div class="powered">
-      <span>Secured by Composio</span>
+      <span>Secured by Nylas</span>
     </div>
   </div>
 </div>
 
 <script>
-  const WORKER = 'https://hermianango.capital-fbc.workers.dev';
+  // ── Nylas hosted-auth config ────────────────────────────────────────────
+  // Client ID from your Nylas application (dashboard → application → Overview).
+  const NYLAS_CLIENT_ID = '0fef4162-8c07-4903-8fde-2fe96806ad29';
+  // Nylas API region base. US data centre = api.us.nylas.com (EU = api.eu.nylas.com).
+  const NYLAS_AUTH_BASE  = 'https://api.us.nylas.com/v3/connect/auth';
+  // Where Nylas sends the agent back after they allow access.
+  // THIS EXACT URL must also be registered in the Nylas dashboard under
+  // your application → Hosted Authentication → Callback/Redirect URIs,
+  // or Nylas will reject the request.
+  const REDIRECT_URI     = 'https://onboarding.hermia.au/crm.html';
 
-  async function connectGmail() {
+  // After the agent returns here with ?code=..., that code must be exchanged
+  // for a grant server-side (needs your Nylas API key, which CANNOT live in
+  // this page). That exchange + webhook registration happens in the worker.
+  // This page only starts the auth journey.
+
+  function connectGmail() {
     const btn = document.getElementById('connectBtn');
     const errorBanner = document.getElementById('errorBanner');
 
-    // Show loading state
     btn.disabled = true;
     btn.innerHTML = '<div class="spinner"></div> Connecting...';
     errorBanner.classList.remove('visible');
@@ -228,25 +240,24 @@
       return;
     }
 
-    try {
-      const res = await fetch(WORKER + '/composio-link', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ customerId, email }),
-      });
+    // Build the Nylas hosted-auth URL.
+    // - response_type=code  → Nylas returns an auth code to the redirect
+    // - provider=google     → go straight to Google sign-in
+    // - scope               → read-only Gmail, matching the promises above
+    // - state               → carries the customerId back so the worker can
+    //                         match the grant to the right customer
+    const params = new URLSearchParams({
+      client_id:     NYLAS_CLIENT_ID,
+      redirect_uri:  REDIRECT_URI,
+      response_type: 'code',
+      provider:      'google',
+      scope:         'https://www.googleapis.com/auth/gmail.readonly',
+      access_type:   'offline',
+      state:         customerId,
+      login_hint:    email || ''
+    });
 
-      const data = await res.json();
-
-      if (!res.ok || !data.redirectUrl) {
-        throw new Error(data.error || 'No redirect URL returned');
-      }
-
-      window.location.href = data.redirectUrl;
-
-    } catch (err) {
-      console.error('Composio link error:', err);
-      showError('Unable to generate a connection link. Please try again.');
-    }
+    window.location.href = NYLAS_AUTH_BASE + '?' + params.toString();
   }
 
   function showError(msg) {
@@ -264,6 +275,34 @@
     errorBanner.textContent = msg;
     errorBanner.classList.add('visible');
   }
+
+  // ── Handle the return trip ──────────────────────────────────────────────
+  // When Nylas sends the agent back to this page with ?code=..., forward that
+  // code to the worker, which exchanges it for a grant and wires the webhook.
+  (function handleReturn() {
+    const qs = new URLSearchParams(window.location.search);
+    const code = qs.get('code');
+    if (!code) return;
+
+    const WORKER = 'https://hermianango.capital-fbc.workers.dev';
+    const customerId = qs.get('state') || sessionStorage.getItem('hermia_customer_id');
+
+    fetch(WORKER + '/nylas-exchange', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: code, customerId: customerId })
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (data && data.ok) {
+        // success — advance onboarding to the CRM step
+        window.location.href = 'https://onboarding.hermia.au/crm-connect.html';
+      } else {
+        console.error('Nylas exchange failed:', data);
+      }
+    })
+    .catch(function (e) { console.error('Nylas exchange error:', e); });
+  })();
 </script>
 </body>
 </html>
