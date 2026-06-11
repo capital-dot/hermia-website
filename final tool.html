@@ -21,7 +21,10 @@ body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--black);co
 body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 ::selection{background:rgba(201,163,91,0.28);color:#fff;}
 
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,7,10,0.86);backdrop-filter:blur(26px) saturate(120%);border-bottom:1px solid var(--border);}
+/* ── STAR CANVAS ── */
+#star-canvas{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.5;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:16px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,7,10,0.88);backdrop-filter:blur(26px) saturate(120%);border-bottom:1px solid var(--border);}
 .nav-back-btn{display:inline-flex;align-items:center;color:var(--soft);text-decoration:none;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;transition:color 0.25s ease;}
 .nav-back-btn:hover{color:var(--gold);}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
@@ -33,8 +36,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 .nav-link.cta{background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#1a1408;border-color:transparent;font-weight:700;box-shadow:0 6px 20px rgba(201,163,91,0.3);}
 .nav-link.cta:hover{filter:brightness(1.08);transform:translateY(-1px);}
 
-.bg-glow-1{position:fixed;top:-10%;left:-10%;width:720px;height:720px;background:radial-gradient(circle,rgba(201,163,91,0.14) 0%,transparent 70%);filter:blur(100px);pointer-events:none;z-index:0;}
-.bg-glow-2{position:fixed;bottom:-10%;right:-10%;width:720px;height:720px;background:radial-gradient(circle,rgba(201,163,91,0.10) 0%,transparent 70%);filter:blur(100px);pointer-events:none;z-index:0;}
+.bg-glow-1{position:fixed;top:-10%;left:-10%;width:720px;height:720px;background:radial-gradient(circle,rgba(201,163,91,0.10) 0%,transparent 70%);filter:blur(100px);pointer-events:none;z-index:0;}
+.bg-glow-2{position:fixed;bottom:-10%;right:-10%;width:720px;height:720px;background:radial-gradient(circle,rgba(201,163,91,0.07) 0%,transparent 70%);filter:blur(100px);pointer-events:none;z-index:0;}
 
 .hero{position:relative;z-index:1;padding:170px 24px 90px;max-width:1100px;margin:0 auto;text-align:center;}
 .hero-tag{display:inline-flex;align-items:center;gap:10px;background:var(--gold-dim);border:1px solid var(--border-hi);padding:8px 20px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:32px;backdrop-filter:blur(8px);}
@@ -76,17 +79,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 
 /* ── WATCH SECTION ── */
 .watch-shell{position:relative;z-index:1;max-width:980px;margin:0 auto 32px;padding:0 24px;scroll-margin-top:110px;}
-.video-frame{position:relative;border-radius:22px;}
+.video-frame{position:relative;border-radius:22px;margin-top:16px;}
 .video-frame::before{content:'';position:absolute;inset:-2px;border-radius:24px;background:linear-gradient(135deg,rgba(201,163,91,0.6),rgba(201,163,91,0.12),rgba(201,163,91,0.55));z-index:0;}
 .video-inner{position:relative;z-index:1;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:20px;background:#0a0a0a;box-shadow:0 30px 80px rgba(0,0,0,0.7),0 0 60px rgba(201,163,91,0.12);}
 .video-inner iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:20px;}
 
 /* ── VIDEO EXPLAINER BOX ── */
-.video-explainer{position:relative;z-index:1;max-width:980px;margin:0 auto 100px;padding:0 24px;}
+.video-explainer{position:relative;z-index:1;max-width:980px;margin:32px auto 100px;padding:0 24px;}
 .explainer-box{background:linear-gradient(160deg,rgba(201,163,91,0.06) 0%,var(--card) 60%),var(--card);border:1px solid var(--border-hi);border-radius:20px;overflow:hidden;}
 .explainer-header{padding:24px 32px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;}
 .explainer-header-icon{width:40px;height:40px;background:var(--gold-dim);border:1px solid var(--border-strong);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.explainer-header-text{}
 .explainer-header-eyebrow{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
 .explainer-header-title{font-family:var(--display);font-size:22px;font-weight:600;color:#fff;letter-spacing:-0.2px;}
 .explainer-body{padding:32px;}
@@ -177,6 +179,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 .ba-dot{width:20px;height:20px;min-width:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-top:1px;}
 .ba-card.before .ba-dot{background:rgba(239,68,68,0.15);color:var(--red);}
 .ba-card.after .ba-dot{background:rgba(16,185,129,0.15);color:var(--emerald);}
+
+/* gold accent band between sections */
+.gold-band{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 0;margin:0 auto;max-width:600px;}
+.gold-band::before,.gold-band::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(201,163,91,0.35));}
+.gold-band::after{background:linear-gradient(90deg,rgba(201,163,91,0.35),transparent);}
+.gold-band-inner{display:flex;align-items:center;gap:10px;}
+.gold-band-diamond{width:5px;height:5px;background:var(--gold);transform:rotate(45deg);opacity:0.6;}
 
 .simulator-shell{position:relative;z-index:1;max-width:1000px;margin:0 auto 100px;padding:0 24px;}
 .simulator-wrap{background:var(--card);border:1px solid var(--border-hi);border-radius:22px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.5),0 0 60px rgba(201,163,91,0.1);}
@@ -277,6 +286,9 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:48
 .footer-legal{font-size:12px;color:var(--muted);line-height:1.8;font-weight:300;}
 .footer-legal a{color:var(--gold);text-decoration:none;}
 
+/* gold shimmer line — subtle section separator */
+.shimmer-sep{position:relative;z-index:1;height:1px;max-width:900px;margin:0 auto;background:linear-gradient(90deg,transparent,rgba(201,163,91,0.5),rgba(201,163,91,0.18),transparent);margin-bottom:0;}
+
 @media(max-width:900px){
   .story-block{grid-template-columns:1fr;gap:40px;}
   .story-block.reverse{direction:ltr;}
@@ -313,6 +325,9 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:48
 </style>
 </head>
 <body>
+
+<!-- STAR CANVAS -->
+<canvas id="star-canvas"></canvas>
 
 <div class="bg-glow-1"></div>
 <div class="bg-glow-2"></div>
@@ -385,15 +400,16 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:48
   </div>
   <div class="video-frame">
     <div class="video-inner">
-     <div class="video-inner">
-  <iframe
-    src="https://www.loom.com/embed/e8129b1845ad4a36820c9ecdd1567114"
-    frameborder="0"
-    webkitallowfullscreen
-    mozallowfullscreen
-    allowfullscreen
-    allow="autoplay; fullscreen"
-  ></iframe>
+      <iframe
+        src="https://www.loom.com/embed/e8129b1845ad4a36820c9ecdd1567114"
+        frameborder="0"
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen
+        allow="autoplay; fullscreen"
+      ></iframe>
+    </div>
+  </div>
 </div>
 
 <!-- VIDEO EXPLAINER BOX -->
@@ -408,98 +424,62 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:48
     </div>
     <div class="explainer-body">
       <div class="explainer-steps">
-
         <div class="explainer-step">
-          <div class="step-connector">
-            <div class="step-dot">🔴</div>
-            <div class="step-line"></div>
-          </div>
+          <div class="step-connector"><div class="step-dot">🔴</div><div class="step-line"></div></div>
           <div class="step-body">
             <div class="step-label">What you see · The red dot</div>
             <div class="step-heading">This is a live screen recording — nothing is staged</div>
-            <div class="step-desc">
-              You'll notice a red dot on the phone screen. That's a screen recording indicator — it means what you're watching is happening in real time, on a real device. No actors. No scripted demo. A real lead sending a real enquiry, and Hermia responding to it live.
-            </div>
+            <div class="step-desc">You'll notice a red dot on the phone screen. That's a screen recording indicator — it means what you're watching is happening in real time, on a real device. No actors. No scripted demo. A real lead sending a real enquiry, and Hermia responding to it live.</div>
             <span class="step-tag">📱 The phone on screen is the lead's phone. The CRM on the left is yours.</span>
           </div>
         </div>
-
         <div class="explainer-step">
-          <div class="step-connector">
-            <div class="step-dot">📩</div>
-            <div class="step-line"></div>
-          </div>
+          <div class="step-connector"><div class="step-dot">📩</div><div class="step-line"></div></div>
           <div class="step-body">
             <div class="step-label">What you see · The enquiry</div>
             <div class="step-heading">A lead sends a message asking about a property they're interested in</div>
-            <div class="step-desc">
-              The lead sends an enquiry about a property — exactly the way a buyer would from REA or Domain. The moment that message is sent, watch what happens next. You don't do anything. You don't even know it's come in yet.
-            </div>
+            <div class="step-desc">The lead sends an enquiry about a property — exactly the way a buyer would from REA or Domain. The moment that message is sent, watch what happens next. You don't do anything. You don't even know it's come in yet.</div>
             <span class="step-tag">📋 This happens whether you're at an open home, driving, or asleep</span>
           </div>
         </div>
-
         <div class="explainer-step">
-          <div class="step-connector">
-            <div class="step-dot">⏱</div>
-            <div class="step-line"></div>
-          </div>
+          <div class="step-connector"><div class="step-dot">⏱</div><div class="step-line"></div></div>
           <div class="step-body">
             <div class="step-label">What you see · The timer</div>
             <div class="step-heading">Watch the clock — Hermia replies in seconds, not hours</div>
-            <div class="step-desc">
-              Keep your eye on the time shown on screen. The moment the lead sends that enquiry, Hermia reaches out to them on WhatsApp within seconds. You can see the timestamps match — the lead sends their message, and almost immediately a WhatsApp message lands on their phone from Hermia. <strong>Most agents take 4 to 12 hours to reply. By then the buyer has already moved on.</strong> That gap is where deals are lost.
-            </div>
+            <div class="step-desc">Keep your eye on the time shown on screen. The moment the lead sends that enquiry, Hermia reaches out to them on WhatsApp within seconds. <strong>Most agents take 4 to 12 hours to reply. By then the buyer has already moved on.</strong> That gap is where deals are lost.</div>
             <span class="step-tag">⚡ Same minute. Every time. Day or night.</span>
           </div>
         </div>
-
         <div class="explainer-step">
-          <div class="step-connector">
-            <div class="step-dot">💬</div>
-            <div class="step-line"></div>
-          </div>
+          <div class="step-connector"><div class="step-dot">💬</div><div class="step-line"></div></div>
           <div class="step-body">
             <div class="step-label">What you see · The WhatsApp conversation</div>
-            <div class="step-heading">Hermia qualifies the lead on WhatsApp — the whole thing is done in under a minute</div>
-            <div class="step-desc">
-              Watch the WhatsApp conversation play out. Hermia asks the lead a few short questions — the three things every agent actually needs to know before picking up the phone. The lead replies. Hermia follows up. The whole back-and-forth is done in under 60 seconds. <strong>The lead doesn't know they're being qualified. To them it just feels like a fast, helpful response.</strong> Once Hermia gets what it needs, the conversation ends. No more messages. No open-ended chat. It's done.
-            </div>
+            <div class="step-heading">Hermia qualifies the lead on WhatsApp — done in under a minute</div>
+            <div class="step-desc">Watch the WhatsApp conversation play out. Hermia asks the lead a few short questions — the three things every agent actually needs to know before picking up the phone. <strong>The lead doesn't know they're being qualified. To them it just feels like a fast, helpful response.</strong></div>
             <span class="step-tag">🔒 Conversation closes the moment qualification is complete — Hermia never responds again</span>
           </div>
         </div>
-
         <div class="explainer-step">
-          <div class="step-connector">
-            <div class="step-dot">📊</div>
-            <div class="step-line"></div>
-          </div>
+          <div class="step-connector"><div class="step-dot">📊</div><div class="step-line"></div></div>
           <div class="step-body">
             <div class="step-label">What you see · The CRM updating</div>
             <div class="step-heading">The moment the conversation ends, your CRM updates automatically</div>
-            <div class="step-desc">
-              Watch the CRM on screen. The second the lead's qualification is confirmed, their full details populate automatically — name, phone number, email, the property they asked about, and their lead rank. You didn't type a single thing. <strong>The CRM did it by itself.</strong>
-            </div>
+            <div class="step-desc">Watch the CRM on screen. The second the lead's qualification is confirmed, their full details populate automatically. You didn't type a single thing. <strong>The CRM did it by itself.</strong></div>
             <span class="step-tag step-tag-why">✓ Name · Phone · Email · Property interest · Lead rank — all there before you open your laptop</span>
           </div>
         </div>
-
         <div class="explainer-step">
-          <div class="step-connector">
-            <div class="step-dot">🔥</div>
-          </div>
+          <div class="step-connector"><div class="step-dot">🔥</div></div>
           <div class="step-body">
             <div class="step-label">What you see · The notification</div>
             <div class="step-heading">You get told if they're Hot — and only Hot leads get an inspection email</div>
-            <div class="step-desc">
-              Once the lead is ranked, you get a notification. If they're a Hot lead — ready to move, finance sorted, serious — they automatically receive an email with the property they enquired about, and an invitation to book an inspection. <strong>Warm and cold leads don't get that email.</strong> There's no point sending inspection times to someone who's still 6 months away from being ready. Hermia knows the difference and handles it accordingly. The agent stays in control of who gets what, without having to do any of it manually.
-            </div>
+            <div class="step-desc">Once the lead is ranked, you get a notification. If they're a Hot lead — ready to move, finance sorted, serious — they automatically receive an email with an invitation to book an inspection. <strong>Warm and cold leads don't get that email.</strong></div>
             <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
               <span class="step-tag step-tag-hot">🔥 Hot — inspection email sent automatically</span>
-           </div>
-         </div>
+            </div>
+          </div>
         </div>
-
       </div>
     </div>
     <div class="explainer-footer">
@@ -509,8 +489,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:48
   </div>
 </div>
 
+<div class="shimmer-sep"></div>
+
 <!-- WHO WE QUALIFY -->
-<div class="section-shell">
+<div class="section-shell" style="margin-top:80px;">
   <div class="section-header">
     <div class="section-tag">Who We Qualify</div>
     <h2>Every enquiry, sorted —<br><em>so you only chase the ones that pay</em></h2>
@@ -538,8 +520,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:48
   </div>
 </div>
 
+<div class="gold-band"><div class="gold-band-inner"><div class="gold-band-diamond"></div><div class="gold-band-diamond"></div><div class="gold-band-diamond"></div></div></div>
+
 <!-- THE PROBLEM -->
-<div class="section-shell">
+<div class="section-shell" style="margin-top:80px;">
   <div class="section-header">
     <div class="section-tag">The Real Cost</div>
     <h2>You can't tell which lead is<br><em>worth your time</em></h2>
@@ -637,8 +621,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:48
   </div>
 </div>
 
+<div class="shimmer-sep"></div>
+
 <!-- LIVE SIMULATOR -->
-<div class="simulator-shell">
+<div class="simulator-shell" style="margin-top:80px;">
   <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-label">Live Preview</div><div class="divider-diamond"></div><div class="divider-line r"></div></div>
   <div class="section-header">
     <h2>See what lands in <em>your CRM</em></h2>
@@ -783,16 +769,64 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:48
 </footer>
 
 <script>
+/* ── CALM STAR FIELD ── */
+(function(){
+  const canvas = document.getElementById('star-canvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  let W, H;
+
+  function resize(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function initStars(){
+    stars = [];
+    const count = Math.floor((W * H) / 6000); // sparse
+    for(let i = 0; i < count; i++){
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 1.1 + 0.2,
+        alpha: Math.random() * 0.5 + 0.1,
+        speed: Math.random() * 0.003 + 0.001,
+        offset: Math.random() * Math.PI * 2,
+        gold: Math.random() < 0.12 // 12% gold-tinted
+      });
+    }
+  }
+
+  let t = 0;
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    t += 0.008;
+    stars.forEach(s => {
+      const a = s.alpha * (0.6 + 0.4 * Math.sin(t * s.speed * 60 + s.offset));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      if(s.gold){
+        ctx.fillStyle = `rgba(201,163,91,${a})`;
+      } else {
+        ctx.fillStyle = `rgba(220,220,255,${a * 0.7})`;
+      }
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  initStars();
+  draw();
+  window.addEventListener('resize', () => { resize(); initStars(); });
+})();
+
+/* ── SIMULATOR ── */
 const hotTimelines=['Within 4 weeks','1–2 months'];
 const warmTimelines=['3–4 months'];
 function getScore(t,f){const ht=hotTimelines.includes(t);const wt=warmTimelines.includes(t);const hf=f==='Pre-approved'||f==='Cash buyer';if(ht&&hf)return'hot';if(ht||(wt&&hf))return'warm';return'cold';}
 function getRecommendedAction(s,t,f){if(s==='hot'){const fn=f==='Cash buyer'?'Cash buyer confirmed.':'Pre-approved finance confirmed.';const tn=t==='Within 4 weeks'?'Buyer ready within 4 weeks.':'Buyer ready within 1–2 months.';return{action:'Call immediately.',detail:`${tn} ${fn}`};}if(s==='warm'){return{action:'Follow up this week.',detail:`Timeline is ${t.toLowerCase()}. Worth a short qualifying call.`};}return{action:'Add to nurture sequence.',detail:`Timeline is ${t.toLowerCase()}. Tag for follow-up at the right moment.`};}
 function updateSim(){const name=document.getElementById('sim-name').value||'Anonymous';const budget=document.getElementById('sim-budget').value;const timeline=document.getElementById('sim-timeline').value;const finance=document.getElementById('sim-finance').value;const intent=document.getElementById('sim-intent').value;const score=getScore(timeline,finance);const rec=getRecommendedAction(score,timeline,finance);document.getElementById('sim-display-name').innerText=name;document.getElementById('sim-display-budget').innerText=budget;document.getElementById('sim-display-timeline').innerText=timeline;document.getElementById('sim-display-finance').innerText=finance;document.getElementById('sim-display-intent').innerText=intent;document.getElementById('sim-id').innerText=Math.floor(Math.random()*9000)+1000;document.getElementById('sim-rec-text').innerHTML=`${rec.action} <span>${rec.detail}</span>`;const badge=document.getElementById('sim-badge');const cashValEl=document.getElementById('live-cash-val');const hoursSavedEl=document.getElementById('live-hours-saved');let baseCash=12500;if(budget.includes('600k–800k'))baseCash=18500;if(budget.includes('800k–1.2M'))baseCash=26000;if(budget.includes('1.2M+'))baseCash=42000;if(budget.includes('Under $400k'))baseCash=7500;let multiplier=1.0;let manualChasingHours=5;if(timeline.includes('1–2 months')){multiplier=0.8;manualChasingHours=4;}if(timeline.includes('3–4 months')){multiplier=0.5;manualChasingHours=3;}if(timeline.includes('6+ months')){multiplier=0.2;manualChasingHours=2;}if(timeline.includes('Just browsing')){multiplier=0.1;manualChasingHours=1;}cashValEl.innerText='$'+Math.floor(baseCash*multiplier).toLocaleString();hoursSavedEl.innerText=`⚡ ${manualChasingHours} Hours Manual Chasing Saved`;if(score==='hot'){badge.className='sim-lead-badge hot';badge.innerText='🔥 HOT LEAD';}else if(score==='warm'){badge.className='sim-lead-badge warm';badge.innerText='📋 WARM LEAD';}else{badge.className='sim-lead-badge cold';badge.innerText='❄️ COLD LEAD';}const card=document.getElementById('sim-card');card.style.transform='scale(1.01)';setTimeout(()=>{card.style.transform='scale(1)';},200);}
-function updateCalc(){const enquiries=parseInt(document.getElementById('calc-enquiries').value);const commission=parseInt(document.getElementById('calc-commission').value);const convRate=parseInt(document.getElementById('calc-conversion').value)/100;const hoursDaily=parseFloat(document.getElementById('calc-hours').value);document.getElementById('calc-enquiries-val').innerText=enquiries;document.getElementById('calc-commission-val').innerText='$'+commission.toLocaleString();document.getElementById('calc-conversion-val').innerText=Math.round(convRate*100)+'%';document.getElementById('calc-hours-val').innerText=hoursDaily+'h';const dealsPerMonth=Math.round(enquiries*convRate);const revenue=dealsPerMonth*commission;const hoursLost=Math.round(hoursDaily*22);const missedComm=Math.round(revenue*(hoursDaily/8)*0.3);const annual=missedComm*12;document.getElementById('cr-closed').innerText=dealsPerMonth;document.getElementById('cr-revenue').innerText='$'+revenue.toLocaleString();document.getElementById('cr-hours-lost').innerText=hoursLost+'h';document.getElementById('cr-missed').innerText='$'+missedComm.toLocaleString();document.getElementById('cr-hours-saved-calc').innerText=hoursLost+'h saved / month';document.getElementById('cr-uplift-commission').innerText='+$'+missedComm.toLocaleString()+' / month';document.getElementById('cr-annual').innerText='+$'+annual.toLocaleString()+' / year';}
-updateCalc();
-const observer=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.style.opacity='1';entry.target.style.transform='translateY(0)';}});},{threshold:0.15});
-document.querySelectorAll('.pillar-card,.flow-step,.ba-card,.stat-item,.who-card,.explainer-step').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition='opacity 0.5s ease,transform 0.5s ease';observer.observe(el);});
-</script>
-<script src="/hermia-widget.js"></script>
-</body>
-</html>
+
+/* ── CALCULATOR ── */
+function updateCalc(){const enquiries=parseI
