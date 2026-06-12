@@ -3,28 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hermia — Automated Lead Qualification for Real Estate Agents · Dubai & Australia</title>
-<meta name="description" content="Hermia automatically qualifies every property enquiry via WhatsApp and SMS, ranks leads Hot, Warm or Cold, and pushes full qualification data directly into your CRM. Built for real estate agents in Dubai and Australia.">
+<title>Hermia — We Answer the Jobs You Miss · Construction & Trades · Australia & Dubai</title>
+<meta name="description" content="Hermia replies to every job enquiry by SMS & WhatsApp within 30 seconds, asks the right questions, and sends only the serious jobs to your phone or CRM. Built for construction and trade businesses.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
-/* ══════════════════════════════════
-   TOKENS
-══════════════════════════════════ */
 :root {
-  --ink:        #06060a;
+  --ink:        #050505;
   --card:       #0e0e13;
-  --card2:      #121217;
-  --border:     rgba(201,163,91,0.13);
-  --border-hi:  rgba(201,163,91,0.38);
-  --gold:       #C9A35B;
-  --gold-light: #e8c17a;
-  --gold-dim:   rgba(201,163,91,0.07);
+  --border:     rgba(249,115,22,0.13);
+  --border-hi:  rgba(249,115,22,0.38);
+  --gold:       #F97316;
+  --gold-light: #FB923C;
+  --gold-dim:   rgba(249,115,22,0.07);
   --cream:      #f4f0e6;
   --muted:      #7a7672;
   --soft:       #b0ada5;
   --green:      #10b981;
-  --red:        #ef4444;
   --glass:      linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.005));
   --edge:       inset 0 1px 0 rgba(255,255,255,0.055);
   --shadow:     0 32px 80px rgba(0,0,0,0.58);
@@ -34,68 +29,42 @@
 html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--ink);color:var(--cream);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
 body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.032;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
-::selection{background:rgba(201,163,91,0.26);color:#fff;}
-
-/* ══════════════════════════════════
-   STAR CANVAS (ambient background)
-══════════════════════════════════ */
+::selection{background:rgba(249,115,22,0.26);color:#fff;}
 #star-canvas{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.55;}
 
-/* ══════════════════════════════════
-   NAV
-══════════════════════════════════ */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:15px 52px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,6,10,0.88);backdrop-filter:blur(28px) saturate(130%);border-bottom:1px solid var(--border);}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:15px 52px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,5,0.9);backdrop-filter:blur(28px) saturate(130%);border-bottom:1px solid var(--border);}
 .nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none;}
-.nav-logo img{width:31px;height:31px;filter:drop-shadow(0 4px 14px rgba(201,163,91,0.35));}
+.nav-logo img{width:31px;height:31px;filter:drop-shadow(0 4px 14px rgba(249,115,22,0.35));}
 .nav-logo span{font-family:var(--display);font-size:22px;font-weight:600;color:var(--cream);letter-spacing:0.3px;}
 .nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
 .nav-links a{color:var(--soft);text-decoration:none;font-size:13.5px;transition:color 0.2s;font-weight:400;}
 .nav-links a:hover{color:var(--cream);}
-.nav-cta{background:linear-gradient(135deg,var(--gold-light),var(--gold))!important;color:#1a1408!important;padding:9px 22px!important;border-radius:9px;font-weight:600!important;font-size:13px!important;text-decoration:none;display:inline-block;transition:all 0.2s!important;letter-spacing:0.3px;box-shadow:0 8px 22px rgba(201,163,91,0.26)!important;}
-.nav-cta:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(201,163,91,0.44)!important;}
-.nav-tools-wrap{position:relative;}
-.nav-tools-trigger{background:none;border:none;color:var(--soft);font-size:13.5px;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;padding:0;transition:color 0.2s;}
-.nav-tools-trigger:hover{color:var(--cream);}
-.nav-tools-trigger svg{width:9px;height:9px;fill:currentColor;transition:transform 0.22s;}
-.nav-tools-wrap.open .nav-tools-trigger svg{transform:rotate(180deg);}
-.nav-tools-wrap.open .nav-tools-trigger{color:var(--gold);}
-.nav-dropdown{position:absolute;top:calc(100% + 14px);right:0;min-width:292px;background:rgba(10,10,15,0.97);backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:16px;padding:6px;box-shadow:0 28px 60px rgba(0,0,0,0.65),0 0 36px rgba(201,163,91,0.07);opacity:0;visibility:hidden;transform:translateY(-10px);transition:all 0.22s cubic-bezier(.4,0,.2,1);}
-.nav-tools-wrap.open .nav-dropdown{opacity:1;visibility:visible;transform:translateY(0);}
-.nav-dropdown-item{display:flex;align-items:flex-start;gap:12px;padding:11px 13px;border-radius:11px;text-decoration:none;transition:background 0.18s;}
-.nav-dropdown-item:hover{background:var(--gold-dim);}
-.nav-dd-icon{width:30px;height:30px;min-width:30px;background:var(--gold-dim);border:1px solid var(--border);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--gold);}
-.nav-dd-title{font-size:12.5px;font-weight:600;color:#fff;margin-bottom:2px;display:block;}
-.nav-dd-desc{font-size:11px;color:var(--muted);line-height:1.4;display:block;}
-.nav-dd-sep{height:1px;background:var(--border);margin:4px 8px;}
+.nav-cta{background:linear-gradient(135deg,var(--gold-light),var(--gold))!important;color:#1a0d04!important;padding:9px 22px!important;border-radius:9px;font-weight:600!important;font-size:13px!important;text-decoration:none;display:inline-block;transition:all 0.2s!important;letter-spacing:0.3px;box-shadow:0 8px 22px rgba(249,115,22,0.26)!important;}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(249,115,22,0.44)!important;}
 
-/* ══════════════════════════════════
-   HERO
-══════════════════════════════════ */
+/* HERO */
 .hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:180px 24px 120px;overflow:hidden;}
-.hero-glow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:1400px;height:900px;background:radial-gradient(ellipse at 50% 8%,rgba(201,163,91,0.22) 0%,transparent 58%);pointer-events:none;filter:blur(55px);}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,163,91,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(201,163,91,0.035) 1px,transparent 1px);background-size:68px 68px;mask-image:radial-gradient(ellipse 80% 65% at 50% 2%,black 0%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse 80% 65% at 50% 2%,black 0%,transparent 80%);pointer-events:none;}
-/* Arabic geometric ornament — top watermark */
-.hero-ornament{position:absolute;top:96px;left:50%;transform:translateX(-50%);width:320px;height:60px;opacity:0.06;pointer-events:none;}
-.hero-logo{width:72px;height:72px;margin-bottom:26px;filter:drop-shadow(0 0 36px rgba(201,163,91,0.55));animation:logo-float 4.5s ease-in-out infinite;position:relative;z-index:1;}
+.hero-glow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:1400px;height:900px;background:radial-gradient(ellipse at 50% 8%,rgba(249,115,22,0.22) 0%,transparent 58%);pointer-events:none;filter:blur(55px);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(249,115,22,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(249,115,22,0.035) 1px,transparent 1px);background-size:68px 68px;mask-image:radial-gradient(ellipse 80% 65% at 50% 2%,black 0%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse 80% 65% at 50% 2%,black 0%,transparent 80%);pointer-events:none;}
+.hero-logo{width:72px;height:72px;margin-bottom:26px;filter:drop-shadow(0 0 36px rgba(249,115,22,0.55));animation:logo-float 4.5s ease-in-out infinite;position:relative;z-index:1;}
 @keyframes logo-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,163,91,0.07);border:1px solid var(--border-hi);border-radius:100px;padding:6px 18px;font-size:10.5px;font-weight:600;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:28px;backdrop-filter:blur(10px);position:relative;z-index:1;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(249,115,22,0.07);border:1px solid var(--border-hi);border-radius:100px;padding:6px 18px;font-size:10.5px;font-weight:600;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:28px;backdrop-filter:blur(10px);position:relative;z-index:1;}
 .badge-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.25}}
-.hero h1{font-family:var(--display);font-size:clamp(50px,8.2vw,98px);font-weight:600;line-height:1.01;letter-spacing:-2px;color:#fff;max-width:1040px;position:relative;z-index:1;}
-.hero h1 em{font-style:italic;color:var(--gold);text-shadow:0 0 32px rgba(232,193,122,0.6),0 0 72px rgba(201,163,91,0.3);}
-/* City line under headline */
+.hero h1{font-family:var(--display);font-size:clamp(48px,7.8vw,92px);font-weight:600;line-height:1.03;letter-spacing:-2px;color:#fff;max-width:1040px;position:relative;z-index:1;}
+.hero h1 em{font-style:italic;color:var(--gold);text-shadow:0 0 32px rgba(251,146,60,0.6),0 0 72px rgba(249,115,22,0.3);}
 .hero-cities{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:22px;position:relative;z-index:1;}
 .hero-city{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
 .hero-city-flag{font-size:16px;}
 .city-sep{width:1px;height:22px;background:var(--border);}
-/* Dubai emphasis */
-.hero-city.dubai{color:var(--gold-light);}
-.hero-sub{margin-top:26px;font-size:18px;color:var(--soft);max-width:680px;line-height:1.68;font-weight:300;position:relative;z-index:1;}
+.hero-city.au{color:var(--gold-light);}
+.hero-sub{margin-top:26px;font-size:18px;color:var(--soft);max-width:660px;line-height:1.68;font-weight:300;position:relative;z-index:1;}
 .hero-sub strong{color:var(--cream);font-weight:500;}
 .hero-cta-row{margin-top:44px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;position:relative;z-index:1;}
-.btn-primary{position:relative;overflow:hidden;background:linear-gradient(135deg,#b8882a,#e8c17a,#a07828);color:#1a1408;padding:17px 34px;border-radius:12px;font-size:15px;font-weight:600;text-decoration:none;transition:all 0.28s;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.2px;box-shadow:0 10px 30px rgba(201,163,91,0.34);}
+.btn-primary{position:relative;overflow:hidden;background:linear-gradient(135deg,#EA580C,#FB923C,#C2410C);color:#1a0d04;padding:17px 34px;border-radius:12px;font-size:15px;font-weight:600;text-decoration:none;transition:all 0.28s;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.2px;box-shadow:0 10px 30px rgba(249,115,22,0.34);}
 .btn-primary::after{content:'';position:absolute;top:0;left:-130%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,0.55),transparent);transform:skewX(-18deg);transition:left 0.6s;}
-.btn-primary:hover{filter:brightness(1.07);transform:translateY(-3px);box-shadow:0 16px 42px rgba(201,163,91,0.5),0 0 46px rgba(201,163,91,0.26);}
+.btn-primary:hover{filter:brightness(1.07);transform:translateY(-3px);box-shadow:0 16px 42px rgba(249,115,22,0.5),0 0 46px rgba(249,115,22,0.26);}
 .btn-primary:hover::after{left:140%;}
 .btn-ghost{background:transparent;color:var(--cream);border:1.5px solid var(--border-hi);padding:17px 34px;border-radius:12px;font-size:15px;font-weight:500;text-decoration:none;transition:all 0.28s;display:inline-flex;align-items:center;gap:8px;}
 .btn-ghost:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-dim);transform:translateY(-2px);}
@@ -103,55 +72,33 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:15px 52px;display:fl
 .trust-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);}
 .trust-check{width:16px;height:16px;border-radius:50%;background:rgba(16,185,129,0.14);border:1px solid rgba(16,185,129,0.38);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--green);}
 .trust-sep{width:4px;height:4px;border-radius:50%;background:var(--border-hi);}
-.hero-pills{margin-top:24px;display:flex;justify-content:center;flex-wrap:wrap;gap:10px;position:relative;z-index:1;}
-.hero-pill{padding:9px 16px;border:1px solid var(--border);border-radius:999px;font-size:11.5px;color:var(--soft);background:rgba(201,163,91,0.025);}
 
-/* ══════════════════════════════════
-   FLOATING STAR ORNAMENTS (CSS)
-══════════════════════════════════ */
-.star-strip{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:16px;padding:20px 0;overflow:hidden;}
-.star-strip::before,.star-strip::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(201,163,91,0.3));}
-.star-strip::after{background:linear-gradient(90deg,rgba(201,163,91,0.3),transparent);}
-.ss-inner{display:flex;align-items:center;gap:10px;}
-.ss-star{color:var(--gold);font-size:10px;opacity:0.7;}
-.ss-diamond{width:6px;height:6px;background:var(--gold);transform:rotate(45deg);opacity:0.55;}
-
-/* ══════════════════════════════════
-   STATS BAR
-══════════════════════════════════ */
-.stats-bar{position:relative;z-index:1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(201,163,91,0.018);padding:58px 48px;display:flex;align-items:stretch;justify-content:center;gap:0;flex-wrap:wrap;}
+/* STATS */
+.stats-bar{position:relative;z-index:1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(249,115,22,0.018);padding:58px 48px;display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;}
 .stat{text-align:center;padding:0 56px;border-right:1px solid var(--border);flex:1;min-width:200px;max-width:280px;}
 .stat:last-child{border-right:none;}
-.stat-num{font-family:var(--display);font-size:60px;font-weight:600;color:var(--gold);line-height:1;text-shadow:0 0 32px rgba(201,163,91,0.28);}
+.stat-num{font-family:var(--display);font-size:60px;font-weight:600;color:var(--gold);line-height:1;text-shadow:0 0 32px rgba(249,115,22,0.28);}
 .stat-label{font-size:12.5px;color:var(--soft);margin-top:12px;line-height:1.58;font-weight:400;}
 .stat-label strong{color:var(--cream);font-weight:500;}
 
-/* ══════════════════════════════════
-   SECTION: THE COST (redesigned)
-══════════════════════════════════ */
+/* COST SECTION */
 .cost-section{position:relative;z-index:1;border-bottom:1px solid var(--border);padding:96px 24px;}
 .cost-inner{max-width:1060px;margin:0 auto;}
-/* dual-column layout */
-.cost-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;margin-bottom:60px;}
-.cost-left{}
-.cost-right{}
+.cost-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
 .section-tag{font-size:10.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
 .section-title{font-family:var(--display);font-size:clamp(34px,4.8vw,56px);font-weight:600;line-height:1.08;color:#fff;letter-spacing:-0.5px;}
 .section-title em{font-style:italic;color:var(--gold);}
 .section-body{font-size:16.5px;color:var(--soft);line-height:1.72;font-weight:300;margin-top:16px;}
 .section-body strong{color:var(--cream);}
-/* Why Hermia exists — moved here */
-.why-exists-block{margin-top:28px;padding:26px 30px;background:rgba(201,163,91,0.05);border:1px solid var(--border-hi);border-radius:18px;}
+.why-exists-block{margin-top:28px;padding:26px 30px;background:rgba(249,115,22,0.05);border:1px solid var(--border-hi);border-radius:18px;}
 .why-exists-block p{font-size:15px;color:var(--soft);line-height:1.76;font-weight:300;}
 .why-exists-block p strong{color:var(--cream);}
-/* Revenue leakage callout */
-.leakage-card{background:linear-gradient(135deg,rgba(201,163,91,0.06),rgba(14,14,19,0.9));border:1px solid var(--border-hi);border-radius:20px;padding:32px 30px;position:relative;overflow:hidden;}
-.leakage-card::before{content:'';position:absolute;top:0;right:0;width:160px;height:160px;background:radial-gradient(circle,rgba(201,163,91,0.12),transparent 70%);pointer-events:none;}
+.leakage-card{background:linear-gradient(135deg,rgba(249,115,22,0.06),rgba(14,14,19,0.9));border:1px solid var(--border-hi);border-radius:20px;padding:32px 30px;position:relative;overflow:hidden;}
+.leakage-card::before{content:'';position:absolute;top:0;right:0;width:160px;height:160px;background:radial-gradient(circle,rgba(249,115,22,0.12),transparent 70%);pointer-events:none;}
 .leakage-tag{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
-.leakage-num{font-family:var(--display);font-size:52px;font-weight:600;color:var(--gold);line-height:1;margin-bottom:8px;text-shadow:0 0 28px rgba(201,163,91,0.3);}
+.leakage-num{font-family:var(--display);font-size:52px;font-weight:600;color:var(--gold);line-height:1;margin-bottom:8px;text-shadow:0 0 28px rgba(249,115,22,0.3);}
 .leakage-desc{font-size:14.5px;color:var(--soft);line-height:1.65;font-weight:300;}
 .leakage-desc strong{color:var(--cream);}
-/* Pain cards row */
 .pain-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px;}
 .pain-card{background:rgba(239,68,68,0.055);border:1px solid rgba(239,68,68,0.18);border-radius:16px;padding:22px 20px;transition:transform .25s,border-color .25s;}
 .pain-card:hover{transform:translateY(-4px);border-color:rgba(239,68,68,0.42);}
@@ -159,211 +106,105 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:15px 52px;display:fl
 .pain-card h4{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px;}
 .pain-card p{font-size:12.5px;color:var(--soft);line-height:1.55;font-weight:300;}
 
-/* ══════════════════════════════════
-   SECTION: HOW IT WORKS
-══════════════════════════════════ */
+/* HOW IT WORKS */
 .how-wrap{position:relative;z-index:1;padding:104px 24px;max-width:1100px;margin:0 auto;}
 .divider-top{border-top:1px solid var(--border);}
 .video-outer{margin:52px auto 62px;max-width:860px;position:relative;}
-.video-outer::before{content:'';position:absolute;inset:-2px;border-radius:22px;background:linear-gradient(135deg,rgba(201,163,91,0.58),rgba(201,163,91,0.1),rgba(201,163,91,0.48));z-index:0;}
-.video-wrapper{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:20px;background:#070709;z-index:1;box-shadow:0 0 0 1px rgba(201,163,91,0.22),0 28px 72px rgba(0,0,0,0.74);}
+.video-outer::before{content:'';position:absolute;inset:-2px;border-radius:22px;background:linear-gradient(135deg,rgba(249,115,22,0.58),rgba(249,115,22,0.1),rgba(249,115,22,0.48));z-index:0;}
+.video-wrapper{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:20px;background:#070709;z-index:1;box-shadow:0 0 0 1px rgba(249,115,22,0.22),0 28px 72px rgba(0,0,0,0.74);}
 .video-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:20px;}
-/* Pipeline */
 .pipeline-wrap{max-width:780px;margin:60px auto 0;}
 .pipeline-node{display:flex;align-items:flex-start;gap:24px;position:relative;}
-.pipeline-node:not(:last-child)::after{content:'';position:absolute;left:27px;top:58px;width:2px;height:calc(100% - 14px);background:linear-gradient(180deg,var(--gold),rgba(201,163,91,0.08));}
-.p-icon{width:56px;height:56px;min-width:56px;border-radius:16px;background:var(--gold-dim);border:1px solid var(--border-hi);display:flex;align-items:center;justify-content:center;font-size:20px;position:relative;z-index:1;box-shadow:0 0 0 6px var(--ink),0 0 20px rgba(201,163,91,0.14);}
+.pipeline-node:not(:last-child)::after{content:'';position:absolute;left:27px;top:58px;width:2px;height:calc(100% - 14px);background:linear-gradient(180deg,var(--gold),rgba(249,115,22,0.08));}
+.p-icon{width:56px;height:56px;min-width:56px;border-radius:16px;background:var(--gold-dim);border:1px solid var(--border-hi);display:flex;align-items:center;justify-content:center;font-size:20px;position:relative;z-index:1;box-shadow:0 0 0 6px var(--ink),0 0 20px rgba(249,115,22,0.14);}
 .p-body{padding:10px 0 40px;}
 .p-source{font-size:10.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
 .p-title{font-size:19px;font-weight:600;color:#fff;margin-bottom:6px;}
 .p-desc{font-size:14px;color:var(--soft);line-height:1.6;font-weight:300;}
 .p-desc em{color:var(--gold-light);font-style:italic;}
 .p-tag{display:inline-block;margin-top:8px;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);background:rgba(16,185,129,0.09);border:1px solid rgba(16,185,129,0.22);padding:4px 10px;border-radius:999px;}
-
-/* Not-chatbot */
-.not-chatbot{margin-top:52px;border-radius:20px;padding:38px 42px;background:linear-gradient(135deg,rgba(201,163,91,0.07) 0%,var(--card) 62%);border:1px solid var(--border-hi);display:grid;grid-template-columns:56px 1fr;gap:24px;align-items:start;box-shadow:var(--shadow);}
-.nc-icon{width:56px;height:56px;background:rgba(201,163,91,0.09);border:1px solid var(--border-hi);border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:22px;}
+.not-chatbot{margin-top:52px;border-radius:20px;padding:38px 42px;background:linear-gradient(135deg,rgba(249,115,22,0.07) 0%,var(--card) 62%);border:1px solid var(--border-hi);display:grid;grid-template-columns:56px 1fr;gap:24px;align-items:start;box-shadow:var(--shadow);}
+.nc-icon{width:56px;height:56px;background:rgba(249,115,22,0.09);border:1px solid var(--border-hi);border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:22px;}
 .not-chatbot h3{font-family:var(--display);font-size:24px;color:#fff;margin-bottom:11px;}
 .not-chatbot h3 em{font-style:italic;color:var(--gold);}
 .not-chatbot p{color:var(--soft);font-size:15px;line-height:1.68;font-weight:300;}
 .not-chatbot p strong{color:var(--cream);font-weight:500;}
 
-/* ══════════════════════════════════
-   INTEGRATIONS  (renamed)
-══════════════════════════════════ */
+/* INTEGRATIONS (native only) */
 .integrations{position:relative;z-index:1;overflow:hidden;background:var(--ink);padding:88px 1.5rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.integrations *{box-sizing:border-box;}
-.int-glow{position:absolute;inset:0;pointer-events:none;opacity:.6;background:radial-gradient(55% 45% at 50% -5%,rgba(201,163,91,.18) 0%,transparent 65%),radial-gradient(35% 35% at 85% 95%,rgba(201,163,91,.08) 0%,transparent 70%);}
-.int-grid-tex{position:absolute;inset:0;pointer-events:none;opacity:.045;background-image:linear-gradient(rgba(255,255,255,.7) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.7) 1px,transparent 1px);background-size:46px 46px;mask-image:radial-gradient(ellipse 70% 70% at 50% 30%,#000,transparent 80%);-webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 30%,#000,transparent 80%);}
+.int-glow{position:absolute;inset:0;pointer-events:none;opacity:.6;background:radial-gradient(55% 45% at 50% -5%,rgba(249,115,22,.18) 0%,transparent 65%);}
 .int-wrap{position:relative;max-width:1080px;margin:0 auto;}
-.int-head{text-align:center;max-width:640px;margin:0 auto;}
-.int-pill{display:inline-flex;align-items:center;gap:.55rem;border:1px solid rgba(242,205,122,.3);background:rgba(242,205,122,.055);padding:.4rem 1rem;border-radius:999px;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#f4dca0;}
-.int-dot{width:6px;height:6px;border-radius:50%;background:#e8c17a;animation:blink 1.8s ease-in-out infinite;}
+.int-head{text-align:center;max-width:640px;margin:0 auto 3rem;}
+.int-pill{display:inline-flex;align-items:center;gap:.55rem;border:1px solid rgba(251,146,60,.3);background:rgba(251,146,60,.055);padding:.4rem 1rem;border-radius:999px;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#FDBA74;}
+.int-dot{width:6px;height:6px;border-radius:50%;background:#FB923C;animation:blink 1.8s ease-in-out infinite;}
 .int-h2{margin:1.4rem 0 0;font-family:var(--display);font-weight:600;font-size:clamp(2.1rem,4.8vw,3.1rem);line-height:1.04;letter-spacing:-.02em;color:#fff;}
-.int-h2 .grad{background:linear-gradient(90deg,#f4dca0,#C9A35B,#f4dca0);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.int-h2 .grad{background:linear-gradient(90deg,#FDBA74,#F97316,#FDBA74);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .int-sub{margin:1.1rem 0 0;font-size:1.05rem;line-height:1.6;color:#b0ada5;font-weight:300;}
 .int-sub b{color:#e6ebf2;font-weight:600;}
-.int-tier{margin-top:3.4rem;}
-.int-tier-head{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;}
-.int-num{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:9px;font-size:.78rem;font-weight:800;}
-.int-num.one{background:rgba(242,205,122,.15);color:#e8c17a;box-shadow:inset 0 0 0 1px rgba(242,205,122,.3);}
-.int-num.two{background:rgba(255,255,255,.09);color:#cdd6e2;box-shadow:inset 0 0 0 1px rgba(255,255,255,.15);}
-.int-tier-label{font-size:.78rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;}
-.int-tier-label.gold{color:#f4dca0;}
-.int-tier-label.dim{color:#cdd6e2;}
-.int-line{height:1px;flex:1;}
-.int-line.gold{background:linear-gradient(90deg,rgba(242,205,122,.32),transparent);}
-.int-line.dim{background:linear-gradient(90deg,rgba(255,255,255,.14),transparent);}
-.int-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;}
-.int-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;text-align:center;padding:1.7rem 1rem;border-radius:18px;transition:transform .28s,border-color .28s,background .28s,box-shadow .28s;}
-.int-card.native{border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);}
-.int-card.native:hover{transform:translateY(-5px);border-color:rgba(242,205,122,.48);background:rgba(242,205,122,.055);box-shadow:0 14px 40px -16px rgba(224,179,87,.48);}
-.int-card.custom{border:1px dashed rgba(255,255,255,.13);background:rgba(255,255,255,.015);}
-.int-card.custom:hover{transform:translateY(-5px);border-color:rgba(242,205,122,.42);background:rgba(255,255,255,.04);}
+.int-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;}
+.int-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;text-align:center;padding:1.7rem 1rem;border-radius:18px;transition:transform .28s,border-color .28s,background .28s,box-shadow .28s;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);}
+.int-card:hover{transform:translateY(-5px);border-color:rgba(251,146,60,.48);background:rgba(251,146,60,.055);box-shadow:0 14px 40px -16px rgba(249,115,22,.48);}
 .int-ico{display:flex;align-items:center;justify-content:center;width:50px;height:50px;}
 .int-ico img{width:42px;height:42px;object-fit:contain;border-radius:10px;transition:transform .28s;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.32));}
 .int-card:hover .int-ico img{transform:scale(1.12);}
 .int-name{font-size:.91rem;font-weight:600;color:#f4f0e6;}
-.int-card.custom .int-name{color:#b0ada5;}
-.int-tag{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;}
-.int-tag.n{color:#4ade80;opacity:.82;}
-.int-tag.c{color:#f4dca0;opacity:.76;}
+.int-tag{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:#4ade80;opacity:.82;}
 .int-cta-wrap{margin-top:4rem;display:flex;justify-content:center;}
-.int-cta{width:100%;max-width:560px;border-radius:22px;border:1px solid rgba(242,205,122,.2);background:linear-gradient(180deg,rgba(242,205,122,.07),transparent);padding:2.4rem 2rem;text-align:center;}
-.int-cta-kick{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#f4dca0;opacity:.82;}
+.int-cta{width:100%;max-width:560px;border-radius:22px;border:1px solid rgba(251,146,60,.2);background:linear-gradient(180deg,rgba(251,146,60,.07),transparent);padding:2.4rem 2rem;text-align:center;}
+.int-cta-kick{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#FDBA74;opacity:.82;}
 .int-cta-h{margin:.7rem 0 0;font-family:var(--display);font-weight:600;font-size:1.55rem;color:#fff;}
-.int-btn{display:inline-flex;align-items:center;gap:.6rem;margin-top:1.4rem;padding:.9rem 1.7rem;border-radius:999px;text-decoration:none;font-size:.9rem;font-weight:700;color:#1a1408;background:linear-gradient(90deg,#e8c17a,#C9A35B);box-shadow:0 8px 28px -6px rgba(224,179,87,.55);transition:transform .28s,box-shadow .28s;}
-.int-btn:hover{transform:scale(1.04);box-shadow:0 12px 40px -4px rgba(224,179,87,.82);}
-.int-btn svg{transition:transform .28s;}
-.int-btn:hover svg{transform:translateX(4px);}
-.int-note{margin:1rem auto 0;max-width:400px;font-size:.88rem;line-height:1.6;color:#b0ada5;font-weight:300;}
-.int-code{background:rgba(255,255,255,.1);color:#f4dca0;padding:.1rem .4rem;border-radius:5px;font-size:.8em;font-family:ui-monospace,monospace;}
+.int-cta-sub{margin:.8rem auto 0;max-width:400px;font-size:.88rem;line-height:1.6;color:#b0ada5;font-weight:300;}
 .int-legal{margin:3.4rem auto 0;max-width:720px;text-align:center;font-size:.65rem;line-height:1.7;color:#7a7672;}
-@media(max-width:900px){.int-cards{grid-template-columns:repeat(3,1fr);}}
-@media(max-width:560px){.int-cards{grid-template-columns:repeat(2,1fr);}.integrations{padding:4rem 1.1rem;}}
+@media(max-width:900px){.int-cards{grid-template-columns:repeat(2,1fr);}}
 
-/* ══════════════════════════════════
-   DEMO SECTION
-══════════════════════════════════ */
-.demo-section{position:relative;z-index:1;border-top:1px solid var(--border);padding:104px 24px;max-width:1100px;margin:0 auto;}
-.demo-promo{border-radius:24px;padding:56px 48px;position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(201,163,91,0.08) 0%,var(--card) 52%);border:1px solid var(--border-hi);box-shadow:0 34px 90px rgba(0,0,0,0.52),0 0 66px rgba(201,163,91,0.09);}
-.demo-promo::before{content:'';position:absolute;top:14px;right:14px;width:22px;height:22px;border-top:1px solid var(--gold);border-right:1px solid var(--gold);}
-.demo-promo::after{content:'';position:absolute;bottom:14px;left:14px;width:22px;height:22px;border-bottom:1px solid var(--gold);border-left:1px solid var(--gold);}
-.demo-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:48px;align-items:center;position:relative;z-index:1;}
-.live-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,0.09);border:1px solid rgba(16,185,129,0.28);padding:5px 14px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:20px;}
-.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s infinite;}
-.demo-promo h3{font-family:var(--display);font-size:38px;font-weight:600;color:#fff;line-height:1.1;margin-bottom:14px;}
-.demo-promo h3 em{font-style:italic;color:var(--gold);}
-.demo-copy p{font-size:15px;color:var(--soft);line-height:1.68;font-weight:300;margin-bottom:22px;}
-.demo-features{list-style:none;margin-bottom:28px;display:flex;flex-direction:column;gap:8px;}
-.demo-features li{font-size:13px;color:var(--soft);display:flex;align-items:center;gap:9px;}
-.demo-features li::before{content:'◆';font-size:6px;color:var(--gold);}
-.demo-cta{position:relative;overflow:hidden;display:inline-block;background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#1a1408;padding:15px 30px;border-radius:12px;font-size:12.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;text-decoration:none;transition:all 0.3s;box-shadow:0 8px 28px rgba(201,163,91,0.26);}
-.demo-cta::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,0.5),transparent);transform:skewX(-18deg);transition:left 0.6s;}
-.demo-cta:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 12px 36px rgba(201,163,91,0.42);}
-.demo-cta:hover::after{left:150%;}
-.terminal{background:#030305;border:1px solid var(--border);border-radius:18px;padding:24px;font-family:'Courier New',monospace;font-size:11.5px;position:relative;overflow:hidden;box-shadow:var(--shadow);}
-.terminal::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,163,91,0.04) 0%,transparent 50%);pointer-events:none;}
-.t-header{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding-bottom:11px;border-bottom:1px solid rgba(255,255,255,0.048);font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;}
-.t-dots{display:flex;gap:4px;}
-.t-dot{width:8px;height:8px;border-radius:50%;}
-.t-dot.r{background:#ef4444;}.t-dot.y{background:#f59e0b;}.t-dot.g{background:var(--green);}
-.t-line{color:var(--soft);line-height:1.74;position:relative;z-index:1;}
-.t-line strong{color:var(--gold-light);}
-.t-line.ok{color:var(--green);}
-.t-line.dim{color:var(--muted);}
-.t-cursor{display:inline-block;width:7px;height:12px;background:var(--gold);opacity:0.7;animation:cursor-blink 1.1s infinite;vertical-align:middle;margin-left:2px;}
-@keyframes cursor-blink{0%,49%{opacity:0.7}50%,100%{opacity:0}}
-
-/* ══════════════════════════════════
-   BENEFITS / FEATURES
-══════════════════════════════════ */
+/* FEATURES */
 .features-wrap{position:relative;z-index:1;padding:104px 24px;max-width:1100px;margin:0 auto;}
 .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:52px;}
 .feat-card{background:var(--glass),var(--card);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:18px;padding:28px;transition:all 0.28s;position:relative;overflow:hidden;box-shadow:var(--edge);}
-.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(232,193,122,0.52),transparent);opacity:0;transition:opacity 0.3s;}
-.feat-card:hover{border-color:var(--border-hi);transform:translateY(-5px);box-shadow:0 18px 44px rgba(0,0,0,0.44),0 0 42px rgba(201,163,91,0.14);}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(251,146,60,0.52),transparent);opacity:0;transition:opacity 0.3s;}
+.feat-card:hover{border-color:var(--border-hi);transform:translateY(-5px);box-shadow:0 18px 44px rgba(0,0,0,0.44),0 0 42px rgba(249,115,22,0.14);}
 .feat-card:hover::before{opacity:1;}
 .feat-label{font-size:10.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:11px;}
 .feat-card h3{font-size:16.5px;font-weight:600;color:#fff;margin-bottom:10px;}
 .feat-card p{font-size:14px;color:var(--soft);line-height:1.65;font-weight:300;}
 
-/* ══════════════════════════════════
-   COMPARISON TABLE
-══════════════════════════════════ */
-.compare-section{position:relative;z-index:1;border-top:1px solid var(--border);padding:88px 24px;text-align:center;background:rgba(201,163,91,0.01);}
-.compare-inner{max-width:900px;margin:0 auto;}
+/* REAL ESTATE BAND */
+.re-band{position:relative;z-index:1;border-top:1px solid var(--border);padding:88px 24px;}
+.re-card{max-width:880px;margin:0 auto;border-radius:24px;padding:54px 48px;text-align:center;position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(249,115,22,0.12) 0%,rgba(18,12,6,0.96) 60%);border:1px solid var(--border-hi);box-shadow:0 28px 70px rgba(0,0,0,0.48),0 0 60px rgba(249,115,22,0.1);}
+.re-card::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;background:radial-gradient(circle,rgba(249,115,22,0.18),transparent 65%);pointer-events:none;}
+.re-flag{font-size:36px;margin-bottom:14px;display:block;}
+.re-card h3{font-family:var(--display);font-size:34px;font-weight:600;color:#fff;line-height:1.15;margin-bottom:12px;}
+.re-card h3 em{font-style:italic;color:var(--gold);}
+.re-card p{font-size:15px;color:var(--soft);line-height:1.7;font-weight:300;max-width:540px;margin:0 auto 26px;}
 
-/* ══════════════════════════════════
-   WHY AGENTS (8 cards)
-══════════════════════════════════ */
-.why-section{position:relative;z-index:1;border-top:1px solid var(--border);padding:104px 24px;max-width:1100px;margin:0 auto;text-align:center;}
-.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:56px;}
-.why-card{background:var(--glass),var(--card);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:18px;padding:34px 28px;text-align:left;transition:all 0.28s;box-shadow:var(--edge);}
-.why-card:hover{border-color:var(--border-hi);transform:translateY(-5px);box-shadow:0 18px 44px rgba(0,0,0,0.44),0 0 42px rgba(201,163,91,0.14);}
-.why-icon{width:44px;height:44px;background:var(--gold-dim);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:18px;}
-.why-card h3{font-size:17px;font-weight:600;color:#fff;margin-bottom:9px;}
-.why-card p{font-size:13.5px;color:var(--soft);line-height:1.6;font-weight:300;}
-
-/* ══════════════════════════════════
-   DUBAI / AUSTRALIA MARKET BAND
-══════════════════════════════════ */
-.markets-band{position:relative;z-index:1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:72px 24px;background:linear-gradient(180deg,rgba(201,163,91,0.025),transparent);}
-.markets-inner{max-width:1060px;margin:0 auto;}
-.markets-grid{display:grid;grid-template-columns:3fr 2fr;gap:32px;align-items:stretch;}
-/* Dubai card — bigger, primary */
-.market-card{border-radius:22px;padding:44px 40px;position:relative;overflow:hidden;}
-.market-card.dubai{background:linear-gradient(135deg,rgba(201,163,91,0.13) 0%,rgba(18,12,6,0.96) 60%);border:1px solid var(--border-hi);box-shadow:0 28px 70px rgba(0,0,0,0.48),0 0 60px rgba(201,163,91,0.1);}
-.market-card.dubai::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;background:radial-gradient(circle,rgba(201,163,91,0.18),transparent 65%);pointer-events:none;}
-.market-card.aus{background:rgba(255,255,255,0.022);border:1px solid var(--border);}
-.market-flag{font-size:36px;margin-bottom:14px;display:block;}
-.market-country{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
-.market-card h3{font-family:var(--display);font-size:30px;font-weight:600;color:#fff;line-height:1.15;margin-bottom:10px;}
-.market-card p{font-size:14.5px;color:var(--soft);line-height:1.7;font-weight:300;margin-bottom:18px;}
-.market-price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:20px;}
-.market-currency{font-size:14px;color:var(--muted);font-weight:300;margin-top:4px;}
-.market-amount{font-family:var(--display);font-size:52px;font-weight:600;color:var(--gold);line-height:1;}
-.market-per{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
-.market-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:26px;}
-.market-features li{font-size:13px;color:var(--soft);display:flex;align-items:center;gap:8px;}
-.market-features li::before{content:'◆';font-size:5px;color:var(--gold);}
-.market-btn{display:inline-block;padding:13px 26px;border-radius:11px;font-size:11.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all 0.28s;}
-.market-btn.gold{background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#1a1408;box-shadow:0 6px 24px rgba(201,163,91,0.26);}
-.market-btn.gold:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 10px 32px rgba(201,163,91,0.4);}
-.market-btn.outline{background:transparent;border:1.5px solid var(--border-hi);color:var(--gold);}
-.market-btn.outline:hover{background:var(--gold-dim);border-color:var(--gold);}
-/* Dubai focus badge */
-.dubai-badge{position:absolute;top:20px;right:20px;background:linear-gradient(135deg,rgba(201,163,91,0.22),rgba(201,163,91,0.08));border:1px solid var(--border-hi);border-radius:999px;padding:5px 14px;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);}
-
-/* ══════════════════════════════════
-   PRICING
-══════════════════════════════════ */
+/* PRICING */
 #pricing{position:relative;z-index:1;border-top:1px solid var(--border);padding:108px 24px 128px;text-align:center;overflow:hidden;}
-.pricing-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:960px;height:600px;background:radial-gradient(ellipse,rgba(201,163,91,0.07) 0%,transparent 68%);pointer-events:none;filter:blur(12px);}
+.pricing-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:960px;height:600px;background:radial-gradient(ellipse,rgba(249,115,22,0.07) 0%,transparent 68%);pointer-events:none;filter:blur(12px);}
 .ptag-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:42px;}
-.ptl{height:1px;width:52px;background:linear-gradient(90deg,transparent,rgba(201,163,91,0.5));}
-.ptl.r{background:linear-gradient(90deg,rgba(201,163,91,0.5),transparent);}
+.ptl{height:1px;width:52px;background:linear-gradient(90deg,transparent,rgba(249,115,22,0.5));}
+.ptl.r{background:linear-gradient(90deg,rgba(249,115,22,0.5),transparent);}
 .ptd{width:5px;height:5px;background:var(--gold);transform:rotate(45deg);opacity:0.58;}
 .ptlabel{font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold);}
 .pricing-h{font-family:var(--display);font-size:clamp(2.1rem,4.4vw,3.3rem);font-weight:600;line-height:1.16;color:#fff;max-width:660px;margin:0 auto 14px;letter-spacing:-0.5px;}
 .pricing-h em{font-style:italic;color:var(--gold);}
 .pricing-sub{font-size:15.5px;color:var(--soft);max-width:540px;margin:0 auto 70px;line-height:1.65;font-weight:300;}
 .pricing-panel{display:flex;justify-content:center;align-items:stretch;max-width:780px;margin:0 auto;position:relative;z-index:1;}
-.p-card{flex:1;min-width:0;padding:52px 42px 46px;text-align:center;position:relative;background:var(--card);transition:background 0.3s;}
-.p-card:first-child{border-radius:22px 0 0 22px;border:1px solid rgba(201,163,91,0.18);border-right:none;}
-.p-card:last-child{border-radius:0 22px 22px 0;border:1.5px solid var(--gold);background:linear-gradient(150deg,#141009 0%,#111111 56%);box-shadow:0 30px 80px rgba(0,0,0,0.5),0 0 52px rgba(201,163,91,0.11);}
-.p-card:last-child::before,.p-card:last-child::after{content:'';position:absolute;width:14px;height:14px;border-color:var(--gold);border-style:solid;}
-.p-card:last-child::before{top:13px;right:13px;border-width:1px 1px 0 0;}
-.p-card:last-child::after{bottom:13px;left:13px;border-width:0 0 1px 1px;}
-.p-divider{width:1px;background:linear-gradient(180deg,transparent 5%,rgba(201,163,91,0.26) 30%,rgba(201,163,91,0.26) 70%,transparent 95%);flex-shrink:0;}
-.p-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#8a6820,#e8c17a,#8a6820);color:#1a1408;font-size:8px;font-weight:800;letter-spacing:3px;padding:5px 18px;text-transform:uppercase;border-radius:0 0 10px 10px;white-space:nowrap;}
+.p-card{flex:1;min-width:0;padding:52px 42px 46px;text-align:center;position:relative;background:var(--card);}
+.p-card{border:1.5px solid var(--gold);background:linear-gradient(150deg,#140c06 0%,#111111 56%);box-shadow:0 30px 80px rgba(0,0,0,0.5),0 0 52px rgba(249,115,22,0.11);}
+.p-card:first-child{border-radius:22px 0 0 22px;}
+.p-card:last-child{border-radius:0 22px 22px 0;border-left:none;}
+.p-card::before,.p-card::after{content:'';position:absolute;width:14px;height:14px;border-color:var(--gold);border-style:solid;}
+.p-card::before{top:13px;right:13px;border-width:1px 1px 0 0;}
+.p-card::after{bottom:13px;left:13px;border-width:0 0 1px 1px;}
+.p-divider{width:1px;background:linear-gradient(180deg,transparent 5%,rgba(249,115,22,0.26) 30%,rgba(249,115,22,0.26) 70%,transparent 95%);flex-shrink:0;}
+.p-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#9A3412,#FB923C,#9A3412);color:#1a0d04;font-size:8px;font-weight:800;letter-spacing:3px;padding:5px 18px;text-transform:uppercase;border-radius:0 0 10px 10px;white-space:nowrap;}
 .p-country{font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:9px;}
 .p-flag{font-size:18px;}
 .p-rule{width:26px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 28px;}
 .p-price-row{display:flex;align-items:flex-start;justify-content:center;gap:3px;margin-bottom:5px;}
 .p-currency{font-family:'DM Sans',sans-serif;font-size:17px;font-weight:300;color:rgba(245,241,232,0.38);margin-top:14px;}
 .p-amount{font-family:var(--display);font-size:86px;font-weight:600;line-height:1;color:#fff;letter-spacing:-0.03em;}
-.p-card:last-child .p-amount{color:var(--gold-light);text-shadow:0 0 38px rgba(201,163,91,0.33);}
+.p-card .p-amount{color:var(--gold-light);text-shadow:0 0 38px rgba(249,115,22,0.33);}
 .p-per{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:28px;}
 .p-was{font-size:11px;color:rgba(138,133,128,0.38);text-decoration:line-through;margin-bottom:6px;}
 .p-offer{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:36px;}
@@ -371,59 +212,34 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:15px 52px;display:fl
 .p-features li{font-size:13px;color:var(--soft);font-weight:300;line-height:1.5;display:flex;align-items:flex-start;gap:9px;}
 .p-features li::before{content:'◆';font-size:6px;color:var(--gold);opacity:0.7;margin-top:5px;flex-shrink:0;}
 .p-btn{position:relative;overflow:hidden;display:block;cursor:pointer;width:100%;padding:15px 18px;border-radius:11px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;transition:all 0.28s;text-align:center;}
-.p-btn-outline{background:transparent;border:1px solid rgba(201,163,91,0.32);color:var(--gold);}
-.p-btn-outline:hover{background:rgba(201,163,91,0.055);border-color:var(--gold);}
-.p-btn-gold{background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);border:none;color:#1a1408;box-shadow:0 6px 26px rgba(201,163,91,0.24);}
-.p-btn-gold::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,0.55),transparent);transform:skewX(-18deg);transition:left 0.6s;}
-.p-btn-gold:hover{filter:brightness(1.08);box-shadow:0 10px 34px rgba(201,163,91,0.4);}
-.p-btn-gold:hover::after{left:150%;}
+.p-btn-outline{background:transparent;border:1px solid rgba(249,115,22,0.32);color:var(--gold);}
+.p-btn-outline:hover{background:rgba(249,115,22,0.055);border-color:var(--gold);}
+.p-btn-gold{background:linear-gradient(90deg,#9A3412,#FB923C,#C2410C);border:none;color:#1a0d04;box-shadow:0 6px 26px rgba(249,115,22,0.24);}
+.p-btn-gold:hover{filter:brightness(1.08);box-shadow:0 10px 34px rgba(249,115,22,0.4);}
 
-/* ══════════════════════════════════
-   FAQ
-══════════════════════════════════ */
+/* FAQ */
 .faq-section{position:relative;z-index:1;border-top:1px solid var(--border);padding:104px 24px;max-width:880px;margin:0 auto;}
 .faq-header{text-align:center;margin-bottom:52px;}
 .faq-list{display:flex;flex-direction:column;gap:10px;}
 .faq-item{background:var(--glass),var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all 0.28s;}
-.faq-item:hover{border-color:rgba(201,163,91,0.28);}
-.faq-item.open{border-color:var(--gold);background:linear-gradient(135deg,rgba(201,163,91,0.04) 0%,var(--card) 60%);}
+.faq-item:hover{border-color:rgba(249,115,22,0.28);}
+.faq-item.open{border-color:var(--gold);background:linear-gradient(135deg,rgba(249,115,22,0.04) 0%,var(--card) 60%);}
 .faq-q{width:100%;background:none;border:none;padding:22px 26px;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:18px;cursor:pointer;font-family:'DM Sans',sans-serif;color:#fff;font-size:15.5px;font-weight:600;line-height:1.4;}
 .faq-q-icon{flex-shrink:0;width:26px;height:26px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:13px;transition:all 0.28s;}
-.faq-item.open .faq-q-icon{background:var(--gold);color:#1a1408;border-color:var(--gold);transform:rotate(45deg);}
+.faq-item.open .faq-q-icon{background:var(--gold);color:#1a0d04;border-color:var(--gold);transform:rotate(45deg);}
 .faq-a{max-height:0;overflow:hidden;transition:max-height 0.38s ease,padding 0.38s ease;}
 .faq-item.open .faq-a{max-height:400px;padding:0 26px 22px;}
 .faq-a-content{color:var(--soft);font-size:14.5px;line-height:1.7;font-weight:300;padding-top:8px;border-top:1px solid var(--border);}
 .faq-a-content strong{color:#fff;font-weight:600;}
 .faq-a-content em{color:var(--gold-light);font-style:italic;}
 
-/* ══════════════════════════════════
-   WHY HERMIA EXISTS (now at bottom)
-══════════════════════════════════ */
-.origin-section{position:relative;z-index:1;border-top:1px solid var(--border);padding:88px 24px;background:rgba(201,163,91,0.012);}
-.origin-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
-.origin-left{}
-.origin-seal{width:130px;height:130px;background:linear-gradient(135deg,#C9A35B 0%,#e8c17a 50%,#C9A35B 100%);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:6px solid rgba(255,255,255,0.065);box-shadow:0 0 0 14px rgba(201,163,91,0.065),0 22px 56px rgba(201,163,91,0.48),inset 0 2px 4px rgba(255,255,255,0.2);animation:seal-pulse 3s ease-in-out infinite;margin-bottom:20px;}
-@keyframes seal-pulse{0%,100%{box-shadow:0 0 0 14px rgba(201,163,91,0.065),0 22px 56px rgba(201,163,91,0.48),inset 0 2px 4px rgba(255,255,255,0.2);}50%{box-shadow:0 0 0 26px rgba(201,163,91,0.14),0 32px 72px rgba(201,163,91,0.58),inset 0 2px 4px rgba(255,255,255,0.2);}}
-.seal-logo{font-family:var(--display);font-size:26px;font-weight:700;color:#111;letter-spacing:-1px;line-height:1;}
-.seal-sub{font-size:8px;font-weight:700;color:#111;letter-spacing:2.5px;text-transform:uppercase;margin-top:4px;}
-.origin-checks{display:flex;flex-direction:column;gap:11px;}
-.origin-check{display:flex;align-items:flex-start;gap:11px;font-size:13.5px;color:var(--soft);line-height:1.5;}
-.oc-icon{width:20px;height:20px;min-width:20px;background:rgba(201,163,91,0.09);border:1px solid rgba(201,163,91,0.28);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--gold);margin-top:1px;}
-.origin-check strong{color:#fff;}
-.origin-right p{font-size:16px;color:var(--soft);line-height:1.75;font-weight:300;margin-bottom:16px;}
-.origin-right p strong{color:var(--cream);}
-
-/* ══════════════════════════════════
-   CTA SECTION
-══════════════════════════════════ */
+/* CTA */
 .cta-section{position:relative;z-index:1;border-top:1px solid var(--border);text-align:center;padding:108px 24px;max-width:820px;margin:0 auto;}
-.cta-section::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:840px;height:420px;background:radial-gradient(ellipse,rgba(201,163,91,0.1) 0%,transparent 65%);pointer-events:none;filter:blur(42px);}
+.cta-section::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:840px;height:420px;background:radial-gradient(ellipse,rgba(249,115,22,0.1) 0%,transparent 65%);pointer-events:none;filter:blur(42px);}
 .cta-actions{display:flex;align-items:center;gap:14px;justify-content:center;margin-top:42px;flex-wrap:wrap;}
 
-/* ══════════════════════════════════
-   FOOTER
-══════════════════════════════════ */
-footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:52px;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:40px;}
+/* FOOTER */
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:52px;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:40px;}
 .footer-logo{display:flex;align-items:center;gap:10px;text-decoration:none;margin-bottom:14px;}
 .footer-logo img{width:26px;height:26px;}
 .footer-logo span{font-family:var(--display);font-size:20px;font-weight:600;color:var(--cream);}
@@ -435,9 +251,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:52
 .footer-col a:hover{color:var(--cream);}
 .footer-bottom{position:relative;z-index:1;border-top:1px solid var(--border);padding:28px 52px;font-size:11.5px;color:var(--muted);display:flex;justify-content:space-between;align-items:center;font-weight:300;}
 
-/* ══════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════ */
+/* RESPONSIVE */
 @media(max-width:960px){
   nav{padding:16px 22px;}.nav-links{display:none;}
   footer{grid-template-columns:1fr 1fr;padding:40px 24px;}
@@ -446,121 +260,99 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:52
   .stat:last-child{border-bottom:none;}
   .cost-grid{grid-template-columns:1fr;}
   .pain-cards{grid-template-columns:1fr 1fr;}
-  .markets-grid{grid-template-columns:1fr;}
-  .origin-inner{grid-template-columns:1fr;}
 }
-@media(max-width:768px){
-  .demo-grid{grid-template-columns:1fr;gap:28px;}.demo-promo{padding:38px 26px;}
-  .not-chatbot{grid-template-columns:1fr;}
-}
+@media(max-width:768px){.not-chatbot{grid-template-columns:1fr;}}
 @media(max-width:680px){
   #pricing{padding:76px 18px 100px;}
   .pricing-panel{flex-direction:column;max-width:340px;gap:14px;}
   .p-divider{display:none;}
-  .p-card:first-child{border-radius:18px;border:1px solid rgba(201,163,91,0.18);}
-  .p-card:last-child{border-radius:18px;}
+  .p-card:first-child{border-radius:18px;border-left:1.5px solid var(--gold);}
+  .p-card:last-child{border-radius:18px;border-left:1.5px solid var(--gold);}
   .p-amount{font-size:70px;}
   .p-card{padding:44px 26px 38px;}
 }
 @media(max-width:640px){
-  .hero h1{font-size:46px;letter-spacing:-1.5px;}
+  .hero h1{font-size:44px;letter-spacing:-1.5px;}
   footer{grid-template-columns:1fr;}
   .footer-bottom{flex-direction:column;gap:8px;text-align:center;padding:24px 20px;}
   .pain-cards{grid-template-columns:1fr;}
+  .re-card{padding:40px 24px;}
 }
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 </style>
 </head>
 <body>
 
-<!-- ░░ STAR CANVAS ░░ -->
 <canvas id="star-canvas"></canvas>
 
-<!-- ░░ NAV ░░ -->
+<!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
     <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia">
     <span>Hermia</span>
   </a>
   <ul class="nav-links">
+    <li><a href="#how">How it works</a></li>
     <li><a href="#benefits">Benefits</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="website.html" style="color:var(--gold-light);font-weight:500;">Get Your Website</a></li>
-    <li class="nav-tools-wrap" id="nav-tools">
-      <button class="nav-tools-trigger" onclick="toggleNavTools(event)">Tools<svg viewBox="0 0 10 6"><path d="M0 0l5 5 5-5z"/></svg></button>
-      <div class="nav-dropdown">
-        <a href="gibberish.html" class="nav-dropdown-item"><div class="nav-dd-icon">▶</div><div><span class="nav-dd-title">Live Triage Demo</span><span class="nav-dd-desc">Watch Hermia qualify a lead in real time</span></div></a>
-        <a href="handoff.html" class="nav-dropdown-item"><div class="nav-dd-icon">$</div><div><span class="nav-dd-title">Loss Calculator</span><span class="nav-dd-desc">See what unqualified leads cost you monthly</span></div></a>
-        <div class="nav-dd-sep"></div>
-        <a href="sandbox.html" class="nav-dropdown-item"><div class="nav-dd-icon">◆</div><div><span class="nav-dd-title">Full Benefits Breakdown</span><span class="nav-dd-desc">Every feature explained in detail</span></div></a>
-        <a href="index dashboard 2.html" class="nav-dropdown-item"><div class="nav-dd-icon">🛡</div><div><span class="nav-dd-title">Security Audit</span><span class="nav-dd-desc">Apply for a 25-min strategy session</span></div></a>
-      </div>
-    </li>
+    <li><a href="final2.html" style="color:var(--gold-light);font-weight:500;">Real Estate</a></li>
     <li><a href="apply.html" class="nav-cta">Start Free Trial</a></li>
   </ul>
 </nav>
 
-<!-- ░░ HERO ░░ -->
+<!-- HERO -->
 <div class="hero">
   <div class="hero-glow"></div>
   <div class="hero-grid"></div>
   <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="hero-logo">
-  <div class="hero-badge"><span class="badge-dot"></span>Built for Real Estate Agents · Dubai &amp; Australia</div>
-  <h1>Every Enquiry Qualified.<br><em>Every Inspection Booked.</em><br>Zero Effort.</h1>
-  <!-- City line -->
+  <div class="hero-badge"><span class="badge-dot"></span>Built for Construction &amp; Trade Businesses</div>
+  <h1>Every Missed Call Answered.<br><em>Every Job Qualified.</em><br>Zero Effort.</h1>
   <div class="hero-cities">
-    <div class="hero-city dubai"><span class="hero-city-flag">🇦🇪</span>Dubai &amp; UAE</div>
+    <div class="hero-city au"><span class="hero-city-flag">🇦🇺</span>Australia</div>
     <div class="city-sep"></div>
-    <div class="hero-city"><span class="hero-city-flag">🇦🇺</span>Australia</div>
+    <div class="hero-city"><span class="hero-city-flag">🇦🇪</span>Dubai &amp; UAE</div>
   </div>
-  <p class="hero-sub">Hermia instantly qualifies every property enquiry via WhatsApp &amp; SMS, books inspections automatically, and pushes ranked Hot, Warm, or Cold leads directly into your CRM.<br><br>No chatbot conversations. No manual follow-up. No wasted calls. <strong>Your pipeline is already organised before your day starts.</strong></p>
+  <p class="hero-sub">When someone rings about a job and you're on the tools, Hermia texts them back within 30 seconds, asks the right questions, and sends you only the serious jobs.<br><br><strong>You keep working exactly how you work now. The serious jobs just land in your pocket, already sorted.</strong></p>
   <div class="hero-cta-row">
-    <a href="final tool.html" class="btn-primary">See a Real Enquiry Become a Qualified Lead →</a>
-    <a href="calendar.html" class="btn-ghost">Book a Call →</a>
+    <a href="#how" class="btn-primary">See How a Missed Call Becomes a Job →</a>
+    <a href="apply.html" class="btn-ghost">Start Free Trial →</a>
   </div>
   <div class="hero-trust">
-    <div class="trust-item"><span class="trust-check">✓</span> No chatbot unpredictability</div>
+    <div class="trust-item"><span class="trust-check">✓</span> No app to learn</div>
     <div class="trust-sep"></div>
-    <div class="trust-item"><span class="trust-check">✓</span> 3-day free trial on your live leads</div>
+    <div class="trust-item"><span class="trust-check">✓</span> Same phone number you have now</div>
     <div class="trust-sep"></div>
-    <div class="trust-item"><span class="trust-check">✓</span> Live in your CRM within 24 hours</div>
+    <div class="trust-item"><span class="trust-check">✓</span> Live within 24 hours</div>
     <div class="trust-sep"></div>
     <div class="trust-item"><span class="trust-check">✓</span> No contracts, cancel anytime</div>
   </div>
-  <div class="hero-pills">
-    <div class="hero-pill">Built for high-intent property enquiries</div>
-    <div class="hero-pill">Fixed questions. Fixed logic. No AI guessing.</div>
-    <div class="hero-pill">Works while you sleep, inspect, or close deals</div>
-  </div>
 </div>
 
-<!-- ░░ STATS ░░ -->
+<!-- STATS -->
 <div class="stats-bar">
-  <div class="stat"><div class="stat-num">30s</div><div class="stat-label">First contact after every enquiry<br><strong>Industry average: 12 hours</strong></div></div>
-  <div class="stat"><div class="stat-num">80%</div><div class="stat-label">Of enquiry leakage stopped<br><strong>Via instant WhatsApp &amp; SMS</strong></div></div>
-  <div class="stat"><div class="stat-num">$15k</div><div class="stat-label">Additional commission recoverable<br><strong>From leads you currently lose</strong></div></div>
+  <div class="stat"><div class="stat-num">30s</div><div class="stat-label">First reply after every enquiry<br><strong>Even while you're under a house</strong></div></div>
+  <div class="stat"><div class="stat-num">80%</div><div class="stat-label">Of missed-call leakage stopped<br><strong>Via instant SMS &amp; WhatsApp</strong></div></div>
+  <div class="stat"><div class="stat-num">$10k</div><div class="stat-label">Average job value protected<br><strong>One saved job pays for years of Hermia</strong></div></div>
 </div>
 
-<!-- ░░ COST SECTION (restructured — "Why Hermia Exists" moved here) ░░ -->
+<!-- COST -->
 <section class="cost-section" id="cost">
   <div class="cost-inner">
     <div class="cost-grid">
-      <!-- Left: Problem framing + Why Hermia exists -->
-      <div class="cost-left">
-        <div class="section-tag" style="color:#ef4444;letter-spacing:2.5px;">The Real Cost of a Slow Response</div>
-        <h2 class="section-title" style="font-size:clamp(30px,3.8vw,46px);">You're losing commissions to agents who respond<br><em style="color:#ef6666;">faster than you.</em></h2>
-        <p class="section-body">Every buyer who enquires at 7pm on a Saturday, or while you're in an open home, is a commission at risk. <strong>The agent who qualifies them first wins the appointment.</strong> Hermia makes sure that agent is always you.</p>
-        <!-- Why Hermia Exists block — moved here from its own section -->
+      <div>
+        <div class="section-tag" style="color:#ef4444;">The Real Cost of a Missed Call</div>
+        <h2 class="section-title" style="font-size:clamp(30px,3.8vw,46px);">The jobs you miss go straight to<br><em style="color:#ef6666;">the next company on Google.</em></h2>
+        <p class="section-body">Homeowners ring three or four companies and book whoever answers first. Every call that hits voicemail while you're on site is a job quoting itself to your competitor. <strong>Hermia makes sure the first response is always yours.</strong></p>
         <div class="why-exists-block">
-          <p>Most agents spend thousands generating enquiries — then lose buyers because leads arrive after hours, during open homes, or while they're with another client. <strong>Hermia exists for one reason:</strong> to make sure every single enquiry gets a response within 30 seconds, gets qualified automatically, and lands in your CRM ready to act on. No missed opportunities. No wasted calls. No leads going cold while you sleep.</p>
+          <p><strong>Hermia exists for one reason:</strong> so the bloke doing the work doesn't lose jobs to the bloke sitting by the phone. Every enquiry gets a reply in 30 seconds, gets asked what the job is and where, and lands on your phone ready to quote — serious ones only.</p>
         </div>
       </div>
-      <!-- Right: Revenue leakage callout -->
-      <div class="cost-right">
+      <div>
         <div class="leakage-card">
           <div class="leakage-tag">Revenue Leakage</div>
-          <div class="leakage-num">$18k</div>
-          <p class="leakage-desc">That's the average commission on a single deal. If Hermia recovers even <strong>one missed buyer every few months</strong>, the system pays for itself many times over — and the trial is free.</p>
+          <div class="leakage-num">$10k+</div>
+          <p class="leakage-desc">That's one average structural job. If Hermia saves you even <strong>one missed job a year</strong>, it's paid for itself many times over.</p>
           <div style="margin-top:22px;padding-top:18px;border-top:1px solid var(--border);">
             <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">The Maths Are Simple</div>
             <div style="display:flex;flex-direction:column;gap:8px;">
@@ -568,33 +360,31 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:52
                 <span>Hermia AU plan</span><span style="color:var(--cream);">$260/month</span>
               </div>
               <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--soft);">
-                <span>One recovered deal</span><span style="color:var(--green);">~$18,000 commission</span>
+                <span>One saved job</span><span style="color:var(--green);">~$10,000</span>
               </div>
               <div style="height:1px;background:var(--border);"></div>
               <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
-                <span style="color:var(--cream);font-weight:500;">ROI on a single deal</span><span style="color:var(--gold);font-weight:600;font-family:var(--display);font-size:18px;">69× return</span>
+                <span style="color:var(--cream);font-weight:500;">ROI on a single job</span><span style="color:var(--gold);font-weight:600;font-family:var(--display);font-size:18px;">38× return</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Pain cards below -->
     <div class="pain-cards">
-      <div class="pain-card"><div class="pain-icon">🌙</div><h4>After-hours enquiries</h4><p>Buyers enquire when they're relaxed — evenings and weekends. You're not online. They move on.</p></div>
-      <div class="pain-card"><div class="pain-icon">📋</div><h4>Manual CRM entry</h4><p>Every minute spent typing lead details is a minute you're not calling the buyer who's ready to sign.</p></div>
-      <div class="pain-card"><div class="pain-icon">❓</div><h4>No idea who's serious</h4><p>You call 10 people. 7 were browsing. The 3 who were ready called your competitor first.</p></div>
-      <div class="pain-card"><div class="pain-icon">🗓</div><h4>Inspection tag — already too late</h4><p>A buyer asks for inspection times, you don't see it for 6 hours. They've booked with someone else.</p></div>
+      <div class="pain-card"><div class="pain-icon">📵</div><h4>Calls missed on site</h4><p>You're under a house or up a ladder. The phone rings out. That homeowner books the next company on the list.</p></div>
+      <div class="pain-card"><div class="pain-icon">🚗</div><h4>Tyre-kicker quotes</h4><p>You drive 40 minutes to quote a $300 crack, or someone "just getting prices." Half a day of paid work, gone.</p></div>
+      <div class="pain-card"><div class="pain-icon">🌙</div><h4>After-hours enquiries</h4><p>People research their sloping floors at 9pm. If nobody replies until morning, someone else already has.</p></div>
+      <div class="pain-card"><div class="pain-icon">📋</div><h4>No follow-up</h4><p>Quote requests sit in the inbox until you're off the tools. By then the serious ones have moved on.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ░░ HOW IT WORKS ░░ -->
+<!-- HOW IT WORKS -->
 <div class="how-wrap divider-top" id="how">
   <div class="section-tag">How It Works</div>
-  <h2 class="section-title">One enquiry becomes a<br><em>ranked, ready-to-call lead</em><br>in under 90 seconds.</h2>
-  <p style="font-size:17px;color:var(--soft);line-height:1.7;max-width:620px;margin-top:18px;font-weight:300;">Hermia sits between your portal and your CRM. It does the interviewing, the ranking, and the data entry — so you only ever do the closing.</p>
+  <h2 class="section-title">One missed call becomes a<br><em>qualified, ready-to-quote job</em><br>in under 90 seconds.</h2>
+  <p style="font-size:17px;color:var(--soft);line-height:1.7;max-width:620px;margin-top:18px;font-weight:300;">Hermia sits between your phone and your day. It does the answering, the questions, and the filtering — so you only ever do the quoting.</p>
   <div class="video-outer">
     <div class="video-wrapper">
       <iframe src="https://www.loom.com/embed/30278ab7cc2a47b6930e69e7ff64e14e" allowfullscreen></iframe>
@@ -602,48 +392,48 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:52
   </div>
   <div class="pipeline-wrap">
     <div class="pipeline-node">
-      <div class="p-icon">🏠</div>
+      <div class="p-icon">📞</div>
       <div class="p-body">
         <div class="p-source">Trigger</div>
-        <div class="p-title">Buyer enquires on REA, Domain, or Property Finder</div>
-        <div class="p-desc">The moment a buyer taps "Contact Agent", Hermia captures the lead — before you've seen a notification.</div>
-        <span class="p-tag">Instant · No manual check-in</span>
+        <div class="p-title">Someone calls or fills your quote form</div>
+        <div class="p-desc">A homeowner finds you on Google and rings — but you're on the tools. The moment the call rings out or the form lands, Hermia takes over.</div>
+        <span class="p-tag">Instant · Same number you have now</span>
       </div>
     </div>
     <div class="pipeline-node">
       <div class="p-icon">💬</div>
       <div class="p-body">
         <div class="p-source">Step 1</div>
-        <div class="p-title">3 qualification questions via WhatsApp &amp; SMS</div>
-        <div class="p-desc">Timeline. Budget. Finance status. Simple letter choices — A, B, C or D. Fast to reply. Clean to process. Not a chatbot conversation.</div>
+        <div class="p-title">Instant text-back within 30 seconds</div>
+        <div class="p-desc">"Hey, it's [Your Business] — on a job right now. What's happening with your place?" The customer feels answered, not ignored. They stop dialling your competitors.</div>
         <span class="p-tag">Under 30 seconds</span>
       </div>
     </div>
     <div class="pipeline-node">
-      <div class="p-icon">📅</div>
+      <div class="p-icon">🔍</div>
       <div class="p-body">
         <div class="p-source">Step 2</div>
-        <div class="p-title">Inspection requests booked automatically</div>
-        <div class="p-desc">Buyer wants to view? Hermia checks your listed times and books them in. No calls. No back-and-forth. The only message you ever get is: <em>"Add inspection times."</em></div>
-        <span class="p-tag">Zero scheduling effort</span>
+        <div class="p-title">The right questions, asked automatically</div>
+        <div class="p-desc">What's the problem. What suburb. Are they the owner. What's their timeline. Simple letter choices — fast to answer, clean to process. <em>Not a chatbot conversation.</em></div>
+        <span class="p-tag">Fixed questions · Fixed logic</span>
       </div>
     </div>
     <div class="pipeline-node">
-      <div class="p-icon">🔥</div>
+      <div class="p-icon">🚫</div>
       <div class="p-body">
         <div class="p-source">Step 3</div>
-        <div class="p-title">Lead scored Hot, Warm, or Cold</div>
-        <div class="p-desc">Pre-approved and moving within 4 weeks? Hot. 1–3 months? Warm. Early research? Cold. Fixed logic. No AI guessing. Every lead scored the same way, every time.</div>
-        <span class="p-tag">Consistent · Auditable</span>
+        <div class="p-title">Time-wasters filtered out</div>
+        <div class="p-desc">Renters, browsers, out-of-area calls, and "just getting prices" never reach your phone. You stop burning half-days quoting jobs that were never real.</div>
+        <span class="p-tag">Serious jobs only</span>
       </div>
     </div>
     <div class="pipeline-node">
       <div class="p-icon">✅</div>
       <div class="p-body">
         <div class="p-source">Result</div>
-        <div class="p-title">CRM pre-filled before you open your laptop</div>
-        <div class="p-desc">Name, number, budget, timeline, finance, lead score — all in your CRM. No typing. No pings. You open your pipeline at 8am and your day is already built.</div>
-        <span class="p-tag">Pure pipeline · Zero inbox noise</span>
+        <div class="p-title">The job lands in your pocket, ready to quote</div>
+        <div class="p-desc">One message: name, number, suburb, problem, timeline. Straight to your phone — and your CRM if you run one. You call one serious person instead of chasing five maybes.</div>
+        <span class="p-tag">Zero typing · Zero chasing</span>
       </div>
     </div>
   </div>
@@ -651,234 +441,108 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:52
     <div class="nc-icon">⚠️</div>
     <div>
       <h3>This is <em>not</em> a chatbot.</h3>
-      <p><strong>Chatbots improvise. Hermia doesn't.</strong> Every question is pre-written. Every valid answer is a letter choice (A/B/C/D). Every scoring outcome is determined by fixed logic conditions — not inference. The moment a buyer completes the 3 questions, the session closes permanently. There is no conversation — just a structured interview that produces clean, auditable data.</p>
+      <p><strong>Chatbots improvise. Hermia doesn't.</strong> Every question is pre-written. Every valid answer is a letter choice. Every outcome is determined by fixed logic — not guessing. The moment a customer finishes the questions, the session closes. There is no conversation — just a structured interview that produces a clean, ready-to-quote job.</p>
     </div>
   </div>
 </div>
 
-<!-- ░░ INTEGRATIONS (renamed: "We work with your CRMs") ░░ -->
+<!-- INTEGRATIONS: NATIVE ONLY -->
 <section class="integrations" id="integrations">
   <div class="int-glow"></div>
-  <div class="int-grid-tex"></div>
   <div class="int-wrap">
     <div class="int-head">
       <span class="int-pill"><span class="int-dot"></span>Works with your stack</span>
-      <h2 class="int-h2">We work with <span class="grad">your CRMs</span></h2>
-      <p class="int-sub">To be clear — <b>we are not a CRM.</b> We are the qualification layer that plugs directly into yours, wherever you are in Dubai or Australia.</p>
+      <h2 class="int-h2">We work with <span class="grad">your CRM</span></h2>
+      <p class="int-sub">To be clear — <b>we are not a CRM.</b> Run one of these and qualified jobs land in it automatically. Run nothing but a phone? That works too — jobs go straight to SMS or WhatsApp.</p>
     </div>
-
-    <!-- TIER 1: NATIVE -->
-    <div class="int-tier">
-      <div class="int-tier-head">
-        <span class="int-num one">1</span>
-        <span class="int-tier-label gold">Native, out-of-the-box integrations</span>
-        <span class="int-line gold"></span>
+    <div class="int-cards">
+      <div class="int-card">
+        <span class="int-ico"><img src="https://cdn.worldvectorlogo.com/logos/salesforce-2.svg" alt="Salesforce" loading="lazy"></span>
+        <span class="int-name">Salesforce</span>
+        <span class="int-tag">Native</span>
       </div>
-      <div class="int-cards">
-
-        <div class="int-card native">
-          <span class="int-ico"><img src="https://cdn.worldvectorlogo.com/logos/salesforce-2.svg" alt="Salesforce" loading="lazy"></span>
-          <span class="int-name">Salesforce</span>
-          <span class="int-tag n">Native</span>
-        </div>
-
-        <div class="int-card native">
-          <span class="int-ico"><img src="https://www.zohowebstatic.com/sites/zweb/images/commonroot/zoho-logo-web.svg" alt="Zoho CRM" loading="lazy"></span>
-          <span class="int-name">Zoho CRM</span>
-          <span class="int-tag n">Native</span>
-        </div>
-
-        <div class="int-card native">
-          <span class="int-ico"><img src="https://ninjaforms.com/wp-content/uploads/2025/08/pipedrive.png" alt="Pipedrive" loading="lazy"></span>
-          <span class="int-name">Pipedrive</span>
-          <span class="int-tag n">Native</span>
-        </div>
-
-        <div class="int-card native">
-          <span class="int-ico" style="width:70px;height:70px;">
-            <img src="https://seekvectorlogo.com/wp-content/uploads/2019/09/freshsales-vector-logo.png"
-                 alt="Freshsales"
-                 loading="lazy"
-                 style="width:64px;height:64px;object-fit:contain;">
-          </span>
-          <span class="int-name">Freshsales</span>
-          <span class="int-tag n">Native</span>
-        </div>
-
-        <div class="int-card native">
-          <span class="int-ico"><img src="https://cdn.presskithero.com/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBbkxHIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--4c530a48e9e41f3fbb0ac6ea924fb183e1c600d8/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2QzNKbGMybDZaVWtpRFRNMU1IZ3pOVEErQmpzR1ZBPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--e7d960a650450e228cf6a3730ddd81d0fe9593bb/FUB%20Logo%20RGB_Main.png" alt="Follow Up Boss" loading="lazy"></span>
-          <span class="int-name">Follow Up Boss</span>
-          <span class="int-tag n">Native</span>
-        </div>
-
-        <div class="int-card native">
-          <span class="int-ico"><img src="https://cdn.worldvectorlogo.com/logos/monday-1.svg" alt="Monday CRM" loading="lazy"></span>
-          <span class="int-name">Monday CRM</span>
-          <span class="int-tag n">Native</span>
-        </div>
-
+      <div class="int-card">
+        <span class="int-ico"><img src="https://www.zohowebstatic.com/sites/zweb/images/commonroot/zoho-logo-web.svg" alt="Zoho CRM" loading="lazy"></span>
+        <span class="int-name">Zoho CRM</span>
+        <span class="int-tag">Native</span>
+      </div>
+      <div class="int-card">
+        <span class="int-ico"><img src="https://ninjaforms.com/wp-content/uploads/2025/08/pipedrive.png" alt="Pipedrive" loading="lazy"></span>
+        <span class="int-name">Pipedrive</span>
+        <span class="int-tag">Native</span>
+      </div>
+      <div class="int-card">
+        <span class="int-ico"><img src="https://seekvectorlogo.com/wp-content/uploads/2019/09/freshsales-vector-logo.png" alt="Freshsales" loading="lazy" style="width:54px;height:54px;object-fit:contain;"></span>
+        <span class="int-name">Freshsales</span>
+        <span class="int-tag">Native</span>
+      </div>
+      <div class="int-card">
+        <span class="int-ico"><img src="https://cdn.presskithero.com/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBbkxHIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--4c530a48e9e41f3fbb0ac6ea924fb183e1c600d8/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2QzNKbGMybDZaVWtpRFRNMU1IZ3pOVEErQmpzR1ZBPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--e7d960a650450e228cf6a3730ddd81d0fe9593bb/FUB%20Logo%20RGB_Main.png" alt="Follow Up Boss" loading="lazy"></span>
+        <span class="int-name">Follow Up Boss</span>
+        <span class="int-tag">Native</span>
+      </div>
+      <div class="int-card">
+        <span class="int-ico"><img src="https://cdn.worldvectorlogo.com/logos/monday-1.svg" alt="Monday CRM" loading="lazy"></span>
+        <span class="int-name">Monday CRM</span>
+        <span class="int-tag">Native</span>
+      </div>
+      <div class="int-card">
+        <span class="int-ico"><img src="https://images.seeklogo.com/logo-png/23/1/bitrix24-logo-png_seeklogo-233356.png" alt="Bitrix24" loading="lazy"></span>
+        <span class="int-name">Bitrix24</span>
+        <span class="int-tag">Native</span>
+      </div>
+      <div class="int-card">
+        <span class="int-ico" style="font-size:30px;">📱</span>
+        <span class="int-name">No CRM? No worries</span>
+        <span class="int-tag">SMS / WhatsApp</span>
       </div>
     </div>
-
-    <!-- TIER 2: CUSTOM -->
-    <div class="int-tier">
-      <div class="int-tier-head">
-        <span class="int-num two">2</span>
-        <span class="int-tier-label dim">Custom connections &amp; specialist real-estate CRMs</span>
-        <span class="int-line dim"></span>
-      </div>
-      <div class="int-cards">
-
-        <div class="int-card custom">
-          <span class="int-ico"><img src="https://images.seeklogo.com/logo-png/23/1/bitrix24-logo-png_seeklogo-233356.png" alt="Bitrix24" loading="lazy"></span>
-          <span class="int-name">Bitrix24</span>
-          <span class="int-tag c">Custom</span>
-        </div>
-
-        <div class="int-card custom">
-          <span class="int-ico"><img src="https://cdn.worldvectorlogo.com/logos/hubspot.svg" alt="HubSpot" loading="lazy"></span>
-          <span class="int-name">HubSpot</span>
-          <span class="int-tag c">Custom</span>
-        </div>
-
-        <div class="int-card custom">
-          <span class="int-ico"><img src="https://cdn.prod.website-files.com/692cf39461ea1001ff1f070f/694758e9bcfc762a504d4d91_logo-rex%20logo%20form%20top.svg" alt="Rex CRM" loading="lazy"></span>
-          <span class="int-name">Rex CRM</span>
-          <span class="int-tag c">Custom</span>
-        </div>
-
-        <div class="int-card custom">
-          <span class="int-ico"><img src="https://cdn.prod.website-files.com/669e1d71ac175c36b9c02a81/669e89f3c21cdf40e3e03b25_Logo%20PropSpace.png" alt="PropSpace" loading="lazy"></span>
-          <span class="int-name">PropSpace</span>
-          <span class="int-tag c">Custom</span>
-        </div>
-
-        <div class="int-card custom">
-          <span class="int-ico"><img src="https://www.propertyme.com.au/wp-content/themes/PropertyMe/assets/dist/images/gradient-propertyme-logo.svg" alt="PropertyMe" loading="lazy"></span>
-          <span class="int-name">PropertyMe</span>
-          <span class="int-tag c">Custom</span>
-        </div>
-
-      </div>
-    </div>
-
     <div class="int-cta-wrap">
       <div class="int-cta">
         <p class="int-cta-kick">Running something else?</p>
         <h4 class="int-cta-h">Don't see your CRM? It still works.</h4>
-        <a class="int-btn" href="indexx custom.html">Configure a Custom CRM Connection<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <p class="int-note">View our universal API field-mapping guide (e.g. <code class="int-code">hermia_Status</code>) to connect your proprietary setup.</p>
+        <p class="int-cta-sub">We build the connection to whatever you run during onboarding — included, no extra cost.</p>
       </div>
     </div>
     <p class="int-legal">All product names, logos, and trademarks displayed here are property of their respective owners. Use is strictly for technological compatibility purposes and does not imply endorsement or affiliation.</p>
   </div>
 </section>
-   
-<!-- ░░ DEMO SECTION ░░ -->
-<div class="demo-section" id="live-demo">
-  <div style="text-align:center;margin-bottom:52px;">
-    <div class="section-tag" style="display:inline-block;">Interactive Tool</div>
-    <h2 class="section-title" style="margin:0 auto;">Don't take our word for it.<br><em>Run a live lead through it.</em></h2>
-    <p style="font-size:16.5px;color:var(--soft);max-width:600px;margin:18px auto 0;font-weight:300;line-height:1.7;">See a raw enquiry become a scored, CRM-ready lead in under 60 seconds — including the gibberish kill-switch that protects your pipeline from spam.</p>
-  </div>
-  <div class="demo-promo">
-    <div class="demo-grid">
-      <div class="demo-copy">
-        <div class="live-tag"><span class="live-dot"></span>Live Triage Demo</div>
-        <h3>See a real enquiry become <em>a qualified lead</em></h3>
-        <p>Click through a buyer enquiry exactly as your actual lead would. See how the 3-question sequence runs, watch the Hot/Warm/Cold score get assigned, and see the edge-case stress test — malformed inputs get automatically killed.</p>
-        <ul class="demo-features">
-          <li>Full 3-question qualification sequence</li>
-          <li>Live Hot / Warm / Cold tier scoring</li>
-          <li>Gibberish kill-switch in action</li>
-          <li>Live CRM pipeline preview</li>
-          <li>Inspection booking flow walkthrough</li>
-        </ul>
-        <a href="gibberish.html" class="demo-cta">Launch Live Demo →</a>
-      </div>
-      <div class="terminal">
-        <div class="t-header"><div class="t-dots"><span class="t-dot r"></span><span class="t-dot y"></span><span class="t-dot g"></span></div>hermia · live triage feed</div>
-        <div class="t-line dim">[09:14:22] <strong>Webhook captured — REA enquiry</strong></div>
-        <div class="t-line">[09:14:23] Lead: Kevin K. · Listing #APT-15</div>
-        <div class="t-line">[09:14:24] SMS-1 dispatched ← timeline check</div>
-        <div class="t-line">[09:14:51] Reply received: <strong>A (within 4 weeks)</strong></div>
-        <div class="t-line">[09:14:52] SMS-2 dispatched ← budget range</div>
-        <div class="t-line">[09:15:18] Reply received: <strong>C ($800k–$1.2M)</strong></div>
-        <div class="t-line">[09:15:19] SMS-3 dispatched ← finance status</div>
-        <div class="t-line">[09:15:42] Reply received: <strong>D (pre-approved)</strong></div>
-        <div class="t-line ok">[09:15:43] ✓ <strong>HOT LEAD scored → CRM sync</strong></div>
-        <div class="t-line dim">[09:15:44] Record closed · Session sealed · 82s total<span class="t-cursor"></span></div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- ░░ FEATURES / BENEFITS ░░ -->
+<!-- BENEFITS -->
 <div class="features-wrap divider-top" id="benefits">
   <div class="section-tag">What You Get</div>
-  <h2 class="section-title">More commissions.<br><em>Fewer wasted hours.</em></h2>
+  <h2 class="section-title">More jobs quoted.<br><em>Fewer hours wasted.</em></h2>
   <p style="font-size:17px;color:var(--soft);line-height:1.7;max-width:620px;margin-top:18px;font-weight:300;">Six things that change in your business the week Hermia goes live.</p>
   <div class="features-grid">
-    <div class="feat-card"><div class="feat-label">Speed</div><h3>First to qualify — every single time</h3><p>Buyers hire the agent who engages first. Hermia contacts every enquiry within 30 seconds — 2pm Tuesday or 11pm Saturday.</p></div>
-    <div class="feat-card"><div class="feat-label">Evenings Back</div><h3>Stop calling people who were just browsing</h3><p>No more 9pm calls to buyers who were "just curious." Hermia filters them out automatically — they never reach your phone.</p></div>
-    <div class="feat-card"><div class="feat-label">Focus</div><h3>Only call buyers who are ready to buy</h3><p>Hot leads first. Warm leads next. Cold leads handled automatically in a nurture sequence. Your day is built around closing, not chasing.</p></div>
-    <div class="feat-card"><div class="feat-label">Pipeline</div><h3>CRM stays full without typing a word</h3><p>Every qualified lead pre-filled: name, number, budget, timeline, finance status. Zero manual entry. Zero lost leads between portal and pipeline.</p></div>
-    <div class="feat-card"><div class="feat-label">Coverage</div><h3>After-hours is no longer a gap</h3><p>Open homes, public holidays, weekends, sleep — Hermia covers every moment you can't be there. Leads keep qualifying around the clock.</p></div>
-    <div class="feat-card"><div class="feat-label">Confidence</div><h3>Walk into every call knowing exactly what they want</h3><p>Budget, timeline, finance, intent — all there before you dial. No fishing. No vague discovery calls. Just closing conversations.</p></div>
+    <div class="feat-card"><div class="feat-label">Speed</div><h3>First to respond — every single time</h3><p>Homeowners book whoever replies first. Hermia answers every enquiry within 30 seconds — 2pm Tuesday or 9pm Saturday.</p></div>
+    <div class="feat-card"><div class="feat-label">Filtering</div><h3>Stop quoting jobs that were never real</h3><p>Renters, browsers, and out-of-area calls get filtered automatically. They never cost you a site visit again.</p></div>
+    <div class="feat-card"><div class="feat-label">Focus</div><h3>Only call people ready to book</h3><p>Serious jobs first. Everything else handled automatically. Your day is built around quoting and working, not chasing.</p></div>
+    <div class="feat-card"><div class="feat-label">Nothing New to Learn</div><h3>Same number, no app, no dashboard</h3><p>Hermia works behind the phone number you already have. Jobs arrive as a text. If you can read a message, you can run it.</p></div>
+    <div class="feat-card"><div class="feat-label">Coverage</div><h3>After-hours is no longer a gap</h3><p>On the tools, driving, weekends, asleep — Hermia covers every moment you can't answer. Enquiries keep qualifying around the clock.</p></div>
+    <div class="feat-card"><div class="feat-label">Confidence</div><h3>Know the job before you dial</h3><p>Problem, suburb, owner, timeline — all there before you call back. No fishing. Just "I can come Tuesday, here's a rough range."</p></div>
   </div>
 </div>
 
-<!-- ░░ COMPARISON TABLE ░░ -->
-<section class="compare-section">
-  <div class="compare-inner">
-    <div class="section-tag" style="display:inline-block;">The Difference</div>
-    <h2 class="section-title" style="margin:8px auto 16px;font-size:clamp(28px,3.8vw,46px);">What changes<br><em>the week you go live.</em></h2>
-    <p style="font-size:15.5px;color:var(--soft);max-width:540px;margin:0 auto 48px;line-height:1.65;font-weight:300;">Every row on the left is a commission opportunity you're losing right now.</p>
-    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
-      <table style="width:100%;border-collapse:collapse;font-family:'DM Sans',sans-serif;text-align:left;">
-        <thead>
-          <tr>
-            <th style="padding:16px 24px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ef4444;background:rgba(239,68,68,0.055);border:1px solid rgba(239,68,68,0.18);border-radius:12px 0 0 0;width:50%;">Without Hermia</th>
-            <th style="padding:16px 24px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);background:rgba(16,185,129,0.055);border:1px solid rgba(16,185,129,0.18);border-radius:0 12px 0 0;width:50%;">With Hermia</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td style="padding:17px 24px;font-size:14.5px;color:var(--soft);background:rgba(239,68,68,0.025);border:1px solid rgba(239,68,68,0.09);">Call 10 leads — 7 aren't serious</td><td style="padding:17px 24px;font-size:14.5px;color:var(--cream);background:rgba(16,185,129,0.025);border:1px solid rgba(16,185,129,0.09);">Call 3 hot leads — all pre-qualified before you dial</td></tr>
-          <tr><td style="padding:17px 24px;font-size:14.5px;color:var(--soft);background:rgba(239,68,68,0.025);border:1px solid rgba(239,68,68,0.09);">Type every lead manually into CRM</td><td style="padding:17px 24px;font-size:14.5px;color:var(--cream);background:rgba(16,185,129,0.025);border:1px solid rgba(16,185,129,0.09);">CRM auto-filled — name, budget, timeline, finance</td></tr>
-          <tr><td style="padding:17px 24px;font-size:14.5px;color:var(--soft);background:rgba(239,68,68,0.025);border:1px solid rgba(239,68,68,0.09);">Miss after-hours and weekend enquiries</td><td style="padding:17px 24px;font-size:14.5px;color:var(--cream);background:rgba(16,185,129,0.025);border:1px solid rgba(16,185,129,0.09);">Every enquiry responded to in 30 seconds — 24/7</td></tr>
-          <tr><td style="padding:17px 24px;font-size:14.5px;color:var(--soft);background:rgba(239,68,68,0.025);border:1px solid rgba(239,68,68,0.09);">Book inspections manually by phone</td><td style="padding:17px 24px;font-size:14.5px;color:var(--cream);background:rgba(16,185,129,0.025);border:1px solid rgba(16,185,129,0.09);">Inspections booked automatically — zero back-and-forth</td></tr>
-          <tr><td style="padding:17px 24px;font-size:14.5px;color:var(--soft);background:rgba(239,68,68,0.025);border:1px solid rgba(239,68,68,0.09);border-radius:0 0 0 12px;">No idea who's hot until you've wasted a call</td><td style="padding:17px 24px;font-size:14.5px;color:var(--cream);background:rgba(16,185,129,0.025);border:1px solid rgba(16,185,129,0.09);border-radius:0 0 12px 0;">Hot / Warm / Cold ranked before you open your CRM</td></tr>
-        </tbody>
-      </table>
-    </div>
+<!-- REAL ESTATE BAND -->
+<section class="re-band" id="real-estate">
+  <div class="re-card">
+    <span class="re-flag">🏠</span>
+    <div class="section-tag" style="display:inline-block;">Also Built For</div>
+    <h3>Real estate agent? <em>We started with you.</em></h3>
+    <p>Hermia also qualifies property enquiries from REA, Domain, Property Finder and Bayut — ranking buyers Hot, Warm or Cold and booking inspections automatically.</p>
+    <a href="final2.html" class="btn-primary">Hermia for Real Estate →</a>
   </div>
 </section>
 
-<!-- ░░ WHY AGENTS CHOOSE HERMIA (8 cards) ░░ -->
-<section class="why-section">
-  <div class="section-tag">Why Agents Choose Hermia</div>
-  <h2 class="section-title" style="margin:0 auto;">Eight reasons agents say they'll<br><em>never go back to manual follow-up.</em></h2>
-  <p style="font-size:16.5px;color:var(--soft);max-width:560px;margin:18px auto 0;font-weight:300;line-height:1.7;">Built around how real estate agents actually work — not how a tech team thinks you should.</p>
-  <div class="why-grid">
-    <div class="why-card"><div class="why-icon">⚡</div><h3>Try it on your real leads — free</h3><p>3-day free trial connected to your own live enquiries. Hot leads in your CRM within 72 hours. Then decide.</p></div>
-    <div class="why-card"><div class="why-icon">✕</div><h3>Walk away anytime</h3><p>No contracts. No lock-in. No exit fees. Cancel the moment Hermia stops earning its place in your workflow.</p></div>
-    <div class="why-card"><div class="why-icon">⌚</div><h3>Live in your business within 24 hours</h3><p>Full onboarding done for you. Connected to Domain, REA, Property Finder, Bayut, and your CRM in one working day.</p></div>
-    <div class="why-card"><div class="why-icon">⚙️</div><h3>Plugs into the CRM you already use</h3><p>HubSpot, Zoho, Rex, Pipedrive, Bitrix24. Hermia pushes structured lead data directly where you manage your pipeline.</p></div>
-    <div class="why-card"><div class="why-icon">🛡️</div><h3>No hallucinations. Ever.</h3><p>Every question is scripted. Every answer is a letter choice. Every outcome is defined by conditions — not inference. No surprises.</p></div>
-    <div class="why-card"><div class="why-icon">🏛️</div><h3>Built to handle your busiest days</h3><p>Handles hundreds of enquiries without slowing down — even during open home season when every agent is stretched.</p></div>
-    <div class="why-card"><div class="why-icon">✉️</div><h3>Every message is above board</h3><p>Every automated message identifies your agency and includes a STOP option. Fully compliant under Australian and UAE regulations.</p></div>
-    <div class="why-card"><div class="why-icon">🔒</div><h3>Your data stays yours</h3><p>Lead data is processed and pushed directly to your CRM. Nothing stored externally. Nothing shared.</p></div>
-  </div>
-</section>
-
-<!-- ░░ PRICING ░░ -->
+<!-- PRICING -->
 <section id="pricing">
   <div class="pricing-glow"></div>
-  <div class="ptag-row"><div class="ptl"></div><div class="ptd"></div><div class="ptlabel">Pricing — Dubai &amp; Australia</div><div class="ptd"></div><div class="ptl r"></div></div>
-  <h2 class="pricing-h">One extra deal pays for the year.<br><em>Everything else is profit.</em></h2>
-  <p class="pricing-sub">Both plans include WhatsApp + SMS qualification, inspection booking, Hot/Warm/Cold scoring, and direct CRM integration. No setup fee during launch.</p>
+  <div class="ptag-row"><div class="ptl"></div><div class="ptd"></div><div class="ptlabel">Pricing — Australia &amp; Dubai</div><div class="ptd"></div><div class="ptl r"></div></div>
+  <h2 class="pricing-h">One saved job pays for the year.<br><em>Everything else is profit.</em></h2>
+  <p class="pricing-sub">Both plans include instant text-back, SMS + WhatsApp qualification, time-waster filtering, and delivery to your phone or CRM. No setup fee during launch.</p>
   <div class="pricing-panel">
     <div class="p-card">
+      
       <div class="p-country"><span class="p-flag">🇦🇺</span> Australia</div>
       <div class="p-rule"></div>
       <div class="p-price-row"><span class="p-currency">$</span><span class="p-amount">260</span></div>
@@ -886,19 +550,18 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:52
       <div class="p-was">Setup fee $1,700 AUD</div>
       <div class="p-offer">No Setup Fee — Launch Offer</div>
       <ul class="p-features">
-        <li>Every lead qualified in under 30 seconds</li>
-        <li>Inspection bookings handled automatically</li>
-        <li>Hot, Warm or Cold — always know who to call first</li>
-        <li>CRM filled automatically — no typing, ever</li>
+        <li>Every missed call texted back in 30 seconds</li>
+        <li>Quote-form enquiries answered instantly</li>
+        <li>Time-wasters filtered before they reach you</li>
+        <li>Serious jobs sent to your phone, ready to quote</li>
         <li>Covers nights, weekends &amp; public holidays</li>
         <li>Full setup done for you — live within 24 hours</li>
-        <li>3-day free trial on your own live leads</li>
+        <li>If it doesn't pay for itself, we refund it</li>
       </ul>
-      <a href="apply.html" class="p-btn p-btn-outline">Start Free Trial</a>
+      <a href="apply.html" class="p-btn p-btn-gold">Start Free Trial</a>
     </div>
     <div class="p-divider"></div>
     <div class="p-card">
-      <div class="p-badge">Dubai · Featured</div>
       <div class="p-country"><span class="p-flag">🇦🇪</span> UAE / Dubai</div>
       <div class="p-rule"></div>
       <div class="p-price-row"><span class="p-currency">AED</span><span class="p-amount">1,400</span></div>
@@ -906,66 +569,43 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:52
       <div class="p-was">Setup fee AED 2,600</div>
       <div class="p-offer">No Setup Fee — Launch Offer</div>
       <ul class="p-features">
-        <li>Every lead qualified in under 30 seconds</li>
-        <li>Inspection bookings handled automatically</li>
-        <li>Hot, Warm or Cold — always know who to call first</li>
-        <li>CRM filled automatically — no typing, ever</li>
+        <li>Every missed call answered in 30 seconds</li>
+        <li>WhatsApp-first — how the UAE communicates</li>
+        <li>Time-wasters filtered before they reach you</li>
+        <li>Serious jobs sent to your phone, ready to quote</li>
         <li>Covers nights, weekends &amp; UAE public holidays</li>
         <li>Full setup done for you — live within 24 hours</li>
-        <li>3-day free trial on your own live leads</li>
+        <li>If it doesn't pay for itself, we refund it</li>
       </ul>
       <a href="apply.html" class="p-btn p-btn-gold">Start Free Trial</a>
     </div>
   </div>
 </section>
 
-<!-- ░░ FAQ ░░ -->
+<!-- FAQ -->
 <div style="border-top:1px solid var(--border);">
   <section class="faq-section" id="faq">
     <div class="faq-header">
       <div class="section-tag" style="display:inline-block;">FAQ</div>
       <h2 class="section-title" style="margin:0 auto;">Answers <em>before you book</em></h2>
-      <p style="font-size:16px;color:var(--soft);max-width:500px;margin:18px auto 0;line-height:1.65;font-weight:300;">The questions agents ask most on demo calls.</p>
+      <p style="font-size:16px;color:var(--soft);max-width:500px;margin:18px auto 0;line-height:1.65;font-weight:300;">The questions business owners ask most.</p>
     </div>
     <div class="faq-list">
-      <div class="faq-item"><button class="faq-q"><span>Is this just another chatbot?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>No — and this is the most important distinction.</strong> Chatbots have open-ended conversations that improvise and hallucinate. Hermia is a <em>structured qualification system built on fixed logic</em>. Every question is pre-written. Every valid answer is a letter choice. Every scoring outcome is determined by conditions — not inference. The moment a buyer completes the 3 questions, the session closes permanently. There is no conversation — just a structured interview that produces clean, auditable data.</div></div></div>
-      <div class="faq-item"><button class="faq-q"><span>Which CRMs does Hermia connect to?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>HubSpot, Zoho, Rex, Pipedrive, and Bitrix24</strong> are all supported natively. If you use something else, we build the integration during onboarding — included at no extra cost. Hermia pushes <em>structured fields</em> (timeline, budget, finance status, tier score, contact info, property interest) — not raw transcripts.</div></div></div>
-      <div class="faq-item"><button class="faq-q"><span>Will I get notification emails every time a lead comes in?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>No. Hermia is inbox-silent by design.</strong> Hot, Warm, and Cold leads all go directly into your CRM with zero email notification. The <em>only</em> email you'll ever get from Hermia is when a buyer wants to inspect a property you haven't listed times for yet. That's it. Your inbox stays quiet. Your CRM stays full.</div></div></div>
-      <div class="faq-item"><button class="faq-q"><span>Does it work in Dubai and the UAE?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>Yes — Dubai is our primary market.</strong> Hermia integrates natively with Property Finder and Bayut, and qualifies via WhatsApp (the dominant communication channel in the UAE). Every message complies with UAE messaging regulations, identifies your agency, and includes an opt-out option. Full setup done for you in one working day.</div></div></div>
-    </div>
-  </section>
-
-  <!-- ░░ WHY HERMIA EXISTS (at bottom now) ░░ -->
-  <section class="origin-section">
-    <div class="origin-inner">
-      <div class="origin-left">
-        <div class="origin-seal">
-          <div class="seal-logo">Hermia</div>
-        </div>
-        <div class="origin-checks">
-          <div class="origin-check"><div class="oc-icon">◆</div><span><strong>Dubai &amp; UAE</strong> — primary focus</span></div>
-          <div class="origin-check"><div class="oc-icon">◆</div><span><strong>Australia</strong> — full coverage</span></div>
-          <div class="origin-check"><div class="oc-icon">◆</div><span>ABN 75 434 177 026</span></div>
-          <div class="origin-check"><div class="oc-icon">◆</div><span>capital@hermia.au</span></div>
-        </div>
-      </div>
-      <div class="origin-right">
-        <div class="section-tag">Why Hermia Exists</div>
-        <h3 class="section-title" style="font-size:clamp(26px,3.4vw,38px);margin-bottom:16px;">Built because the <em>industry never solved this.</em></h3>
-        <p>Most agents spend thousands generating enquiries — then lose buyers because leads arrive after hours, during open homes, or while they're with another client.</p>
-        <p><strong>Hermia exists for one reason:</strong> to make sure every single enquiry gets a response within 30 seconds, gets qualified automatically, and lands in your CRM ready to act on. No missed opportunities. No wasted calls. No leads going cold while you sleep.</p>
-        <p>It started as a simple frustration: the best agents in Dubai and Sydney weren't losing deals because of their skill — they were losing them because no one was watching the inbox at 10pm on a Friday. That's fixed now.</p>
-      </div>
+      <div class="faq-item"><button class="faq-q"><span>Do I need to change my phone number or learn an app?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>No.</strong> Hermia works behind the number you already advertise. Nothing changes in how you work — qualified jobs simply arrive as a text on your phone. <em>If you can read a message, you can run Hermia.</em></div></div></div>
+      <div class="faq-item"><button class="faq-q"><span>Is this just another chatbot?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>No — and this is the most important distinction.</strong> Chatbots improvise and hallucinate. Hermia is a <em>structured qualification system built on fixed logic</em>. Every question is pre-written, every answer is a letter choice, every outcome is determined by conditions — not guessing. Your customers get a clean, professional experience every time.</div></div></div>
+      <div class="faq-item"><button class="faq-q"><span>What if I don't have a CRM — or even a website?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>That's most of our clients.</strong> If your whole business runs off one mobile number, Hermia works perfectly — qualified jobs come straight to that phone by SMS or WhatsApp. If you run a CRM, we plug into it. If you have a quote form, we connect that too. Whatever you've got, it works.</div></div></div>
+      <div class="faq-item"><button class="faq-q"><span>Are the messages legal?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>Yes.</strong> Hermia only ever messages people who contacted your business first — that's responding to an enquiry, not cold messaging. Every message identifies your business and includes an opt-out. Fully compliant under Australian and UAE messaging regulations.</div></div></div>
+      <div class="faq-item"><button class="faq-q"><span>What does it cost if it doesn't work?</span><span class="faq-q-icon">+</span></button><div class="faq-a"><div class="faq-a-content"><strong>Nothing.</strong> No contracts, no lock-in, cancel anytime — and if Hermia doesn't pay for itself, we refund it. One average job is worth far more than a year of Hermia, so the maths only has to work once.</div></div></div>
     </div>
   </section>
 
   <div class="cta-section">
     <div class="section-tag">Get Started Today</div>
-    <h2 class="section-title" style="margin:0 auto;">Stop calling leads<br><em>who were never going to buy.</em></h2>
-    <p style="font-size:16px;color:var(--soft);max-width:560px;margin:18px auto 0;line-height:1.68;font-weight:300;">Every hour chasing an unqualified enquiry is an hour taken away from a Hot buyer who was ready to move this week. Hermia fixes that permanently — and the trial is free.</p>
+    <h2 class="section-title" style="margin:0 auto;">Stop losing jobs<br><em>to whoever answers first.</em></h2>
+    <p style="font-size:16px;color:var(--soft);max-width:560px;margin:18px auto 0;line-height:1.68;font-weight:300;">Every missed call is a job quoting itself to your competitor. Hermia fixes that permanently — and setup is done for you in a day.</p>
     <div class="cta-actions">
-      <a href="gibberish.html" class="btn-primary" style="font-size:15px;padding:17px 36px;">See It Qualify a Lead Live →</a>
-      <a href="handoff.html" class="btn-ghost">Calculate My Lead Loss</a>
+      <a href="apply.html" class="btn-primary" style="font-size:15px;padding:17px 36px;">Start Free Trial →</a>
+      <a href="#how" class="btn-ghost">See How It Works</a>
     </div>
   </div>
 </div>
@@ -975,18 +615,16 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:52
     <a href="#" class="footer-logo"><img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia"><span>Hermia</span></a>
     <div class="footer-meta">ABN 75 434 177 026<br>Victoria, Australia · Dubai Support Available<br><a href="mailto:capital@hermia.au">capital@hermia.au</a></div>
   </div>
-  <div class="footer-col"><h4>Product</h4><a href="#how">How it works</a><a href="#benefits">What you get</a><a href="#pricing">Pricing</a><a href="gibberish.html">Live demo</a><a href="handoff.html">Loss calculator</a></div>
-  <div class="footer-col"><h4>Tools</h4><a href="index sandbox.html">Full Benefits Breakdown</a><a href="index dashboard 2.html">Security Audit</a><a href="calendar.html">Book a Demo</a><a href="index custom app.html">Start Free Trial</a></div>
-  <div class="footer-col"><h4>Contact &amp; Legal</h4><a href="mailto:capital@hermia.au">capital@hermia.au</a><a href="calendar.html">Reserve My Slot</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></div>
+  <div class="footer-col"><h4>Product</h4><a href="#how">How it works</a><a href="#benefits">What you get</a><a href="#pricing">Pricing</a><a href="final2.html">Hermia for Real Estate</a></div>
+  <div class="footer-col"><h4>Contact &amp; Legal</h4><a href="mailto:capital@hermia.au">capital@hermia.au</a><a href="apply.html">Start Free Trial</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></div>
 </footer>
 <div class="footer-bottom">
   <p>© 2026 Hermia · ABN 75 434 177 026 · Independent software provider. All trademarks property of their respective owners.</p>
   <p>Not a chatbot. Not a CRM. The qualification layer.</p>
 </div>
 
-<!-- ░░ SCRIPTS ░░ -->
 <script>
-/* ── Star canvas ── */
+/* Star canvas */
 (function(){
   const canvas = document.getElementById('star-canvas');
   const ctx = canvas.getContext('2d');
@@ -998,15 +636,11 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:52
   function createStars(n){
     stars = [];
     for(let i=0;i<n;i++){
-      const type = Math.random();
       stars.push({
-        x: Math.random()*W,
-        y: Math.random()*H,
+        x: Math.random()*W, y: Math.random()*H,
         r: Math.random()*1.2+0.2,
         alpha: Math.random()*0.5+0.08,
-        // some sparkle stars (4-point)
-        sparkle: type > 0.85,
-        // slow twinkle offset
+        sparkle: Math.random() > 0.85,
         phase: Math.random()*Math.PI*2,
         speed: Math.random()*0.008+0.002,
       });
@@ -1015,14 +649,12 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:52
   function drawStar4(x,y,size,alpha,gold){
     ctx.save();
     ctx.globalAlpha = alpha;
-    ctx.strokeStyle = gold ? 'rgba(201,163,91,1)' : 'rgba(255,255,255,1)';
+    ctx.strokeStyle = gold ? 'rgba(249,115,22,1)' : 'rgba(255,255,255,1)';
     ctx.lineWidth = size * 0.55;
     ctx.lineCap = 'round';
-    // 4-point cross
     const s = size * 2.8;
     ctx.beginPath();ctx.moveTo(x,y-s);ctx.lineTo(x,y+s);ctx.stroke();
     ctx.beginPath();ctx.moveTo(x-s,y);ctx.lineTo(x+s,y);ctx.stroke();
-    // diagonal shorter arms
     const d = s * 0.48;
     ctx.lineWidth = size * 0.28;
     ctx.beginPath();ctx.moveTo(x-d,y-d);ctx.lineTo(x+d,y+d);ctx.stroke();
@@ -1037,8 +669,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:52
       const twinkle = 0.5 + 0.5*Math.sin(t*s.speed*60 + s.phase);
       const a = s.alpha * (0.4 + 0.6*twinkle);
       if(s.sparkle){
-        const gold = Math.random() > 0.6;
-        drawStar4(s.x, s.y, s.r*1.1, a*0.9, gold);
+        drawStar4(s.x, s.y, s.r*1.1, a*0.9, Math.random() > 0.6);
       } else {
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
@@ -1054,7 +685,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:52
   draw();
 })();
 
-/* ── FAQ ── */
+/* FAQ */
 document.querySelectorAll('.faq-q').forEach(btn => {
   btn.addEventListener('click', () => {
     const item = btn.closest('.faq-item');
@@ -1064,20 +695,7 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   });
 });
 
-/* ── Nav tools dropdown ── */
-function toggleNavTools(e){
-  e.stopPropagation();
-  document.getElementById('nav-tools').classList.toggle('open');
-}
-document.addEventListener('click', e => {
-  const wrap = document.getElementById('nav-tools');
-  if(wrap && !wrap.contains(e.target)) wrap.classList.remove('open');
-});
-document.addEventListener('keydown', e => {
-  if(e.key==='Escape') document.getElementById('nav-tools')?.classList.remove('open');
-});
-
-/* ── Scroll reveal ── */
+/* Scroll reveal */
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if(e.isIntersecting){
@@ -1086,7 +704,7 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 },{threshold:0.08});
-document.querySelectorAll('.feat-card,.why-card,.pipeline-node,.pain-card,.market-card,.stat').forEach(el=>{
+document.querySelectorAll('.feat-card,.pipeline-node,.pain-card,.stat,.int-card').forEach(el=>{
   el.style.opacity='0';
   el.style.transform='translateY(22px)';
   el.style.transition='opacity 0.55s ease, transform 0.55s ease';
