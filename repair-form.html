@@ -62,7 +62,10 @@
       margin-bottom: 6px;
     }
 
-    input, select {
+    input[type=text],
+    input[type=tel],
+    select,
+    textarea {
       width: 100%;
       padding: 12px 14px;
       border: 1.5px solid #E0E0E0;
@@ -71,21 +74,27 @@
       color: #1A1A1A;
       background: #FAFAFA;
       outline: none;
+      font-family: inherit;
       transition: border-color 0.2s;
       margin-bottom: 20px;
       appearance: none;
       -webkit-appearance: none;
     }
 
-    input:focus, select:focus {
+    input[type=text]:focus,
+    input[type=tel]:focus,
+    select:focus,
+    textarea:focus {
       border-color: #E65100;
       background: #fff;
     }
 
-    .select-wrap {
-      position: relative;
+    textarea {
+      resize: vertical;
+      min-height: 88px;
     }
 
+    .select-wrap { position: relative; }
     .select-wrap::after {
       content: '▾';
       position: absolute;
@@ -96,12 +105,53 @@
       pointer-events: none;
       font-size: 16px;
     }
+    .select-wrap select { padding-right: 36px; }
 
-    .select-wrap select {
-      padding-right: 36px;
+    /* Phone row */
+    .phone-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      margin-bottom: 20px;
     }
 
-    button[type="submit"] {
+    .country-toggle {
+      display: flex;
+      border: 1.5px solid #E0E0E0;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+      height: 48px;
+    }
+
+    .country-toggle button {
+      padding: 0 12px;
+      border: none;
+      background: #FAFAFA;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      color: #888;
+      font-family: inherit;
+      transition: background 0.15s, color 0.15s;
+      border-right: 1.5px solid #E0E0E0;
+      white-space: nowrap;
+    }
+
+    .country-toggle button:last-child { border-right: none; }
+
+    .country-toggle button.active {
+      background: #E65100;
+      color: #fff;
+    }
+
+    .phone-input-wrap { flex: 1; }
+    .phone-input-wrap input { margin-bottom: 0; }
+
+    /* Other field */
+    #other-field { display: none; }
+
+    button[type="button"].submit-btn {
       width: 100%;
       padding: 14px;
       background: #E65100;
@@ -111,17 +161,13 @@
       border: none;
       border-radius: 10px;
       cursor: pointer;
+      font-family: inherit;
       transition: background 0.2s, transform 0.1s;
       margin-top: 4px;
     }
 
-    button[type="submit"]:hover {
-      background: #BF360C;
-    }
-
-    button[type="submit"]:active {
-      transform: scale(0.98);
-    }
+    button[type="button"].submit-btn:hover { background: #BF360C; }
+    button[type="button"].submit-btn:active { transform: scale(0.98); }
 
     .footer-note {
       text-align: center;
@@ -137,10 +183,7 @@
       padding: 20px 0;
     }
 
-    .success .tick {
-      font-size: 52px;
-      margin-bottom: 16px;
-    }
+    .success .tick { font-size: 52px; margin-bottom: 16px; }
 
     .success h2 {
       font-size: 22px;
@@ -149,11 +192,7 @@
       margin-bottom: 10px;
     }
 
-    .success p {
-      font-size: 15px;
-      color: #666;
-      line-height: 1.6;
-    }
+    .success p { font-size: 15px; color: #666; line-height: 1.6; }
 
     .success .whatsapp-note {
       margin-top: 20px;
@@ -163,14 +202,6 @@
       font-size: 14px;
       color: #2E7D32;
       font-weight: 600;
-    }
-
-    .loading {
-      display: none;
-      text-align: center;
-      padding: 10px 0;
-      font-size: 14px;
-      color: #999;
     }
   </style>
 </head>
@@ -183,46 +214,41 @@
       <h1>Book a Repair</h1>
       <p class="subtitle">Fill in your details and we'll reach out on WhatsApp to sort everything out.</p>
 
-      <form id="repair-form">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="John Smith" required />
 
-        <label for="name">Full Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="John Smith"
-          required
-        />
-
-        <label for="phone">WhatsApp Number</label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          placeholder="+61 400 000 000"
-          required
-        />
-
-        <label for="repair_type">Type of Repair</label>
-        <div class="select-wrap">
-          <select id="repair_type" name="repair_type" required>
-            <option value="" disabled selected>Select repair type</option>
-            <option value="Plumbing">Plumbing</option>
-            <option value="Electrical">Electrical</option>
-            <option value="Roofing">Roofing</option>
-            <option value="Air Conditioning">Air Conditioning</option>
-            <option value="Carpentry">Carpentry</option>
-            <option value="Painting">Painting</option>
-            <option value="Tiling">Tiling</option>
-            <option value="Other">Other</option>
-          </select>
+      <label>WhatsApp Number</label>
+      <div class="phone-row">
+        <div class="country-toggle">
+          <button class="active" id="btn-au" onclick="setCountry('au')">🇦🇺 +61</button>
+          <button id="btn-ae" onclick="setCountry('ae')">🇦🇪 +971</button>
         </div>
+        <div class="phone-input-wrap">
+          <input type="tel" id="phone" placeholder="400 000 000" required />
+        </div>
+      </div>
 
-        <div class="loading" id="loading">Sending your request...</div>
+      <label for="repair_type">Type of Repair</label>
+      <div class="select-wrap">
+        <select id="repair_type" onchange="handleRepairChange()" required>
+          <option value="" disabled selected>Select repair type</option>
+          <option value="Plumbing">Plumbing</option>
+          <option value="Electrical">Electrical</option>
+          <option value="Roofing">Roofing</option>
+          <option value="Air Conditioning">Air Conditioning</option>
+          <option value="Carpentry">Carpentry</option>
+          <option value="Painting">Painting</option>
+          <option value="Tiling">Tiling</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
 
-        <button type="submit" id="submit-btn">Get Help on WhatsApp →</button>
-      </form>
+      <div id="other-field">
+        <label for="other_desc">Please describe the repair</label>
+        <textarea id="other_desc" placeholder="e.g. Gate hinge broken, garage door won't close..."></textarea>
+      </div>
 
+      <button type="button" class="submit-btn" onclick="handleSubmit()">Get Help on WhatsApp →</button>
       <p class="footer-note">We'll message you within minutes. Available 10am – 4pm.</p>
     </div>
 
@@ -239,31 +265,57 @@
   </div>
 
   <script>
-    const form = document.getElementById('repair-form');
-    const formView = document.getElementById('form-view');
-    const successView = document.getElementById('success-view');
-    const loading = document.getElementById('loading');
-    const submitBtn = document.getElementById('submit-btn');
-
     const WEBHOOK_URL = 'https://hook.eu1.make.com/ful5at6p9bkfcselhqvy2ou08w23a6xm';
 
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
+    let country = 'au';
+    const prefixes     = { au: '+61 ',  ae: '+971 ' };
+    const placeholders = { au: '400 000 000', ae: '50 000 0000' };
 
-      const name = document.getElementById('name').value.trim();
-      const phone = document.getElementById('phone').value.trim();
+    function setCountry(code) {
+      country = code;
+      document.getElementById('btn-au').classList.toggle('active', code === 'au');
+      document.getElementById('btn-ae').classList.toggle('active', code === 'ae');
+      const ph = document.getElementById('phone');
+      ph.value = '';
+      ph.placeholder = placeholders[code];
+    }
+
+    function handleRepairChange() {
+      const val = document.getElementById('repair_type').value;
+      const otherField = document.getElementById('other-field');
+      const otherDesc  = document.getElementById('other_desc');
+      if (val === 'Other') {
+        otherField.style.display = 'block';
+        otherDesc.required = true;
+      } else {
+        otherField.style.display = 'none';
+        otherDesc.required = false;
+        otherDesc.value = '';
+      }
+    }
+
+    async function handleSubmit() {
+      const name        = document.getElementById('name').value.trim();
+      const phoneRaw    = document.getElementById('phone').value.trim();
       const repair_type = document.getElementById('repair_type').value;
+      const other_desc  = document.getElementById('other_desc').value.trim();
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
-      loading.style.display = 'block';
+      if (!name)         { document.getElementById('name').focus();         return; }
+      if (!phoneRaw)     { document.getElementById('phone').focus();        return; }
+      if (!repair_type)  { document.getElementById('repair_type').focus();  return; }
+      if (repair_type === 'Other' && !other_desc) {
+        document.getElementById('other_desc').focus();
+        return;
+      }
+
+      const fullPhone = prefixes[country] + phoneRaw;
 
       const payload = {
-        name: name,
-        phone: phone,
-        repair_type: repair_type,
+        name:         name,
+        phone:        fullPhone,
+        repair_type:  repair_type === 'Other' ? 'Other: ' + other_desc : repair_type,
         submitted_at: new Date().toISOString(),
-        source: 'repair-form'
+        source:       'repair-form'
       };
 
       try {
@@ -276,10 +328,9 @@
         console.error('Webhook error:', err);
       }
 
-      // Always show success regardless
-      formView.style.display = 'none';
-      successView.style.display = 'block';
-    });
+      document.getElementById('form-view').style.display = 'none';
+      document.getElementById('success-view').style.display = 'block';
+    }
   </script>
 </body>
 </html>
