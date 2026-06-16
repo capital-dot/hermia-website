@@ -32,7 +32,6 @@
       overflow-x:hidden;
     }
 
-    /* ── AMBIENT GLOWS ── */
     .glow-tl {
       position:fixed; top:-15%; left:-10%;
       width:600px; height:600px;
@@ -46,7 +45,6 @@
       filter:blur(90px); pointer-events:none; z-index:0;
     }
 
-    /* ── TOP NAV ── */
     .top-nav {
       position:fixed; top:0; left:0; right:0; z-index:100;
       padding:18px 48px;
@@ -74,14 +72,12 @@
       padding:5px 12px; border-radius:20px;
     }
 
-    /* ── PAGE WRAPPER ── */
     .page-wrap {
       position:relative; z-index:1;
       max-width:800px; margin:0 auto;
       padding:148px 32px 100px;
     }
 
-    /* ── HERO HEADER ── */
     .doc-header {
       text-align:center;
       padding-bottom:64px;
@@ -125,7 +121,6 @@
       border-radius:50%;
     }
 
-    /* ── TABS ── */
     .doc-tabs {
       display:flex; gap:4px;
       background:var(--card); border:1px solid var(--border);
@@ -144,7 +139,6 @@
       color:var(--gold);
     }
 
-    /* ── SECTIONS ── */
     .section {
       margin-bottom:56px;
       animation:fadeUp 0.5s ease both;
@@ -153,7 +147,6 @@
       from { opacity:0; transform:translateY(16px); }
       to   { opacity:1; transform:translateY(0); }
     }
-
     .section-num-row {
       display:flex; align-items:center; gap:14px; margin-bottom:18px;
     }
@@ -166,7 +159,6 @@
       height:1px; flex:1;
       background:linear-gradient(90deg, var(--border-strong), transparent);
     }
-
     .section h2 {
       font-family:'Cormorant Garamond', serif;
       font-size:clamp(22px,3vw,30px); font-weight:700;
@@ -174,7 +166,6 @@
       margin-bottom:20px;
     }
     .section h2 em { font-style:italic; color:var(--gold); }
-
     .section p {
       font-size:14px; color:var(--soft);
       line-height:1.85; font-weight:300;
@@ -183,7 +174,6 @@
     .section p:last-child { margin-bottom:0; }
     .section strong { color:#ddd; font-weight:500; }
 
-    /* ── LIST ── */
     .doc-list {
       list-style:none; padding:0;
       display:flex; flex-direction:column; gap:12px;
@@ -199,7 +189,6 @@
       background:var(--gold); border-radius:50%; margin-top:9px; opacity:0.6;
     }
 
-    /* ── NOTICE BOX ── */
     .notice-box {
       background:rgba(201,163,91,0.04);
       border:1px solid rgba(201,163,91,0.18);
@@ -218,7 +207,6 @@
     }
     .notice-box p strong { color:var(--cream); font-weight:500; }
 
-    /* ── CLASS CARDS ── */
     .class-grid {
       display:flex; flex-direction:column; gap:12px; margin-top:8px;
     }
@@ -241,7 +229,6 @@
     }
     .class-text strong { color:#ddd; font-weight:500; }
 
-    /* ── DIVIDER ── */
     .section-divider {
       display:flex; align-items:center; gap:12px;
       margin:56px 0 0;
@@ -256,7 +243,6 @@
       transform:rotate(45deg); opacity:0.4;
     }
 
-    /* ── FOOTER ── */
     footer {
       position:relative; z-index:1;
       border-top:1px solid var(--border);
@@ -293,9 +279,7 @@
       flex-wrap:wrap; gap:10px;
     }
     .footer-copy { font-size:11px; color:rgba(138,133,128,0.45); font-weight:300; }
-    .footer-abn {
-      display:inline-flex; align-items:center; gap:8px;
-    }
+    .footer-abn { display:inline-flex; align-items:center; gap:8px; }
     .footer-abn-badge {
       font-size:9px; font-weight:700; letter-spacing:1.5px;
       text-transform:uppercase; color:rgba(201,163,91,0.4);
@@ -321,7 +305,6 @@
 <div class="glow-tl"></div>
 <div class="glow-br"></div>
 
-<!-- NAV -->
 <nav class="top-nav">
   <a href="index.html" class="back-btn">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -334,10 +317,8 @@
   <span class="nav-badge">Legal &amp; Governance</span>
 </nav>
 
-<!-- MAIN -->
 <div class="page-wrap">
 
-  <!-- HEADER -->
   <div class="doc-header">
     <div class="doc-eyebrow">
       <span class="doc-eyebrow-dot"></span>
@@ -353,111 +334,114 @@
     </div>
   </div>
 
-  <!-- TABS -->
   <div class="doc-tabs">
     <a href="#privacy" class="doc-tab active">Privacy Policy</a>
     <a href="/terms" class="doc-tab">Terms of Service</a>
   </div>
 
-  <!-- SECTIONS -->
   <div id="privacy">
 
+    <!-- 01 -->
     <div class="section" style="animation-delay:0.05s">
       <div class="section-num-row">
         <span class="section-num">01</span>
         <div class="section-rule"></div>
       </div>
       <h2>Statutory Compliance <em>&amp; Scope</em></h2>
-      <p>This Privacy Policy outlines the rigorous framework under which Hermia ("the Platform", "we", "us", or "our") processes operational data payloads. This governance structure is engineered to maintain absolute compliance with the <strong>Privacy Act 1988 (Cth)</strong> (including the Australian Privacy Principles), the <strong>UAE Federal Decree-Law No. 45 of 2021 on Personal Data Protection (PDPL)</strong>, and all corresponding local statutory obligations governing transactional data routing within real estate sectors.</p>
+      <p>This Privacy Policy outlines the rigorous framework under which Hermia ("the Platform", "we", "us", or "our") processes operational data payloads. This governance structure is engineered to maintain absolute compliance with the <strong>Privacy Act 1988 (Cth)</strong> (including the Australian Privacy Principles), the <strong>UAE Federal Decree-Law No. 45 of 2021 on Personal Data Protection (PDPL)</strong>, and all corresponding local statutory obligations governing transactional data routing within real estate and production repair sectors.</p>
     </div>
 
     <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
+    <!-- 02 -->
     <div class="section" style="animation-delay:0.10s; margin-top:56px;">
       <div class="section-num-row">
         <span class="section-num">02</span>
         <div class="section-rule"></div>
       </div>
       <h2>Data Processor vs. <em>Controller Separation</em></h2>
-      <p>The Client (the subscribing real estate agency, firm, or licensed corporate user) acts strictly as the <strong>Data Controller</strong>. The Client maintains absolute ownership, statutory liability, and directional authority over the methods of gathering, storing, and utilizing all buyer, tenant, or general prospect metrics.</p>
-      <p>Hermia functions solely as a <strong>Data Processor</strong>, executing systemic data ingestion, triage parsing, categorization, and pipeline automation sequences entirely based on the direct technological settings and infrastructure mapping commands established by the Client.</p>
+      <p>The Client (the subscribing real estate agency, production repair operator, trade business, or licensed corporate user) acts strictly as the <strong>Data Controller</strong>. The Client maintains absolute ownership, statutory liability, and directional authority over the methods of gathering, storing, and utilizing all buyer, tenant, repair requestor, or general prospect data.</p>
+      <p>Hermia functions solely as a <strong>Data Processor</strong>, executing systemic data ingestion, triage parsing, categorization, and pipeline automation sequences entirely based on the direct technological settings and infrastructure mapping commands established by the Client. This applies equally across real estate and production repair operational contexts.</p>
 
       <div class="notice-box">
         <div class="notice-label">⚑ Explicit Inbound Data Source Restriction</div>
-        <p><strong>Hermia does not source, harvest, discover, or generate leads.</strong> The Platform is a Tier 0 triage data layer that solely manipulates existing information packets directly supplied by the Client via secure software webhooks. Hermia never gathers raw personal information independently from consumers or public domains. The Client bears sole statutory responsibility for establishing a valid lawful basis and acquiring explicit opt-in consent from individuals before routing data payloads through the Platform's operational pipelines.</p>
+        <p><strong>Hermia does not source, harvest, discover, or generate leads or repair job requests.</strong> The Platform is a Tier 0 triage data layer that solely manipulates existing information packets directly supplied by the Client via secure software webhooks — whether those packets originate from real estate marketing channels or production repair booking flows. Hermia never gathers raw personal information independently from consumers or public domains. The Client bears sole statutory responsibility for establishing a valid lawful basis and acquiring explicit opt-in consent from all individuals — including buyers, tenants, and repair requestors — before routing their data payloads through the Platform's operational pipelines.</p>
       </div>
     </div>
 
     <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
+    <!-- 03 -->
     <div class="section" style="animation-delay:0.15s; margin-top:56px;">
       <div class="section-num-row">
         <span class="section-num">03</span>
         <div class="section-rule"></div>
       </div>
       <h2>Zero-Credential <em>Access Control</em></h2>
-      <p>To eliminate systemic structural exposure, Hermia operates an insulated, credential-free database interface. Integration channels linking to Customer Relationship Management (CRM) tools or mail distribution infrastructure utilize tokenized OAuth 2.0 communication pathways and isolated API parameters. At no phase of structural data parsing does Hermia store, log, cache, or maintain readable access to the raw cleartext database passwords or baseline master credentials belonging to the Client or its personnel.</p>
+      <p>To eliminate systemic structural exposure, Hermia operates an insulated, credential-free database interface. Integration channels linking to Customer Relationship Management (CRM) tools, job management platforms, or mail distribution infrastructure utilize tokenized OAuth 2.0 communication pathways and isolated API parameters. At no phase of structural data parsing — whether processing real estate inquiries or production repair job requests — does Hermia store, log, cache, or maintain readable access to the raw cleartext database passwords or baseline master credentials belonging to the Client or its personnel.</p>
     </div>
 
     <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
+    <!-- 04 -->
     <div class="section" style="animation-delay:0.20s; margin-top:56px;">
       <div class="section-num-row">
         <span class="section-num">04</span>
         <div class="section-rule"></div>
       </div>
       <h2>Categorization of <em>Processed Information</em></h2>
-      <p>Information passing through the automated processing arrays is managed across three strict technical classes:</p>
+      <p>Information passing through the automated processing arrays is managed across three strict technical classes, covering both real estate and production repair data streams:</p>
 
       <div class="class-grid">
         <div class="class-card">
           <span class="class-label">Class A</span>
-          <div class="class-text"><strong>Operational Corporate Metrics</strong> — Institutional corporate profiles, billing identifiers, ABN details, tax compliance registration metrics, and authorized administrator contact details necessary to maintain active platform subscription accounts.</div>
+          <div class="class-text"><strong>Operational Corporate Metrics</strong> — Institutional corporate profiles, billing identifiers, ABN details, tax compliance registration metrics, trade licensing references, and authorized administrator contact details necessary to maintain active platform subscription accounts.</div>
         </div>
         <div class="class-card">
           <span class="class-label">Class B</span>
-          <div class="class-text"><strong>Client-Driven Input Payloads</strong> — Inbound inquiry variables (including prospect names, electronic mail addresses, phone identification values, and real estate requirement variables) explicitly routed by the Client from authorized real estate marketing channels.</div>
+          <div class="class-text"><strong>Client-Driven Input Payloads</strong> — Inbound inquiry variables explicitly routed by the Client from authorized marketing or booking channels. For real estate Clients this includes prospect names, contact details, and property requirement variables. For production repair Clients this includes repair requestor names, contact details, job type, and location variables.</div>
         </div>
         <div class="class-card">
           <span class="class-label">Class C</span>
-          <div class="class-text"><strong>Automated Infrastructure Logs</strong> — Structured technical timestamps, automated validation outputs, and metadata confirmations recorded by automated communication pathways (such as SMS networks or WhatsApp application endpoints) during the real-time routing sequence.</div>
+          <div class="class-text"><strong>Automated Infrastructure Logs</strong> — Structured technical timestamps, automated validation outputs, and metadata confirmations recorded by automated communication pathways (such as SMS networks or WhatsApp application endpoints) during the real-time routing sequence, across both real estate and repair job pipelines.</div>
         </div>
       </div>
     </div>
 
     <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
+    <!-- 05 -->
     <div class="section" style="animation-delay:0.25s; margin-top:56px;">
       <div class="section-num-row">
         <span class="section-num">05</span>
         <div class="section-rule"></div>
       </div>
       <h2>Volatile Memory Processing <em>&amp; Cross-Border Protection</em></h2>
-      <p>All data transformation routines execute strictly within highly secure, volatile cloud memory units. Data attributes are transiently retained only for the fleeting duration required to filter, parse, and securely transmit the clean data structure directly into the Client's destination CRM software environment.</p>
+      <p>All data transformation routines — whether handling real estate lead qualification or production repair job triage — execute strictly within highly secure, volatile cloud memory units. Data attributes are transiently retained only for the fleeting duration required to filter, parse, and securely transmit the clean data structure directly into the Client's destination CRM or job management software environment.</p>
       <p>To secure regional operations across Australia and the UAE, all international pipeline components are encrypted utilizing rigid end-to-end 256-bit protocols. All network routing, traffic management, and perimeter firewalls are managed through specialized corporate data protection networks that strictly meet SOC2 compliance standards.</p>
     </div>
 
     <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
+    <!-- 06 -->
     <div class="section" style="animation-delay:0.30s; margin-top:56px;">
       <div class="section-num-row">
         <span class="section-num">06</span>
         <div class="section-rule"></div>
       </div>
       <h2>Subject Access Requests <em>&amp; Erasure Protocols</em></h2>
-      <p>Because Hermia does not maintain a permanent, centralized database of consumers or prospects, any individual seeking to exercise data access, rectification, or structural erasure rights under the Australian Privacy Principles or UAE PDPL must submit their inquiry directly to the respective real estate agency acting as the Data Controller.</p>
+      <p>Because Hermia does not maintain a permanent, centralized database of consumers, prospects, or repair requestors, any individual seeking to exercise data access, rectification, or structural erasure rights under the Australian Privacy Principles or UAE PDPL must submit their inquiry directly to the respective real estate agency or production repair operator acting as the Data Controller.</p>
       <p>Upon receiving a certified instructional command from the Client, Hermia will instantly process secondary clearing routines to purge any matching operational execution records within volatile server storage arrays inside 30 days.</p>
     </div>
 
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
       Hermia
-      <small>AI Lead Qualification for Real Estate</small>
+      <small>AI Qualification for Real Estate &amp; Production Repairs</small>
     </div>
     <div class="footer-links">
       <a href="index.html" class="footer-link">Home</a>
