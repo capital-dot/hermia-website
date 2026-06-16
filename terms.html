@@ -45,7 +45,6 @@
       filter:blur(90px); pointer-events:none; z-index:0;
     }
 
-    /* ── NAV ── */
     .top-nav {
       position:fixed; top:0; left:0; right:0; z-index:100;
       padding:18px 48px;
@@ -73,14 +72,12 @@
       padding:5px 12px; border-radius:20px;
     }
 
-    /* ── PAGE ── */
     .page-wrap {
       position:relative; z-index:1;
       max-width:800px; margin:0 auto;
       padding:148px 32px 100px;
     }
 
-    /* ── HEADER ── */
     .doc-header {
       text-align:center;
       padding-bottom:64px;
@@ -123,7 +120,6 @@
       border-radius:50%;
     }
 
-    /* ── TABS ── */
     .doc-tabs {
       display:flex; gap:4px;
       background:var(--card); border:1px solid var(--border);
@@ -143,7 +139,6 @@
       color:var(--gold);
     }
 
-    /* ── SECTIONS ── */
     .section {
       margin-bottom:56px;
       animation:fadeUp 0.5s ease both;
@@ -178,7 +173,6 @@
     .section p:last-child { margin-bottom:0; }
     .section strong { color:#ddd; font-weight:500; }
 
-    /* ── LIST ── */
     .doc-list {
       list-style:none; padding:0;
       display:flex; flex-direction:column; gap:12px;
@@ -195,7 +189,6 @@
     }
     .doc-list li strong { color:#ddd; font-weight:500; }
 
-    /* ── NOTICE BOX ── */
     .notice-box {
       background:rgba(201,163,91,0.04);
       border:1px solid rgba(201,163,91,0.18);
@@ -214,7 +207,6 @@
     }
     .notice-box p strong { color:var(--cream); font-weight:500; }
 
-    /* ── FEES TABLE ── */
     .fees-grid {
       display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px;
     }
@@ -242,7 +234,6 @@
       border-radius:6px; padding:4px 10px; display:inline-block;
     }
 
-    /* ── DIVIDER ── */
     .section-divider {
       display:flex; align-items:center; gap:12px; margin:56px 0 0;
     }
@@ -254,7 +245,6 @@
       transform:rotate(45deg); opacity:0.4;
     }
 
-    /* ── FOOTER ── */
     footer {
       position:relative; z-index:1;
       border-top:1px solid var(--border);
@@ -318,7 +308,6 @@
 <div class="glow-tl"></div>
 <div class="glow-br"></div>
 
-<!-- NAV -->
 <nav class="top-nav">
   <a href="index.html" class="back-btn">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -333,7 +322,6 @@
 
 <div class="page-wrap">
 
-  <!-- HEADER -->
   <div class="doc-header">
     <div class="doc-eyebrow">
       <span class="doc-eyebrow-dot"></span>
@@ -349,14 +337,12 @@
     </div>
   </div>
 
-  <!-- TABS -->
   <div class="doc-tabs">
     <a href="/privacy" class="doc-tab">Privacy Policy</a>
     <a href="#" class="doc-tab active">Terms of Service</a>
   </div>
 
-  <!-- SECTIONS -->
-
+  <!-- 01 -->
   <div class="section" style="animation-delay:0.05s">
     <div class="section-num-row"><span class="section-num">01</span><div class="section-rule"></div></div>
     <h2>Acceptance <em>of Terms</em></h2>
@@ -365,29 +351,38 @@
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
+  <!-- 02 -->
   <div class="section" style="animation-delay:0.10s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">02</span><div class="section-rule"></div></div>
     <h2>Scope of Service <em>&amp; Disclaimer</em></h2>
-    <p>Hermia operates strictly as a <strong>Tier 0 automated backend data infrastructure and triage layer</strong>. The Service utilizes automated, template-driven SMS and WhatsApp logic gates to verify, filter, and structure existing incoming real estate inquiries and route that intelligence into the Client's active CRM software.</p>
+    <p>Hermia operates strictly as a <strong>Tier 0 automated backend data infrastructure and triage layer</strong>. The Service utilizes automated, template-driven SMS and WhatsApp logic gates to verify, filter, and structure existing incoming inquiries — spanning both real estate and production repair verticals — and route that intelligence into the Client's active CRM software.</p>
     <div class="notice-box">
       <div class="notice-label">⚑ Critical Disclaimer</div>
-      <p><strong>Hermia is not a lead generation platform, marketing agency, or public-facing advertisement provider.</strong> Hermia does not find, source, capture, or generate new leads, prospects, buyers, or tenants. The Client maintains sole operational and financial responsibility for running its own marketing assets and feeding inbound inquiry data streams into Hermia's technical infrastructure layer via secure webhooks.</p>
+      <p><strong>Hermia is not a lead generation platform, marketing agency, or public-facing advertisement provider.</strong> Hermia does not find, source, capture, or generate new leads, prospects, buyers, tenants, or repair job requests. The Client maintains sole operational and financial responsibility for running its own marketing assets and feeding inbound inquiry data streams into Hermia's technical infrastructure layer via secure webhooks. This applies equally to real estate brokerage operations and production repair trade businesses.</p>
     </div>
   </div>
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
+  <!-- 03 -->
   <div class="section" style="animation-delay:0.13s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">03</span><div class="section-rule"></div></div>
     <h2><em>Eligibility</em></h2>
-    <p>The Service is restricted exclusively to corporate entities and licensed real estate brokerages or individual practitioners operating lawfully in Australia and the United Arab Emirates (UAE). By executing deployment, you represent and warrant that you hold active statutory real estate authority and are fully authorized to bind your agency to this agreement.</p>
+    <p>The Service is restricted exclusively to corporate entities and licensed operators lawfully operating in Australia and the United Arab Emirates (UAE). Eligible Clients include:</p>
+    <ul class="doc-list">
+      <li><strong>Real Estate:</strong> Licensed real estate brokerages or individual practitioners holding active statutory real estate authority.</li>
+      <li><strong>Production Repairs:</strong> Registered trade businesses, contractors, and repair operators holding valid licensing and/or insurance for the trade services they provide.</li>
+    </ul>
+    <p style="margin-top:16px;">By executing deployment, you represent and warrant that you are fully authorized to bind your business to this agreement and hold all relevant licenses and registrations required in your jurisdiction.</p>
   </div>
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
+  <!-- 04 -->
   <div class="section" style="animation-delay:0.16s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">04</span><div class="section-rule"></div></div>
     <h2>Infrastructure Fees <em>&amp; Settlement</em></h2>
+    <p>The following pricing applies across both the real estate and production repairs verticals. Fees are the same regardless of service type.</p>
     <div class="fees-grid">
       <div class="fee-card">
         <div class="fee-zone">🇦🇺 Australia Zone</div>
@@ -407,62 +402,70 @@
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
+  <!-- 05 -->
   <div class="section" style="animation-delay:0.19s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">05</span><div class="section-rule"></div></div>
     <h2>Client Obligations <em>&amp; Liabilities</em></h2>
     <p>As a condition of using the platform infrastructure, the Client agrees to:</p>
     <ul class="doc-list">
       <li>Provide and maintain secure API tokens and authorized CRM permissions necessary to process data payloads.</li>
-   <li>Act as the <strong>Data Controller</strong> and ensure all leads have consented before their data is sent to Hermia.</li>
+      <li>Act as the Data Controller and ensure all leads, buyers, tenants, or repair job requestors have provided informed consent before their data is transmitted to Hermia.</li>
       <li>Prevent any systematic reverse-engineering, decompilation, routing-logic scraping, or cloning of Hermia's proprietary Tier 0 logic workflows, filters, and operational methodology.</li>
+      <li>For production repair Clients: ensure all trade work coordinated through Hermia's job-routing infrastructure is performed by appropriately licensed and insured tradespeople in compliance with local building and safety codes.</li>
     </ul>
   </div>
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
+  <!-- 06 -->
   <div class="section" style="animation-delay:0.22s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">06</span><div class="section-rule"></div></div>
     <h2>Intellectual <em>Property Rights</em></h2>
-    <p>All structural workflow configurations, data filtering pathways, logic gates, hardcoded template structures, underlying code, and brand systems remain the exclusive, absolute intellectual property of Hermia. The Client receives a limited, revocable, non-transferable, non-assignable operating license to pass data streams through the architecture solely during an active paid subscription tier.</p>
+    <p>All structural workflow configurations, data filtering pathways, logic gates, hardcoded template structures, underlying code, and brand systems remain the exclusive, absolute intellectual property of Hermia. The Client receives a limited, revocable, non-transferable, non-assignable operating license to pass data streams through the architecture solely during an active paid subscription tier. This applies equally to real estate and production repair use cases.</p>
   </div>
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
+  <!-- 07 -->
   <div class="section" style="animation-delay:0.25s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">07</span><div class="section-rule"></div></div>
     <h2>Third-Party <em>Platform Independence</em></h2>
-    <p>Hermia functions independently. Hermia is not officially affiliated with, sanctioned by, or partnered with any real estate listing portals, external CRM brand providers, global messaging applications, or web hosting architectures. All corporate trademarks, product symbols, and platform names visible in integrations belong entirely to their respective third-party owners.</p>
+    <p>Hermia functions independently. Hermia is not officially affiliated with, sanctioned by, or partnered with any real estate listing portals, repair job marketplaces, trade booking platforms, external CRM brand providers, global messaging applications, or web hosting architectures. All corporate trademarks, product symbols, and platform names visible in integrations belong entirely to their respective third-party owners.</p>
   </div>
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
+  <!-- 08 -->
   <div class="section" style="animation-delay:0.28s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">08</span><div class="section-rule"></div></div>
     <h2>Limitation <em>of Liability</em></h2>
     <div class="notice-box">
       <div class="notice-label">⚑ Financial Exclusion</div>
-      <p>The Service is provided on an "as is" and "as available" basis. To the maximum extent permitted by law, Hermia shall not be liable for any indirect, consequential, incidental, special, or punitive damages — explicitly including lost real estate commissions, unsecured property sales, loss of client brokerage revenue, listing cancellations, system latency, or inbound metric drops. Hermia's total combined liability for any dispute is strictly limited to fees paid by the Client in the three (3) months immediately preceding the legal claim.</p>
+      <p>The Service is provided on an "as is" and "as available" basis. To the maximum extent permitted by law, Hermia shall not be liable for any indirect, consequential, incidental, special, or punitive damages — explicitly including lost real estate commissions, unsecured property sales, loss of client brokerage revenue, listing cancellations, missed repair job revenue, trade job cancellations, contractor disputes, property damage arising from repair works, system latency, or inbound metric drops. Hermia's total combined liability for any dispute is strictly limited to fees paid by the Client in the three (3) months immediately preceding the legal claim.</p>
     </div>
   </div>
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
+  <!-- 09 -->
   <div class="section" style="animation-delay:0.31s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">09</span><div class="section-rule"></div></div>
     <h2>Absolute <em>Indemnification</em></h2>
-    <p>The Client agrees to fully indemnify, defend, and hold harmless Hermia and its operational developers against any and all legal suits, monetary fines, regulatory judgments, or administrative actions resulting from: (a) Client failure to secure proper user opt-in consent; (b) violations of local real estate advertising laws; or (c) transactional friction or property value discrepancies arising between the Client and its prospects.</p>
+    <p>The Client agrees to fully indemnify, defend, and hold harmless Hermia and its operational developers against any and all legal suits, monetary fines, regulatory judgments, or administrative actions resulting from: (a) Client failure to secure proper user opt-in consent; (b) violations of local real estate advertising laws or trade licensing regulations; (c) transactional friction or property value discrepancies arising between the Client and its prospects; or (d) any injury, property damage, defective workmanship, or regulatory breach arising from repair works coordinated through the platform.</p>
   </div>
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
+  <!-- 10 -->
   <div class="section" style="animation-delay:0.34s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">10</span><div class="section-rule"></div></div>
     <h2>Termination <em>&amp; Environment Purging</em></h2>
-    <p>Either party may close the data processing tunnel by providing a 30-day electronic notice. Hermia retains the right to terminate access instantly if a breach of intellectual property or compliance logic occurs. Upon contract conclusion, lead processing pipelines are deactivated and all volatile transaction metadata logs are scrubbed from system memory blocks within 30 days.</p>
+    <p>Either party may close the data processing tunnel by providing a 30-day electronic notice. Hermia retains the right to terminate access instantly if a breach of intellectual property or compliance logic occurs. Upon contract conclusion, lead processing pipelines and repair job routing configurations are deactivated, and all volatile transaction metadata logs are scrubbed from system memory blocks within 30 days.</p>
   </div>
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
+  <!-- 11 -->
   <div class="section" style="animation-delay:0.37s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">11</span><div class="section-rule"></div></div>
     <h2>Governing Law <em>&amp; Jurisdiction</em></h2>
@@ -471,6 +474,7 @@
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
+  <!-- 12 -->
   <div class="section" style="animation-delay:0.40s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">12</span><div class="section-rule"></div></div>
     <h2>Governance <em>Contact</em></h2>
@@ -479,12 +483,11 @@
 
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
       Hermia
-      <small>AI Lead Qualification for Real Estate</small>
+      <small>AI Qualification for Real Estate &amp; Production Repairs</small>
     </div>
     <div class="footer-links">
       <a href="index.html" class="footer-link">Home</a>
