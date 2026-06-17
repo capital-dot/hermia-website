@@ -221,7 +221,7 @@
 </div>
 
 <script>
-  const NYLAS_CLIENT_ID = '748d5e89-e000-4e9e-9cf3-ffdcee28e3a2';
+  const NYLAS_CLIENT_ID = '0fef4162-8c07-4903-8fde-2fe96806ad29';
   const NYLAS_AUTH_BASE  = 'https://api.us.nylas.com/v3/connect/auth';
   const REDIRECT_URI     = 'https://onboarding.hermia.au/gmail.html';
   const WORKER           = 'https://hermianango.capital-fbc.workers.dev';
@@ -283,12 +283,12 @@
     fetch(WORKER + '/nylas-exchange', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ code: code, customerId: customerId })
+      body:    JSON.stringify({ code: code, customerId: customerId, type: 'gmail', redirectUri: REDIRECT_URI })
     })
     .then(function(r) { return r.json(); })
     .then(function(data) {
       if (data && data.ok) {
-        window.location.href = 'https://onboarding.hermia.au/crm-connect.html';
+        window.location.href = 'https://onboarding.hermia.au/calendar.html';
       } else {
         console.error('Nylas exchange failed:', data);
         showError('Connection failed. Please try again.');
