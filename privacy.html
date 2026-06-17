@@ -8,17 +8,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --black: #080808;
-      --card: #111111;
-      --card2: #141414;
+      --black: #111114;
+      --card: #18181c;
+      --card2: #1c1c20;
       --gold: #C9A35B;
       --gold-light: #e8c17a;
       --gold-dim: rgba(201,163,91,0.07);
       --cream: #f5f1e8;
-      --muted: #8a8580;
-      --soft: #b8b5ad;
-      --border: rgba(201,163,91,0.14);
-      --border-strong: rgba(201,163,91,0.32);
+      --muted: #9a9692;
+      --soft: #c2bfb8;
+      --border: rgba(201,163,91,0.16);
+      --border-strong: rgba(201,163,91,0.34);
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -35,13 +35,13 @@
     .glow-tl {
       position:fixed; top:-15%; left:-10%;
       width:600px; height:600px;
-      background:radial-gradient(circle, rgba(201,163,91,0.10) 0%, transparent 70%);
+      background:radial-gradient(circle, rgba(201,163,91,0.08) 0%, transparent 70%);
       filter:blur(90px); pointer-events:none; z-index:0;
     }
     .glow-br {
       position:fixed; bottom:-15%; right:-10%;
       width:500px; height:500px;
-      background:radial-gradient(circle, rgba(201,163,91,0.07) 0%, transparent 70%);
+      background:radial-gradient(circle, rgba(201,163,91,0.05) 0%, transparent 70%);
       filter:blur(90px); pointer-events:none; z-index:0;
     }
 
@@ -49,7 +49,7 @@
       position:fixed; top:0; left:0; right:0; z-index:100;
       padding:18px 48px;
       display:flex; align-items:center; justify-content:space-between;
-      background:rgba(8,8,8,0.92); backdrop-filter:blur(24px);
+      background:rgba(17,17,20,0.94); backdrop-filter:blur(24px);
       border-bottom:1px solid var(--border);
     }
     .back-btn {
@@ -100,7 +100,7 @@
       font-size:clamp(38px,6vw,62px); font-weight:700;
       color:#fff; letter-spacing:-1.5px; line-height:1.06;
       margin-bottom:18px;
-      text-shadow:0 0 40px rgba(201,163,91,0.2);
+      text-shadow:0 0 40px rgba(201,163,91,0.18);
     }
     .doc-header h1 em { font-style:italic; color:var(--gold); }
     .doc-meta-row {
@@ -167,31 +167,31 @@
     }
     .section h2 em { font-style:italic; color:var(--gold); }
     .section p {
-      font-size:14px; color:var(--soft);
-      line-height:1.85; font-weight:300;
-      margin-bottom:16px;
+      font-size:15px; color:var(--soft);
+      line-height:1.9; font-weight:300;
+      margin-bottom:18px;
     }
     .section p:last-child { margin-bottom:0; }
-    .section strong { color:#ddd; font-weight:500; }
+    .section strong { color:#e8e4da; font-weight:500; }
 
     .doc-list {
       list-style:none; padding:0;
-      display:flex; flex-direction:column; gap:12px;
+      display:flex; flex-direction:column; gap:14px;
       margin-top:4px;
     }
     .doc-list li {
       display:flex; gap:14px; align-items:flex-start;
-      font-size:14px; color:var(--soft); line-height:1.75; font-weight:300;
+      font-size:15px; color:var(--soft); line-height:1.8; font-weight:300;
     }
     .doc-list li::before {
       content:'';
       display:block; min-width:5px; height:5px;
-      background:var(--gold); border-radius:50%; margin-top:9px; opacity:0.6;
+      background:var(--gold); border-radius:50%; margin-top:10px; opacity:0.6;
     }
 
     .notice-box {
-      background:rgba(201,163,91,0.04);
-      border:1px solid rgba(201,163,91,0.18);
+      background:rgba(201,163,91,0.05);
+      border:1px solid rgba(201,163,91,0.2);
       border-left:3px solid var(--gold);
       border-radius:12px; padding:28px 30px;
       margin:28px 0;
@@ -202,8 +202,8 @@
       margin-bottom:14px; opacity:0.85;
     }
     .notice-box p {
-      font-size:13px; color:var(--soft);
-      line-height:1.8; font-weight:300; margin-bottom:0;
+      font-size:14px; color:var(--soft);
+      line-height:1.85; font-weight:300; margin-bottom:0;
     }
     .notice-box p strong { color:var(--cream); font-weight:500; }
 
@@ -212,7 +212,7 @@
     }
     .class-card {
       background:var(--card); border:1px solid var(--border);
-      border-radius:12px; padding:20px 22px;
+      border-radius:12px; padding:22px 24px;
       display:flex; gap:16px; align-items:flex-start;
       transition:border-color 0.25s;
     }
@@ -225,9 +225,9 @@
       white-space:nowrap; margin-top:2px; flex-shrink:0;
     }
     .class-text {
-      font-size:13px; color:var(--soft); line-height:1.7; font-weight:300;
+      font-size:14px; color:var(--soft); line-height:1.75; font-weight:300;
     }
-    .class-text strong { color:#ddd; font-weight:500; }
+    .class-text strong { color:#e8e4da; font-weight:500; }
 
     .section-divider {
       display:flex; align-items:center; gap:12px;
@@ -247,7 +247,7 @@
       position:relative; z-index:1;
       border-top:1px solid var(--border);
       padding:48px 48px 40px;
-      background:rgba(0,0,0,0.25);
+      background:rgba(0,0,0,0.2);
     }
     .footer-inner {
       max-width:800px; margin:0 auto;
@@ -328,7 +328,7 @@
     <div class="doc-meta-row">
       <div class="doc-meta-pill"><span>Effective</span> May 2026</div>
       <div class="dot-sep"></div>
-      <div class="doc-meta-pill"><span>Jurisdiction</span> Australia · UAE</div>
+      <div class="doc-meta-pill"><span>Jurisdiction</span> Victoria, Australia</div>
       <div class="dot-sep"></div>
       <div class="doc-meta-pill"><span>Standard</span> Tier 0 Infrastructure</div>
     </div>
@@ -348,7 +348,7 @@
         <div class="section-rule"></div>
       </div>
       <h2>Statutory Compliance <em>&amp; Scope</em></h2>
-      <p>This Privacy Policy outlines the rigorous framework under which Hermia ("the Platform", "we", "us", or "our") processes operational data payloads. This governance structure is engineered to maintain absolute compliance with the <strong>Privacy Act 1988 (Cth)</strong> (including the Australian Privacy Principles), the <strong>UAE Federal Decree-Law No. 45 of 2021 on Personal Data Protection (PDPL)</strong>, and all corresponding local statutory obligations governing transactional data routing within real estate and production repair sectors.</p>
+      <p>This Privacy Policy outlines the rigorous framework under which Hermia ("the Platform", "we", "us", or "our") processes operational data payloads. This governance structure is engineered to maintain absolute compliance with the <strong>Privacy Act 1988 (Cth)</strong> (including the Australian Privacy Principles) and all corresponding local statutory obligations governing transactional data routing within the production repair sector in Australia.</p>
     </div>
 
     <div class="section-divider"><div class="section-divider-diamond"></div></div>
@@ -360,12 +360,12 @@
         <div class="section-rule"></div>
       </div>
       <h2>Data Processor vs. <em>Controller Separation</em></h2>
-      <p>The Client (the subscribing real estate agency, production repair operator, trade business, or licensed corporate user) acts strictly as the <strong>Data Controller</strong>. The Client maintains absolute ownership, statutory liability, and directional authority over the methods of gathering, storing, and utilizing all buyer, tenant, repair requestor, or general prospect data.</p>
-      <p>Hermia functions solely as a <strong>Data Processor</strong>, executing systemic data ingestion, triage parsing, categorization, and pipeline automation sequences entirely based on the direct technological settings and infrastructure mapping commands established by the Client. This applies equally across real estate and production repair operational contexts.</p>
+      <p>The Client (the subscribing production repair operator, trade business, or licensed corporate user) acts strictly as the <strong>Data Controller</strong>. The Client maintains absolute ownership, statutory liability, and directional authority over the methods of gathering, storing, and utilizing all repair requestor and general prospect data.</p>
+      <p>Hermia functions solely as a <strong>Data Processor</strong>, executing systemic data ingestion, triage parsing, categorization, and pipeline automation sequences entirely based on the direct technological settings and infrastructure mapping commands established by the Client.</p>
 
       <div class="notice-box">
         <div class="notice-label">⚑ Explicit Inbound Data Source Restriction</div>
-        <p><strong>Hermia does not source, harvest, discover, or generate leads or repair job requests.</strong> The Platform is a Tier 0 triage data layer that solely manipulates existing information packets directly supplied by the Client via secure software webhooks — whether those packets originate from real estate marketing channels or production repair booking flows. Hermia never gathers raw personal information independently from consumers or public domains. The Client bears sole statutory responsibility for establishing a valid lawful basis and acquiring explicit opt-in consent from all individuals — including buyers, tenants, and repair requestors — before routing their data payloads through the Platform's operational pipelines.</p>
+        <p><strong>Hermia does not source, harvest, discover, or generate repair job requests.</strong> The Platform is a Tier 0 triage data layer that solely manipulates existing information packets directly supplied by the Client via secure software webhooks from their own production repair booking flows. Hermia never gathers raw personal information independently from consumers or public domains. The Client bears sole statutory responsibility for establishing a valid lawful basis and acquiring explicit opt-in consent from all repair requestors before routing their data payloads through the Platform's operational pipelines.</p>
       </div>
     </div>
 
@@ -378,7 +378,7 @@
         <div class="section-rule"></div>
       </div>
       <h2>Zero-Credential <em>Access Control</em></h2>
-      <p>To eliminate systemic structural exposure, Hermia operates an insulated, credential-free database interface. Integration channels linking to Customer Relationship Management (CRM) tools, job management platforms, or mail distribution infrastructure utilize tokenized OAuth 2.0 communication pathways and isolated API parameters. At no phase of structural data parsing — whether processing real estate inquiries or production repair job requests — does Hermia store, log, cache, or maintain readable access to the raw cleartext database passwords or baseline master credentials belonging to the Client or its personnel.</p>
+      <p>To eliminate systemic structural exposure, Hermia operates an insulated, credential-free database interface. Integration channels linking to job management platforms, Customer Relationship Management (CRM) tools, or communication infrastructure utilize tokenized OAuth 2.0 communication pathways and isolated API parameters. At no phase of structural data parsing does Hermia store, log, cache, or maintain readable access to the raw cleartext database passwords or baseline master credentials belonging to the Client or its personnel.</p>
     </div>
 
     <div class="section-divider"><div class="section-divider-diamond"></div></div>
@@ -390,20 +390,20 @@
         <div class="section-rule"></div>
       </div>
       <h2>Categorization of <em>Processed Information</em></h2>
-      <p>Information passing through the automated processing arrays is managed across three strict technical classes, covering both real estate and production repair data streams:</p>
+      <p>Information passing through the automated processing arrays is managed across three strict technical classes:</p>
 
       <div class="class-grid">
         <div class="class-card">
           <span class="class-label">Class A</span>
-          <div class="class-text"><strong>Operational Corporate Metrics</strong> — Institutional corporate profiles, billing identifiers, ABN details, tax compliance registration metrics, trade licensing references, and authorized administrator contact details necessary to maintain active platform subscription accounts.</div>
+          <div class="class-text"><strong>Operational Corporate Metrics</strong> — Business profiles, billing identifiers, ABN details, tax compliance registration metrics, trade licensing references, and authorized administrator contact details necessary to maintain active platform subscription accounts.</div>
         </div>
         <div class="class-card">
           <span class="class-label">Class B</span>
-          <div class="class-text"><strong>Client-Driven Input Payloads</strong> — Inbound inquiry variables explicitly routed by the Client from authorized marketing or booking channels. For real estate Clients this includes prospect names, contact details, and property requirement variables. For production repair Clients this includes repair requestor names, contact details, job type, and location variables.</div>
+          <div class="class-text"><strong>Client-Driven Input Payloads</strong> — Inbound repair job request variables explicitly routed by the Client from their authorized booking channels. This includes repair requestor names, contact details, job type, urgency level, and location variables supplied directly by the Client.</div>
         </div>
         <div class="class-card">
           <span class="class-label">Class C</span>
-          <div class="class-text"><strong>Automated Infrastructure Logs</strong> — Structured technical timestamps, automated validation outputs, and metadata confirmations recorded by automated communication pathways (such as SMS networks or WhatsApp application endpoints) during the real-time routing sequence, across both real estate and repair job pipelines.</div>
+          <div class="class-text"><strong>Automated Infrastructure Logs</strong> — Structured technical timestamps, automated validation outputs, and metadata confirmations recorded by automated communication pathways (such as SMS networks or WhatsApp application endpoints) during the real-time job routing sequence.</div>
         </div>
       </div>
     </div>
@@ -416,9 +416,9 @@
         <span class="section-num">05</span>
         <div class="section-rule"></div>
       </div>
-      <h2>Volatile Memory Processing <em>&amp; Cross-Border Protection</em></h2>
-      <p>All data transformation routines — whether handling real estate lead qualification or production repair job triage — execute strictly within highly secure, volatile cloud memory units. Data attributes are transiently retained only for the fleeting duration required to filter, parse, and securely transmit the clean data structure directly into the Client's destination CRM or job management software environment.</p>
-      <p>To secure regional operations across Australia and the UAE, all international pipeline components are encrypted utilizing rigid end-to-end 256-bit protocols. All network routing, traffic management, and perimeter firewalls are managed through specialized corporate data protection networks that strictly meet SOC2 compliance standards.</p>
+      <h2>Volatile Memory Processing <em>&amp; Data Protection</em></h2>
+      <p>All data transformation routines execute strictly within highly secure, volatile cloud memory units hosted within Australian infrastructure. Data attributes are transiently retained only for the duration required to filter, parse, and securely transmit the clean data structure directly into the Client's destination job management or CRM software environment.</p>
+      <p>All pipeline components are encrypted utilizing end-to-end 256-bit protocols. All network routing, traffic management, and perimeter firewalls are managed through enterprise-grade data protection infrastructure meeting SOC2 compliance standards.</p>
     </div>
 
     <div class="section-divider"><div class="section-divider-diamond"></div></div>
@@ -430,8 +430,8 @@
         <div class="section-rule"></div>
       </div>
       <h2>Subject Access Requests <em>&amp; Erasure Protocols</em></h2>
-      <p>Because Hermia does not maintain a permanent, centralized database of consumers, prospects, or repair requestors, any individual seeking to exercise data access, rectification, or structural erasure rights under the Australian Privacy Principles or UAE PDPL must submit their inquiry directly to the respective real estate agency or production repair operator acting as the Data Controller.</p>
-      <p>Upon receiving a certified instructional command from the Client, Hermia will instantly process secondary clearing routines to purge any matching operational execution records within volatile server storage arrays inside 30 days.</p>
+      <p>Because Hermia does not maintain a permanent, centralized database of repair requestors or consumers, any individual seeking to exercise data access, rectification, or structural erasure rights under the Australian Privacy Principles must submit their inquiry directly to the respective production repair operator acting as the Data Controller.</p>
+      <p>Upon receiving a certified instructional command from the Client, Hermia will process secondary clearing routines to purge any matching operational execution records within volatile server storage arrays inside 30 days.</p>
     </div>
 
   </div>
@@ -441,7 +441,7 @@
   <div class="footer-inner">
     <div class="footer-brand">
       Hermia
-      <small>AI Qualification for Real Estate &amp; Production Repairs</small>
+      <small>AI Job Qualification for Production Repairs &middot; Australia</small>
     </div>
     <div class="footer-links">
       <a href="index.html" class="footer-link">Home</a>
@@ -450,7 +450,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">© 2026 Hermia. All rights reserved. Victoria, Australia · Dubai Support Office</span>
+    <span class="footer-copy">© 2026 Hermia. All rights reserved. Victoria, Australia</span>
     <div class="footer-abn">
       <span class="footer-abn-badge">ABN</span>
       <span class="footer-abn-num">75 434 177 026</span>
