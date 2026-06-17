@@ -170,9 +170,10 @@
     btn.disabled=true;btn.classList.add('loading');btn.querySelector('.btn-text').textContent='Saving…';
 
     try{
-      // country removed — all customers are AU. nylas/gmail/crm IDs are written by later steps.
+      // country removed (all AU). crm_provider = 'simpro' (lowercase, matches Nango connector id).
+      // gmail/nylas/connection IDs are written by later steps.
       const res=await sb('customers',{method:'POST',headers:{Prefer:'return=representation'},
-        body:JSON.stringify({full_name:name,company_name:company,email,phone:'+61 '+local,payment_status:'paid',vertical:'foundation_repair'})});
+        body:JSON.stringify({full_name:name,company_name:company,email,phone:'+61 '+local,payment_status:'paid',crm_provider:'simpro',vertical:'foundation_repair'})});
       const rows=await res.json();
       const id=rows[0].id;
       await sb('onboarding_status',{method:'POST',headers:{Prefer:'return=minimal'},
@@ -190,3 +191,4 @@
 </script>
 </body>
 </html>
+
