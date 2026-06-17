@@ -9,23 +9,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --bg:#07070a; --gold:#C9A35B; --gold-light:#e8c17a; --cream:#f4f0e6;
-    --soft:#b0ada5; --card:#0f0f12; --border:rgba(201,163,91,0.14);
+    --bg:#16140f;            /* softer warm charcoal, matches step 1 */
+    --bg-2:#1d1a13;
+    --gold:#C9A35B; --gold-light:#e8c17a; --cream:#f4f0e6;
+    --soft:#b6b1a6; --card:#1d1a13; --border:rgba(201,163,91,0.16);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
-  body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:300;
+  body{background:radial-gradient(1100px 700px at 50% -10%, #211c14 0%, var(--bg) 58%);
+    color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:300;
     min-height:100vh;display:flex;flex-direction:column;align-items:center;
     padding:54px 20px 90px;position:relative;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
   .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
   .bloom{position:absolute;inset:0;
     background:
-      radial-gradient(820px 540px at 50% -12%,rgba(201,163,91,0.16),transparent 62%),
-      radial-gradient(620px 620px at 86% 116%,rgba(201,163,91,0.07),transparent 64%),
-      radial-gradient(520px 460px at 8% 88%,rgba(201,163,91,0.05),transparent 66%)}
+      radial-gradient(820px 540px at 50% -12%,rgba(201,163,91,0.14),transparent 62%),
+      radial-gradient(620px 620px at 86% 116%,rgba(201,163,91,0.06),transparent 64%),
+      radial-gradient(520px 460px at 8% 88%,rgba(201,163,91,0.045),transparent 66%)}
   .gridfloor{position:absolute;inset:0;
-    background-image:linear-gradient(rgba(201,163,91,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(201,163,91,0.045) 1px,transparent 1px);
+    background-image:linear-gradient(rgba(201,163,91,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,163,91,0.05) 1px,transparent 1px);
     background-size:62px 62px;
     -webkit-mask-image:radial-gradient(circle at 50% 22%,#000 0%,transparent 74%);
             mask-image:radial-gradient(circle at 50% 22%,#000 0%,transparent 74%)}
@@ -36,7 +39,7 @@
   .f2{width:108px;height:108px;top:70%;left:4%;animation:drift2 22s ease-in-out infinite}
   .f3{width:200px;height:140px;top:9%;right:-66px;animation:drift3 24s ease-in-out infinite}
   .f4{width:120px;height:160px;bottom:5%;right:5%;animation:drift1 20s ease-in-out infinite reverse}
-  .grain{position:absolute;inset:0;opacity:.045;mix-blend-mode:overlay;
+  .grain{position:absolute;inset:0;opacity:.04;mix-blend-mode:overlay;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   @keyframes drift1{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-26px) rotate(3deg)}}
   @keyframes drift2{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(14px,-20px) rotate(-4deg)}}
@@ -44,18 +47,25 @@
 
   .wrap{position:relative;z-index:2;width:100%;max-width:560px;display:flex;flex-direction:column;align-items:center}
 
-  .logo-wrap{position:relative;margin-bottom:44px;display:grid;place-items:center}
+  .logo-wrap{position:relative;margin-bottom:18px;display:grid;place-items:center}
   .logo-wrap::before{content:'';position:absolute;width:160px;height:160px;border-radius:50%;
-    background:radial-gradient(circle,rgba(201,163,91,0.28),transparent 65%);filter:blur(14px);animation:halo 5s ease-in-out infinite;z-index:0}
-  .logo{height:46px;position:relative;z-index:1;filter:drop-shadow(0 16px 26px rgba(201,163,91,0.28));
+    background:radial-gradient(circle,rgba(201,163,91,0.26),transparent 65%);filter:blur(14px);animation:halo 5s ease-in-out infinite;z-index:0}
+  .logo{height:46px;position:relative;z-index:1;filter:drop-shadow(0 16px 26px rgba(201,163,91,0.26));
     animation:levitate 5s ease-in-out infinite,logoIn .8s .05s both}
   @keyframes levitate{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-  @keyframes halo{0%,100%{opacity:.55;transform:scale(.92)}50%{opacity:.95;transform:scale(1.06)}}
+  @keyframes halo{0%,100%{opacity:.5;transform:scale(.92)}50%{opacity:.9;transform:scale(1.06)}}
   @keyframes logoIn{from{opacity:0;transform:translateY(-8px) scale(.96)}to{opacity:1}}
+
+  .partner{display:inline-flex;align-items:center;gap:9px;margin-bottom:38px;
+    padding:7px 15px 7px 13px;border-radius:999px;border:1px solid var(--border);
+    background:rgba(201,163,91,0.05);font-size:11.5px;letter-spacing:.04em;color:var(--soft);
+    opacity:0;animation:fadeUp .7s .12s forwards}
+  .partner b{color:var(--cream);font-weight:600}
+  .partner .pdot{width:6px;height:6px;border-radius:50%;background:var(--gold-light);box-shadow:0 0 8px rgba(232,193,122,.7)}
 
   .steps{display:flex;align-items:flex-start;justify-content:space-between;width:100%;max-width:490px;margin-bottom:50px;position:relative;opacity:0;animation:fadeUp .7s .14s forwards}
   .steps::before{content:'';position:absolute;top:16px;left:34px;right:34px;height:1.5px;background:var(--border)}
-  .progressline{position:absolute;top:16px;left:34px;height:1.5px;width:calc((100% - 68px) * 0.33);background:linear-gradient(90deg,var(--gold-light),var(--gold));box-shadow:0 0 8px rgba(201,163,91,0.5);z-index:0}
+  .progressline{position:absolute;top:16px;left:34px;height:1.5px;width:calc((100% - 68px) * 0.5);background:linear-gradient(90deg,var(--gold-light),var(--gold));box-shadow:0 0 8px rgba(201,163,91,0.5);z-index:0}
   .step{display:flex;flex-direction:column;align-items:center;gap:11px;flex:1;position:relative;z-index:1}
   .dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:500;background:var(--card);border:1px solid var(--border);color:var(--soft);transition:.45s}
   .dot svg{width:15px;height:15px}
@@ -66,10 +76,10 @@
   .step.active .label{color:var(--cream)}.step.done .label{color:var(--gold-light)}
 
   .card{position:relative;width:100%;border-radius:24px;padding:44px 38px;
-    background:linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.006));
+    background:linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.008));
     backdrop-filter:blur(22px) saturate(115%);-webkit-backdrop-filter:blur(22px) saturate(115%);
     border:1px solid var(--border);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,0.07),0 44px 100px rgba(0,0,0,0.62);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.07),0 44px 100px rgba(0,0,0,0.5);
     animation:fadeUp .75s .22s both}
   .card::before{content:'';position:absolute;inset:0;border-radius:24px;padding:1px;pointer-events:none;
     background:linear-gradient(160deg,rgba(232,193,122,0.5),transparent 35%,transparent 70%,rgba(201,163,91,0.25));
@@ -81,16 +91,16 @@
 
   .access-list{display:flex;flex-direction:column;gap:1px;margin-bottom:32px;
     border:1px solid var(--border);border-radius:14px;overflow:hidden}
-  .access-row{display:flex;align-items:center;gap:14px;padding:15px 18px;background:rgba(8,8,11,0.5)}
+  .access-row{display:flex;align-items:center;gap:14px;padding:15px 18px;background:rgba(8,8,11,0.35)}
   .access-row + .access-row{border-top:1px solid var(--border)}
   .access-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
   .access-dot.yes{background:var(--gold)}
-  .access-dot.no{background:#3a3a3a}
+  .access-dot.no{background:#4a463d}
   .access-text{font-size:13.5px;line-height:1.4;color:var(--soft)}
   .access-text strong{color:var(--cream);font-weight:500}
   .access-label{margin-left:auto;font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;flex-shrink:0}
   .access-label.yes{color:var(--gold)}
-  .access-label.no{color:#3a3a3a}
+  .access-label.no{color:#6a655a}
 
   .btn{position:relative;overflow:hidden;width:100%;padding:17px;border:none;border-radius:13px;cursor:pointer;
     font-family:'DM Sans',sans-serif;font-weight:600;font-size:15px;color:#1a1408;
@@ -103,22 +113,21 @@
   .btn:hover:not(:disabled)::after{left:130%}
   .btn:active{transform:translateY(0)}
   .btn:disabled{opacity:.55;cursor:not-allowed}
+  .btn:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
 
   .google-icon{width:19px;height:19px;flex-shrink:0}
-
-  .spinner{width:18px;height:18px;border:2px solid rgba(26,20,8,0.3);border-top-color:#1a1408;
-    border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+  .spinner{width:18px;height:18px;border:2px solid rgba(26,20,8,0.3);border-top-color:#1a1408;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
   @keyframes spin{to{transform:rotate(360deg)}}
 
-  .powered{margin-top:20px;display:flex;align-items:center;justify-content:center;gap:8px;
-    color:var(--soft);font-size:11.5px;letter-spacing:.04em}
+  .powered{margin-top:20px;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--soft);font-size:11.5px;letter-spacing:.04em}
 
   .error-banner{display:none;margin-top:16px;padding:12px 16px;border-radius:10px;
     background:rgba(220,80,80,0.1);border:1px solid rgba(220,80,80,0.25);
-    color:#e08080;font-size:13px;line-height:1.5;text-align:center}
+    color:#e0857c;font-size:13px;line-height:1.5;text-align:center}
   .error-banner.visible{display:block}
 
   @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important}}
   @media(max-width:480px){.card{padding:34px 24px}h1{font-size:34px}.float{display:none}}
 </style>
 </head>
@@ -132,6 +141,11 @@
 <div class="wrap">
   <div class="logo-wrap">
     <img class="logo" src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" />
+  </div>
+
+  <div class="partner">
+    <span class="pdot"></span>
+    In partnership with <b>Simpro</b>
   </div>
 
   <div class="steps">
@@ -150,7 +164,7 @@
     </div>
     <div class="step">
       <div class="dot">4</div>
-      <div class="label">Connect CRM</div>
+      <div class="label">Connect Simpro</div>
     </div>
     <div class="step">
       <div class="dot">5</div>
@@ -161,12 +175,12 @@
   <div class="card">
     <div class="eyebrow">Step 3 of 5</div>
     <h1>Connect your inbox</h1>
-    <p class="sub">Hermia monitors your inbox for new property enquiries and begins qualification the moment one arrives.</p>
+    <p class="sub">Hermia watches your inbox for new repair and job enquiries, then qualifies each one the moment it lands — ready to push straight into Simpro.</p>
 
     <div class="access-list">
       <div class="access-row">
         <div class="access-dot yes"></div>
-        <div class="access-text"><strong>Read</strong> incoming enquiry emails</div>
+        <div class="access-text"><strong>Read</strong> incoming job enquiries</div>
         <div class="access-label yes">Granted</div>
       </div>
       <div class="access-row">
