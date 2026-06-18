@@ -7,145 +7,193 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--black:#080808;--card:#111111;--border:rgba(249,115,22,0.14);--bhi:rgba(249,115,22,0.38);--gold:#F97316;--gl:#FB923C;--gdim:rgba(249,115,22,0.07);--cream:#f5f1e8;--muted:#8a8580;--soft:#b8b5ad;--red:#ef4444;--green:#10b981;--amber:#f59e0b}
+:root{
+  --bg:#080808;
+  --card:#111111;
+  --card2:#141414;
+  --border:rgba(201, 163, 91,0.13);
+  --bhi:rgba(201, 163, 91,0.32);
+  --gold:#C9A35B;
+  --goldl:#e8c17a;
+  --bdim:rgba(201, 163, 91,0.07);
+  --cream:#f5f1e8;
+  --muted:#8a8580;
+  --soft:#b8b5ad;
+  --red:#ef4444;
+  --redbg:rgba(224,82,82,0.09);
+  --redborder:rgba(224,82,82,0.28);
+  --green:#10b981;
+  --greenbg:rgba(46,196,138,0.08);
+  --greenborder:rgba(46,196,138,0.26);
+  --amber:#e8a842;
+  --amberbg:rgba(232,168,66,0.09);
+  --amberborder:rgba(232,168,66,0.3)
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream);min-height:100vh;padding:80px 24px 100px;overflow-x:hidden}
-.bg1{position:fixed;top:-10%;left:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(249,115,22,.13) 0%,transparent 70%);filter:blur(100px);pointer-events:none;z-index:0}
-.bg2{position:fixed;bottom:-10%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(249,115,22,.08) 0%,transparent 70%);filter:blur(100px);pointer-events:none;z-index:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;padding:80px 24px 100px;overflow-x:hidden}
+.bg1{position:fixed;top:-10%;left:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(201, 163, 91,.09) 0%,transparent 70%);filter:blur(120px);pointer-events:none;z-index:0}
+.bg2{position:fixed;bottom:-10%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(201, 163, 91,.06) 0%,transparent 70%);filter:blur(120px);pointer-events:none;z-index:0}
 .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto}
 .back-link{display:inline-flex;align-items:center;gap:8px;margin-bottom:32px;color:var(--gold);text-decoration:none;font-size:13px;font-weight:500;padding:8px 16px;border:1px solid var(--border);border-radius:8px;transition:all .2s}
-.back-link:hover{background:var(--gdim);border-color:var(--gold)}
+.back-link:hover{background:var(--bdim);border-color:var(--gold)}
 .page-header{text-align:center;margin-bottom:80px}
-.ptag{display:inline-flex;align-items:center;gap:8px;background:var(--gdim);border:1px solid var(--bhi);padding:6px 18px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
+.ptag{display:inline-flex;align-items:center;gap:8px;background:var(--bdim);border:1px solid var(--bhi);padding:6px 18px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
 .ptag-dot{width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 10px var(--green);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .page-header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,60px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:18px;letter-spacing:-1px}
 .page-header h1 em{font-style:italic;color:var(--gold)}
 .page-header p{font-size:17px;color:var(--soft);max-width:680px;margin:0 auto;line-height:1.65;font-weight:300}
+
 .dsec{margin-bottom:120px}
 .dhead{text-align:center;margin-bottom:40px}
 .dpill{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:16px;border:1px solid}
-.de{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.3);color:#ef6666}
-.dc{background:rgba(249,115,22,.08);border-color:rgba(249,115,22,.35);color:var(--gl)}
-.ds{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.3);color:var(--green)}
+.de{background:var(--redbg);border-color:var(--redborder);color:#e87070}
+.dc{background:var(--amberbg);border-color:var(--amberborder);color:var(--amber)}
+.ds{background:var(--greenbg);border-color:var(--greenborder);color:var(--green)}
 .dhead h2{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:#fff;line-height:1.15;margin-bottom:10px;letter-spacing:-.5px}
 .dhead h2 em{font-style:italic;color:var(--gold)}
 .dhead p{font-size:14px;color:var(--soft);font-weight:300;max-width:520px;margin:0 auto;line-height:1.6}
+
 .dgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:32px;align-items:start}
 @media(max-width:900px){.dgrid{grid-template-columns:1fr}}
-.panel{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.5)}
-.phone{display:flex;flex-direction:column;height:680px}
-.pheader{background:rgba(15,15,18,.9);padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
-.pavatar{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),var(--gl));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#000;font-weight:700;font-family:'Cormorant Garamond',serif;font-size:18px}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.phone{display:flex;flex-direction:column;height:720px}
+.pheader{background:var(--card2);padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.pavatar{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),var(--goldl));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-family:'Cormorant Garamond',serif;font-size:18px}
 .pname{font-size:15px;font-weight:600;color:#fff}
 .pstatus{font-size:11px;color:var(--green);margin-top:2px}
-.pchat{flex:1;padding:20px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;background:rgba(8,8,10,.5)}
+.pchat{flex:1;padding:20px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;background:rgba(15,17,22,.45)}
 .bubble{max-width:84%;padding:13px 16px;border-radius:14px;font-size:14px;line-height:1.45;word-wrap:break-word;animation:fadeUp .3s ease forwards;white-space:pre-line}
-.bubble.bot{background:rgba(28,28,32,.9);border:1px solid rgba(255,255,255,.06);align-self:flex-start;border-top-left-radius:4px;color:#e4e4e7}
-.bubble.user{background:var(--gold);color:#000;font-weight:600;align-self:flex-end;border-top-right-radius:4px}
+.bubble.bot{background:rgba(30,34,46,.95);border:1px solid rgba(255,255,255,.07);align-self:flex-start;border-top-left-radius:4px;color:#dde0ea}
+.bubble.user{background:var(--gold);color:#fff;font-weight:600;align-self:flex-end;border-top-right-radius:4px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.ptray{padding:16px;background:rgba(12,12,15,.9);border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px;min-height:120px}
+.ptray{padding:16px;background:var(--card2);border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px;min-height:130px}
 .abtn{background:transparent;border:1px solid var(--border);color:var(--cream);padding:12px 16px;border-radius:10px;text-align:left;cursor:pointer;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;transition:all .2s}
-.abtn:hover{background:var(--gdim);border-color:var(--gold);transform:translateX(3px)}
+.abtn:hover{background:var(--bdim);border-color:var(--gold);transform:translateX(3px)}
 .rbtn{background:transparent;border:1px solid var(--border);color:var(--gold);padding:10px 16px;border-radius:8px;cursor:pointer;font-size:11px;font-weight:600;font-family:'DM Sans',sans-serif;transition:all .2s;letter-spacing:1px;text-transform:uppercase;align-self:center}
-.rbtn:hover{background:var(--gdim);border-color:var(--gold)}
-.fcard{background:#fff;border-radius:12px;overflow:hidden;color:#1a1a1a;box-shadow:0 8px 24px rgba(0,0,0,.4);animation:fadeUp .4s ease forwards}
-.ftop{background:linear-gradient(135deg,#1a1a22,#2a2a35);padding:14px 16px;display:flex;align-items:center;gap:10px}
+.rbtn:hover{background:var(--bdim);border-color:var(--gold)}
+
+/* contact form card */
+.fcard{background:#fff;border-radius:12px;overflow:hidden;color:#1a1a1a;box-shadow:0 8px 24px rgba(0,0,0,.3);animation:fadeUp .4s ease forwards}
+.ftop{background:linear-gradient(135deg,#1e2130,#2b3048);padding:14px 16px;display:flex;align-items:center;gap:10px}
 .ficon{font-size:18px}
-.fttl{font-size:11px;font-weight:700;color:rgba(255,255,255,.8);letter-spacing:.5px}
+.fttl{font-size:11px;font-weight:700;color:rgba(255,255,255,.85);letter-spacing:.5px}
 .fsub{font-size:9px;color:rgba(255,255,255,.4);margin-top:2px}
 .fbody{padding:14px 16px}
 .ffl{margin-bottom:9px}
 .flbl{font-size:9px;color:#666;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px;display:block}
-.fval{font-size:11px;color:#1a1a1a;background:#f5f5f5;padding:7px 10px;border-radius:5px;border:1px solid #e5e5e5}
-.fsub2{margin-top:12px;background:var(--gold);color:#000;text-align:center;padding:10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.fval{font-size:11px;color:#1a1a1a;background:#f5f5f7;padding:7px 10px;border-radius:5px;border:1px solid #e5e5e5}
+.fsub2{margin-top:12px;background:var(--gold);color:#fff;text-align:center;padding:10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+
+/* photo bubble */
 .pbubble{border-radius:12px;overflow:hidden;max-width:180px;animation:fadeUp .4s ease forwards;align-self:flex-end}
 .pbubble img{width:100%;height:110px;object-fit:cover;display:block;filter:brightness(.85) saturate(1.1)}
-.pbfoot{background:rgba(28,28,32,.9);padding:8px 10px;border:1px solid rgba(249,115,22,.2);border-top:none;border-radius:0 0 12px 12px}
+.pbfoot{background:rgba(25,28,40,.95);padding:8px 10px;border:1px solid rgba(201, 163, 91,.2);border-top:none;border-radius:0 0 12px 12px}
 .pmeta{font-size:9.5px;color:var(--soft)}
 .upill{display:inline-block;padding:2px 7px;border-radius:99px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px}
-.upe{background:rgba(239,68,68,.18);border:1px solid rgba(239,68,68,.4);color:#ef6666}
-.upc{background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.38);color:var(--gl)}
-.ups{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--green)}
-.vbubble{background:rgba(28,28,32,.9);border:1px solid rgba(249,115,22,.22);border-radius:14px;border-top-left-radius:4px;padding:12px 14px;max-width:72%;align-self:flex-start;animation:fadeUp .4s ease forwards}
+.upe{background:var(--redbg);border:1px solid var(--redborder);color:#e87070}
+.upc{background:var(--amberbg);border:1px solid var(--amberborder);color:var(--amber)}
+.ups{background:var(--greenbg);border:1px solid var(--greenborder);color:var(--green)}
+
+/* voice bubble */
+.vbubble{background:rgba(25,28,40,.95);border:1px solid rgba(201, 163, 91,.2);border-radius:14px;border-top-left-radius:4px;padding:12px 14px;max-width:72%;align-self:flex-start;animation:fadeUp .4s ease forwards}
 .vbtop{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.vbic{width:26px;height:26px;border-radius:50%;background:rgba(249,115,22,.15);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.vbic{width:26px;height:26px;border-radius:50%;background:rgba(201, 163, 91,.15);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
 .vblbl{font-size:10.5px;color:var(--cream);font-weight:600}
 .vbdur{font-size:9px;color:var(--muted);margin-top:1px}
 .vbwave{display:flex;align-items:center;gap:2px;height:24px}
-.vbar{width:3px;background:rgba(249,115,22,.5);border-radius:2px;animation:vbp 1.2s ease-in-out infinite}
+.vbar{width:3px;background:rgba(201, 163, 91,.55);border-radius:2px;animation:vbp 1.2s ease-in-out infinite}
 .vbar:nth-child(1){height:30%;animation-delay:.0s}.vbar:nth-child(2){height:65%;animation-delay:.1s}.vbar:nth-child(3){height:90%;animation-delay:.2s}.vbar:nth-child(4){height:55%;animation-delay:.3s}.vbar:nth-child(5){height:80%;animation-delay:.4s}.vbar:nth-child(6){height:40%;animation-delay:.25s}.vbar:nth-child(7){height:70%;animation-delay:.15s}.vbar:nth-child(8){height:95%;animation-delay:.05s}.vbar:nth-child(9){height:60%;animation-delay:.35s}.vbar:nth-child(10){height:45%;animation-delay:.45s}
 @keyframes vbp{0%,100%{opacity:.4;transform:scaleY(.8)}50%{opacity:1;transform:scaleY(1)}}
 .vtxt{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.06);font-size:10px;color:var(--muted);font-style:italic;line-height:1.4}
-.tracker{background:rgba(249,115,22,.07);border:1px solid rgba(249,115,22,.3);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;animation:fadeUp .4s ease forwards}
-.tspinner{width:18px;height:18px;border:2px solid rgba(249,115,22,.2);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;flex-shrink:0}
+
+/* tracker spinner */
+.tracker{background:rgba(201, 163, 91,.06);border:1px solid rgba(201, 163, 91,.28);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;animation:fadeUp .4s ease forwards}
+.tspinner{width:18px;height:18px;border:2px solid rgba(201, 163, 91,.2);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
-.ttxt{font-size:12px;color:#e4e4e7;line-height:1.4}
-.ttxt strong{color:var(--gl);font-weight:600}
+.ttxt{font-size:12px;color:#dde0ea;line-height:1.4}
+.ttxt strong{color:var(--goldl);font-weight:600}
 .ttime{margin-left:auto;font-family:monospace;font-size:11px;color:var(--gold);font-weight:700}
-.wsent{background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.28);border-radius:10px;padding:14px;display:flex;gap:12px;align-items:center;animation:fadeUp .4s ease forwards}
-.wsic{width:30px;height:30px;background:rgba(16,185,129,.14);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#10b981;font-size:13px;flex-shrink:0}
-.wstxt{font-size:12px;color:#e4e4e7;line-height:1.4}
+
+/* whatsapp sent confirmation */
+.wsent{background:rgba(46,196,138,.07);border:1px solid rgba(46,196,138,.24);border-radius:10px;padding:14px;display:flex;gap:12px;align-items:center;animation:fadeUp .4s ease forwards}
+.wsic{width:30px;height:30px;background:rgba(46,196,138,.14);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:13px;flex-shrink:0}
+.wstxt{font-size:12px;color:#dde0ea;line-height:1.4}
 .wstxt strong{color:#fff}
+
+/* simpro panel */
 .sp{padding:28px;display:flex;flex-direction:column;gap:20px}
 .sphdr{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:18px}
 .sptitle{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff}
 .spsubt{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px}
 .spbadge{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:6px 14px;border-radius:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--soft)}
-.spbadge.emergency{background:rgba(239,68,68,.12);border-color:var(--red);color:#ef6666;box-shadow:0 0 18px rgba(239,68,68,.22)}
-.spbadge.critical{background:rgba(249,115,22,.12);border-color:var(--gold);color:var(--gl);box-shadow:0 0 18px rgba(249,115,22,.22)}
-.spbadge.standard{background:rgba(16,185,129,.12);border-color:var(--green);color:var(--green);box-shadow:0 0 18px rgba(16,185,129,.22)}
-.lmeta{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.04);border-radius:12px;padding:14px 18px}
+.spbadge.emergency{background:var(--redbg);border-color:var(--red);color:#e87070;box-shadow:0 0 18px rgba(224,82,82,.18)}
+.spbadge.critical{background:var(--amberbg);border-color:var(--amber);color:var(--amber);box-shadow:0 0 18px rgba(232,168,66,.18)}
+.spbadge.standard{background:var(--greenbg);border-color:var(--green);color:var(--green);box-shadow:0 0 18px rgba(46,196,138,.18)}
+
+.lmeta{background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.04);border-radius:12px;padding:14px 18px}
 .mrow{display:flex;justify-content:space-between;padding:6px 0;font-size:13px}
 .mlbl{color:var(--muted);font-weight:500}
-.mval{color:#e4e4e7;font-weight:600}
-.matrix{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.tile{background:rgba(255,255,255,.01);border:1px solid rgba(255,255,255,.04);border-radius:12px;padding:14px 16px;transition:all .3s}
-.tile.active{border-color:rgba(249,115,22,.4);background:rgba(249,115,22,.04);box-shadow:0 0 20px rgba(249,115,22,.14)}
+.mval{color:#dde0ea;font-weight:600}
+
+/* 5-tile matrix (added budget) */
+.matrix{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{background:rgba(255,255,255,.01);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:13px 15px;transition:all .3s}
+.tile.active{border-color:rgba(201, 163, 91,.38);background:rgba(201, 163, 91,.05);box-shadow:0 0 18px rgba(201, 163, 91,.12)}
 .tlbl{display:block;font-size:10px;color:var(--muted);letter-spacing:1.5px;margin-bottom:6px;font-weight:600;text-transform:uppercase}
 .tval{font-size:13px;font-weight:700;color:#fff}
-.tile.active .tval{color:var(--gl)}
-.terminal{background:#040406;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px;font-family:'SF Mono',Menlo,monospace}
-.thead{font-size:9px;color:var(--muted);border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:8px;margin-bottom:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.tile.active .tval{color:var(--goldl)}
+/* budget tile spans full width */
+.tile.wide{grid-column:1 / -1}
+
+/* terminal log */
+.terminal{background:#0c0e14;border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:14px;font-family:'SF Mono',Menlo,monospace}
+.thead{font-size:9px;color:var(--muted);border-bottom:1px solid rgba(255,255,255,.07);padding-bottom:8px;margin-bottom:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
 .tlogs{height:100px;overflow-y:auto;display:flex;flex-direction:column;gap:5px;font-size:10px}
 .ll{color:var(--green)}
-.ll.w{color:#f59e0b}
+.ll.w{color:var(--amber)}
 .ll.d{color:var(--red)}
 .ll.sys{color:var(--muted)}
-.ll.b{color:#60a5fa}
+.ll.b{color:#e8c17a}
+
+/* result card */
 .rcard{display:none;border-radius:14px;padding:18px 20px;animation:fis .5s ease forwards}
 .rcard.show{display:block}
-.rcard.emergency{background:linear-gradient(135deg,rgba(239,68,68,.06),rgba(0,0,0,.3));border:1px solid var(--red);box-shadow:0 0 25px rgba(239,68,68,.18)}
-.rcard.critical{background:linear-gradient(135deg,rgba(249,115,22,.06),rgba(0,0,0,.3));border:1px solid var(--gold);box-shadow:0 0 25px rgba(249,115,22,.18)}
-.rcard.standard{background:linear-gradient(135deg,rgba(16,185,129,.06),rgba(0,0,0,.3));border:1px solid var(--green);box-shadow:0 0 25px rgba(16,185,129,.18)}
+.rcard.emergency{background:linear-gradient(135deg,var(--redbg),rgba(0,0,0,.25));border:1px solid var(--red);box-shadow:0 0 24px rgba(224,82,82,.15)}
+.rcard.critical{background:linear-gradient(135deg,var(--amberbg),rgba(0,0,0,.25));border:1px solid var(--amber);box-shadow:0 0 24px rgba(232,168,66,.15)}
+.rcard.standard{background:linear-gradient(135deg,var(--greenbg),rgba(0,0,0,.25));border:1px solid var(--green);box-shadow:0 0 24px rgba(46,196,138,.15)}
 @keyframes fis{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
 .rhdr{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.06)}
-.ric{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#000;font-weight:700;font-size:14px}
+.ric{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
 .emergency .ric{background:var(--red)}
-.critical .ric{background:var(--gold)}
-.standard .ric{background:var(--green)}
+.critical .ric{background:var(--amber);color:#000}
+.standard .ric{background:var(--green);color:#000}
 .rtitle{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;color:#fff}
 .rrows{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
 .rrow{display:flex;justify-content:space-between;align-items:flex-start;font-size:12px;gap:8px}
 .rl{color:var(--muted);font-weight:500;flex-shrink:0}
 .rv{color:#fff;font-weight:600;text-align:right}
-.rv.e{color:#ef6666}
-.rv.c{color:var(--gl)}
+.rv.e{color:#e87070}
+.rv.c{color:var(--amber)}
 .rv.s{color:var(--green)}
-.calrow{margin-top:10px;padding:10px 12px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.22);border-radius:9px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--green);font-weight:600}
-.rfooter{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);font-size:11px;color:var(--muted);text-align:center;font-style:italic}
-.nospam{background:linear-gradient(135deg,rgba(239,68,68,.06),rgba(0,0,0,.3));border:1px solid rgba(239,68,68,.28);border-radius:10px;padding:14px;display:flex;gap:12px;align-items:flex-start;animation:fadeUp .4s ease forwards}
-.nsic{width:28px;height:28px;min-width:28px;background:rgba(239,68,68,.14);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--red);font-size:13px;font-weight:700}
-.nstxt{font-size:12px;color:#e4e4e7;line-height:1.5}
+.calrow{margin-top:10px;padding:10px 12px;background:rgba(46,196,138,.07);border:1px solid rgba(46,196,138,.2);border-radius:9px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--green);font-weight:600}
+.rfooter{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.05);font-size:11px;color:var(--muted);text-align:center;font-style:italic}
+
+/* no-spam notice */
+.nospam{background:rgba(224,82,82,.06);border:1px solid rgba(224,82,82,.24);border-radius:10px;padding:14px;display:flex;gap:12px;align-items:flex-start;animation:fadeUp .4s ease forwards}
+.nsic{width:28px;height:28px;min-width:28px;background:rgba(224,82,82,.14);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--red);font-size:13px;font-weight:700}
+.nstxt{font-size:12px;color:#dde0ea;line-height:1.5}
 .nstxt strong{color:#fff;display:block;margin-bottom:3px}
-.fcta{background:linear-gradient(135deg,rgba(249,115,22,.08),var(--card));border:1px solid var(--gold);border-radius:20px;padding:50px 40px;text-align:center;margin-top:80px;position:relative;overflow:hidden}
-.fcta::before,.fcta::after{content:'';position:absolute;width:18px;height:18px;border-color:var(--gold);border-style:solid}
+
+/* CTA footer */
+.fcta{background:linear-gradient(135deg,rgba(201, 163, 91,.07),var(--card));border:1px solid rgba(201, 163, 91,.3);border-radius:20px;padding:50px 40px;text-align:center;margin-top:80px;position:relative;overflow:hidden}
+.fcta::before,.fcta::after{content:'';position:absolute;width:18px;height:18px;border-color:rgba(201, 163, 91,.4);border-style:solid}
 .fcta::before{top:12px;right:12px;border-width:1px 1px 0 0}
 .fcta::after{bottom:12px;left:12px;border-width:0 0 1px 1px}
 .fcta h2{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:#fff;margin-bottom:12px;letter-spacing:-.5px}
 .fcta h2 em{font-style:italic;color:var(--gold)}
 .fcta p{font-size:14px;color:var(--soft);margin-bottom:28px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.6;font-weight:300}
-.cbtn{display:inline-block;background:linear-gradient(90deg,#c2410c,#fb923c,#c2410c);color:#000;padding:16px 32px;border-radius:10px;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;transition:all .3s;box-shadow:0 12px 32px rgba(249,115,22,.35)}
+.cbtn{display:inline-block;background:linear-gradient(90deg,#2a65d4,var(--gold),#2a65d4);color:#fff;padding:16px 32px;border-radius:10px;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;transition:all .3s;box-shadow:0 12px 32px rgba(201, 163, 91,.28)}
 .cbtn:hover{filter:brightness(1.1);transform:translateY(-2px)}
 </style>
 </head>
@@ -156,7 +204,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
 <div class="page-header">
   <div class="ptag"><span class="ptag-dot"></span>Live Triage Demo &middot; Trade &amp; Repair</div>
   <h1>Watch Hermia handle<br><em>every urgency level.</em></h1>
-  <p>Homeowner submits a form. Hermia introduces itself, asks the urgency, gets a photo, collects a voice note or description, captures the address &mdash; then pushes a complete record to Simpro and books the calendar. Click through all three flows.</p>
+  <p>Homeowner submits a form. Hermia introduces itself, asks the urgency, gets a photo, collects a voice note or description, captures the address and budget &mdash; then pushes a complete record to Simpro and books the calendar. Click through all three flows.</p>
 </div>
 
 <!-- EMERGENCY -->
@@ -164,7 +212,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
   <div class="dhead">
     <div class="dpill de">Emergency Flow</div>
     <h2>Burst pipe &middot; <em>Active water damage</em></h2>
-    <p>Sarah submits a form at 11pm. Hermia qualifies as Emergency, gets the photo, transcribes her voice note, then pushes to Simpro and books tomorrow 9am.</p>
+    <p>Sarah submits a form at 11pm. Hermia qualifies as Emergency, gets the photo, transcribes her voice note, captures her budget, then pushes to Simpro and books tomorrow 9am.</p>
   </div>
   <div class="dgrid">
     <div class="panel phone">
@@ -174,8 +222,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
     </div>
     <div class="panel sp">
       <div class="sphdr"><div><div class="sptitle">Simpro Telemetry</div><div class="spsubt">Live qualification feed</div></div><div class="spbadge" id="badge-e">Awaiting enquiry</div></div>
-      <div class="lmeta"><div class="mrow"><span class="mlbl">Homeowner</span><span class="mval">Sarah Mitchell</span></div><div class="mrow"><span class="mlbl">Phone</span><span class="mval">+61 412 555 891</span></div><div class="mrow"><span class="mlbl">Type</span><span class="mval" style="color:#ef6666">REPAIR ENQUIRY</span></div></div>
-      <div class="matrix"><div class="tile" id="et-urgency"><span class="tlbl">Urgency</span><span class="tval">&mdash;</span></div><div class="tile" id="et-photo"><span class="tlbl">Photo</span><span class="tval">&mdash;</span></div><div class="tile" id="et-damage"><span class="tlbl">Damage brief</span><span class="tval">&mdash;</span></div><div class="tile" id="et-address"><span class="tlbl">Address</span><span class="tval">&mdash;</span></div></div>
+      <div class="lmeta"><div class="mrow"><span class="mlbl">Homeowner</span><span class="mval">Sarah Mitchell</span></div><div class="mrow"><span class="mlbl">Phone</span><span class="mval">+61 412 555 891</span></div><div class="mrow"><span class="mlbl">Type</span><span class="mval" style="color:#e87070">REPAIR ENQUIRY</span></div></div>
+      <div class="matrix">
+        <div class="tile" id="et-urgency"><span class="tlbl">Urgency</span><span class="tval">&mdash;</span></div>
+        <div class="tile" id="et-photo"><span class="tlbl">Photo</span><span class="tval">&mdash;</span></div>
+        <div class="tile" id="et-damage"><span class="tlbl">Damage brief</span><span class="tval">&mdash;</span></div>
+        <div class="tile" id="et-address"><span class="tlbl">Address</span><span class="tval">&mdash;</span></div>
+        <div class="tile wide" id="et-budget"><span class="tlbl">Budget</span><span class="tval">&mdash;</span></div>
+      </div>
       <div class="terminal"><div class="thead">System Log</div><div class="tlogs" id="term-e"><div class="ll sys">[INIT] Listening for repair enquiry...</div></div></div>
       <div class="rcard emergency" id="result-e">
         <div class="rhdr"><div class="ric">!</div><div class="rtitle">Emergency &middot; Simpro Record Created</div></div>
@@ -185,6 +239,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
           <div class="rrow"><span class="rl">Address</span><span class="rv">23 Maple St, Essendon VIC</span></div>
           <div class="rrow"><span class="rl">Issue</span><span class="rv">Burst pipe fitting &mdash; active leak, floor damage</span></div>
           <div class="rrow"><span class="rl">Urgency</span><span class="rv e">Emergency</span></div>
+          <div class="rrow"><span class="rl">Budget</span><span class="rv">Up to $2,000</span></div>
           <div class="rrow"><span class="rl">Photos</span><span class="rv">1 attached &#10003;</span></div>
         </div>
         <div class="calrow">Calendar event &mdash; Tomorrow 9:00 AM &#10003;</div>
@@ -199,7 +254,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
   <div class="dhead">
     <div class="dpill dc">Critical Flow</div>
     <h2>Foundation crack &middot; <em>Widening after rain</em></h2>
-    <p>Marcus sends a voice note about a diagonal crack getting worse. Hermia classifies as Critical and books a structural assessment this week.</p>
+    <p>Marcus sends a voice note about a diagonal crack getting worse. Hermia classifies as Critical, captures his budget, and books a structural assessment this week.</p>
   </div>
   <div class="dgrid">
     <div class="panel phone">
@@ -209,8 +264,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
     </div>
     <div class="panel sp">
       <div class="sphdr"><div><div class="sptitle">Simpro Telemetry</div><div class="spsubt">Live qualification feed</div></div><div class="spbadge" id="badge-c">Awaiting enquiry</div></div>
-      <div class="lmeta"><div class="mrow"><span class="mlbl">Homeowner</span><span class="mval">Marcus Johnson</span></div><div class="mrow"><span class="mlbl">Phone</span><span class="mval">+61 423 887 432</span></div><div class="mrow"><span class="mlbl">Type</span><span class="mval" style="color:var(--gl)">REPAIR ENQUIRY</span></div></div>
-      <div class="matrix"><div class="tile" id="ct-urgency"><span class="tlbl">Urgency</span><span class="tval">&mdash;</span></div><div class="tile" id="ct-photo"><span class="tlbl">Photo</span><span class="tval">&mdash;</span></div><div class="tile" id="ct-damage"><span class="tlbl">Damage brief</span><span class="tval">&mdash;</span></div><div class="tile" id="ct-address"><span class="tlbl">Address</span><span class="tval">&mdash;</span></div></div>
+      <div class="lmeta"><div class="mrow"><span class="mlbl">Homeowner</span><span class="mval">Marcus Johnson</span></div><div class="mrow"><span class="mlbl">Phone</span><span class="mval">+61 423 887 432</span></div><div class="mrow"><span class="mlbl">Type</span><span class="mval" style="color:var(--amber)">REPAIR ENQUIRY</span></div></div>
+      <div class="matrix">
+        <div class="tile" id="ct-urgency"><span class="tlbl">Urgency</span><span class="tval">&mdash;</span></div>
+        <div class="tile" id="ct-photo"><span class="tlbl">Photo</span><span class="tval">&mdash;</span></div>
+        <div class="tile" id="ct-damage"><span class="tlbl">Damage brief</span><span class="tval">&mdash;</span></div>
+        <div class="tile" id="ct-address"><span class="tlbl">Address</span><span class="tval">&mdash;</span></div>
+        <div class="tile wide" id="ct-budget"><span class="tlbl">Budget</span><span class="tval">&mdash;</span></div>
+      </div>
       <div class="terminal"><div class="thead">System Log</div><div class="tlogs" id="term-c"><div class="ll sys">[INIT] Listening for repair enquiry...</div></div></div>
       <div class="rcard critical" id="result-c">
         <div class="rhdr"><div class="ric">!</div><div class="rtitle">Critical &middot; Simpro Record Created</div></div>
@@ -220,6 +281,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
           <div class="rrow"><span class="rl">Address</span><span class="rv">14 Oak Ave, Brunswick VIC</span></div>
           <div class="rrow"><span class="rl">Issue</span><span class="rv">Diagonal foundation crack &mdash; widening post-rain</span></div>
           <div class="rrow"><span class="rl">Urgency</span><span class="rv c">Critical</span></div>
+          <div class="rrow"><span class="rl">Budget</span><span class="rv">$1,000 &ndash; $3,000</span></div>
           <div class="rrow"><span class="rl">Photos</span><span class="rv">1 attached &#10003;</span></div>
         </div>
         <div class="calrow">Calendar event &mdash; Thursday 10:00 AM &#10003;</div>
@@ -234,7 +296,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
   <div class="dhead">
     <div class="dpill ds">Standard Flow</div>
     <h2>Roof tiles &middot; <em>Post-storm, no rush</em></h2>
-    <p>Emma is in no rush &mdash; tiles came off in last week&rsquo;s storm, no active leak. Hermia classifies as Standard and books a scheduled quote next week.</p>
+    <p>Emma is in no rush &mdash; tiles came off in last week&rsquo;s storm, no active leak. Hermia classifies as Standard, grabs the budget, and books a scheduled quote next week.</p>
   </div>
   <div class="dgrid">
     <div class="panel phone">
@@ -245,7 +307,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
     <div class="panel sp">
       <div class="sphdr"><div><div class="sptitle">Simpro Telemetry</div><div class="spsubt">Live qualification feed</div></div><div class="spbadge" id="badge-s">Awaiting enquiry</div></div>
       <div class="lmeta"><div class="mrow"><span class="mlbl">Homeowner</span><span class="mval">Emma Clarke</span></div><div class="mrow"><span class="mlbl">Phone</span><span class="mval">+61 411 223 344</span></div><div class="mrow"><span class="mlbl">Type</span><span class="mval" style="color:var(--green)">REPAIR ENQUIRY</span></div></div>
-      <div class="matrix"><div class="tile" id="st-urgency"><span class="tlbl">Urgency</span><span class="tval">&mdash;</span></div><div class="tile" id="st-photo"><span class="tlbl">Photo</span><span class="tval">&mdash;</span></div><div class="tile" id="st-damage"><span class="tlbl">Damage brief</span><span class="tval">&mdash;</span></div><div class="tile" id="st-address"><span class="tlbl">Address</span><span class="tval">&mdash;</span></div></div>
+      <div class="matrix">
+        <div class="tile" id="st-urgency"><span class="tlbl">Urgency</span><span class="tval">&mdash;</span></div>
+        <div class="tile" id="st-photo"><span class="tlbl">Photo</span><span class="tval">&mdash;</span></div>
+        <div class="tile" id="st-damage"><span class="tlbl">Damage brief</span><span class="tval">&mdash;</span></div>
+        <div class="tile" id="st-address"><span class="tlbl">Address</span><span class="tval">&mdash;</span></div>
+        <div class="tile wide" id="st-budget"><span class="tlbl">Budget</span><span class="tval">&mdash;</span></div>
+      </div>
       <div class="terminal"><div class="thead">System Log</div><div class="tlogs" id="term-s"><div class="ll sys">[INIT] Listening for repair enquiry...</div></div></div>
       <div class="rcard standard" id="result-s">
         <div class="rhdr"><div class="ric">&#10003;</div><div class="rtitle">Standard &middot; Simpro Record Created</div></div>
@@ -255,9 +323,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
           <div class="rrow"><span class="rl">Address</span><span class="rv">8 Elm Crescent, Hawthorn VIC</span></div>
           <div class="rrow"><span class="rl">Issue</span><span class="rv">2 roof tiles off after storm &mdash; no active leak</span></div>
           <div class="rrow"><span class="rl">Urgency</span><span class="rv s">Standard</span></div>
+          <div class="rrow"><span class="rl">Budget</span><span class="rv">Under $1,000</span></div>
           <div class="rrow"><span class="rl">Photos</span><span class="rv">1 attached &#10003;</span></div>
         </div>
-        <div class="calrow" style="background:rgba(16,185,129,.05);border-color:rgba(16,185,129,.18)">Calendar event &mdash; Next Monday 2:00 PM &#10003;</div>
+        <div class="calrow" style="background:rgba(46,196,138,.05);border-color:rgba(46,196,138,.16)">Calendar event &mdash; Next Monday 2:00 PM &#10003;</div>
         <div class="rfooter">Pushed to Simpro &middot; No spam sent &middot; Standard scheduling queue</div>
       </div>
     </div>
@@ -270,71 +339,93 @@ body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream)
   <a href="https://onboarding.hermia.au" class="cbtn">Start Free Trial &rarr;</a>
 </div>
 </div>
+
 <script>
 var FLOWS = {
   e: {
     pfx:'e', chatId:'chat-e', trayId:'tray-e', termId:'term-e', badgeId:'badge-e', resultId:'result-e',
     name:'Sarah Mitchell', phone:'+61 412 555 891', cal:'Tomorrow 9:00 AM',
     ghostMsg:'Actually can you make it earlier, like 8am?',
-    closeMsg:'Thank you Sarah. You are all set - a plumber will call to confirm your appointment.\n\nHave a great day.',
+    closeMsg:'Thank you Sarah. You are all set — a plumber will call to confirm your appointment.\n\nHave a great day.',
     qs:{
-      1:{msg:'Hi Sarah! I am Hermia, the digital assistant for [Company Name].\n\nWe just received your enquiry. To get the right person to you fast - how urgent is the damage?\n\nA) Emergency - active damage right now\nB) Critical - significant, needs attention this week\nC) Standard - non-urgent, happy to schedule',
-        opts:[{t:'A) Emergency - active damage now',v:'Emergency',log:'Urgency classified: EMERGENCY > priority queue',tid:'urgency',grade:'emergency'}],next:2},
-      2:{msg:'Got it - Emergency. We are on it.\n\nCan you send us a photo of the damage? Helps our team see what they are walking into.',
+      1:{msg:'Hi Sarah! I am Hermia, the digital assistant for [Company Name].\n\nWe just received your enquiry. To get the right person to you fast — how urgent is the damage?\n\nA) Emergency — active damage right now\nB) Critical — significant, needs attention this week\nC) Standard — non-urgent, happy to schedule',
+        opts:[{t:'A) Emergency — active damage now',v:'Emergency',log:'Urgency classified: EMERGENCY > priority queue',tid:'urgency',grade:'emergency'}],next:2},
+      2:{msg:'Got it — Emergency. We are on it.\n\nCan you send us a photo of the damage? Helps our team see what they are walking into.',
         opts:[{t:'Send a photo',v:'__photo__',log:'[AI VISION] Photo received > analysing...',tid:'photo'}],next:3},
       3:{msg:'Perfect. Our AI is reading the image now.\n\nCan you give us a quick description? You can send a voice note or just type it.',
         opts:[
           {t:'Send voice note',v:'__voice__',log:'[AUDIO] Voice note received > transcribing...',tid:'damage',vt:'...water just pouring from under the sink, mains are off but floor is already soaked...'},
-          {t:'Type: Burst pipe under the kitchen sink',v:'Burst pipe under sink - active leak',log:'[TEXT] Description received',tid:'damage'}
+          {t:'Type: Burst pipe under the kitchen sink',v:'Burst pipe under sink — active leak',log:'[TEXT] Description received',tid:'damage'}
         ],next:4},
-      4:{msg:'Got it. Last thing - what is the property address, and when are you available?',
-        opts:[{t:'23 Maple St, Essendon - Tomorrow morning',v:'23 Maple St, Essendon - Tomorrow AM',log:'Address + availability captured',tid:'address'}],next:'end'}
+      4:{msg:'Got it. What is the property address, and when are you available?',
+        opts:[{t:'23 Maple St, Essendon — Tomorrow morning',v:'23 Maple St, Essendon — Tomorrow AM',log:'Address + availability captured',tid:'address'}],next:5},
+      5:{msg:'Almost done. Last question — what is your rough budget for this repair?\n\nA) Under $1,000\nB) $1,000 – $2,000\nC) Over $2,000\nD) Not sure yet',
+        opts:[
+          {t:'A) Under $1,000',v:'Under $1,000',log:'Budget captured: <$1,000',tid:'budget'},
+          {t:'B) $1,000 – $2,000',v:'Up to $2,000',log:'Budget captured: $1,000–$2,000',tid:'budget'},
+          {t:'C) Over $2,000',v:'Over $2,000',log:'Budget captured: >$2,000',tid:'budget'},
+          {t:'D) Not sure yet',v:'Not sure yet',log:'Budget captured: TBC',tid:'budget'}
+        ],next:'end'}
     }
   },
   c: {
     pfx:'c', chatId:'chat-c', trayId:'tray-c', termId:'term-c', badgeId:'badge-c', resultId:'result-c',
     name:'Marcus Johnson', phone:'+61 423 887 432', cal:'Thursday 10:00 AM',
     ghostMsg:'Can I bring my builder along to the inspection?',
-    closeMsg:'Thank you Marcus. Your file is with our structural team - they will be in touch to confirm Thursday.\n\nHave a great day.',
+    closeMsg:'Thank you Marcus. Your file is with our structural team — they will be in touch to confirm Thursday.\n\nHave a great day.',
     qs:{
-      1:{msg:'Hi Marcus! I am Hermia, the digital assistant for [Company Name].\n\nWe just received your enquiry. How urgent is the damage?\n\nA) Emergency - active damage right now\nB) Critical - significant, needs attention this week\nC) Standard - non-urgent, happy to schedule',
+      1:{msg:'Hi Marcus! I am Hermia, the digital assistant for [Company Name].\n\nWe just received your enquiry. How urgent is the damage?\n\nA) Emergency — active damage right now\nB) Critical — significant, needs attention this week\nC) Standard — non-urgent, happy to schedule',
         opts:[
-          {t:'A) Emergency - active now',v:'Emergency',log:'Urgency: Emergency selected > re-assessing after context',tid:'urgency',grade:'emergency',forceNext:'1b'},
-          {t:'B) Critical - needs this week',v:'Critical',log:'Urgency classified: CRITICAL > priority quote queue',tid:'urgency',grade:'critical'}
+          {t:'A) Emergency — active now',v:'Emergency',log:'Urgency: Emergency selected > re-assessing after context',tid:'urgency',grade:'emergency',forceNext:'1b'},
+          {t:'B) Critical — needs this week',v:'Critical',log:'Urgency classified: CRITICAL > priority quote queue',tid:'urgency',grade:'critical'}
         ],next:2},
-      '1b':{msg:'Understood - let us sort this quickly.\n\nJust to confirm: is there active water, structural movement, or immediate safety risk right now?',
-        opts:[{t:'No - serious but stable, Critical is right',v:'Critical',log:'Urgency reclassified: CRITICAL > stable but urgent',tid:'urgency',grade:'critical'}],next:2},
+      '1b':{msg:'Understood — let us sort this quickly.\n\nJust to confirm: is there active water, structural movement, or immediate safety risk right now?',
+        opts:[{t:'No — serious but stable, Critical is right',v:'Critical',log:'Urgency reclassified: CRITICAL > stable but urgent',tid:'urgency',grade:'critical'}],next:2},
       2:{msg:'Got it. We will get a specialist out this week.\n\nCan you send us a photo of the damage?',
         opts:[{t:'Send a photo',v:'__photo__',log:'[AI VISION] Photo received > crack analysis...',tid:'photo',noImg:true}],next:3},
       3:{msg:'Our AI is reading the crack pattern.\n\nCan you describe what you are seeing? A voice note works perfectly.',
         opts:[
           {t:'Send voice note',v:'__voice__',log:'[AUDIO] Voice note received > transcribing...',tid:'damage',vt:'...diagonal crack on left side of garage wall, three months, got worse after the rain last week...'},
-          {t:'Type: Diagonal crack, 3 months, worsening',v:'Diagonal crack - worsening post-rain',log:'[TEXT] Description received',tid:'damage'}
+          {t:'Type: Diagonal crack, 3 months, worsening',v:'Diagonal crack — worsening post-rain',log:'[TEXT] Description received',tid:'damage'}
         ],next:4},
       4:{msg:'Perfect. What is the property address, and when are you free this week?',
-        opts:[{t:'14 Oak Ave, Brunswick - Weekday mornings',v:'14 Oak Ave, Brunswick - Weekday AM',log:'Address + availability captured',tid:'address'}],next:'end'}
+        opts:[{t:'14 Oak Ave, Brunswick — Weekday mornings',v:'14 Oak Ave, Brunswick — Weekday AM',log:'Address + availability captured',tid:'address'}],next:5},
+      5:{msg:'One last thing — what is your rough budget for the repair?\n\nA) Under $1,000\nB) $1,000 – $3,000\nC) Over $3,000\nD) Not sure yet',
+        opts:[
+          {t:'A) Under $1,000',v:'Under $1,000',log:'Budget captured: <$1,000',tid:'budget'},
+          {t:'B) $1,000 – $3,000',v:'$1,000 – $3,000',log:'Budget captured: $1,000–$3,000',tid:'budget'},
+          {t:'C) Over $3,000',v:'Over $3,000',log:'Budget captured: >$3,000',tid:'budget'},
+          {t:'D) Not sure yet',v:'Not sure yet',log:'Budget captured: TBC',tid:'budget'}
+        ],next:'end'}
     }
   },
   s: {
     pfx:'s', chatId:'chat-s', trayId:'tray-s', termId:'term-s', badgeId:'badge-s', resultId:'result-s',
     name:'Emma Clarke', phone:'+61 411 223 344', cal:'Next Monday 2:00 PM',
     ghostMsg:'Could we push it back a week actually?',
-    closeMsg:'Perfect Emma - all booked. Our roofer will confirm Monday closer to the time.\n\nHave a great day.',
+    closeMsg:'Perfect Emma — all booked. Our roofer will confirm Monday closer to the time.\n\nHave a great day.',
     qs:{
-      1:{msg:'Hi Emma! I am Hermia, the digital assistant for [Company Name].\n\nWe just received your enquiry. How urgent is the damage?\n\nA) Emergency - active damage right now\nB) Critical - significant, needs attention this week\nC) Standard - non-urgent, happy to schedule',
+      1:{msg:'Hi Emma! I am Hermia, the digital assistant for [Company Name].\n\nWe just received your enquiry. How urgent is the damage?\n\nA) Emergency — active damage right now\nB) Critical — significant, needs attention this week\nC) Standard — non-urgent, happy to schedule',
         opts:[
-          {t:'B) Critical - needs this week',v:'Critical',log:'Urgency: Critical selected > confirm after photo',tid:'urgency',grade:'critical'},
-          {t:'C) Standard - happy to schedule',v:'Standard',log:'Urgency classified: STANDARD > scheduling queue',tid:'urgency',grade:'standard'}
+          {t:'B) Critical — needs this week',v:'Critical',log:'Urgency: Critical selected > confirm after photo',tid:'urgency',grade:'critical'},
+          {t:'C) Standard — happy to schedule',v:'Standard',log:'Urgency classified: STANDARD > scheduling queue',tid:'urgency',grade:'standard'}
         ],next:2},
-      2:{msg:'No worries - we will get it scheduled.\n\nCan you send a photo of the roof damage?',
+      2:{msg:'No worries — we will get it scheduled.\n\nCan you send a photo of the roof damage?',
         opts:[{t:'Send a photo',v:'__photo__',log:'[AI VISION] Photo received > assessment...',tid:'photo',noImg:true}],next:3},
       3:{msg:'Thanks. Can you describe the damage? Voice note or text is fine.',
         opts:[
           {t:'Send voice note',v:'__voice__',log:'[AUDIO] Voice note received > transcribing...',tid:'damage',vt:'...two tiles came off during the storm, no leak inside yet, just want them fixed before the next rain...'},
-          {t:'Type: 2 tiles off after storm, no leak',v:'2 tiles displaced - no active leak',log:'[TEXT] Description received',tid:'damage'}
+          {t:'Type: 2 tiles off after storm, no leak',v:'2 tiles displaced — no active leak',log:'[TEXT] Description received',tid:'damage'}
         ],next:4},
       4:{msg:'Easy fix. What is the address, and when suits you?',
-        opts:[{t:'8 Elm Crescent, Hawthorn - Next week',v:'8 Elm Crescent, Hawthorn - Next week',log:'Address + availability captured',tid:'address'}],next:'end'}
+        opts:[{t:'8 Elm Crescent, Hawthorn — Next week',v:'8 Elm Crescent, Hawthorn — Next week',log:'Address + availability captured',tid:'address'}],next:5},
+      5:{msg:'Almost done — what is your rough budget for this job?\n\nA) Under $500\nB) $500 – $1,000\nC) Over $1,000\nD) Not sure yet',
+        opts:[
+          {t:'A) Under $500',v:'Under $500',log:'Budget captured: <$500',tid:'budget'},
+          {t:'B) $500 – $1,000',v:'$500 – $1,000',log:'Budget captured: $500–$1,000',tid:'budget'},
+          {t:'C) Over $1,000',v:'Over $1,000',log:'Budget captured: >$1,000',tid:'budget'},
+          {t:'D) Not sure yet',v:'Not sure yet',log:'Budget captured: TBC',tid:'budget'}
+        ],next:'end'}
     }
   }
 };
@@ -357,12 +448,6 @@ function RepairTriage(key) {
     term.scrollTop = term.scrollHeight;
   }
 
-  function setTray(lbl, hint, fn) {
-    tray.innerHTML = '';
-    if (hint) { var h=document.createElement('div'); h.style.cssText='font-size:10px;color:var(--muted);text-align:center;padding:4px 0 8px;font-style:italic'; h.innerText=hint; tray.appendChild(h); }
-    var b=document.createElement('button'); b.className='abtn'; b.style.cssText='text-align:center;font-weight:600;background:var(--gdim);border-color:var(--gold)'; b.innerText=lbl; b.onclick=fn; tray.appendChild(b);
-  }
-
   function tile(id, val) {
     var el = document.getElementById(cfg.pfx+'t-'+id);
     if (el) { el.classList.add('active'); el.querySelector('.tval').innerText = val; }
@@ -373,10 +458,16 @@ function RepairTriage(key) {
     var stage = document.createElement('div');
     stage.id = 'stg-'+key;
     stage.style.cssText = 'display:flex;flex-direction:column;gap:12px';
-    stage.innerHTML = '<div class="fcard"><div class="ftop"><div class="ficon">&#128295;</div><div><div class="fttl">Request a Repair Quote</div><div class="fsub">yourcompany.com.au/contact</div></div></div><div class="fbody"><div class="ffl"><span class="flbl">Full name</span><div class="fval">'+cfg.name+'</div></div><div class="ffl"><span class="flbl">Phone</span><div class="fval">'+cfg.phone+'</div></div><div class="ffl"><span class="flbl">Brief description</span><div class="fval">Repair enquiry &mdash; details to follow</div></div><div class="fsub2">&#9658; Submit Enquiry</div></div></div>';
+    stage.innerHTML = '<div class="fcard"><div class="ftop"><div class="ficon">&#128295;</div><div><div class="fttl">Request a Repair Quote</div><div class="fsub">yourcompany.com.au/contact</div></div></div><div class="fbody"><div class="ffl"><span class="flbl">Full name</span><div class="fval">'+cfg.name+'</div></div><div class="ffl"><span class="flbl">Phone</span><div class="fval">'+cfg.phone+'</div></div><div class="ffl"><span class="flbl">Brief description</span><div class="fval">Repair enquiry — details to follow</div></div><div class="fsub2">&#9658; Submit Enquiry</div></div></div>';
     chat.appendChild(stage);
     chat.scrollTop=9999;
     setTray('▶  Step 1: Homeowner submits the form','Tap to advance the demo', stage2);
+  }
+
+  function setTray(lbl, hint, fn) {
+    tray.innerHTML = '';
+    if (hint) { var h=document.createElement('div'); h.style.cssText='font-size:10px;color:var(--muted);text-align:center;padding:4px 0 8px;font-style:italic'; h.innerText=hint; tray.appendChild(h); }
+    var b=document.createElement('button'); b.className='abtn'; b.style.cssText='text-align:center;font-weight:600;background:var(--bdim);border-color:var(--gold)'; b.innerText=lbl; b.onclick=fn; tray.appendChild(b);
   }
 
   function stage2() {
@@ -459,6 +550,7 @@ function RepairTriage(key) {
       if (opt.tid==='urgency') { tile('urgency',opt.v); badge.innerText=opt.v.toUpperCase(); badge.className='spbadge '+grade; }
       else if (opt.tid==='address') tile('address','Captured ✓');
       else if (opt.tid==='damage') tile('damage','Noted ✓');
+      else if (opt.tid==='budget') { tile('budget',opt.v); log('[DATA] Budget range stored · job value estimated','b'); }
     }
     chat.scrollTop=9999;
 
@@ -481,7 +573,7 @@ function RepairTriage(key) {
     setTimeout(function() {
       log('[FILTER] Conversation closed · late message dropped','w');
       var ns=document.createElement('div'); ns.className='nospam';
-      ns.innerHTML='<div class="nsic">&#10005;</div><div class="nstxt"><strong>Message ignored. No spam.</strong><span style="font-size:11px;color:#a1a1aa">Hermia closed this conversation after qualification. Late messages are dropped &mdash; never auto-replied to.</span></div>';
+      ns.innerHTML='<div class="nsic">&#10005;</div><div class="nstxt"><strong>Message ignored. No spam.</strong><span style="font-size:11px;color:#a1a1aa">Hermia closed this conversation after qualification. Late messages are dropped — never auto-replied to.</span></div>';
       chat.appendChild(ns); chat.scrollTop=9999;
       log('[DROPPED] No reply sent · contractor follows up from Simpro','d');
     },4400);
@@ -494,7 +586,7 @@ function RepairTriage(key) {
       log('[CALENDAR] Event created ✓ · '+cfg.cal,'b');
       log('[COMPLETE] Full intake done – contact to Simpro in ~90s','');
       result.classList.add('show');
-      tray.innerHTML='<div style="text-align:center;padding:8px;color:var(--gl);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">&#10003; Demo complete</div>';
+      tray.innerHTML='<div style="text-align:center;padding:8px;color:var(--green);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">&#10003; Demo complete</div>';
       var rb=document.createElement('button'); rb.className='rbtn'; rb.innerText='↻ Replay this demo';
       rb.onclick=function(){ replay(); }; tray.appendChild(rb);
     },6600);
@@ -505,7 +597,7 @@ function RepairTriage(key) {
     term.innerHTML='<div class="ll sys">[INIT] Listening for repair enquiry...</div>';
     badge.innerText='Awaiting enquiry'; badge.className='spbadge';
     result.classList.remove('show');
-    ['urgency','photo','damage','address'].forEach(function(id){
+    ['urgency','photo','damage','address','budget'].forEach(function(id){
       var el=document.getElementById(cfg.pfx+'t-'+id);
       if(el){ el.classList.remove('active'); el.querySelector('.tval').innerText='—'; }
     });
