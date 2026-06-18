@@ -666,6 +666,7 @@ function sleep(ms) { return new Promise(function(r){ setTimeout(r, ms); }); }
 
 async function playChat() {
   var chatBox = document.getElementById("chat-box");
+  chatBox.innerHTML = ""; // clear previous loop's messages before replaying
   for (var i = 0; i < chatMessages.length; i++) {
     var msg = chatMessages[i];
     var isHermia = msg.type === "hermia";
@@ -689,14 +690,19 @@ async function playChat() {
   }
 }
 
-function endCinematic() {
+// "Unlock" happens once — it lets the visitor scroll, shows the nav,
+// and removes the skip button. The cinematic itself keeps looping
+// underneath after this point, so scrolling back up to the hero
+// always shows it mid-story rather than frozen on the logo.
+var pageUnlocked = false;
+
+function unlockPage() {
+  if (pageUnlocked) return;
+  pageUnlocked = true;
   document.body.classList.remove("cinematic");
   document.getElementById("main-nav").classList.add("visible");
-  var si = document.getElementById("scroll-indicator");
-  si.classList.add("show");
+  document.getElementById("scroll-indicator").classList.add("show");
   document.getElementById("skip-btn").style.display = "none";
-  var pb = document.getElementById("partner-badge");
-  if (pb) pb.classList.remove("show");
 }
 
 async function runSequence() {
@@ -706,29 +712,47 @@ async function runSequence() {
   var s4 = document.getElementById("scene-final");
   var badge = document.getElementById("partner-badge");
 
-  await sleep(2400);
-  s4.classList.remove("active");
-  s1.classList.add("active");
-  if (badge) badge.classList.add("show");
-  await sleep(4600);
-  s1.classList.remove("active");
-  s2.classList.add("active");
-  await playChat();
-  await sleep(1200);
-  s2.classList.remove("active");
-  s3.classList.add("active");
-  await sleep(8500);
-  s3.classList.remove("active");
-  s4.classList.add("active");
-  await sleep(4400);
-  endCinematic();
+  await sleep(2400); // initial beat before the first loop starts
+
+  while (true) {
+    // Scene 1: Alert
+    s4.classList.remove("active");
+    s1.classList.add("active");
+    if (badge) badge.classList.add("show");
+    await sleep(4600);
+
+    // Scene 2: Phone chat
+    s1.classList.remove("active");
+    s2.classList.add("active");
+    await playChat();
+    await sleep(1200);
+
+    // Scene 3: Simpro dashboard
+    s2.classList.remove("active");
+    s3.classList.add("active");
+    await sleep(8500);
+
+    // Scene 4: Final reveal
+    s3.classList.remove("active");
+    s4.classList.add("active");
+    if (badge) badge.classList.remove("show");
+
+    unlockPage(); // no-op after the first time this is reached
+
+    await sleep(4400);
+    // loop continues back to Scene 1 — runs indefinitely in the background
+  }
 }
 
 document.getElementById("skip-btn").addEventListener("click", function() {
   document.querySelectorAll(".scene").forEach(function(s){ s.classList.remove("active"); });
-  var s4 = document.getElementById("scene-final");
-  s4.classList.add("active");
-  setTimeout(endCinematic, 800);
+  document.getElementById("scene-final").classList.add("active");
+  var pb = document.getElementById("partner-badge");
+  if (pb) pb.classList.remove("show");
+  setTimeout(unlockPage, 800);
+  // Note: the runSequence loop keeps running on its own timeline in the
+  // background and will cycle back through scenes 1-3 again shortly —
+  // that's intentional, so the hero is never just a static frame.
 });
 
 window.addEventListener("load", runSequence);
