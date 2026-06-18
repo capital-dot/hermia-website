@@ -50,8 +50,8 @@ nav.visible{opacity:1;pointer-events:auto}
 .nav-links a:hover{color:var(--cream)}
 .nav-ws{font-size:12px;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:1px;text-decoration:none;transition:color .2s}
 .nav-ws:hover{color:var(--soft)}
-.nav-cta{background:linear-gradient(135deg,var(--gl),var(--gold));color:#1a1008;padding:9px 20px;border-radius:9px;font-weight:600;font-size:13px;text-decoration:none;transition:all .2s;box-shadow:0 6px 18px rgba(196,150,60,0.2)}
-.nav-cta:hover{transform:translateY(-1px);box-shadow:0 10px 26px rgba(196,150,60,0.32)}
+.nav-cta{background:linear-gradient(135deg,#9a6c28,#74511a);color:#fbf3e2;padding:9px 20px;border-radius:9px;font-weight:600;font-size:13px;text-decoration:none;transition:all .2s;box-shadow:0 6px 18px rgba(120,90,30,0.28)}
+.nav-cta:hover{transform:translateY(-1px);background:linear-gradient(135deg,#a8772c,#82591d);box-shadow:0 10px 26px rgba(120,90,30,0.4)}
 
 /* Scenes */
 .scene{
@@ -71,6 +71,24 @@ nav.visible{opacity:1;pointer-events:auto}
   transition:all .2s;
 }
 #skip-btn:hover{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8)}
+
+/* Partner badge — shown in the corner during the cinematic */
+#partner-badge{
+  position:absolute;bottom:28px;left:28px;z-index:8;
+  opacity:0;pointer-events:none;
+  transition:opacity 1.1s ease;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+#partner-badge.show{opacity:1}
+#partner-badge img{
+  width:92px;height:auto;display:block;
+  filter:drop-shadow(0 8px 22px rgba(0,0,0,0.55));
+}
+#partner-badge .pb-cap{
+  font-family:"Inter",sans-serif;font-size:8.5px;letter-spacing:2.5px;
+  text-transform:uppercase;color:rgba(244,240,230,0.5);
+}
+@media(max-width:600px){#partner-badge{bottom:18px;left:16px}#partner-badge img{width:68px}}
 
 /* Scroll indicator — shown after cinematic */
 #scroll-indicator{
@@ -226,6 +244,15 @@ nav.visible{opacity:1;pointer-events:auto}
 .webstrip-link{padding:10px 22px;border-radius:99px;border:1px solid var(--border);font-size:13px;color:var(--gold);text-decoration:none;transition:all .2s;white-space:nowrap}
 .webstrip-link:hover{background:var(--gdim);border-color:var(--bhi)}
 
+/* Simpro partner */
+.partner-section{padding:78px 48px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg);text-align:center}
+.partner-inner{max-width:680px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:20px}
+.partner-badge-img{width:124px;height:auto;filter:drop-shadow(0 10px 30px rgba(0,0,0,.55))}
+.partner-section .eyebrow{margin-bottom:0}
+.partner-section h3{font-family:var(--display);font-size:clamp(26px,3.4vw,38px);font-weight:600;color:#fff;letter-spacing:-.3px;line-height:1.08}
+.partner-section h3 em{font-style:italic;color:var(--gl)}
+.partner-section p{font-size:14.5px;color:var(--soft);line-height:1.65;max-width:520px}
+
 /* Pricing */
 .pricing-section{padding:88px 48px;text-align:center;background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(196,150,60,.055),transparent 62%)}
 .pricing-h{font-family:var(--display);font-size:clamp(32px,4.2vw,50px);font-weight:600;color:#fff;letter-spacing:-.4px;margin-bottom:12px}
@@ -259,7 +286,9 @@ nav.visible{opacity:1;pointer-events:auto}
 .p-badge-wide{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#7a4a10,var(--gl),#7a4a10);color:#1a0e04;font-size:8px;font-weight:800;letter-spacing:3px;padding:5px 18px;text-transform:uppercase;border-radius:0 0 10px 10px;white-space:nowrap}
 .p-wide-left{display:flex;flex-direction:column;align-items:flex-start;min-width:220px;flex-shrink:0}
 .p-wide-divider{width:1px;background:linear-gradient(180deg,transparent,rgba(196,150,60,.3),transparent);align-self:stretch;flex-shrink:0}
-.p-feats-wide{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;flex:1;padding-top:4px}
+.p-feats-block{flex:1;display:flex;flex-direction:column;gap:16px;padding-top:2px}
+.p-feats-label{font-size:9.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-family:"Inter",sans-serif}
+.p-feats-wide{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;padding-top:0}
 .p-feats-wide li{font-size:13px;color:var(--soft);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
 .p-feats-wide li::before{content:"\25C6";font-size:6px;color:var(--gold);opacity:.65;margin-top:5px;flex-shrink:0}
 @media(max-width:900px){
@@ -290,11 +319,18 @@ nav.visible{opacity:1;pointer-events:auto}
 
 
 /* Footer */
-footer{border-top:1px solid var(--border);padding:38px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.foot-left{display:flex;flex-direction:column;gap:11px}
 .foot-logo{display:flex;align-items:center;gap:9px;text-decoration:none}
 .foot-logo img{height:20px;opacity:.7}
 .foot-logo span{font-family:var(--display);font-size:18px;font-weight:600;color:var(--cream)}
+.foot-left-meta{display:flex;align-items:center;gap:18px;font-size:12px;color:var(--muted);padding-left:1px;flex-wrap:wrap}
+.foot-left-meta a{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s}
+.foot-left-meta a:hover{color:var(--soft)}
+.foot-right{display:flex;flex-direction:column;align-items:flex-end;gap:12px;padding-right:104px}
 .foot-meta{font-size:12px;color:var(--muted)}
+.foot-meta a{color:var(--muted);text-decoration:none}
+.foot-meta a:hover{color:var(--soft)}
 .foot-links{display:flex;gap:20px}
 .foot-links a{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s}
 .foot-links a:hover{color:var(--soft)}
@@ -308,7 +344,8 @@ footer{border-top:1px solid var(--border);padding:38px 48px;display:flex;align-i
   .bt-wrap{grid-template-columns:1fr}.left{border-right:none;border-bottom:1px solid var(--border)}
   .crm-grid{grid-template-columns:1fr}
   .phone{width:320px;height:660px}
-  footer{flex-direction:column;gap:12px;padding:30px 24px}
+  footer{flex-direction:column;align-items:flex-start;gap:18px;padding:30px 24px}
+  .foot-right{align-items:flex-start;padding-right:0}
   .webstrip-inner{flex-direction:column}
 }
 @media(max-width:600px){
@@ -415,6 +452,12 @@ footer{border-top:1px solid var(--border);padding:38px 48px;display:flex;align-i
     </div>
   </div>
 
+  <!-- Partner badge (left corner, visible during the cinematic) -->
+  <div id="partner-badge">
+    <img src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Registered Partner">
+    <span class="pb-cap">Official Simpro Partner</span>
+  </div>
+
   <!-- Scroll indicator -->
   <div id="scroll-indicator">
     <div class="scroll-text">Scroll to explore</div>
@@ -474,6 +517,16 @@ footer{border-top:1px solid var(--border);padding:38px 48px;display:flex;align-i
     </div>
   </section>
 
+  <!-- SIMPRO PARTNER -->
+  <section class="partner-section" id="partner">
+    <div class="partner-inner">
+      <img class="partner-badge-img" src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Registered Partner">
+      <div class="eyebrow">Trusted integration</div>
+      <h3>A registered <em>Simpro Partner.</em></h3>
+      <p>Hermia is an official, registered Simpro partner &mdash; built to feed clean, structured job data straight into the Simpro workflow your business already runs on.</p>
+    </div>
+  </section>
+
   <!-- LIVE TRIAGE TEASER -->
   <section class="triage-section" id="triage">
     <div class="triage-card">
@@ -506,31 +559,31 @@ footer{border-top:1px solid var(--border);padding:38px 48px;display:flex;align-i
   <section class="pricing-section" id="pricing">
     <div class="inner" style="display:flex;flex-direction:column;align-items:center">
       <div class="eyebrow">Pricing</div>
-      <h2 class="pricing-h">One recovered job covers<br><em>years of Hermia.</em></h2>
+      <h2 class="pricing-h">Recover missed repair jobs <em>automatically.</em></h2>
+      <p class="pricing-sub">One qualified repair job can cover months of Hermia.</p>
 
       <div class="p-card-wide">
-        <div class="p-badge-wide">3-Day Free Trial &middot; No Card Required</div>
+        <div class="p-badge-wide">3-Day Free Trial</div>
         <div class="p-wide-left">
           <div class="p-country">&#127462;&#127482;&nbsp; Australia</div>
           <div class="p-rule"></div>
           <div class="p-price"><span class="p-cur">$</span><span class="p-num">260</span></div>
-          <div class="p-per">AUD per month</div>
-          <div class="p-was">Setup fee $1,700 AUD</div>
-          <div class="p-offer">No Setup Fee &mdash; Launch Offer</div>
-          <a href="https://onboarding.hermia.au" class="p-btn" style="margin-top:28px">Start 3-Day Free Trial</a>
+          <div class="p-per">AUD / month</div>
+          <div class="p-was">$1,700 setup fee</div>
+          <div class="p-offer">Launch offer &mdash; setup included</div>
+          <a href="https://onboarding.hermia.au" class="p-btn" style="margin-top:28px">Start Free Trial</a>
         </div>
         <div class="p-wide-divider"></div>
-        <ul class="p-feats-wide">
-          <li>AI reads damage photos &mdash; type, urgency, trade needed</li>
-          <li>Voice notes transcribed into clean job briefs</li>
-          <li>WhatsApp intake &mdash; contact form to qualified job</li>
-          <li>Inbound repair emails handled and qualified</li>
-          <li>Emergency, Critical &amp; Standard urgency classification</li>
-          <li>Structured customer data sent to your Simpro workflow</li>
-          <li>Calendar booking confirmed with the homeowner</li>
-          <li>Monthly production summary &mdash; last day of every month</li>
-          <li>Full setup done for you &mdash; live within 24 hours</li>
-        </ul>
+        <div class="p-feats-block">
+          <div class="p-feats-label">What Hermia does</div>
+          <ul class="p-feats-wide">
+            <li>AI analyses customer damage photos to identify issue type, urgency, and required trade</li>
+            <li>Converts voice notes and messages into structured job briefs</li>
+            <li>Qualifies incoming repair enquiries before they reach your team</li>
+            <li>Sends organised job information directly into your workflow</li>
+            <li>Helps your team respond faster and reduce missed opportunities</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -547,22 +600,29 @@ footer{border-top:1px solid var(--border);padding:38px 48px;display:flex;align-i
         <div class="faq-item"><button class="faq-q"><span>What does it do with a photo or voice note?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Photos:</strong> AI vision reads the damage &mdash; type, urgency, trade required. <strong>Voice notes:</strong> Full transcription, then key fields extracted (damage, address, urgency, owner status). <em>Both happen before a human looks at anything.</em></div></div></div>
         <div class="faq-item"><button class="faq-q"><span>Do I need to change my number or learn an app?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No.</strong> Hermia works behind your existing contact form and email. Jobs arrive as a clean brief on your phone. <em>If you can read a text, you can run Hermia.</em></div></div></div>
         <div class="faq-item"><button class="faq-q"><span>What does the monthly summary include?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Total enquiries, jobs sent to Simpro, urgency breakdown by tier, job types, filtered leads, estimated revenue.</strong> Sent to your inbox on the last day of every month. <em>No logging in. No dashboards.</em></div></div></div>
-        <div class="faq-item"><button class="faq-q"><span>What if I get no jobs through it?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>If Hermia is live for 30 days and you receive zero qualified enquiries, we refund your first month.</strong> No contracts, no lock-in, cancel anytime. <em>One average repair job recovers multiple years of the subscription.</em></div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>Does Hermia hallucinate in SMS?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No &mdash; we use pre-approved templates.</strong> Every message Hermia sends comes from approved wording, so it can&rsquo;t go off-script or make anything up.</div></div></div>
       </div>
     </div>
   </section>
 
   <footer>
-    <a href="/" class="foot-logo">
-      <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia">
-      <span>Hermia</span>
-    </a>
-    <div class="foot-meta">ABN 75 434 177 026 &middot; Victoria, Australia &middot; <a href="mailto:capital@hermia.au" style="color:var(--muted);text-decoration:none">capital@hermia.au</a></div>
-    <div class="foot-links">
-      <a href="#features">Features</a>
-      <a href="#pricing">Pricing</a>
-      <a href="mailto:capital@hermia.au">Contact</a>
-      <a href="/privacy">Privacy</a>
+    <div class="foot-left">
+      <a href="/" class="foot-logo">
+        <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia">
+        <span>Hermia</span>
+      </a>
+      <div class="foot-left-meta">
+        <span>Victoria, Australia</span>
+        <a href="#features">Features</a>
+      </div>
+    </div>
+    <div class="foot-right">
+      <div class="foot-meta">ABN 75 434 177 026 &middot; <a href="mailto:capital@hermia.au">capital@hermia.au</a></div>
+      <div class="foot-links">
+        <a href="#pricing">Pricing</a>
+        <a href="mailto:capital@hermia.au">Contact</a>
+        <a href="/privacy">Privacy</a>
+      </div>
     </div>
   </footer>
 </div>
@@ -608,7 +668,7 @@ async function playChat() {
     group.appendChild(el);
     chatBox.appendChild(group);
     chatBox.scrollTop = chatBox.scrollHeight;
-    await sleep(2000);
+    await sleep(2900);
   }
 }
 
@@ -618,6 +678,8 @@ function endCinematic() {
   var si = document.getElementById("scroll-indicator");
   si.classList.add("show");
   document.getElementById("skip-btn").style.display = "none";
+  var pb = document.getElementById("partner-badge");
+  if (pb) pb.classList.remove("show");
 }
 
 async function runSequence() {
@@ -625,21 +687,23 @@ async function runSequence() {
   var s2 = document.getElementById("scene-chat");
   var s3 = document.getElementById("scene-dashboard");
   var s4 = document.getElementById("scene-final");
+  var badge = document.getElementById("partner-badge");
 
-  await sleep(2000);
+  await sleep(2400);
   s4.classList.remove("active");
   s1.classList.add("active");
-  await sleep(3400);
+  if (badge) badge.classList.add("show");
+  await sleep(4600);
   s1.classList.remove("active");
   s2.classList.add("active");
   await playChat();
-  await sleep(800);
+  await sleep(1200);
   s2.classList.remove("active");
   s3.classList.add("active");
-  await sleep(6500);
+  await sleep(8500);
   s3.classList.remove("active");
   s4.classList.add("active");
-  await sleep(3200);
+  await sleep(4400);
   endCinematic();
 }
 
