@@ -47,13 +47,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
 @media(max-width:520px){.field-row{grid-template-columns:1fr;}}
 
-/* Phone toggle */
-.phone-wrap{display:flex;gap:8px;align-items:stretch;}
-.country-toggle{display:flex;border:1px solid rgba(201,163,91,0.22);border-radius:11px;overflow:hidden;flex-shrink:0;}
-.country-toggle button{padding:0 13px;border:none;background:#0b0b0e;cursor:pointer;font-size:13px;font-weight:500;color:var(--muted);font-family:'DM Sans',sans-serif;transition:all 0.2s;border-right:1px solid rgba(201,163,91,0.15);white-space:nowrap;}
-.country-toggle button:last-child{border-right:none;}
-.country-toggle button.active{background:rgba(201,163,91,0.14);color:var(--gold-light);}
-.phone-wrap input{flex:1;}
+/* Phone field — simple prefix label, no toggle */
+.phone-wrap{display:flex;gap:0;align-items:stretch;}
+.phone-prefix{display:flex;align-items:center;padding:0 14px;background:#0b0b0e;border:1px solid rgba(201,163,91,0.22);border-right:none;border-radius:11px 0 0 11px;font-size:14px;font-weight:500;color:var(--gold-light);white-space:nowrap;flex-shrink:0;}
+.phone-wrap input{flex:1;border-radius:0 11px 11px 0;}
 
 .submit-btn{position:relative;overflow:hidden;width:100%;padding:18px;background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#1a1408;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:11px;cursor:pointer;transition:all 0.3s;box-shadow:0 12px 32px rgba(201,163,91,0.28);font-family:'DM Sans',sans-serif;margin-top:6px;}
 .submit-btn::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,0.55),transparent);transform:skewX(-18deg);transition:left 0.6s;}
@@ -110,15 +107,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
   <div class="form-card">
     <div id="form-view">
 
-      <div class="field">
-        <label>Which market?</label>
-        <select id="market" onchange="handleMarket()" required>
-          <option value="" disabled selected>Select market</option>
-          <option value="Australia">🇦🇺 Australia</option>
-          <option value="UAE">🇦🇪 UAE / Dubai</option>
-        </select>
-      </div>
-
       <div class="field-row">
         <div class="field">
           <label>Full name</label>
@@ -127,10 +115,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         <div class="field">
           <label>WhatsApp number</label>
           <div class="phone-wrap">
-            <div class="country-toggle">
-              <button class="active" id="btn-au" type="button" onclick="setCountry('au')">🇦🇺 +61</button>
-              <button id="btn-ae" type="button" onclick="setCountry('ae')">🇦🇪 +971</button>
-            </div>
+            <span class="phone-prefix">🇦🇺 +61</span>
             <input type="tel" id="phone" placeholder="400 000 000" required>
           </div>
         </div>
@@ -189,36 +174,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 const WEBHOOK_URL = 'https://hook.eu1.make.com/3hq3jwbtjc6afnfem9rhshxwqlyx838j';
 const CONTRACT_URL = 'contract.html';
 
-let country = 'au';
-const prefixes     = { au: '+61 ',  ae: '+971 ' };
-const placeholders = { au: '400 000 000', ae: '50 000 0000' };
-
-function handleMarket() {
-  const mkt = document.getElementById('market').value;
-  setCountry(mkt === 'UAE' ? 'ae' : 'au');
-}
-
-function setCountry(code) {
-  country = code;
-  document.getElementById('btn-au').classList.toggle('active', code === 'au');
-  document.getElementById('btn-ae').classList.toggle('active', code === 'ae');
-  const ph = document.getElementById('phone');
-  ph.value = '';
-  ph.placeholder = placeholders[code];
-}
-
 function advance(id, delay) {
   setTimeout(() => document.getElementById(id).classList.add('done'), delay);
 }
 
 async function handleSubmit() {
-  const market   = document.getElementById('market').value;
   const name     = document.getElementById('name').value.trim();
   const phoneRaw = document.getElementById('phone').value.trim();
   const trade    = document.getElementById('trade').value;
   const capacity = document.getElementById('capacity').value;
 
-  if (!market)   { document.getElementById('market').focus();   return; }
   if (!name)     { document.getElementById('name').focus();     return; }
   if (!phoneRaw) { document.getElementById('phone').focus();    return; }
   if (!trade)    { document.getElementById('trade').focus();    return; }
@@ -227,8 +192,9 @@ async function handleSubmit() {
   document.getElementById('submitBtn').disabled = true;
 
   const applicant = {
-    market, name,
-    phone:        prefixes[country] + phoneRaw,
+    market: 'Australia',
+    name,
+    phone:        '+61 ' + phoneRaw,
     trade,
     capacity,
     submitted_at: new Date().toISOString(),
@@ -238,8 +204,8 @@ async function handleSubmit() {
   try {
     sessionStorage.setItem('hermia_applicant', JSON.stringify(applicant));
     sessionStorage.setItem('hermia_name',   name);
-    sessionStorage.setItem('hermia_phone',  prefixes[country] + phoneRaw);
-    sessionStorage.setItem('hermia_market', market);
+    sessionStorage.setItem('hermia_phone',  '+61 ' + phoneRaw);
+    sessionStorage.setItem('hermia_market', 'Australia');
   } catch(e) {}
 
   try {
