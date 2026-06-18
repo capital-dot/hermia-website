@@ -3,354 +3,228 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get Your Website — Hermia</title>
-<meta name="description" content="Apply for your trade business website. Tell us about your business, your domain and your work — we build the rest.">
+<title>Apply — Hermia Repairs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#050505; --card:#0f0f12; --card2:#141418;
-  --border:rgba(249,115,22,0.14); --border-hi:rgba(249,115,22,0.40);
-  --orange:#F97316; --orange-light:#FB923C; --orange-dim:rgba(249,115,22,0.08);
+  --black:#07070a; --card:#0f0f12; --border:rgba(201,163,91,0.15); --border-hi:rgba(201,163,91,0.40);
+  --gold:#C9A35B; --gold-light:#e8c17a; --gold-dim:rgba(201,163,91,0.08);
   --cream:#f4f0e6; --muted:#7a7672; --soft:#b0ada5; --green:#10b981;
   --display:'Cormorant Garamond',serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--ink);color:var(--cream);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
-::selection{background:rgba(249,115,22,0.28);color:#fff;}
-
-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:16px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,5,0.9);backdrop-filter:blur(26px);border-bottom:1px solid var(--border);}
-.nav-back-btn{display:inline-flex;align-items:center;color:var(--soft);text-decoration:none;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;transition:color 0.25s;}
-.nav-back-btn:hover{color:var(--orange);}
+body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--black);color:var(--cream);min-height:100vh;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+::selection{background:rgba(201,163,91,0.28);color:#fff;}
+.bg-glow{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:1100px;height:700px;background:radial-gradient(ellipse at 50% 10%,rgba(201,163,91,0.16) 0%,transparent 62%);pointer-events:none;filter:blur(50px);z-index:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,7,10,0.86);backdrop-filter:blur(26px) saturate(120%);border-bottom:1px solid var(--border);}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
-.nav-logo img{width:34px;height:34px;}
+.nav-logo img{width:34px;height:34px;filter:drop-shadow(0 4px 14px rgba(201,163,91,0.3));}
 .nav-logo span{font-family:var(--display);font-size:22px;font-weight:600;color:var(--cream);}
-.nav-spacer{width:110px;}
+.nav-back-btn{color:var(--soft);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border);padding:10px 18px;border-radius:9px;transition:all 0.25s;}
+.nav-back-btn:hover{color:#fff;border-color:var(--gold);background:var(--gold-dim);box-shadow:0 0 16px rgba(201,163,91,0.2);}
+.page{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:140px 24px 100px;}
+.page-tag{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.page-title{font-family:var(--display);font-size:clamp(42px,6vw,68px);font-weight:600;line-height:1.03;color:#fff;margin-bottom:16px;letter-spacing:-1px;}
+.page-title em{font-style:italic;color:var(--gold);text-shadow:0 0 28px rgba(201,163,91,0.4);}
+.page-sub{font-size:16px;color:var(--soft);line-height:1.7;font-weight:300;margin-bottom:36px;max-width:500px;}
+.flow-steps{display:flex;align-items:center;gap:10px;margin-bottom:44px;flex-wrap:wrap;}
+.flow-step{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--muted);}
+.flow-step .n{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;border:1px solid var(--border);color:var(--muted);}
+.flow-step.active .n{background:var(--gold);color:#1a1408;border-color:var(--gold);box-shadow:0 0 14px rgba(201,163,91,0.4);}
+.flow-step.active{color:var(--cream);}
+.flow-line{width:24px;height:1px;background:var(--border);}
+.form-card{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.006)),var(--card);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:22px;padding:46px 42px;box-shadow:0 34px 90px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.06);}
+.form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent);}
+.field{margin-bottom:24px;}
+.field label{display:block;font-size:12.5px;font-weight:500;color:var(--soft);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase;}
+.field input,.field select{width:100%;padding:16px 18px;background:#0b0b0e;border:1px solid rgba(201,163,91,0.22);border-radius:11px;color:var(--cream);font-size:15px;transition:all 0.2s;font-family:'DM Sans',sans-serif;font-weight:300;}
+.field input:focus,.field select:focus{outline:none;border-color:var(--gold);background:#141017;box-shadow:0 0 0 4px rgba(201,163,91,0.14);}
+.field select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%23C9A35B' d='M0 0l5 5 5-5z'/></svg>");background-repeat:no-repeat;background-position:right 18px center;padding-right:42px;}
+.field input::placeholder{color:var(--muted);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:520px){.field-row{grid-template-columns:1fr;}}
 
-.bg-glow{position:fixed;top:-10%;left:50%;transform:translateX(-50%);width:900px;height:700px;background:radial-gradient(circle,rgba(249,115,22,0.10) 0%,transparent 70%);filter:blur(100px);pointer-events:none;z-index:0;}
+/* Phone field — simple prefix label, no toggle */
+.phone-wrap{display:flex;gap:0;align-items:stretch;}
+.phone-prefix{display:flex;align-items:center;padding:0 14px;background:#0b0b0e;border:1px solid rgba(201,163,91,0.22);border-right:none;border-radius:11px 0 0 11px;font-size:14px;font-weight:500;color:var(--gold-light);white-space:nowrap;flex-shrink:0;}
+.phone-wrap input{flex:1;border-radius:0 11px 11px 0;}
 
-.page-head{position:relative;z-index:1;padding:150px 24px 40px;max-width:760px;margin:0 auto;text-align:center;}
-.page-tag{display:inline-flex;align-items:center;gap:10px;background:var(--orange-dim);border:1px solid var(--border-hi);padding:8px 20px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:26px;}
-.page-tag-dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 10px var(--green);animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-.page-head h1{font-family:var(--display);font-size:clamp(38px,5.8vw,62px);font-weight:600;line-height:1.06;letter-spacing:-1.5px;color:#fff;margin-bottom:16px;}
-.page-head h1 em{font-style:italic;color:var(--orange);}
-.page-head p{font-size:16px;color:var(--soft);line-height:1.65;max-width:540px;margin:0 auto;}
+.submit-btn{position:relative;overflow:hidden;width:100%;padding:18px;background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#1a1408;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:11px;cursor:pointer;transition:all 0.3s;box-shadow:0 12px 32px rgba(201,163,91,0.28);font-family:'DM Sans',sans-serif;margin-top:6px;}
+.submit-btn::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,0.55),transparent);transform:skewX(-18deg);transition:left 0.6s;}
+.submit-btn:hover{filter:brightness(1.07);transform:translateY(-2px);box-shadow:0 16px 42px rgba(201,163,91,0.42);}
+.submit-btn:hover::after{left:150%;}
+.submit-btn:disabled{opacity:0.55;cursor:not-allowed;transform:none;}
+.form-note{font-size:12px;color:var(--muted);text-align:center;margin-top:16px;font-style:italic;}
 
-.form-shell{position:relative;z-index:1;max-width:680px;margin:0 auto 90px;padding:0 24px;}
-.form-card{background:var(--card);border:1px solid var(--border-hi);border-radius:22px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.5),0 0 60px rgba(249,115,22,0.08);}
-.form-section{padding:34px 36px;border-bottom:1px solid var(--border);}
-.form-section:last-of-type{border-bottom:none;}
-.fs-head{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
-.fs-num{width:34px;height:34px;min-width:34px;border-radius:10px;background:var(--orange-dim);border:1px solid var(--border-hi);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:17px;font-weight:600;color:var(--orange);}
-.fs-title{font-family:var(--display);font-size:23px;font-weight:600;color:#fff;}
-.fs-sub{font-size:12.5px;color:var(--muted);margin-top:2px;}
-.field{margin-bottom:18px;}
-.field:last-child{margin-bottom:0;}
-.field label{display:block;font-size:10.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:9px;}
-.field label .opt{color:var(--muted);font-weight:400;letter-spacing:0.5px;text-transform:none;}
-.field input[type=text],.field input[type=tel],.field input[type=email],.field textarea,.field select{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;padding:13px 15px;color:#fff;font-family:'DM Sans',sans-serif;font-size:14.5px;font-weight:300;outline:none;transition:all 0.25s;appearance:none;}
-.field textarea{min-height:90px;resize:vertical;}
-.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--orange);background:rgba(249,115,22,0.05);}
-.field select option{background:#1a1a1a;}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.choice-row{display:flex;gap:10px;flex-wrap:wrap;}
-.choice{flex:1;min-width:120px;}
-.choice input{display:none;}
-.choice span{display:block;text-align:center;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--soft);cursor:pointer;transition:all 0.2s;background:rgba(255,255,255,0.02);}
-.choice input:checked + span{border-color:var(--orange);background:var(--orange-dim);color:var(--orange-light);font-weight:500;}
-.choice span:hover{border-color:var(--border-hi);}
-.conditional{display:none;margin-top:12px;}
-.conditional.show{display:block;}
+/* Verify */
+.verify{display:none;text-align:center;padding:20px 0 10px;}
+.verify.show{display:block;animation:fadeUp .4s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.v-spinner{width:54px;height:54px;margin:0 auto 26px;border:2.5px solid rgba(201,163,91,0.18);border-top-color:var(--gold);border-radius:50%;animation:spin .85s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.verify h2{font-family:var(--display);font-size:33px;font-weight:600;color:#fff;margin-bottom:8px;}
+.verify .v-tag{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:26px;}
+.v-steps{list-style:none;max-width:330px;margin:0 auto;text-align:left;display:flex;flex-direction:column;gap:15px;}
+.v-steps li{display:flex;align-items:center;gap:13px;font-size:14.5px;color:var(--muted);transition:color .3s;font-weight:300;}
+.v-steps li .vdot{width:21px;height:21px;border-radius:50%;border:1.5px solid var(--border-hi);flex-shrink:0;position:relative;transition:all .3s;}
+.v-steps li.done{color:var(--cream);}
+.v-steps li.done .vdot{background:rgba(16,185,129,0.15);border-color:var(--green);}
+.v-steps li.done .vdot::after{content:'';position:absolute;left:6.5px;top:3px;width:5px;height:9px;border:solid var(--green);border-width:0 2px 2px 0;transform:rotate(45deg);}
 
-/* Package cards */
-.pkg-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.pkg{position:relative;}
-.pkg input{display:none;}
-.pkg-body{display:block;border:1.5px solid var(--border);border-radius:14px;padding:22px 20px;cursor:pointer;transition:all 0.25s;background:rgba(255,255,255,0.02);}
-.pkg input:checked + .pkg-body{border-color:var(--orange);background:linear-gradient(150deg,rgba(249,115,22,0.09) 0%,rgba(17,17,17,0.6) 60%);box-shadow:0 0 30px rgba(249,115,22,0.12);}
-.pkg-name{font-size:15px;font-weight:600;color:#fff;margin-bottom:4px;}
-.pkg-price{font-family:var(--display);font-size:30px;font-weight:600;color:var(--orange-light);line-height:1.1;}
-.pkg-price small{font-size:12px;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:300;}
-.pkg-setup{font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:6px 0 8px;}
-.pkg-desc{font-size:12px;color:var(--soft);line-height:1.55;}
-
-.submit-wrap{padding:30px 36px 36px;}
-.btn-submit{position:relative;overflow:hidden;display:block;width:100%;background:linear-gradient(90deg,#9A3412,#FB923C,#C2410C);color:#1a0d04;padding:18px;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;box-shadow:0 12px 32px rgba(249,115,22,0.35);}
-.btn-submit:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 16px 40px rgba(249,115,22,0.5);}
-.submit-note{margin-top:14px;font-size:12px;color:var(--muted);text-align:center;font-style:italic;line-height:1.6;}
-.error-msg{display:none;margin-top:12px;font-size:13px;color:#f87171;text-align:center;}
-.error-msg.show{display:block;}
-
-/* Success state */
-.success-card{display:none;background:var(--card);border:1px solid var(--green);border-radius:22px;padding:48px 40px;text-align:center;box-shadow:0 40px 80px rgba(0,0,0,0.5),0 0 60px rgba(16,185,129,0.1);}
-.success-card.show{display:block;}
-.success-icon{width:64px;height:64px;border-radius:50%;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.4);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 20px;}
-.success-card h2{font-family:var(--display);font-size:32px;font-weight:600;color:#fff;margin-bottom:12px;}
-.success-card p{font-size:14.5px;color:var(--soft);line-height:1.7;max-width:440px;margin:0 auto 24px;}
-.success-card p strong{color:var(--cream);}
-.copy-box{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;padding:18px;text-align:left;font-size:12px;color:var(--soft);line-height:1.7;white-space:pre-wrap;max-height:260px;overflow-y:auto;margin-bottom:18px;font-family:'Courier New',monospace;}
-.btn-copy{display:inline-block;background:transparent;border:1px solid var(--border-hi);color:var(--orange);padding:12px 26px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.25s;}
-.btn-copy:hover{background:var(--orange-dim);border-color:var(--orange);}
-
-footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:40px 24px;text-align:center;}
-.footer-legal{font-size:12px;color:var(--muted);line-height:1.8;font-weight:300;}
-.footer-legal a{color:var(--orange);text-decoration:none;}
-
-@media(max-width:640px){
-  nav{padding:16px 20px;}
-  .nav-spacer{display:none;}
-  .page-head{padding:130px 20px 32px;}
-  .form-section{padding:26px 22px;}
-  .submit-wrap{padding:24px 22px 28px;}
-  .field-row{grid-template-columns:1fr;}
-  .pkg-row{grid-template-columns:1fr;}
-}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+.security-footer{display:flex;align-items:flex-start;gap:14px;margin-top:30px;padding:20px 24px;background:rgba(201,163,91,0.03);border:1px dashed var(--border);border-radius:13px;}
+.security-footer svg{width:20px;height:20px;fill:var(--gold);flex-shrink:0;margin-top:2px;}
+.security-footer p{font-size:13px;line-height:1.6;color:var(--soft);font-weight:300;}
+.security-footer strong{color:var(--cream);font-weight:500;}
 </style>
 </head>
 <body>
-
 <div class="bg-glow"></div>
 
 <nav>
-  <a href="final2.html" class="nav-back-btn">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-    Back to Websites
-  </a>
   <a href="index.html" class="nav-logo">
-    <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" onerror="this.style.display='none'">
+    <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia">
     <span>Hermia</span>
   </a>
-  <div class="nav-spacer"></div>
+  <a href="index.html" class="nav-back-btn">← Back to Site</a>
 </nav>
 
-<div class="page-head">
-  <div class="page-tag"><span class="page-tag-dot"></span>Website Application</div>
-  <h1>Let's build <em>your site.</em></h1>
-  <p>Takes about 5 minutes. Don't stress if you're missing something — send what you've got and we'll chase the rest on WhatsApp.</p>
-</div>
+<div class="page">
+  <div class="page-tag">Join the Network</div>
+  <h1 class="page-title">Get Hermia<br><em>sending you jobs.</em></h1>
+  <p class="page-sub">Tell us what you do and where you work. You'll be live and receiving repair jobs straight to your phone — no chasing leads.</p>
 
-<div class="form-shell">
-  <div class="form-card" id="form-card">
+  <div class="flow-steps">
+    <div class="flow-step active"><span class="n">1</span> Apply</div>
+    <div class="flow-line"></div>
+    <div class="flow-step"><span class="n">2</span> Agreement</div>
+    <div class="flow-line"></div>
+    <div class="flow-step"><span class="n">3</span> Go live</div>
+  </div>
 
-    <!-- 1. BUSINESS -->
-    <div class="form-section">
-      <div class="fs-head">
-        <div class="fs-num">1</div>
-        <div>
-          <div class="fs-title">Your business</div>
-          <div class="fs-sub">Who we're building for</div>
+  <div class="form-card">
+    <div id="form-view">
+
+      <div class="field-row">
+        <div class="field">
+          <label>Full name</label>
+          <input type="text" id="name" placeholder="Jane Smith" required>
+        </div>
+        <div class="field">
+          <label>WhatsApp number</label>
+          <div class="phone-wrap">
+            <span class="phone-prefix">🇦🇺 +61</span>
+            <input type="tel" id="phone" placeholder="400 000 000" required>
+          </div>
         </div>
       </div>
-      <div class="field-row">
-        <div class="field"><label>Business Name</label><input type="text" id="f-business" placeholder="e.g. Tactics Reblocking"></div>
-        <div class="field"><label>Your Name</label><input type="text" id="f-name" placeholder="e.g. Alex"></div>
-      </div>
-      <div class="field-row">
-        <div class="field"><label>Phone</label><input type="tel" id="f-phone" placeholder="04xx xxx xxx"></div>
-        <div class="field"><label>Email</label><input type="email" id="f-email" placeholder="you@business.com.au"></div>
-      </div>
+
       <div class="field">
-        <label>What's your trade?</label>
-        <select id="f-trade">
-          <option value="">Select your trade…</option>
-          <option>Restumping / Reblocking / Underpinning</option>
-          <option>Foundation &amp; Structural Repair</option>
-          <option>Concreting</option>
-          <option>Building / Construction</option>
-          <option>Waterproofing</option>
-          <option>Other trade</option>
+        <label>Trade / specialty</label>
+        <select id="trade" required>
+          <option value="" disabled selected>What do you do?</option>
+          <option value="Plumbing">Plumbing</option>
+          <option value="Electrical">Electrical</option>
+          <option value="Roofing">Roofing</option>
+          <option value="Air Conditioning">Air conditioning</option>
+          <option value="Carpentry">Carpentry</option>
+          <option value="Painting">Painting</option>
+          <option value="Tiling">Tiling</option>
+          <option value="General Maintenance">General maintenance</option>
+          <option value="Multi-trade">Multi-trade</option>
         </select>
       </div>
-      <div class="field-row">
-        <div class="field"><label>ABN <span class="opt">(optional)</span></label><input type="text" id="f-abn" placeholder="xx xxx xxx xxx"></div>
-        <div class="field"><label>Licence Number <span class="opt">(optional)</span></label><input type="text" id="f-licence" placeholder="e.g. DB-L 12345"></div>
+
+      <div class="field">
+        <label>Jobs you can take per week</label>
+        <select id="capacity" required>
+          <option value="" disabled selected>Select capacity</option>
+          <option value="1–5">1–5 jobs</option>
+          <option value="5–15">5–15 jobs</option>
+          <option value="15–30">15–30 jobs</option>
+          <option value="30+">30+ jobs</option>
+        </select>
       </div>
+
+      <button class="submit-btn" type="button" id="submitBtn" onclick="handleSubmit()">Apply to Join →</button>
+      <p class="form-note">No email back-and-forth — you go straight to the agreement.</p>
     </div>
 
-    <!-- 2. YOUR WEBSITE -->
-    <div class="form-section">
-      <div class="fs-head">
-        <div class="fs-num">2</div>
-        <div>
-          <div class="fs-title">Your website</div>
-          <div class="fs-sub">What you've already got — it's fine if the answer is "nothing"</div>
-        </div>
-      </div>
-      <div class="field">
-        <label>Do you have a domain? (e.g. yourbusiness.com.au)</label>
-        <div class="choice-row">
-          <label class="choice"><input type="radio" name="domain" value="yes" onchange="toggleCond('domain-field', true)"><span>Yes, I have one</span></label>
-          <label class="choice"><input type="radio" name="domain" value="no" onchange="toggleCond('domain-field', false)"><span>No — sort one for me</span></label>
-        </div>
-        <div class="conditional" id="domain-field">
-          <input type="text" id="f-domain" placeholder="yourbusiness.com.au — and where it's registered if you know (GoDaddy, Crazy Domains…)">
-        </div>
-      </div>
-      <div class="field">
-        <label>Do you have an existing website?</label>
-        <div class="choice-row">
-          <label class="choice"><input type="radio" name="oldsite" value="yes" onchange="toggleCond('oldsite-field', true)"><span>Yes — rebuild it</span></label>
-          <label class="choice"><input type="radio" name="oldsite" value="no" onchange="toggleCond('oldsite-field', false)"><span>No — starting fresh</span></label>
-        </div>
-        <div class="conditional" id="oldsite-field">
-          <input type="text" id="f-oldsite" placeholder="Current website address">
-        </div>
-      </div>
-      <div class="field">
-        <label>Got a logo?</label>
-        <div class="choice-row">
-          <label class="choice"><input type="radio" name="logo" value="Yes"><span>Yes</span></label>
-          <label class="choice"><input type="radio" name="logo" value="Sort of — needs work"><span>Sort of</span></label>
-          <label class="choice"><input type="radio" name="logo" value="No — need one"><span>No — need one</span></label>
-        </div>
-      </div>
-      <div class="field">
-        <label>Got photos of your jobs? (before/afters are gold)</label>
-        <div class="choice-row">
-          <label class="choice"><input type="radio" name="photos" value="Yes, plenty"><span>Yes, plenty</span></label>
-          <label class="choice"><input type="radio" name="photos" value="A few"><span>A few</span></label>
-          <label class="choice"><input type="radio" name="photos" value="Not really"><span>Not really</span></label>
-        </div>
-      </div>
-      <div class="field">
-        <label>Services you offer</label>
-        <textarea id="f-services" placeholder="e.g. Restumping, reblocking, underpinning, house levelling, subfloor repairs…"></textarea>
-      </div>
-      <div class="field">
-        <label>Suburbs / areas you cover</label>
-        <input type="text" id="f-areas" placeholder="e.g. All of Melbourne west — Footscray, Sunshine, Werribee…">
-      </div>
+    <div class="verify" id="verify-view">
+      <div class="v-spinner"></div>
+      <div class="v-tag">Hermia · Repairs Network</div>
+      <h2>Reviewing your application</h2>
+      <ul class="v-steps">
+        <li id="vs1"><span class="vdot"></span> Validating your details</li>
+        <li id="vs2"><span class="vdot"></span> Checking trade availability</li>
+        <li id="vs3"><span class="vdot"></span> Preparing your agreement</li>
+      </ul>
     </div>
-
-    <!-- 3. PACKAGE -->
-    <div class="form-section">
-      <div class="fs-head">
-        <div class="fs-num">3</div>
-        <div>
-          <div class="fs-title">Pick your package</div>
-          <div class="fs-sub">Same site either way — the difference is what happens to your enquiries</div>
-        </div>
-      </div>
-      <div class="pkg-row">
-        <label class="pkg">
-          <input type="radio" name="package" value="Website — $800 setup + $30/month">
-          <span class="pkg-body">
-            <span class="pkg-name">Website</span>
-            <span class="pkg-price">$30<small> /month</small></span>
-            <span class="pkg-setup">+ $800 one-time setup</span>
-            <span class="pkg-desc">Professional site, hosting, domain &amp; updates all managed for you.</span>
-          </span>
-        </label>
-        <label class="pkg">
-          <input type="radio" name="package" value="Website + Lead System — $800 setup + $260/month">
-          <span class="pkg-body">
-            <span class="pkg-name">Website + Lead System</span>
-            <span class="pkg-price">$260<small> /month</small></span>
-            <span class="pkg-setup">+ $800 one-time setup</span>
-            <span class="pkg-desc">The site, plus every missed call and enquiry answered, qualified and sent to your phone. 3-day free trial on the lead system.</span>
-          </span>
-        </label>
-      </div>
-      <div class="field" style="margin-top:18px;">
-        <label>Anything else we should know? <span class="opt">(optional)</span></label>
-        <textarea id="f-notes" placeholder="Anything about your business, competitors you like the look of, deadlines…"></textarea>
-      </div>
-    </div>
-
-    <div class="submit-wrap">
-      <button class="btn-submit" onclick="submitApp()">Send My Application →</button>
-      <div class="error-msg" id="err-msg">Please fill in your business name, your name, and a phone number — we need those to start.</div>
-      <div class="submit-note">This opens your email with everything pre-filled — just hit send.<br>Logo &amp; photos come after: we'll reply with a WhatsApp number to send them to.</div>
-    </div>
-
   </div>
 
-  <!-- SUCCESS -->
-  <div class="success-card" id="success-card">
-    <div class="success-icon">✓</div>
-    <h2>Application ready</h2>
-    <p>Your email should have opened with everything filled in — <strong>just press send.</strong> If it didn't open, copy your application below and email it to <strong>capital@hermia.au</strong>.</p>
-    <div class="copy-box" id="copy-box"></div>
-    <button class="btn-copy" onclick="copyApp()">Copy Application</button>
+  <div class="security-footer" id="security-notice">
+    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+    <p><strong>Your details are safe:</strong> We use bank-grade encryption and never share your personal information with third parties. Only verified Hermia clients can see your trade profile.</p>
   </div>
 </div>
 
-<footer>
-  <div class="footer-legal">
-    <a href="mailto:capital@hermia.au">capital@hermia.au</a> &nbsp;·&nbsp; hermia.au<br>
-    © 2026 Hermia · ABN 75 434 177 026
-  </div>
-</footer>
-
 <script>
-function toggleCond(id, show){
-  document.getElementById(id).classList.toggle('show', show);
+const WEBHOOK_URL = 'https://hook.eu1.make.com/3hq3jwbtjc6afnfem9rhshxwqlyx838j';
+const CONTRACT_URL = 'contract.html';
+
+function advance(id, delay) {
+  setTimeout(() => document.getElementById(id).classList.add('done'), delay);
 }
-function radioVal(name){
-  const el = document.querySelector(`input[name="${name}"]:checked`);
-  return el ? el.value : '—';
-}
-function val(id){
-  return (document.getElementById(id).value || '').trim() || '—';
-}
-let appText = '';
-function submitApp(){
-  const business = val('f-business');
-  const name = val('f-name');
-  const phone = val('f-phone');
-  if(business === '—' || name === '—' || phone === '—'){
-    document.getElementById('err-msg').classList.add('show');
-    return;
-  }
-  document.getElementById('err-msg').classList.remove('show');
 
-  const domainAns = radioVal('domain');
-  const domainLine = domainAns === 'yes' ? `Yes — ${val('f-domain')}` : (domainAns === 'no' ? 'No — needs one sorted' : '—');
-  const oldAns = radioVal('oldsite');
-  const oldLine = oldAns === 'yes' ? `Yes — ${val('f-oldsite')}` : (oldAns === 'no' ? 'No — starting fresh' : '—');
+async function handleSubmit() {
+  const name     = document.getElementById('name').value.trim();
+  const phoneRaw = document.getElementById('phone').value.trim();
+  const trade    = document.getElementById('trade').value;
+  const capacity = document.getElementById('capacity').value;
 
-  appText =
-`WEBSITE APPLICATION — ${business}
+  if (!name)     { document.getElementById('name').focus();     return; }
+  if (!phoneRaw) { document.getElementById('phone').focus();    return; }
+  if (!trade)    { document.getElementById('trade').focus();    return; }
+  if (!capacity) { document.getElementById('capacity').focus(); return; }
 
-— BUSINESS —
-Business name: ${business}
-Contact name: ${name}
-Phone: ${phone}
-Email: ${val('f-email')}
-Trade: ${val('f-trade')}
-ABN: ${val('f-abn')}
-Licence: ${val('f-licence')}
+  document.getElementById('submitBtn').disabled = true;
 
-— WEBSITE —
-Domain: ${domainLine}
-Existing site: ${oldLine}
-Logo: ${radioVal('logo')}
-Job photos: ${radioVal('photos')}
-Services: ${val('f-services')}
-Areas covered: ${val('f-areas')}
+  const applicant = {
+    market: 'Australia',
+    name,
+    phone:        '+61 ' + phoneRaw,
+    trade,
+    capacity,
+    submitted_at: new Date().toISOString(),
+    source:       'hermia-repairs-apply'
+  };
 
-— PACKAGE —
-Selected: ${radioVal('package')}
-Notes: ${val('f-notes')}`;
+  try {
+    sessionStorage.setItem('hermia_applicant', JSON.stringify(applicant));
+    sessionStorage.setItem('hermia_name',   name);
+    sessionStorage.setItem('hermia_phone',  '+61 ' + phoneRaw);
+    sessionStorage.setItem('hermia_market', 'Australia');
+  } catch(e) {}
 
-  document.getElementById('copy-box').innerText = appText;
-  document.getElementById('form-card').style.display = 'none';
-  document.getElementById('success-card').classList.add('show');
-  window.scrollTo({top: 0, behavior: 'smooth'});
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'repairs-application', ...applicant })
+    });
+  } catch(e) {}
 
-  const subject = encodeURIComponent(`Website Application — ${business}`);
-  const body = encodeURIComponent(appText);
-  window.location.href = `mailto:capital@hermia.au?subject=${subject}&body=${body}`;
-}
-function copyApp(){
-  navigator.clipboard.writeText(appText).then(()=>{
-    const btn = document.querySelector('.btn-copy');
-    btn.innerText = 'Copied ✓';
-    setTimeout(()=>{ btn.innerText = 'Copy Application'; }, 2000);
-  });
+  document.getElementById('form-view').style.display = 'none';
+  document.getElementById('security-notice').style.display = 'none';
+  document.getElementById('verify-view').classList.add('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  advance('vs1', 550);
+  advance('vs2', 1200);
+  advance('vs3', 1850);
+  setTimeout(() => { window.location.href = CONTRACT_URL; }, 2500);
 }
 </script>
 </body>
