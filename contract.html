@@ -54,15 +54,13 @@
     .checkbox-row input{margin-top:3px;accent-color:var(--gold);width:20px;height:20px;flex-shrink:0;}
     .checkbox-row span{color:var(--soft);font-size:14.5px;line-height:1.65;font-weight:300;}
     .checkbox-row span b{color:var(--cream);font-weight:600;}
-    .country-picker{display:none;}
-    .country-picker.visible{display:block;}
+    .pay-btn-wrap{display:none;}
+    .pay-btn-wrap.visible{display:block;}
     .pay-btn{position:relative;overflow:hidden;display:block;text-align:center;padding:22px;border-radius:14px;font-weight:700;text-decoration:none;margin-top:14px;transition:all 0.3s;font-size:15px;cursor:pointer;width:100%;font-family:'DM Sans',sans-serif;letter-spacing:1.5px;text-transform:uppercase;}
     .btn-gold{background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#1a1408;border:none;box-shadow:0 10px 28px rgba(201,163,91,0.3);}
     .btn-gold::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,0.55),transparent);transform:skewX(-18deg);transition:left 0.6s;}
     .btn-gold:hover{filter:brightness(1.07);transform:translateY(-3px);box-shadow:0 14px 36px rgba(201,163,91,0.42);}
     .btn-gold:hover::after{left:150%;}
-    .btn-outline{background:transparent;color:var(--gold);border:1px solid var(--border-hi);}
-    .btn-outline:hover{background:var(--gold-dim);border-color:var(--gold);transform:translateY(-2px);}
     #validationWarning,#sendingMsg{font-size:14px;margin-top:20px;text-align:center;font-weight:500;padding:12px;border-radius:10px;}
     #validationWarning{color:#e07070;background:rgba(224,112,112,0.1);border:1px solid rgba(224,112,112,0.3);display:none;}
     #sendingMsg{color:var(--gold);background:var(--gold-dim);border:1px solid var(--border-hi);display:none;}
@@ -85,20 +83,20 @@
 
   <div class="prepared" id="preparedBanner">
     <span class="dot"></span>
-    <span>Prepared for <b id="preparedName">you</b><span id="preparedAgency"></span></span>
+    <span>Prepared for <b id="preparedName">you</b></span>
   </div>
 
   <h2><span class="clause-no">1</span> The Parties</h2>
-  <p>This Agreement is entered into between <strong>Hermia</strong> ("Provider", ABN 75 434 177 026) and the Client identified during sign-up. By proceeding, the Client agrees to receive Hermia's lead qualification software on a month-to-month subscription basis.</p>
+  <p>This Agreement is entered into between <strong>Hermia</strong> ("Provider", ABN 75 434 177 026) and the Client identified during sign-up. By proceeding, the Client agrees to receive Hermia's AI repair intake software on a month-to-month subscription basis.</p>
 
-  <h2><span class="clause-no">2</span> Hermia Lead Prioritisation Software</h2>
-  <p>The Provider delivers a proprietary automated system designed to intercept, read, and instantly respond to the Client's <strong>existing inbound enquiries</strong> via SMS and WhatsApp. The system functions explicitly as an analytics and triage tool: parsing incoming message data, validating intent, scoring priority (Hot/Warm/Cold), and identifying enquirers prepared to transact immediately so that the Client can avoid wasting resources on long-term or stagnant leads.</p>
+  <h2><span class="clause-no">2</span> Hermia Repair Intake Software</h2>
+  <p>The Provider delivers a proprietary automated system designed to intercept and instantly respond to the Client's <strong>existing inbound repair enquiries</strong> via WhatsApp. When a homeowner submits a contact form, Hermia moves the conversation to WhatsApp and collects: urgency level (Emergency, Critical, or Standard), property address, photos of the damage, homeowner availability, a description of the issue (text or voice note), and budget. All information is automatically structured and pushed directly into the Client's <strong>SimPro</strong> account as a fully briefed customer record and calendar job — ready to action with no manual data entry.</p>
 
   <h2><span class="clause-no">3</span> Pricing</h2>
   <div class="highlight-box">
     <div class="price-row">
       <span>Professional Setup &amp; Integration</span>
-      <span class="strike">$1,700 AUD / AED 2,600</span>
+      <span class="strike">$1,700 AUD</span>
     </div>
     <div class="price-row special">
       <span>Launch Offer</span>
@@ -107,7 +105,7 @@
     <div style="height:1px;background:var(--border);margin:20px 0;"></div>
     <div class="price-row">
       <strong>Monthly Software Access</strong>
-      <strong>$260 AUD / AED 1,400</strong>
+      <strong>$260 AUD / month</strong>
     </div>
   </div>
 
@@ -120,16 +118,16 @@
   <p>Cancellations must be made at least <strong>48 hours before</strong> the next billing date to avoid further charges.</p>
 
   <h2><span class="clause-no">5</span> Compliance &amp; Security</h2>
-  <p>The Provider maintains all communication infrastructure to meet Australian and UAE telecommunication standards. This includes the use of dedicated mobile numbers to ensure 100% deliverability and compliance with the <em>Australian Privacy Act 1988</em> and <em>UAE Data Law No. 45/2021</em>.</p>
+  <p>The Provider maintains all communication infrastructure to meet Australian telecommunication standards. This includes the use of dedicated mobile numbers to ensure 100% deliverability and full compliance with the <em>Australian Privacy Act 1988</em> and the <em>Spam Act 2003</em> (Cth). All data is processed on secure, enterprise-grade infrastructure.</p>
 
-  <h2><span class="clause-no">6</span> Absolute Lead Generation Disclaimer</h2>
-  <p><strong>Hermia does not generate marketing leads, run ad campaigns, or source cold business prospects.</strong> The Client is entirely responsible for driving their own volume of organic or paid property enquiries. Hermia's sole liability is processing, parsing, and triaging the active flow of enquiries generated directly by the Client. The Provider is not responsible for baseline marketplace shifts, final agent conversion rates, or transactional outcomes.</p>
+  <h2><span class="clause-no">6</span> Absolute Enquiry Generation Disclaimer</h2>
+  <p><strong>Hermia does not generate marketing leads, run ad campaigns, or source new repair job requests.</strong> The Client is entirely responsible for driving their own volume of inbound enquiries. Hermia's sole function is processing, qualifying, and routing the active flow of enquiries generated directly by the Client. The Provider is not responsible for baseline enquiry volume, final booking conversion rates, or transactional outcomes.</p>
 
-  <h2><span class="clause-no">7</span> Lead Data &amp; Consent</h2>
-  <p>The Client warrants that they have obtained all necessary consents from property enquirers before passing their contact details to Hermia for processing. The Client is solely responsible for compliance with the <em>Spam Act 2003</em> (Cth), the <em>Australian Privacy Act 1988</em>, and any applicable UAE telecommunications regulations in relation to lead consent. Hermia processes lead data solely as a service provider acting on the Client's instructions.</p>
+  <h2><span class="clause-no">7</span> Enquiry Data &amp; Consent</h2>
+  <p>The Client warrants that they have obtained all necessary consents from homeowners before passing their contact details to Hermia for processing. The Client is solely responsible for compliance with the <em>Spam Act 2003</em> (Cth) and the <em>Australian Privacy Act 1988</em> in relation to enquirer consent. Hermia processes homeowner data solely as a service provider acting on the Client's instructions.</p>
 
   <h2><span class="clause-no">8</span> Intellectual Property</h2>
-  <p>Hermia's conversation flows, qualification logic, scoring methodology, and system architecture are proprietary trade secrets owned exclusively by Hermia. The Client may not reproduce, copy, share, reverse engineer, or resell any part of the Hermia system. Breach of this clause entitles Hermia to immediate termination without refund.</p>
+  <p>Hermia's conversation flows, qualification logic, triage methodology, and system architecture are proprietary trade secrets owned exclusively by Hermia. The Client may not reproduce, copy, share, reverse engineer, or resell any part of the Hermia system. Breach of this clause entitles Hermia to immediate termination without refund.</p>
 
   <h2><span class="clause-no">9</span> Governing Law</h2>
   <p>This Agreement is governed by the laws of Victoria, Australia. Any disputes will be subject to the exclusive jurisdiction of the courts of Victoria.</p>
@@ -142,7 +140,9 @@
       <span id="agreeText">I have read and agree to the terms and conditions of this Service Agreement. I confirm my agreement is accurate and constitutes my electronic signature, dated <span id="todayDate"></span>.</span>
     </label>
 
-    <div class="country-picker" id="countryPicker"></div>
+    <div class="pay-btn-wrap" id="payBtnWrap">
+      <button class="pay-btn btn-gold" onclick="handlePayment()">🇦🇺 Start Free Trial — $260 AUD / month</button>
+    </div>
 
     <p id="validationWarning"></p>
     <p id="sendingMsg">Saving your agreement — redirecting to secure payment ✦</p>
@@ -150,7 +150,7 @@
 
   <footer>
     © 2026 Hermia · ABN 75 434 177 026<br>
-    Hermia is independent software and is not affiliated with your existing CRMs or external applications. All trademarks belong to their respective owners.<br><br>
+    Hermia is independent software and is not affiliated with SimPro Software Pty Ltd or any other third-party platform. All trademarks belong to their respective owners.<br><br>
     <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms.html">Terms of Service</a>
   </footer>
 
@@ -159,82 +159,59 @@
 <script>
   const WEBHOOK_URL = 'https://hook.eu1.make.com/55y5lsql5rmr8ju9cmlt9o5115q784ay';
   const STRIPE_AU   = 'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04';
-  const STRIPE_UAE  = 'https://buy.stripe.com/cNi5kFdvPdeY2W6cUA9EI05';
 
   let applicant = {};
   try { applicant = JSON.parse(sessionStorage.getItem('hermia_applicant') || '{}'); } catch(e){}
-  const A_NAME   = applicant.name   || sessionStorage.getItem('hermia_name')   || '';
-  const A_PHONE  = applicant.phone  || sessionStorage.getItem('hermia_phone')  || '';
-  const A_EMAIL  = applicant.email  || sessionStorage.getItem('hermia_email')  || '';
-  const A_AGENCY = applicant.agency || sessionStorage.getItem('hermia_agency') || '';
-  const A_MARKET = applicant.market || sessionStorage.getItem('hermia_market') || '';
+  const A_NAME  = applicant.name  || sessionStorage.getItem('hermia_name')  || '';
+  const A_PHONE = applicant.phone || sessionStorage.getItem('hermia_phone') || '';
+  const A_EMAIL = applicant.email || sessionStorage.getItem('hermia_email') || '';
 
   const today = new Date();
-  document.getElementById('todayDate').textContent =
-    today.toLocaleDateString('en-AU', { day:'numeric', month:'long', year:'numeric' });
+  const todayFormatted = today.toLocaleDateString('en-AU', { day:'numeric', month:'long', year:'numeric' });
+  document.getElementById('todayDate').textContent = todayFormatted;
 
   if (A_NAME) {
     document.getElementById('preparedName').textContent = A_NAME;
-    if (A_AGENCY) document.getElementById('preparedAgency').textContent = ' · ' + A_AGENCY;
     document.getElementById('preparedBanner').classList.add('show');
     document.getElementById('agreeText').innerHTML =
-      'I, <b>' + A_NAME + '</b>, have read and agree to the terms of this Service Agreement. I confirm this constitutes my electronic signature, dated <span id="todayDate2">' +
-      today.toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'}) + '</span>.';
+      'I, <b>' + A_NAME + '</b>, have read and agree to the terms of this Service Agreement. I confirm this constitutes my electronic signature, dated ' + todayFormatted + '.';
   }
 
   const checkbox   = document.getElementById('agreeCheckbox');
-  const picker     = document.getElementById('countryPicker');
+  const payBtnWrap = document.getElementById('payBtnWrap');
   const warning    = document.getElementById('validationWarning');
   const sendingMsg = document.getElementById('sendingMsg');
 
-  function buildButtons(){
-    if (A_MARKET === 'Australia') {
-      picker.innerHTML = '<button class="pay-btn btn-gold" onclick="handlePayment(\'AU\')">🇦🇺 Start Free Trial — $260 AUD / month</button>';
-    } else if (A_MARKET === 'UAE') {
-      picker.innerHTML = '<button class="pay-btn btn-gold" onclick="handlePayment(\'UAE\')">🇦🇪 Start Free Trial — AED 1,400 / month</button>';
-    } else {
-      picker.innerHTML =
-        '<button class="pay-btn btn-gold" onclick="handlePayment(\'AU\')">🇦🇺 Start Free Trial — $260 AUD / month</button>' +
-        '<button class="pay-btn btn-outline" onclick="handlePayment(\'UAE\')">🇦🇪 Start Free Trial — AED 1,400 / month</button>';
-    }
-  }
-  buildButtons();
-
   checkbox.addEventListener('change', function () {
-    if (this.checked) { picker.classList.add('visible'); warning.style.display='none'; }
-    else { picker.classList.remove('visible'); }
+    if (this.checked) { payBtnWrap.classList.add('visible'); warning.style.display = 'none'; }
+    else { payBtnWrap.classList.remove('visible'); }
   });
 
-  async function handlePayment(country) {
-    const stripeUrl = country === 'AU' ? STRIPE_AU : STRIPE_UAE;
-    const plan      = country === 'AU' ? '$260 AUD/month' : 'AED 1,400/month';
-
+  async function handlePayment() {
     sendingMsg.style.display = 'block';
 
     const payload = {
       full_name:        A_NAME  || 'Agreed via Checkbox',
       phone:            A_PHONE || '',
       email:            A_EMAIL || '',
-      agency:           A_AGENCY || '',
-      country:          country,
-      plan:             plan,
+      country:          'Australia',
+      plan:             '$260 AUD/month',
       signed_at:        new Date().toISOString(),
       agreed_to_terms:  true,
-      contract_version: '1.4'
+      contract_version: '1.5'
     };
 
     try {
       await fetch(WEBHOOK_URL, {
-        method:'POST',
-        headers:{ 'Content-Type':'application/json' },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-    } catch (e) {}
+    } catch(e) {}
 
-    setTimeout(() => { window.location.href = stripeUrl; }, 1200);
+    setTimeout(() => { window.location.href = STRIPE_AU; }, 1200);
   }
 </script>
 
 </body>
 </html>
-
