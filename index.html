@@ -253,6 +253,20 @@ nav.visible{opacity:1;pointer-events:auto}
 .partner-section h3 em{font-style:italic;color:var(--gl)}
 .partner-section p{font-size:14.5px;color:var(--soft);line-height:1.65;max-width:520px}
 
+/* Demo + Simpro partner — side by side */
+.combo-section{padding:80px 48px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg3)}
+.combo-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.08fr .92fr;gap:24px;align-items:stretch}
+.combo-card{position:relative;overflow:hidden;border-radius:20px;padding:46px 40px;border:1px solid var(--bhi);box-shadow:0 24px 60px rgba(0,0,0,.4);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.combo-card::before,.combo-card::after{content:"";position:absolute;width:13px;height:13px;border-color:var(--gold);border-style:solid;opacity:.85}
+.combo-card::before{top:14px;right:14px;border-width:1px 1px 0 0}
+.combo-card::after{bottom:14px;left:14px;border-width:0 0 1px 1px}
+.combo-card.demo-card{background:linear-gradient(135deg,rgba(196,150,60,.07),var(--card))}
+.combo-card.partner-card{background:linear-gradient(150deg,#130c03,#111)}
+.combo-card.partner-card .partner-badge-img{margin-bottom:6px}
+.combo-card.partner-card .eyebrow{margin-bottom:10px}
+.combo-card .triage-h{margin-bottom:13px}
+@media(max-width:900px){.combo-section{padding:56px 24px}.combo-grid{grid-template-columns:1fr}.combo-card{padding:40px 26px}}
+
 /* Pricing */
 .pricing-section{padding:88px 48px;text-align:center;background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(196,150,60,.055),transparent 62%)}
 .pricing-h{font-family:var(--display);font-size:clamp(32px,4.2vw,50px);font-weight:600;color:#fff;letter-spacing:-.4px;margin-bottom:12px}
@@ -517,30 +531,33 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     </div>
   </section>
 
-  <!-- SIMPRO PARTNER -->
-  <section class="partner-section" id="partner">
-    <div class="partner-inner">
-      <img class="partner-badge-img" src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Registered Partner">
-      <div class="eyebrow">Trusted integration</div>
-      <h3>A registered <em>Simpro Partner.</em></h3>
-      <p>Hermia is an official, registered Simpro partner &mdash; built to feed clean, structured job data straight into the Simpro workflow your business already runs on.</p>
-    </div>
-  </section>
+  <!-- INTERACTIVE DEMO + SIMPRO PARTNER -->
+  <section class="combo-section" id="triage">
+    <div class="combo-grid">
 
-  <!-- LIVE TRIAGE TEASER -->
-  <section class="triage-section" id="triage">
-    <div class="triage-card">
-      <div class="triage-live"><span class="triage-live-dot"></span>Interactive Demo</div>
-      <h2 class="triage-h">See it happen. <em>Live.</em></h2>
-      <p class="triage-p">Click through Emergency, Critical, and Standard enquiries. Watch the WhatsApp conversation play out, the Simpro record populate field by field, and the calendar event get created.</p>
-      <div class="triage-steps">
-        <span class="tstep te">Emergency</span>
-        <span style="color:var(--muted);font-size:12px">&rarr;</span>
-        <span class="tstep tc">Critical</span>
-        <span style="color:var(--muted);font-size:12px">&rarr;</span>
-        <span class="tstep ts">Standard</span>
+      <!-- Left: interactive demo -->
+      <div class="combo-card demo-card">
+        <div class="triage-live"><span class="triage-live-dot"></span>Interactive Demo</div>
+        <h2 class="triage-h">See it happen. <em>Live.</em></h2>
+        <p class="triage-p">Click through Emergency, Critical, and Standard enquiries. Watch the WhatsApp conversation play out, the Simpro record populate field by field, and the calendar event get created.</p>
+        <div class="triage-steps">
+          <span class="tstep te">Emergency</span>
+          <span style="color:var(--muted);font-size:12px">&rarr;</span>
+          <span class="tstep tc">Critical</span>
+          <span style="color:var(--muted);font-size:12px">&rarr;</span>
+          <span class="tstep ts">Standard</span>
+        </div>
+        <a href="hermia_triage.html" class="btn-p">Run Live Triage &rarr;</a>
       </div>
-      <a href="hermia_triage.html" class="btn-p">Run Live Triage &rarr;</a>
+
+      <!-- Right: Simpro technology partner -->
+      <div class="combo-card partner-card" id="partner">
+        <img class="partner-badge-img" src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Registered Partner">
+        <div class="eyebrow">Trusted integration</div>
+        <h2 class="triage-h">A Simpro <em>Technology Partner.</em></h2>
+        <p class="triage-p">Hermia is a registered Simpro technology partner &mdash; we plug straight into the Simpro workflow your business already runs on, feeding it clean, structured job data.</p>
+      </div>
+
     </div>
   </section>
 
