@@ -347,7 +347,7 @@ footer{border-top:1px solid var(--border);padding:38px 48px;display:flex;align-i
   <button id="skip-btn">Skip intro</button>
 
   <!-- Scene 1: Alert -->
-  <div class="scene active" id="scene-alert">
+  <div class="scene" id="scene-alert">
     <div class="alert-box">
       <h1 class="alert-title">New <span class="gold">Homeowner</span> Enquiry</h1>
       <div class="alert-card">
@@ -407,7 +407,7 @@ footer{border-top:1px solid var(--border);padding:38px 48px;display:flex;align-i
   </div>
 
   <!-- Scene 4: Final Reveal -->
-  <div class="scene" id="scene-final">
+  <div class="scene active" id="scene-final">
     <div class="final-content">
       <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" class="final-logo" alt="Hermia">
       <h1 class="final-brand">HERMIA</h1>
@@ -626,6 +626,9 @@ async function runSequence() {
   var s3 = document.getElementById("scene-dashboard");
   var s4 = document.getElementById("scene-final");
 
+  await sleep(2000);
+  s4.classList.remove("active");
+  s1.classList.add("active");
   await sleep(3400);
   s1.classList.remove("active");
   s2.classList.add("active");
