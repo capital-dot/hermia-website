@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hermia | Simpro Integration</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@200;300;400;500;600&family=Playfair+Display:wght@400;700&display=swap');
+
+        :root {
+            --gold: #e6c27a;
+            --gold-dark: #b8860b;
+            --bg-dark: #050505;
+            --card-bg: rgba(15, 15, 15, 0.95);
+            --border-gold: rgba(230, 194, 122, 0.3);
+            --simpro-blue: #005696;
+            --white-premium: #fdfdfd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #111 0%, #000 100%);
+        }
+
+        /* ─── CINEMATIC SCENES ─── */
+        .scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s ease;
+        }
+
+        .scene.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ─── SCENE 1: ALERT ─── */
+        #scene-alert {
+            background: radial-gradient(circle at center, rgba(30, 30, 30, 0.8) 0%, #000 100%);
+        }
+
+        .alert-box {
+            text-align: center;
+            animation: fadeInBlur 1.5s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .alert-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 64px;
+            font-weight: 300;
+            letter-spacing: 12px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        .alert-title .gold {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .alert-card {
+            background: var(--card-bg);
+            border: 1px solid var(--gold);
+            padding: 60px;
+            border-radius: 4px;
+            max-width: 600px;
+            box-shadow: 0 0 80px rgba(230, 194, 122, 0.1), inset 0 0 40px rgba(230, 194, 122, 0.03);
+            position: relative;
+        }
+
+        .alert-label {
+            font-size: 12px;
+            letter-spacing: 5px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .alert-text {
+            font-size: 24px;
+            font-weight: 300;
+            line-height: 1.6;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: #f0f0f0;
+        }
+
+        .alert-line {
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 40px auto 0;
+        }
+
+        /* ─── SCENE 2: CHAT ─── */
+        #scene-chat {
+            background: radial-gradient(circle at center, #0d0d0d 0%, #000 100%);
+        }
+
+        .phone {
+            width: 380px;
+            height: 760px;
+            background: #080808;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 44px;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.9), 0 0 80px rgba(230, 194, 122, 0.08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .phone-header {
+            background: linear-gradient(180deg, #121212 0%, #080808 100%);
+            padding: 60px 24px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid rgba(230, 194, 122, 0.15);
+        }
+
+        .phone-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #222, #111);
+            border: 1px solid var(--gold);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 500;
+            color: var(--gold);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+        }
+
+        .phone-info { text-align: left; }
+        .phone-name { font-size: 18px; font-family: 'Cormorant Garamond', serif; font-weight: 600; letter-spacing: 1px; color: #fff; }
+        .phone-subtitle { font-size: 11px; letter-spacing: 1px; color: var(--gold); text-transform: uppercase; opacity: 0.8; margin-top: 2px; }
+
+        .phone-chat {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            scrollbar-width: none;
+        }
+
+        .message-group { display: flex; flex-direction: column; max-width: 85%; }
+        .message-group.incoming { align-self: flex-start; align-items: flex-start; }
+        .message-group.outgoing { align-self: flex-end; align-items: flex-end; }
+
+        .sender-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; color: rgba(255, 255, 255, 0.4); }
+        .message-group.outgoing .sender-label { color: var(--gold); }
+
+        .message {
+            padding: 14px 18px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.5;
+            font-weight: 300;
+            animation: messageReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .message.incoming { background: #1a1a1a; color: #e0e0e0; border: 1px solid rgba(255, 255, 255, 0.05); border-top-left-radius: 2px; }
+        .message.outgoing { background: linear-gradient(135deg, #1a1a1a 0%, #111 100%); color: #fff; border: 1px solid var(--border-gold); border-top-right-radius: 2px; }
+        .message img { width: 100%; border-radius: 12px; border: 1px solid var(--border-gold); margin-top: 5px; }
+
+        /* ─── SCENE 3: SIMPRO CRM DASHBOARD ─── */
+        #scene-dashboard {
+            background: #050505;
+        }
+
+        .crm-container {
+            width: 100%;
+            max-width: 1100px;
+            padding: 40px;
+            animation: fadeInBlur 1s ease-out;
+        }
+
+        .crm-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+        }
+
+        .crm-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .simpro-badge {
+            background: #fff;
+            color: #000;
+            padding: 6px 16px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 2px;
+        }
+
+        .crm-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 30px;
+        }
+
+        /* CRM Card */
+        .crm-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 4px;
+        }
+
+        .crm-label {
+            font-size: 10px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .crm-data-row {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 14px;
+        }
+
+        .crm-data-row:last-child { border-bottom: none; }
+
+        .crm-key { color: rgba(255, 255, 255, 0.4); text-transform: uppercase; letter-spacing: 1px; font-size: 11px; }
+        .crm-value { color: #fff; font-weight: 400; }
+
+        .status-tag {
+            background: rgba(230, 194, 122, 0.15);
+            color: var(--gold);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Calendar Card */
+        .calendar-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .calendar-widget {
+            margin-top: 10px;
+        }
+
+        .calendar-day {
+            background: var(--gold);
+            color: #000;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .cal-m { font-size: 10px; font-weight: 800; text-transform: uppercase; }
+        .cal-d { font-size: 24px; font-weight: 700; line-height: 1; }
+
+        .event-details {
+            border-left: 2px solid var(--gold);
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .event-time { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 5px; }
+        .event-title { font-size: 18px; font-weight: 600; margin-bottom: 5px; }
+        .event-loc { font-size: 12px; color: rgba(255, 255, 255, 0.5); }
+
+        .sync-footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 0.8; color: var(--gold); }
+            100% { opacity: 0.4; }
+        }
+
+        /* ─── SCENE 4: FINAL REVEAL (LUXURY BRANDING) ─── */
+        #scene-final {
+            background: radial-gradient(circle at center, #111 0%, #000 100%);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #scene-final::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 45%, rgba(230, 194, 122, 0.1) 50%, transparent 55%);
+            animation: shimmer 6s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .final-content {
+            text-align: center;
+            animation: fadeInBlur 2s ease-out;
+            position: relative;
+            z-index: 2;
+        }
+
+        .final-logo {
+            width: 160px;
+            margin-bottom: 40px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+        }
+
+        .final-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 130px;
+            font-weight: 700;
+            letter-spacing: 30px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff 0%, #888 45%, var(--gold) 50%, #888 55%, #fff 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        .final-tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            letter-spacing: 18px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        /* ─── ANIMATIONS ─── */
+        @keyframes fadeInBlur {
+            from { opacity: 0; filter: blur(20px); transform: translateY(20px); }
+            to { opacity: 1; filter: blur(0); transform: translateY(0); }
+        }
+
+        @keyframes messageReveal {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- SCENE 1: ALERT -->
+        <div class="scene active" id="scene-alert">
+            <div class="alert-box">
+                <h1 class="alert-title">New <span class="gold">Homeowner</span> Inquiry</h1>
+                <div class="alert-card">
+                    <div class="alert-label">Inquiry Received</div>
+                    <div class="alert-text">"Emergency: Main pipe burst in the kitchen. Urgent repair needed."</div>
+                    <div class="alert-line"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 2: CHAT -->
+        <div class="scene" id="scene-chat">
+            <div class="phone">
+                <div class="phone-header">
+                    <div class="phone-avatar">J</div>
+                    <div class="phone-info">
+                        <div class="phone-name">Homeowner</div>
+                        <div class="phone-subtitle">Jared Bocca</div>
+                    </div>
+                </div>
+                <div class="phone-chat" id="chat-box"></div>
+            </div>
+        </div>
+
+        <!-- SCENE 3: SIMPRO CRM -->
+        <div class="scene" id="scene-dashboard">
+            <div class="crm-container">
+                <div class="crm-header">
+                    <h2 class="crm-title">Simpro <span style="color: var(--gold)">Integration</span></h2>
+
+                </div>
+                
+                <div class="crm-grid">
+                    <!-- Mini CRM -->
+                    <div class="crm-card">
+                        <span class="crm-label">Customer Profile</span>
+                        <div class="crm-data-row">
+                            <span class="crm-key">Name</span>
+                            <span class="crm-value">Jared Bocca</span>
+                        </div>
+                        <div class="crm-data-row">
+                            <span class="crm-key">Phone</span>
+                            <span class="crm-value">+61 400 123 456</span>
+                        </div>
+                        <div class="crm-data-row">
+                            <span class="crm-key">Gmail</span>
+                            <span class="crm-value">jared.bocca@gmail.com</span>
+                        </div>
+                        <div class="crm-data-row">
+                            <span class="crm-key">Status</span>
+                            <span class="status-tag">Emergency</span>
+                        </div>
+                        <div class="crm-data-row">
+                            <span class="crm-key">Issue</span>
+                            <span class="crm-value">Main Kitchen Pipe Burst</span>
+                        </div>
+                        <div class="crm-data-row">
+                            <span class="crm-key">Address</span>
+                            <span class="crm-value">42 Brisbane Way, Brisbane QLD</span>
+                        </div>
+                    </div>
+
+                    <!-- Calendar -->
+                    <div class="calendar-card">
+                        <span class="crm-label">Event Calendar</span>
+                        <div class="calendar-widget">
+                            <div class="calendar-day">
+                                <span class="cal-m">JUN</span>
+                                <span class="cal-d">18</span>
+                            </div>
+                            <div class="event-details">
+                                <div class="event-time">14:30 - 15:30 (AEST)</div>
+                                <div class="event-title">Pipe Burst Repair</div>
+                                <div class="event-loc">Brisbane Residence</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sync-footer">
+                    Synced to your Simpro CRM and Event Calendar
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 4: FINAL REVEAL -->
+        <div class="scene" id="scene-final">
+            <div class="final-content">
+                <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" class="final-logo" alt="Hermia Logo">
+                <h1 class="final-brand">HERMIA</h1>
+                <p class="final-tagline">AI Intelligence</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = [
+            { type: 'hermia', text: "Hi, I'm Hermia from Company Sun. Is this an <strong>Emergency</strong>, <strong>Critical</strong>, or <strong>Standard</strong> repair?" },
+            { type: 'jared', text: "Emergency. We have a severe pipe burst." },
+            { type: 'hermia', text: "Understood. Can you send a quick photo of the damage?" },
+            { type: 'jared', image: "https://cdn-hmoif.nitrocdn.com/fYbXRiSEFRtFGxZPadPoOJtFkaGchcGt/assets/images/optimized/rev-2e5a667/www.waterleakdetection.net.au/wp-content/uploads/2020/09/burst-pipes.jpg" },
+            { type: 'hermia', text: "Got it. Briefly describe what's happening." },
+            { type: 'jared', text: "Main kitchen pipe burst; uncontrolled leak." },
+            { type: 'hermia', text: "Confirming address in Brisbane and your availability?" },
+            { type: 'jared', text: "42 Brisbane Way. Available now." },
+            { type: 'hermia', text: "Perfect. Details sent to the team. We'll be in touch shortly!" }
+        ];
+
+        async function playChat() {
+            const chatBox = document.getElementById('chat-box');
+            for (let msg of chatMessages) {
+                const messageGroup = document.createElement('div');
+                const isHermia = msg.type === 'hermia';
+                messageGroup.className = `message-group ${isHermia ? 'outgoing' : 'incoming'}`;
+                
+                const label = document.createElement('div');
+                label.className = 'sender-label';
+                label.textContent = isHermia ? "Hermia's AI Assistant" : "Homeowner";
+                
+                const messageEl = document.createElement('div');
+                messageEl.className = `message ${isHermia ? 'outgoing' : 'incoming'}`;
+                
+                if (msg.image) {
+                    messageEl.innerHTML = `<img src="${msg.image}" alt="Damage photo">`;
+                } else {
+                    messageEl.innerHTML = msg.text;
+                }
+                
+                messageGroup.appendChild(label);
+                messageGroup.appendChild(messageEl);
+                chatBox.appendChild(messageGroup);
+                
+                chatBox.scrollTop = chatBox.scrollHeight;
+                await new Promise(r => setTimeout(r, 2200));
+            }
+        }
+
+        async function runSequence() {
+            const scenes = {
+                alert: document.getElementById('scene-alert'),
+                chat: document.getElementById('scene-chat'),
+                dashboard: document.getElementById('scene-dashboard'),
+                final: document.getElementById('scene-final')
+            };
+
+            // Scene 1: Alert
+            await new Promise(r => setTimeout(r, 3500));
+            scenes.alert.classList.remove('active');
+
+            // Scene 2: Chat
+            scenes.chat.classList.add('active');
+            await playChat();
+            await new Promise(r => setTimeout(r, 1000));
+            scenes.chat.classList.remove('active');
+
+            // Scene 3: Dashboard (Simpro CRM)
+            scenes.dashboard.classList.add('active');
+            await new Promise(r => setTimeout(r, 7000));
+            scenes.dashboard.classList.remove('active');
+
+            // Scene 4: Final Reveal (Premium White)
+            scenes.final.classList.add('active');
+        }
+
+        window.addEventListener('load', runSequence);
+    </script>
+
+</body>
+</html>
