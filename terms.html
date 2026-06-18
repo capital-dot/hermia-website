@@ -207,13 +207,12 @@
     }
     .notice-box p strong { color:var(--cream); font-weight:500; }
 
-    .fees-grid {
-      display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px;
-    }
     .fee-card {
       background:var(--card); border:1px solid var(--border);
-      border-radius:12px; padding:22px;
+      border-radius:12px; padding:28px;
+      margin-top:8px;
       transition:border-color 0.25s;
+      max-width:320px;
     }
     .fee-card:hover { border-color:var(--border-strong); }
     .fee-zone {
@@ -222,7 +221,7 @@
     }
     .fee-amount {
       font-family:'Cormorant Garamond', serif;
-      font-size:28px; font-weight:700; color:#fff;
+      font-size:36px; font-weight:700; color:#fff;
       line-height:1; margin-bottom:6px;
     }
     .fee-period {
@@ -297,7 +296,6 @@
       .top-nav { padding:16px 20px; }
       .page-wrap { padding:120px 20px 80px; }
       .nav-badge { display:none; }
-      .fees-grid { grid-template-columns:1fr; }
       footer { padding:36px 20px 28px; }
       .footer-inner { flex-direction:column; align-items:flex-start; }
     }
@@ -355,10 +353,10 @@
   <div class="section" style="animation-delay:0.10s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">02</span><div class="section-rule"></div></div>
     <h2>Scope of Service <em>&amp; Disclaimer</em></h2>
-    <p>Hermia operates strictly as a <strong>Tier 0 automated backend data infrastructure and triage layer</strong>. The Service utilizes automated, template-driven SMS and WhatsApp logic gates to verify, filter, and structure existing incoming inquiries — spanning both real estate and production repair verticals — and route that intelligence into the Client's active CRM software.</p>
+    <p>Hermia operates strictly as a <strong>Tier 0 automated backend data infrastructure and triage layer</strong>. The Service utilizes automated, template-driven WhatsApp logic gates to verify, filter, and structure existing incoming enquiries from production repair and trade businesses, and route that intelligence directly into the Client's SimPro account.</p>
     <div class="notice-box">
       <div class="notice-label">⚑ Critical Disclaimer</div>
-      <p><strong>Hermia is not a lead generation platform, marketing agency, or public-facing advertisement provider.</strong> Hermia does not find, source, capture, or generate new leads, prospects, buyers, tenants, or repair job requests. The Client maintains sole operational and financial responsibility for running its own marketing assets and feeding inbound inquiry data streams into Hermia's technical infrastructure layer via secure webhooks. This applies equally to real estate brokerage operations and production repair trade businesses.</p>
+      <p><strong>Hermia is not a lead generation platform, marketing agency, or public-facing advertisement provider.</strong> Hermia does not find, source, capture, or generate new leads, prospects, or repair job requests. The Client maintains sole operational and financial responsibility for running its own marketing assets and feeding inbound enquiry data streams into Hermia's technical infrastructure layer via secure webhooks.</p>
     </div>
   </div>
 
@@ -368,12 +366,12 @@
   <div class="section" style="animation-delay:0.13s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">03</span><div class="section-rule"></div></div>
     <h2><em>Eligibility</em></h2>
-    <p>The Service is restricted exclusively to corporate entities and licensed operators lawfully operating in Australia and the United Arab Emirates (UAE). Eligible Clients include:</p>
+    <p>The Service is restricted exclusively to trade businesses and repair operators lawfully operating in Australia. Eligible Clients include:</p>
     <ul class="doc-list">
-      <li><strong>Real Estate:</strong> Licensed real estate brokerages or individual practitioners holding active statutory real estate authority.</li>
       <li><strong>Production Repairs:</strong> Registered trade businesses, contractors, and repair operators holding valid licensing and/or insurance for the trade services they provide.</li>
+      <li><strong>SimPro Users:</strong> Clients must hold an active SimPro subscription, as Hermia integrates exclusively with SimPro for job and calendar management.</li>
     </ul>
-    <p style="margin-top:16px;">By executing deployment, you represent and warrant that you are fully authorized to bind your business to this agreement and hold all relevant licenses and registrations required in your jurisdiction.</p>
+    <p style="margin-top:16px;">By executing deployment, you represent and warrant that you are fully authorized to bind your business to this agreement and hold all relevant licenses and registrations required under Australian law.</p>
   </div>
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
@@ -382,20 +380,12 @@
   <div class="section" style="animation-delay:0.16s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">04</span><div class="section-rule"></div></div>
     <h2>Infrastructure Fees <em>&amp; Settlement</em></h2>
-    <p>The following pricing applies across both the real estate and production repairs verticals. Fees are the same regardless of service type.</p>
-    <div class="fees-grid">
-      <div class="fee-card">
-        <div class="fee-zone">🇦🇺 Australia Zone</div>
-        <div class="fee-amount">$260</div>
-        <div class="fee-period">AUD per month</div>
-        <span class="fee-waiver">✓ AUD 1,700 setup fee waived</span>
-      </div>
-      <div class="fee-card">
-        <div class="fee-zone">🇦🇪 UAE Zone</div>
-        <div class="fee-amount">1,400</div>
-        <div class="fee-period">AED per month</div>
-        <span class="fee-waiver">✓ AED 2,600 setup fee waived</span>
-      </div>
+    <p>The following pricing applies to all production repair and trade Clients operating in Australia.</p>
+    <div class="fee-card">
+      <div class="fee-zone">🇦🇺 Australia</div>
+      <div class="fee-amount">$260</div>
+      <div class="fee-period">AUD per month</div>
+      <span class="fee-waiver">✓ AUD 1,700 setup fee waived</span>
     </div>
     <p style="margin-top:20px;">All financial handling is routed securely through enterprise payment processors. Initial environment configurations become non-refundable upon structural onboarding kickoff. Monthly recurring fees are non-refundable for the active billing block. Hermia reserves the right to adjust pricing with 30 days' electronic notice.</p>
   </div>
@@ -408,10 +398,10 @@
     <h2>Client Obligations <em>&amp; Liabilities</em></h2>
     <p>As a condition of using the platform infrastructure, the Client agrees to:</p>
     <ul class="doc-list">
-      <li>Provide and maintain secure API tokens and authorized CRM permissions necessary to process data payloads.</li>
-      <li>Act as the Data Controller and ensure all leads, buyers, tenants, or repair job requestors have provided informed consent before their data is transmitted to Hermia.</li>
+      <li>Provide and maintain secure SimPro API tokens and authorized permissions necessary to process and push data payloads into SimPro.</li>
+      <li>Act as the Data Controller and ensure all repair job requestors have provided informed consent before their data is transmitted to Hermia and stored in SimPro.</li>
       <li>Prevent any systematic reverse-engineering, decompilation, routing-logic scraping, or cloning of Hermia's proprietary Tier 0 logic workflows, filters, and operational methodology.</li>
-      <li>For production repair Clients: ensure all trade work coordinated through Hermia's job-routing infrastructure is performed by appropriately licensed and insured tradespeople in compliance with local building and safety codes.</li>
+      <li>Ensure all trade work coordinated through Hermia's job-routing infrastructure is performed by appropriately licensed and insured tradespeople in compliance with Australian building and safety codes.</li>
     </ul>
   </div>
 
@@ -421,7 +411,7 @@
   <div class="section" style="animation-delay:0.22s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">06</span><div class="section-rule"></div></div>
     <h2>Intellectual <em>Property Rights</em></h2>
-    <p>All structural workflow configurations, data filtering pathways, logic gates, hardcoded template structures, underlying code, and brand systems remain the exclusive, absolute intellectual property of Hermia. The Client receives a limited, revocable, non-transferable, non-assignable operating license to pass data streams through the architecture solely during an active paid subscription tier. This applies equally to real estate and production repair use cases.</p>
+    <p>All structural workflow configurations, data filtering pathways, logic gates, hardcoded template structures, underlying code, and brand systems remain the exclusive, absolute intellectual property of Hermia. The Client receives a limited, revocable, non-transferable, non-assignable operating license to pass data streams through the architecture solely during an active paid subscription. This license does not extend to any reproduction, resale, or redistribution of Hermia's systems.</p>
   </div>
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
@@ -430,7 +420,7 @@
   <div class="section" style="animation-delay:0.25s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">07</span><div class="section-rule"></div></div>
     <h2>Third-Party <em>Platform Independence</em></h2>
-    <p>Hermia functions independently. Hermia is not officially affiliated with, sanctioned by, or partnered with any real estate listing portals, repair job marketplaces, trade booking platforms, external CRM brand providers, global messaging applications, or web hosting architectures. All corporate trademarks, product symbols, and platform names visible in integrations belong entirely to their respective third-party owners.</p>
+    <p>Hermia functions independently. Hermia is not officially affiliated with, sanctioned by, or partnered with SimPro Software Pty Ltd or any other third-party platform. All corporate trademarks, product symbols, and platform names visible in integrations belong entirely to their respective owners. The SimPro integration is provided as a technical data push and does not imply any commercial partnership.</p>
   </div>
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
@@ -441,7 +431,7 @@
     <h2>Limitation <em>of Liability</em></h2>
     <div class="notice-box">
       <div class="notice-label">⚑ Financial Exclusion</div>
-      <p>The Service is provided on an "as is" and "as available" basis. To the maximum extent permitted by law, Hermia shall not be liable for any indirect, consequential, incidental, special, or punitive damages — explicitly including lost real estate commissions, unsecured property sales, loss of client brokerage revenue, listing cancellations, missed repair job revenue, trade job cancellations, contractor disputes, property damage arising from repair works, system latency, or inbound metric drops. Hermia's total combined liability for any dispute is strictly limited to fees paid by the Client in the three (3) months immediately preceding the legal claim.</p>
+      <p>The Service is provided on an "as is" and "as available" basis. To the maximum extent permitted by law, Hermia shall not be liable for any indirect, consequential, incidental, special, or punitive damages — explicitly including missed repair job revenue, trade job cancellations, contractor disputes, property damage arising from repair works, SimPro sync failures, system latency, or inbound enquiry drop-off. Hermia's total combined liability for any dispute is strictly limited to fees paid by the Client in the three (3) months immediately preceding the legal claim.</p>
     </div>
   </div>
 
@@ -451,7 +441,7 @@
   <div class="section" style="animation-delay:0.31s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">09</span><div class="section-rule"></div></div>
     <h2>Absolute <em>Indemnification</em></h2>
-    <p>The Client agrees to fully indemnify, defend, and hold harmless Hermia and its operational developers against any and all legal suits, monetary fines, regulatory judgments, or administrative actions resulting from: (a) Client failure to secure proper user opt-in consent; (b) violations of local real estate advertising laws or trade licensing regulations; (c) transactional friction or property value discrepancies arising between the Client and its prospects; or (d) any injury, property damage, defective workmanship, or regulatory breach arising from repair works coordinated through the platform.</p>
+    <p>The Client agrees to fully indemnify, defend, and hold harmless Hermia and its operational developers against any and all legal suits, monetary fines, regulatory judgments, or administrative actions resulting from: (a) Client failure to secure proper user opt-in consent; (b) violations of Australian trade licensing or consumer protection regulations; (c) any injury, property damage, defective workmanship, or regulatory breach arising from repair works coordinated through the platform; or (d) any data discrepancy arising from incorrect or incomplete information submitted through the intake flow.</p>
   </div>
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
@@ -460,7 +450,7 @@
   <div class="section" style="animation-delay:0.34s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">10</span><div class="section-rule"></div></div>
     <h2>Termination <em>&amp; Environment Purging</em></h2>
-    <p>Either party may close the data processing tunnel by providing a 30-day electronic notice. Hermia retains the right to terminate access instantly if a breach of intellectual property or compliance logic occurs. Upon contract conclusion, lead processing pipelines and repair job routing configurations are deactivated, and all volatile transaction metadata logs are scrubbed from system memory blocks within 30 days.</p>
+    <p>Either party may close the data processing tunnel by providing a 30-day electronic notice. Hermia retains the right to terminate access instantly if a breach of intellectual property or compliance logic occurs. Upon contract conclusion, job routing configurations are deactivated and all volatile transaction metadata logs are scrubbed from system memory blocks within 30 days.</p>
   </div>
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
@@ -469,7 +459,7 @@
   <div class="section" style="animation-delay:0.37s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">11</span><div class="section-rule"></div></div>
     <h2>Governing Law <em>&amp; Jurisdiction</em></h2>
-    <p>These Terms are governed explicitly by the laws of the State of Victoria, Australia. Both parties irrevocably submit to the exclusive territorial jurisdiction of the courts located within Melbourne, Victoria, Australia for any litigation or resolution proceedings.</p>
+    <p>These Terms are governed exclusively by the laws of the State of Victoria, Australia. Both parties irrevocably submit to the exclusive territorial jurisdiction of the courts located within Melbourne, Victoria, Australia for any litigation or resolution proceedings.</p>
   </div>
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
@@ -487,7 +477,7 @@
   <div class="footer-inner">
     <div class="footer-brand">
       Hermia
-      <small>AI Qualification for Real Estate &amp; Production Repairs</small>
+      <small>AI Intake for Production Repair &amp; Trade Contractors</small>
     </div>
     <div class="footer-links">
       <a href="index.html" class="footer-link">Home</a>
@@ -496,7 +486,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">© 2026 Hermia. All rights reserved. Victoria, Australia · Dubai Support Office</span>
+    <span class="footer-copy">© 2026 Hermia. All rights reserved. Victoria, Australia.</span>
     <div class="footer-abn">
       <span class="footer-abn-badge">ABN</span>
       <span class="footer-abn-num">75 434 177 026</span>
