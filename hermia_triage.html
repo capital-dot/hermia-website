@@ -8,526 +8,321 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#080808;
-  --card:#111111;
-  --card2:#141414;
-  --border:rgba(201, 163, 91,0.13);
-  --bhi:rgba(201, 163, 91,0.32);
-  --gold:#C9A35B;
-  --goldl:#e8c17a;
-  --bdim:rgba(201, 163, 91,0.07);
-  --cream:#f5f1e8;
-  --muted:#8a8580;
-  --soft:#b8b5ad;
-  --red:#ef4444;
-  --redbg:rgba(224,82,82,0.09);
-  --redborder:rgba(224,82,82,0.28);
-  --green:#10b981;
-  --greenbg:rgba(46,196,138,0.08);
-  --greenborder:rgba(46,196,138,0.26);
-  --amber:#e8a842;
-  --amberbg:rgba(232,168,66,0.09);
-  --amberborder:rgba(232,168,66,0.3)
+  --bg:#080808;--card:#111111;--card2:#141414;
+  --border:rgba(201,163,91,0.13);
+  --gold:#C9A35B;--goldl:#e8c17a;--bdim:rgba(201,163,91,0.07);
+  --cream:#f5f1e8;--muted:#8a8580;--soft:#b8b5ad;
+  --red:#ef4444;--redbg:rgba(224,82,82,0.09);--redborder:rgba(224,82,82,0.28);
+  --green:#10b981;--greenbg:rgba(46,196,138,0.08);--greenborder:rgba(46,196,138,0.26);
+  --amber:#e8a842;--amberbg:rgba(232,168,66,0.09);--amberborder:rgba(232,168,66,0.3)
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;padding:80px 24px 100px;overflow-x:hidden}
-
-/* Premium background: Dual gradient orbs with refined blur */
-.bg1{position:fixed;top:-15%;left:-15%;width:700px;height:700px;background:radial-gradient(circle,rgba(201, 163, 91,.12) 0%,transparent 65%);filter:blur(140px);pointer-events:none;z-index:0;animation:drift 20s ease-in-out infinite}
-.bg2{position:fixed;bottom:-15%;right:-15%;width:700px;height:700px;background:radial-gradient(circle,rgba(201, 163, 91,.08) 0%,transparent 65%);filter:blur(140px);pointer-events:none;z-index:0;animation:drift-rev 25s ease-in-out infinite}
+.bg1{position:fixed;top:-15%;left:-15%;width:700px;height:700px;background:radial-gradient(circle,rgba(201,163,91,.12) 0%,transparent 65%);filter:blur(140px);pointer-events:none;z-index:0;animation:drift 20s ease-in-out infinite}
+.bg2{position:fixed;bottom:-15%;right:-15%;width:700px;height:700px;background:radial-gradient(circle,rgba(201,163,91,.08) 0%,transparent 65%);filter:blur(140px);pointer-events:none;z-index:0;animation:drift-rev 25s ease-in-out infinite}
 @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-40px)}}
 @keyframes drift-rev{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,40px)}}
-
 .wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto}
-
-/* Premium header with underline accent */
-.page-header{text-align:center;margin-bottom:100px;position:relative;padding-bottom:40px}
-.page-header::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);box-shadow:0 0 20px rgba(201, 163, 91,.4)}
-.ptag{display:inline-flex;align-items:center;gap:8px;background:rgba(201, 163, 91,.08);border:1px solid rgba(201, 163, 91,.25);padding:8px 22px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--goldl);margin-bottom:28px;backdrop-filter:blur(10px)}
+.page-header{text-align:center;margin-bottom:70px;position:relative;padding-bottom:40px}
+.page-header::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);box-shadow:0 0 20px rgba(201,163,91,.4)}
+.ptag{display:inline-flex;align-items:center;gap:8px;background:rgba(201,163,91,.08);border:1px solid rgba(201,163,91,.25);padding:8px 22px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--goldl);margin-bottom:28px}
 .ptag-dot{width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 12px var(--green);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.2)}}
-.page-header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,72px);font-weight:700;color:#fff;line-height:1.05;margin-bottom:20px;letter-spacing:-2px;text-shadow:0 20px 40px rgba(0,0,0,.4)}
-.page-header h1 em{font-style:italic;color:var(--gold);font-weight:700}
-.page-header p{font-size:18px;color:var(--soft);max-width:700px;margin:0 auto;line-height:1.7;font-weight:300;letter-spacing:.3px}
-
-/* Section headers with premium styling */
-.dsec{margin-bottom:140px}
-.dhead{text-align:center;margin-bottom:50px;position:relative}
-.dhead::before{content:'';position:absolute;top:-20px;left:50%;transform:translateX(-50%);width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.dpill{display:inline-flex;align-items:center;gap:10px;padding:10px 24px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:20px;border:1px solid;backdrop-filter:blur(8px)}
-.de{background:rgba(224,82,82,.08);border-color:rgba(224,82,82,.3);color:#e87070}
-.dc{background:rgba(232,168,66,.08);border-color:rgba(232,168,66,.35);color:var(--amber)}
-.ds{background:rgba(46,196,138,.08);border-color:rgba(46,196,138,.3);color:var(--green)}
-.dhead h2{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:#fff;line-height:1.1;margin-bottom:14px;letter-spacing:-1px}
-.dhead h2 em{font-style:italic;color:var(--gold)}
-.dhead p{font-size:15px;color:var(--soft);font-weight:300;max-width:580px;margin:0 auto;line-height:1.65;letter-spacing:.2px}
-
-/* Premium grid layout */
+.page-header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,72px);font-weight:700;color:#fff;line-height:1.05;margin-bottom:20px;letter-spacing:-2px}
+.page-header h1 em{font-style:italic;color:var(--gold)}
+.page-header p{font-size:18px;color:var(--soft);max-width:700px;margin:0 auto;line-height:1.7;font-weight:300}
 .dgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:40px;align-items:start}
 @media(max-width:900px){.dgrid{grid-template-columns:1fr}}
+.leftcol{display:flex;flex-direction:column;gap:24px}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:24px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.05)}
 
-/* Premium panel with refined borders and shadows */
-.panel{background:var(--card);border:1px solid var(--border);border-radius:24px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.05);backdrop-filter:blur(10px);transition:all .4s cubic-bezier(.23,1,.32,1)}
-.panel:hover{border-color:rgba(201, 163, 91,.25);box-shadow:0 40px 80px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08)}
+/* ===== MINI WEBSITE FORM ===== */
+.site{background:#fbfbfa;border-radius:20px;overflow:hidden;color:#1a1a1a;box-shadow:0 30px 60px rgba(0,0,0,.45);transition:all .5s cubic-bezier(.23,1,.32,1)}
+.site.gone{opacity:0;transform:translateY(-12px) scale(.97);height:0;margin:0;padding:0;pointer-events:none;overflow:hidden;box-shadow:none}
+.site-bar{background:#1c1f2b;padding:11px 16px;display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.site-url{margin-left:10px;background:rgba(255,255,255,.1);border-radius:6px;padding:4px 12px;font-size:10px;color:rgba(255,255,255,.6);font-family:'Space Mono',monospace}
+.site-hero{background:linear-gradient(135deg,#2b3048,#1e2130);padding:22px 24px;color:#fff}
+.site-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;letter-spacing:.5px}
+.site-logo span{color:var(--gold)}
+.site-tag{font-size:11px;color:rgba(255,255,255,.55);margin-top:3px;letter-spacing:.3px}
+.site-body{padding:22px 24px}
+.site-h{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#1a1a1a;margin-bottom:4px}
+.site-sub{font-size:12px;color:#777;margin-bottom:20px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#888;margin-bottom:6px}
+.field .inp{background:#fff;border:1.5px solid #e3e3e0;border-radius:9px;padding:11px 14px;font-size:13px;color:#1a1a1a;font-weight:500}
+.choice-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choice{background:#fff;border:1.5px solid #e3e3e0;border-radius:10px;padding:14px 12px;text-align:center;cursor:pointer;transition:all .18s;font-size:13px;font-weight:600;color:#333}
+.choice:hover{border-color:var(--gold);background:#fdf9f0;transform:translateY(-1px)}
+.choice.sel{border-color:var(--gold);background:var(--gold);color:#000;box-shadow:0 6px 18px rgba(201,163,91,.3)}
+.choice .ci{font-size:22px;display:block;margin-bottom:6px}
+.submit-btn{margin-top:18px;width:100%;background:linear-gradient(135deg,var(--gold),var(--goldl));color:#000;border:none;border-radius:10px;padding:14px;font-size:13px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;opacity:.5;pointer-events:none}
+.submit-btn.ready{opacity:1;pointer-events:auto;box-shadow:0 8px 22px rgba(201,163,91,.3)}
+.submit-btn.ready:hover{transform:translateY(-2px)}
+.site-done{padding:50px 24px;text-align:center}
+.site-done .chk{width:60px;height:60px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 18px;box-shadow:0 10px 28px rgba(46,196,138,.35);animation:pop .4s ease}
+@keyframes pop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
+.site-done h4{font-family:'Cormorant Garamond',serif;font-size:24px;color:#1a1a1a;margin-bottom:6px}
+.site-done p{font-size:12px;color:#888}
 
-/* Phone frame */
-.phone{display:flex;flex-direction:column;height:720px}
-.pheader{background:linear-gradient(180deg,var(--card2),rgba(20,20,20,.8));padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;backdrop-filter:blur(10px)}
-.pavatar{width:42px;height:42px;background:linear-gradient(135deg,var(--gold),var(--goldl));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-family:'Cormorant Garamond',serif;font-size:20px;box-shadow:0 8px 20px rgba(201, 163, 91,.25)}
-.pname{font-size:16px;font-weight:600;color:#fff;letter-spacing:.3px}
-.pstatus{font-size:11px;color:var(--green);margin-top:3px;font-weight:500}
-.pchat{flex:1;padding:24px;overflow-y:auto;display:flex;flex-direction:column;gap:16px;background:rgba(15,17,22,.6)}
-.bubble{max-width:84%;padding:14px 18px;border-radius:16px;font-size:14px;line-height:1.5;word-wrap:break-word;animation:fadeUp .3s ease forwards;white-space:pre-line}
-.bubble.bot{background:rgba(30,34,46,.95);border:1px solid rgba(255,255,255,.08);align-self:flex-start;border-top-left-radius:6px;color:#dde0ea;box-shadow:0 4px 12px rgba(0,0,0,.2)}
-.bubble.user{background:linear-gradient(135deg,var(--gold),var(--goldl));color:#000;font-weight:600;align-self:flex-end;border-top-right-radius:6px;box-shadow:0 6px 20px rgba(201, 163, 91,.25)}
+/* ===== PHONE ===== */
+.phone{display:flex;flex-direction:column;height:620px;opacity:.35;transition:opacity .6s}
+.phone.live{opacity:1}
+.pheader{background:linear-gradient(180deg,var(--card2),rgba(20,20,20,.8));padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px}
+.pavatar{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--goldl));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-family:'Cormorant Garamond',serif;font-size:19px}
+.pname{font-size:15px;font-weight:600;color:#fff}
+.pstatus{font-size:11px;color:var(--muted);margin-top:3px;font-weight:500}
+.pstatus.on{color:var(--green)}
+.pchat{flex:1;padding:22px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;background:rgba(15,17,22,.6)}
+.bubble{max-width:84%;padding:13px 17px;border-radius:16px;font-size:14px;line-height:1.5;word-wrap:break-word;animation:fadeUp .3s ease forwards;white-space:pre-line}
+.bubble.bot{background:rgba(30,34,46,.95);border:1px solid rgba(255,255,255,.08);align-self:flex-start;border-top-left-radius:6px;color:#dde0ea}
+.bubble.user{background:linear-gradient(135deg,var(--gold),var(--goldl));color:#000;font-weight:600;align-self:flex-end;border-top-right-radius:6px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.ptray{padding:18px;background:linear-gradient(180deg,var(--card2),rgba(20,20,20,.6));border-top:1px solid var(--border);display:flex;flex-direction:column;gap:10px;min-height:140px;backdrop-filter:blur(8px)}
-.abtn{background:rgba(255,255,255,.02);border:1px solid var(--border);color:var(--cream);padding:13px 18px;border-radius:12px;text-align:left;cursor:pointer;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;transition:all .2s cubic-bezier(.23,1,.32,1);letter-spacing:.2px}
-.abtn:hover{background:rgba(201, 163, 91,.08);border-color:rgba(201, 163, 91,.4);transform:translateX(4px);box-shadow:0 4px 12px rgba(201, 163, 91,.15)}
-.rbtn{background:transparent;border:1px solid var(--border);color:var(--gold);padding:11px 18px;border-radius:10px;cursor:pointer;font-size:11px;font-weight:600;font-family:'DM Sans',sans-serif;transition:all .2s;letter-spacing:1.2px;text-transform:uppercase;align-self:center}
-.rbtn:hover{background:rgba(201, 163, 91,.1);border-color:var(--gold);box-shadow:0 0 16px rgba(201, 163, 91,.2)}
-
-/* Contact form card */
-.fcard{background:#fff;border-radius:16px;overflow:hidden;color:#1a1a1a;box-shadow:0 12px 32px rgba(0,0,0,.4);animation:fadeUp .4s ease forwards}
-.ftop{background:linear-gradient(135deg,#1e2130,#2b3048);padding:16px 18px;display:flex;align-items:center;gap:12px}
-.ficon{font-size:20px}
-.fttl{font-size:11px;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:.8px}
-.fsub{font-size:9px;color:rgba(255,255,255,.45);margin-top:3px}
-.fbody{padding:16px 18px}
-.ffl{margin-bottom:11px}
-.flbl{font-size:9px;color:#666;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:4px;display:block}
-.fval{font-size:11px;color:#1a1a1a;background:#f5f5f7;padding:8px 12px;border-radius:6px;border:1px solid #e5e5e5}
-.fsub2{margin-top:14px;background:var(--gold);color:#000;text-align:center;padding:11px;border-radius:8px;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;box-shadow:0 4px 12px rgba(201, 163, 91,.25)}
-
-/* Photo bubble */
-.pbubble{border-radius:14px;overflow:hidden;max-width:180px;animation:fadeUp .4s ease forwards;align-self:flex-end;box-shadow:0 8px 24px rgba(0,0,0,.3)}
-.pbubble img{width:100%;height:110px;object-fit:cover;display:block;filter:brightness(.9) saturate(1.15)}
-.pbfoot{background:rgba(25,28,40,.95);padding:10px 12px;border:1px solid rgba(201, 163, 91,.2);border-top:none;border-radius:0 0 14px 14px}
-.pmeta{font-size:10px;color:var(--soft);font-weight:500}
-.upill{display:inline-block;padding:3px 9px;border-radius:99px;font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-top:5px}
-.upe{background:var(--redbg);border:1px solid var(--redborder);color:#e87070}
-.upc{background:var(--amberbg);border:1px solid var(--amberborder);color:var(--amber)}
-.ups{background:var(--greenbg);border:1px solid var(--greenborder);color:var(--green)}
-
-/* Voice bubble */
-.vbubble{background:rgba(25,28,40,.95);border:1px solid rgba(201, 163, 91,.2);border-radius:16px;border-top-left-radius:6px;padding:14px 16px;max-width:72%;align-self:flex-start;animation:fadeUp .4s ease forwards;box-shadow:0 4px 12px rgba(0,0,0,.2)}
-.vbtop{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.vbic{width:28px;height:28px;border-radius:50%;background:rgba(201, 163, 91,.18);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
-.vblbl{font-size:11px;color:var(--cream);font-weight:600;letter-spacing:.2px}
-.vbdur{font-size:9px;color:var(--muted);margin-top:2px}
-.vbwave{display:flex;align-items:center;gap:2.5px;height:26px}
-.vbar{width:3px;background:rgba(201, 163, 91,.6);border-radius:2px;animation:vbp 1.2s ease-in-out infinite}
-.vbar:nth-child(1){height:30%;animation-delay:.0s}.vbar:nth-child(2){height:65%;animation-delay:.1s}.vbar:nth-child(3){height:90%;animation-delay:.2s}.vbar:nth-child(4){height:55%;animation-delay:.3s}.vbar:nth-child(5){height:80%;animation-delay:.4s}.vbar:nth-child(6){height:40%;animation-delay:.25s}.vbar:nth-child(7){height:70%;animation-delay:.15s}.vbar:nth-child(8){height:95%;animation-delay:.05s}.vbar:nth-child(9){height:60%;animation-delay:.35s}.vbar:nth-child(10){height:45%;animation-delay:.45s}
-@keyframes vbp{0%,100%{opacity:.4;transform:scaleY(.8)}50%{opacity:1;transform:scaleY(1)}}
-.vtxt{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);font-size:10px;color:var(--muted);font-style:italic;line-height:1.5}
-
-/* Tracker spinner */
-.tracker{background:rgba(201, 163, 91,.06);border:1px solid rgba(201, 163, 91,.28);border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px;animation:fadeUp .4s ease forwards;box-shadow:0 4px 12px rgba(0,0,0,.15)}
-.tspinner{width:20px;height:20px;border:2.5px solid rgba(201, 163, 91,.2);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;flex-shrink:0;box-shadow:0 0 12px rgba(201, 163, 91,.2)}
-@keyframes spin{to{transform:rotate(360deg)}}
-.ttxt{font-size:13px;color:#dde0ea;line-height:1.5;letter-spacing:.2px}
-.ttxt strong{color:var(--goldl);font-weight:600}
-.ttime{margin-left:auto;font-family:'Space Mono',monospace;font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.5px}
-
-/* WhatsApp sent confirmation */
-.wsent{background:rgba(46,196,138,.08);border:1px solid rgba(46,196,138,.28);border-radius:12px;padding:16px;display:flex;gap:14px;align-items:center;animation:fadeUp .4s ease forwards;box-shadow:0 4px 12px rgba(0,0,0,.15)}
-.wsic{width:32px;height:32px;background:rgba(46,196,138,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:14px;flex-shrink:0}
-.wstxt{font-size:13px;color:#dde0ea;line-height:1.5;letter-spacing:.2px}
-.wstxt strong{color:#fff;font-weight:600}
-
-/* Simpro panel */
-.sp{padding:32px;display:flex;flex-direction:column;gap:24px}
-.sphdr{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:20px}
-.sptitle{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:#fff;letter-spacing:-.5px}
-.spsubt{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-top:5px;font-weight:600}
-.spbadge{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);padding:7px 16px;border-radius:10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--soft);transition:all .3s}
-.spbadge.emergency{background:var(--redbg);border-color:var(--red);color:#e87070;box-shadow:0 0 20px rgba(224,82,82,.2)}
-.spbadge.critical{background:var(--amberbg);border-color:var(--amber);color:var(--amber);box-shadow:0 0 20px rgba(232,168,66,.2)}
-.spbadge.standard{background:var(--greenbg);border-color:var(--green);color:var(--green);box-shadow:0 0 20px rgba(46,196,138,.2)}
-
-.lmeta{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:16px 20px;backdrop-filter:blur(8px)}
-.mrow{display:flex;justify-content:space-between;padding:8px 0;font-size:13px}
-.mlbl{color:var(--muted);font-weight:500;letter-spacing:.2px}
-.mval{color:#dde0ea;font-weight:600}
-
-/* 5-tile matrix */
-.matrix{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.tile{background:rgba(255,255,255,.01);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:15px 17px;transition:all .3s cubic-bezier(.23,1,.32,1);cursor:pointer}
-.tile:hover{border-color:rgba(201, 163, 91,.25);background:rgba(201, 163, 91,.06)}
-.tile.active{border-color:rgba(201, 163, 91,.45);background:rgba(201, 163, 91,.08);box-shadow:0 0 24px rgba(201, 163, 91,.15), inset 0 1px 0 rgba(255,255,255,.05)}
-.tlbl{display:block;font-size:10px;color:var(--muted);letter-spacing:1.8px;margin-bottom:7px;font-weight:700;text-transform:uppercase}
-.tval{font-size:14px;font-weight:700;color:#fff;letter-spacing:-.3px}
-.tile.active .tval{color:var(--goldl);text-shadow:0 0 12px rgba(201, 163, 91,.3)}
-.tile.wide{grid-column:1 / -1}
-
-/* Terminal log */
-.terminal{background:#0c0e14;border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:16px;font-family:'Space Mono',monospace;box-shadow:inset 0 2px 8px rgba(0,0,0,.4)}
-.thead{font-size:9px;color:var(--muted);border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:10px;margin-bottom:12px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase}
-.tlogs{height:100px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;font-size:10px;line-height:1.6}
-.ll{color:var(--green)}
-.ll.w{color:var(--amber)}
-.ll.d{color:var(--red)}
-.ll.sys{color:var(--muted)}
-.ll.b{color:#e8c17a}
-
-/* Result card */
-.rcard{display:none;border-radius:16px;padding:20px 24px;animation:fis .5s ease forwards}
-.rcard.show{display:block}
-.rcard.emergency{background:linear-gradient(135deg,rgba(224,82,82,.1),rgba(0,0,0,.3));border:1px solid rgba(224,82,82,.35);box-shadow:0 0 28px rgba(224,82,82,.18)}
-.rcard.critical{background:linear-gradient(135deg,rgba(232,168,66,.1),rgba(0,0,0,.3));border:1px solid rgba(232,168,66,.35);box-shadow:0 0 28px rgba(232,168,66,.18)}
-.rcard.standard{background:linear-gradient(135deg,rgba(46,196,138,.1),rgba(0,0,0,.3));border:1px solid rgba(46,196,138,.35);box-shadow:0 0 28px rgba(46,196,138,.18)}
-@keyframes fis{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-.rhdr{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.08)}
-.ric{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px;box-shadow:0 4px 12px rgba(0,0,0,.2)}
-.emergency .ric{background:var(--red)}
-.critical .ric{background:var(--amber);color:#000}
-.standard .ric{background:var(--green);color:#000}
-.rtitle{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:-.3px}
-.rrows{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
-.rrow{display:flex;justify-content:space-between;align-items:flex-start;font-size:12px;gap:10px}
-.rl{color:var(--muted);font-weight:500;flex-shrink:0;letter-spacing:.2px}
-.rv{color:#fff;font-weight:600;text-align:right}
-.rv.e{color:#e87070}
-.rv.c{color:var(--amber)}
-.rv.s{color:var(--green)}
-.calrow{margin-top:12px;padding:12px 14px;background:rgba(46,196,138,.08);border:1px solid rgba(46,196,138,.25);border-radius:10px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--green);font-weight:600;letter-spacing:.2px}
-.rfooter{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.06);font-size:11px;color:var(--muted);text-align:center;font-style:italic;letter-spacing:.2px}
-
-/* No-spam notice */
-.nospam{background:rgba(224,82,82,.07);border:1px solid rgba(224,82,82,.28);border-radius:12px;padding:16px;display:flex;gap:14px;align-items:flex-start;animation:fadeUp .4s ease forwards;box-shadow:0 4px 12px rgba(0,0,0,.15)}
-.nsic{width:30px;height:30px;min-width:30px;background:rgba(224,82,82,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--red);font-size:14px;font-weight:700}
-.nstxt{font-size:12px;color:#dde0ea;line-height:1.6;letter-spacing:.2px}
+.ptray{padding:16px;background:linear-gradient(180deg,var(--card2),rgba(20,20,20,.6));border-top:1px solid var(--border);display:flex;flex-direction:column;gap:9px;min-height:120px}
+.abtn{background:rgba(255,255,255,.02);border:1px solid var(--border);color:var(--cream);padding:12px 16px;border-radius:11px;text-align:left;cursor:pointer;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;transition:all .2s}
+.abtn:hover{background:rgba(201,163,91,.08);border-color:rgba(201,163,91,.4);transform:translateX(4px)}
+.rbtn{background:transparent;border:1px solid var(--border);color:var(--gold);padding:11px 18px;border-radius:10px;cursor:pointer;font-size:11px;font-weight:600;font-family:'DM Sans',sans-serif;letter-spacing:1.2px;text-transform:uppercase;align-self:center}
+.rbtn:hover{background:rgba(201,163,91,.1);border-color:var(--gold)}
+.nospam{background:rgba(224,82,82,.07);border:1px solid rgba(224,82,82,.28);border-radius:12px;padding:15px;display:flex;gap:13px;align-items:flex-start;animation:fadeUp .4s ease forwards}
+.nsic{width:28px;height:28px;min-width:28px;background:rgba(224,82,82,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--red);font-size:13px;font-weight:700}
+.nstxt{font-size:12px;color:#dde0ea;line-height:1.6}
 .nstxt strong{color:#fff;display:block;margin-bottom:4px;font-weight:600}
 
-/* CTA footer */
-.fcta{background:linear-gradient(135deg,rgba(201, 163, 91,.09),var(--card));border:1px solid rgba(201, 163, 91,.35);border-radius:24px;padding:60px 48px;text-align:center;margin-top:100px;position:relative;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.3)}
-.fcta::before,.fcta::after{content:'';position:absolute;width:20px;height:20px;border-color:rgba(201, 163, 91,.5);border-style:solid}
-.fcta::before{top:16px;right:16px;border-width:1px 1px 0 0}
-.fcta::after{bottom:16px;left:16px;border-width:0 0 1px 1px}
-.fcta h3{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:#fff;margin-bottom:16px;letter-spacing:-.5px}
-.fcta p{font-size:15px;color:var(--soft);margin-bottom:32px;line-height:1.7;letter-spacing:.2px}
-.fcta-btn{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--goldl));color:#000;padding:14px 40px;border-radius:12px;text-decoration:none;font-weight:700;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;transition:all .3s cubic-bezier(.23,1,.32,1);box-shadow:0 8px 24px rgba(201, 163, 91,.3);border:none;cursor:pointer}
-.fcta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(201, 163, 91,.4)}
-
-.back-link{display:inline-flex;align-items:center;gap:8px;margin-bottom:40px;color:var(--gold);text-decoration:none;font-size:12px;font-weight:600;padding:10px 18px;border:1px solid var(--border);border-radius:10px;transition:all .2s;letter-spacing:.3px}
-.back-link:hover{background:var(--bdim);border-color:var(--gold);transform:translateX(-3px)}
+/* ===== SIMPRO PANEL ===== */
+.sp{padding:30px;display:flex;flex-direction:column;gap:20px}
+.sphdr{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:18px}
+.sptitle{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:700;color:#fff}
+.spsubt{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-top:5px;font-weight:600}
+.spbadge{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);padding:7px 15px;border-radius:10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--soft);transition:all .3s}
+.spbadge.emergency{background:var(--redbg);border-color:var(--red);color:#e87070}
+.spbadge.critical{background:var(--amberbg);border-color:var(--amber);color:var(--amber)}
+.spbadge.standard{background:var(--greenbg);border-color:var(--green);color:var(--green)}
+.matrix{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.tile{background:rgba(255,255,255,.01);border:1px solid rgba(255,255,255,.06);border-radius:13px;padding:14px 16px;transition:all .3s}
+.tile.active{border-color:rgba(201,163,91,.45);background:rgba(201,163,91,.08)}
+.tlbl{display:block;font-size:10px;color:var(--muted);letter-spacing:1.6px;margin-bottom:6px;font-weight:700;text-transform:uppercase}
+.tval{font-size:13px;font-weight:700;color:#fff}
+.tile.active .tval{color:var(--goldl)}
+.tile.wide{grid-column:1 / -1}
+.terminal{background:#0c0e14;border:1px solid rgba(255,255,255,.06);border-radius:13px;padding:15px;font-family:'Space Mono',monospace}
+.thead{font-size:9px;color:var(--muted);border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:9px;margin-bottom:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase}
+.tlogs{height:100px;overflow-y:auto;display:flex;flex-direction:column;gap:5px;font-size:10px;line-height:1.6}
+.ll{color:var(--green)}.ll.w{color:var(--amber)}.ll.d{color:var(--red)}.ll.sys{color:var(--muted)}.ll.b{color:#e8c17a}
+.rcard{display:none;border-radius:16px;padding:20px 22px;animation:fis .5s ease forwards}
+.rcard.show{display:block}
+.rcard.emergency{background:linear-gradient(135deg,rgba(224,82,82,.1),rgba(0,0,0,.3));border:1px solid rgba(224,82,82,.35)}
+.rcard.critical{background:linear-gradient(135deg,rgba(232,168,66,.1),rgba(0,0,0,.3));border:1px solid rgba(232,168,66,.35)}
+.rcard.standard{background:linear-gradient(135deg,rgba(46,196,138,.1),rgba(0,0,0,.3));border:1px solid rgba(46,196,138,.35)}
+@keyframes fis{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.rhdr{display:flex;align-items:center;gap:12px;margin-bottom:15px;padding-bottom:13px;border-bottom:1px solid rgba(255,255,255,.08)}
+.ric{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
+.emergency .ric{background:var(--red);color:#fff}.critical .ric{background:var(--amber);color:#000}.standard .ric{background:var(--green);color:#000}
+.rtitle{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff}
+.rrows{display:flex;flex-direction:column;gap:7px;margin-bottom:13px}
+.rrow{display:flex;justify-content:space-between;align-items:flex-start;font-size:12px;gap:10px}
+.rl{color:var(--muted);font-weight:500;flex-shrink:0}
+.rv{color:#fff;font-weight:600;text-align:right}
+.calrow{padding:11px 14px;background:rgba(46,196,138,.08);border:1px solid rgba(46,196,138,.25);border-radius:10px;display:flex;align-items:center;gap:9px;font-size:12px;color:var(--green);font-weight:600}
+.rfooter{margin-top:13px;padding-top:13px;border-top:1px solid rgba(255,255,255,.06);font-size:11px;color:var(--muted);text-align:center;font-style:italic}
+.startbtn{background:linear-gradient(135deg,var(--gold),var(--goldl));color:#000;padding:15px;border-radius:12px;text-align:center;cursor:pointer;font-size:14px;font-weight:700;font-family:'DM Sans',sans-serif;letter-spacing:.5px;border:none;transition:all .2s;box-shadow:0 6px 20px rgba(201,163,91,.25);width:100%}
+.startbtn:hover{transform:translateY(-2px)}
+.fcta{background:linear-gradient(135deg,rgba(201,163,91,.09),var(--card));border:1px solid rgba(201,163,91,.35);border-radius:24px;padding:60px 48px;text-align:center;margin-top:90px}
+.fcta h3{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:#fff;margin-bottom:16px}
+.fcta h3 em{font-style:italic;color:var(--gold)}
+.fcta p{font-size:15px;color:var(--soft);margin-bottom:32px;line-height:1.7}
+.fcta-btn{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--goldl));color:#000;padding:14px 40px;border-radius:12px;text-decoration:none;font-weight:700;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;transition:all .3s}
+.fcta-btn:hover{transform:translateY(-2px)}
+.back-link{display:inline-flex;align-items:center;gap:8px;margin-bottom:40px;color:var(--gold);text-decoration:none;font-size:12px;font-weight:600;padding:10px 18px;border:1px solid var(--border);border-radius:10px}
+.back-link:hover{background:var(--bdim);border-color:var(--gold)}
 </style>
 </head>
 <body>
 <div class="bg1"></div>
 <div class="bg2"></div>
 <div class="wrap">
-  <a href="#" class="back-link">← Back to dashboard</a>
-  
+  <a href="index.html" class="back-link">← Back to dashboard</a>
   <div class="page-header">
     <div class="ptag"><span class="ptag-dot"></span>Live Triage System</div>
     <h1>Hermia <em>Intake</em></h1>
-    <p>Intelligent repair qualification and customer intake automation. Watch how Hermia captures critical job data through conversational AI.</p>
+    <p>A homeowner submits a repair request on the contractor's website. Watch Hermia take over — qualify the job, score the urgency, and push a clean record into Simpro. Pick a repair issue on the form to begin.</p>
   </div>
 
-  <!-- Emergency Section -->
-  <div class="dsec">
-    <div class="dhead">
-      <div class="dpill de">⚡ Emergency</div>
-      <h2>Critical <em>Response</em></h2>
-      <p>High-urgency repairs requiring immediate attention. Hermia prioritizes emergency calls and extracts damage details in real-time.</p>
-    </div>
-    <div class="dgrid">
+  <div class="dgrid">
+    <div class="leftcol">
+      <!-- MINI WEBSITE FORM -->
+      <div class="site" id="site">
+        <div class="site-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="site-url">apexrepairs.com.au/contact</span></div>
+        <div class="site-hero"><div class="site-logo">Apex <span>Repairs</span></div><div class="site-tag">Emergency & general repairs · Melbourne</div></div>
+        <div class="site-body" id="site-body">
+          <div class="site-h">Request a repair</div>
+          <div class="site-sub">Tell us what's going on and we'll be in touch.</div>
+          <div class="field"><label>Name</label><div class="inp">Jerry Walker</div></div>
+          <div class="field"><label>Phone</label><div class="inp">+61 438 902 715</div></div>
+          <div class="field"><label>Repair issue</label>
+            <div class="choice-row">
+              <div class="choice" id="ch-pipe" onclick="pickIssue('pipe')"><span class="ci">🔧</span>Pipe</div>
+              <div class="choice" id="ch-ceiling" onclick="pickIssue('ceiling')"><span class="ci">🏠</span>Ceiling</div>
+            </div>
+          </div>
+          <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit request</button>
+        </div>
+      </div>
+
+      <!-- PHONE -->
       <div class="panel">
-        <div class="phone">
+        <div class="phone" id="phone">
           <div class="pheader">
             <div class="pavatar">H</div>
-            <div>
-              <div class="pname">Hermia Support</div>
-              <div class="pstatus">● Active now</div>
-            </div>
+            <div><div class="pname">Hermia</div><div class="pstatus" id="pstatus">● Waiting for submission</div></div>
           </div>
-          <div class="pchat" id="e-chat">
-            <div class="bubble bot">Hi there! I'm Hermia, your repair intake assistant. What's the issue you're experiencing today?</div>
-          </div>
-          <div class="ptray" id="e-tray">
-            <button class="abtn">Burst pipe in kitchen</button>
-            <button class="abtn">Roof leak detected</button>
-            <button class="abtn">Electrical fault</button>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="panel sp">
-          <div class="sphdr">
-            <div>
-              <div class="sptitle">Job Details</div>
-              <div class="spsubt">Emergency Intake</div>
-            </div>
-            <div class="spbadge emergency">EMERGENCY</div>
-          </div>
-          <div class="lmeta">
-            <div class="mrow">
-              <span class="mlbl">Priority Level</span>
-              <span class="mval">Critical</span>
-            </div>
-            <div class="mrow">
-              <span class="mlbl">Response Time</span>
-              <span class="mval">Immediate</span>
-            </div>
-            <div class="mrow">
-              <span class="mlbl">Damage Type</span>
-              <span class="mval">Water Damage</span>
-            </div>
-          </div>
-          <div class="matrix">
-            <div class="tile">
-              <span class="tlbl">Urgency</span>
-              <span class="tval">—</span>
-            </div>
-            <div class="tile">
-              <span class="tlbl">Photo</span>
-              <span class="tval">—</span>
-            </div>
-            <div class="tile">
-              <span class="tlbl">Damage</span>
-              <span class="tval">—</span>
-            </div>
-            <div class="tile">
-              <span class="tlbl">Address</span>
-              <span class="tval">—</span>
-            </div>
-            <div class="tile wide">
-              <span class="tlbl">Budget Range</span>
-              <span class="tval">—</span>
-            </div>
-          </div>
-          <div class="terminal">
-            <div class="thead">System Log</div>
-            <div class="tlogs">
-              <div class="ll sys">[INIT] Listening for repair enquiry...</div>
-            </div>
-          </div>
+          <div class="pchat" id="chat"></div>
+          <div class="ptray" id="tray"></div>
         </div>
       </div>
     </div>
+
+    <!-- SIMPRO PANEL -->
+    <div><div class="panel sp">
+      <div class="sphdr"><div><div class="sptitle">Job Record</div><div class="spsubt">Simpro Sync</div></div><div class="spbadge" id="badge">Awaiting submission</div></div>
+      <div class="matrix">
+        <div class="tile" id="t-issue"><span class="tlbl">Issue</span><span class="tval">—</span></div>
+        <div class="tile" id="t-urgency"><span class="tlbl">Urgency</span><span class="tval">—</span></div>
+        <div class="tile" id="t-photo"><span class="tlbl">Photo</span><span class="tval">—</span></div>
+        <div class="tile" id="t-situation"><span class="tlbl">Situation</span><span class="tval">—</span></div>
+        <div class="tile" id="t-budget"><span class="tlbl">Budget</span><span class="tval">—</span></div>
+        <div class="tile" id="t-address"><span class="tlbl">Address</span><span class="tval">—</span></div>
+        <div class="tile wide" id="t-time"><span class="tlbl">Availability</span><span class="tval">—</span></div>
+      </div>
+      <div class="terminal"><div class="thead">System Log</div><div class="tlogs" id="logs"><div class="ll sys">[INIT] Listening for website submission...</div></div></div>
+      <div class="rcard" id="result"></div>
+    </div></div>
   </div>
 
-  <!-- Critical Section -->
-  <div class="dsec">
-    <div class="dhead">
-      <div class="dpill dc">⚠️ Critical</div>
-      <h2>Urgent <em>Priority</em></h2>
-      <p>High-priority repairs that need prompt scheduling. Hermia qualifies the job and confirms customer details efficiently.</p>
-    </div>
-    <div class="dgrid">
-      <div class="panel">
-        <div class="phone">
-          <div class="pheader">
-            <div class="pavatar">H</div>
-            <div>
-              <div class="pname">Hermia Support</div>
-              <div class="pstatus">● Active now</div>
-            </div>
-          </div>
-          <div class="pchat" id="c-chat">
-            <div class="bubble bot">Hello! I'm here to help schedule your repair. Can you describe the issue?</div>
-          </div>
-          <div class="ptray" id="c-tray">
-            <button class="abtn">Heating system malfunction</button>
-            <button class="abtn">Plumbing issue</button>
-            <button class="abtn">Electrical problem</button>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="panel sp">
-          <div class="sphdr">
-            <div>
-              <div class="sptitle">Job Details</div>
-              <div class="spsubt">Critical Intake</div>
-            </div>
-            <div class="spbadge critical">CRITICAL</div>
-          </div>
-          <div class="lmeta">
-            <div class="mrow">
-              <span class="mlbl">Priority Level</span>
-              <span class="mval">High</span>
-            </div>
-            <div class="mrow">
-              <span class="mlbl">Response Time</span>
-              <span class="mval">24-48 hours</span>
-            </div>
-            <div class="mrow">
-              <span class="mlbl">Service Type</span>
-              <span class="mval">Urgent Repair</span>
-            </div>
-          </div>
-          <div class="matrix">
-            <div class="tile">
-              <span class="tlbl">Urgency</span>
-              <span class="tval">—</span>
-            </div>
-            <div class="tile">
-              <span class="tlbl">Photo</span>
-              <span class="tval">—</span>
-            </div>
-            <div class="tile">
-              <span class="tlbl">Damage</span>
-              <span class="tval">—</span>
-            </div>
-            <div class="tile">
-              <span class="tlbl">Address</span>
-              <span class="tval">—</span>
-            </div>
-            <div class="tile wide">
-              <span class="tlbl">Budget Range</span>
-              <span class="tval">—</span>
-            </div>
-          </div>
-          <div class="terminal">
-            <div class="thead">System Log</div>
-            <div class="tlogs">
-              <div class="ll sys">[INIT] Listening for repair enquiry...</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Standard Section -->
-  <div class="dsec">
-    <div class="dhead">
-      <div class="dpill ds">✓ Standard</div>
-      <h2>Routine <em>Service</em></h2>
-      <p>Regular maintenance and standard repairs. Hermia handles qualification smoothly, capturing all necessary information for job planning.</p>
-    </div>
-    <div class="dgrid">
-      <div class="panel">
-        <div class="phone">
-          <div class="pheader">
-            <div class="pavatar">H</div>
-            <div>
-              <div class="pname">Hermia Support</div>
-              <div class="pstatus">● Active now</div>
-            </div>
-          </div>
-          <div class="pchat" id="s-chat">
-            <div class="bubble bot">Hi! I'm Hermia. What repair service do you need today?</div>
-          </div>
-          <div class="ptray" id="s-tray">
-            <button class="abtn">Regular maintenance</button>
-            <button class="abtn">Minor repair needed</button>
-            <button class="abtn">Inspection required</button>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="panel sp">
-          <div class="sphdr">
-            <div>
-              <div class="sptitle">Job Details</div>
-              <div class="spsubt">Standard Intake</div>
-            </div>
-            <div class="spbadge standard">STANDARD</div>
-          </div>
-          <div class="lmeta">
-            <div class="mrow">
-              <span class="mlbl">Priority Level</span>
-              <span class="mval">Normal</span>
-            </div>
-            <div class="mrow">
-              <span class="mlbl">Response Time</span>
-              <span class="mval">3-5 business days</span>
-            </div>
-            <div class="mrow">
-              <span class="mlbl">Service Type</span>
-              <span class="mval">Maintenance</span>
-            </div>
-          </div>
-          <div class="matrix">
-            <div class="tile">
-              <span class="tlbl">Urgency</span>
-              <span class="tval">—</span>
-            </div>
-            <div class="tile">
-              <span class="tlbl">Photo</span>
-              <span class="tval">—</span>
-            </div>
-            <div class="tile">
-              <span class="tlbl">Damage</span>
-              <span class="tval">—</span>
-            </div>
-            <div class="tile">
-              <span class="tlbl">Address</span>
-              <span class="tval">—</span>
-            </div>
-            <div class="tile wide">
-              <span class="tlbl">Budget Range</span>
-              <span class="tval">—</span>
-            </div>
-          </div>
-          <div class="terminal">
-            <div class="thead">System Log</div>
-            <div class="tlogs">
-              <div class="ll sys">[INIT] Listening for repair enquiry...</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CTA Footer -->
   <div class="fcta">
-    <h3>Ready to <em>Automate</em> Your Intake?</h3>
-    <p>Hermia integrates seamlessly with your existing repair management system. Capture more leads, qualify faster, and close jobs with confidence.</p>
-    <button class="fcta-btn">Schedule a Demo</button>
+    <h3>One engine. <em>Every repair job.</em></h3>
+    <p>Every submission on your site gets qualified the same way — urgency, situation, budget, availability — then dropped into Simpro as a clean, scored record. Your team just opens the job and goes.</p>
+    <a href="apply.html" class="fcta-btn">Become a founding user</a>
   </div>
 </div>
 
 <script>
-var cfg={
-  pfx:'e-',
-  qs:[
-    {msg:'What type of damage are we looking at?',opts:[
-      {t:'Water damage',v:'Water damage',log:'[DATA] Damage type: water damage',tid:'damage'},
-      {t:'Structural damage',v:'Structural damage',log:'[DATA] Damage type: structural damage',tid:'damage'},
-      {t:'Electrical issue',v:'Electrical issue',log:'[DATA] Damage type: electrical',tid:'damage'}
-    ],next:'a1'},
-    {msg:'Can you share a photo of the damage?',opts:[
-      {t:'Photo attached',v:'__photo__',log:'[UPLOAD] Photo received · processing...',noImg:false},
-      {t:'Skip for now',v:'No photo',log:'[SKIP] Photo skipped',forceNext:'a2'}
-    ],next:'a2'},
-    {msg:'What\'s your address?',opts:[
-      {t:'123 Main St, Springfield',v:'123 Main St, Springfield',log:'[GEO] Address captured',tid:'address'},
-      {t:'456 Oak Ave, Shelbyville',v:'456 Oak Ave, Shelbyville',log:'[GEO] Address captured',tid:'address'}
-    ],next:'a3'},
-    {msg:'What\'s your budget range?',opts:[
-      {t:'Under $1,000',v:'Under $1,000',log:'[BUDGET] Range: <$1k',tid:'budget',grade:'standard'},
-      {t:'$1,000 - $5,000',v:'$1,000 - $5,000',log:'[BUDGET] Range: $1k-$5k',tid:'budget',grade:'critical'},
-      {t:'Over $5,000',v:'Over $5,000',log:'[BUDGET] Range: >$5k',tid:'budget',grade:'emergency'}
-    ],next:'end'}
-  ],
-  closeMsg:'Thanks for the details! A contractor will reach out within 2 hours.',
-  ghostMsg:'Actually, one more thing...',
-  cal:'Friday, 2:00 PM'
+var GRADES={
+  Emergency:{cls:'emergency',icon:'⚡',title:'Emergency — Dispatch Now',foot:'Pushed to Simpro as EMERGENCY · contractor notified instantly',resp:'Immediate'},
+  Critical:{cls:'critical',icon:'⚠',title:'Critical — Schedule 24–48h',foot:'Pushed to Simpro as CRITICAL · 24–48h scheduling window',resp:'24–48 hours'},
+  Standard:{cls:'standard',icon:'✓',title:'Standard — Book Into Pipeline',foot:'Pushed to Simpro as STANDARD · 3–5 day scheduling',resp:'3–5 business days'}
 };
 
-function RepairTriage(key){
-  var chat=document.getElementById(key+'-chat'),tray=document.getElementById(key+'-tray'),term=document.querySelector('[id="'+key+'-chat"]').closest('.phone').nextElementSibling.querySelector('.tlogs'),badge=document.querySelector('[id="'+key+'-chat"]').closest('.phone').nextElementSibling.querySelector('.spbadge'),result=document.querySelector('[id="'+key+'-chat"]').closest('.phone').nextElementSibling.querySelector('.rcard'),dead=false,grade=key,tsec=0;
-  cfg.pfx=key+'-';
-  function log(t,c){term.innerHTML+='<div class="ll'+(c?' '+c:'')+'">['+new Date().toLocaleTimeString()+'] '+t+'</div>';term.scrollTop=9999}
-  function tile(id,val){var el=document.getElementById(cfg.pfx+'t-'+id);if(el){el.classList.add('active');el.querySelector('.tval').innerText=val}}
-  function stage1(){showQ(0)}
-  function showQ(qId){if(dead)return;tray.innerHTML='';var typ=document.createElement('div');typ.className='bubble bot';typ.id='typ-'+key;typ.innerText='Hermia is typing…';chat.appendChild(typ);chat.scrollTop=9999;setTimeout(function(){var t=document.getElementById('typ-'+key);if(t)t.remove();var q=cfg.qs[qId];if(!q)return;var b=document.createElement('div');b.className='bubble bot';b.innerText=q.msg;chat.appendChild(b);chat.scrollTop=9999;q.opts.forEach(function(o){var btn=document.createElement('button');btn.className='abtn';btn.innerText=o.t;btn.onclick=function(){pick(o,q.next)};tray.appendChild(btn)})},600)}
-  function pick(opt,next){if(dead)return;tray.innerHTML='';log(opt.log);if(opt.grade)grade=opt.grade;if(opt.v==='__photo__'){var wrap=document.createElement('div');wrap.style.cssText='align-self:flex-end;display:flex;justify-content:flex-end';if(key==='e'&&!opt.noImg){var pb=document.createElement('div');pb.className='pbubble';pb.innerHTML='<img src="https://cdn-hmoif.nitrocdn.com/fYbXRiSEFRtFGxZPadPoOJtFkaGchcGt/assets/images/optimized/rev-2e5a667/www.waterleakdetection.net.au/wp-content/uploads/2020/09/burst-pipes.jpg" alt="Burst pipe"/><div class="pbfoot"><div class="pmeta">Photo · Burst pipe damage</div><div class="upill upe">EMERGENCY</div></div>';wrap.appendChild(pb)}else{var bph=document.createElement('div');bph.className='bubble user';bph.innerHTML='📷 Photo sent';wrap.appendChild(bph)}chat.appendChild(wrap);tile('photo','Received ✓');log('[AI VISION] Damage confirmed · trade identified','b')}else if(opt.v==='__voice__'){var bars='';for(var i=0;i<10;i++)bars+='<div class="vbar"></div>';var vb=document.createElement('div');vb.className='vbubble';vb.innerHTML='<div class="vbtop"><div class="vbic">🎙️</div><div><div class="vblbl">Voice note</div><div class="vbdur">1m 14s</div></div></div><div class="vbwave">'+bars+'</div>'+(opt.vt?'<div class="vtxt">&ldquo;…'+opt.vt+'…&rdquo;</div>':'');chat.appendChild(vb);tile('damage','Transcribed ✓');log('[AUDIO] Transcription done · damage brief extracted','b')}else{var b2=document.createElement('div');b2.className='bubble user';b2.innerText=opt.v;chat.appendChild(b2);if(opt.tid==='urgency'){tile('urgency',opt.v);badge.innerText=opt.v.toUpperCase();badge.className='spbadge '+grade}else if(opt.tid==='address')tile('address','Captured ✓');else if(opt.tid==='damage')tile('damage','Noted ✓');else if(opt.tid==='budget'){tile('budget',opt.v);log('[DATA] Budget range stored · job value estimated','b')}}chat.scrollTop=9999;var nxt=opt.forceNext||next;if(nxt==='end')endFlow();else setTimeout(function(){showQ(nxt)},400)}
-  function endFlow(){setTimeout(function(){var cl=document.createElement('div');cl.className='bubble bot';cl.innerText=cfg.closeMsg;chat.appendChild(cl);chat.scrollTop=9999;log('[SHUTDOWN] Qualification complete · session closed','sys');dead=true},800);setTimeout(function(){var g=document.createElement('div');g.className='bubble user';g.innerText=cfg.ghostMsg;chat.appendChild(g);chat.scrollTop=9999;log('[INBOUND] Late message post-close','w')},3000);setTimeout(function(){log('[FILTER] Conversation closed · late message dropped','w');var ns=document.createElement('div');ns.className='nospam';ns.innerHTML='<div class="nsic">✕</div><div class="nstxt"><strong>Message ignored. No spam.</strong><span style="font-size:11px;color:#a1a1aa">Hermia closed this conversation after qualification. Late messages are dropped — never auto-replied to.</span></div>';chat.appendChild(ns);chat.scrollTop=9999;log('[DROPPED] No reply sent · contractor follows up from Simpro','d')},4400);setTimeout(function(){log('[SIMPRO] Pushing structured record...','b')},5200);setTimeout(function(){log('[SIMPRO] Customer record created ✓','b');log('[CALENDAR] Creating event – '+cfg.cal+'...','b')},5800);setTimeout(function(){log('[CALENDAR] Event created ✓ · '+cfg.cal,'b');log('[COMPLETE] Full intake done – contact to Simpro in ~90s','');tray.innerHTML='<div style="text-align:center;padding:8px;color:var(--green);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">✓ Demo complete</div>';var rb=document.createElement('button');rb.className='rbtn';rb.innerText='↻ Replay this demo';rb.onclick=function(){replay()};tray.appendChild(rb)},6600)}
-  function replay(){chat.innerHTML='';tray.innerHTML='';term.innerHTML='<div class="ll sys">[INIT] Listening for repair enquiry...</div>';badge.innerText='Awaiting enquiry';badge.className='spbadge';['urgency','photo','damage','address','budget'].forEach(function(id){var el=document.getElementById(cfg.pfx+'t-'+id);if(el){el.classList.remove('active');el.querySelector('.tval').innerText='—'}});dead=false;grade=key;tsec=0;setTimeout(function(){stage1()},200)}
-  stage1();
+var chat=document.getElementById('chat'),tray=document.getElementById('tray'),logs=document.getElementById('logs'),badge=document.getElementById('badge'),result=document.getElementById('result'),pstatus=document.getElementById('pstatus'),phone=document.getElementById('phone'),site=document.getElementById('site'),siteBody=document.getElementById('site-body'),submitBtn=document.getElementById('submitBtn');
+var state={name:'Jerry Walker',phone:'+61 438 902 715'},dead=false;
+
+function log(t,c){var d=document.createElement('div');d.className='ll'+(c?' '+c:'');d.innerText='['+new Date().toLocaleTimeString()+'] '+t;logs.appendChild(d);logs.scrollTop=99999;}
+function clearTray(){tray.innerHTML='';}
+function btn(label,cb){var b=document.createElement('button');b.className='abtn';b.innerText=label;b.onclick=cb;tray.appendChild(b);}
+function userBubble(txt){var b=document.createElement('div');b.className='bubble user';b.innerText=txt;chat.appendChild(b);chat.scrollTop=99999;}
+function tile(id,val){var el=document.getElementById('t-'+id);if(el){el.classList.add('active');el.querySelector('.tval').innerText=val;}}
+function bot(txt,cb){var typ=document.createElement('div');typ.className='bubble bot';typ.innerText='Hermia is typing…';chat.appendChild(typ);chat.scrollTop=99999;setTimeout(function(){typ.remove();var b=document.createElement('div');b.className='bubble bot';b.innerText=txt;chat.appendChild(b);chat.scrollTop=99999;if(cb)cb();},700);}
+
+// ===== FORM INTERACTION =====
+function pickIssue(which){
+  document.getElementById('ch-pipe').classList.toggle('sel',which==='pipe');
+  document.getElementById('ch-ceiling').classList.toggle('sel',which==='ceiling');
+  state.issue=(which==='pipe')?'Pipe repair':'Ceiling repair';
+  submitBtn.classList.add('ready');
+}
+function submitForm(){
+  if(!state.issue)return;
+  tile('issue',state.issue);
+  log('[INBOUND] Website form submitted','b');
+  log('[CONTACT] '+state.name+' · '+state.phone,'b');
+  log('[FORM] Issue: '+state.issue,'b');
+  // show "Application submitted" inside the form, then collapse
+  siteBody.innerHTML='<div class="site-done"><div class="chk">✓</div><h4>Application submitted</h4><p>Thanks '+state.name.split(' ')[0]+', we\'ve received your request.</p></div>';
+  setTimeout(function(){
+    site.classList.add('gone');
+    phone.classList.add('live');
+    pstatus.innerText='● Active now';pstatus.className='pstatus on';
+    setTimeout(startHermia,500);
+  },1400);
 }
 
-setTimeout(function(){
-  RepairTriage('e');
-  RepairTriage('c');
-  RepairTriage('s');
-},500);
+// ===== HERMIA CONVERSATION =====
+function startHermia(){
+  bot("Hi "+state.name.split(' ')[0]+", I'm Hermia, "+ "your repair team's digital assistant. I've got your "+state.issue.toLowerCase()+" request. Is this an emergency, critical, or a standard job?",function(){
+    ['Emergency','Critical','Standard'].forEach(function(g){
+      btn(g,function(){
+        clearTray();userBubble(g);state.grade=g;tile('urgency',g);
+        badge.innerText=g.toUpperCase();badge.className='spbadge '+GRADES[g].cls;
+        log('[TRIAGE] Urgency set: '+g,'b');
+        setTimeout(step_photo,500);
+      });
+    });
+  });
+}
+function step_photo(){
+  bot("Would you like to send a photo of the issue? It helps the tech arrive prepared.",function(){
+    btn('📷 Send photo',function(){clearTray();userBubble('📷 Photo sent');tile('photo','Received ✓');log('[UPLOAD] Photo received · AI vision analysing','b');log('[AI VISION] Issue confirmed from image','b');setTimeout(step_situation,500);});
+    btn('Skip for now',function(){clearTray();userBubble('Skip for now');tile('photo','Skipped');log('[SKIP] No photo provided','w');setTimeout(step_situation,500);});
+  });
+}
+function step_situation(){
+  bot("Could you describe what's happening?",function(){
+    [['Water leaking through the ceiling','Water leak · ceiling'],['Pipe burst, flooding the floor','Burst pipe · flooding'],['Slow drip, slowly getting worse','Slow drip worsening']].forEach(function(o){
+      btn(o[0],function(){clearTray();userBubble(o[0]);state.situation=o[1];tile('situation',o[1]);log('[NLP] Situation parsed: '+o[1],'b');setTimeout(step_budget,500);});
+    });
+  });
+}
+function step_budget(){
+  bot("Roughly what budget are you working with for this repair?",function(){
+    [['$1,000 – $3,000','$1,000 – $3,000'],['$3,000 – $5,000','$3,000 – $5,000'],['Not sure yet','Budget TBC']].forEach(function(o){
+      btn(o[0],function(){clearTray();userBubble(o[0]);state.budget=o[1];tile('budget',o[1]);log('[BUDGET] Range stored: '+o[1],'b');setTimeout(step_address,500);});
+    });
+  });
+}
+function step_address(){
+  bot("Last thing — what's the property address, and when are you available?",function(){
+    [['12 Marine Pde, Brighton · Fri morning','12 Marine Pde, Brighton','Friday AM'],
+     ['8 Hill Rd, Camberwell · Weekdays after 4pm','8 Hill Rd, Camberwell','Weekdays 4pm+']].forEach(function(o){
+      btn(o[0],function(){clearTray();userBubble(o[0]);state.address=o[1];state.time=o[2];tile('address',o[1]);tile('time',o[2]);log('[GEO] Address captured · within service area','b');log('[DATA] Availability captured','b');setTimeout(finish,500);});
+    });
+  });
+}
+function finish(){
+  clearTray();
+  bot("Thank you for your details, "+state.name.split(' ')[0]+". A contractor is on the way and will confirm your time shortly. You're all set!",function(){
+    log('[QUALIFIED] All fields captured · scoring complete','b');
+    setTimeout(function(){var g=document.createElement('div');g.className='bubble user';g.innerText='when do I get confirmation?';chat.appendChild(g);chat.scrollTop=99999;log('[INBOUND] Late message after close','w');},1600);
+    setTimeout(function(){var ns=document.createElement('div');ns.className='nospam';ns.innerHTML='<div class="nsic">✕</div><div class="nstxt"><strong>Flagged · no auto-response.</strong><span style="font-size:11px;color:#a1a1aa">Hermia closes the conversation once the job is qualified. Late messages are never auto-answered — the contractor follows up personally from Simpro.</span></div>';chat.appendChild(ns);chat.scrollTop=99999;log('[FILTER] Late message flagged · no response sent','d');},2900);
+    setTimeout(function(){log('[SIMPRO] Pushing structured job record...','b');},3800);
+    setTimeout(function(){log('[SIMPRO] Job record created ✓','b');log('[CALENDAR] Creating event · '+state.time+'...','b');},4500);
+    setTimeout(function(){log('[CALENDAR] Event created ✓','b');log('[COMPLETE] Full intake done · in Simpro in ~90s','');showResult();},5300);
+  });
+}
+function showResult(){
+  var g=GRADES[state.grade];
+  var rows=[['Customer',state.name],['Issue',state.issue],['Situation',state.situation],['Budget',state.budget],['Response',g.resp]].map(function(x){return '<div class="rrow"><span class="rl">'+x[0]+'</span><span class="rv">'+x[1]+'</span></div>';}).join('');
+  result.className='rcard show '+g.cls;
+  result.innerHTML='<div class="rhdr"><div class="ric">'+g.icon+'</div><div class="rtitle">'+g.title+'</div></div><div class="rrows">'+rows+'</div><div class="calrow">📅 Calendar event · '+state.time+' · '+state.address+'</div><div class="rfooter">'+g.foot+'</div>';
+  dead=true;clearTray();
+  var done=document.createElement('div');done.style.cssText='text-align:center;padding:6px;color:var(--green);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px';done.innerText='✓ Demo complete';tray.appendChild(done);
+  var rb=document.createElement('button');rb.className='rbtn';rb.innerText='↻ Replay demo';rb.onclick=replay;tray.appendChild(rb);
+}
+function replay(){
+  chat.innerHTML='';logs.innerHTML='<div class="ll sys">[INIT] Listening for website submission...</div>';
+  badge.innerText='Awaiting submission';badge.className='spbadge';
+  pstatus.innerText='● Waiting for submission';pstatus.className='pstatus';
+  result.className='rcard';result.innerHTML='';
+  ['issue','urgency','photo','situation','budget','address','time'].forEach(function(id){var el=document.getElementById('t-'+id);if(el){el.classList.remove('active');el.querySelector('.tval').innerText='—';}});
+  phone.classList.remove('live');
+  // rebuild the form
+  state={name:'Jerry Walker',phone:'+61 438 902 715'};dead=false;
+  siteBody.innerHTML='<div class="site-h">Request a repair</div><div class="site-sub">Tell us what\'s going on and we\'ll be in touch.</div><div class="field"><label>Name</label><div class="inp">Jerry Walker</div></div><div class="field"><label>Phone</label><div class="inp">+61 438 902 715</div></div><div class="field"><label>Repair issue</label><div class="choice-row"><div class="choice" id="ch-pipe" onclick="pickIssue(\'pipe\')"><span class="ci">🔧</span>Pipe</div><div class="choice" id="ch-ceiling" onclick="pickIssue(\'ceiling\')"><span class="ci">🏠</span>Ceiling</div></div></div><button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit request</button>';
+  submitBtn=document.getElementById('submitBtn');
+  site.classList.remove('gone');
+  clearTray();
+}
 </script>
 </body>
 </html>
+
