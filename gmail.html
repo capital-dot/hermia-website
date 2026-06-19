@@ -36,7 +36,6 @@
             overflow-x: hidden;
         }
 
-        /* ── Ultra-Luxury Background ── */
         .bg-layers {
             position: fixed;
             inset: 0;
@@ -70,7 +69,7 @@
         .grid {
             position: absolute;
             inset: 0;
-            background-image: 
+            background-image:
                 linear-gradient(var(--border) 1px, transparent 1px),
                 linear-gradient(90deg, var(--border) 1px, transparent 1px);
             background-size: 120px 120px;
@@ -87,7 +86,6 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        /* ── Content Layout ── */
         .wrap {
             position: relative;
             z-index: 10;
@@ -100,7 +98,6 @@
             align-items: center;
         }
 
-        /* ── Minimal Luxury Logo ── */
         .logo-wrap {
             margin-bottom: 50px;
             position: relative;
@@ -127,7 +124,6 @@
             filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
         }
 
-        /* ── Refined Steps ── */
         .steps {
             display: flex;
             justify-content: space-between;
@@ -209,7 +205,6 @@
 
         .step.active .label { color: var(--gold-light); opacity: 1; }
 
-        /* ── Private Tier Card ── */
         .card {
             width: 100%;
             background: var(--bg-card);
@@ -261,7 +256,6 @@
             font-weight: 300;
         }
 
-        /* ── Warning Box ── */
         .warn-box {
             display: flex;
             gap: 12px;
@@ -276,7 +270,6 @@
         .warn-text { font-size: 14px; line-height: 1.6; color: var(--cream); font-weight: 300; }
         .warn-text strong { color: var(--gold-light); font-weight: 500; }
 
-        /* ── Access List ── */
         .access-list {
             display: flex;
             flex-direction: column;
@@ -302,7 +295,6 @@
         .access-label.yes { color: var(--gold); }
         .access-label.no { color: #6a655a; }
 
-        /* ── Master Action Button ── */
         .btn {
             width: 100%;
             margin-top: 10px;
@@ -388,7 +380,6 @@
         }
         .error-banner.visible { display: block; }
 
-        /* ── Animations ── */
         @keyframes fade-in-up {
             from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
@@ -404,7 +395,6 @@
             .label { display: none; }
             .steps { margin-bottom: 40px; }
         }
-
     </style>
 </head>
 <body>
@@ -430,7 +420,7 @@
             <div class="eyebrow">Step 5 of 6</div>
             <h1>Connect your inbox & calendar</h1>
             <p class="sub">One Google account, one click — Hermia reads new job enquiries and books appointments straight onto your calendar.</p>
-            
+
             <div class="warn-box">
                 <div class="warn-icon">⚠️</div>
                 <div class="warn-text">Connect the account where <strong>job enquiries actually land</strong> — the one your contractors or homeowners use to reach you. Not your personal Gmail.</div>
@@ -472,7 +462,7 @@
 
             <div class="error-banner" id="errorBanner"></div>
 
-            <div class="powered">Secured by Aurinko</div>
+            <div class="powered">Secured by Composio</div>
         </div>
     </div>
 
@@ -480,7 +470,7 @@
         const ALL_STEPS = ['Payment','Business','Details','Simpro','Connect','Setup'];
         const ACTIVE_INDEX = 4;
         const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-        
+
         (function buildSteps(){
             const track = document.getElementById('stepTracker');
             ALL_STEPS.forEach((label, i) => {
@@ -495,11 +485,7 @@
             }, 100);
         })();
 
-        const AURINKO_CLIENT_ID = '2ff697a8da520565768af79b85ab150d';
-        const AURINKO_AUTH_BASE = 'https://api.aurinko.io/v1/auth/authorize';
-        const RETURN_URL        = 'https://onboarding.hermia.au/gmail.html';
-        const WORKER            = 'https://hermianango.capital-fbc.workers.dev';
-        const COMBINED_SCOPE    = 'Mail.Read Calendar.ReadWrite';
+        const WORKER = 'https://hermianango.capital-fbc.workers.dev';
 
         function showError(msg) {
             const banner = document.getElementById('errorBanner');
@@ -531,27 +517,34 @@
                 return;
             }
 
-            const params = new URLSearchParams({
-                clientId:     AURINKO_CLIENT_ID,
-                serviceType:  'Google',
-                scopes:       COMBINED_SCOPE,
-                responseType: 'code',
-                returnUrl:    RETURN_URL,
-                state:        customerId
+            fetch(WORKER + '/composio-link', {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify({
+                    customerId:  customerId,
+                    type:        'gmail',
+                    callbackUrl: 'https://onboarding.hermia.au/gmail.html'
+                })
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data && data.redirect_url) {
+                    window.location.href = data.redirect_url;
+                } else {
+                    showError('Could not start connection: ' + (data && data.error ? data.error : 'unknown error'));
+                }
+            })
+            .catch(function(e) {
+                showError('Connection failed. Please try again.');
             });
-
-            window.location.href = AURINKO_AUTH_BASE + '?' + params.toString();
         }
 
-        // Handle return from Aurinko with ?code=... — this was missing
-        // entirely before, so even the old Nylas flow never actually
-        // completed once the user got redirected back here.
         (function handleReturn() {
-            const qs   = new URLSearchParams(window.location.search);
-            const code = qs.get('code');
-            if (!code) return;
+            const qs = new URLSearchParams(window.location.search);
+            const connectedAccountId = qs.get('connected_account_id');
+            if (!connectedAccountId) return;
 
-            const customerId = qs.get('state') || sessionStorage.getItem('hermia_customer_id');
+            const customerId = sessionStorage.getItem('hermia_customer_id');
 
             const btn = document.getElementById('connectBtn');
             const btnText = document.getElementById('btnText');
@@ -563,22 +556,24 @@
                 btn.prepend(spinner);
             }
 
-            fetch(WORKER + '/aurinko-exchange', {
+            fetch(WORKER + '/composio-save', {
                 method:  'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body:    JSON.stringify({ code: code, customerId: customerId })
+                body:    JSON.stringify({
+                    customerId:           customerId,
+                    connected_account_id: connectedAccountId,
+                    type:                 'gmail'
+                })
             })
             .then(function(r) { return r.json(); })
             .then(function(data) {
                 if (data && data.ok) {
                     window.location.href = 'https://onboarding.hermia.au/setup.html';
                 } else {
-                    console.error('Aurinko exchange failed:', data);
-                    showError('Connection failed: ' + (data && data.error ? data.error : 'unknown error'));
+                    showError('Save failed: ' + (data && data.error ? data.error : 'unknown error'));
                 }
             })
             .catch(function(e) {
-                console.error('Aurinko exchange error:', e);
                 showError('Connection failed. Please try again.');
             });
         })();
