@@ -111,7 +111,12 @@ nav.visible{opacity:1;pointer-events:auto}
 .alert-text{font-size:clamp(18px,2.2vw,24px);font-weight:300;line-height:1.6;font-family:"Cormorant Garamond",serif;font-style:italic;color:#f0f0f0}
 .alert-line{width:100px;height:1px;background:linear-gradient(90deg,transparent,var(--gl),transparent);margin:36px auto 0}
 
-
+/* ─── NEW NARRATIVE SCENES (Style Only) ─── */
+.narrative-box { text-align: center; max-width: 800px; padding: 0 20px; }
+.narrative-title { font-family: "Cormorant Garamond", serif; font-size: clamp(32px, 6vw, 64px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; color: #fff; margin-bottom: 20px; }
+.narrative-title em { font-style: italic; color: var(--gl); font-weight: 400; }
+.narrative-sub { font-size: 14px; text-transform: uppercase; letter-spacing: 0.4em; color: var(--soft); opacity: 0.7; font-family: "Inter", sans-serif; }
+   
 /* ─── NEW NARRATIVE SCENES ─── */
 .narrative-box { text-align: center; max-width: 800px; padding: 0 20px; }
 .narrative-title { font-family: "Cormorant Garamond", serif; font-size: clamp(32px, 6vw, 64px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; color: #fff; margin-bottom: 20px; }
@@ -416,7 +421,23 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     </div>
   </div>
 
-  <!-- Scene 2: Phone Chat -->
+    <!-- Scene 2: Narrative I (ADDED) -->
+  <div class="scene" id="scene-narrative-1">
+    <div class="narrative-box">
+      <h2 class="narrative-title">Stop chasing <em>missing details</em>.</h2>
+      <p class="narrative-sub">While you're on the tools</p>
+    </div>
+  </div>
+
+  <!-- Scene 2: Narrative II (ADDED) -->
+  <div class="scene" id="scene-narrative-2">
+    <div class="narrative-box">
+      <h2 class="narrative-title">From <em>Chaos</em> to <em>Calendar</em>.</h2>
+      <p class="narrative-sub">Instantly Qualified. Fully Structured.</p>
+    </div>
+  </div>
+
+  <!-- Scene 3: Phone Chat -->
   <div class="scene" id="scene-chat">
     <div class="phone">
       <div class="phone-header">
@@ -430,7 +451,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     </div>
   </div>
 
-  <!-- Scene 3: Simpro Dashboard -->
+  <!-- Scene 4: Simpro Dashboard -->
   <div class="scene" id="scene-dashboard">
     <div class="crm-container">
       <div class="crm-header">
@@ -464,7 +485,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     </div>
   </div>
 
-  <!-- Scene 4: Final Reveal -->
+  <!-- Scene 5: Final Reveal -->
   <div class="scene active" id="scene-final">
     <div class="final-content">
       <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" class="final-logo" alt="Hermia">
