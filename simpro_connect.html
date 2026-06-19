@@ -166,25 +166,32 @@
 
       nangoInstance.openConnectUI({
         onEvent: async (event) => {
+          console.log('[DEBUG] Nango event:', JSON.stringify(event));
+
           if (event.type === 'connect') {
             const connectionId = event.connectionId || event.connection_id || null;
+            console.log('[DEBUG] connectionId extracted:', connectionId, 'customerId:', customerId);
             btn.innerHTML = '<div class="spinner"></div> Saving…';
 
             try {
-              await fetch(WORKER + '/register-webhook', {
+              const rwRes = await fetch(WORKER + '/register-webhook', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ customerId, connectionId })
               });
+              const rwData = await rwRes.json();
+              console.log('[DEBUG] register-webhook status:', rwRes.status, 'body:', rwData);
             } catch(e) {
-              console.error('register-webhook error:', e);
+              console.error('[DEBUG] register-webhook error:', e);
             }
 
-            document.body.style.transition = 'opacity 0.8s ease';
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-              window.location.href = 'https://onboarding.hermia.au/gmail.html';
-            }, 800);
+            // TEMP: redirect disabled for debugging — re-enable once confirmed working
+            console.log('[DEBUG] Redirect to gmail.html is paused for debugging.');
+            // document.body.style.transition = 'opacity 0.8s ease';
+            // document.body.style.opacity = '0';
+            // setTimeout(() => {
+            //   window.location.href = 'https://onboarding.hermia.au/gmail.html';
+            // }, 800);
 
           } else if (event.type === 'close') {
             sessionToken = null;
@@ -205,4 +212,3 @@
 </script>
 </body>
 </html>
-
