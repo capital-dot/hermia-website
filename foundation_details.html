@@ -366,6 +366,8 @@
 
         .err-msg { color: #ff7e75; font-size: 10px; margin-top: 10px; display: none; text-transform: uppercase; letter-spacing: 0.1em; }
         .err-msg.show { display: block; }
+        .formerr { color: #ff7e75; font-size: 12px; margin-top: 26px; text-align: center; line-height: 1.6; letter-spacing: 0.03em; display: none; word-break: break-word; }
+        .formerr.show { display: block; }
         input.err, .tel.err { border-color: #ff7e75; background: rgba(255, 126, 117, 0.02); }
 
         @media (max-width: 600px) {
@@ -432,6 +434,8 @@
                 <span class="btn-text">Establish Workspace</span>
                 <div class="btn-sweep"></div>
             </button>
+
+            <div class="formerr" id="formError"></div>
 
             <div class="secure">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -541,12 +545,17 @@
                 document.body.style.transition = 'opacity 1s ease';
                 document.body.style.opacity = '0';
                 setTimeout(() => {
-                    window.location.href = 'https://onboarding.hermia.au/simpro_connect.html';
+                    window.location.href = 'https://onboarding.hermia.au/simpro-connect.html';
                 }, 1000);
             } catch (e) {
                 console.error(e);
                 btn.disabled = false;
                 btn.querySelector('.btn-text').textContent = 'RETRY ESTABLISHMENT';
+                const errEl = $('formError');
+                if (errEl) {
+                    errEl.textContent = 'Error: ' + (e && e.message ? e.message : String(e));
+                    errEl.classList.add('show');
+                }
             }
         });
     </script>
