@@ -472,7 +472,7 @@
 
             <div class="error-banner" id="errorBanner"></div>
 
-            <div class="powered">Secured by Nylas</div>
+            <div class="powered">Secured by Aurinko</div>
         </div>
     </div>
 
@@ -495,10 +495,11 @@
             }, 100);
         })();
 
-        const NYLAS_CLIENT_ID = '0fef4162-8c07-4903-8fde-2fe96806ad29';
-        const NYLAS_AUTH_BASE  = 'https://api.us.nylas.com/v3/connect/auth';
-        const REDIRECT_URI     = 'https://onboarding.hermia.au/gmail.html';
-        const COMBINED_SCOPE = 'https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/calendar.events';
+        const AURINKO_CLIENT_ID = '2ff697a8da520565768af79b85ab150d';
+        const AURINKO_AUTH_BASE = 'https://api.aurinko.io/v1/auth/authorize';
+        const RETURN_URL        = 'https://onboarding.hermia.au/gmail.html';
+        const WORKER            = 'https://hermianango.capital-fbc.workers.dev';
+        const COMBINED_SCOPE    = 'Mail.Read Calendar.ReadWrite';
 
         function showError(msg) {
             const banner = document.getElementById('errorBanner');
@@ -524,7 +525,6 @@
             errorBanner.classList.remove('visible');
 
             const customerId = sessionStorage.getItem('hermia_customer_id');
-            const email = sessionStorage.getItem('hermia_email');
 
             if (!customerId) {
                 showError('Session expired. Please restart onboarding.');
@@ -532,18 +532,56 @@
             }
 
             const params = new URLSearchParams({
-                client_id: NYLAS_CLIENT_ID,
-                redirect_uri: REDIRECT_URI,
-                response_type: 'code',
-                provider: 'google',
-                scope: COMBINED_SCOPE,
-                access_type: 'offline',
-                state: customerId,
-                login_hint: email || ''
+                clientId:     AURINKO_CLIENT_ID,
+                serviceType:  'Google',
+                scopes:       COMBINED_SCOPE,
+                responseType: 'code',
+                returnUrl:    RETURN_URL,
+                state:        customerId
             });
 
-            window.location.href = NYLAS_AUTH_BASE + '?' + params.toString();
+            window.location.href = AURINKO_AUTH_BASE + '?' + params.toString();
         }
+
+        // Handle return from Aurinko with ?code=... — this was missing
+        // entirely before, so even the old Nylas flow never actually
+        // completed once the user got redirected back here.
+        (function handleReturn() {
+            const qs   = new URLSearchParams(window.location.search);
+            const code = qs.get('code');
+            if (!code) return;
+
+            const customerId = qs.get('state') || sessionStorage.getItem('hermia_customer_id');
+
+            const btn = document.getElementById('connectBtn');
+            const btnText = document.getElementById('btnText');
+            if (btn) {
+                btn.disabled = true;
+                if (btnText) btnText.textContent = 'FINALISING...';
+                const spinner = document.createElement('div');
+                spinner.className = 'spinner';
+                btn.prepend(spinner);
+            }
+
+            fetch(WORKER + '/aurinko-exchange', {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify({ code: code, customerId: customerId })
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data && data.ok) {
+                    window.location.href = 'https://onboarding.hermia.au/setup.html';
+                } else {
+                    console.error('Aurinko exchange failed:', data);
+                    showError('Connection failed: ' + (data && data.error ? data.error : 'unknown error'));
+                }
+            })
+            .catch(function(e) {
+                console.error('Aurinko exchange error:', e);
+                showError('Connection failed. Please try again.');
+            });
+        })();
     </script>
 </body>
 </html>
