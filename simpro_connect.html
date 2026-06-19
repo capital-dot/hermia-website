@@ -52,9 +52,8 @@
   .logo{height:48px;filter:drop-shadow(0 8px 20px rgba(196,150,60,0.3));animation:levitate 5s ease-in-out infinite}
   @keyframes levitate{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
   
-  .partner{display:inline-flex;align-items:center;gap:10px;margin-bottom:44px;padding:8px 18px;border-radius:999px;border:1px solid var(--border);background:rgba(196,150,60,0.05);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
-  .partner b{color:var(--gold-light);font-weight:600}
-  .partner .pdot{width:6px;height:6px;border-radius:50%;background:var(--gold-light);box-shadow:0 0 10px var(--gold)}
+  .partner-logo-box{margin-bottom:44px;text-align:center}
+  .partner-logo{height:32px;width:auto;opacity:.9;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3))}
 
   /* Progress Steps */
   .steps{display:flex;align-items:flex-start;justify-content:space-between;width:100%;max-width:620px;margin-bottom:56px;position:relative}
@@ -109,7 +108,10 @@
   <div class="logo-wrap">
     <img class="logo" src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" />
   </div>
-  <div class="partner"><span class="pdot"></span>In partnership with <b>Simpro</b></div>
+  
+  <div class="partner-logo-box">
+    <img class="partner-logo" src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Horizontal_Registered.png" alt="Simpro Registered Partner" />
+  </div>
 
   <div class="steps" id="stepTracker">
     <div class="progressline" id="progressline"></div>
@@ -130,7 +132,7 @@
 
     <div class="error-banner" id="errorBanner"></div>
 
-    <div class="powered">Secured by Nango</div>
+    <div class="powered">Secured by Nango Protocol</div>
   </div>
 </div>
 
@@ -210,4 +212,3 @@
 </script>
 </body>
 </html>
-
