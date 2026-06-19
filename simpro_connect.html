@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hermia | Ecosystem Integration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/@nangohq/frontend@latest/dist/index.min.js"></script>
+    <style>
+        :root {
+            --bg: #080705;
+            --bg-card: rgba(10, 9, 7, 0.85);
+            --gold: #D4AF37;
+            --gold-bright: #FFD700;
+            --gold-light: #F9E2AF;
+            --gold-muted: rgba(212, 175, 55, 0.12);
+            --cream: #f4f0e6;
+            --soft: #a19d94;
+            --border: rgba(212, 175, 55, 0.2);
+            --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html, body {
+            height: 100%;
+            background: var(--bg);
+            color: var(--cream);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ── Ultra-Luxury Background ── */
+        .bg-layers {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .vignette {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,1) 100%);
+            z-index: 5;
+        }
+
+        .light-bloom {
+            position: absolute;
+            width: 140vw;
+            height: 140vh;
+            top: -20vh;
+            left: -20vw;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.04) 0%, transparent 60%);
+            filter: blur(140px);
+            animation: light-drift 35s infinite alternate ease-in-out;
+        }
+
+        @keyframes light-drift {
+            0% { transform: translate(-5%, -5%) scale(1); }
+            100% { transform: translate(5%, 5%) scale(1.1); }
+        }
+
+        .grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 120px 120px;
+            -webkit-mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%);
+            mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%);
+            opacity: 0.15;
+        }
+
+        .grain {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* ── Content Layout ── */
+        .wrap {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 80px 24px 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ── Minimal Luxury Logo ── */
+        .logo-wrap {
+            margin-bottom: 50px;
+            position: relative;
+            animation: fade-in-down 1.2s var(--ease-cinematic) forwards;
+        }
+
+        .logo-aura {
+            position: absolute;
+            inset: -40px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+            filter: blur(25px);
+            animation: aura-pulse 8s infinite ease-in-out;
+        }
+
+        @keyframes aura-pulse {
+            0%, 100% { opacity: 0.3; transform: scale(0.9); }
+            50% { opacity: 0.6; transform: scale(1.05); }
+        }
+
+        .logo {
+            height: 52px;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
+        }
+
+        /* ── Partnership Badge ── */
+        .partnership-badge {
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fade-in-up 1s var(--ease-cinematic) 0.2s forwards;
+            height: 40px;
+            filter: brightness(1.2) contrast(1.1) drop-shadow(0 0 10px rgba(212, 175, 55, 0.2));
+        }
+
+        /* ── Refined Steps ── */
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 60px;
+            position: relative;
+            opacity: 0;
+            animation: fade-in-up 1s var(--ease-cinematic) 0.4s forwards;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 10px;
+            right: 10px;
+            height: 1px;
+            background: rgba(212, 175, 55, 0.08);
+        }
+
+        .progressline {
+            position: absolute;
+            top: 16px;
+            left: 10px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold-muted), var(--gold), var(--gold-muted));
+            box-shadow: 0 0 12px var(--gold);
+            transition: width 1.2s var(--ease-cinematic);
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dot {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 11px;
+            font-weight: 300;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--soft);
+            transition: all 0.6s var(--ease-cinematic);
+        }
+
+        .step.active .dot {
+            border-color: var(--gold);
+            color: var(--gold-bright);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+            transform: scale(1.05);
+        }
+
+        .step.done .dot {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: #000;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .dot svg { width: 14px; height: 14px; stroke-width: 2; }
+
+        .label {
+            font-size: 8.5px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--soft);
+            opacity: 0.5;
+            font-weight: 400;
+        }
+
+        .step.active .label { color: var(--gold-light); opacity: 1; }
+
+        /* ── Private Tier Card ── */
+        .card {
+            width: 100%;
+            background: var(--bg-card);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 60px 50px;
+            position: relative;
+            opacity: 0;
+            animation: fade-in-up 1.2s var(--ease-cinematic) 0.6s forwards;
+            box-shadow: 0 50px 120px rgba(0,0,0,0.8);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.6;
+        }
+
+        .eyebrow {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            color: var(--gold);
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 300;
+            line-height: 1.0;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .sub {
+            font-size: 16px;
+            color: var(--soft);
+            margin-bottom: 40px;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* ── Mini Luxury Feature Table ── */
+        .feature-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .feature-row {
+            border-bottom: 1px solid rgba(212, 175, 55, 0.05);
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-row:last-child { border-bottom: none; }
+
+        .feature-cell {
+            padding: 18px 20px;
+            font-size: 13px;
+            font-weight: 300;
+            letter-spacing: 0.03em;
+        }
+
+        .feature-label {
+            flex: 0 0 120px;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            border-right: 1px solid rgba(212, 175, 55, 0.1);
+            background: rgba(212, 175, 55, 0.02);
+        }
+
+        .feature-value {
+            flex: 1;
+            color: var(--cream);
+            opacity: 0.9;
+        }
+
+        /* ── Master Action Button ── */
+        .btn {
+            width: 100%;
+            margin-top: 10px;
+            padding: 22px;
+            border: none;
+            background: linear-gradient(135deg, #E8C17A, #C9A35B);
+            color: #000;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.5s var(--ease-cinematic);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2);
+            filter: brightness(1.05);
+        }
+
+        .btn:disabled { opacity: 0.5; cursor: wait; }
+
+        .btn-sweep {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            transform: skewX(-30deg);
+            animation: btn-sweep 5s infinite ease-in-out;
+        }
+
+        @keyframes btn-sweep {
+            0% { left: -100%; }
+            15% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(0,0,0,0.2);
+            border-top-color: #000;
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .powered {
+            margin-top: 35px;
+            text-align: center;
+            color: var(--soft);
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.4;
+        }
+
+        .error-banner {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(220, 80, 80, 0.05);
+            border: 1px solid rgba(220, 80, 80, 0.2);
+            color: #ff7e75;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-align: center;
+        }
+        .error-banner.visible { display: block; }
+
+        /* ── Animations ── */
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fade-in-down {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .card { padding: 50px 30px; }
+            h1 { font-size: 38px; }
+            .label { display: none; }
+            .steps { margin-bottom: 40px; }
+            .feature-label { flex: 0 0 90px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-layers">
+        <div class="light-bloom"></div>
+        <div class="grid"></div>
+        <div class="vignette"></div>
+        <div class="grain"></div>
+    </div>
+
+    <div class="wrap">
+        <div class="logo-wrap">
+            <div class="logo-aura"></div>
+            <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" />
+        </div>
+
+        <img src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Horizontal_Registered.png" alt="Simpro Partner" class="partnership-badge" />
+
+        <div class="steps" id="stepTracker">
+            <div class="progressline" id="progressline"></div>
+        </div>
+
+        <div class="card">
+            <div class="eyebrow">Ecosystem Phase</div>
+            <h1>Connect Simpro</h1>
+            <p class="sub">Link your existing lead pipeline to Hermia for automated qualification and seamless Simpro synchronization.</p>
+            
+            <div class="feature-table">
+                <div class="feature-row">
+                    <div class="feature-cell feature-label">Hermia</div>
+                    <div class="feature-cell feature-value">Qualifies Existing Leads</div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-cell feature-label">Simpro</div>
+                    <div class="feature-cell feature-value">Automated Synchronization</div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-cell feature-label">Security</div>
+                    <div class="feature-cell feature-value">Private & Encrypted</div>
+                </div>
+            </div>
+
+            <button class="btn" id="connectBtn" onclick="connectSimpro()">
+                <span id="btnText">Initialize Connection</span>
+                <div class="btn-sweep"></div>
+            </button>
+
+            <div class="error-banner" id="errorBanner"></div>
+
+            <div class="powered">Architected by Nango</div>
+        </div>
+    </div>
+
+    <script>
+        const ALL_STEPS = ['Payment','Business','Details','Simpro','Inbox','Calendar','Setup'];
+        const ACTIVE_INDEX = 3;
+        const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        
+        (function buildSteps(){
+            const track = document.getElementById('stepTracker');
+            ALL_STEPS.forEach((label, i) => {
+                const div = document.createElement('div');
+                const state = i < ACTIVE_INDEX ? 'done' : (i === ACTIVE_INDEX ? 'active' : '');
+                div.className = 'step ' + state;
+                div.innerHTML = `<div class="dot">${state === 'done' ? CHECK_SVG : (i + 1)}</div><div class="label">${label}</div>`;
+                track.appendChild(div);
+            });
+            setTimeout(() => {
+                document.getElementById('progressline').style.width = `calc((100% - 34px) * ${ACTIVE_INDEX/(ALL_STEPS.length-1)})`;
+            }, 100);
+        })();
+
+        const WORKER = 'https://hermianango.capital-fbc.workers.dev';
+        const SUPABASE_URL = 'https://fjovhxaupeidvkfhigff.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_8jqbPp3THF54CnpomkJ3vQ_DtqnSAfV';
+
+        function showError(msg) {
+            const banner = document.getElementById('errorBanner');
+            banner.textContent = msg;
+            banner.classList.add('visible');
+            const btn = document.getElementById('connectBtn');
+            btn.disabled = false;
+            document.getElementById('btnText').textContent = 'Retry Connection';
+            const spinner = btn.querySelector('.spinner');
+            if (spinner) spinner.remove();
+        }
+
+        async function connectSimpro() {
+            const btn = document.getElementById('connectBtn');
+            const btnText = document.getElementById('btnText');
+            const customerId = sessionStorage.getItem('hermia_customer_id');
+            
+            if (!customerId) {
+                showError('Session expired. Please restart.');
+                return;
+            }
+
+            btn.disabled = true;
+            btnText.textContent = 'CONNECTING...';
+            const spinner = document.createElement('div');
+            spinner.className = 'spinner';
+            btn.prepend(spinner);
+            document.getElementById('errorBanner').classList.remove('visible');
+
+            try {
+                const res = await fetch(WORKER + '/simpro-connect-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        customerId,
+                        integration: 'simpro',
+                        email: sessionStorage.getItem('hermia_email') || undefined
+                    })
+                });
+                const data = await res.json();
+                if (!data || !data.sessionToken) throw new Error('No session token');
+
+                const nango = new Nango({ connectSessionToken: data.sessionToken });
+                nango.openConnectUI({
+                    onEvent: async (event) => {
+                        if (event.type === 'connect') {
+                            await fetch(SUPABASE_URL + '/rest/v1/onboarding_status?customer_id=eq.' + customerId, {
+                                method: 'PATCH',
+                                headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+                                body: JSON.stringify({ crm_connected: true })
+                            });
+                            
+                            document.body.style.transition = 'opacity 1s ease';
+                            document.body.style.opacity = '0';
+                            setTimeout(() => {
+                                window.location.href = 'https://onboarding.hermia.au/gmail.html';
+                            }, 1000);
+                        } else if (event.type === 'close') {
+                            btn.disabled = false;
+                            btnText.textContent = 'Initialize Connection';
+                            spinner.remove();
+                        }
+                    }
+                });
+            } catch (e) {
+                console.error(e);
+                showError('Connection Initialization Failed');
+            }
+        }
+    </script>
+</body>
+</html>
