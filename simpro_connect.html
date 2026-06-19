@@ -7,8 +7,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
-<script src="https://unpkg.com/@nangohq/frontend@0.39.14/dist/index.min.js"></script>
-<script>window.Nango = window.Nango || window.NangoFrontend;</script>
+<script type="module">
+  import Nango from 'https://cdn.jsdelivr.net/npm/@nangohq/frontend@0.39.14/+esm';
+  window.Nango = Nango;
+</script>
 <style>
   :root{--bg:#050505;--gold:#c4963c;--gold-light:#d9aa52;--cream:#f4f0e6;--soft:#b0ada5;--muted:#7a7470;--border:rgba(196,150,60,0.14);--display:"Cormorant Garamond",serif;}
   *{box-sizing:border-box;margin:0;padding:0}
