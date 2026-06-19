@@ -9,53 +9,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
 <script src="https://unpkg.com/@nangohq/frontend@latest/dist/index.min.js"></script>
 <style>
-  :root{
-    --bg:#050505;
-    --bg-2:#0e0e0e;
-    --gold:#c4963c;
-    --gold-light:#d9aa52;
-    --cream:#f4f0e6;
-    --soft:#b0ada5;
-    --muted:#7a7470;
-    --border:rgba(196,150,60,0.14);
-    --bhi:rgba(196,150,60,0.35);
-    --gdim:rgba(196,150,60,0.07);
-    --display:"Cormorant Garamond",serif;
-  }
+  :root{--bg:#050505;--gold:#c4963c;--gold-light:#d9aa52;--cream:#f4f0e6;--soft:#b0ada5;--muted:#7a7470;--border:rgba(196,150,60,0.14);--display:"Cormorant Garamond",serif;}
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
-  body{
-    background:var(--bg);
-    color:var(--cream);
-    font-family:'DM Sans',sans-serif;
-    font-weight:300;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding:54px 20px 90px;
-    position:relative;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
-  }
-  
-  /* Cinematic Background */
+  body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:54px 20px 90px;position:relative;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
   .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
   .bloom{position:absolute;inset:0;background:radial-gradient(1000px 600px at 50% -10%,rgba(196,150,60,0.12),transparent 70%),radial-gradient(800px 800px at 90% 90%,rgba(196,150,60,0.05),transparent 70%)}
   .gridfloor{position:absolute;inset:0;background-image:linear-gradient(rgba(196,150,60,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(196,150,60,0.03) 1px,transparent 1px);background-size:50px 50px;-webkit-mask-image:radial-gradient(circle at 50% 20%,#000 0%,transparent 80%);mask-image:radial-gradient(circle at 50% 20%,#000 0%,transparent 80%)}
   .grain{position:absolute;inset:0;opacity:.03;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   .vignette{position:absolute;inset:0;background:radial-gradient(circle at center,transparent 40%,rgba(0,0,0,0.4) 100%)}
-
   .wrap{position:relative;z-index:2;width:100%;max-width:600px;display:flex;flex-direction:column;align-items:center}
-  
   .logo-wrap{position:relative;margin-bottom:24px;display:grid;place-items:center}
   .logo{height:48px;filter:drop-shadow(0 8px 20px rgba(196,150,60,0.3));animation:levitate 5s ease-in-out infinite}
   @keyframes levitate{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-  
   .partner-logo-box{margin-bottom:44px;text-align:center}
   .partner-logo{height:32px;width:auto;opacity:.9;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3))}
-
-  /* Progress Steps */
   .steps{display:flex;align-items:flex-start;justify-content:space-between;width:100%;max-width:620px;margin-bottom:56px;position:relative}
   .steps::before{content:'';position:absolute;top:15px;left:15px;right:15px;height:1px;background:var(--border)}
   .progressline{position:absolute;top:15px;left:15px;height:1px;background:linear-gradient(90deg,var(--gold),var(--gold-light));box-shadow:0 0 10px rgba(196,150,60,0.4);z-index:0}
@@ -67,33 +35,22 @@
   .step .label{font-size:9px;letter-spacing:.15em;color:var(--muted);text-align:center;text-transform:uppercase;font-weight:500}
   .step.active .label{color:var(--cream)}
   .step.done .label{color:var(--gold)}
-
-  /* Main Card */
   .card{position:relative;width:100%;border-radius:4px;padding:52px 48px;background:rgba(10,10,10,0.8);backdrop-filter:blur(24px);border:1px solid var(--border);box-shadow:0 40px 100px rgba(0,0,0,0.6),inset 0 0 40px rgba(196,150,60,0.02)}
   .card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.4}
-  
   .eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:600}
   h1{font-family:var(--display);font-weight:600;font-size:44px;line-height:1;margin-bottom:16px;color:#fff}
   .sub{color:var(--soft);font-size:16px;line-height:1.6;margin-bottom:36px;font-weight:300}
-
   .info-box{border:1px solid rgba(196,150,60,0.1);border-radius:2px;padding:22px;background:rgba(196,150,60,0.03);font-size:14px;line-height:1.6;color:var(--soft);margin-bottom:40px;position:relative}
   .info-box::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold)}
   .info-box strong{color:var(--cream);font-weight:500}
-
-  /* Master Action Button */
   .btn{position:relative;overflow:hidden;width:100%;padding:20px;border:none;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#000;background:linear-gradient(135deg,var(--gold-light),var(--gold));transition:all .3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 15px 35px rgba(196,150,60,0.25);display:flex;align-items:center;justify-content:center;gap:12px}
-  .btn::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);transform:skewX(-20deg);transition:left .6s}
   .btn:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 20px 50px rgba(196,150,60,0.4)}
-  .btn:hover::after{left:150%}
   .btn:disabled{opacity:.6;cursor:not-allowed}
-  
   .spinner{width:20px;height:20px;border:2px solid rgba(0,0,0,0.2);border-top-color:#000;border-radius:50%;animation:spin .8s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
-  
   .powered{margin-top:28px;display:flex;align-items:center;justify-content:center;gap:10px;color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
   .error-banner{display:none;margin-top:20px;padding:14px 20px;border-radius:2px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.2);color:#ef4444;font-size:13px;line-height:1.5;text-align:center}
   .error-banner.visible{display:block}
-  
   @media(max-width:480px){.card{padding:40px 24px}h1{font-size:36px}.steps{max-width:100%}.step .label{display:none}}
 </style>
 </head>
@@ -108,30 +65,23 @@
   <div class="logo-wrap">
     <img class="logo" src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" />
   </div>
-  
   <div class="partner-logo-box">
     <img class="partner-logo" src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Horizontal_Registered.png" alt="Simpro Registered Partner" />
   </div>
-
   <div class="steps" id="stepTracker">
     <div class="progressline" id="progressline"></div>
   </div>
-
   <div class="card">
     <div class="eyebrow">Phase 04 &bull; Integration</div>
     <h1>Connect Simpro</h1>
     <p class="sub">This links Hermia to your Simpro account so every qualified job enquiry is pushed straight in as a lead — no manual entry.</p>
-
     <div class="info-box">
       Hermia creates and updates <strong>job leads, customers, and sites</strong> in your Simpro build, using the access level set on your Simpro connection. It never touches invoices, payroll, or financial data.
     </div>
-
-    <button class="btn" id="connectBtn" onclick="connectSimpro()">
+    <button class="btn" id="connectBtn">
       Connect Simpro
     </button>
-
     <div class="error-banner" id="errorBanner"></div>
-
     <div class="powered">Secured by Nango Protocol</div>
   </div>
 </div>
@@ -153,83 +103,109 @@
   })();
 
   const WORKER = 'https://hermianango.capital-fbc.workers.dev';
+  const btn = document.getElementById('connectBtn');
+  const errorBanner = document.getElementById('errorBanner');
+  const customerId = sessionStorage.getItem('hermia_customer_id');
+  const email = sessionStorage.getItem('hermia_email');
 
-  function showError(msg){
-    const banner = document.getElementById('errorBanner');
-    banner.textContent = msg;
-    banner.classList.add('visible');
-    const btn = document.getElementById('connectBtn');
+  let sessionToken = null;
+  let nango = null;
+
+  function showError(msg) {
+    errorBanner.textContent = msg;
+    errorBanner.classList.add('visible');
     btn.disabled = false;
-    btn.innerHTML = 'Connect Simpro';
+    btn.textContent = 'Connect Simpro';
   }
 
-  async function connectSimpro(){
-    const btn = document.getElementById('connectBtn');
-    const customerId = sessionStorage.getItem('hermia_customer_id');
-    if(!customerId){ showError('Session expired. Please restart onboarding from the beginning.'); return; }
-
-    btn.disabled = true;
-    btn.innerHTML = '<div class="spinner"></div> Connecting…';
-    document.getElementById('errorBanner').classList.remove('visible');
-
+  // Pre-fetch session token on page load so click is instant
+  async function prefetchToken() {
+    if (!customerId) return;
     try {
-      // Step 1: Get Nango session token
       const res = await fetch(WORKER, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          customerId,
-          integration: 'simpro',
-          email: sessionStorage.getItem('hermia_email') || undefined
-        })
+        body: JSON.stringify({ customerId, integration: 'simpro', email: email || undefined })
       });
       const data = await res.json();
-      if (!data || !data.sessionToken) throw new Error(data.error || 'No session token returned');
-
-      // Step 2: Open Nango Connect UI
-      const nango = new Nango({ connectSessionToken: data.sessionToken });
-      nango.openConnectUI({
-        onEvent: async (event) => {
-          if (event.type === 'connect') {
-            const connectionId = event.connectionId || event.connection_id || null;
-            if (!connectionId) {
-              showError('Connection completed but no connection ID returned. Please try again.');
-              return;
-            }
-
-            // Step 3: Send connectionId to Worker
-            btn.innerHTML = '<div class="spinner"></div> Saving…';
-            try {
-              await fetch(WORKER + '/register-webhook', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  customerId,
-                  connectionId
-                })
-              });
-            } catch(e) {
-              console.error('register-webhook error:', e);
-            }
-
-            // Step 4: Redirect to Gmail connect
-            document.body.style.transition = 'opacity 0.8s ease';
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-              window.location.href = 'https://onboarding.hermia.au/gmail.html';
-            }, 800);
-
-          } else if (event.type === 'close') {
-            btn.disabled = false;
-            btn.innerHTML = 'Connect Simpro';
-          }
-        }
-      });
-    } catch (e) {
-      console.error(e);
-      showError('Unable to start the Simpro connection. Please try again.');
+      if (data && data.sessionToken) {
+        sessionToken = data.sessionToken;
+        nango = new Nango({ connectSessionToken: sessionToken });
+        btn.disabled = false;
+      }
+    } catch(e) {
+      console.error('prefetch error:', e);
     }
   }
+
+  // On click — open popup immediately (no async before this)
+  btn.addEventListener('click', async () => {
+    if (!customerId) { showError('Session expired. Please restart onboarding from the beginning.'); return; }
+
+    // If token not ready yet, fetch now (will still try)
+    if (!nango) {
+      btn.disabled = true;
+      btn.innerHTML = '<div class="spinner"></div> Preparing…';
+      try {
+        const res = await fetch(WORKER, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ customerId, integration: 'simpro', email: email || undefined })
+        });
+        const data = await res.json();
+        if (!data || !data.sessionToken) throw new Error(data.error || 'No session token');
+        sessionToken = data.sessionToken;
+        nango = new Nango({ connectSessionToken: sessionToken });
+      } catch(e) {
+        showError('Unable to start the Simpro connection. Please try again.');
+        return;
+      }
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner"></div> Connecting…';
+    errorBanner.classList.remove('visible');
+
+    // Open Nango popup
+    nango.openConnectUI({
+      onEvent: async (event) => {
+        if (event.type === 'connect') {
+          const connectionId = event.connectionId || event.connection_id || null;
+
+          btn.innerHTML = '<div class="spinner"></div> Saving…';
+
+          // Send to Worker to fetch simpro_company_id and save everything to customers
+          try {
+            await fetch(WORKER + '/register-webhook', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ customerId, connectionId })
+            });
+          } catch(e) {
+            console.error('register-webhook error:', e);
+          }
+
+          // Redirect to Gmail step
+          document.body.style.transition = 'opacity 0.8s ease';
+          document.body.style.opacity = '0';
+          setTimeout(() => {
+            window.location.href = 'https://onboarding.hermia.au/gmail.html';
+          }, 800);
+
+        } else if (event.type === 'close') {
+          btn.disabled = false;
+          btn.textContent = 'Connect Simpro';
+          // Reset nango instance so token can be refreshed next attempt
+          nango = null;
+          sessionToken = null;
+          prefetchToken();
+        }
+      }
+    });
+  });
+
+  // Start prefetching token as soon as page loads
+  prefetchToken();
 </script>
 </body>
 </html>
