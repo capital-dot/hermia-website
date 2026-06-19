@@ -17,6 +17,10 @@
   --amber:#e8a842;--amberbg:rgba(232,168,66,0.09);--amberborder:rgba(232,168,66,0.3)
 }
 *{margin:0;padding:0;box-sizing:border-box}
+
+/* Global link reset — kills browser purple on all states */
+a, a:link, a:visited, a:hover, a:active { color: inherit; text-decoration: none; }
+
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;padding:80px 24px 100px;overflow-x:hidden}
 .bg1{position:fixed;top:-15%;left:-15%;width:700px;height:700px;background:radial-gradient(circle,rgba(201,163,91,.12) 0%,transparent 65%);filter:blur(140px);pointer-events:none;z-index:0;animation:drift 20s ease-in-out infinite}
 .bg2{position:fixed;bottom:-15%;right:-15%;width:700px;height:700px;background:radial-gradient(circle,rgba(201,163,91,.08) 0%,transparent 65%);filter:blur(140px);pointer-events:none;z-index:0;animation:drift-rev 25s ease-in-out infinite}
@@ -35,6 +39,31 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 @media(max-width:900px){.dgrid{grid-template-columns:1fr}}
 .leftcol{display:flex;flex-direction:column;gap:24px}
 .panel{background:var(--card);border:1px solid var(--border);border-radius:24px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.05)}
+
+/* Back to Site button — all link states locked to gold */
+a.back-link,
+a.back-link:link,
+a.back-link:visited,
+a.back-link:active {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:40px;
+  color: var(--goldl) !important;
+  text-decoration: none !important;
+  font-size:12px;
+  font-weight:600;
+  padding:10px 18px;
+  border:1px solid rgba(201,163,91,0.4);
+  border-radius:10px;
+  background: linear-gradient(90deg, rgba(139,104,32,0.12), rgba(201,163,91,0.06));
+  transition: all 0.25s;
+}
+a.back-link:hover {
+  color: #fff !important;
+  background: rgba(201,163,91,0.12) !important;
+  border-color: var(--gold) !important;
+}
 
 /* ===== MINI WEBSITE FORM ===== */
 .site{background:#fbfbfa;border-radius:20px;overflow:hidden;color:#1a1a1a;box-shadow:0 30px 60px rgba(0,0,0,.45);transition:all .5s cubic-bezier(.23,1,.32,1)}
@@ -132,17 +161,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 .fcta h3{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:#fff;margin-bottom:16px}
 .fcta h3 em{font-style:italic;color:var(--gold)}
 .fcta p{font-size:15px;color:var(--soft);margin-bottom:32px;line-height:1.7}
-.fcta-btn{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--goldl));color:#000;padding:14px 40px;border-radius:12px;text-decoration:none;font-weight:700;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;transition:all .3s}
+.fcta-btn{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--goldl));color:#000 !important;padding:14px 40px;border-radius:12px;text-decoration:none !important;font-weight:700;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;transition:all .3s}
 .fcta-btn:hover{transform:translateY(-2px)}
-.back-link{display:inline-flex;align-items:center;gap:8px;margin-bottom:40px;color:var(--gold);text-decoration:none;font-size:12px;font-weight:600;padding:10px 18px;border:1px solid var(--border);border-radius:10px}
-.back-link:hover{background:var(--bdim);border-color:var(--gold)}
 </style>
 </head>
 <body>
 <div class="bg1"></div>
 <div class="bg2"></div>
 <div class="wrap">
-  <a href="index.html" class="nav-back-btn">← Back to Site</a>
+  <a href="index.html" class="back-link">← Back to Site</a>
   <div class="page-header">
     <div class="ptag"><span class="ptag-dot"></span>Live Triage System</div>
     <h1>Hermia <em>Intake</em></h1>
@@ -224,7 +251,6 @@ function userBubble(txt){var b=document.createElement('div');b.className='bubble
 function tile(id,val){var el=document.getElementById('t-'+id);if(el){el.classList.add('active');el.querySelector('.tval').innerText=val;}}
 function bot(txt,cb){var typ=document.createElement('div');typ.className='bubble bot';typ.innerText='Hermia is typing…';chat.appendChild(typ);chat.scrollTop=99999;setTimeout(function(){typ.remove();var b=document.createElement('div');b.className='bubble bot';b.innerText=txt;chat.appendChild(b);chat.scrollTop=99999;if(cb)cb();},700);}
 
-// ===== FORM INTERACTION =====
 function pickIssue(which){
   document.getElementById('ch-pipe').classList.toggle('sel',which==='pipe');
   document.getElementById('ch-ceiling').classList.toggle('sel',which==='ceiling');
@@ -237,7 +263,6 @@ function submitForm(){
   log('[INBOUND] Website form submitted','b');
   log('[CONTACT] '+state.name+' · '+state.phone,'b');
   log('[FORM] Issue: '+state.issue,'b');
-  // show "Application submitted" inside the form, then collapse
   siteBody.innerHTML='<div class="site-done"><div class="chk">✓</div><h4>Application submitted</h4><p>Thanks '+state.name.split(' ')[0]+', we\'ve received your request.</p></div>';
   setTimeout(function(){
     site.classList.add('gone');
@@ -247,9 +272,8 @@ function submitForm(){
   },1400);
 }
 
-// ===== HERMIA CONVERSATION =====
 function startHermia(){
-  bot("Hi "+state.name.split(' ')[0]+", I'm Hermia, "+ "your repair team's digital assistant. I've got your "+state.issue.toLowerCase()+" request. Is this an emergency, critical, or a standard job?",function(){
+  bot("Hi "+state.name.split(' ')[0]+", I'm Hermia, your repair team's digital assistant. I've got your "+state.issue.toLowerCase()+" request. Is this an emergency, critical, or a standard job?",function(){
     ['Emergency','Critical','Standard'].forEach(function(g){
       btn(g,function(){
         clearTray();userBubble(g);state.grade=g;tile('urgency',g);
@@ -315,7 +339,6 @@ function replay(){
   result.className='rcard';result.innerHTML='';
   ['issue','urgency','photo','situation','budget','address','time'].forEach(function(id){var el=document.getElementById('t-'+id);if(el){el.classList.remove('active');el.querySelector('.tval').innerText='—';}});
   phone.classList.remove('live');
-  // rebuild the form
   state={name:'Jerry Walker',phone:'+61 438 902 715'};dead=false;
   siteBody.innerHTML='<div class="site-h">Request a repair</div><div class="site-sub">Tell us what\'s going on and we\'ll be in touch.</div><div class="field"><label>Name</label><div class="inp">Jerry Walker</div></div><div class="field"><label>Phone</label><div class="inp">+61 438 902 715</div></div><div class="field"><label>Repair issue</label><div class="choice-row"><div class="choice" id="ch-pipe" onclick="pickIssue(\'pipe\')"><span class="ci">🔧</span>Pipe</div><div class="choice" id="ch-ceiling" onclick="pickIssue(\'ceiling\')"><span class="ci">🏠</span>Ceiling</div></div></div><button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit request</button>';
   submitBtn=document.getElementById('submitBtn');
@@ -325,4 +348,3 @@ function replay(){
 </script>
 </body>
 </html>
-
