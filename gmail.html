@@ -538,7 +538,7 @@ function connectCalendar() {
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({
             customerId:   customerId,
-            type:         'google_calendar',
+            type:         'calendar',
             authConfigId: CAL_AUTH_ID,
             callbackUrl:  CALLBACK
         })
@@ -624,7 +624,7 @@ function saveAccount(connectedAccountId, type) {
         sessionStorage.removeItem('hermia_pending_phase');
         STATE.inboxType = inboxType;
 
-        saveAccount(connectedAccountId, 'google_calendar')
+        saveAccount(connectedAccountId, 'calendar')
             .then(data => {
                 if (data && data.ok) {
                     window.location.href = NEXT_PAGE;
