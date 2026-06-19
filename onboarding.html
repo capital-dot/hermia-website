@@ -1,113 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Hermia · Get Started</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
-<style>
-  :root{--bg:#07070a;--gold:#C9A35B;--gold-light:#e8c17a;--cream:#f4f0e6;--soft:#b0ada5;--card:#0f0f12;--border:rgba(201,163,91,0.14)}
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:54px 20px 90px;position:relative;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-  .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-  .bloom{position:absolute;inset:0;background:radial-gradient(820px 540px at 50% -12%,rgba(201,163,91,0.16),transparent 62%),radial-gradient(620px 620px at 86% 116%,rgba(201,163,91,0.07),transparent 64%),radial-gradient(520px 460px at 8% 88%,rgba(201,163,91,0.05),transparent 66%)}
-  .gridfloor{position:absolute;inset:0;background-image:linear-gradient(rgba(201,163,91,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(201,163,91,0.045) 1px,transparent 1px);background-size:62px 62px;-webkit-mask-image:radial-gradient(circle at 50% 26%,#000 0%,transparent 72%);mask-image:radial-gradient(circle at 50% 26%,#000 0%,transparent 72%)}
-  .float{position:absolute;border:1px solid rgba(201,163,91,0.13);border-radius:20px;background:linear-gradient(135deg,rgba(201,163,91,0.05),rgba(201,163,91,0.005));backdrop-filter:blur(2px);opacity:.8}
-  .f1{width:150px;height:190px;top:12%;left:-46px;animation:drift1 17s ease-in-out infinite}
-  .f2{width:110px;height:110px;top:64%;left:5%;animation:drift2 21s ease-in-out infinite}
-  .f3{width:200px;height:140px;top:8%;right:-60px;animation:drift3 23s ease-in-out infinite}
-  .f4{width:120px;height:160px;bottom:6%;right:6%;animation:drift1 19s ease-in-out infinite reverse}
-  .grain{position:absolute;inset:0;opacity:.045;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-  @keyframes drift1{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-26px) rotate(3deg)}}
-  @keyframes drift2{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(14px,-20px) rotate(-4deg)}}
-  @keyframes drift3{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-18px,18px) rotate(2deg)}}
-  .wrap{position:relative;z-index:2;width:100%;max-width:540px;display:flex;flex-direction:column;align-items:center}
-  .logo-wrap{position:relative;margin-bottom:44px;display:grid;place-items:center}
-  .logo-wrap::before{content:'';position:absolute;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(201,163,91,0.28),transparent 65%);filter:blur(14px);animation:halo 5s ease-in-out infinite;z-index:0}
-  .logo{height:46px;position:relative;z-index:1;filter:drop-shadow(0 16px 26px rgba(201,163,91,0.28));animation:levitate 5s ease-in-out infinite,logoIn .8s .05s both}
-  @keyframes levitate{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-  @keyframes halo{0%,100%{opacity:.55;transform:scale(.92)}50%{opacity:.95;transform:scale(1.06)}}
-  @keyframes logoIn{from{opacity:0;transform:translateY(-8px) scale(.96)}to{opacity:1}}
-  .card{position:relative;width:100%;border-radius:24px;padding:44px 38px;background:linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.006));backdrop-filter:blur(22px) saturate(115%);-webkit-backdrop-filter:blur(22px) saturate(115%);border:1px solid var(--border);box-shadow:inset 0 1px 0 rgba(255,255,255,0.07),0 44px 100px rgba(0,0,0,0.62);opacity:0;animation:fadeUp .75s .22s forwards}
-  .card::before{content:'';position:absolute;inset:0;border-radius:24px;padding:1px;pointer-events:none;background:linear-gradient(160deg,rgba(232,193,122,0.5),transparent 35%,transparent 70%,rgba(201,163,91,0.25));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.7}
-  .eyebrow{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
-  h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:42px;line-height:1.02;margin-bottom:12px}
-  .sub{color:var(--soft);font-size:15px;line-height:1.55;margin-bottom:36px}
-  .v-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:10px}
-  .v-card{position:relative;border:1px solid var(--border);border-radius:16px;padding:26px 20px;cursor:pointer;background:rgba(255,255,255,0.02);transition:border-color .25s,background .25s,box-shadow .25s;display:flex;flex-direction:column;gap:12px;user-select:none}
-  .v-card:hover{border-color:rgba(201,163,91,0.35);background:rgba(201,163,91,0.04)}
-  .v-card.selected{border-color:var(--gold);background:rgba(201,163,91,0.08);box-shadow:0 0 0 3px rgba(201,163,91,0.12),0 8px 24px rgba(201,163,91,0.1)}
-  .v-icon{font-size:30px;line-height:1}
-  .v-title{font-size:15px;font-weight:600;color:var(--cream)}
-  .v-desc{font-size:12.5px;color:var(--soft);line-height:1.5;font-weight:300}
-  .v-check{position:absolute;top:14px;right:14px;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border);background:transparent;display:grid;place-items:center;transition:.2s}
-  .v-card.selected .v-check{background:linear-gradient(135deg,var(--gold-light),var(--gold));border-color:transparent;box-shadow:0 4px 12px rgba(201,163,91,0.3)}
-  .v-check svg{width:10px;height:10px;opacity:0;transition:.15s}
-  .v-card.selected .v-check svg{opacity:1}
-  .v-err{color:#e07a72;font-size:12px;margin-top:8px;display:none;text-align:center}
-  .v-err.show{display:block}
-  .btn{position:relative;overflow:hidden;width:100%;margin-top:28px;padding:17px;border:none;border-radius:13px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:15px;color:#1a1408;background:linear-gradient(135deg,var(--gold-light),var(--gold));transition:transform .18s ease,box-shadow .25s;box-shadow:0 14px 34px rgba(201,163,91,0.22);opacity:0;animation:fadeUp .6s .4s forwards}
-  .btn:hover{transform:translateY(-2px);box-shadow:0 20px 46px rgba(201,163,91,0.32)}
-  .secure{margin-top:24px;text-align:center;color:var(--soft);font-size:11.5px;letter-spacing:.04em;opacity:0;animation:fadeUp .6s .5s forwards}
-  .secure svg{width:12px;height:12px;vertical-align:-1px;margin-right:5px;opacity:.7}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-  @media(max-width:480px){.card{padding:34px 24px}h1{font-size:34px}.v-grid{grid-template-columns:1fr}.float{display:none}}
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hermia | Welcome</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #0d0c08; /* Even deeper black for ultimate gold contrast */
+            --gold: #D4AF37; /* Metallic Gold */
+            --gold-bright: #FFDF00;
+            --gold-light: #F9E2AF;
+            --gold-muted: rgba(212, 175, 55, 0.3);
+            --cream: #f4f0e6;
+            --soft: #b6b1a6;
+            --border: rgba(212, 175, 55, 0.15);
+            --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background: var(--bg);
+            color: var(--cream);
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        /* ── Cinematic Background ── */
+        .viewport {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .bg-layers {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .vignette {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0.9) 100%);
+            z-index: 5;
+        }
+
+        .light-bloom {
+            position: absolute;
+            width: 150vw;
+            height: 150vh;
+            top: -25vh;
+            left: -25vw;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.06) 0%, transparent 60%);
+            filter: blur(120px);
+            animation: light-drift 25s infinite alternate ease-in-out;
+        }
+
+        @keyframes light-drift {
+            0% { transform: translate(-8%, -8%) scale(1); }
+            100% { transform: translate(8%, 8%) scale(1.15); }
+        }
+
+        .grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 100px 100px;
+            background-position: center center;
+            -webkit-mask-image: radial-gradient(circle at center, black 0%, transparent 85%);
+            mask-image: radial-gradient(circle at center, black 0%, transparent 85%);
+            opacity: 0.2;
+        }
+
+        .grain {
+            position: absolute;
+            inset: 0;
+            opacity: 0.05;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* ── Main Stage ── */
+        .stage {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            padding: 40px;
+        }
+
+        /* ── Unique Gold Logo Section ── */
+        .logo-container {
+            margin-bottom: 70px;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Enhanced Aura for Safety/Trust */
+        .logo-aura {
+            position: absolute;
+            inset: -60px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
+            filter: blur(30px);
+            animation: aura-pulse 8s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        @keyframes aura-pulse {
+            0%, 100% { opacity: 0.4; transform: scale(0.85); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* Metallic Sheen Container */
+        .logo-wrapper {
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            overflow: hidden;
+            border-radius: 50%; /* Keeps the glow contained */
+            padding: 10px;
+        }
+
+        .logo-img {
+            height: 160px;
+            display: block;
+            position: relative;
+            z-index: 3;
+            /* Liquid Gold Filter Effects */
+            filter: 
+                drop-shadow(0 0 15px rgba(212, 175, 55, 0.8))
+                drop-shadow(0 0 40px rgba(212, 175, 55, 0.4))
+                brightness(1.1)
+                contrast(1.1);
+            animation: logo-reveal 2s var(--ease-cinematic) forwards;
+            opacity: 0;
+        }
+
+        /* Moving Light Sweep across Logo */
+        .logo-sweep {
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                105deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.6) 50%,
+                transparent 70%
+            );
+            z-index: 4;
+            transform: skewX(-25deg);
+            animation: sweep 4s infinite ease-in-out 2s;
+            pointer-events: none;
+        }
+
+        @keyframes sweep {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        @keyframes logo-reveal {
+            from { opacity: 0; transform: scale(0.8) translateY(20px); filter: blur(15px) brightness(0); }
+            to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0) brightness(1.1); }
+        }
+
+        /* ── Typography ── */
+        .eyebrow {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.6em;
+            color: var(--gold);
+            margin-bottom: 28px;
+            font-weight: 400;
+            opacity: 0;
+            animation: fade-in-up 1s var(--ease-cinematic) 0.8s forwards;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(52px, 9vw, 100px);
+            font-weight: 300;
+            line-height: 1.0;
+            margin-bottom: 40px;
+            letter-spacing: -0.03em;
+            opacity: 0;
+            animation: fade-in-up 1.2s var(--ease-cinematic) 1s forwards;
+        }
+
+        h1 em {
+            font-style: italic;
+            color: var(--gold-light);
+            font-weight: 400;
+            position: relative;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .description {
+            font-size: 17px;
+            color: var(--soft);
+            max-width: 450px;
+            margin: 0 auto 70px;
+            line-height: 1.7;
+            font-weight: 300;
+            letter-spacing: 0.03em;
+            opacity: 0;
+            animation: fade-in-up 1s var(--ease-cinematic) 1.2s forwards;
+        }
+
+        /* ── Professional Progress ── */
+        .loading-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            opacity: 0;
+            animation: fade-in 1.5s ease 1.5s forwards;
+        }
+
+        .progress-container {
+            width: 280px;
+            height: 1px; /* Even thinner for more elegance */
+            background: rgba(212, 175, 55, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            position: absolute;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--gold-muted), var(--gold-bright));
+            box-shadow: 0 0 20px var(--gold-bright);
+            animation: progress-fill 4s cubic-bezier(0.65, 0, 0.35, 1) 1.8s forwards;
+        }
+
+        @keyframes progress-fill {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .status-text {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--gold);
+            opacity: 0.7;
+        }
+
+        /* ── Animations ── */
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Floating Light Streaks */
+        .streak {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            pointer-events: none;
+            z-index: 2;
+        }
+        .s1 { width: 40%; top: 15%; left: -10%; transform: rotate(-15deg); }
+        .s2 { width: 30%; bottom: 20%; right: -5%; transform: rotate(10deg); }
+
+    </style>
 </head>
 <body>
-  <div class="bg" aria-hidden="true">
-    <div class="bloom"></div><div class="gridfloor"></div>
-    <div class="float f1"></div><div class="float f2"></div><div class="float f3"></div><div class="float f4"></div>
-    <div class="grain"></div>
-  </div>
-  <div class="wrap">
-    <div class="logo-wrap">
-      <img class="logo" src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" />
+
+    <div class="bg-layers">
+        <div class="light-bloom"></div>
+        <div class="grid"></div>
+        <div class="vignette"></div>
+        <div class="grain"></div>
+        <div class="streak s1"></div>
+        <div class="streak s2"></div>
     </div>
-    <div class="card">
-      <div class="eyebrow">Step 1 of 5 · Get started</div>
-      <h1>What type of business do you run?</h1>
-      <p class="sub">Hermia will tailor your entire setup based on your industry.</p>
-      <div class="v-grid">
-        <div class="v-card" data-vertical="real_estate" onclick="selectVertical(this)">
-          <div class="v-check"><svg viewBox="0 0 24 24" fill="none" stroke="#1a1408" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <div class="v-icon">🏠</div>
-          <div class="v-title">Real Estate</div>
-          <div class="v-desc">Agents managing property enquiries from buyers, renters, and sellers.</div>
-        </div>
-        <div class="v-card" data-vertical="foundation_repair" onclick="selectVertical(this)">
-          <div class="v-check"><svg viewBox="0 0 24 24" fill="none" stroke="#1a1408" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <div class="v-icon">🏗️</div>
-          <div class="v-title">Foundation Repair</div>
-          <div class="v-desc">Businesses handling inbound job enquiries for structural and foundation work.</div>
-        </div>
-      </div>
-      <div class="v-err" id="err-vertical">Please select your business type to continue.</div>
-      <button class="btn" onclick="proceed()">Continue →</button>
-      <div class="secure">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Encrypted &amp; secure · your data is never shared
-      </div>
+
+    <div class="viewport">
+        <main class="stage">
+            <div class="logo-container">
+                <div class="logo-aura"></div>
+                <div class="logo-wrapper">
+                    <img 
+                        src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" 
+                        alt="Hermia Logo" 
+                        class="logo-img"
+                    />
+                    <div class="logo-sweep"></div>
+                </div>
+            </div>
+
+            <div class="content-wrap">
+                <p class="eyebrow">Established Excellence</p>
+                <h1>Welcome to <br><em>Hermia.</em></h1>
+                <p class="description">
+                    Your premium repair ecosystem is being prepared.
+                </p>
+            </div>
+
+            <div class="loading-section">
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                </div>
+                <span class="status-text">Initializing Secure Workspace</span>
+            </div>
+        </main>
     </div>
-  </div>
-<script>
-  let selectedVertical = null;
-  function selectVertical(card){
-    document.querySelectorAll('.v-card').forEach(c=>c.classList.remove('selected'));
-    card.classList.add('selected');
-    selectedVertical=card.dataset.vertical;
-    document.getElementById('err-vertical').classList.remove('show');
-  }
-  function proceed(){
-    if(!selectedVertical){document.getElementById('err-vertical').classList.add('show');return}
-    sessionStorage.setItem('hermia_vertical',selectedVertical);
-    window.location.href=selectedVertical==='real_estate'
-      ?'https://onboarding.hermia.au/real_estate_details.html'
-      :'https://onboarding.hermia.au/foundation_details.html';
-  }
-</script>
+
+    <script>
+        sessionStorage.setItem('hermia_vertical', 'foundation_repair');
+
+        // Cinematic transition delay
+        setTimeout(function () {
+            document.body.style.transition = 'opacity 1.2s ease';
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                window.location.href = 'https://onboarding.hermia.au/foundation_details.html';
+            }, 1200);
+        }, 6000);
+    </script>
 </body>
 </html>
