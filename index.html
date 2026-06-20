@@ -399,20 +399,198 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     </div>
   </section>
 
-  <section class="section" id="features" style="background:var(--bg2)">
+ <!-- 
+  HERMIA PREMIUM FEATURES SECTION 
+  Copy and paste this section into your website.
+  The CSS is scoped to #hermia-features to prevent styling conflicts.
+-->
+
+<style>
+    #hermia-features {
+        --hermia-gold: #e6c27a;
+        --hermia-bg: #050505;
+        --hermia-card: #0a0a0a;
+        --hermia-border: rgba(230, 194, 122, 0.2);
+        
+        background-color: var(--hermia-bg);
+        color: #fff;
+        font-family: 'Inter', sans-serif;
+        padding: 100px 20px;
+        overflow: hidden;
+    }
+
+    #hermia-features .inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    #hermia-features .eyebrow {
+        font-size: 11px;
+        letter-spacing: 6px;
+        color: var(--hermia-gold);
+        text-transform: uppercase;
+        margin-bottom: 25px;
+        font-weight: 600;
+    }
+
+    #hermia-features .sec-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 56px;
+        font-weight: 300;
+        line-height: 1.2;
+        margin-bottom: 80px;
+        letter-spacing: 2px;
+    }
+
+    #hermia-features .sec-title em {
+        font-style: italic;
+        color: var(--hermia-gold);
+        font-weight: 500;
+    }
+
+    #hermia-features .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        width: 100%;
+    }
+
+    #hermia-features .fc {
+        background: var(--hermia-card);
+        border: 1px solid var(--hermia-border);
+        padding: 50px 40px;
+        text-align: left;
+        position: relative;
+        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        border-radius: 2px;
+    }
+
+    #hermia-features .fc:hover {
+        border-color: var(--hermia-gold);
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    #hermia-features .fc-icon {
+        width: 32px;
+        height: 32px;
+        margin-bottom: 30px;
+    }
+
+    #hermia-features .fc-icon svg {
+        width: 100%;
+        height: 100%;
+        fill: var(--hermia-gold);
+    }
+
+    #hermia-features .fc-tag {
+        font-size: 9px;
+        letter-spacing: 3px;
+        color: var(--hermia-gold);
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        font-weight: 600;
+        opacity: 0.8;
+    }
+
+    #hermia-features .fc h3 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 26px;
+        font-weight: 500;
+        margin-bottom: 20px;
+        color: #fff;
+        letter-spacing: 1px;
+    }
+
+    #hermia-features .fc p {
+        font-size: 14px;
+        line-height: 1.8;
+        color: #999;
+        font-weight: 300;
+    }
+
+    @media (max-width: 1024px) {
+        #hermia-features .features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+        #hermia-features .features-grid { grid-template-columns: 1fr; }
+        #hermia-features .sec-title { font-size: 40px; }
+    }
+</style>
+
+<section id="hermia-features">
     <div class="inner">
-      <div class="eyebrow">What Hermia does</div>
-      <div class="sec-title">Everything from first message<br>to <em>booked job.</em></div>
-      <div class="features-grid">
-        <div class="fc"><div class="fc-icon">&#128247;</div><div class="fc-tag">AI Vision</div><h3>Reads damage photos</h3><p>Customer sends a photo. Hermia identifies damage type, urgency level, and trade required before you have seen the message.</p></div>
-        <div class="fc"><div class="fc-icon">&#127908;</div><div class="fc-tag">AI Audio</div><h3>Transcribes voice notes</h3><p>Customers ramble. Hermia listens to every voice note and extracts a clean brief &mdash; damage, address, owner status, urgency.</p></div>
-        <div class="fc"><div class="fc-icon">&#9889;</div><div class="fc-tag">Triage</div><h3>Emergency / Critical / Standard</h3><p>Every enquiry classified by urgency. Burst pipe at 11pm gets escalated immediately. Cosmetic job goes into the scheduled queue.</p></div>
-        <div class="fc"><div class="fc-icon">&#128295;</div><div class="fc-tag">Simpro</div><h3>Structured data, zero typing</h3><p>Name, phone, address, damage description, photos, urgency, availability &mdash; all captured and sent into your Simpro workflow.</p></div>
-        <div class="fc"><div class="fc-icon">&#128197;</div><div class="fc-tag">Calendar</div><h3>Booking confirmed with homeowner</h3><p>Available time agreed in the conversation. Calendar event created. No phone tag, no gaps from missing info.</p></div>
-        <div class="fc"><div class="fc-icon">&#128202;</div><div class="fc-tag">Monthly Summary</div><h3>Your production numbers, end of month</h3><p>Total jobs, booked rate, urgency breakdown, job types. Sent to your inbox on the last day of every month. No dashboards.</p></div>
-      </div>
+        <div class="eyebrow">The Intelligence Engine</div>
+        <h2 class="sec-title">From the first message<br>to a <em>booked job.</em></h2>
+        
+        <div class="features-grid">
+            <!-- AI Vision -->
+            <div class="fc">
+                <div class="fc-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 9c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm9 3c0 4.971-4.029 9-9 9s-9-4.029-9-9 4.029-9 9-9 9 4.029 9 9zm-18 0c0 4.971 4.029 9 9 9s9-4.029 9-9-4.029-9-9-9-9 4.029-9 9z"/></svg>
+                </div>
+                <div class="fc-tag">AI Vision</div>
+                <h3>Visual Diagnostics</h3>
+                <p>Hermia analyzes damage photos instantly, identifying the trade required and urgency level before you've even seen the message.</p>
+            </div>
+
+            <!-- AI Audio -->
+            <div class="fc">
+                <div class="fc-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2c1.103 0 2 .897 2 2v7c0 1.103-.897 2-2 2s-2-.897-2-2v-7c0-1.103.897-2 2-2zm0-2c-2.209 0-4 1.791-4 4v7c0 2.209 1.791 4 4 4s4-1.791 4-4v-7c0-2.209-1.791-4-4-4zm8 9v2c0 4.418-3.582 8-8 8s-8-3.582-8-8v-2h2v2c0 3.309 2.691 6 6 6s6-2.691 6-6v-2h2zm-7 13v-2h-2v2h-4v2h10v-2h-4z"/></svg>
+                </div>
+                <div class="fc-tag">AI Audio</div>
+                <h3>Vocal Intelligence</h3>
+                <p>Voice notes are transcribed and synthesized. Hermia extracts critical briefs: location, owner status, and technical requirements.</p>
+            </div>
+
+            <!-- Triage -->
+            <div class="fc">
+                <div class="fc-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 0l-12 12h8v12l12-12h-8z"/></svg>
+                </div>
+                <div class="fc-tag">Dynamic Triage</div>
+                <h3>Urgency Classification</h3>
+                <p>Enquiries are triaged by severity. Emergencies are escalated immediately, while standard jobs are seamlessly queued.</p>
+            </div>
+
+            <!-- Simpro -->
+            <div class="fc">
+                <div class="fc-icon">
+                    <svg viewBox="0 0 24 24"><path d="M19 3h-14c-1.103 0-2 .897-2 2v14c0 1.103.897 2-2 2h14c1.103 0 2-.897 2-2v-14c0-1.103-.897-2-2-2zm-7 10h-4v-2h4v2zm0-4h-4v-2h4v2zm5 8h-9v-2h9v2zm0-4h-9v-2h9v2zm0-4h-9v-2h9v2z"/></svg>
+                </div>
+                <div class="fc-tag">Simpro Integration</div>
+                <h3>Automated Synchronization</h3>
+                <p>All lead data—contact info, site address, and photos—is captured and synced directly into your Simpro workflow with zero typing.</p>
+            </div>
+
+            <!-- Calendar -->
+            <div class="fc">
+                <div class="fc-icon">
+                    <svg viewBox="0 0 24 24"><path d="M20 20h-16v-16h16v16zm2-18h-20v20h20v-20zm-7 13h-5v-5h5v5zm-2-11h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 0h-2v2h2v-2z"/></svg>
+                </div>
+                <div class="fc-tag">Scheduling</div>
+                <h3>Autonomous Booking</h3>
+                <p>Hermia confirms availability within the chat and creates calendar events. No phone tag, no missing info, just a confirmed schedule.</p>
+            </div>
+
+            <!-- Monthly Summary -->
+            <div class="fc">
+                <div class="fc-icon">
+                    <svg viewBox="0 0 24 24"><path d="M7 19h-6v-11h6v11zm8-18h-6v18h6v-18zm8 11h-6v7h6v-7z"/></svg>
+                </div>
+                <div class="fc-tag">Analytics</div>
+                <h3>Executive Summaries</h3>
+                <p>Receive your production numbers—total jobs, booked rates, and urgency breakdowns—delivered to your inbox on the last day of the month.</p>
+            </div>
+        </div>
     </div>
-  </section>
+</section
 
   <section class="combo-section" id="triage">
     <div class="combo-grid">
