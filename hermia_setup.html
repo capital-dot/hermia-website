@@ -18,6 +18,9 @@
             --cream: #f4f0e6;
             --soft: #a19d94;
             --border: rgba(212, 175, 55, 0.2);
+            --green: #25D366;
+            --green-bg: rgba(37, 211, 102, 0.07);
+            --green-border: rgba(37, 211, 102, 0.3);
             --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
         }
 
@@ -36,7 +39,6 @@
             overflow: hidden;
         }
 
-        /* ── Background Layers ── */
         .bg-layers {
             position: fixed;
             inset: 0;
@@ -82,7 +84,6 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        /* ── Floating Repair Tools ── */
         .tool-icon {
             position: absolute;
             color: var(--gold);
@@ -100,7 +101,40 @@
             50% { transform: translateY(-20px) rotate(calc(var(--rot, 0deg) + 10deg)); }
         }
 
-        /* ── Cinematic Intro ── */
+        /* ── Quit to Home (top right) ── */
+        .quit-link,
+        .quit-link:link,
+        .quit-link:visited,
+        .quit-link:active {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold-light) !important;
+            text-decoration: none !important;
+            padding: 10px 18px;
+            border: 1px solid var(--border);
+            background: rgba(212, 175, 55, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.3s var(--ease-cinematic);
+        }
+        .quit-link:hover {
+            color: #000 !important;
+            background: var(--gold) !important;
+            border-color: var(--gold);
+        }
+        @media (max-width: 600px) {
+            .quit-link { top: 14px; right: 14px; padding: 8px 14px; font-size: 9.5px; }
+        }
+
         #intro {
             position: fixed;
             inset: 0;
@@ -172,7 +206,6 @@
             50% { opacity: 0.8; transform: scale(1.1); }
         }
 
-        /* ── Main Content ── */
         #main-content {
             opacity: 0;
             visibility: hidden;
@@ -232,6 +265,35 @@
         .instruction-step { font-size: 14px; line-height: 1.8; color: var(--cream); font-weight: 300; margin-bottom: 10px; display: flex; gap: 10px; }
         .instruction-step b { color: var(--gold-light); font-weight: 500; }
 
+        /* ── WhatsApp Notice Section ── */
+        .whatsapp-card {
+            width: 100%;
+            background: var(--green-bg);
+            border: 1px solid var(--green-border);
+            padding: 40px 44px;
+            position: relative;
+            margin-bottom: 30px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+        }
+        .whatsapp-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--green), transparent); opacity: 0.6; }
+        .whatsapp-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+        .whatsapp-icon { width: 42px; height: 42px; border-radius: 50%; background: var(--green); display: grid; place-items: center; flex-shrink: 0; box-shadow: 0 0 24px rgba(37, 211, 102, 0.35); }
+        .whatsapp-icon svg { width: 22px; height: 22px; fill: #000; }
+        .whatsapp-eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.4em; color: var(--green); font-weight: 500; }
+        .whatsapp-card h2 { color: var(--cream); margin-bottom: 14px; }
+        .whatsapp-card .sub { margin-bottom: 24px; }
+        .whatsapp-tip {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 18px 20px;
+            border: 1px solid var(--green-border);
+            background: rgba(37, 211, 102, 0.05);
+        }
+        .whatsapp-tip svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; stroke: var(--green); }
+        .whatsapp-tip p { font-size: 13.5px; line-height: 1.7; color: var(--cream); font-weight: 300; }
+        .whatsapp-tip p b { color: var(--green); font-weight: 500; }
+
         .input-group { display: flex; gap: 10px; margin-top: 15px; }
         input[type=email] { flex: 1; background: rgba(212, 175, 55, 0.05); border: 1px solid var(--border); padding: 18px; color: var(--cream); font-family: inherit; outline: none; font-weight: 300; }
 
@@ -239,10 +301,12 @@
         .btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2); }
         .btn-sweep { position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent); transform: skewX(-30deg); animation: btn-sweep 5s infinite ease-in-out; }
 
-        @media (max-width: 600px) { .card { padding: 50px 30px; } h1 { font-size: 38px; } .complete-text { font-size: 32px; } .input-group { flex-direction: column; } }
+        @media (max-width: 600px) { .card, .whatsapp-card { padding: 50px 30px; } h1 { font-size: 38px; } .complete-text { font-size: 32px; } .input-group { flex-direction: column; } }
     </style>
 </head>
 <body>
+
+    <a href="index.html" class="quit-link">✕ Exit to Home</a>
 
     <div class="bg-layers">
         <div class="light-bloom"></div>
@@ -306,6 +370,22 @@
                 </div>
             </div>
 
+            <!-- WhatsApp Notice -->
+            <div class="whatsapp-card">
+                <div class="whatsapp-header">
+                    <div class="whatsapp-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.74.45 3.43 1.32 4.93L2 22l5.27-1.38a9.9 9.9 0 0 0 4.77 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2zm5.79 14.06c-.24.68-1.19 1.25-1.95 1.41-.52.11-1.2.2-3.5-.75-2.94-1.22-4.84-4.2-4.99-4.4-.14-.19-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.59-.37.78-.37.2 0 .39 0 .56.01.18.01.42-.07.66.5.24.59.83 2.03.9 2.18.07.15.12.32.02.51-.1.19-.15.31-.3.48-.15.17-.31.38-.45.51-.15.14-.3.3-.13.59.17.29.76 1.25 1.63 2.02 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.21.73-.85.93-1.14.2-.29.4-.24.66-.14.27.1 1.69.8 1.98.94.29.14.48.21.55.33.07.12.07.68-.17 1.36z"/></svg>
+                    </div>
+                    <div class="whatsapp-eyebrow">Important · Tell Your Customers</div>
+                </div>
+                <h2>Ask customers to check WhatsApp</h2>
+                <p class="sub">Hermia qualifies leads via WhatsApp. Once a customer submits an enquiry, Hermia follows up there — so it's worth letting them know in advance to keep an eye on it.</p>
+                <div class="whatsapp-tip">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    <p><b>Tip:</b> Add a line to your booking confirmation or call script — "Please check WhatsApp, our team will follow up there shortly" — so leads don't slip through unanswered.</p>
+                </div>
+            </div>
+
             <div class="card">
                 <h2>Don't lose this checklist</h2>
                 <p class="sub">Enter your email to receive a reminder of these fields so your integration works perfectly.</p>
@@ -346,6 +426,9 @@
             if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
             btn.disabled = true;
             btnText.textContent = 'SENDING...';
+
+            const now = new Date();
+
             try {
                 const response = await fetch(WEBHOOK_URL, {
                     method: 'POST',
@@ -353,6 +436,9 @@
                     body: JSON.stringify({
                         email: email,
                         type: 'setup_reminder',
+                        date: now.toISOString().split('T')[0],
+                        year: now.getFullYear(),
+                        timestamp: now.toISOString(),
                         fields: ['Lead Name', 'Customer Phone', 'Email', 'Est. Value', 'Site Address', 'Status', 'Tags', 'Site'],
                         instructions: 'Go to Open Leads -> Modify Table View -> Tick Fields -> Save and Finish'
                     })
