@@ -53,7 +53,7 @@
         .alias-box { display: flex; align-items: center; gap: 10px; border: 1px solid var(--gold); background: rgba(212,175,55,0.06); padding: 18px 20px; margin-bottom: 32px; }
         .alias-text { flex: 1; font-size: 16px; color: var(--gold-light); word-break: break-all; font-weight: 400; }
         .copy-btn { flex-shrink: 0; background: var(--gold); color: #000; border: none; padding: 10px 16px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; cursor: pointer; }
-        .fwd-steps { border: 1px solid var(--border); padding: 24px 22px; margin-bottom: 32px; }
+        .fwd-steps { border: 1px solid var(--border); padding: 24px 22px; margin-bottom: 28px; }
         .fwd-steps ol { padding-left: 20px; }
         .fwd-steps li { font-size: 14.5px; color: var(--cream); line-height: 1.8; margin-bottom: 4px; }
         .btn { width: 100%; padding: 20px; border: none; background: linear-gradient(135deg, #E8C17A, #C9A35B); color: #000; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; position: relative; overflow: hidden; }
@@ -76,7 +76,6 @@
         .access-text { font-size: 13px; line-height: 1.4; color: var(--soft); font-weight: 300; }
         .access-text strong { color: var(--cream); font-weight: 400; }
         .powered { margin-top: 30px; text-align: center; color: var(--soft); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.4; }
-        /* ── merged in from gmail-verify.html ── */
         .pulse-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gold); margin: 0 auto 24px; animation: pulse-ring 1.8s infinite; }
         @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(212,175,55,0.5); } 70% { box-shadow: 0 0 0 14px rgba(212,175,55,0); } 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); } }
         .note { font-size: 13px; color: var(--soft); line-height: 1.6; font-weight: 300; margin-bottom: 20px; text-align: center; }
@@ -100,12 +99,11 @@
 <script>
 const WORKER        = 'https://hermianango.capital-fbc.workers.dev';
 const EMAIL_WORKER  = 'https://gmailflitering.capital-fbc.workers.dev';
-// NEW — live push connection. Replaces the old 3s poll + redirect to a
-// separate gmail-verify.html page entirely.
 const CONNECT_WS_URL = 'wss://connnect.capital-fbc.workers.dev/ws';
 const NEXT_PAGE     = 'https://onboarding.hermia.au/hermia_setup.html';
 const CALLBACK      = 'https://onboarding.hermia.au/gmail.html';
 const CAL_AUTH_ID   = 'ac_mB30I9-5kZdx';
+const LOOM_EMBED_URL = 'https://www.loom.com/embed/ad22112fd7cb49979597bab590f0653d';
 
 const ALL_STEPS  = ['Payment','Business','Details','Simpro','Connect','Setup'];
 const ACTIVE_IDX = 4;
@@ -125,8 +123,6 @@ const CHECK_SVG  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" s
     }, 100);
 })();
 
-// NEW fields: verifySocket / verifyLink / verifyClicked / verifyTimeoutTimer
-// replace the old verifyPollTimer.
 const STATE = {
     phase: 'calendar',
     leadAlias: null,
@@ -154,7 +150,7 @@ function render() {
         card.innerHTML = `
             <div class="eyebrow">Step 5 of 6</div>
             <h1>Connect your calendar</h1>
-            <p class="sub">Hermia books confirmed jobs straight into your Google Calendar — no back-and-forth, no double-bookings.</p>
+            <p class="sub">Hermia books confirmed jobs straight into your Google Calendar - no back-and-forth, no double-bookings.</p>
             <div class="phase-track">${phaseTrackHtml('calendar')}</div>
             <div class="access-list">
                 <div class="access-row"><div class="access-dot"></div><div class="access-text"><strong>Read</strong> your calendar availability</div></div>
@@ -172,37 +168,37 @@ function render() {
         card.innerHTML = `
             <div class="eyebrow">Step 5 of 6</div>
             <h1>Forward your leads here</h1>
-            <p class="sub">No login, no app to install. Copy this address and paste it into Gmail — this page updates automatically the moment Google sends the confirmation.</p>
+            <p class="sub">No login, no app to install. Copy this address and paste it into Gmail - this page updates automatically the moment Google sends the confirmation.</p>
             <div class="phase-track">${phaseTrackHtml('fwd')}</div>
             <div class="alias-box">
-                <div class="alias-text" id="aliasText">${STATE.leadAlias || 'loading…'}</div>
+                <div class="alias-text" id="aliasText">${STATE.leadAlias || 'loading...'}</div>
                 <button class="copy-btn" onclick="copyAlias()">Copy</button>
             </div>
             <div class="fwd-steps">
                 <ol>
-                    <li>Gmail → ⚙️ gear → <strong>See all settings</strong></li>
-                    <li><strong>Forwarding and POP/IMAP</strong> tab</li>
-                    <li><strong>Add a forwarding address</strong>, paste the address above</li>
-                    <li>Click <strong>Next</strong>, then <strong>Proceed</strong>, then <strong>OK</strong></li>
+                    <li>Copy the link above</li>
+                    <li>Paste it into Gmail</li>
+                    <li>Go to Gmail's <strong>POP/IMAP</strong> settings and paste it there</li>
                 </ol>
             </div>
-            <div class="status-msg wait" id="fwdStatus">Waiting for Google's confirmation — this page updates the instant it arrives.</div>
+            <div style="margin-bottom:32px;border:1px solid var(--border);overflow:hidden;border-radius:4px;">
+                <iframe src="${LOOM_EMBED_URL}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="width:100%;aspect-ratio:16/9;display:block;"></iframe>
+            </div>
+            <div class="status-msg wait" id="fwdStatus">Waiting for Google's confirmation - this page updates the instant it arrives.</div>
             <div class="error-banner" id="errorBanner"></div>
-            <div class="powered">Secured by Hermia — your own domain, no third-party OAuth</div>
+            <div class="powered">Secured by Hermia - your own domain, no third-party OAuth</div>
         `;
         loadAlias();
         connectVerifySocket();
     }
 
-    // NEW phase — replaces the separate gmail-verify.html page. Shown the
-    // instant the link arrives, no navigation, no page reload.
     else if (STATE.phase === 'verify') {
         card.innerHTML = `
             <div class="eyebrow">Step 5 of 6</div>
             <div class="phase-track">${phaseTrackHtml('fwd')}</div>
             <div class="pulse-dot"></div>
             <h1 style="text-align:center;">One click to activate</h1>
-            <p class="sub" style="text-align:center;">Google sent a confirmation for your forwarding rule. Click below to approve it in Gmail — you're already signed in.</p>
+            <p class="sub" style="text-align:center;">Google sent a confirmation for your forwarding rule. Click below to approve it in Gmail - you're already signed in.</p>
             <div id="step1">
                 <a class="btn" id="connectBtn" href="${STATE.verifyLink || '#'}" target="_blank" rel="noopener" onclick="onConfirmClick()">
                     Confirm on Gmail
@@ -210,13 +206,13 @@ function render() {
                 </a>
             </div>
             <div id="step2">
-                <p class="note">✓ Confirmed in Gmail? Click below to finish your setup.</p>
+                <p class="note">Confirmed in Gmail? Click below to finish your setup.</p>
                 <button class="btn" onclick="onContinue()">
                     Continue to Setup
                     <div class="btn-sweep"></div>
                 </button>
             </div>
-            <div class="powered">Secured by Hermia — your own domain, no third-party OAuth</div>
+            <div class="powered">Secured by Hermia - your own domain, no third-party OAuth</div>
         `;
     }
 
@@ -224,7 +220,7 @@ function render() {
         card.innerHTML = `
             <div class="eyebrow">Step 5 of 6</div>
             <h1>Setting up your account</h1>
-            <p class="sub">Just a moment…</p>
+            <p class="sub">Just a moment...</p>
             <div style="display:flex;justify-content:center;padding:40px 0;"><div class="spinner-light"></div></div>
         `;
     }
@@ -235,7 +231,6 @@ function showError(msg) {
     if (banner) { banner.textContent = msg; banner.classList.add('visible'); }
 }
 
-/* ── CALENDAR ── */
 function connectCalendar() {
     const customerId = sessionStorage.getItem('hermia_customer_id');
     if (!customerId) { showError('Session expired. Please restart onboarding.'); return; }
@@ -278,7 +273,6 @@ function saveAccount(connectedAccountId, type) {
     }).catch(() => { STATE.phase = 'calendar'; render(); showError('Connection failed. Please try again.'); });
 })();
 
-/* ── FORWARDING ── */
 function copyAlias() {
     navigator.clipboard.writeText(STATE.leadAlias || '');
     const btn = document.querySelector('.copy-btn');
@@ -305,17 +299,10 @@ function loadAlias() {
     .catch(() => showError('Could not generate your address. Please refresh.'));
 }
 
-/* ── VERIFICATION — instant WebSocket push, replaces 3s polling ──
-   connnect holds a live socket open and pushes the Google confirmation
-   link the instant gmailflitering finds it in the inbound email. */
 function connectVerifySocket() {
     const customerId = sessionStorage.getItem('hermia_customer_id');
     if (!customerId) return;
 
-    // Safety net — in case the link already arrived and was stored
-    // (connnect's Supabase fallback write) before this socket had a
-    // chance to connect, e.g. the contractor re-opens this page after
-    // closing an earlier tab. One-time check only, not a recurring poll.
     fetch(EMAIL_WORKER + '/gmail-verify-status?customerId=' + encodeURIComponent(customerId))
         .then(r => r.json())
         .then(data => { if (data && data.verifyUrl) handleVerifyLink(data.verifyUrl); })
@@ -323,8 +310,6 @@ function connectVerifySocket() {
 
     openVerifySocket(customerId, 0);
 
-    // Long-shot fallback — if nothing arrives in ~10 minutes, say so
-    // instead of waiting forever with no feedback.
     STATE.verifyTimeoutTimer = setTimeout(() => {
         if (STATE.phase !== 'fwd-setup') return;
         const status = document.getElementById('fwdStatus');
@@ -349,11 +334,11 @@ function openVerifySocket(customerId, attempt) {
         try {
             const data = JSON.parse(event.data);
             if (data.link) handleVerifyLink(data.link);
-        } catch (e) { /* ignore malformed message */ }
+        } catch (e) {}
     };
 
     socket.onclose = () => {
-        if (STATE.verifyLink) return; // already handled, no need to reconnect
+        if (STATE.verifyLink) return;
         scheduleVerifyReconnect(customerId, attempt + 1);
     };
 
@@ -361,9 +346,6 @@ function openVerifySocket(customerId, attempt) {
         try { socket.close(); } catch (e) {}
     };
 
-    // Keep-alive ping every 20s — some proxies kill idle sockets around
-    // 60s of silence. connnect's Durable Object ignores the message, this
-    // is purely to keep the pipe open.
     const pingTimer = setInterval(() => {
         if (socket.readyState === WebSocket.OPEN) {
             try { socket.send('ping'); } catch (e) {}
@@ -375,16 +357,12 @@ function openVerifySocket(customerId, attempt) {
 
 function scheduleVerifyReconnect(customerId, attempt) {
     if (STATE.verifyLink || STATE.phase !== 'fwd-setup') return;
-    // Backs off 1s, 2s, 4s, 8s... capped at 15s. If the socket genuinely
-    // can't connect (rare — some locked-down networks block WebSockets
-    // outright), the one-time status check above plus a page refresh
-    // still recovers the link.
     const delay = Math.min(15000, 1000 * Math.pow(2, attempt));
     setTimeout(() => openVerifySocket(customerId, attempt), delay);
 }
 
 function handleVerifyLink(link) {
-    if (STATE.verifyLink) return; // already showing/handled
+    if (STATE.verifyLink) return;
     STATE.verifyLink = link;
     if (STATE.verifySocket) { try { STATE.verifySocket.close(); } catch (e) {} }
     if (STATE.verifyTimeoutTimer) clearTimeout(STATE.verifyTimeoutTimer);
@@ -396,12 +374,8 @@ function onConfirmClick() {
     STATE.verifyClicked = true;
     const customerId = sessionStorage.getItem('hermia_customer_id');
     if (customerId) {
-        // Best-effort — clears the Supabase fallback so it doesn't
-        // resurface on a future refresh after this is already done.
         fetch(EMAIL_WORKER + '/gmail-verify-clear?customerId=' + encodeURIComponent(customerId)).catch(() => {});
     }
-    // connectBtn keeps target="_blank", so this opens Google's confirm
-    // screen in a new tab — this page stays open underneath, untouched.
     setTimeout(() => {
         document.getElementById('step1').style.display = 'none';
         const step2 = document.getElementById('step2');
@@ -416,4 +390,3 @@ function onContinue() {
 </script>
 </body>
 </html>
-
