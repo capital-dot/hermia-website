@@ -346,6 +346,7 @@ function render() {
                         <li>Click <strong>Add a forwarding address</strong>, paste the address above</li>
                         <li>Check your inbox, click the confirmation link Google sends</li>
                         <li>Back in Settings, select <strong>Forward a copy</strong> and click <strong>Save</strong></li>
+                        <li><strong>Now forward any one existing email</strong> from your inbox to that same address — that's what confirms it below</li>
                     </ol>
                 </div>
                 <div class="panel" id="panelOutlook">
@@ -353,12 +354,13 @@ function render() {
                         <li>Open Outlook → <strong>Settings</strong> → <strong>Mail</strong> → <strong>Forwarding</strong></li>
                         <li>Turn on forwarding, paste the address above</li>
                         <li>Click <strong>Save</strong></li>
+                        <li><strong>Now forward any one existing email</strong> from your inbox to that same address — that's what confirms it below</li>
                     </ol>
                 </div>
             </div>
 
             <button class="btn" id="testBtn" onclick="sendTest()">
-                <span class="btn-text">Send Test Email</span>
+                <span class="btn-text">I've forwarded one — Check now</span>
                 <div class="btn-sweep"></div>
             </button>
             <div class="status-msg" id="statusMsg"></div>
@@ -492,9 +494,9 @@ function sendTest() {
     const btn = document.getElementById('testBtn');
     const status = document.getElementById('statusMsg');
     btn.disabled = true;
-    btn.querySelector('.btn-text').textContent = 'SENDING…';
+    btn.querySelector('.btn-text').textContent = 'CHECKING…';
     status.className = 'status-msg wait';
-    status.textContent = 'Sending a test email to your inbox — it should forward here within a few seconds.';
+    status.textContent = 'Waiting for that forwarded email to arrive — usually takes just a few seconds.';
 
     fetch(WORKER + '/start-email-test', {
         method:  'POST',
@@ -503,7 +505,7 @@ function sendTest() {
     })
     .then(r => r.json())
     .then(data => {
-        if (!data || !data.ok) throw new Error(data && data.error || 'failed to send');
+        if (!data || !data.ok) throw new Error(data && data.error || 'failed to start check');
 
         let attempts = 0;
         STATE.pollTimer = setInterval(() => {
@@ -522,18 +524,18 @@ function sendTest() {
                     } else if (attempts > 40) {
                         clearInterval(STATE.pollTimer);
                         status.className = 'status-msg err';
-                        status.textContent = "Didn't arrive after 2 minutes — double check step 5 (Save) was clicked, then try again.";
+                        status.textContent = "Didn't arrive after 2 minutes — make sure you actually forwarded an email (not just saved the setting), then try again.";
                         btn.disabled = false;
-                        btn.querySelector('.btn-text').textContent = 'Send Test Email';
+                        btn.querySelector('.btn-text').textContent = "I've forwarded one — Check now";
                     }
                 });
         }, 3000);
     })
     .catch(() => {
         status.className = 'status-msg err';
-        status.textContent = 'Could not send the test email — try again in a moment.';
+        status.textContent = 'Could not start the check — try again in a moment.';
         btn.disabled = false;
-        btn.querySelector('.btn-text').textContent = 'Send Test Email';
+        btn.querySelector('.btn-text').textContent = "I've forwarded one — Check now";
     });
 }
 
@@ -632,3 +634,4 @@ function saveAccount(connectedAccountId, type) {
 </script>
 </body>
 </html>
+
