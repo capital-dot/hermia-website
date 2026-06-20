@@ -275,10 +275,10 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   <!-- Scene 1: Alert -->
   <div class="scene" id="scene-alert">
     <div class="alert-box">
-      <h1 class="alert-title">Incoming <span class="gold">Repair</span> Request</h1>
+      <h1 class="alert-title">Homeowner Sends <span class="gold">Repair</span> Request</h1>
       <div class="alert-card">
         <div class="alert-label">Plumbing Alert</div>
-        <div class="alert-text">&ldquo;The kitchen sink pipe has burst and water is flooding the floor.&rdquo;</div>
+        <div class="alert-text">&ldquo;The kitchen sink pipe has burst.&rdquo;</div>
         <div class="alert-line"></div>
       </div>
     </div>
@@ -598,7 +598,7 @@ async function runSequence() {
     // Scene 1: Alert (New Homeowner Enquiry)
     n2.classList.remove("active");
     s1.classList.add("active");
-    await sleep(5300);
+    await sleep(5800);
 
     // Scene 2: Phone chat
     s1.classList.remove("active");
