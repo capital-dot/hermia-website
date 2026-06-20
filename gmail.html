@@ -120,9 +120,7 @@
         h1 { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; line-height: 1.0; margin-bottom: 20px; letter-spacing: -0.02em; }
         .sub { font-size: 16px; color: var(--soft); margin-bottom: 40px; line-height: 1.7; font-weight: 300; }
 
-        .phase-track {
-            display: flex; gap: 0; margin-bottom: 36px; border: 1px solid var(--border); overflow: hidden;
-        }
+        .phase-track { display: flex; gap: 0; margin-bottom: 36px; border: 1px solid var(--border); overflow: hidden; }
         .phase-item {
             flex: 1; padding: 14px 16px; display: flex; align-items: center; gap: 10px;
             font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft);
@@ -138,15 +136,6 @@
         .phase-item.phase-done .phase-num { background: var(--gold); border-color: var(--gold); color: #000; }
         .phase-num svg { width: 10px; height: 10px; stroke-width: 2.5; }
 
-        .warn-box {
-            display: flex; gap: 12px; align-items: flex-start;
-            border: 1px solid rgba(212, 175, 55, 0.4); padding: 20px;
-            background: rgba(212, 175, 55, 0.05); margin-bottom: 32px;
-        }
-        .warn-icon { flex-shrink: 0; font-size: 18px; line-height: 1; }
-        .warn-text { font-size: 14px; line-height: 1.6; color: var(--cream); font-weight: 300; }
-        .warn-text strong { color: var(--gold-light); font-weight: 500; }
-
         .access-list { display: flex; flex-direction: column; gap: 1px; margin-bottom: 36px; border: 1px solid var(--border); overflow: hidden; }
         .access-row { display: flex; align-items: center; gap: 14px; padding: 18px 20px; background: rgba(212, 175, 55, 0.02); }
         .access-row + .access-row { border-top: 1px solid var(--border); }
@@ -159,12 +148,6 @@
         .access-label.yes { color: var(--gold); }
         .access-label.no { color: #6a655a; }
 
-        .divider { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
-        .divider-line { flex: 1; height: 1px; background: var(--border); }
-        .divider-text { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--soft); opacity: 0.5; white-space: nowrap; }
-
-        .btn-row { display: flex; flex-direction: column; gap: 12px; }
-
         .btn {
             width: 100%; padding: 22px; border: none;
             background: linear-gradient(135deg, #E8C17A, #C9A35B);
@@ -174,9 +157,10 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             position: relative; overflow: hidden;
             display: flex; align-items: center; justify-content: center; gap: 12px;
+            text-decoration: none;
         }
         .btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2); filter: brightness(1.05); }
-        .btn:disabled { opacity: 0.5; cursor: wait; }
+        .btn:disabled { opacity: 0.5; cursor: wait; pointer-events: none; }
 
         .btn-outline {
             width: 100%; padding: 22px; border: 1px solid var(--border);
@@ -215,28 +199,50 @@
 
         @keyframes fade-in-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fade-in-down { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { animation: fade-in-up 0.7s var(--ease-cinematic) forwards; }
 
-        .google-icon { width: 20px; height: 20px; flex-shrink: 0; }
-        .ms-icon { width: 20px; height: 20px; flex-shrink: 0; }
         .cal-icon { width: 20px; height: 20px; flex-shrink: 0; }
 
-        /* NEW — forwarding-step elements only */
         .alias-box { display: flex; align-items: center; gap: 10px; border: 1px solid var(--gold); background: rgba(212,175,55,0.06); padding: 18px 20px; margin-bottom: 32px; }
-        .alias-text { flex: 1; font-size: 16px; color: var(--gold-light); word-break: break-all; font-weight: 400; letter-spacing: 0.01em; }
+        .alias-text { flex: 1; font-size: 15px; color: var(--gold-light); word-break: break-all; font-weight: 400; letter-spacing: 0.01em; }
         .copy-btn { flex-shrink: 0; background: var(--gold); color: #000; border: none; padding: 10px 16px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; cursor: pointer; }
+
         .provider-tabs { display: flex; gap: 1px; margin-bottom: 0; border: 1px solid var(--border); }
         .ptab { flex: 1; text-align: center; padding: 14px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; color: var(--soft); background: rgba(212,175,55,0.02); }
         .ptab.active { background: var(--gold); color: #000; font-weight: 600; }
-        .fwd-steps { border: 1px solid var(--border); border-top: none; padding: 24px 22px; margin-bottom: 32px; }
+
+        .fwd-steps { border: 1px solid var(--border); border-top: none; padding: 24px 22px; margin-bottom: 28px; }
         .fwd-steps ol { padding-left: 20px; }
-        .fwd-steps li { font-size: 14.5px; color: var(--cream); line-height: 1.8; margin-bottom: 4px; }
+        .fwd-steps li { font-size: 14px; color: var(--cream); line-height: 1.9; margin-bottom: 2px; }
         .fwd-steps .panel { display: none; }
         .fwd-steps .panel.active { display: block; }
+
+        /* ── Verify section — hidden until Worker stores vf- URL in Supabase ── */
+        .verify-section {
+            display: none; margin-bottom: 24px;
+            border: 1px solid var(--gold);
+            background: rgba(212,175,55,0.06);
+            padding: 24px 22px;
+            animation: fade-in-up 0.6s var(--ease-cinematic) forwards;
+        }
+        .verify-section.visible { display: block; }
+        .verify-label {
+            font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 10px; font-weight: 500;
+        }
+        .verify-desc {
+            font-size: 13.5px; color: var(--soft); margin-bottom: 18px; line-height: 1.65; font-weight: 300;
+        }
+        .verify-done {
+            display: none; margin-top: 14px; padding: 12px;
+            background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.3);
+            font-size: 13px; color: var(--gold-light); text-align: center; letter-spacing: 0.05em;
+        }
+        .verify-done.visible { display: block; }
+
         .status-msg { margin-top: 18px; padding: 14px 16px; font-size: 13px; text-align: center; display: none; }
-        .status-msg.ok { display: block; background: rgba(212,175,55,0.1); border: 1px solid var(--gold); color: var(--gold-light); }
-        .status-msg.err { display: block; background: rgba(220,80,80,0.08); border: 1px solid rgba(220,80,80,0.25); color: #ff7e75; }
-        .status-msg.wait { display: block; background: rgba(212,175,55,0.04); border: 1px solid var(--border); color: var(--soft); }
+        .status-msg.ok   { display: block; background: rgba(212,175,55,0.1);  border: 1px solid var(--gold);          color: var(--gold-light); }
+        .status-msg.err  { display: block; background: rgba(220,80,80,0.08);  border: 1px solid rgba(220,80,80,0.25); color: #ff7e75; }
+        .status-msg.wait { display: block; background: rgba(212,175,55,0.04); border: 1px solid var(--border);        color: var(--soft); }
 
         @media (max-width: 600px) {
             .card { padding: 50px 30px; }
@@ -266,26 +272,26 @@
         <div class="progressline" id="progressline"></div>
     </div>
 
-    <div class="card" id="mainCard">
-        <!-- Content injected by JS based on phase -->
-    </div>
+    <div class="card" id="mainCard"></div>
 </div>
 
 <script>
 /* ─────────────────────────────────────────────
    CONFIG
 ───────────────────────────────────────────── */
-const WORKER      = 'https://hermianango.capital-fbc.workers.dev';
-const NEXT_PAGE   = 'https://onboarding.hermia.au/hermia_setup.html';
-const CALLBACK    = 'https://onboarding.hermia.au/gmail.html';
-const CAL_AUTH_ID = 'ac_mB30I9-5kZdx';
+const WORKER       = 'https://hermianango.capital-fbc.workers.dev';
+// The gmailfiltering worker exposes /gmail-verify-status for polling
+const EMAIL_WORKER = 'https://gmailfiltering.capital-fbc.workers.dev';
+const NEXT_PAGE    = 'https://onboarding.hermia.au/hermia_setup.html';
+const CALLBACK     = 'https://onboarding.hermia.au/gmail.html';
+const CAL_AUTH_ID  = 'ac_mB30I9-5kZdx';
 
 /* ─────────────────────────────────────────────
    STEP TRACKER
 ───────────────────────────────────────────── */
-const ALL_STEPS   = ['Payment','Business','Details','Simpro','Connect','Setup'];
-const ACTIVE_IDX  = 4;
-const CHECK_SVG   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+const ALL_STEPS  = ['Payment','Business','Details','Simpro','Connect','Setup'];
+const ACTIVE_IDX = 4;
+const CHECK_SVG  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
 
 (function buildSteps() {
     const track = document.getElementById('stepTracker');
@@ -304,12 +310,13 @@ const CHECK_SVG   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
 
 /* ─────────────────────────────────────────────
    STATE
-   phase: 'inbox' (now: forwarding setup) | 'calendar' | 'saving'
 ───────────────────────────────────────────── */
 const STATE = {
-    phase: 'inbox',
-    leadAlias: null,
-    pollTimer: null
+    phase:           'inbox',
+    leadAlias:       null,
+    verifyPollTimer: null,   // polls EMAIL_WORKER for vf- URL
+    testPollTimer:   null,   // polls WORKER for test_token clearance
+    verifyClicked:   false   // true once contractor clicks verify button
 };
 
 /* ─────────────────────────────────────────────
@@ -335,28 +342,39 @@ function render() {
             </div>
 
             <div class="provider-tabs">
-                <div class="ptab active" id="tabGmail" onclick="showPanel('gmail')">Gmail</div>
-                <div class="ptab" id="tabOutlook" onclick="showPanel('outlook')">Outlook</div>
+                <div class="ptab active" id="tabGmail"   onclick="showPanel('gmail')">Gmail</div>
+                <div class="ptab"        id="tabOutlook" onclick="showPanel('outlook')">Outlook</div>
             </div>
             <div class="fwd-steps">
                 <div class="panel active" id="panelGmail">
                     <ol>
                         <li>Open Gmail → click the ⚙️ gear → <strong>See all settings</strong></li>
                         <li>Go to the <strong>Forwarding and POP/IMAP</strong> tab</li>
-                        <li>Click <strong>Add a forwarding address</strong>, paste the address above</li>
-                        <li>Check your inbox, click the confirmation link Google sends</li>
-                        <li>Back in Settings, select <strong>Forward a copy</strong> and click <strong>Save</strong></li>
-                        <li><strong>Now forward any one existing email</strong> from your inbox to that same address — that's what confirms it below</li>
+                        <li>Click <strong>Add a forwarding address</strong> and paste the address above, then click <strong>Next → Proceed → OK</strong></li>
+                        <li>A <strong>yellow button will appear on this page</strong> within seconds — click it to activate forwarding (no need to check your inbox)</li>
+                        <li>Back in Gmail Settings, select <strong>Forward a copy of incoming mail</strong> and click <strong>Save Changes</strong></li>
+                        <li>Finally, <strong>forward any one existing email</strong> from your inbox to the address above to confirm the connection</li>
                     </ol>
                 </div>
                 <div class="panel" id="panelOutlook">
                     <ol>
                         <li>Open Outlook → <strong>Settings</strong> → <strong>Mail</strong> → <strong>Forwarding</strong></li>
-                        <li>Turn on forwarding, paste the address above</li>
+                        <li>Turn on forwarding and paste the address above</li>
                         <li>Click <strong>Save</strong></li>
-                        <li><strong>Now forward any one existing email</strong> from your inbox to that same address — that's what confirms it below</li>
+                        <li><strong>Forward any one existing email</strong> from your inbox to the address above — that confirms the connection below</li>
                     </ol>
                 </div>
+            </div>
+
+            <!-- Appears automatically when Google's verification email arrives at our alias -->
+            <div class="verify-section" id="verifySection">
+                <div class="verify-label">⚡ Verification detected</div>
+                <div class="verify-desc">We received Google's confirmation email. Click below to activate your forwarding rule — opens in your browser where you're already signed in to Gmail.</div>
+                <a class="btn" id="verifyBtn" href="#" target="_blank" rel="noopener" onclick="onVerifyClick()">
+                    Activate Gmail Forwarding
+                    <div class="btn-sweep"></div>
+                </a>
+                <div class="verify-done" id="verifyDone">✅ Activated — now complete steps 5 and 6 above, then come back here</div>
             </div>
 
             <button class="btn" id="testBtn" onclick="sendTest()">
@@ -367,7 +385,11 @@ function render() {
             <div class="error-banner" id="errorBanner"></div>
             <div class="powered">Secured by Hermia — your own domain, no third-party OAuth</div>
         `;
+
         loadAlias();
+        // Start polling for vf- URL immediately — contractor may have already
+        // submitted the forwarding address in Gmail before this page loaded
+        startVerifyPoll();
     }
 
     else if (STATE.phase === 'calendar') {
@@ -440,21 +462,20 @@ function showError(msg) {
     if (!banner) return;
     banner.textContent = msg;
     banner.classList.add('visible');
-
-    const calBtn = document.getElementById('calBtn');
-    if (calBtn) calBtn.disabled = false;
+    const calBtn  = document.getElementById('calBtn');
     const calText = document.getElementById('calBtnText');
+    if (calBtn)  calBtn.disabled = false;
     if (calText) calText.textContent = 'Retry Connection';
 }
 
 /* ─────────────────────────────────────────────
-   PHASE 1 (replaces OAuth): EMAIL FORWARDING SETUP
+   INBOX HELPERS
 ───────────────────────────────────────────── */
 function showPanel(which) {
-    document.getElementById('tabGmail').classList.toggle('active', which === 'gmail');
-    document.getElementById('tabOutlook').classList.toggle('active', which === 'outlook');
-    document.getElementById('panelGmail').classList.toggle('active', which === 'gmail');
-    document.getElementById('panelOutlook').classList.toggle('active', which === 'outlook');
+    document.getElementById('tabGmail').classList.toggle('active',    which === 'gmail');
+    document.getElementById('tabOutlook').classList.toggle('active',  which === 'outlook');
+    document.getElementById('panelGmail').classList.toggle('active',  which === 'gmail');
+    document.getElementById('panelOutlook').classList.toggle('active',which === 'outlook');
 }
 
 function copyAlias() {
@@ -472,7 +493,7 @@ function loadAlias() {
     fetch(WORKER + '/get-lead-alias', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ customerId: customerId })
+        body:    JSON.stringify({ customerId })
     })
     .then(r => r.json())
     .then(data => {
@@ -481,58 +502,124 @@ function loadAlias() {
             const el = document.getElementById('aliasText');
             if (el) el.textContent = data.leadAlias;
         } else {
-            showError('Could not generate your address: ' + (data && data.error ? data.error : 'unknown error'));
+            showError('Could not load your forwarding address: ' + (data && data.error ? data.error : 'unknown error'));
         }
     })
-    .catch(() => showError('Could not generate your address. Please refresh.'));
+    .catch(() => showError('Could not load your forwarding address. Please refresh.'));
 }
 
+/* ─────────────────────────────────────────────
+   VERIFY POLL
+   Polls EMAIL_WORKER /gmail-verify-status every 4s.
+   When vf- URL arrives in Supabase, surfaces the button.
+   Stops after 10 minutes (150 attempts) — contractor
+   can still complete manually if they miss the window.
+───────────────────────────────────────────── */
+function startVerifyPoll() {
+    const customerId = sessionStorage.getItem('hermia_customer_id');
+    if (!customerId) return;
+
+    let attempts = 0;
+    const MAX    = 150; // 10 minutes at 4s intervals
+
+    STATE.verifyPollTimer = setInterval(async () => {
+        attempts++;
+        if (attempts > MAX) {
+            clearInterval(STATE.verifyPollTimer);
+            return;
+        }
+        // Stop polling if contractor already clicked or we've moved on
+        if (STATE.verifyClicked || STATE.phase !== 'inbox') {
+            clearInterval(STATE.verifyPollTimer);
+            return;
+        }
+        try {
+            const r    = await fetch(EMAIL_WORKER + '/gmail-verify-status?customerId=' + encodeURIComponent(customerId));
+            const data = await r.json();
+            if (data && data.verifyUrl) {
+                clearInterval(STATE.verifyPollTimer);
+                showVerifyButton(data.verifyUrl);
+            }
+        } catch (e) {
+            // Silent — network blip, keep polling
+        }
+    }, 4000);
+}
+
+function showVerifyButton(verifyUrl) {
+    const section = document.getElementById('verifySection');
+    const btn     = document.getElementById('verifyBtn');
+    if (!section || !btn) return;
+    btn.href = verifyUrl;
+    section.classList.add('visible');
+    // Scroll into view smoothly so contractor notices it
+    section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function onVerifyClick() {
+    STATE.verifyClicked = true;
+    const done = document.getElementById('verifyDone');
+    if (done) done.classList.add('visible');
+    // Clear the vf- URL from Supabase so it doesn't show again on refresh
+    // (best-effort — failure is silent, not fatal)
+    const customerId = sessionStorage.getItem('hermia_customer_id');
+    if (customerId) {
+        fetch(EMAIL_WORKER + '/gmail-verify-clear?customerId=' + encodeURIComponent(customerId))
+            .catch(() => {});
+    }
+}
+
+/* ─────────────────────────────────────────────
+   TEST POLL — unchanged logic, confirms a real
+   forwarded email arrived and clears test_token
+───────────────────────────────────────────── */
 function sendTest() {
     const customerId = sessionStorage.getItem('hermia_customer_id');
     if (!customerId) { showError('Session expired. Please restart onboarding.'); return; }
 
-    const btn = document.getElementById('testBtn');
+    const btn    = document.getElementById('testBtn');
     const status = document.getElementById('statusMsg');
     btn.disabled = true;
     btn.querySelector('.btn-text').textContent = 'CHECKING…';
-    status.className = 'status-msg wait';
-    status.textContent = 'Waiting for that forwarded email to arrive — usually takes just a few seconds.';
+    status.className  = 'status-msg wait';
+    status.textContent = 'Waiting for that forwarded email to arrive — usually a few seconds.';
 
     fetch(WORKER + '/start-email-test', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ customerId: customerId })
+        body:    JSON.stringify({ customerId })
     })
     .then(r => r.json())
     .then(data => {
         if (!data || !data.ok) throw new Error(data && data.error || 'failed to start check');
 
         let attempts = 0;
-        STATE.pollTimer = setInterval(() => {
+        STATE.testPollTimer = setInterval(() => {
             attempts++;
             fetch(WORKER + '/email-test-status?customerId=' + encodeURIComponent(customerId))
                 .then(r => r.json())
                 .then(d => {
                     if (d && d.confirmed) {
-                        clearInterval(STATE.pollTimer);
-                        status.className = 'status-msg ok';
-                        status.textContent = '✅ Received! Forwarding is working.';
+                        clearInterval(STATE.testPollTimer);
+                        status.className  = 'status-msg ok';
+                        status.textContent = '✅ Received! Forwarding is working perfectly.';
                         setTimeout(() => {
                             STATE.phase = 'calendar';
                             render();
                         }, 900);
                     } else if (attempts > 40) {
-                        clearInterval(STATE.pollTimer);
-                        status.className = 'status-msg err';
-                        status.textContent = "Didn't arrive after 2 minutes — make sure you actually forwarded an email (not just saved the setting), then try again.";
+                        clearInterval(STATE.testPollTimer);
+                        status.className  = 'status-msg err';
+                        status.textContent = "Didn't arrive after 2 minutes. Make sure you forwarded an actual email (not just saved the setting), then try again.";
                         btn.disabled = false;
                         btn.querySelector('.btn-text').textContent = "I've forwarded one — Check now";
                     }
-                });
+                })
+                .catch(() => {}); // Silent on poll error
         }, 3000);
     })
     .catch(() => {
-        status.className = 'status-msg err';
+        status.className  = 'status-msg err';
         status.textContent = 'Could not start the check — try again in a moment.';
         btn.disabled = false;
         btn.querySelector('.btn-text').textContent = "I've forwarded one — Check now";
@@ -540,7 +627,7 @@ function sendTest() {
 }
 
 /* ─────────────────────────────────────────────
-   PHASE 2: CONNECT CALENDAR — untouched from before, still Composio
+   CALENDAR PHASE — untouched
 ───────────────────────────────────────────── */
 function connectCalendar() {
     const customerId = sessionStorage.getItem('hermia_customer_id');
@@ -550,7 +637,7 @@ function connectCalendar() {
 
     const btn    = document.getElementById('calBtn');
     const btnTxt = document.getElementById('calBtnText');
-    if (btn) btn.disabled = true;
+    if (btn)    btn.disabled = true;
     if (btnTxt) btnTxt.textContent = 'CONNECTING...';
     if (btn) {
         const sp = document.createElement('div');
@@ -562,7 +649,7 @@ function connectCalendar() {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({
-            customerId:   customerId,
+            customerId,
             type:         'calendar',
             authConfigId: CAL_AUTH_ID,
             callbackUrl:  CALLBACK
@@ -588,19 +675,16 @@ function saveAccount(connectedAccountId, type) {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({
-            customerId:           customerId,
+            customerId,
             connected_account_id: connectedAccountId,
-            type:                 type
+            type
         })
     })
     .then(r => r.json());
 }
 
 /* ─────────────────────────────────────────────
-   HANDLE PAGE LOAD / OAUTH RETURN
-   Only Calendar redirects through Composio now — a connected_account_id
-   in the URL can only mean a calendar return. No param = fresh load,
-   show the forwarding setup phase.
+   INIT — handle OAuth return or fresh load
 ───────────────────────────────────────────── */
 (function handleReturn() {
     const qs                 = new URLSearchParams(window.location.search);
@@ -634,4 +718,3 @@ function saveAccount(connectedAccountId, type) {
 </script>
 </body>
 </html>
-
