@@ -167,21 +167,37 @@
       nangoInstance.openConnectUI({
         onEvent: async (event) => {
           if (event.type === 'connect') {
+            // DEBUG: log the full event shape so we can see exactly where
+            // connectionId actually lives in Nango's real payload, and
+            // confirm register-webhook's actual response instead of
+            // assuming success. Safe to leave in — only logs to console,
+            // never shown to the contractor.
+            console.log('[simpro-connect] full Nango event:', JSON.stringify(event));
+
             const connectionId =
               (event.payload && event.payload.connectionId) ||
               event.connectionId ||
               event.connection_id ||
               null;
+
+            console.log('[simpro-connect] extracted connectionId:', connectionId);
+
             btn.innerHTML = '<div class="spinner"></div> Saving…';
 
-            try {
-              await fetch(WORKER + '/register-webhook', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ customerId, connectionId })
-              });
-            } catch(e) {
-              console.error('register-webhook error:', e);
+            if (!connectionId) {
+              console.error('[simpro-connect] NO connectionId found in event — skipping register-webhook call entirely');
+            } else {
+              try {
+                const regRes = await fetch(WORKER + '/register-webhook', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ customerId, connectionId })
+                });
+                const regText = await regRes.text();
+                console.log('[simpro-connect] register-webhook response status:', regRes.status, '| body:', regText);
+              } catch(e) {
+                console.error('[simpro-connect] register-webhook network error:', e);
+              }
             }
 
             document.body.style.transition = 'opacity 0.8s ease';
@@ -209,4 +225,3 @@
 </script>
 </body>
 </html>
-
