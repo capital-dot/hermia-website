@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hermia | System Activation</title>
+    <title>Hermia | Go Live</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
     <style>
         :root {
             --bg: #080705;
-            --bg-card: rgba(10, 9, 7, 0.85);
+            --bg-card: rgba(10, 9, 7, 0.9);
             --gold: #D4AF37;
             --gold-bright: #FFD700;
             --gold-light: #F9E2AF;
@@ -18,9 +18,6 @@
             --cream: #f4f0e6;
             --soft: #a19d94;
             --border: rgba(212, 175, 55, 0.2);
-            --green: #25D366;
-            --green-bg: rgba(37, 211, 102, 0.07);
-            --green-border: rgba(37, 211, 102, 0.3);
             --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
         }
 
@@ -36,46 +33,52 @@
             background: var(--bg);
             color: var(--cream);
             font-family: 'DM Sans', sans-serif;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
+        /* ── Full Screen Cinematic Background ── */
         .bg-layers {
             position: fixed;
             inset: 0;
             z-index: 0;
             pointer-events: none;
         }
+
         .vignette {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,1) 100%);
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,1) 100%);
             z-index: 5;
         }
+
         .light-bloom {
             position: absolute;
-            width: 140vw;
-            height: 140vh;
-            top: -20vh;
-            left: -20vw;
-            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.04) 0%, transparent 60%);
+            width: 150vw;
+            height: 150vh;
+            top: -25vh;
+            left: -25vw;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 60%);
             filter: blur(140px);
-            animation: light-drift 35s infinite alternate ease-in-out;
+            animation: light-drift 40s infinite alternate ease-in-out;
         }
+
         @keyframes light-drift {
             0% { transform: translate(-5%, -5%) scale(1); }
             100% { transform: translate(5%, 5%) scale(1.1); }
         }
+
         .grid {
             position: absolute;
             inset: 0;
             background-image: 
                 linear-gradient(var(--border) 1px, transparent 1px),
                 linear-gradient(90deg, var(--border) 1px, transparent 1px);
-            background-size: 120px 120px;
-            -webkit-mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%);
-            mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%);
-            opacity: 0.15;
+            background-size: 140px 140px;
+            -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%);
+            mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%);
+            opacity: 0.1;
         }
+
         .grain {
             position: absolute;
             inset: 0;
@@ -84,195 +87,280 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        .tool-icon {
-            position: absolute;
-            color: var(--gold);
-            opacity: 0.05;
-            z-index: 1;
-            filter: drop-shadow(0 0 10px var(--gold));
-        }
-        .tool-1 { top: 15%; left: 10%; width: 60px; transform: rotate(-20deg); animation: float 8s infinite ease-in-out; }
-        .tool-2 { top: 70%; left: 85%; width: 50px; transform: rotate(15deg); animation: float 10s infinite ease-in-out -2s; }
-        .tool-3 { top: 80%; left: 15%; width: 70px; transform: rotate(-45deg); animation: float 12s infinite ease-in-out -5s; }
-        .tool-4 { top: 10%; left: 80%; width: 55px; transform: rotate(30deg); animation: float 9s infinite ease-in-out -1s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
-            50% { transform: translateY(-20px) rotate(calc(var(--rot, 0deg) + 10deg)); }
-        }
-
-        /* ── intro card start ── */
-
-        #intro {
-            position: fixed;
-            inset: 0;
-            z-index: 1000;
-            background: var(--bg);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            perspective: 1000px;
-        }
-
-        .logo-container {
-            position: relative;
-            width: 180px;
-            height: 180px;
-            transform-style: preserve-3d;
-            animation: logo-reveal 0.8s var(--ease-cinematic) forwards;
-        }
-
-        .rotating-logo {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.6));
-            animation: logo-rotate 3s linear infinite;
-        }
-
-        .complete-text {
-            margin-top: 30px;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 42px;
-            font-weight: 300;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--gold-light);
-            opacity: 0;
-            transform: translateY(20px);
-            filter: blur(10px);
-            animation: text-pop 0.8s var(--ease-cinematic) 0.4s forwards;
-        }
-
-        .gold-particles {
-            position: absolute;
-            inset: -80px;
-            pointer-events: none;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
-            filter: blur(20px);
-            animation: particle-pulse 2s infinite ease-in-out;
-        }
-
-        @keyframes logo-reveal {
-            0% { opacity: 0; transform: scale(0.5) translateZ(-500px); }
-            100% { opacity: 1; transform: scale(1) translateZ(0); }
-        }
-
-        @keyframes logo-rotate {
-            from { transform: rotateY(0deg); }
-            to { transform: rotateY(360deg); }
-        }
-
-        @keyframes text-pop {
-            0% { opacity: 0; transform: translateY(20px); filter: blur(10px); }
-            100% { opacity: 1; transform: translateY(0); filter: blur(0); text-shadow: 0 0 20px var(--gold); }
-        }
-
-        @keyframes particle-pulse {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.1); }
-        }
-
-        #main-content {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 1s ease-in-out;
-            height: 100%;
-            overflow-y: auto;
-        }
-
+        /* ── Wide Layout ── */
         .wrap {
             position: relative;
             z-index: 10;
             width: 100%;
-            max-width: 600px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 80px 24px 120px;
+            padding: 60px 40px 100px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .logo-static-wrap { margin-bottom: 50px; }
-        .logo-static { height: 52px; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
+        /* ── Top Header ── */
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            animation: fade-in-down 1.2s var(--ease-cinematic) forwards;
+        }
 
-        .steps { display: flex; justify-content: space-between; width: 100%; margin-bottom: 60px; position: relative; }
-        .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.08); }
-        .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: linear-gradient(90deg, var(--gold-muted), var(--gold), var(--gold-muted)); box-shadow: 0 0 12px var(--gold); width: 100%; }
-        .step { display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; position: relative; z-index: 1; }
-        .dot { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 300; background: var(--gold); border: 1px solid var(--gold); color: #000; }
+        .logo {
+            height: 42px;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
+        }
+
+        .exit-link {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--soft);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .exit-link:hover {
+            color: var(--gold);
+        }
+
+        .exit-link svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        /* ── Steps Tracker ── */
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 700px;
+            margin-bottom: 60px;
+            position: relative;
+            opacity: 0;
+            animation: fade-in-up 1s var(--ease-cinematic) 0.4s forwards;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 10px;
+            right: 10px;
+            height: 1px;
+            background: rgba(212, 175, 55, 0.08);
+        }
+
+        .progressline {
+            position: absolute;
+            top: 16px;
+            left: 10px;
+            height: 1px;
+            background: var(--gold);
+            box-shadow: 0 0 12px var(--gold);
+            transition: width 1.2s var(--ease-cinematic);
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 11px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--soft);
+            transition: all 0.6s var(--ease-cinematic);
+        }
+
+        .step.active .dot { border-color: var(--gold); color: var(--gold-bright); box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+        .step.done .dot { background: var(--gold); border-color: var(--gold); color: #000; }
         .dot svg { width: 14px; height: 14px; stroke-width: 2; }
-        .label { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-light); font-weight: 400; }
+        .label { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--soft); opacity: 0.5; }
+        .step.active .label { color: var(--gold-light); opacity: 1; }
 
+        /* ── Full Screen Card Content ── */
         .card {
             width: 100%;
             background: var(--bg-card);
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
             border: 1px solid var(--border);
-            padding: 60px 50px;
+            border-radius: 0;
+            padding: 80px;
             position: relative;
-            box-shadow: 0 50px 120px rgba(0,0,0,0.8);
-            margin-bottom: 30px;
-        }
-        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.6; }
-        .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 24px; font-weight: 400; }
-        h1 { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; line-height: 1.0; margin-bottom: 20px; letter-spacing: -0.02em; }
-        h2 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; margin-bottom: 15px; color: var(--gold-light); }
-        .sub { font-size: 16px; color: var(--soft); margin-bottom: 40px; line-height: 1.7; font-weight: 300; }
-
-        .field-list { display: flex; flex-direction: column; gap: 1px; margin-bottom: 30px; border: 1px solid var(--border); overflow: hidden; }
-        .field-row { display: flex; align-items: center; gap: 14px; padding: 18px 20px; background: rgba(212, 175, 55, 0.02); }
-        .field-row + .field-row { border-top: 1px solid var(--border); }
-        .field-num { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(212, 175, 55, 0.1); border: 1px solid var(--border); color: var(--gold-light); font-size: 12px; font-weight: 600; display: grid; place-items: center; }
-        .field-name { font-size: 14.5px; color: var(--cream); font-weight: 400; }
-        .field-type { margin-left: auto; flex-shrink: 0; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--soft); border: 1px solid var(--border); border-radius: 999px; padding: 4px 10px; }
-
-        .instruction-box { padding: 25px; border: 1px solid var(--border); background: rgba(212, 175, 55, 0.03); margin-bottom: 40px; }
-        .instruction-step { font-size: 14px; line-height: 1.8; color: var(--cream); font-weight: 300; margin-bottom: 10px; display: flex; gap: 10px; }
-        .instruction-step b { color: var(--gold-light); font-weight: 500; }
-
-        .video-frame { margin-bottom: 10px; border: 1px solid var(--border); overflow: hidden; border-radius: 6px; width: 100%; }
-        .video-frame iframe { width: 100%; aspect-ratio: 16 / 9; display: block; min-height: 320px; }
-
-        /* ── WhatsApp Notice Section ── */
-        .whatsapp-card {
-            width: 100%;
-            background: var(--green-bg);
-            border: 1px solid var(--green-border);
-            padding: 40px 44px;
-            position: relative;
-            margin-bottom: 30px;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-        }
-        .whatsapp-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--green), transparent); opacity: 0.6; }
-        .whatsapp-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
-        .whatsapp-icon { width: 42px; height: 42px; border-radius: 50%; background: var(--green); display: grid; place-items: center; flex-shrink: 0; box-shadow: 0 0 24px rgba(37, 211, 102, 0.35); }
-        .whatsapp-icon svg { width: 22px; height: 22px; fill: #000; }
-        .whatsapp-eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.4em; color: var(--green); font-weight: 500; }
-        .whatsapp-card h2 { color: var(--cream); margin-bottom: 14px; }
-        .whatsapp-card .sub { margin-bottom: 24px; }
-        .whatsapp-tip {
+            opacity: 0;
+            animation: fade-in-up 1.2s var(--ease-cinematic) 0.6s forwards;
+            box-shadow: 0 60px 150px rgba(0,0,0,0.9);
             display: flex;
-            gap: 12px;
-            align-items: flex-start;
-            padding: 18px 20px;
-            border: 1px solid var(--green-border);
-            background: rgba(37, 211, 102, 0.05);
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
-        .whatsapp-tip svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; stroke: var(--green); }
-        .whatsapp-tip p { font-size: 13.5px; line-height: 1.7; color: var(--cream); font-weight: 300; }
-        .whatsapp-tip p b { color: var(--green); font-weight: 500; }
 
-        .input-group { display: flex; gap: 10px; margin-top: 15px; }
-        input[type=email] { flex: 1; background: rgba(212, 175, 55, 0.05); border: 1px solid var(--border); padding: 18px; color: var(--cream); font-family: inherit; outline: none; font-weight: 300; }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
 
-        .btn { padding: 22px; border: none; background: linear-gradient(135deg, #E8C17A, #C9A35B); color: #000; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; gap: 12px; }
-        .btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2); }
-        .btn-sweep { position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent); transform: skewX(-30deg); animation: btn-sweep 5s infinite ease-in-out; }
+        .eyebrow {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
 
-        @media (max-width: 600px) { .card, .whatsapp-card { padding: 50px 30px; } h1 { font-size: 38px; } .complete-text { font-size: 32px; } .input-group { flex-direction: column; } }
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 56px;
+            font-weight: 300;
+            line-height: 1.0;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .sub {
+            font-size: 17px;
+            color: var(--soft);
+            margin-bottom: 50px;
+            line-height: 1.7;
+            font-weight: 300;
+            max-width: 700px;
+        }
+
+        /* ── Wide Video Frame ── */
+        .video-container {
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 50px;
+            position: relative;
+            border: 1px solid var(--border);
+            background: #000;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .video-frame {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            display: block;
+        }
+
+        /* ── Action Section ── */
+        .action-area {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .alias-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid var(--gold);
+            background: rgba(212,175,55,0.05);
+            padding: 20px 24px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .alias-text {
+            flex: 1;
+            font-size: 18px;
+            color: var(--gold-light);
+            word-break: break-all;
+            font-weight: 300;
+            text-align: left;
+            letter-spacing: 0.05em;
+        }
+
+        .copy-btn {
+            background: var(--gold);
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover { filter: brightness(1.1); }
+
+        .btn {
+            width: 100%;
+            padding: 24px;
+            border: none;
+            background: linear-gradient(135deg, #E8C17A, #C9A35B);
+            color: #000;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.5s var(--ease-cinematic);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .btn:hover { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.25); }
+
+        .btn-sweep {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            transform: skewX(-30deg);
+            animation: btn-sweep 5s infinite ease-in-out;
+        }
+
+        @keyframes btn-sweep { 0% { left: -100%; } 15% { left: 150%; } 100% { left: 150%; } }
+
+        .pulse-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--gold); margin: 0 auto 30px; animation: pulse-ring 2s infinite; }
+        @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(212,175,55,0.6); } 70% { box-shadow: 0 0 0 20px rgba(212,175,55,0); } 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); } }
+
+        @keyframes fade-in-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fade-in-down { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 1000px) {
+            .card { padding: 60px 40px; }
+            h1 { font-size: 42px; }
+            .label { display: none; }
+            .wrap { padding: 40px 20px; }
+        }
     </style>
 </head>
 <body>
@@ -282,78 +370,184 @@
         <div class="grid"></div>
         <div class="vignette"></div>
         <div class="grain"></div>
-        
-        <!-- Tool Icons -->
-        <svg class="tool-icon tool-1" style="--rot:-20deg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.77 3.77z"/></svg>
-        <svg class="tool-icon tool-2" style="--rot:15deg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M18.37 2.45 2.11 18.7a2.12 2.12 0 1 0 3 3L21.37 5.45a2.12 2.12 0 0 0-3-3Z"/><path d="m9.14 12.31 2.12-2.12"/><path d="m15.4 15.4 1.41-1.41"/><path d="m10.2 10.2 1.41-1.41"/></svg>
-        <svg class="tool-icon tool-3" style="--rot:-45deg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-        <svg class="tool-icon tool-4" style="--rot:30deg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22 17.58 6.42a2 2 0 0 0 0-2.83 2 2 0 0 0-2.83 0L3.17 15.17"/><path d="M9.5 3.5 13.5 7.5"/><path d="M14.5 8.5 18.5 12.5"/><path d="m17.5 11.5 3 3"/></svg>
     </div>
 
-    <!-- Main Content -->
-    <div id="main-content" style="opacity:1;visibility:visible;">
-        <div class="wrap">
-            <div class="logo-static-wrap">
-                <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo-static" />
-            </div>
-
-            <div class="steps">
-                <div class="progressline"></div>
-                <div class="step done"><div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="label">Connect</div></div>
-                <div class="step active"><div class="dot">7</div><div class="label">Setup</div></div>
-            </div>
-
-            <div class="card">
-                <div class="eyebrow">Final Configuration</div>
-                <h1>One last thing in Simpro</h1>
-                <p class="sub">To ensure Hermia's leads land with full detail, you need to configure your table view in Simpro.</p>
-                
-                <h2>Instructions</h2>
-                <div class="instruction-box">
-                    <div class="instruction-step"><span>1.</span> <span>Go to <b>Open Leads</b>.</span></div>
-                    <div class="instruction-step"><span>2.</span> <span>Click on <b>Open Leads</b> tab.</span></div>
-                    <div class="instruction-step"><span>3.</span> <span>Go to <b>Modify Table View</b>.</span></div>
-                    <div class="instruction-step"><span>4.</span> <span>Tick the fields listed below.</span></div>
-                    <div class="instruction-step"><span>5.</span> <span>Press <b>Save and Finish</b>.</span></div>
-                </div>
-
-                <h2>Fields to Include</h2>
-                <div class="field-list">
-                    <div class="field-row"><div class="field-num">1</div><div class="field-name">Lead Name</div><div class="field-type">Field</div></div>
-                    <div class="field-row"><div class="field-num">2</div><div class="field-name">Customer Phone</div><div class="field-type">Field</div></div>
-                    <div class="field-row"><div class="field-num">3</div><div class="field-name">Email</div><div class="field-type">Field</div></div>
-                    <div class="field-row"><div class="field-num">4</div><div class="field-name">Est. Value</div><div class="field-type">Field</div></div>
-                    <div class="field-row"><div class="field-num">5</div><div class="field-name">Site Address</div><div class="field-type">Field</div></div>
-                    <div class="field-row"><div class="field-num">6</div><div class="field-name">Customer Profile</div><div class="field-type">Field</div></div>
-                </div>
-
-                <div class="video-frame">
-                    <iframe src="https://www.loom.com/embed/ad22112fd7cb49979597bab590f0653d" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                </div>
-            </div>
-
-            <!-- WhatsApp Notice -->
-            <div class="whatsapp-card">
-                <div class="whatsapp-header">
-                    <div class="whatsapp-icon">
-                        <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.74.45 3.43 1.32 4.93L2 22l5.27-1.38a9.9 9.9 0 0 0 4.77 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2zm5.79 14.06c-.24.68-1.19 1.25-1.95 1.41-.52.11-1.2.2-3.5-.75-2.94-1.22-4.84-4.2-4.99-4.4-.14-.19-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.59-.37.78-.37.2 0 .39 0 .56.01.18.01.42-.07.66.5.24.59.83 2.03.9 2.18.07.15.12.32.02.51-.1.19-.15.31-.3.48-.15.17-.31.38-.45.51-.15.14-.3.3-.13.59.17.29.76 1.25 1.63 2.02 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.21.73-.85.93-1.14.2-.29.4-.24.66-.14.27.1 1.69.8 1.98.94.29.14.48.21.55.33.07.12.07.68-.17 1.36z"/></svg>
-                    </div>
-                    <div class="whatsapp-eyebrow">Important · Tell Your Customers</div>
-                </div>
-                <h2>Tell customers to check WhatsApp</h2>
-                <p class="sub">Hermia qualifies leads via WhatsApp. Once a customer submits an enquiry, Hermia follows up there — so it's worth letting them know in advance to keep an eye on it.</p>
-                <div class="whatsapp-tip">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                    <p><b>Tip:</b> Add a line to your booking confirmation or a section on your website stating that they will receive a WhatsApp message—'Please check WhatsApp; our team will follow up there shortly'—so leads don't slip through the cracks unanswered.</p>
-                </div>
-            </div>
-
+    <div class="wrap">
+        <div class="header">
+            <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" />
+            <a href="index.html" class="exit-link">
+                Exit to Home
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            </a>
         </div>
+
+        <div class="steps" id="stepTracker">
+            <div class="progressline" id="progressline"></div>
+        </div>
+
+        <div class="card" id="mainCard"></div>
     </div>
 
     <script>
-        document.body.style.overflow = 'auto';
+        const WORKER = 'https://hermianango.capital-fbc.workers.dev';
+        const EMAIL_WORKER = 'https://gmailflitering.capital-fbc.workers.dev';
+        const CONNECT_WS_URL = 'wss://connnect.capital-fbc.workers.dev/ws';
+        const LOOM_EMBED_URL = 'https://www.loom.com/embed/ad22112fd7cb49979597bab590f0653d';
 
+        const ALL_STEPS = ['Payment','Business','Details','Simpro','Setup'];
+        const ACTIVE_IDX = 4;
+        const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+        (function buildSteps() {
+            const track = document.getElementById('stepTracker');
+            ALL_STEPS.forEach((label, i) => {
+                const div = document.createElement('div');
+                const state = i < ACTIVE_IDX ? 'done' : (i === ACTIVE_IDX ? 'active' : '');
+                div.className = 'step ' + state;
+                div.innerHTML = `<div class="dot">${state === 'done' ? CHECK_SVG : (i + 1)}</div><div class="label">${label}</div>`;
+                track.appendChild(div);
+            });
+            setTimeout(() => {
+                document.getElementById('progressline').style.width = `calc((100% - 32px) * ${ACTIVE_IDX / (ALL_STEPS.length - 1)})`;
+            }, 100);
+        })();
+
+        const STATE = {
+            phase: 'fwd-setup',
+            leadAlias: null,
+            verifySocket: null,
+            verifyLink: null,
+            verifyClicked: false,
+            verifyTimeoutTimer: null
+        };
+
+        function render() {
+            const card = document.getElementById('mainCard');
+
+            if (STATE.phase === 'fwd-setup') {
+                card.innerHTML = `
+                    <div class="eyebrow">Final Activation Phase</div>
+                    <h1>Initialize Forwarding</h1>
+                    <p class="sub">Establish the secure data bridge between your inbox and Hermia. Copy the address below and configure your Gmail forwarding rule to begin.</p>
+                    
+                    <div class="video-container">
+                        <iframe class="video-frame" src="${LOOM_EMBED_URL}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
+
+                    <div class="action-area">
+                        <div class="alias-box">
+                            <div class="alias-text" id="aliasText">${STATE.leadAlias || 'GENERATING...'}</div>
+                            <button class="copy-btn" onclick="copyAlias()">Copy Address</button>
+                        </div>
+                    </div>
+                `;
+                loadAlias();
+                connectVerifySocket();
+            } else if (STATE.phase === 'verify') {
+                card.innerHTML = `
+                    <div class="eyebrow">Verification Required</div>
+                    <div class="pulse-dot"></div>
+                    <h1>Authorize Connection</h1>
+                    <p class="sub">Google has issued a verification request. Click below to approve the secure forwarding rule in your Gmail dashboard.</p>
+                    
+                    <div class="action-area" id="step1">
+                        <a class="btn" id="connectBtn" href="${STATE.verifyLink || '#'}" target="_blank" rel="noopener" onclick="onConfirmClick()">
+                            Confirm in Gmail
+                            <div class="btn-sweep"></div>
+                        </a>
+                    </div>
+                    <div id="step2" style="display:none;">
+                        <p class="sub">Verification confirmed. You may now exit to your dashboard.</p>
+                    </div>
+                `;
+            } else if (STATE.phase === 'saving') {
+                card.innerHTML = `
+                    <div class="eyebrow">System Finalization</div>
+                    <h1>Establishing Workspace</h1>
+                    <p class="sub">Please wait while we finalize your secure lead architecture...</p>
+                    <div style="display:flex;justify-content:center;padding:60px 0;"><div class="spinner-light"></div></div>
+                `;
+            }
+        }
+
+        function copyAlias() {
+            navigator.clipboard.writeText(STATE.leadAlias || '');
+            const btn = document.querySelector('.copy-btn');
+            if (btn) { btn.textContent = 'COPIED'; setTimeout(() => btn.textContent = 'COPY ADDRESS', 1500); }
+        }
+
+        function loadAlias() {
+            const customerId = sessionStorage.getItem('hermia_customer_id');
+            if (!customerId) return;
+            fetch(WORKER + '/get-lead-alias', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ customerId })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data && data.ok) {
+                    STATE.leadAlias = data.leadAlias;
+                    const el = document.getElementById('aliasText');
+                    if (el) el.textContent = data.leadAlias;
+                }
+            })
+            .catch(() => {});
+        }
+
+        function connectVerifySocket() {
+            const customerId = sessionStorage.getItem('hermia_customer_id');
+            if (!customerId) return;
+            fetch(EMAIL_WORKER + '/gmail-verify-status?customerId=' + encodeURIComponent(customerId))
+                .then(r => r.json())
+                .then(data => { if (data && data.verifyUrl) handleVerifyLink(data.verifyUrl); })
+                .catch(() => {});
+            openVerifySocket(customerId, 0);
+        }
+
+        function openVerifySocket(customerId, attempt) {
+            let socket;
+            try { socket = new WebSocket(CONNECT_WS_URL + '?customerId=' + encodeURIComponent(customerId)); }
+            catch (e) { scheduleVerifyReconnect(customerId, attempt); return; }
+            STATE.verifySocket = socket;
+            socket.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    if (data.link) handleVerifyLink(data.link);
+                } catch (e) {}
+            };
+            socket.onclose = () => { if (!STATE.verifyLink) scheduleVerifyReconnect(customerId, attempt + 1); };
+            const pingTimer = setInterval(() => {
+                if (socket.readyState === WebSocket.OPEN) { try { socket.send('ping'); } catch (e) {} }
+                else { clearInterval(pingTimer); }
+            }, 20000);
+        }
+
+        function scheduleVerifyReconnect(customerId, attempt) {
+            if (STATE.verifyLink || STATE.phase !== 'fwd-setup') return;
+            const delay = Math.min(15000, 1000 * Math.pow(2, attempt));
+            setTimeout(() => openVerifySocket(customerId, attempt), delay);
+        }
+
+        function handleVerifyLink(link) {
+            if (STATE.verifyLink) return;
+            STATE.verifyLink = link;
+            if (STATE.verifySocket) { try { STATE.verifySocket.close(); } catch (e) {} }
+            STATE.phase = 'verify';
+            render();
+        }
+
+        function onConfirmClick() {
+            STATE.verifyClicked = true;
+            const customerId = sessionStorage.getItem('hermia_customer_id');
+            if (customerId) fetch(EMAIL_WORKER + '/gmail-verify-clear?customerId=' + encodeURIComponent(customerId)).catch(() => {});
+            setTimeout(() => {
+                document.getElementById('step1').style.display = 'none';
+                const step2 = document.getElementById('step2');
+                step2.style.display = 'block';
+            }, 300);
+        }
+
+        render();
     </script>
 </body>
 </html>
