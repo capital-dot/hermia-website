@@ -3,390 +3,579 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hermia | Connect Your Calendar & Inbox</title>
+    <title>Hermia | Go Live</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
     <style>
         :root {
-            --bg: #080705; --bg-card: rgba(10, 9, 7, 0.85);
-            --gold: #D4AF37; --gold-bright: #FFD700; --gold-light: #F9E2AF; --gold-muted: rgba(212, 175, 55, 0.12);
-            --cream: #f4f0e6; --soft: #a19d94; --border: rgba(212, 175, 55, 0.2);
+            --bg: #080705;
+            --bg-card: rgba(10, 9, 7, 0.9);
+            --gold: #D4AF37;
+            --gold-bright: #FFD700;
+            --gold-light: #F9E2AF;
+            --gold-muted: rgba(212, 175, 55, 0.12);
+            --cream: #f4f0e6;
+            --soft: #a19d94;
+            --border: rgba(212, 175, 55, 0.2);
             --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
-        html, body { height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
-        .bg-layers { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-        .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,1) 100%); z-index: 5; }
-        .light-bloom { position: absolute; width: 140vw; height: 140vh; top: -20vh; left: -20vw; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.04) 0%, transparent 60%); filter: blur(140px); animation: light-drift 35s infinite alternate ease-in-out; }
-        @keyframes light-drift { 0% { transform: translate(-5%, -5%) scale(1); } 100% { transform: translate(5%, 5%) scale(1.1); } }
-        .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 120px 120px; -webkit-mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); opacity: 0.15; }
-        .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-        .wrap { position: relative; z-index: 10; width: 100%; max-width: 600px; margin: 0 auto; padding: 80px 24px 120px; display: flex; flex-direction: column; align-items: center; }
-        .logo-wrap { margin-bottom: 50px; position: relative; animation: fade-in-down 1.2s var(--ease-cinematic) forwards; }
-        .logo-aura { position: absolute; inset: -40px; background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%); filter: blur(25px); animation: aura-pulse 8s infinite ease-in-out; }
-        @keyframes aura-pulse { 0%, 100% { opacity: 0.3; transform: scale(0.9); } 50% { opacity: 0.6; transform: scale(1.05); } }
-        .logo { height: 52px; position: relative; z-index: 2; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
-        .steps { display: flex; justify-content: space-between; width: 100%; margin-bottom: 60px; position: relative; opacity: 0; animation: fade-in-up 1s var(--ease-cinematic) 0.4s forwards; }
-        .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.08); }
-        .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: linear-gradient(90deg, var(--gold-muted), var(--gold), var(--gold-muted)); box-shadow: 0 0 12px var(--gold); transition: width 1.2s var(--ease-cinematic); }
-        .step { display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; position: relative; z-index: 1; }
-        .dot { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 300; background: var(--bg); border: 1px solid var(--border); color: var(--soft); transition: all 0.6s var(--ease-cinematic); }
-        .step.active .dot { border-color: var(--gold); color: var(--gold-bright); box-shadow: 0 0 25px rgba(212, 175, 55, 0.25); transform: scale(1.05); }
-        .step.done .dot { background: var(--gold); border-color: var(--gold); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html, body {
+            height: 100%;
+            background: var(--bg);
+            color: var(--cream);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ── Full Screen Cinematic Background ── */
+        .bg-layers {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .vignette {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,1) 100%);
+            z-index: 5;
+        }
+
+        .light-bloom {
+            position: absolute;
+            width: 150vw;
+            height: 150vh;
+            top: -25vh;
+            left: -25vw;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 60%);
+            filter: blur(140px);
+            animation: light-drift 40s infinite alternate ease-in-out;
+        }
+
+        @keyframes light-drift {
+            0% { transform: translate(-5%, -5%) scale(1); }
+            100% { transform: translate(5%, 5%) scale(1.1); }
+        }
+
+        .grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 140px 140px;
+            -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%);
+            mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%);
+            opacity: 0.1;
+        }
+
+        .grain {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* ── Wide Layout ── */
+        .wrap {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1200px; /* Wider for full screen feel */
+            margin: 0 auto;
+            padding: 60px 40px 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-wrap {
+            margin-bottom: 40px;
+            position: relative;
+            animation: fade-in-down 1.2s var(--ease-cinematic) forwards;
+        }
+
+        .logo {
+            height: 48px;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
+        }
+
+        /* ── Steps Tracker (Centered & Minimal) ── */
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 700px;
+            margin-bottom: 60px;
+            position: relative;
+            opacity: 0;
+            animation: fade-in-up 1s var(--ease-cinematic) 0.4s forwards;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 10px;
+            right: 10px;
+            height: 1px;
+            background: rgba(212, 175, 55, 0.08);
+        }
+
+        .progressline {
+            position: absolute;
+            top: 16px;
+            left: 10px;
+            height: 1px;
+            background: var(--gold);
+            box-shadow: 0 0 12px var(--gold);
+            transition: width 1.2s var(--ease-cinematic);
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 11px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--soft);
+            transition: all 0.6s var(--ease-cinematic);
+        }
+
+        .step.active .dot { border-color: var(--gold); color: var(--gold-bright); box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+        .step.done .dot { background: var(--gold); border-color: var(--gold); color: #000; }
         .dot svg { width: 14px; height: 14px; stroke-width: 2; }
-        .label { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--soft); opacity: 0.5; font-weight: 400; }
+        .label { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--soft); opacity: 0.5; }
         .step.active .label { color: var(--gold-light); opacity: 1; }
-        .card { width: 100%; background: var(--bg-card); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid var(--border); padding: 60px 50px; position: relative; opacity: 0; animation: fade-in-up 1.2s var(--ease-cinematic) 0.6s forwards; box-shadow: 0 50px 120px rgba(0,0,0,0.8); }
-        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.6; }
-        .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 24px; font-weight: 400; }
-        h1 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; line-height: 1.0; margin-bottom: 20px; letter-spacing: -0.02em; }
-        .sub { font-size: 16px; color: var(--soft); margin-bottom: 36px; line-height: 1.7; font-weight: 300; }
-        .phase-track { display: flex; gap: 0; margin-bottom: 36px; border: 1px solid var(--border); overflow: hidden; }
-        .phase-item { flex: 1; padding: 12px 10px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--soft); font-weight: 400; transition: all 0.5s var(--ease-cinematic); }
-        .phase-item + .phase-item { border-left: 1px solid var(--border); }
-        .phase-item.phase-active { color: var(--gold-light); background: rgba(212, 175, 55, 0.04); }
-        .phase-item.phase-done { color: var(--gold); }
-        .phase-num { width: 18px; height: 18px; border-radius: 50%; border: 1px solid currentColor; display: grid; place-items: center; font-size: 9px; flex-shrink: 0; }
-        .phase-item.phase-done .phase-num { background: var(--gold); border-color: var(--gold); color: #000; }
-        .phase-num svg { width: 9px; height: 9px; stroke-width: 3; }
-        .alias-box { display: flex; align-items: center; gap: 10px; border: 1px solid var(--gold); background: rgba(212,175,55,0.06); padding: 18px 20px; margin-bottom: 32px; }
-        .alias-text { flex: 1; font-size: 16px; color: var(--gold-light); word-break: break-all; font-weight: 400; }
-        .copy-btn { flex-shrink: 0; background: var(--gold); color: #000; border: none; padding: 10px 16px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; cursor: pointer; }
-        .fwd-steps { border: 1px solid var(--border); padding: 24px 22px; margin-bottom: 28px; }
-        .fwd-steps ol { padding-left: 20px; }
-        .fwd-steps li { font-size: 14.5px; color: var(--cream); line-height: 1.8; margin-bottom: 4px; }
-        .btn { width: 100%; padding: 20px; border: none; background: linear-gradient(135deg, #E8C17A, #C9A35B); color: #000; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; position: relative; overflow: hidden; }
-        .btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2); }
-        .btn:disabled { opacity: 0.5; cursor: wait; }
-        .btn-sweep { position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent); transform: skewX(-30deg); animation: btn-sweep 5s infinite ease-in-out; }
+
+        /* ── Full Screen Card Content ── */
+        .card {
+            width: 100%;
+            background: var(--bg-card);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 80px;
+            position: relative;
+            opacity: 0;
+            animation: fade-in-up 1.2s var(--ease-cinematic) 0.6s forwards;
+            box-shadow: 0 60px 150px rgba(0,0,0,0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .eyebrow {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 56px;
+            font-weight: 300;
+            line-height: 1.0;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .sub {
+            font-size: 17px;
+            color: var(--soft);
+            margin-bottom: 50px;
+            line-height: 1.7;
+            font-weight: 300;
+            max-width: 700px;
+        }
+
+        /* ── Wide Video Frame ── */
+        .video-container {
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 50px;
+            position: relative;
+            border: 1px solid var(--border);
+            background: #000;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .video-container::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            pointer-events: none;
+        }
+
+        .video-frame {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            display: block;
+        }
+
+        /* ── Action Section ── */
+        .action-area {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .alias-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid var(--gold);
+            background: rgba(212,175,55,0.05);
+            padding: 20px 24px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .alias-text {
+            flex: 1;
+            font-size: 18px;
+            color: var(--gold-light);
+            word-break: break-all;
+            font-weight: 300;
+            text-align: left;
+            letter-spacing: 0.05em;
+        }
+
+        .copy-btn {
+            background: var(--gold);
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover { filter: brightness(1.1); }
+
+        .btn {
+            width: 100%;
+            padding: 24px;
+            border: none;
+            background: linear-gradient(135deg, #E8C17A, #C9A35B);
+            color: #000;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.5s var(--ease-cinematic);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .btn:hover { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.25); }
+
+        .btn-sweep {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            transform: skewX(-30deg);
+            animation: btn-sweep 5s infinite ease-in-out;
+        }
+
         @keyframes btn-sweep { 0% { left: -100%; } 15% { left: 150%; } 100% { left: 150%; } }
-        .spinner-light { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.2); border-top-color: var(--cream); border-radius: 50%; animation: spin .7s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .status-msg { margin-top: 18px; padding: 14px 16px; font-size: 13px; text-align: center; display: none; }
-        .status-msg.ok   { display: block; background: rgba(212,175,55,0.1);  border: 1px solid var(--gold);          color: var(--gold-light); }
-        .status-msg.err  { display: block; background: rgba(220,80,80,0.08);  border: 1px solid rgba(220,80,80,0.25); color: #ff7e75; }
-        .status-msg.wait { display: block; background: rgba(212,175,55,0.04); border: 1px solid var(--border);        color: var(--soft); }
-        .error-banner { display: none; margin-top: 20px; padding: 15px; background: rgba(220, 80, 80, 0.05); border: 1px solid rgba(220, 80, 80, 0.2); color: #ff7e75; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; text-align: center; }
-        .error-banner.visible { display: block; }
-        .access-list { display: flex; flex-direction: column; gap: 1px; margin-bottom: 32px; border: 1px solid var(--border); overflow: hidden; }
-        .access-row { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: rgba(212, 175, 55, 0.02); }
-        .access-row + .access-row { border-top: 1px solid var(--border); }
-        .access-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; background: var(--gold); box-shadow: 0 0 8px var(--gold); }
-        .access-text { font-size: 13px; line-height: 1.4; color: var(--soft); font-weight: 300; }
-        .access-text strong { color: var(--cream); font-weight: 400; }
-        .powered { margin-top: 30px; text-align: center; color: var(--soft); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.4; }
-        .pulse-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gold); margin: 0 auto 24px; animation: pulse-ring 1.8s infinite; }
-        @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(212,175,55,0.5); } 70% { box-shadow: 0 0 0 14px rgba(212,175,55,0); } 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); } }
-        .note { font-size: 13px; color: var(--soft); line-height: 1.6; font-weight: 300; margin-bottom: 20px; text-align: center; }
-        #step1 { margin-top: 8px; }
-        #step2 { display: none; margin-top: 8px; }
-        @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
-        .fade-in { animation: fade-in 0.5s var(--ease-cinematic) forwards; }
+
+        .status-msg {
+            margin-top: 30px;
+            padding: 20px;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .status-msg.wait { border: 1px solid var(--border); color: var(--soft); opacity: 0.7; }
+        .status-msg.err { border: 1px solid #ff7e75; color: #ff7e75; background: rgba(255,126,117,0.05); }
+
+        .powered {
+            margin-top: 60px;
+            text-align: center;
+            color: var(--soft);
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.4;
+        }
+
+        .pulse-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--gold); margin: 0 auto 30px; animation: pulse-ring 2s infinite; }
+        @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(212,175,55,0.6); } 70% { box-shadow: 0 0 0 20px rgba(212,175,55,0); } 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); } }
+
         @keyframes fade-in-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fade-in-down { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 600px) { .card { padding: 50px 30px; } h1 { font-size: 34px; } .label { display: none; } .steps { margin-bottom: 40px; } }
+
+        @media (max-width: 1000px) {
+            .card { padding: 60px 40px; }
+            h1 { font-size: 42px; }
+            .label { display: none; }
+            .wrap { padding: 40px 20px; }
+        }
     </style>
 </head>
 <body>
-<div class="bg-layers"><div class="light-bloom"></div><div class="grid"></div><div class="vignette"></div><div class="grain"></div></div>
-<div class="wrap">
-    <div class="logo-wrap"><div class="logo-aura"></div><img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" /></div>
-    <div class="steps" id="stepTracker"><div class="progressline" id="progressline"></div></div>
-    <div class="card" id="mainCard"></div>
-</div>
 
-<script>
-const WORKER        = 'https://hermianango.capital-fbc.workers.dev';
-const EMAIL_WORKER  = 'https://gmailflitering.capital-fbc.workers.dev';
-const CONNECT_WS_URL = 'wss://connnect.capital-fbc.workers.dev/ws';
-const NEXT_PAGE     = 'https://onboarding.hermia.au/hermia_setup.html';
-const CALLBACK      = 'https://onboarding.hermia.au/gmail.html';
-const CAL_AUTH_ID   = 'ac_mB30I9-5kZdx';
-const LOOM_EMBED_URL = 'https://www.loom.com/embed/ad22112fd7cb49979597bab590f0653d';
+    <div class="bg-layers">
+        <div class="light-bloom"></div>
+        <div class="grid"></div>
+        <div class="vignette"></div>
+        <div class="grain"></div>
+    </div>
 
-const ALL_STEPS  = ['Payment','Business','Details','Simpro','Connect','Setup'];
-const ACTIVE_IDX = 4;
-const CHECK_SVG  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    <div class="wrap">
+        <div class="logo-wrap">
+            <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" />
+        </div>
 
-(function buildSteps() {
-    const track = document.getElementById('stepTracker');
-    ALL_STEPS.forEach((label, i) => {
-        const div   = document.createElement('div');
-        const state = i < ACTIVE_IDX ? 'done' : (i === ACTIVE_IDX ? 'active' : '');
-        div.className = 'step ' + state;
-        div.innerHTML = `<div class="dot">${state === 'done' ? CHECK_SVG : (i + 1)}</div><div class="label">${label}</div>`;
-        track.appendChild(div);
-    });
-    setTimeout(() => {
-        document.getElementById('progressline').style.width = `calc((100% - 34px) * ${ACTIVE_IDX / (ALL_STEPS.length - 1)})`;
-    }, 100);
-})();
+        <div class="steps" id="stepTracker">
+            <div class="progressline" id="progressline"></div>
+        </div>
 
-const STATE = {
-    phase: 'calendar',
-    leadAlias: null,
-    verifySocket: null,
-    verifyLink: null,
-    verifyClicked: false,
-    verifyTimeoutTimer: null
-};
+        <div class="card" id="mainCard"></div>
+    </div>
 
-function phaseTrackHtml(activeKey) {
-    const items = [{ key: 'calendar', label: 'Calendar' }, { key: 'fwd', label: 'Inbox' }];
-    const activeGroup = activeKey === 'calendar' ? 'calendar' : 'fwd';
-    return items.map(it => {
-        const done   = activeGroup === 'fwd' && it.key === 'calendar';
-        const active = it.key === activeGroup;
-        const cls    = done ? 'phase-done' : (active ? 'phase-active' : '');
-        return `<div class="phase-item ${cls}"><div class="phase-num">${done ? CHECK_SVG : ''}</div>${it.label}</div>`;
-    }).join('');
-}
+    <script>
+        const WORKER = 'https://hermianango.capital-fbc.workers.dev';
+        const EMAIL_WORKER = 'https://gmailflitering.capital-fbc.workers.dev';
+        const CONNECT_WS_URL = 'wss://connnect.capital-fbc.workers.dev/ws';
+        const NEXT_PAGE = 'https://onboarding.hermia.au/hermia_setup.html';
+        const LOOM_EMBED_URL = 'https://www.loom.com/embed/ad22112fd7cb49979597bab590f0653d';
 
-function render() {
-    const card = document.getElementById('mainCard');
+        const ALL_STEPS = ['Payment','Business','Details','Simpro','Setup'];
+        const ACTIVE_IDX = 4;
+        const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
 
-    if (STATE.phase === 'calendar') {
-        card.innerHTML = `
-            <div class="eyebrow">Step 5 of 6</div>
-            <h1>Connect your calendar</h1>
-            <p class="sub">Hermia books confirmed jobs straight into your Google Calendar - no back-and-forth, no double-bookings.</p>
-            <div class="phase-track">${phaseTrackHtml('calendar')}</div>
-            <div class="access-list">
-                <div class="access-row"><div class="access-dot"></div><div class="access-text"><strong>Read</strong> your calendar availability</div></div>
-                <div class="access-row"><div class="access-dot"></div><div class="access-text"><strong>Create</strong> job appointments</div></div>
-            </div>
-            <button class="btn" id="calBtn" onclick="connectCalendar()">
-                <span id="calBtnText">Connect Google Calendar</span>
-            </button>
-            <div class="error-banner" id="errorBanner"></div>
-            <div class="powered">Secured by Composio</div>
-        `;
-    }
+        (function buildSteps() {
+            const track = document.getElementById('stepTracker');
+            ALL_STEPS.forEach((label, i) => {
+                const div = document.createElement('div');
+                const state = i < ACTIVE_IDX ? 'done' : (i === ACTIVE_IDX ? 'active' : '');
+                div.className = 'step ' + state;
+                div.innerHTML = `<div class="dot">${state === 'done' ? CHECK_SVG : (i + 1)}</div><div class="label">${label}</div>`;
+                track.appendChild(div);
+            });
+            setTimeout(() => {
+                document.getElementById('progressline').style.width = `calc((100% - 32px) * ${ACTIVE_IDX / (ALL_STEPS.length - 1)})`;
+            }, 100);
+        })();
 
-    else if (STATE.phase === 'fwd-setup') {
-        card.innerHTML = `
-            <div class="eyebrow">Step 5 of 6</div>
-            <h1>Forward your leads here</h1>
-            <p class="sub">No login, no app to install. Copy this address and paste it into Gmail - this page updates automatically the moment Google sends the confirmation.</p>
-            <div class="phase-track">${phaseTrackHtml('fwd')}</div>
-            <div class="alias-box">
-                <div class="alias-text" id="aliasText">${STATE.leadAlias || 'loading...'}</div>
-                <button class="copy-btn" onclick="copyAlias()">Copy</button>
-            </div>
-            <div class="fwd-steps">
-                <ol>
-                    <li>Copy the link above</li>
-                    <li>Paste it into Gmail</li>
-                    <li>Go to Gmail's <strong>POP/IMAP</strong> settings and paste it there</li>
-                </ol>
-            </div>
-            <div style="margin-bottom:32px;border:1px solid var(--border);overflow:hidden;border-radius:4px;">
-                <iframe src="${LOOM_EMBED_URL}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="width:100%;aspect-ratio:16/9;display:block;"></iframe>
-            </div>
-            <div class="status-msg wait" id="fwdStatus">Waiting for Google's confirmation - this page updates the instant it arrives.</div>
-            <div class="error-banner" id="errorBanner"></div>
-            <div class="powered">Secured by Hermia - your own domain, no third-party OAuth</div>
-        `;
-        loadAlias();
-        connectVerifySocket();
-    }
+        const STATE = {
+            phase: 'fwd-setup',
+            leadAlias: null,
+            verifySocket: null,
+            verifyLink: null,
+            verifyClicked: false,
+            verifyTimeoutTimer: null
+        };
 
-    else if (STATE.phase === 'verify') {
-        card.innerHTML = `
-            <div class="eyebrow">Step 5 of 6</div>
-            <div class="phase-track">${phaseTrackHtml('fwd')}</div>
-            <div class="pulse-dot"></div>
-            <h1 style="text-align:center;">One click to activate</h1>
-            <p class="sub" style="text-align:center;">Google sent a confirmation for your forwarding rule. Click below to approve it in Gmail - you're already signed in.</p>
-            <div id="step1">
-                <a class="btn" id="connectBtn" href="${STATE.verifyLink || '#'}" target="_blank" rel="noopener" onclick="onConfirmClick()">
-                    Confirm on Gmail
-                    <div class="btn-sweep"></div>
-                </a>
-            </div>
-            <div id="step2">
-                <p class="note">Confirmed in Gmail? Click below to finish your setup.</p>
-                <button class="btn" onclick="onContinue()">
-                    Continue to Setup
-                    <div class="btn-sweep"></div>
-                </button>
-            </div>
-            <div class="powered">Secured by Hermia - your own domain, no third-party OAuth</div>
-        `;
-    }
+        function render() {
+            const card = document.getElementById('mainCard');
 
-    else if (STATE.phase === 'saving') {
-        card.innerHTML = `
-            <div class="eyebrow">Step 5 of 6</div>
-            <h1>Setting up your account</h1>
-            <p class="sub">Just a moment...</p>
-            <div style="display:flex;justify-content:center;padding:40px 0;"><div class="spinner-light"></div></div>
-        `;
-    }
-}
+            if (STATE.phase === 'fwd-setup') {
+                card.innerHTML = `
+                    <div class="eyebrow">Final Activation Phase</div>
+                    <h1>Initialize Forwarding</h1>
+                    <p class="sub">Establish the secure data bridge between your inbox and Hermia. Copy the address below and configure your Gmail forwarding rule to begin.</p>
+                    
+                    <div class="video-container">
+                        <iframe class="video-frame" src="${LOOM_EMBED_URL}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
 
-function showError(msg) {
-    const banner = document.getElementById('errorBanner');
-    if (banner) { banner.textContent = msg; banner.classList.add('visible'); }
-}
+                    <div class="action-area">
+                        <div class="alias-box">
+                            <div class="alias-text" id="aliasText">${STATE.leadAlias || 'GENERATING...'}</div>
+                            <button class="copy-btn" onclick="copyAlias()">Copy Address</button>
+                        </div>
+                        <div class="status-msg wait" id="fwdStatus">Awaiting Google Confirmation • System Updates Automatically</div>
+                    </div>
 
-function connectCalendar() {
-    const customerId = sessionStorage.getItem('hermia_customer_id');
-    if (!customerId) { showError('Session expired. Please restart onboarding.'); return; }
-    sessionStorage.setItem('hermia_pending_phase', 'calendar');
-    const btn = document.getElementById('calBtn');
-    if (btn) { btn.disabled = true; document.getElementById('calBtnText').textContent = 'CONNECTING...'; }
-    fetch(WORKER + '/composio-link', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ customerId, type: 'calendar', authConfigId: CAL_AUTH_ID, callbackUrl: CALLBACK })
-    })
-    .then(r => r.json())
-    .then(data => {
-        if (data && data.redirect_url) window.location.href = data.redirect_url;
-        else showError('Could not start connection: ' + (data && data.error ? data.error : 'unknown error'));
-    })
-    .catch(() => showError('Connection failed. Please try again.'));
-}
+                    <div class="powered">Architected by Hermia • Private Domain Architecture</div>
+                `;
+                loadAlias();
+                connectVerifySocket();
+            } else if (STATE.phase === 'verify') {
+                card.innerHTML = `
+                    <div class="eyebrow">Verification Required</div>
+                    <div class="pulse-dot"></div>
+                    <h1>Authorize Connection</h1>
+                    <p class="sub">Google has issued a verification request. Click below to approve the secure forwarding rule in your Gmail dashboard.</p>
+                    
+                    <div class="action-area" id="step1">
+                        <a class="btn" id="connectBtn" href="${STATE.verifyLink || '#'}" target="_blank" rel="noopener" onclick="onConfirmClick()">
+                            Confirm in Gmail
+                            <div class="btn-sweep"></div>
+                        </a>
+                    </div>
+                    <div class="action-area" id="step2" style="display:none;">
+                        <p class="sub">Verification confirmed. Proceed to finalize your ecosystem setup.</p>
+                        <button class="btn" onclick="onContinue()">
+                            Finalize Setup
+                            <div class="btn-sweep"></div>
+                        </button>
+                    </div>
 
-function saveAccount(connectedAccountId, type) {
-    const customerId = sessionStorage.getItem('hermia_customer_id');
-    STATE.phase = 'saving';
-    render();
-    return fetch(WORKER + '/composio-save', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ customerId, connected_account_id: connectedAccountId, type })
-    }).then(r => r.json());
-}
-
-(function handleReturn() {
-    const qs = new URLSearchParams(window.location.search);
-    const connectedAccountId = qs.get('connected_account_id');
-    if (!connectedAccountId) { STATE.phase = 'calendar'; render(); return; }
-
-    window.history.replaceState({}, '', window.location.pathname);
-    sessionStorage.removeItem('hermia_pending_phase');
-
-    saveAccount(connectedAccountId, 'calendar').then(data => {
-        if (data && data.ok) { STATE.phase = 'fwd-setup'; render(); }
-        else { STATE.phase = 'calendar'; render(); showError('Save failed: ' + (data && data.error ? data.error : 'unknown error')); }
-    }).catch(() => { STATE.phase = 'calendar'; render(); showError('Connection failed. Please try again.'); });
-})();
-
-function copyAlias() {
-    navigator.clipboard.writeText(STATE.leadAlias || '');
-    const btn = document.querySelector('.copy-btn');
-    if (btn) { btn.textContent = 'Copied'; setTimeout(() => btn.textContent = 'Copy', 1500); }
-}
-
-function loadAlias() {
-    const customerId = sessionStorage.getItem('hermia_customer_id');
-    if (!customerId) { showError('Session expired. Please restart onboarding.'); return; }
-    fetch(WORKER + '/get-lead-alias', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ customerId })
-    })
-    .then(r => r.json())
-    .then(data => {
-        if (data && data.ok) {
-            STATE.leadAlias = data.leadAlias;
-            const el = document.getElementById('aliasText');
-            if (el) el.textContent = data.leadAlias;
-        } else {
-            showError('Could not generate your address: ' + (data && data.error ? data.error : 'unknown error'));
+                    <div class="powered">Architected by Hermia • Private Domain Architecture</div>
+                `;
+            } else if (STATE.phase === 'saving') {
+                card.innerHTML = `
+                    <div class="eyebrow">System Finalization</div>
+                    <h1>Establishing Workspace</h1>
+                    <p class="sub">Please wait while we finalize your secure lead architecture...</p>
+                    <div style="display:flex;justify-content:center;padding:60px 0;"><div class="spinner-light"></div></div>
+                `;
+            }
         }
-    })
-    .catch(() => showError('Could not generate your address. Please refresh.'));
-}
 
-function connectVerifySocket() {
-    const customerId = sessionStorage.getItem('hermia_customer_id');
-    if (!customerId) return;
-
-    fetch(EMAIL_WORKER + '/gmail-verify-status?customerId=' + encodeURIComponent(customerId))
-        .then(r => r.json())
-        .then(data => { if (data && data.verifyUrl) handleVerifyLink(data.verifyUrl); })
-        .catch(() => {});
-
-    openVerifySocket(customerId, 0);
-
-    STATE.verifyTimeoutTimer = setTimeout(() => {
-        if (STATE.phase !== 'fwd-setup') return;
-        const status = document.getElementById('fwdStatus');
-        if (status) {
-            status.className = 'status-msg err';
-            status.textContent = "Taking longer than expected. Make sure you clicked Proceed in Gmail, then refresh this page.";
+        function showError(msg) {
+            const status = document.getElementById('fwdStatus');
+            if (status) {
+                status.className = 'status-msg err';
+                status.textContent = msg;
+            }
         }
-    }, 600000);
-}
 
-function openVerifySocket(customerId, attempt) {
-    let socket;
-    try {
-        socket = new WebSocket(CONNECT_WS_URL + '?customerId=' + encodeURIComponent(customerId));
-    } catch (e) {
-        scheduleVerifyReconnect(customerId, attempt);
-        return;
-    }
-    STATE.verifySocket = socket;
-
-    socket.onmessage = (event) => {
-        try {
-            const data = JSON.parse(event.data);
-            if (data.link) handleVerifyLink(data.link);
-        } catch (e) {}
-    };
-
-    socket.onclose = () => {
-        if (STATE.verifyLink) return;
-        scheduleVerifyReconnect(customerId, attempt + 1);
-    };
-
-    socket.onerror = () => {
-        try { socket.close(); } catch (e) {}
-    };
-
-    const pingTimer = setInterval(() => {
-        if (socket.readyState === WebSocket.OPEN) {
-            try { socket.send('ping'); } catch (e) {}
-        } else {
-            clearInterval(pingTimer);
+        function copyAlias() {
+            navigator.clipboard.writeText(STATE.leadAlias || '');
+            const btn = document.querySelector('.copy-btn');
+            if (btn) { btn.textContent = 'COPIED'; setTimeout(() => btn.textContent = 'COPY ADDRESS', 1500); }
         }
-    }, 20000);
-}
 
-function scheduleVerifyReconnect(customerId, attempt) {
-    if (STATE.verifyLink || STATE.phase !== 'fwd-setup') return;
-    const delay = Math.min(15000, 1000 * Math.pow(2, attempt));
-    setTimeout(() => openVerifySocket(customerId, attempt), delay);
-}
+        function loadAlias() {
+            const customerId = sessionStorage.getItem('hermia_customer_id');
+            if (!customerId) { showError('SESSION EXPIRED'); return; }
+            fetch(WORKER + '/get-lead-alias', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ customerId })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data && data.ok) {
+                    STATE.leadAlias = data.leadAlias;
+                    const el = document.getElementById('aliasText');
+                    if (el) el.textContent = data.leadAlias;
+                } else {
+                    showError('GENERATION FAILED');
+                }
+            })
+            .catch(() => showError('CONNECTION ERROR'));
+        }
 
-function handleVerifyLink(link) {
-    if (STATE.verifyLink) return;
-    STATE.verifyLink = link;
-    if (STATE.verifySocket) { try { STATE.verifySocket.close(); } catch (e) {} }
-    if (STATE.verifyTimeoutTimer) clearTimeout(STATE.verifyTimeoutTimer);
-    STATE.phase = 'verify';
-    render();
-}
+        function connectVerifySocket() {
+            const customerId = sessionStorage.getItem('hermia_customer_id');
+            if (!customerId) return;
+            fetch(EMAIL_WORKER + '/gmail-verify-status?customerId=' + encodeURIComponent(customerId))
+                .then(r => r.json())
+                .then(data => { if (data && data.verifyUrl) handleVerifyLink(data.verifyUrl); })
+                .catch(() => {});
+            openVerifySocket(customerId, 0);
+            STATE.verifyTimeoutTimer = setTimeout(() => {
+                if (STATE.phase !== 'fwd-setup') return;
+                showError("TIMEOUT • PLEASE REFRESH AND RETRY");
+            }, 600000);
+        }
 
-function onConfirmClick() {
-    STATE.verifyClicked = true;
-    const customerId = sessionStorage.getItem('hermia_customer_id');
-    if (customerId) {
-        fetch(EMAIL_WORKER + '/gmail-verify-clear?customerId=' + encodeURIComponent(customerId)).catch(() => {});
-    }
-    setTimeout(() => {
-        document.getElementById('step1').style.display = 'none';
-        const step2 = document.getElementById('step2');
-        step2.style.display = 'block';
-        step2.classList.add('fade-in');
-    }, 300);
-}
+        function openVerifySocket(customerId, attempt) {
+            let socket;
+            try { socket = new WebSocket(CONNECT_WS_URL + '?customerId=' + encodeURIComponent(customerId)); }
+            catch (e) { scheduleVerifyReconnect(customerId, attempt); return; }
+            STATE.verifySocket = socket;
+            socket.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    if (data.link) handleVerifyLink(data.link);
+                } catch (e) {}
+            };
+            socket.onclose = () => { if (!STATE.verifyLink) scheduleVerifyReconnect(customerId, attempt + 1); };
+            const pingTimer = setInterval(() => {
+                if (socket.readyState === WebSocket.OPEN) { try { socket.send('ping'); } catch (e) {} }
+                else { clearInterval(pingTimer); }
+            }, 20000);
+        }
 
-function onContinue() {
-    window.location.href = NEXT_PAGE;
-}
-</script>
+        function scheduleVerifyReconnect(customerId, attempt) {
+            if (STATE.verifyLink || STATE.phase !== 'fwd-setup') return;
+            const delay = Math.min(15000, 1000 * Math.pow(2, attempt));
+            setTimeout(() => openVerifySocket(customerId, attempt), delay);
+        }
+
+        function handleVerifyLink(link) {
+            if (STATE.verifyLink) return;
+            STATE.verifyLink = link;
+            if (STATE.verifySocket) { try { STATE.verifySocket.close(); } catch (e) {} }
+            if (STATE.verifyTimeoutTimer) clearTimeout(STATE.verifyTimeoutTimer);
+            STATE.phase = 'verify';
+            render();
+        }
+
+        function onConfirmClick() {
+            STATE.verifyClicked = true;
+            const customerId = sessionStorage.getItem('hermia_customer_id');
+            if (customerId) fetch(EMAIL_WORKER + '/gmail-verify-clear?customerId=' + encodeURIComponent(customerId)).catch(() => {});
+            setTimeout(() => {
+                document.getElementById('step1').style.display = 'none';
+                const step2 = document.getElementById('step2');
+                step2.style.display = 'block';
+            }, 300);
+        }
+
+        function onContinue() { window.location.href = NEXT_PAGE; }
+
+        render();
+    </script>
 </body>
 </html>
