@@ -187,6 +187,11 @@
             if (!connectionId) {
               console.error('[simpro-connect] NO connectionId found in event — skipping register-webhook call entirely');
             } else {
+              // Save connectionId so company.html (the next screen) can
+              // call /list-simpro-companies with it. This was missing
+              // before — company.html had nothing to read.
+              sessionStorage.setItem('hermia_connection_id', connectionId);
+
               try {
                 const regRes = await fetch(WORKER + '/register-webhook', {
                   method: 'POST',
@@ -203,7 +208,11 @@
             document.body.style.transition = 'opacity 0.8s ease';
             document.body.style.opacity = '0';
             setTimeout(() => {
-              window.location.href = 'https://onboarding.hermia.au/gmail.html';
+              // Redirect to the company picker, not straight to gmail.html.
+              // The contractor must actively choose their Simpro company
+              // before moving on — company.html handles that, then
+              // forwards to gmail.html itself once they confirm.
+              window.location.href = 'https://onboarding.hermia.au/company.html';
             }, 800);
 
           } else if (event.type === 'close') {
