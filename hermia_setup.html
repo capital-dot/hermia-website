@@ -101,39 +101,7 @@
             50% { transform: translateY(-20px) rotate(calc(var(--rot, 0deg) + 10deg)); }
         }
 
-        /* ── Quit to Home (top right) ── */
-        .quit-link,
-        .quit-link:link,
-        .quit-link:visited,
-        .quit-link:active {
-            position: fixed;
-            top: 24px;
-            right: 24px;
-            z-index: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--gold-light) !important;
-            text-decoration: none !important;
-            padding: 10px 18px;
-            border: 1px solid var(--border);
-            background: rgba(212, 175, 55, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            transition: all 0.3s var(--ease-cinematic);
-        }
-        .quit-link:hover {
-            color: #000 !important;
-            background: var(--gold) !important;
-            border-color: var(--gold);
-        }
-        @media (max-width: 600px) {
-            .quit-link { top: 14px; right: 14px; padding: 8px 14px; font-size: 9.5px; }
-        }
+        /* ── intro card start ── */
 
         #intro {
             position: fixed;
@@ -265,6 +233,9 @@
         .instruction-step { font-size: 14px; line-height: 1.8; color: var(--cream); font-weight: 300; margin-bottom: 10px; display: flex; gap: 10px; }
         .instruction-step b { color: var(--gold-light); font-weight: 500; }
 
+        .video-frame { margin-bottom: 10px; border: 1px solid var(--border); overflow: hidden; border-radius: 6px; width: 100%; }
+        .video-frame iframe { width: 100%; aspect-ratio: 16 / 9; display: block; min-height: 320px; }
+
         /* ── WhatsApp Notice Section ── */
         .whatsapp-card {
             width: 100%;
@@ -306,8 +277,6 @@
 </head>
 <body>
 
-    <a href="index.html" class="quit-link">✕ Exit to Home</a>
-
     <div class="bg-layers">
         <div class="light-bloom"></div>
         <div class="grid"></div>
@@ -321,17 +290,8 @@
         <svg class="tool-icon tool-4" style="--rot:30deg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22 17.58 6.42a2 2 0 0 0 0-2.83 2 2 0 0 0-2.83 0L3.17 15.17"/><path d="M9.5 3.5 13.5 7.5"/><path d="M14.5 8.5 18.5 12.5"/><path d="m17.5 11.5 3 3"/></svg>
     </div>
 
-    <!-- Cinematic Intro -->
-    <div id="intro">
-        <div class="logo-container">
-            <div class="gold-particles"></div>
-            <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="rotating-logo" />
-        </div>
-        <div class="complete-text">Setup Complete</div>
-    </div>
-
     <!-- Main Content -->
-    <div id="main-content">
+    <div id="main-content" style="opacity:1;visibility:visible;">
         <div class="wrap">
             <div class="logo-static-wrap">
                 <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo-static" />
@@ -364,9 +324,11 @@
                     <div class="field-row"><div class="field-num">3</div><div class="field-name">Email</div><div class="field-type">Field</div></div>
                     <div class="field-row"><div class="field-num">4</div><div class="field-name">Est. Value</div><div class="field-type">Field</div></div>
                     <div class="field-row"><div class="field-num">5</div><div class="field-name">Site Address</div><div class="field-type">Field</div></div>
-                    <div class="field-row"><div class="field-num">6</div><div class="field-name">Status</div><div class="field-type">Field</div></div>
-                    <div class="field-row"><div class="field-num">7</div><div class="field-name">Tags</div><div class="field-type">Field</div></div>
-                    <div class="field-row"><div class="field-num">8</div><div class="field-name">Site</div><div class="field-type">Field</div></div>
+                    <div class="field-row"><div class="field-num">6</div><div class="field-name">Customer Profile</div><div class="field-type">Field</div></div>
+                </div>
+
+                <div class="video-frame">
+                    <iframe src="https://www.loom.com/embed/ad22112fd7cb49979597bab590f0653d" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                 </div>
             </div>
 
@@ -386,77 +348,12 @@
                 </div>
             </div>
 
-            <div class="card">
-                <h2>Don't lose this checklist</h2>
-                <p class="sub">Enter your email to receive a reminder of these fields so your integration works perfectly.</p>
-                <div class="input-group">
-                    <input type="email" id="userEmail" placeholder="you@company.com.au" required />
-                    <button class="btn" id="sendBtn" onclick="sendReminder()">
-                        <span id="btnText">Send Reminder</span>
-                        <div class="btn-sweep"></div>
-                    </button>
-                </div>
-                <div id="statusMsg" style="margin-top: 15px; font-size: 13px; text-align: center; display: none;"></div>
-            </div>
         </div>
     </div>
 
     <script>
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const intro = document.getElementById('intro');
-                const main = document.getElementById('main-content');
-                intro.style.transition = 'opacity 0.8s var(--ease-cinematic), transform 0.8s var(--ease-cinematic)';
-                intro.style.opacity = '0';
-                intro.style.transform = 'scale(1.1)';
-                main.style.visibility = 'visible';
-                main.style.opacity = '1';
-                document.body.style.overflow = 'auto';
-                setTimeout(() => { intro.style.display = 'none'; }, 800);
-            }, 1500); 
-        });
+        document.body.style.overflow = 'auto';
 
-        const WEBHOOK_URL = 'https://hook.eu1.make.com/jiwiw88n5venmybbs2m7gw18144nu9v1';
-        async function sendReminder() {
-            const emailInput = document.getElementById('userEmail');
-            const btn = document.getElementById('sendBtn');
-            const btnText = document.getElementById('btnText');
-            const statusMsg = document.getElementById('statusMsg');
-            const email = emailInput.value;
-            if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
-            btn.disabled = true;
-            btnText.textContent = 'SENDING...';
-
-            const now = new Date();
-
-            try {
-                const response = await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email: email,
-                        type: 'setup_reminder',
-                        date: now.toISOString().split('T')[0],
-                        year: now.getFullYear(),
-                        timestamp: now.toISOString(),
-                        fields: ['Lead Name', 'Customer Phone', 'Email', 'Est. Value', 'Site Address', 'Status', 'Tags', 'Site'],
-                        instructions: 'Go to Open Leads -> Modify Table View -> Tick Fields -> Save and Finish'
-                    })
-                });
-                statusMsg.style.display = 'block';
-                if (response.ok) {
-                    statusMsg.style.color = 'var(--gold-light)';
-                    statusMsg.textContent = 'Reminder sent! Check your inbox.';
-                    btnText.textContent = 'SENT';
-                } else { throw new Error('Failed to send'); }
-            } catch (error) {
-                statusMsg.style.display = 'block';
-                statusMsg.style.color = '#ff7e75';
-                statusMsg.textContent = 'Failed to send. Please try again.';
-                btn.disabled = false;
-                btnText.textContent = 'RETRY';
-            }
-        }
     </script>
 </body>
 </html>
