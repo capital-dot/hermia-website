@@ -36,7 +36,39 @@
             overflow-x: hidden;
         }
 
-        /* ── Full Screen Cinematic Background ── */
+        .quit-link,
+        .quit-link:link,
+        .quit-link:visited,
+        .quit-link:active {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold-light) !important;
+            text-decoration: none !important;
+            padding: 10px 18px;
+            border: 1px solid var(--border);
+            background: rgba(212, 175, 55, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.3s var(--ease-cinematic);
+        }
+        .quit-link:hover {
+            color: #000 !important;
+            background: var(--gold) !important;
+            border-color: var(--gold);
+        }
+        @media (max-width: 600px) {
+            .quit-link { top: 14px; right: 14px; padding: 8px 14px; font-size: 9.5px; }
+        }
+
         .bg-layers {
             position: fixed;
             inset: 0;
@@ -87,12 +119,11 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        /* ── Wide Layout ── */
         .wrap {
             position: relative;
             z-index: 10;
             width: 100%;
-            max-width: 1200px; /* Wider for full screen feel */
+            max-width: 1200px;
             margin: 0 auto;
             padding: 60px 40px 100px;
             display: flex;
@@ -111,7 +142,6 @@
             filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
         }
 
-        /* ── Steps Tracker (Centered & Minimal) ── */
         .steps {
             display: flex;
             justify-content: space-between;
@@ -172,7 +202,6 @@
         .label { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--soft); opacity: 0.5; }
         .step.active .label { color: var(--gold-light); opacity: 1; }
 
-        /* ── Full Screen Card Content ── */
         .card {
             width: 100%;
             background: var(--bg-card);
@@ -227,7 +256,6 @@
             max-width: 700px;
         }
 
-        /* ── Wide Video Frame ── */
         .video-container {
             width: 100%;
             max-width: 1000px;
@@ -252,7 +280,6 @@
             display: block;
         }
 
-        /* ── Action Section ── */
         .action-area {
             width: 100%;
             max-width: 600px;
@@ -370,6 +397,8 @@
 </head>
 <body>
 
+    <a href="index.html" class="quit-link">✕ Exit to Home</a>
+
     <div class="bg-layers">
         <div class="light-bloom"></div>
         <div class="grid"></div>
@@ -396,8 +425,8 @@
         const NEXT_PAGE = 'https://onboarding.hermia.au/hermia_setup.html';
         const LOOM_EMBED_URL = 'https://www.loom.com/embed/ad22112fd7cb49979597bab590f0653d';
 
-        const ALL_STEPS = ['Payment','Business','Details','Simpro','Setup'];
-        const ACTIVE_IDX = 4;
+        const ALL_STEPS = ['Payment','Business','Details','Simpro','Connect','Setup'];
+        const ACTIVE_IDX = 5;
         const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
 
         (function buildSteps() {
@@ -441,10 +470,9 @@
                             <div class="alias-text" id="aliasText">${STATE.leadAlias || 'GENERATING...'}</div>
                             <button class="copy-btn" onclick="copyAlias()">Copy Address</button>
                         </div>
-                        <div class="status-msg wait" id="fwdStatus">Awaiting Google Confirmation • System Updates Automatically</div>
                     </div>
 
-                    <div class="powered">Architected by Hermia • Private Domain Architecture</div>
+                    <div class="powered">Architected by Hermia &bull; Private Domain Architecture</div>
                 `;
                 loadAlias();
                 connectVerifySocket();
@@ -469,7 +497,7 @@
                         </button>
                     </div>
 
-                    <div class="powered">Architected by Hermia • Private Domain Architecture</div>
+                    <div class="powered">Architected by Hermia &bull; Private Domain Architecture</div>
                 `;
             } else if (STATE.phase === 'saving') {
                 card.innerHTML = `
@@ -482,11 +510,7 @@
         }
 
         function showError(msg) {
-            const status = document.getElementById('fwdStatus');
-            if (status) {
-                status.className = 'status-msg err';
-                status.textContent = msg;
-            }
+            console.error('[gmail-forwarding]', msg);
         }
 
         function copyAlias() {
@@ -525,7 +549,7 @@
             openVerifySocket(customerId, 0);
             STATE.verifyTimeoutTimer = setTimeout(() => {
                 if (STATE.phase !== 'fwd-setup') return;
-                showError("TIMEOUT • PLEASE REFRESH AND RETRY");
+                showError("TIMEOUT - PLEASE REFRESH AND RETRY");
             }, 600000);
         }
 
