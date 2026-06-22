@@ -592,6 +592,285 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     </div>
 </section
 
+  <!-- 
+  HERMIA CINEMATIC VIDEO & JOURNEY SECTION
+  Style: Ultra-Premium Luxury / Liquid Gold
+  Layout: Video-First with "Stages of Excellence" Benefit Breakdown
+-->
+
+<style>
+    :root {
+        --hermia-bg: #080705;
+        --hermia-gold: #D4AF37;
+        --hermia-gold-light: #F9E2AF;
+        --hermia-cream: #f4f0e6;
+        --hermia-soft: #a19d94;
+        --hermia-border: rgba(212, 175, 55, 0.2);
+        --ease-luxury: cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .video-journey-section {
+        background: var(--hermia-bg);
+        color: var(--hermia-cream);
+        padding: 120px 24px;
+        font-family: 'DM Sans', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Cinematic Background Elements */
+    .video-journey-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .section-wrap {
+        width: 100%;
+        max-width: 1100px;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Header Styling */
+    .section-header {
+        text-align: center;
+        margin-bottom: 80px;
+    }
+
+    .eyebrow-gold {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5em;
+        color: var(--hermia-gold);
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .section-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(40px, 5vw, 64px);
+        font-weight: 300;
+        line-height: 1.1;
+        margin-bottom: 24px;
+        letter-spacing: -0.02em;
+    }
+
+    .section-subtitle {
+        font-size: 18px;
+        color: var(--hermia-soft);
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+        font-weight: 300;
+    }
+
+    /* Top Video Showcase */
+    .video-showcase {
+        width: 100%;
+        background: #000;
+        border: 1px solid var(--hermia-border);
+        box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+        margin-bottom: 100px;
+        position: relative;
+    }
+
+    .video-showcase::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--hermia-gold), transparent);
+    }
+
+    .video-container {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 */
+        height: 0;
+        overflow: hidden;
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    /* Stages of Excellence */
+    .stages-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        margin-bottom: 80px;
+    }
+
+    .stage-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--hermia-border);
+        padding: 48px 32px;
+        transition: all 0.6s var(--ease-luxury);
+        position: relative;
+        text-align: left;
+    }
+
+    .stage-card:hover {
+        background: rgba(212, 175, 55, 0.03);
+        transform: translateY(-10px);
+        border-color: var(--hermia-gold);
+    }
+
+    .stage-num {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 42px;
+        color: var(--hermia-gold);
+        margin-bottom: 24px;
+        display: block;
+        opacity: 0.6;
+    }
+
+    .stage-h {
+        font-size: 22px;
+        font-weight: 400;
+        margin-bottom: 16px;
+        color: var(--hermia-cream);
+    }
+
+    .stage-p {
+        font-size: 15px;
+        color: var(--hermia-soft);
+        line-height: 1.6;
+        font-weight: 300;
+    }
+
+    /* Benefits Highlight */
+    .benefit-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(212, 175, 55, 0.05);
+        border: 1px solid var(--hermia-gold);
+        padding: 40px 50px;
+        gap: 40px;
+    }
+
+    .benefit-copy {
+        flex: 1;
+        text-align: left;
+    }
+
+    .benefit-h {
+        font-size: 24px;
+        font-weight: 400;
+        margin-bottom: 12px;
+        color: var(--hermia-gold-light);
+    }
+
+    .benefit-p {
+        font-size: 16px;
+        color: var(--hermia-cream);
+        line-height: 1.5;
+        font-weight: 300;
+    }
+
+    .cta-btn-gold {
+        background: linear-gradient(135deg, #E8C17A, #C9A35B);
+        color: #000;
+        padding: 20px 40px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition: all 0.4s var(--ease-luxury);
+        white-space: nowrap;
+    }
+
+    .cta-btn-gold:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 900px) {
+        .stages-grid {
+            grid-template-columns: 1fr;
+        }
+        .benefit-footer {
+            flex-direction: column;
+            text-align: center;
+            padding: 40px 30px;
+        }
+        .benefit-copy {
+            text-align: center;
+        }
+        .section-title {
+            font-size: 36px;
+        }
+    }
+</style>
+
+<section class="video-journey-section" id="how-it-works">
+    <div class="section-wrap">
+        
+        <!-- Header -->
+        <div class="section-header">
+            <span class="eyebrow-gold">Operational Excellence</span>
+            <h2 class="section-title">A Real Enquiry, Handled in <br><em>Under a Minute.</em></h2>
+            <p class="section-subtitle">Experience how Hermia qualifies and manages your homeowners with architectural precision, ensuring every lead is a ready-to-book job.</p>
+        </div>
+
+        <!-- Video Showcase (Top) -->
+        <div class="video-showcase">
+            <div class="video-container">
+                <!-- Embedded Loom Video: d3c025ef6ed943a1be69d2c0b263dbec -->
+                <iframe src="https://www.loom.com/embed/d3c025ef6ed943a1be69d2c0b263dbec?hide_owner=true&hide_share=true&hide_title=true&hide_embed_params=true" 
+                        frameborder="0" 
+                        webkitallowfullscreen 
+                        mozallowfullscreen 
+                        allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Stages of Excellence -->
+        <div class="stages-grid">
+            <!-- Stage 1 -->
+            <div class="stage-card">
+                <span class="stage-num">01</span>
+                <h3 class="stage-h">Immediate Intelligence</h3>
+                <p class="stage-p">The moment a homeowner messages, Hermia engages. It reads descriptions, analyzes photos, and identifies the core issue within seconds.</p>
+            </div>
+            
+            <!-- Stage 2 -->
+            <div class="stage-card">
+                <span class="stage-num">02</span>
+                <h3 class="stage-h">Surgical Qualification</h3>
+                <p class="stage-p">No more back-and-forth. Hermia asks the critical questions, gathers the full scope of work, and filters out the noise before you even see it.</p>
+            </div>
+
+            <!-- Stage 3 -->
+            <div class="stage-card">
+                <span class="stage-num">03</span>
+                <h3 class="stage-h">Seamless Integration</h3>
+                <p class="stage-p">Once qualified, the job lands in Simpro fully briefed. You get a ready-to-book client while you stay focused on the tools or site.</p>
+            </div>
+        </div>
+ </section>
+      
+
   <section class="combo-section" id="triage">
     <div class="combo-grid">
       <div class="combo-card demo-card">
