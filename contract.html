@@ -49,11 +49,6 @@
     .agreement-card::before,.agreement-card::after{content:'';position:absolute;width:16px;height:16px;border-color:var(--gold);border-style:solid;}
     .agreement-card::before{top:16px;right:16px;border-width:1px 1px 0 0;}
     .agreement-card::after{bottom:16px;left:16px;border-width:0 0 1px 1px;}
-    .sig-field-wrap{margin-bottom:28px;}
-    .sig-input{width:100%;background:#0b0b0e;border:1px solid var(--border);border-radius:13px;padding:16px 20px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:400;color:var(--cream);transition:all 0.2s;outline:none;}
-    .sig-input::placeholder{color:var(--muted);}
-    .sig-input:focus{border-color:var(--gold);box-shadow:0 0 16px rgba(201,163,91,0.12);}
-    .sig-input.valid{border-color:rgba(16,185,129,0.5);}
     .checkbox-row{display:flex;gap:15px;align-items:flex-start;cursor:pointer;margin-bottom:28px;padding:18px;background:#0b0b0e;border:1px solid var(--border);border-radius:13px;transition:all 0.2s;}
     .checkbox-row:hover{border-color:var(--gold);box-shadow:0 0 16px rgba(201,163,91,0.12);}
     .checkbox-row input{margin-top:3px;accent-color:var(--gold);width:20px;height:20px;flex-shrink:0;}
@@ -96,7 +91,7 @@
 
   <h2><span class="clause-no">2</span> Hermia AI Intake &amp; Qualification Software</h2>
   <p>The Provider delivers AI-powered intake and qualification software designed to engage with the Client's existing inbound enquiries. When a prospective customer submits an enquiry through the Client's website, advertising campaigns, email, phone, forms, or other lead sources, Hermia may automatically collect and organise relevant information — including contact details, service requirements, urgency, supporting media, availability, and other qualification data.</p>
-  <p>This information is then structured and routed into the Client's connected CRM, job management platform, or other business systems — including but not limited to SimPro — to reduce manual administration and improve response times.</p>
+  <p>This information is then structured and routed into the Client's connected CRM or business system to reduce manual administration and improve response times.</p>
 
   <h2><span class="clause-no">3</span> Pricing</h2>
   <div class="highlight-box">
@@ -137,8 +132,11 @@
   <p>Hermia's conversation flows, qualification logic, triage methodology, and system architecture are proprietary trade secrets owned exclusively by Hermia. The Client may not reproduce, copy, share, reverse engineer, or resell any part of the Hermia system. Breach of this clause entitles Hermia to immediate termination without refund.</p>
 
   <h2><span class="clause-no">9</span> Limitation of Liability</h2>
-  <p>To the maximum extent permitted by law, Hermia will not be liable for any indirect, incidental, special, consequential, or loss of profit damages arising from the use of the Service — including but not limited to losses arising from unprocessed, delayed, or misdirected enquiries; third-party platform outages or API failures; system latency; data transmission errors; or decisions made by the Client based on information processed by the Service.</p>
-  <p>Hermia's total liability for any claim relating to the Service shall not exceed the fees paid by the Client during the three (3) months immediately preceding the event giving rise to the claim.</p>
+  <p>Hermia helps qualify and organise enquiries received by the Client. While we strive to provide a reliable service, we do not guarantee lead conversions, sales, bookings, or other business outcomes.</p>
+
+  <p>Hermia is not responsible for lost revenue, missed opportunities, or business losses arising from the use of the Service.</p>
+
+  <p>Any liability relating to the Service is limited to the fees paid by the Client in the three (3) months before the claim.</p>
 
   <h2><span class="clause-no">10</span> Governing Law</h2>
   <p>This Agreement is governed by the laws of Victoria, Australia. Any disputes will be subject to the exclusive jurisdiction of the courts of Victoria.</p>
@@ -146,15 +144,13 @@
   <div class="agreement-card">
     <h3>Accept Terms &amp; Continue</h3>
 
-
-
-    <label class="checkbox-row" id="checkboxRow" style="pointer-events:none;opacity:0.45;">
-      <input type="checkbox" id="agreeCheckbox" disabled>
+    <label class="checkbox-row" id="checkboxRow">
+      <input type="checkbox" id="agreeCheckbox">
       <span id="agreeText">I have read and agree to the terms and conditions of this Service Agreement. I confirm this constitutes my electronic signature, dated <span id="todayDate"></span>.</span>
     </label>
 
     <div class="pay-btn-wrap" id="payBtnWrap">
-      <button class="pay-btn btn-gold" onclick="handlePayment()">🇦🇺 Start Free Trial — $260 AUD / month</button>
+      <button class="pay-btn btn-gold" onclick="handlePayment()">Start Free Trial — $260 AUD / month</button>
     </div>
 
     <p id="validationWarning"></p>
@@ -173,6 +169,9 @@
   const WEBHOOK_URL = 'https://hook.eu1.make.com/55y5lsql5rmr8ju9cmlt9o5115q784ay';
   const STRIPE_AU   = 'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04';
 
+  // Name comes from apply.html (sessionStorage), set the moment the
+  // applicant submits the Apply form. Nothing is retyped here — the
+  // person only ever ticks the agreement checkbox on this page.
   let applicant = {};
   try { applicant = JSON.parse(sessionStorage.getItem('hermia_applicant') || '{}'); } catch(e){}
   const A_NAME  = applicant.name  || sessionStorage.getItem('hermia_name')  || '';
@@ -188,31 +187,18 @@
     document.getElementById('preparedBanner').classList.add('show');
   }
 
-  const sigInput   = document.getElementById('sigName');
-  const checkboxRow = document.getElementById('checkboxRow');
   const checkbox   = document.getElementById('agreeCheckbox');
   const agreeText  = document.getElementById('agreeText');
   const payBtnWrap = document.getElementById('payBtnWrap');
   const warning    = document.getElementById('validationWarning');
   const sendingMsg = document.getElementById('sendingMsg');
 
-  // Unlock checkbox once a name is typed
-  sigInput.addEventListener('input', function () {
-    const name = this.value.trim();
-    const hasName = name.length >= 2;
-    checkboxRow.style.pointerEvents = hasName ? 'auto' : 'none';
-    checkboxRow.style.opacity = hasName ? '1' : '0.45';
-    checkbox.disabled = !hasName;
-    if (hasName) {
-      sigInput.classList.add('valid');
-      agreeText.innerHTML =
-        'I, <b>' + name + '</b>, have read and agree to the terms of this Service Agreement. I confirm this constitutes my electronic signature, dated ' + todayFormatted + '.';
-    } else {
-      sigInput.classList.remove('valid');
-      checkbox.checked = false;
-      payBtnWrap.classList.remove('visible');
-    }
-  });
+  // Bake the applicant's name (already collected on apply.html) straight
+  // into the agreement text — no input field, no retyping.
+  if (A_NAME) {
+    agreeText.innerHTML =
+      'I, <b>' + A_NAME + '</b>, have read and agree to the terms of this Service Agreement. I confirm this constitutes my electronic signature, dated ' + todayFormatted + '.';
+  }
 
   checkbox.addEventListener('change', function () {
     if (this.checked) { payBtnWrap.classList.add('visible'); warning.style.display = 'none'; }
@@ -220,9 +206,8 @@
   });
 
   async function handlePayment() {
-    const signatureName = sigInput.value.trim();
-    if (!signatureName || !checkbox.checked) {
-      warning.textContent = 'Please type your full name and check the agreement box to continue.';
+    if (!checkbox.checked) {
+      warning.textContent = 'Please check the agreement box to continue.';
       warning.style.display = 'block';
       return;
     }
@@ -230,8 +215,8 @@
     sendingMsg.style.display = 'block';
 
     const payload = {
-      full_name:        A_NAME || signatureName,
-      signature_name:   signatureName,
+      full_name:        A_NAME,
+      signature_name:   A_NAME,
       phone:            A_PHONE || '',
       email:            A_EMAIL || '',
       country:          'Australia',
