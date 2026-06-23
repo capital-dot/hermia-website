@@ -345,8 +345,35 @@ app.post("/call-complete", async (req, res) => {
   res.sendStatus(200);
 });
 
+// ─── Chat widget endpoint ──────────────────────────────────────────────
+// Used by hermia-widget.js (the floating chat bubble on the website).
+// Completely separate from the Twilio voice flow above — the widget
+// sends {system, messages} and expects back {reply: "..."}. This route
+// did not exist before, which is why the widget always hit its catch
+// block and showed "I'm having trouble connecting right now."
+app.post("/api/chat", async (req, res) => {
+  const { system, messages } = req.body;
+
+  if (!system || !Array.isArray(messages)) {
+    return res.status(400).json({ error: "system and messages[] required" });
+  }
+
+  try {
+    const aiResponse = await anthropic.messages.create({
+      model: "claude-sonnet-4-20250514",
+      max_tokens: 300,
+      system: system,
+      messages: messages
+    });
+
+    const reply = aiResponse.content[0]?.text || "Could you rephrase that?";
+    res.json({ reply });
+  } catch (err) {
+    console.error("❌ /api/chat error:", err.message);
+    res.status(500).json({ error: "chat failed", detail: err.message });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Hermia — Jared live on port ${PORT}`));
-
-
 
