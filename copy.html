@@ -3,58 +3,287 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Hermia – Copy Alias</title>
+<title>Hermia – Activate Forwarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
-    background:#F2EBD9;font-family:Georgia,serif;color:#2a2620;}
-  .card{background:#FFFEF9;border:1px solid #d9c79a;border-radius:8px;
-    padding:48px 40px;text-align:center;max-width:460px;width:90%;}
-  .logo{height:44px;margin-bottom:32px;}
-  .label{font-size:10px;color:#9c7209;text-transform:uppercase;letter-spacing:2px;
-    font-weight:bold;margin-bottom:10px;}
-  .alias{font-family:'Courier New',monospace;font-size:14px;background:#fff;
-    border:1px solid #d9c79a;border-radius:4px;padding:12px 16px;
-    word-break:break-all;margin-bottom:24px;color:#2a2620;}
-  .btn{display:block;width:100%;background:#B8860B;color:#fff;border:none;
-    padding:16px 36px;font-size:13px;font-weight:bold;letter-spacing:1.5px;
-    text-transform:uppercase;border-radius:4px;cursor:pointer;box-sizing:border-box;}
-  .btn.done{background:#4a7c59;}
-  .status{margin-top:16px;font-size:13px;color:#9c7209;min-height:20px;}
+  :root {
+    --bg: #F2EBD9;
+    --card: #FFFEF9;
+    --border: #d9c79a;
+    --gold: #B8860B;
+    --gold-light: #9c7209;
+    --text: #2a2620;
+    --muted: #6b6557;
+    --soft: #a39d8e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "DM Sans", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 48px 20px 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 540px; margin: 0 auto; }
+
+  /* HEADER */
+  .header { text-align: center; margin-bottom: 40px; }
+  .header img { height: 42px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto; }
+  .header h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .header h1 span { color: var(--gold); }
+  .header p {
+    font-style: italic;
+    color: var(--gold-light);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 17px;
+    margin-top: 10px;
+  }
+
+  /* STEP CARD */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 32px 28px;
+    margin-bottom: 16px;
+  }
+  .step-label {
+    font-size: 10px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .step-title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .step-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 22px;
+  }
+
+  /* ALIAS BOX */
+  .alias-box {
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px 16px;
+    word-break: break-all;
+    color: var(--text);
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  /* BUTTONS */
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 16px 24px;
+    text-align: center;
+    font-family: "DM Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn:hover { opacity: 0.88; }
+  .btn-gold { background: var(--gold); color: #fff; }
+  .btn-gold.done { background: #4a7c59; }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+  }
+
+  /* STATUS */
+  .status {
+    text-align: center;
+    font-size: 13px;
+    color: var(--gold-light);
+    margin-top: 12px;
+    min-height: 18px;
+  }
+
+  /* DIVIDER */
+  .divider {
+    text-align: center;
+    font-size: 10px;
+    color: var(--soft);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 8px 0;
+  }
+
+  /* NOTE */
+  .note {
+    background: #fbf6e9;
+    border-left: 3px solid var(--gold);
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 16px;
+  }
+  .note strong { color: var(--text); }
+
+  /* STEP 2 & 3 hidden initially */
+  #step2, #step3 { display: none; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    margin-top: 48px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--soft);
+  }
+  footer strong {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 15px;
+    letter-spacing: 5px;
+    color: var(--gold-light);
+    display: block;
+    margin-bottom: 6px;
+  }
 </style>
 </head>
 <body>
-<div class="card">
-  <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png"
-       alt="Hermia" class="logo"/>
-  <div class="label">Your lead alias</div>
-  <div class="alias" id="alias">Loading…</div>
-  <button class="btn" id="btn" onclick="copyAlias()">Copy Alias</button>
-  <div class="status" id="status"></div>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia"/>
+    <h1>Activate <span>Forwarding</span></h1>
+    <p>&ldquo;One click, and your leads start flowing.&rdquo;</p>
+  </div>
+
+  <!-- STEP 1 — Copy alias -->
+  <div class="card" id="step1">
+    <div class="step-label">Step 1 of 3</div>
+    <div class="step-title">Copy your lead alias</div>
+    <div class="step-desc">This is the email address Google will forward your leads to. It's been copied automatically — you'll need it in the next step.</div>
+    <div class="alias-box" id="aliasDisplay">Loading…</div>
+    <button class="btn btn-gold" id="copyBtn" onclick="copyAlias()">Copy Alias</button>
+    <div class="status" id="copyStatus"></div>
+  </div>
+
+  <div class="divider">then</div>
+
+  <!-- STEP 2 — Confirm with Google -->
+  <div class="card" id="step2">
+    <div class="step-label">Step 2 of 3</div>
+    <div class="step-title">Confirm with Google</div>
+    <div class="step-desc">Google needs your approval to activate forwarding. Click the button below — it opens Gmail's own confirmation page. Come back here once you've confirmed.</div>
+    <a href="#" id="confirmBtn" class="btn btn-gold" target="_blank" onclick="onConfirmClick()">Confirm in Gmail →</a>
+    <div class="note" style="margin-top:16px;margin-bottom:0;">
+      <strong>Note:</strong> Google opens a new tab. Once you've clicked Confirm there, come back to this page and tap "I've Confirmed" below.
+    </div>
+    <div style="margin-top:16px;">
+      <button class="btn btn-outline" onclick="showStep3()">I've Confirmed ✓</button>
+    </div>
+  </div>
+
+  <div class="divider">then</div>
+
+  <!-- STEP 3 — Return to setup -->
+  <div class="card" id="step3">
+    <div class="step-label">Step 3 of 3</div>
+    <div class="step-title">You're almost done</div>
+    <div class="step-desc">Forwarding is now active. Head back to your setup page to connect your calendar — the final step.</div>
+    <a href="#" id="returnBtn" class="btn btn-gold">Continue Setup →</a>
+  </div>
+
+  <footer>
+    <strong>HERMIA</strong>
+    AI Lead Qualification for Elite Contractors<br>
+    &copy; Hermia Intelligence. All rights reserved.
+  </footer>
+
 </div>
+
 <script>
   const params = new URLSearchParams(window.location.search);
   const alias = params.get("alias") || "";
-  document.getElementById("alias").textContent = alias || "No alias found.";
-  if (alias) copyAlias();
+  const verifyUrl = params.get("verifyUrl") || "";
+  const customerId = params.get("customerId") || "";
 
-  function copyAlias() {
+  // Populate
+  document.getElementById("aliasDisplay").textContent = alias || "No alias found.";
+  if (verifyUrl) document.getElementById("confirmBtn").href = verifyUrl;
+  if (customerId) {
+    document.getElementById("returnBtn").href =
+      "https://onboarding.hermia.au/hermia_setup.html?customerId=" + encodeURIComponent(customerId);
+  }
+
+  // Auto-copy on load
+  if (alias) copyAlias(true);
+
+  function copyAlias(auto) {
     if (!alias) return;
+    const btn = document.getElementById("copyBtn");
+    const status = document.getElementById("copyStatus");
+
     navigator.clipboard.writeText(alias).then(() => {
-      document.getElementById("btn").textContent = "Copied ✓";
-      document.getElementById("btn").classList.add("done");
-      document.getElementById("status").textContent = "Ready to paste into Gmail.";
+      btn.textContent = "Copied ✓";
+      btn.classList.add("done");
+      status.textContent = auto ? "Auto-copied and ready to paste." : "Copied to clipboard!";
+      showStep2();
     }).catch(() => {
+      // fallback
       const el = document.createElement("textarea");
       el.value = alias;
       document.body.appendChild(el);
       el.select();
       document.execCommand("copy");
       document.body.removeChild(el);
-      document.getElementById("btn").textContent = "Copied ✓";
-      document.getElementById("btn").classList.add("done");
-      document.getElementById("status").textContent = "Ready to paste into Gmail.";
+      btn.textContent = "Copied ✓";
+      btn.classList.add("done");
+      status.textContent = "Copied!";
+      showStep2();
     });
+  }
+
+  function showStep2() {
+    setTimeout(() => {
+      document.getElementById("step2").style.display = "block";
+      document.getElementById("step2").scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 600);
+  }
+
+  function onConfirmClick() {
+    // Nothing extra needed — just opens the verifyUrl in new tab
+  }
+
+  function showStep3() {
+    document.getElementById("step3").style.display = "block";
+    document.getElementById("step3").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 </script>
 </body>
 </html>
+
