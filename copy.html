@@ -77,13 +77,19 @@
 
   .divider{text-align:center;font-size:9px;color:var(--soft);letter-spacing:0.3em;text-transform:uppercase;margin:4px 0;opacity:0.4;}
 
-  footer{text-align:center;margin-top:52px;opacity:0.35;}
-  footer strong{font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px;}
-  footer span{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--soft);}
+  /* Footer */
+  footer{width:100%;display:flex;align-items:center;justify-content:space-between;margin-top:52px;opacity:0.7;gap:20px;}
+  .footer-left{}
+  .footer-left strong{font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px;}
+  .footer-left span{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--soft);}
+  .footer-right{flex-shrink:0;}
+  .simpro-badge{height:36px;width:auto;opacity:0.85;filter:brightness(0) invert(1);transition:opacity 0.2s;}
+  .simpro-badge:hover{opacity:1;}
 
   @media(max-width:500px){
     .card{padding:36px 24px;}
     .card-title{font-size:26px;}
+    footer{flex-direction:column;align-items:center;text-align:center;gap:16px;}
   }
 </style>
 </head>
@@ -167,8 +173,17 @@
   </div>
 
   <footer>
-    <strong>HERMIA</strong>
-    <span>AI Lead Qualification &nbsp;·&nbsp; hermia.au</span>
+    <div class="footer-left">
+      <strong>HERMIA</strong>
+      <span>AI Lead Qualification &nbsp;·&nbsp; hermia.au</span>
+    </div>
+    <div class="footer-right">
+      <img
+        src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Horizontal_Registered.png"
+        alt="Simpro Registered Partner"
+        class="simpro-badge"
+      />
+    </div>
   </footer>
 
 </div>
