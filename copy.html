@@ -15,9 +15,9 @@
   .alias{font-family:'Courier New',monospace;font-size:14px;background:#fff;
     border:1px solid #d9c79a;border-radius:4px;padding:12px 16px;
     word-break:break-all;margin-bottom:24px;color:#2a2620;}
-  .btn{display:inline-block;background:#B8860B;color:#fff;border:none;
+  .btn{display:block;width:100%;background:#B8860B;color:#fff;border:none;
     padding:16px 36px;font-size:13px;font-weight:bold;letter-spacing:1.5px;
-    text-transform:uppercase;border-radius:4px;cursor:pointer;width:100%;}
+    text-transform:uppercase;border-radius:4px;cursor:pointer;box-sizing:border-box;}
   .btn.done{background:#4a7c59;}
   .status{margin-top:16px;font-size:13px;color:#9c7209;min-height:20px;}
 </style>
@@ -31,27 +31,19 @@
   <button class="btn" id="btn" onclick="copyAlias()">Copy Alias</button>
   <div class="status" id="status"></div>
 </div>
-
 <script>
   const params = new URLSearchParams(window.location.search);
   const alias = params.get("alias") || "";
   document.getElementById("alias").textContent = alias || "No alias found.";
+  if (alias) copyAlias();
 
-  // Auto-copy on page load
-  if (alias) copyAlias(true);
-
-  function copyAlias(auto) {
+  function copyAlias() {
     if (!alias) return;
     navigator.clipboard.writeText(alias).then(() => {
-      const btn = document.getElementById("btn");
-      const status = document.getElementById("status");
-      btn.textContent = "Copied ✓";
-      btn.classList.add("done");
-      status.textContent = auto
-        ? "Auto-copied! Ready to paste."
-        : "Copied to clipboard!";
+      document.getElementById("btn").textContent = "Copied ✓";
+      document.getElementById("btn").classList.add("done");
+      document.getElementById("status").textContent = "Ready to paste into Gmail.";
     }).catch(() => {
-      // fallback for older browsers
       const el = document.createElement("textarea");
       el.value = alias;
       document.body.appendChild(el);
@@ -59,7 +51,8 @@
       document.execCommand("copy");
       document.body.removeChild(el);
       document.getElementById("btn").textContent = "Copied ✓";
-      document.getElementById("status").textContent = "Copied!";
+      document.getElementById("btn").classList.add("done");
+      document.getElementById("status").textContent = "Ready to paste into Gmail.";
     });
   }
 </script>
