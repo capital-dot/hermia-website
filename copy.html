@@ -5,223 +5,174 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Hermia – Activate Forwarding</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #F2EBD9;
-    --card: #FFFEF9;
-    --border: #d9c79a;
-    --gold: #B8860B;
-    --gold-light: #9c7209;
-    --text: #2a2620;
-    --muted: #6b6557;
-    --soft: #a39d8e;
+    --bg: #080705;
+    --bg-card: rgba(10,9,7,0.92);
+    --gold: #D4AF37;
+    --gold-bright: #FFD700;
+    --gold-light: #F9E2AF;
+    --gold-muted: rgba(212,175,55,0.1);
+    --cream: #f4f0e6;
+    --soft: #a19d94;
+    --border: rgba(212,175,55,0.2);
+    --border-strong: rgba(212,175,55,0.45);
+    --ease: cubic-bezier(0.19,1,0.22,1);
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: "DM Sans", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 48px 20px 80px;
-    -webkit-font-smoothing: antialiased;
-  }
-  .wrap { max-width: 540px; margin: 0 auto; }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
+  html,body{min-height:100%;background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
 
-  /* HEADER */
-  .header { text-align: center; margin-bottom: 40px; }
-  .header img { height: 42px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto; }
-  .header h1 {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 26px;
-    font-weight: 600;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--text);
-  }
-  .header h1 span { color: var(--gold); }
-  .header p {
-    font-style: italic;
-    color: var(--gold-light);
-    font-family: "Cormorant Garamond", serif;
-    font-size: 17px;
-    margin-top: 10px;
-  }
+  /* BG */
+  .bg-layers{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+  .vignette{position:absolute;inset:0;background:radial-gradient(circle at center,transparent 0%,rgba(0,0,0,0.55) 70%,rgba(0,0,0,1) 100%);z-index:5;}
+  .light-bloom{position:absolute;width:100vw;height:100vh;top:0;left:0;background:radial-gradient(circle at 50% 30%,rgba(212,175,55,0.06) 0%,transparent 60%);animation:drift 35s infinite alternate ease-in-out;will-change:transform;}
+  @keyframes drift{0%{transform:translate(-2%,-2%) scale(1);}100%{transform:translate(2%,2%) scale(1.05);}}
+  .grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:120px 120px;-webkit-mask-image:radial-gradient(circle at 50% 30%,black 0%,transparent 85%);mask-image:radial-gradient(circle at 50% 30%,black 0%,transparent 85%);opacity:0.15;}
+  .grain{position:absolute;inset:0;opacity:0.03;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
-  /* STEP CARD */
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 32px 28px;
-    margin-bottom: 16px;
-  }
-  .step-label {
-    font-size: 10px;
-    color: var(--gold-light);
-    text-transform: uppercase;
-    letter-spacing: 2.5px;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-  .step-title {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 10px;
-  }
-  .step-desc {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.65;
-    margin-bottom: 22px;
-  }
+  /* LAYOUT */
+  .wrap{position:relative;z-index:10;max-width:560px;margin:0 auto;padding:64px 24px 100px;display:flex;flex-direction:column;align-items:center;}
 
-  /* ALIAS BOX */
-  .alias-box {
-    font-family: "Courier New", monospace;
-    font-size: 14px;
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 12px 16px;
-    word-break: break-all;
-    color: var(--text);
-    margin-bottom: 16px;
-    text-align: center;
-  }
+  /* LOGO */
+  .logo-wrap{margin-bottom:52px;position:relative;text-align:center;}
+  .logo-aura{position:absolute;inset:-40px;background:radial-gradient(circle,rgba(212,175,55,0.18) 0%,transparent 70%);filter:blur(22px);animation:aura 8s infinite ease-in-out;}
+  @keyframes aura{0%,100%{opacity:0.3;transform:scale(0.9);}50%{opacity:0.6;transform:scale(1.05);}}
+  .logo{height:52px;position:relative;z-index:2;filter:drop-shadow(0 0 18px rgba(212,175,55,0.35));}
+
+  /* CARD */
+  .card{width:100%;background:var(--bg-card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border);padding:44px 40px;position:relative;margin-bottom:12px;opacity:0;animation:fadeUp 1s var(--ease) forwards;}
+  .card::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0.5;}
+  .card.hidden{display:none;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+  .eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:0.5em;color:var(--gold);margin-bottom:16px;font-weight:400;}
+  .card-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;line-height:1.1;margin-bottom:12px;letter-spacing:-0.01em;}
+  .card-desc{font-size:14px;color:var(--soft);line-height:1.7;font-weight:300;margin-bottom:28px;}
+
+  /* ALIAS */
+  .alias-box{font-family:'Courier New',monospace;font-size:13px;background:rgba(212,175,55,0.04);border:1px solid var(--border-strong);padding:14px 18px;word-break:break-all;color:var(--cream);margin-bottom:18px;letter-spacing:0.02em;text-align:center;}
+
+  /* STEPS LIST */
+  .steps-list{list-style:none;margin-bottom:28px;}
+  .steps-list li{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid var(--gold-muted);font-size:14px;color:var(--soft);font-weight:300;line-height:1.5;}
+  .steps-list li:last-child{border-bottom:none;}
+  .steps-list .num{min-width:24px;height:24px;border-radius:50%;border:1px solid var(--border-strong);display:grid;place-items:center;font-size:10px;color:var(--gold);font-weight:500;margin-top:1px;}
+  .steps-list li strong{color:var(--cream);font-weight:400;}
 
   /* BUTTONS */
-  .btn {
-    display: block;
-    width: 100%;
-    padding: 16px 24px;
-    text-align: center;
-    font-family: "DM Sans", sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    transition: opacity 0.2s;
-  }
-  .btn:hover { opacity: 0.88; }
-  .btn-gold { background: var(--gold); color: #fff; }
-  .btn-gold.done { background: #4a7c59; }
-  .btn-outline {
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold-light);
-  }
+  .btn{display:block;width:100%;padding:18px 24px;text-align:center;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;transition:all 0.4s var(--ease);position:relative;overflow:hidden;}
+  .btn-gold{background:linear-gradient(135deg,#E8C17A,#C9A35B);color:#000;box-shadow:0 15px 35px rgba(0,0,0,0.4);}
+  .btn-gold:hover{transform:translateY(-3px);box-shadow:0 20px 45px rgba(212,175,55,0.2);filter:brightness(1.05);}
+  .btn-gold.done{background:linear-gradient(135deg,#4a7c59,#3a6147);color:#fff;}
+  .btn-outline{background:transparent;border:1px solid var(--border-strong);color:var(--gold-light);margin-top:12px;}
+  .btn-outline:hover{background:var(--gold-muted);transform:translateY(-2px);}
+  .btn-sweep{position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);transform:skewX(-30deg);animation:sweep 5s infinite ease-in-out;}
+  @keyframes sweep{0%{left:-100%;}15%{left:150%;}100%{left:150%;}}
 
   /* STATUS */
-  .status {
-    text-align: center;
-    font-size: 13px;
-    color: var(--gold-light);
-    margin-top: 12px;
-    min-height: 18px;
-  }
-
-  /* DIVIDER */
-  .divider {
-    text-align: center;
-    font-size: 10px;
-    color: var(--soft);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin: 8px 0;
-  }
+  .status{text-align:center;font-size:12px;color:var(--gold);margin-top:12px;min-height:16px;letter-spacing:0.05em;}
 
   /* NOTE */
-  .note {
-    background: #fbf6e9;
-    border-left: 3px solid var(--gold);
-    padding: 14px 18px;
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.6;
-    border-radius: 0 4px 4px 0;
-    margin-bottom: 16px;
-  }
-  .note strong { color: var(--text); }
+  .note{background:rgba(212,175,55,0.04);border-left:2px solid var(--gold);padding:14px 18px;font-size:13px;color:var(--soft);line-height:1.65;margin-top:20px;}
+  .note strong{color:var(--cream);}
 
-  /* STEP 2 & 3 hidden initially */
-  #step2, #step3 { display: none; }
+  /* DIVIDER */
+  .divider{text-align:center;font-size:9px;color:var(--soft);letter-spacing:0.3em;text-transform:uppercase;margin:4px 0;opacity:0.4;}
 
   /* FOOTER */
-  footer {
-    text-align: center;
-    margin-top: 48px;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--soft);
-  }
-  footer strong {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 15px;
-    letter-spacing: 5px;
-    color: var(--gold-light);
-    display: block;
-    margin-bottom: 6px;
+  footer{text-align:center;margin-top:52px;opacity:0.35;}
+  footer strong{font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px;}
+  footer span{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--soft);}
+
+  @media(max-width:500px){
+    .card{padding:36px 24px;}
+    .card-title{font-size:26px;}
   }
 </style>
 </head>
 <body>
+<div class="bg-layers">
+  <div class="light-bloom"></div>
+  <div class="grid"></div>
+  <div class="vignette"></div>
+  <div class="grain"></div>
+</div>
+
 <div class="wrap">
 
-  <!-- HEADER -->
-  <div class="header">
-    <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia"/>
-    <h1>Activate <span>Forwarding</span></h1>
-    <p>&ldquo;One click, and your leads start flowing.&rdquo;</p>
+  <div class="logo-wrap">
+    <div class="logo-aura"></div>
+    <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo"/>
   </div>
 
   <!-- STEP 1 — Copy alias -->
   <div class="card" id="step1">
-    <div class="step-label">Step 1 of 3</div>
-    <div class="step-title">Copy your lead alias</div>
-    <div class="step-desc">This is the email address Google will forward your leads to. It's been copied automatically — you'll need it in the next step.</div>
+    <div class="eyebrow">Step 1 of 4</div>
+    <div class="card-title">Copy your lead alias</div>
+    <div class="card-desc">This address receives your forwarded leads. It's been copied automatically — you'll need it in Step 3.</div>
     <div class="alias-box" id="aliasDisplay">Loading…</div>
-    <button class="btn btn-gold" id="copyBtn" onclick="copyAlias()">Copy Alias</button>
+    <button class="btn btn-gold" id="copyBtn" onclick="copyAlias()">
+      Copy Alias
+      <div class="btn-sweep"></div>
+    </button>
     <div class="status" id="copyStatus"></div>
   </div>
 
   <div class="divider">then</div>
 
   <!-- STEP 2 — Confirm with Google -->
-  <div class="card" id="step2">
-    <div class="step-label">Step 2 of 3</div>
-    <div class="step-title">Confirm with Google</div>
-    <div class="step-desc">Google needs your approval to activate forwarding. Click the button below — it opens Gmail's own confirmation page. Come back here once you've confirmed.</div>
-    <a href="#" id="confirmBtn" class="btn btn-gold" target="_blank" onclick="onConfirmClick()">Confirm in Gmail →</a>
-    <div class="note" style="margin-top:16px;margin-bottom:0;">
-      <strong>Note:</strong> Google opens a new tab. Once you've clicked Confirm there, come back to this page and tap "I've Confirmed" below.
+  <div class="card hidden" id="step2">
+    <div class="eyebrow">Step 2 of 4</div>
+    <div class="card-title">Confirm with Google</div>
+    <div class="card-desc">Google requires your personal approval to activate forwarding. Click below — it opens Gmail's confirmation page in a new tab. Come straight back here after.</div>
+    <a href="#" id="confirmBtn" class="btn btn-gold" target="_blank" onclick="onConfirmClick()">
+      Confirm in Gmail →
+      <div class="btn-sweep"></div>
+    </a>
+    <div class="note">
+      <strong>Note:</strong> Google opens a new tab and may redirect you. Once you've clicked their Confirm button, come back here and tap "I've Confirmed" below.
     </div>
-    <div style="margin-top:16px;">
-      <button class="btn btn-outline" onclick="showStep3()">I've Confirmed ✓</button>
-    </div>
+    <button class="btn btn-outline" onclick="showStep3()" style="margin-top:16px;">I've Confirmed ✓</button>
   </div>
 
-  <div class="divider">then</div>
+  <div class="divider" id="div2" style="display:none;">then</div>
 
-  <!-- STEP 3 — Return to setup -->
-  <div class="card" id="step3">
-    <div class="step-label">Step 3 of 3</div>
-    <div class="step-title">You're almost done</div>
-    <div class="step-desc">Forwarding is now active. Head back to your setup page to connect your calendar — the final step.</div>
-    <a href="#" id="returnBtn" class="btn btn-gold">Continue Setup →</a>
+  <!-- STEP 3 — Paste into Gmail settings -->
+  <div class="card hidden" id="step3">
+    <div class="eyebrow">Step 3 of 4</div>
+    <div class="card-title">Activate in Gmail settings</div>
+    <div class="card-desc">Now paste your alias into Gmail's forwarding settings to complete the connection.</div>
+    <ul class="steps-list">
+      <li><div class="num">1</div><div>Open <strong>Gmail</strong> in a new tab</div></li>
+      <li><div class="num">2</div><div>Click the <strong>gear icon</strong> (top right) → <strong>See all settings</strong></div></li>
+      <li><div class="num">3</div><div>Go to <strong>Forwarding and POP/IMAP</strong> tab</div></li>
+      <li><div class="num">4</div><div>Click <strong>Add a forwarding address</strong> and paste your alias — it was already copied in Step 1</div></li>
+      <li><div class="num">5</div><div>Hit <strong>Refresh</strong> if the alias doesn't appear yet, then select <strong>"Forward a copy of incoming mail"</strong></div></li>
+      <li><div class="num">6</div><div>Scroll down and click <strong>Save Changes</strong></div></li>
+    </ul>
+    <button class="btn btn-gold" onclick="showStep4()">
+      Done — Continue Setup →
+      <div class="btn-sweep"></div>
+    </button>
+  </div>
+
+  <div class="divider" id="div3" style="display:none;">then</div>
+
+  <!-- STEP 4 — Return to onboarding -->
+  <div class="card hidden" id="step4">
+    <div class="eyebrow">Step 4 of 4</div>
+    <div class="card-title">Connect your calendar</div>
+    <div class="card-desc">Forwarding is live. Head back to your setup page to connect your calendar and complete your Hermia workspace.</div>
+    <a href="#" id="returnBtn" class="btn btn-gold">
+      Complete Setup →
+      <div class="btn-sweep"></div>
+    </a>
   </div>
 
   <footer>
     <strong>HERMIA</strong>
-    AI Lead Qualification for Elite Contractors<br>
-    &copy; Hermia Intelligence. All rights reserved.
+    <span>AI Lead Qualification &nbsp;·&nbsp; hermia.au</span>
   </footer>
 
 </div>
@@ -232,7 +183,6 @@
   const verifyUrl = params.get("verifyUrl") || "";
   const customerId = params.get("customerId") || "";
 
-  // Populate
   document.getElementById("aliasDisplay").textContent = alias || "No alias found.";
   if (verifyUrl) document.getElementById("confirmBtn").href = verifyUrl;
   if (customerId) {
@@ -240,7 +190,6 @@
       "https://onboarding.hermia.au/hermia_setup.html?customerId=" + encodeURIComponent(customerId);
   }
 
-  // Auto-copy on load
   if (alias) copyAlias(true);
 
   function copyAlias(auto) {
@@ -248,40 +197,53 @@
     const btn = document.getElementById("copyBtn");
     const status = document.getElementById("copyStatus");
 
-    navigator.clipboard.writeText(alias).then(() => {
+    const doIt = () => {
       btn.textContent = "Copied ✓";
       btn.classList.add("done");
-      status.textContent = auto ? "Auto-copied and ready to paste." : "Copied to clipboard!";
+      status.textContent = auto ? "Auto-copied — ready to paste." : "Copied to clipboard!";
       showStep2();
-    }).catch(() => {
-      // fallback
-      const el = document.createElement("textarea");
-      el.value = alias;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand("copy");
-      document.body.removeChild(el);
-      btn.textContent = "Copied ✓";
-      btn.classList.add("done");
-      status.textContent = "Copied!";
-      showStep2();
+    };
+
+    navigator.clipboard.writeText(alias).then(doIt).catch(() => {
+      try {
+        const el = document.createElement("textarea");
+        el.value = alias;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+      } catch(e) {}
+      doIt();
     });
   }
 
   function showStep2() {
     setTimeout(() => {
-      document.getElementById("step2").style.display = "block";
-      document.getElementById("step2").scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 600);
+      const s = document.getElementById("step2");
+      s.classList.remove("hidden");
+      s.style.animation = "fadeUp 0.8s cubic-bezier(0.19,1,0.22,1) forwards";
+      s.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 700);
   }
 
   function onConfirmClick() {
-    // Nothing extra needed — just opens the verifyUrl in new tab
+    // opens verifyUrl in new tab via href — nothing extra needed
   }
 
   function showStep3() {
-    document.getElementById("step3").style.display = "block";
-    document.getElementById("step3").scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById("div2").style.display = "block";
+    const s = document.getElementById("step3");
+    s.classList.remove("hidden");
+    s.style.animation = "fadeUp 0.8s cubic-bezier(0.19,1,0.22,1) forwards";
+    s.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function showStep4() {
+    document.getElementById("div3").style.display = "block";
+    const s = document.getElementById("step4");
+    s.classList.remove("hidden");
+    s.style.animation = "fadeUp 0.8s cubic-bezier(0.19,1,0.22,1) forwards";
+    s.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 </script>
 </body>
