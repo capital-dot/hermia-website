@@ -56,6 +56,9 @@
             padding: 10px 18px;
             border: 1px solid var(--border);
             background: rgba(212, 175, 55, 0.05);
+            /* PERFORMANCE: this small fixed pill is cheap even with blur,
+               since it's tiny — left as-is. The real cost was always the
+               full-screen layers below. */
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             transition: all 0.3s var(--ease-cinematic);
@@ -74,6 +77,7 @@
             inset: 0;
             z-index: 0;
             pointer-events: none;
+            overflow: hidden;
         }
 
         .vignette {
@@ -83,20 +87,29 @@
             z-index: 5;
         }
 
+        /* PERFORMANCE FIX: this was 150vw/150vh (offset -25vh/-25vw) with
+           a real filter: blur(140px) recalculated every animation frame.
+           That oversized-layer + real-blur-filter + continuous-animation
+           combination is what caused the page to feel draggy/janky on
+           mobile. Brought down to viewport size (100vw/100vh, top:0,
+           left:0) with the blur filter removed entirely — the
+           radial-gradient's own soft falloff gives an equivalent visual
+           result at a fraction of the render cost, same fix already
+           applied on foundation_details.html. */
         .light-bloom {
             position: absolute;
-            width: 150vw;
-            height: 150vh;
-            top: -25vh;
-            left: -25vw;
-            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 60%);
-            filter: blur(140px);
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 55%);
             animation: light-drift 40s infinite alternate ease-in-out;
+            will-change: transform;
         }
 
         @keyframes light-drift {
-            0% { transform: translate(-5%, -5%) scale(1); }
-            100% { transform: translate(5%, 5%) scale(1.1); }
+            0% { transform: translate(-2%, -2%) scale(1); }
+            100% { transform: translate(2%, 2%) scale(1.05); }
         }
 
         .grid {
@@ -202,11 +215,17 @@
         .label { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--soft); opacity: 0.5; }
         .step.active .label { color: var(--gold-light); opacity: 1; }
 
+        /* PERFORMANCE FIX: backdrop-filter: blur(40px) on a full-card
+           element directly above the animated background is one of the
+           heaviest things a mobile browser can be asked to recompute
+           every frame. Reduced to blur(12px) — still a clear frosted-
+           glass look, far cheaper to render. Same value already used on
+           foundation_details.html, for consistency between pages. */
         .card {
             width: 100%;
             background: var(--bg-card);
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--border);
             border-radius: 0;
             padding: 80px;
