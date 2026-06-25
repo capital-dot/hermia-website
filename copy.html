@@ -77,7 +77,6 @@
 
   .divider{text-align:center;font-size:9px;color:var(--soft);letter-spacing:0.3em;text-transform:uppercase;margin:4px 0;opacity:0.4;}
 
-  /* Footer */
   footer{width:100%;display:flex;align-items:center;justify-content:space-between;margin-top:52px;opacity:0.7;gap:20px;}
   .footer-left{}
   .footer-left strong{font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px;}
@@ -189,61 +188,71 @@
 </div>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const alias = params.get("alias") || "";
-  const verifyUrl = params.get("verifyUrl") || "";
-  const customerId = params.get("customerId") || "";
+  // Use decodeURIComponent instead of URLSearchParams.get() to avoid
+  // the RFC spec where + is decoded as a space. We need + preserved
+  // literally because lead aliases are like leads+slug@leads.hermia.au
+  function getRawParam(name) {
+    const match = window.location.search
+      .replace(/^\?/, '')
+      .split('&')
+      .find(p => p.startsWith(name + '='));
+    return match ? decodeURIComponent(match.slice(name.length + 1)) : '';
+  }
 
-  document.getElementById("aliasDisplay").textContent = alias || "No alias found.";
-  document.getElementById("aliasPreview").textContent = alias || "your-alias";
-  if (verifyUrl) document.getElementById("confirmBtn").href = verifyUrl;
+  const alias      = getRawParam('alias');
+  const verifyUrl  = getRawParam('verifyUrl');
+  const customerId = getRawParam('customerId');
+
+  document.getElementById('aliasDisplay').textContent = alias || 'No alias found.';
+  document.getElementById('aliasPreview').textContent = alias || 'your-alias';
+  if (verifyUrl)  document.getElementById('confirmBtn').href = verifyUrl;
   if (customerId) {
-    document.getElementById("returnBtn").href =
-      "https://onboarding.hermia.au/hermia_setup.html?customerId=" + encodeURIComponent(customerId);
+    document.getElementById('returnBtn').href =
+      'https://onboarding.hermia.au/hermia_setup.html?customerId=' + encodeURIComponent(customerId);
   }
 
   if (alias) copyAlias(true);
 
   function copyAlias(auto) {
     if (!alias) return;
-    const btn = document.getElementById("copyBtn");
-    const status = document.getElementById("copyStatus");
+    const btn    = document.getElementById('copyBtn');
+    const status = document.getElementById('copyStatus');
 
     const doIt = () => {
-      btn.textContent = "Copied ✓";
-      btn.classList.add("done");
-      status.textContent = auto ? "Auto-copied — ready to paste." : "Copied to clipboard!";
+      btn.textContent = 'Copied ✓';
+      btn.classList.add('done');
+      status.textContent = auto ? 'Auto-copied — ready to paste.' : 'Copied to clipboard!';
       showStep2();
     };
 
     navigator.clipboard.writeText(alias).then(doIt).catch(() => {
       try {
-        const el = document.createElement("textarea");
+        const el = document.createElement('textarea');
         el.value = alias;
         document.body.appendChild(el);
         el.select();
-        document.execCommand("copy");
+        document.execCommand('copy');
         document.body.removeChild(el);
-      } catch(e){}
+      } catch(e) {}
       doIt();
     });
   }
 
   function showStep2() {
     setTimeout(() => {
-      const s = document.getElementById("step2");
-      s.classList.remove("hidden");
-      s.style.animation = "fadeUp 0.8s cubic-bezier(0.19,1,0.22,1) forwards";
-      setTimeout(() => s.scrollIntoView({ behavior:"smooth", block:"start" }), 100);
+      const s = document.getElementById('step2');
+      s.classList.remove('hidden');
+      s.style.animation = 'fadeUp 0.8s cubic-bezier(0.19,1,0.22,1) forwards';
+      setTimeout(() => s.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
     }, 700);
   }
 
   function showStep3() {
-    document.getElementById("div2").classList.remove("hidden");
-    const s = document.getElementById("step3");
-    s.classList.remove("hidden");
-    s.style.animation = "fadeUp 0.8s cubic-bezier(0.19,1,0.22,1) forwards";
-    setTimeout(() => s.scrollIntoView({ behavior:"smooth", block:"start" }), 100);
+    document.getElementById('div2').classList.remove('hidden');
+    const s = document.getElementById('step3');
+    s.classList.remove('hidden');
+    s.style.animation = 'fadeUp 0.8s cubic-bezier(0.19,1,0.22,1) forwards';
+    setTimeout(() => s.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   }
 </script>
 </body>
