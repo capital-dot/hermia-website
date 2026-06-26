@@ -74,12 +74,15 @@
 
         .field { margin-bottom: 32px; }
         label { display: block; font-size: 12px; color: var(--cream); margin-bottom: 12px; letter-spacing: 0.05em; text-transform: uppercase; opacity: 0.8; }
-        input { width: 100%; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(212, 175, 55, 0.1); border-radius: 0; padding: 18px 20px; color: var(--cream); font-family: inherit; font-size: 15px; font-weight: 200; transition: all 0.4s ease; outline: none; letter-spacing: 0.02em; }
-        input:focus { background: rgba(212, 175, 55, 0.04); border-color: var(--gold); box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.05); }
+        input, select { width: 100%; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(212, 175, 55, 0.1); border-radius: 0; padding: 18px 20px; color: var(--cream); font-family: inherit; font-size: 15px; font-weight: 200; transition: all 0.4s ease; outline: none; letter-spacing: 0.02em; }
+        input:focus, select:focus { background: rgba(212, 175, 55, 0.04); border-color: var(--gold); box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.05); }
+        select { cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23D4AF37' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 20px center; }
+        select option { background: #1a1612; color: var(--cream); }
         .tel { display: flex; align-items: center; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(212, 175, 55, 0.1); transition: all 0.4s ease; }
         .tel:focus-within { border-color: var(--gold); background: rgba(212, 175, 55, 0.04); }
         .cc-fixed { padding-left: 20px; color: var(--gold-light); font-weight: 400; font-size: 15px; }
         .tel input { background: transparent; border: none; padding-left: 10px; }
+        .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
         .btn { width: 100%; margin-top: 30px; padding: 22px; border: none; background: linear-gradient(135deg, #E8C17A, #C9A35B); color: #000; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); position: relative; overflow: hidden; }
         .btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2); filter: brightness(1.05); }
@@ -97,13 +100,14 @@
         .err-msg.show { display: block; }
         .formerr { color: #ff7e75; font-size: 12px; margin-top: 26px; text-align: center; line-height: 1.6; letter-spacing: 0.03em; display: none; word-break: break-word; }
         .formerr.show { display: block; }
-        input.err, .tel.err { border-color: #ff7e75; background: rgba(255, 126, 117, 0.02); }
+        input.err, select.err, .tel.err { border-color: #ff7e75; background: rgba(255, 126, 117, 0.02); }
 
         @media (max-width: 600px) {
             .card { padding: 50px 30px; }
             h1 { font-size: 38px; }
             .label { display: none; }
             .steps { margin-bottom: 40px; }
+            .row-2 { grid-template-columns: 1fr; gap: 32px; }
         }
     </style>
 </head>
@@ -147,6 +151,30 @@
                 <label for="email">Professional Email</label>
                 <input id="email" type="email" autocomplete="email" placeholder="john@yourcompany.com.au" />
                 <div class="err-msg" id="err-email">Valid Email Required</div>
+            </div>
+
+            <div class="row-2">
+                <div class="field">
+                    <label for="country">Country</label>
+                    <input id="country" type="text" autocomplete="country-name" placeholder="Australia" value="Australia" />
+                    <div class="err-msg" id="err-country">Entry Required</div>
+                </div>
+
+                <div class="field">
+                    <label for="state">State</label>
+                    <select id="state" autocomplete="address-level1">
+                        <option value="">Select your state</option>
+                        <option value="VIC">Victoria</option>
+                        <option value="NSW">New South Wales</option>
+                        <option value="QLD">Queensland</option>
+                        <option value="WA">Western Australia</option>
+                        <option value="SA">South Australia</option>
+                        <option value="TAS">Tasmania</option>
+                        <option value="ACT">Australian Capital Territory</option>
+                        <option value="NT">Northern Territory</option>
+                    </select>
+                    <div class="err-msg" id="err-state">Please select your state</div>
+                </div>
             </div>
 
             <div class="field">
@@ -201,9 +229,10 @@
             if (e) e.classList.toggle('show', on);
         }
 
-        ['fullName', 'company', 'email', 'phone'].forEach(id => {
+        ['fullName', 'company', 'email', 'country', 'state', 'phone'].forEach(id => {
             const el = $(id);
             if (el) el.addEventListener('input', () => showErr(id, false));
+            if (el) el.addEventListener('change', () => showErr(id, false));
         });
 
         $('submitBtn').addEventListener('click', async () => {
@@ -211,11 +240,15 @@
             const name = $('fullName').value.trim();
             const company = $('company').value.trim();
             const email = $('email').value.trim();
+            const country = $('country').value.trim();
+            const state = $('state').value.trim();
             const local = $('phone').value.replace(/[^\d]/g, '');
 
             if (!name) { showErr('fullName', true); ok = false; }
             if (!company) { showErr('company', true); ok = false; }
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr('email', true); ok = false; }
+            if (!country) { showErr('country', true); ok = false; }
+            if (!state) { showErr('state', true); ok = false; }
             if (local.length < 6 || local.length > 12) { showErr('phone', true); ok = false; }
             if (!ok) return;
 
@@ -231,6 +264,8 @@
                         fullName: name,
                         companyName: company,
                         email: email,
+                        country: country,
+                        state: state,
                         phone: '+61 ' + local
                     })
                 });
@@ -244,6 +279,8 @@
                 sessionStorage.setItem('hermia_customer_id', id);
                 sessionStorage.setItem('hermia_email', email);
                 sessionStorage.setItem('hermia_vertical', 'foundation_repair');
+                sessionStorage.setItem('hermia_state', state);
+                sessionStorage.setItem('hermia_country', country);
 
                 document.body.style.transition = 'opacity 1s ease';
                 document.body.style.opacity = '0';
@@ -264,4 +301,3 @@
     </script>
 </body>
 </html>
-
