@@ -271,7 +271,6 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 
   <button id="skip-btn">Skip intro</button>
 
-  <!-- Scene 1: Alert -->
   <div class="scene" id="scene-alert">
     <div class="alert-box">
       <h1 class="alert-title">Homeowner Sends <span class="gold">Repair</span> Request</h1>
@@ -282,7 +281,6 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     </div>
   </div>
 
-  <!-- Scene: Narrative I -->
   <div class="scene" id="scene-narrative-1">
     <div class="narrative-box">
       <h2 class="narrative-title">Stop chasing <em>missing details</em>.</h2>
@@ -290,7 +288,6 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     </div>
   </div>
 
-  <!-- Scene: Narrative II -->
   <div class="scene" id="scene-narrative-2">
     <div class="narrative-box">
       <h2 class="narrative-title">From <em>Chaos</em> to <em>Organised</em>.</h2>
@@ -298,7 +295,6 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     </div>
   </div>
 
-  <!-- Scene 3: Phone Chat -->
   <div class="scene" id="scene-chat">
     <div class="phone">
       <div class="phone-header">
@@ -312,7 +308,6 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     </div>
   </div>
 
-  <!-- Scene 4: Simpro Dashboard -->
   <div class="scene" id="scene-dashboard">
     <div class="crm-container">
       <div class="crm-header">
@@ -346,7 +341,6 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     </div>
   </div>
 
-  <!-- Scene 5: Final Reveal -->
   <div class="scene active" id="scene-final">
     <div class="final-content">
       <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" class="final-logo" alt="Hermia">
@@ -392,7 +386,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Budget screened upfront &mdash; no wasted visits on bad-fit jobs</span></div>
           <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Structured job brief in Simpro &mdash; nothing lost, nothing chased</span></div>
           <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Emergency / Critical / Standard classified automatically</span></div>
-          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Monthly production summary sent on the last day of every month</span></div>
+          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Weekly business report delivered every Monday morning</span></div>
         </div>
       </div>
     </div>
@@ -404,14 +398,12 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         --hermia-bg: #050505;
         --hermia-card: #0a0a0a;
         --hermia-border: rgba(230, 194, 122, 0.2);
-        
         background-color: var(--hermia-bg);
         color: #fff;
         font-family: 'Inter', sans-serif;
         padding: 100px 20px;
         overflow: hidden;
     }
-
     #hermia-features .inner {
         max-width: 1200px;
         margin: 0 auto;
@@ -420,7 +412,6 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         align-items: center;
         text-align: center;
     }
-
     #hermia-features .eyebrow {
         font-size: 11px;
         letter-spacing: 6px;
@@ -429,7 +420,6 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         margin-bottom: 25px;
         font-weight: 600;
     }
-
     #hermia-features .sec-title {
         font-family: 'Cormorant Garamond', serif;
         font-size: 56px;
@@ -438,20 +428,17 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         margin-bottom: 80px;
         letter-spacing: 2px;
     }
-
     #hermia-features .sec-title em {
         font-style: italic;
         color: var(--hermia-gold);
         font-weight: 500;
     }
-
     #hermia-features .features-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 30px;
         width: 100%;
     }
-
     #hermia-features .fc {
         background: var(--hermia-card);
         border: 1px solid var(--hermia-border);
@@ -461,125 +448,60 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         border-radius: 2px;
     }
-
     #hermia-features .fc:hover {
         border-color: var(--hermia-gold);
         transform: translateY(-10px);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
-
-    #hermia-features .fc-icon {
-        width: 32px;
-        height: 32px;
-        margin-bottom: 30px;
-    }
-
-    #hermia-features .fc-icon svg {
-        width: 100%;
-        height: 100%;
-        fill: var(--hermia-gold);
-    }
-
-    #hermia-features .fc-tag {
-        font-size: 9px;
-        letter-spacing: 3px;
-        color: var(--hermia-gold);
-        text-transform: uppercase;
-        margin-bottom: 15px;
-        font-weight: 600;
-        opacity: 0.8;
-    }
-
-    #hermia-features .fc h3 {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 26px;
-        font-weight: 500;
-        margin-bottom: 20px;
-        color: #fff;
-        letter-spacing: 1px;
-    }
-
-    #hermia-features .fc p {
-        font-size: 14px;
-        line-height: 1.8;
-        color: #999;
-        font-weight: 300;
-    }
-
-    @media (max-width: 1024px) {
-        #hermia-features .features-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 768px) {
-        #hermia-features .features-grid { grid-template-columns: 1fr; }
-        #hermia-features .sec-title { font-size: 40px; }
-    }
+    #hermia-features .fc-icon { width: 32px; height: 32px; margin-bottom: 30px; }
+    #hermia-features .fc-icon svg { width: 100%; height: 100%; fill: var(--hermia-gold); }
+    #hermia-features .fc-tag { font-size: 9px; letter-spacing: 3px; color: var(--hermia-gold); text-transform: uppercase; margin-bottom: 15px; font-weight: 600; opacity: 0.8; }
+    #hermia-features .fc h3 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; margin-bottom: 20px; color: #fff; letter-spacing: 1px; }
+    #hermia-features .fc p { font-size: 14px; line-height: 1.8; color: #999; font-weight: 300; }
+    @media (max-width: 1024px) { #hermia-features .features-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { #hermia-features .features-grid { grid-template-columns: 1fr; } #hermia-features .sec-title { font-size: 40px; } }
 </style>
 
 <section id="hermia-features">
     <div class="inner">
         <div class="eyebrow">The Intelligence Engine</div>
         <h2 class="sec-title">From the first message<br>to a <em>booked job.</em></h2>
-        
         <div class="features-grid">
-            <!-- AI Vision -->
             <div class="fc">
-                <div class="fc-icon">
-                    <svg viewBox="0 0 24 24"><path d="M12 9c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm9 3c0 4.971-4.029 9-9 9s-9-4.029-9-9 4.029-9 9-9 9 4.029 9 9zm-18 0c0 4.971 4.029 9 9 9s9-4.029 9-9-4.029-9-9-9-9 4.029-9 9z"/></svg>
-                </div>
+                <div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M12 9c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm9 3c0 4.971-4.029 9-9 9s-9-4.029-9-9 4.029-9 9-9 9 4.029 9 9zm-18 0c0 4.971 4.029 9 9 9s9-4.029 9-9-4.029-9-9-9-9 4.029-9 9z"/></svg></div>
                 <div class="fc-tag">AI Vision</div>
                 <h3>Visual Diagnostics</h3>
                 <p>Hermia analyzes damage photos and videos instantly, identifying the trade required and urgency level before you've even seen the message.</p>
             </div>
-
-            <!-- AI Audio -->
             <div class="fc">
-                <div class="fc-icon">
-                    <svg viewBox="0 0 24 24"><path d="M12 2c1.103 0 2 .897 2 2v7c0 1.103-.897 2-2 2s-2-.897-2-2v-7c0-1.103.897-2 2-2zm0-2c-2.209 0-4 1.791-4 4v7c0 2.209 1.791 4 4 4s4-1.791 4-4v-7c0-2.209-1.791-4-4-4zm8 9v2c0 4.418-3.582 8-8 8s-8-3.582-8-8v-2h2v2c0 3.309 2.691 6 6 6s6-2.691 6-6v-2h2zm-7 13v-2h-2v2h-4v2h10v-2h-4z"/></svg>
-                </div>
+                <div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M12 2c1.103 0 2 .897 2 2v7c0 1.103-.897 2-2 2s-2-.897-2-2v-7c0-1.103.897-2 2-2zm0-2c-2.209 0-4 1.791-4 4v7c0 2.209 1.791 4 4 4s4-1.791 4-4v-7c0-2.209-1.791-4-4-4zm8 9v2c0 4.418-3.582 8-8 8s-8-3.582-8-8v-2h2v2c0 3.309 2.691 6 6 6s6-2.691 6-6v-2h2zm-7 13v-2h-2v2h-4v2h10v-2h-4z"/></svg></div>
                 <div class="fc-tag">AI Audio</div>
                 <h3>Vocal Intelligence</h3>
                 <p>Voice notes are transcribed and synthesized. Hermia extracts critical briefs: location, owner status, and technical requirements.</p>
             </div>
-
-            <!-- Triage -->
             <div class="fc">
-                <div class="fc-icon">
-                    <svg viewBox="0 0 24 24"><path d="M12 0l-12 12h8v12l12-12h-8z"/></svg>
-                </div>
+                <div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M12 0l-12 12h8v12l12-12h-8z"/></svg></div>
                 <div class="fc-tag">Dynamic Triage</div>
                 <h3>Urgency Classification</h3>
                 <p>Enquiries are triaged by severity. Emergencies are escalated immediately, while standard jobs are seamlessly queued.</p>
             </div>
-
-            <!-- Simpro -->
             <div class="fc">
-                <div class="fc-icon">
-                    <svg viewBox="0 0 24 24"><path d="M19 3h-14c-1.103 0-2 .897-2 2v14c0 1.103.897 2-2 2h14c1.103 0 2-.897 2-2v-14c0-1.103-.897-2-2-2zm-7 10h-4v-2h4v2zm0-4h-4v-2h4v2zm5 8h-9v-2h9v2zm0-4h-9v-2h9v2zm0-4h-9v-2h9v2z"/></svg>
-                </div>
+                <div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M19 3h-14c-1.103 0-2 .897-2 2v14c0 1.103.897 2-2 2h14c1.103 0 2-.897 2-2v-14c0-1.103-.897-2-2-2zm-7 10h-4v-2h4v2zm0-4h-4v-2h4v2zm5 8h-9v-2h9v2zm0-4h-9v-2h9v2zm0-4h-9v-2h9v2z"/></svg></div>
                 <div class="fc-tag">Simpro Integration</div>
                 <h3>Automated Synchronization</h3>
                 <p>All lead data—contact info, site address, and photos—is captured and synced directly into your Simpro workflow with zero typing.</p>
             </div>
-
-            <!-- Calendar -->
             <div class="fc">
-                <div class="fc-icon">
-                    <svg viewBox="0 0 24 24"><path d="M20 20h-16v-16h16v16zm2-18h-20v20h20v-20zm-7 13h-5v-5h5v5zm-2-11h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 0h-2v2h2v-2z"/></svg>
-                </div>
+                <div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M20 20h-16v-16h16v16zm2-18h-20v20h20v-20zm-7 13h-5v-5h5v5zm-2-11h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 0h-2v2h2v-2z"/></svg></div>
                 <div class="fc-tag">Scheduling</div>
                 <h3>Autonomous Booking</h3>
                 <p>Hermia confirms availability within the chat and creates calendar events. No phone tag, no missing info, just a confirmed schedule.</p>
             </div>
-
-            <!-- Monthly Summary -->
             <div class="fc">
-                <div class="fc-icon">
-                    <svg viewBox="0 0 24 24"><path d="M7 19h-6v-11h6v11zm8-18h-6v18h6v-18zm8 11h-6v7h6v-7z"/></svg>
-                </div>
+                <div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M7 19h-6v-11h6v11zm8-18h-6v18h6v-18zm8 11h-6v7h6v-7z"/></svg></div>
                 <div class="fc-tag">Analytics</div>
-                <h3>Executive Summaries</h3>
-                <p>Receive your production numbers—total jobs, booked rates, and urgency breakdowns—delivered to your inbox on the last day of the month.</p>
+                <h3>Weekly Business Reports</h3>
+                <p>Receive your production numbers—total jobs, booked rates, and urgency breakdowns—delivered to your inbox every Monday morning.</p>
             </div>
         </div>
     </div>
@@ -595,7 +517,6 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         --hermia-border: rgba(212, 175, 55, 0.2);
         --ease-luxury: cubic-bezier(0.19, 1, 0.22, 1);
     }
-
     .video-journey-section {
         background: var(--hermia-bg);
         color: var(--hermia-cream);
@@ -607,7 +528,6 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         position: relative;
         overflow: hidden;
     }
-
     .video-journey-section::before {
         content: '';
         position: absolute;
@@ -619,213 +539,57 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         background: radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
         pointer-events: none;
     }
-
-    .section-wrap {
-        width: 100%;
-        max-width: 1100px;
-        position: relative;
-        z-index: 2;
-    }
-
-    .section-header {
-        text-align: center;
-        margin-bottom: 80px;
-    }
-
-    .eyebrow-gold {
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 0.5em;
-        color: var(--hermia-gold);
-        margin-bottom: 20px;
-        display: block;
-    }
-
-    .section-title {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(40px, 5vw, 64px);
-        font-weight: 300;
-        line-height: 1.1;
-        margin-bottom: 24px;
-        letter-spacing: -0.02em;
-    }
-
-    .section-subtitle {
-        font-size: 18px;
-        color: var(--hermia-soft);
-        max-width: 700px;
-        margin: 0 auto;
-        line-height: 1.6;
-        font-weight: 300;
-    }
-
-    .video-showcase {
-        width: 100%;
-        background: #000;
-        border: 1px solid var(--hermia-border);
-        box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-        margin-bottom: 100px;
-        position: relative;
-    }
-
-    .video-showcase::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, var(--hermia-gold), transparent);
-    }
-
-    .video-container {
-        position: relative;
-        padding-bottom: 56.25%;
-        height: 0;
-        overflow: hidden;
-    }
-
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: 0;
-    }
-
-    .stages-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 40px;
-        margin-bottom: 80px;
-    }
-
-    .stage-card {
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid var(--hermia-border);
-        padding: 48px 32px;
-        transition: all 0.6s var(--ease-luxury);
-        position: relative;
-        text-align: left;
-    }
-
-    .stage-card:hover {
-        background: rgba(212, 175, 55, 0.03);
-        transform: translateY(-10px);
-        border-color: var(--hermia-gold);
-    }
-
-    .stage-num {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 42px;
-        color: var(--hermia-gold);
-        margin-bottom: 24px;
-        display: block;
-        opacity: 0.6;
-    }
-
-    .stage-h {
-        font-size: 22px;
-        font-weight: 400;
-        margin-bottom: 16px;
-        color: var(--hermia-cream);
-    }
-
-    .stage-p {
-        font-size: 15px;
-        color: var(--hermia-soft);
-        line-height: 1.6;
-        font-weight: 300;
-    }
-
-    .benefit-footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: rgba(212, 175, 55, 0.05);
-        border: 1px solid var(--hermia-gold);
-        padding: 40px 50px;
-        gap: 40px;
-    }
-
-    .benefit-copy {
-        flex: 1;
-        text-align: left;
-    }
-
-    .benefit-h {
-        font-size: 24px;
-        font-weight: 400;
-        margin-bottom: 12px;
-        color: var(--hermia-gold-light);
-    }
-
-    .benefit-p {
-        font-size: 16px;
-        color: var(--hermia-cream);
-        line-height: 1.5;
-        font-weight: 300;
-    }
-
-    .cta-btn-gold {
-        background: linear-gradient(135deg, #E8C17A, #C9A35B);
-        color: #000;
-        padding: 20px 40px;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 14px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        transition: all 0.4s var(--ease-luxury);
-        white-space: nowrap;
-    }
-
-    .cta-btn-gold:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3);
-    }
-
-    @media (max-width: 900px) {
-        .stages-grid { grid-template-columns: 1fr; }
-        .benefit-footer { flex-direction: column; text-align: center; padding: 40px 30px; }
-        .benefit-copy { text-align: center; }
-        .section-title { font-size: 36px; }
-    }
+    .section-wrap { width: 100%; max-width: 1100px; position: relative; z-index: 2; }
+    .section-header { text-align: center; margin-bottom: 80px; }
+    .eyebrow-gold { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--hermia-gold); margin-bottom: 20px; display: block; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 5vw, 64px); font-weight: 300; line-height: 1.1; margin-bottom: 24px; letter-spacing: -0.02em; }
+    .section-subtitle { font-size: 18px; color: var(--hermia-soft); max-width: 700px; margin: 0 auto; line-height: 1.6; font-weight: 300; }
+    .video-showcase { width: 100%; background: #000; border: 1px solid var(--hermia-border); box-shadow: 0 40px 100px rgba(0,0,0,0.8); margin-bottom: 100px; position: relative; }
+    .video-showcase::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--hermia-gold), transparent); }
+    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    .stages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 80px; }
+    .stage-card { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--hermia-border); padding: 48px 32px; transition: all 0.6s var(--ease-luxury); position: relative; text-align: left; }
+    .stage-card:hover { background: rgba(212, 175, 55, 0.03); transform: translateY(-10px); border-color: var(--hermia-gold); }
+    .stage-num { font-family: 'Cormorant Garamond', serif; font-size: 42px; color: var(--hermia-gold); margin-bottom: 24px; display: block; opacity: 0.6; }
+    .stage-h { font-size: 22px; font-weight: 400; margin-bottom: 16px; color: var(--hermia-cream); }
+    .stage-p { font-size: 15px; color: var(--hermia-soft); line-height: 1.6; font-weight: 300; }
+    .benefit-footer { display: flex; align-items: center; justify-content: space-between; background: rgba(212, 175, 55, 0.05); border: 1px solid var(--hermia-gold); padding: 40px 50px; gap: 40px; }
+    .benefit-copy { flex: 1; text-align: left; }
+    .benefit-h { font-size: 24px; font-weight: 400; margin-bottom: 12px; color: var(--hermia-gold-light); }
+    .benefit-p { font-size: 16px; color: var(--hermia-cream); line-height: 1.5; font-weight: 300; }
+    .cta-btn-gold { background: linear-gradient(135deg, #E8C17A, #C9A35B); color: #000; padding: 20px 40px; text-decoration: none; font-weight: 600; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; transition: all 0.4s var(--ease-luxury); white-space: nowrap; }
+    .cta-btn-gold:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3); }
+    @media (max-width: 900px) { .stages-grid { grid-template-columns: 1fr; } .benefit-footer { flex-direction: column; text-align: center; padding: 40px 30px; } .benefit-copy { text-align: center; } .section-title { font-size: 36px; } }
 </style>
 
 <section class="video-journey-section" id="how-it-works">
     <div class="section-wrap">
-        
         <div class="section-header">
             <span class="eyebrow-gold">Operational Excellence</span>
             <h2 class="section-title">A Real Enquiry, Handled in <br><em>Under a Minute.</em></h2>
             <p class="section-subtitle">Experience how Hermia qualifies and manages your homeowners with architectural precision, ensuring every lead is a ready-to-book job.</p>
         </div>
-
         <div class="video-showcase">
             <div class="video-container">
-                <iframe src="https://www.loom.com/embed/6b30d2325d194f5cbd53c89e246c6bc0" 
-                        frameborder="0" 
-                        webkitallowfullscreen 
-                        mozallowfullscreen 
+                <iframe src="https://www.loom.com/embed/4f54b808f3c14a0cbb2f7aee91adc8d6"
+                        frameborder="0"
+                        webkitallowfullscreen
+                        mozallowfullscreen
                         allowfullscreen></iframe>
             </div>
         </div>
-
         <div class="stages-grid">
             <div class="stage-card">
                 <span class="stage-num">01</span>
                 <h3 class="stage-h">Immediate Intelligence</h3>
                 <p class="stage-p">The moment a homeowner messages, Hermia engages. It reads descriptions, analyzes photos, and identifies the core issue within seconds.</p>
             </div>
-            
             <div class="stage-card">
                 <span class="stage-num">02</span>
                 <h3 class="stage-h">Surgical Qualification</h3>
                 <p class="stage-p">No more back-and-forth. Hermia asks the critical questions, gathers the full scope of work, and filters out the noise before you even see it.</p>
             </div>
-
             <div class="stage-card">
                 <span class="stage-num">03</span>
                 <h3 class="stage-h">Seamless Integration</h3>
@@ -878,10 +642,8 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         <div class="p-badge-wide">3-Day Free Trial</div>
         <div class="p-wide-left">
           <div class="p-rule"></div>
-          <div class="p-price"><span class="p-cur">$</span><span class="p-num">260</span></div>
+          <div class="p-price"><span class="p-cur">$</span><span class="p-num">530</span></div>
           <div class="p-per">AUD / month</div>
-          <div class="p-was">$1,700 setup fee</div>
-          <div class="p-offer">Launch offer &mdash; setup included</div>
           <a href="apply.html" class="p-btn" style="margin-top:28px">Start Free Trial</a>
         </div>
         <div class="p-wide-divider"></div>
@@ -891,8 +653,9 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
             <li>AI analyses customer damage photos and videos to identify issue type, urgency, and required trade</li>
             <li>Converts voice notes and messages into structured job briefs</li>
             <li>Qualifies incoming repair enquiries before they reach your team</li>
-            <li>Sends organised job information directly into your workflow</li>
+            <li>Sends organised job information directly into your Simpro workflow</li>
             <li>Helps your team respond faster and reduce missed opportunities</li>
+            <li>Weekly business report delivered every Monday morning</li>
           </ul>
         </div>
       </div>
@@ -909,7 +672,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         <div class="faq-item"><button class="faq-q"><span>How does Hermia connect with Simpro?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Hermia creates structured customer and job data that feeds into your Simpro workflow.</strong> During onboarding we set up the connection to your Simpro account &mdash; <em>your data, your records, nothing manual on your end.</em></div></div></div>
         <div class="faq-item"><button class="faq-q"><span>What does it do with a photo or voice note?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Photos &amp; video:</strong> AI vision reads the damage &mdash; type, urgency, trade required. <strong>Voice notes:</strong> Full transcription, then key fields extracted (damage, address, urgency, owner status). <em>Both happen before a human looks at anything.</em></div></div></div>
         <div class="faq-item"><button class="faq-q"><span>Do I need to change my number or learn an app?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No.</strong> Hermia works behind your existing contact form and email. Jobs arrive as a clean brief on your phone. <em>If you can read a text, you can run Hermia.</em></div></div></div>
-        <div class="faq-item"><button class="faq-q"><span>What does the monthly summary include?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Total enquiries, jobs sent to Simpro, urgency breakdown by tier, job types, filtered leads, estimated revenue.</strong> Sent to your inbox on the last day of every month. <em>No logging in. No dashboards.</em></div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>What does the weekly report include?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Total enquiries, jobs sent to Simpro, urgency breakdown by tier, job types, filtered leads, and estimated revenue.</strong> Delivered to your inbox every Monday morning. <em>No logging in. No dashboards.</em></div></div></div>
         <div class="faq-item"><button class="faq-q"><span>Does Hermia hallucinate in SMS?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No &mdash; we use pre-approved templates.</strong> Every message Hermia sends comes from approved wording, so it can&rsquo;t go off-script or make anything up.</div></div></div>
       </div>
     </div>
