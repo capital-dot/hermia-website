@@ -56,9 +56,6 @@
             padding: 10px 18px;
             border: 1px solid var(--border);
             background: rgba(212, 175, 55, 0.05);
-            /* PERFORMANCE: this small fixed pill is cheap even with blur,
-               since it's tiny — left as-is. The real cost was always the
-               full-screen layers below. */
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             transition: all 0.3s var(--ease-cinematic);
@@ -87,15 +84,9 @@
             z-index: 5;
         }
 
-        /* PERFORMANCE FIX: this was 150vw/150vh (offset -25vh/-25vw) with
-           a real filter: blur(140px) recalculated every animation frame.
-           That oversized-layer + real-blur-filter + continuous-animation
-           combination is what caused the page to feel draggy/janky on
-           mobile. Brought down to viewport size (100vw/100vh, top:0,
-           left:0) with the blur filter removed entirely — the
-           radial-gradient's own soft falloff gives an equivalent visual
-           result at a fraction of the render cost, same fix already
-           applied on foundation_details.html. */
+        /* PERFORMANCE: kept at viewport size (not the old 150vw/150vh
+           oversized layer) and uses the gradient's own falloff instead
+           of a blur() filter — cheap to animate continuously. */
         .light-bloom {
             position: absolute;
             width: 100vw;
@@ -215,12 +206,6 @@
         .label { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--soft); opacity: 0.5; }
         .step.active .label { color: var(--gold-light); opacity: 1; }
 
-        /* PERFORMANCE FIX: backdrop-filter: blur(40px) on a full-card
-           element directly above the animated background is one of the
-           heaviest things a mobile browser can be asked to recompute
-           every frame. Reduced to blur(12px) — still a clear frosted-
-           glass look, far cheaper to render. Same value already used on
-           foundation_details.html, for consistency between pages. */
         .card {
             width: 100%;
             background: var(--bg-card);
@@ -283,6 +268,10 @@
             border: 1px solid var(--border);
             background: #000;
             box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            isolation: isolate;
+            contain: layout paint size;
         }
 
         .video-container::after {
@@ -291,12 +280,60 @@
             inset: -1px;
             border: 1px solid rgba(212, 175, 55, 0.1);
             pointer-events: none;
+            z-index: 2;
         }
 
         .video-frame {
+            position: absolute;
+            inset: 0;
             width: 100%;
-            aspect-ratio: 16 / 9;
+            height: 100%;
+            border: 0;
             display: block;
+        }
+
+        /* Click-to-load poster: no iframe exists, and no Loom JS runs,
+           until the user taps play. This is the fix for the dragging —
+           a live Loom iframe keeps its own resize/scroll listeners
+           running the whole time it's mounted, and here it was also
+           being torn down and rebuilt on every render() call (phase
+           changes), which made it worse. */
+        .video-poster {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212,175,55,0.06), rgba(0,0,0,0.5));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            z-index: 1;
+        }
+        .play-btn {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: grid;
+            place-items: center;
+            box-shadow: 0 0 30px rgba(212,175,55,0.5);
+            transition: transform 0.15s ease;
+        }
+        .video-poster:active .play-btn { transform: scale(0.94); }
+        .play-btn svg { width: 24px; height: 24px; fill: #000; margin-left: 2px; }
+        .video-caption {
+            position: absolute;
+            bottom: 16px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            opacity: 0.85;
         }
 
         .action-area {
@@ -442,7 +479,7 @@
         const EMAIL_WORKER = 'https://gmailflitering.capital-fbc.workers.dev';
         const CONNECT_WS_URL = 'wss://connnect.capital-fbc.workers.dev/ws';
         const NEXT_PAGE = 'https://onboarding.hermia.au/hermia_setup.html';
-        const LOOM_EMBED_URL = 'https://www.loom.com/embed/ad22112fd7cb49979597bab590f0653d';
+        const LOOM_ID = 'ad22112fd7cb49979597bab590f0653d';
 
         const ALL_STEPS = ['Payment','Business','Details','Simpro','Connect','Setup'];
         const ACTIVE_IDX = 5;
@@ -480,8 +517,13 @@
                     <h1>Initialize Forwarding</h1>
                     <p class="sub">Establish the secure data bridge between your inbox and Hermia. Copy the address below and configure your Gmail forwarding rule to begin.</p>
                     
-                    <div class="video-container">
-                        <iframe class="video-frame" src="${LOOM_EMBED_URL}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    <div class="video-container" id="loomVideoContainer">
+                        <div class="video-poster" id="loomPoster">
+                            <div class="play-btn">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                            <div class="video-caption">Tap to play walkthrough</div>
+                        </div>
                     </div>
 
                     <div class="action-area">
@@ -493,6 +535,7 @@
 
                     <div class="powered">Architected by Hermia &bull; Private Domain Architecture</div>
                 `;
+                attachLoomLoader();
                 loadAlias();
                 connectVerifySocket();
             } else if (STATE.phase === 'verify') {
@@ -526,6 +569,29 @@
                     <div style="display:flex;justify-content:center;padding:60px 0;"><div class="spinner-light"></div></div>
                 `;
             }
+        }
+
+        // Click-to-load: only create the Loom iframe (and let its JS run)
+        // once the user taps the poster. Nothing autoloads, and since
+        // this only runs inside the fwd-setup branch of render(), it
+        // also can't get re-triggered by later phase changes.
+        function attachLoomLoader() {
+            const container = document.getElementById('loomVideoContainer');
+            const poster = document.getElementById('loomPoster');
+            if (!container || !poster) return;
+
+            poster.addEventListener('click', function () {
+                const iframe = document.createElement('iframe');
+                iframe.className = 'video-frame';
+                iframe.src = 'https://www.loom.com/embed/' + LOOM_ID +
+                    '?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true&autoplay=1';
+                iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+                iframe.allowFullscreen = true;
+                iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+
+                poster.remove();
+                container.appendChild(iframe);
+            }, { once: true });
         }
 
         function showError(msg) {
