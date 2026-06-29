@@ -56,7 +56,7 @@
         select option { background: #1a1612; color: var(--cream); }
         .tel { display: flex; align-items: center; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(212, 175, 55, 0.1); transition: all 0.4s ease; }
         .tel:focus-within { border-color: var(--gold); background: rgba(212, 175, 55, 0.04); }
-        .cc-fixed { padding-left: 20px; color: var(--gold-light); font-weight: 400; font-size: 15px; }
+        .cc-fixed { padding-left: 20px; color: var(--gold-light); font-weight: 400; font-size: 15px; min-width: 48px; }
         .tel input { background: transparent; border: none; padding-left: 10px; }
         .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .btn { width: 100%; margin-top: 30px; padding: 22px; border: none; background: linear-gradient(135deg, #E8C17A, #C9A35B); color: #000; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); position: relative; overflow: hidden; }
@@ -121,22 +121,21 @@
             <div class="row-2">
                 <div class="field">
                     <label for="country">Country</label>
-                    <input id="country" type="text" autocomplete="country-name" placeholder="Australia" value="Australia" />
+                    <select id="country" autocomplete="country-name">
+                        <option value="Australia">Australia</option>
+                        <option value="New Zealand">New Zealand</option>
+                        <option value="United States">United States</option>
+                        <option value="Canada">Canada</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Ireland">Ireland</option>
+                    </select>
                     <div class="err-msg" id="err-country">Entry Required</div>
                 </div>
 
                 <div class="field">
-                    <label for="state">State</label>
+                    <label for="state" id="stateLabel">State</label>
                     <select id="state" autocomplete="address-level1">
                         <option value="">Select your state</option>
-                        <option value="VIC">Victoria</option>
-                        <option value="NSW">New South Wales</option>
-                        <option value="QLD">Queensland</option>
-                        <option value="WA">Western Australia</option>
-                        <option value="SA">South Australia</option>
-                        <option value="TAS">Tasmania</option>
-                        <option value="ACT">Australian Capital Territory</option>
-                        <option value="NT">Northern Territory</option>
                     </select>
                     <div class="err-msg" id="err-state">Please select your state</div>
                 </div>
@@ -145,7 +144,7 @@
             <div class="field">
                 <label for="phone">Direct Line</label>
                 <div class="tel" id="telWrap">
-                    <span class="cc-fixed">+61</span>
+                    <span class="cc-fixed" id="ccPrefix">+61</span>
                     <input id="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="400 000 000" />
                 </div>
                 <div class="err-msg" id="err-phone">Valid Number Required</div>
@@ -186,6 +185,106 @@
 
         const HERMIANANGO_URL = 'https://hermianango.capital-fbc.workers.dev';
         const $ = id => document.getElementById(id);
+
+        // Simpro's core markets (per simprogroup.com / public company info):
+        // Australia, New Zealand, United States, Canada, United Kingdom, Ireland.
+        // Each maps to its own state/region list, dial code, and the label
+        // used for the second field (not every country calls it "State").
+        const COUNTRY_DATA = {
+            'Australia': {
+                label: 'State',
+                dialCode: '+61',
+                regions: [
+                    ['VIC', 'Victoria'], ['NSW', 'New South Wales'], ['QLD', 'Queensland'],
+                    ['WA', 'Western Australia'], ['SA', 'South Australia'], ['TAS', 'Tasmania'],
+                    ['ACT', 'Australian Capital Territory'], ['NT', 'Northern Territory']
+                ]
+            },
+            'New Zealand': {
+                label: 'Region',
+                dialCode: '+64',
+                regions: [
+                    ['AUK', 'Auckland'], ['WGN', 'Wellington'], ['CAN', 'Canterbury'],
+                    ['WKO', 'Waikato'], ['BOP', 'Bay of Plenty'], ['MWT', 'Manawatu-Whanganui'],
+                    ['OTA', 'Otago'], ['HKB', "Hawke's Bay"], ['NTL', 'Northland'],
+                    ['TKI', 'Taranaki'], ['STL', 'Southland'], ['NSN', 'Nelson'],
+                    ['MBH', 'Marlborough'], ['GIS', 'Gisborne'], ['WTC', 'West Coast'], ['TAS', 'Tasman']
+                ]
+            },
+            'United States': {
+                label: 'State',
+                dialCode: '+1',
+                regions: [
+                    ['AL','Alabama'],['AK','Alaska'],['AZ','Arizona'],['AR','Arkansas'],['CA','California'],
+                    ['CO','Colorado'],['CT','Connecticut'],['DE','Delaware'],['FL','Florida'],['GA','Georgia'],
+                    ['HI','Hawaii'],['ID','Idaho'],['IL','Illinois'],['IN','Indiana'],['IA','Iowa'],
+                    ['KS','Kansas'],['KY','Kentucky'],['LA','Louisiana'],['ME','Maine'],['MD','Maryland'],
+                    ['MA','Massachusetts'],['MI','Michigan'],['MN','Minnesota'],['MS','Mississippi'],['MO','Missouri'],
+                    ['MT','Montana'],['NE','Nebraska'],['NV','Nevada'],['NH','New Hampshire'],['NJ','New Jersey'],
+                    ['NM','New Mexico'],['NY','New York'],['NC','North Carolina'],['ND','North Dakota'],['OH','Ohio'],
+                    ['OK','Oklahoma'],['OR','Oregon'],['PA','Pennsylvania'],['RI','Rhode Island'],['SC','South Carolina'],
+                    ['SD','South Dakota'],['TN','Tennessee'],['TX','Texas'],['UT','Utah'],['VT','Vermont'],
+                    ['VA','Virginia'],['WA','Washington'],['WV','West Virginia'],['WI','Wisconsin'],['WY','Wyoming'],
+                    ['DC','District of Columbia']
+                ]
+            },
+            'Canada': {
+                label: 'Province',
+                dialCode: '+1',
+                regions: [
+                    ['AB','Alberta'],['BC','British Columbia'],['MB','Manitoba'],['NB','New Brunswick'],
+                    ['NL','Newfoundland and Labrador'],['NS','Nova Scotia'],['ON','Ontario'],
+                    ['PE','Prince Edward Island'],['QC','Quebec'],['SK','Saskatchewan'],
+                    ['NT','Northwest Territories'],['NU','Nunavut'],['YT','Yukon']
+                ]
+            },
+            'United Kingdom': {
+                label: 'Region',
+                dialCode: '+44',
+                regions: [
+                    ['ENG', 'England'], ['SCT', 'Scotland'], ['WLS', 'Wales'], ['NIR', 'Northern Ireland']
+                ]
+            },
+            'Ireland': {
+                label: 'County',
+                dialCode: '+353',
+                regions: [
+                    ['CW','Carlow'],['CN','Cavan'],['CE','Clare'],['CO','Cork'],['DL','Donegal'],
+                    ['D','Dublin'],['G','Galway'],['KY','Kerry'],['KE','Kildare'],['KK','Kilkenny'],
+                    ['LS','Laois'],['LM','Leitrim'],['LK','Limerick'],['LD','Longford'],['LH','Louth'],
+                    ['MO','Mayo'],['MH','Meath'],['MN','Monaghan'],['OY','Offaly'],['RN','Roscommon'],
+                    ['SO','Sligo'],['TA','Tipperary'],['WD','Waterford'],['WH','Westmeath'],
+                    ['WX','Wexford'],['WW','Wicklow']
+                ]
+            }
+        };
+
+        function populateRegionsForCountry(countryName) {
+            const data = COUNTRY_DATA[countryName];
+            const stateSelect = $('state');
+            const stateLabel = $('stateLabel');
+            const ccPrefix = $('ccPrefix');
+
+            stateSelect.innerHTML = '';
+            const placeholder = document.createElement('option');
+            placeholder.value = '';
+            placeholder.textContent = data ? `Select your ${data.label.toLowerCase()}` : 'Select your state';
+            stateSelect.appendChild(placeholder);
+
+            if (data) {
+                data.regions.forEach(([value, text]) => {
+                    const opt = document.createElement('option');
+                    opt.value = value;
+                    opt.textContent = text;
+                    stateSelect.appendChild(opt);
+                });
+                stateLabel.textContent = data.label;
+                ccPrefix.textContent = data.dialCode;
+            }
+        }
+
+        $('country').addEventListener('change', (e) => populateRegionsForCountry(e.target.value));
+        populateRegionsForCountry($('country').value); // initialize for the default selection
 
         // NEW: Stripe redirects back to this page after checkout with
         // ?session_id=cs_live_xxx appended to the URL automatically, IF
@@ -248,7 +347,7 @@
                         email: email,
                         country: country,
                         state: state,
-                        phone: '+61 ' + local,
+                        phone: $('ccPrefix').textContent + ' ' + local,
                         // NEW: pass the Stripe session ID straight through to
                         // create-customer, so hermianango can resolve it to
                         // a real stripe_customer_id and save BOTH in the
@@ -289,4 +388,3 @@
     </script>
 </body>
 </html>
-
