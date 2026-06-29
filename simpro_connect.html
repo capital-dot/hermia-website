@@ -7,10 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
-<script type="module">
-  import Nango from 'https://cdn.jsdelivr.net/npm/@nangohq/frontend@0.70.7/+esm';
-  window.Nango = Nango;
-</script>
 <style>
   :root{--bg:#050505;--gold:#c4963c;--gold-light:#d9aa52;--cream:#f4f0e6;--soft:#b0ada5;--muted:#7a7470;--border:rgba(196,150,60,0.14);--display:"Cormorant Garamond",serif;}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -126,7 +122,7 @@
 
     <button class="btn" id="connectBtn">Connect Simpro</button>
     <div class="error-banner" id="errorBanner"></div>
-    <div class="powered">Secured by Nango Protocol</div>
+    <div class="powered">Secured connection &bull; OAuth 2.0</div>
   </div>
 </div>
 
@@ -153,10 +149,20 @@
   const platformRow = document.getElementById('platformRow');
   const urlPreview = document.getElementById('urlPreview');
   const customerId = sessionStorage.getItem('hermia_customer_id');
-  const email = sessionStorage.getItem('hermia_email');
 
   let selectedDomain = 'simprosuite.com';
-  let sessionToken = null;
+
+  // Basic cleanup: trim, lowercase, strip anything that isn't a valid
+  // subdomain character. Prevents pasted full URLs (https://, trailing
+  // slashes, the domain suffix itself) from breaking the auth call.
+  function sanitizeBuildName(raw) {
+    let v = (raw || '').trim().toLowerCase();
+    v = v.replace(/^https?:\/\//, '');
+    v = v.replace(/\.(simprosuite|simprocloud)\.com.*$/, '');
+    v = v.replace(/\/.*$/, '');
+    v = v.replace(/[^a-z0-9-]/g, '');
+    return v;
+  }
 
   function updatePreview() {
     const name = sanitizeBuildName(buildNameInput.value) || 'yourcompany';
@@ -180,69 +186,14 @@
     btn.textContent = 'Connect Simpro';
   }
 
-  function getNangoClass() {
-    return window.Nango || window.NangoFrontend;
-  }
-
-  // Basic cleanup: trim, lowercase, strip anything that isn't a valid
-  // subdomain character. Prevents pasted full URLs (https://, trailing
-  // slashes, the domain suffix itself) from breaking the auth call.
-  function sanitizeBuildName(raw) {
-    let v = (raw || '').trim().toLowerCase();
-    v = v.replace(/^https?:\/\//, '');
-    v = v.replace(/\.(simprosuite|simprocloud)\.com.*$/, '');
-    v = v.replace(/\/.*$/, '');
-    v = v.replace(/[^a-z0-9-]/g, '');
-    return v;
-  }
-
-  async function prefetchToken() {
-    if (!customerId) return;
-    try {
-      const res = await fetch(WORKER, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ customerId, integration: 'simpro', email: email || undefined })
-      });
-      const data = await res.json();
-      if (data && data.sessionToken) {
-        sessionToken = data.sessionToken;
-      }
-    } catch(e) {
-      console.error('prefetch error:', e);
-    }
-  }
-
-  async function handleConnectionEstablished(connectionId) {
-    // Same post-connection logic as before: persist the connection id,
-    // register the webhook, then move on to the company picker.
-    btn.innerHTML = '<div class="spinner"></div> Saving…';
-
-    if (!connectionId) {
-      console.error('[simpro-connect] No connectionId returned from nango.auth() — skipping register-webhook call entirely');
-    } else {
-      sessionStorage.setItem('hermia_connection_id', connectionId);
-      try {
-        const regRes = await fetch(WORKER + '/register-webhook', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ customerId, connectionId })
-        });
-        const regText = await regRes.text();
-        console.log('[simpro-connect] register-webhook response status:', regRes.status, '| body:', regText);
-      } catch(e) {
-        console.error('[simpro-connect] register-webhook network error:', e);
-      }
-    }
-
-    document.body.style.transition = 'opacity 0.8s ease';
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-      window.location.href = 'https://onboarding.hermia.au/company.html';
-    }, 800);
-  }
-
-  btn.addEventListener('click', async () => {
+  // Both simprosuite.com and simprocloud.com now go through our own Worker
+  // (see simpro-auth-worker.js), not Nango's Connect UI or SDK. Nango's
+  // Simpro provider template can only build *.simprosuite.com authorization
+  // URLs (confirmed via a "Missing Connection Config" console error showing
+  // the hardcoded template string), so our Worker builds the login URL
+  // itself for whichever domain the contractor selects, and handles the
+  // full OAuth exchange + token storage server-side.
+  btn.addEventListener('click', () => {
     if (!customerId) { showError('Session expired. Please restart onboarding from the beginning.'); return; }
 
     const buildName = sanitizeBuildName(buildNameInput.value);
@@ -251,83 +202,37 @@
       buildNameInput.focus();
       return;
     }
-    const domain = selectedDomain; // 'simprosuite.com' or 'simprocloud.com'
-
-    // Nango's Simpro provider template only builds URLs against
-    // *.simprosuite.com (confirmed via the "Missing Connection Config"
-    // console error, which showed the literal template string
-    // https://${connectionConfig.build}.simprosuite.com/oauth2/login).
-    // There is currently no way to target simprocloud.com through this
-    // integration — block it here with a clear message instead of letting
-    // the contractor hit Nango's generic "Connection failed" screen.
-    if (domain === 'simprocloud.com') {
-      showError('Simprocloud.com accounts aren\u2019t supported yet — we\u2019re working on this with our integration partner. Please contact us if this affects you, or select simprosuite.com if you\u2019re unsure which platform you\u2019re on.');
-      return;
-    }
 
     errorBanner.classList.remove('visible');
     btn.disabled = true;
     btn.innerHTML = '<div class="spinner"></div> Connecting…';
 
-    try {
-      // Fetch token if not already prefetched
-      if (!sessionToken) {
-        const res = await fetch(WORKER, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ customerId, integration: 'simpro', email: email || undefined })
-        });
-        const data = await res.json();
-        if (!data || !data.sessionToken) throw new Error(data.error || 'No session token');
-        sessionToken = data.sessionToken;
-      }
+    const authStartUrl = new URL(WORKER + '/simpro/auth-start');
+    authStartUrl.searchParams.set('build', buildName);
+    authStartUrl.searchParams.set('domain', selectedDomain);
+    authStartUrl.searchParams.set('customerId', customerId);
 
-      const NangoClass = getNangoClass();
-      if (!NangoClass) throw new Error('Nango SDK not loaded');
-
-      const nangoInstance = new NangoClass({ connectSessionToken: sessionToken });
-
-      // Headless auth: bypass Nango's pre-built Connect UI (which hardcodes
-      // .simprosuite.com) and pass the build name directly as connection
-      // config. Confirmed via console error that Nango's Simpro template
-      // expects the key "build" (not "subdomain") and interpolates it as
-      // https://${connectionConfig.build}.simprosuite.com — so only the
-      // bare build name is passed here, not a combined domain string.
-      // No connectionId argument needed: with a connectSessionToken, Nango
-      // generates one and returns it in the result.
-      const result = await nangoInstance.auth('simpro', {
-        params: { build: buildName }
-      });
-
-      console.log('[simpro-connect] nango.auth() result:', JSON.stringify(result));
-
-      const connectionId =
-        (result && result.connectionId) ||
-        (result && result.payload && result.payload.connectionId) ||
-        null;
-
-      console.log('[simpro-connect] extracted connectionId:', connectionId);
-
-      await handleConnectionEstablished(connectionId);
-
-    } catch(e) {
-      console.error('connect error:', e);
-      sessionToken = null;
-      const msg = (e && e.message) ? e.message : '';
-      if (/closed/i.test(msg)) {
-        // User closed the popup — let them try again without an error banner.
-        btn.disabled = false;
-        btn.textContent = 'Connect Simpro';
-        prefetchToken();
-      } else {
-        showError('Unable to start the Simpro connection. Please check your build name and try again.');
-        prefetchToken();
-      }
-    }
+    // Full-page redirect: the Worker builds the real Simpro login URL and
+    // sends the browser there directly. After login, Simpro redirects back
+    // to the Worker's callback, which exchanges the code, stores the
+    // tokens, and redirects on to company.html?connectionId=... itself.
+    window.location.href = authStartUrl.toString();
   });
 
-  prefetchToken();
+  // If the Worker bounced us back here with an error (see
+  // redirectWithError in simpro-auth-worker.js), show a friendly message.
+  (function checkForAuthError() {
+    const params = new URLSearchParams(window.location.search);
+    const err = params.get('error');
+    if (!err) return;
+    const messages = {
+      missing_code_or_state: 'Something went wrong starting the connection. Please try again.',
+      expired_or_invalid_state: 'That connection attempt expired. Please try again.',
+      token_exchange_failed: 'We couldn\u2019t verify your Simpro login. Please check your build name and try again.',
+      refresh_failed_reconnect_required: 'Your Simpro connection needs to be re-authorized. Please connect again.'
+    };
+    showError(messages[err] || 'Something went wrong connecting to Simpro. Please try again.');
+  })();
 </script>
 </body>
 </html>
-
