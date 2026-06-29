@@ -46,6 +46,19 @@
   .info-box{border:1px solid rgba(196,150,60,0.1);border-radius:2px;padding:22px;background:rgba(196,150,60,0.03);font-size:14px;line-height:1.6;color:var(--soft);margin-bottom:40px;position:relative}
   .info-box::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold)}
   .info-box strong{color:var(--cream);font-weight:500}
+
+  /* --- Simpro build-name field (replaces the old hardcoded Nango form) --- */
+  .field-group{margin-bottom:28px}
+  .field-label{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin-bottom:10px;font-weight:500}
+  .field-hint{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.5}
+  .build-row{display:flex;align-items:stretch;border:1px solid var(--border);border-radius:4px;background:rgba(255,255,255,0.02);overflow:hidden;transition:border-color .2s}
+  .build-row:focus-within{border-color:var(--gold-light)}
+  .build-prefix{display:flex;align-items:center;padding:0 14px;font-size:14px;color:var(--muted);background:rgba(255,255,255,0.02);border-right:1px solid var(--border);white-space:nowrap}
+  .build-input{flex:1;min-width:0;background:transparent;border:none;outline:none;color:var(--cream);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:400;padding:16px 12px}
+  .build-input::placeholder{color:var(--muted)}
+  .domain-select{flex:0 0 auto;background:rgba(255,255,255,0.02);border:none;border-left:1px solid var(--border);outline:none;color:var(--cream);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;padding:16px 14px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b0ada5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+  .domain-select option{background:#0a0a0a;color:var(--cream)}
+
   .btn{position:relative;overflow:hidden;width:100%;padding:20px;border:none;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#000;background:linear-gradient(135deg,var(--gold-light),var(--gold));transition:all .3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 15px 35px rgba(196,150,60,0.25);display:flex;align-items:center;justify-content:center;gap:12px}
   .btn:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 20px 50px rgba(196,150,60,0.4)}
   .btn:disabled{opacity:.6;cursor:not-allowed}
@@ -54,7 +67,7 @@
   .powered{margin-top:28px;display:flex;align-items:center;justify-content:center;gap:10px;color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
   .error-banner{display:none;margin-top:20px;padding:14px 20px;border-radius:2px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.2);color:#ef4444;font-size:13px;line-height:1.5;text-align:center}
   .error-banner.visible{display:block}
-  @media(max-width:480px){.card{padding:40px 24px}h1{font-size:36px}.steps{max-width:100%}.step .label{display:none}}
+  @media(max-width:480px){.card{padding:40px 24px}h1{font-size:36px}.steps{max-width:100%}.step .label{display:none}.build-row{flex-wrap:wrap}.build-prefix{border-right:none;border-bottom:1px solid var(--border);width:100%}.domain-select{border-left:none;border-top:1px solid var(--border);width:100%}}
 </style>
 </head>
 <body>
@@ -81,6 +94,20 @@
     <div class="info-box">
       Hermia creates and updates <strong>job leads, customers, and sites</strong> in your Simpro build, using the access level set on your Simpro connection. It never touches invoices, payroll, or financial data.
     </div>
+
+    <div class="field-group">
+      <label class="field-label" for="buildName">Your Simpro build URL</label>
+      <div class="build-row">
+        <span class="build-prefix">https://</span>
+        <input type="text" id="buildName" class="build-input" placeholder="yourcompany" autocomplete="off" autocapitalize="off" spellcheck="false" />
+        <select id="domainSelect" class="domain-select" aria-label="Simpro domain">
+          <option value="simprosuite.com">.simprosuite.com</option>
+          <option value="simprocloud.com">.simprocloud.com</option>
+        </select>
+      </div>
+      <p class="field-hint">This is the subdomain part of the URL you use to log in to Simpro — for example, <em>yourcompany</em> in yourcompany.simprosuite.com.</p>
+    </div>
+
     <button class="btn" id="connectBtn">Connect Simpro</button>
     <div class="error-banner" id="errorBanner"></div>
     <div class="powered">Secured by Nango Protocol</div>
@@ -106,6 +133,8 @@
   const WORKER = 'https://hermianango.capital-fbc.workers.dev';
   const btn = document.getElementById('connectBtn');
   const errorBanner = document.getElementById('errorBanner');
+  const buildNameInput = document.getElementById('buildName');
+  const domainSelect = document.getElementById('domainSelect');
   const customerId = sessionStorage.getItem('hermia_customer_id');
   const email = sessionStorage.getItem('hermia_email');
 
@@ -120,6 +149,18 @@
 
   function getNangoClass() {
     return window.Nango || window.NangoFrontend;
+  }
+
+  // Basic cleanup: trim, lowercase, strip anything that isn't a valid
+  // subdomain character. Prevents pasted full URLs (https://, trailing
+  // slashes, the domain suffix itself) from breaking the auth call.
+  function sanitizeBuildName(raw) {
+    let v = (raw || '').trim().toLowerCase();
+    v = v.replace(/^https?:\/\//, '');
+    v = v.replace(/\.(simprosuite|simprocloud)\.com.*$/, '');
+    v = v.replace(/\/.*$/, '');
+    v = v.replace(/[^a-z0-9-]/g, '');
+    return v;
   }
 
   async function prefetchToken() {
@@ -139,8 +180,46 @@
     }
   }
 
+  async function handleConnectionEstablished(connectionId) {
+    // Same post-connection logic as before: persist the connection id,
+    // register the webhook, then move on to the company picker.
+    btn.innerHTML = '<div class="spinner"></div> Saving…';
+
+    if (!connectionId) {
+      console.error('[simpro-connect] No connectionId returned from nango.auth() — skipping register-webhook call entirely');
+    } else {
+      sessionStorage.setItem('hermia_connection_id', connectionId);
+      try {
+        const regRes = await fetch(WORKER + '/register-webhook', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ customerId, connectionId })
+        });
+        const regText = await regRes.text();
+        console.log('[simpro-connect] register-webhook response status:', regRes.status, '| body:', regText);
+      } catch(e) {
+        console.error('[simpro-connect] register-webhook network error:', e);
+      }
+    }
+
+    document.body.style.transition = 'opacity 0.8s ease';
+    document.body.style.opacity = '0';
+    setTimeout(() => {
+      window.location.href = 'https://onboarding.hermia.au/company.html';
+    }, 800);
+  }
+
   btn.addEventListener('click', async () => {
     if (!customerId) { showError('Session expired. Please restart onboarding from the beginning.'); return; }
+
+    const buildName = sanitizeBuildName(buildNameInput.value);
+    if (!buildName) {
+      showError('Please enter your Simpro build name before connecting.');
+      buildNameInput.focus();
+      return;
+    }
+    const domain = domainSelect.value; // 'simprosuite.com' or 'simprocloud.com'
+    const subdomain = `${buildName}.${domain}`;
 
     errorBanner.classList.remove('visible');
     btn.disabled = true;
@@ -164,69 +243,39 @@
 
       const nangoInstance = new NangoClass({ connectSessionToken: sessionToken });
 
-      nangoInstance.openConnectUI({
-        onEvent: async (event) => {
-          if (event.type === 'connect') {
-            // DEBUG: log the full event shape so we can see exactly where
-            // connectionId actually lives in Nango's real payload, and
-            // confirm register-webhook's actual response instead of
-            // assuming success. Safe to leave in — only logs to console,
-            // never shown to the contractor.
-            console.log('[simpro-connect] full Nango event:', JSON.stringify(event));
-
-            const connectionId =
-              (event.payload && event.payload.connectionId) ||
-              event.connectionId ||
-              event.connection_id ||
-              null;
-
-            console.log('[simpro-connect] extracted connectionId:', connectionId);
-
-            btn.innerHTML = '<div class="spinner"></div> Saving…';
-
-            if (!connectionId) {
-              console.error('[simpro-connect] NO connectionId found in event — skipping register-webhook call entirely');
-            } else {
-              // Save connectionId so company.html (the next screen) can
-              // call /list-simpro-companies with it. This was missing
-              // before — company.html had nothing to read.
-              sessionStorage.setItem('hermia_connection_id', connectionId);
-
-              try {
-                const regRes = await fetch(WORKER + '/register-webhook', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ customerId, connectionId })
-                });
-                const regText = await regRes.text();
-                console.log('[simpro-connect] register-webhook response status:', regRes.status, '| body:', regText);
-              } catch(e) {
-                console.error('[simpro-connect] register-webhook network error:', e);
-              }
-            }
-
-            document.body.style.transition = 'opacity 0.8s ease';
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-              // Redirect to the company picker, not straight to gmail.html.
-              // The contractor must actively choose their Simpro company
-              // before moving on — company.html handles that, then
-              // forwards to gmail.html itself once they confirm.
-              window.location.href = 'https://onboarding.hermia.au/company.html';
-            }, 800);
-
-          } else if (event.type === 'close') {
-            sessionToken = null;
-            btn.disabled = false;
-            btn.textContent = 'Connect Simpro';
-            prefetchToken();
-          }
-        }
+      // Headless auth: bypass Nango's pre-built Connect UI (which hardcodes
+      // .simprosuite.com) and pass the full subdomain — including whichever
+      // domain the contractor selected — directly as connection config.
+      // No connectionId argument needed: with a connectSessionToken, Nango
+      // generates one and returns it in the result.
+      const result = await nangoInstance.auth('simpro', {
+        params: { subdomain: subdomain }
       });
+
+      console.log('[simpro-connect] nango.auth() result:', JSON.stringify(result));
+
+      const connectionId =
+        (result && result.connectionId) ||
+        (result && result.payload && result.payload.connectionId) ||
+        null;
+
+      console.log('[simpro-connect] extracted connectionId:', connectionId);
+
+      await handleConnectionEstablished(connectionId);
 
     } catch(e) {
       console.error('connect error:', e);
-      showError('Unable to start the Simpro connection. Please try again.');
+      sessionToken = null;
+      const msg = (e && e.message) ? e.message : '';
+      if (/closed/i.test(msg)) {
+        // User closed the popup — let them try again without an error banner.
+        btn.disabled = false;
+        btn.textContent = 'Connect Simpro';
+        prefetchToken();
+      } else {
+        showError('Unable to start the Simpro connection. Please check your build name and try again.');
+        prefetchToken();
+      }
     }
   });
 
