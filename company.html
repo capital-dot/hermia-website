@@ -86,6 +86,28 @@ const NEXT_PAGE = 'https://onboarding.hermia.au/gmail.html';
 let selectedCompanyId = null;
 let companies = [];
 
+// NEW: the direct Simpro OAuth flow (simpro-auth-worker) redirects here
+// server-side after login, which means sessionStorage from the previous
+// page does NOT carry over automatically — sessionStorage is per-page,
+// and a server redirect is a fresh navigation, not a client-side one.
+// So the Worker's callback now appends connectionId AND customerId as
+// URL query params on this redirect specifically so we can restore them
+// here. The old Nango flow set these directly via JS before redirecting,
+// so this only matters for the new direct-auth path — but it's safe to
+// run unconditionally either way, since it just re-saves the same values.
+(function restoreSessionFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const urlConnectionId = params.get('connectionId');
+    const urlCustomerId   = params.get('customerId');
+
+    if (urlConnectionId) {
+        sessionStorage.setItem('hermia_connection_id', urlConnectionId);
+    }
+    if (urlCustomerId) {
+        sessionStorage.setItem('hermia_customer_id', urlCustomerId);
+    }
+})();
+
 function getConnectionId() {
     return sessionStorage.getItem('hermia_connection_id');
 }
@@ -170,6 +192,30 @@ function loadCompanies() {
     const connectionId = getConnectionId();
     if (!connectionId) { renderError('Session expired. Please restart onboarding.'); return; }
 
+    // NEW: connections made through the direct Simpro OAuth flow (used for
+    // both simprosuite.com and simprocloud.com builds) are stored in this
+    // Worker's own KV store, not in Nango — so they must be looked up via
+    // /simpro-direct/list-companies, not the old Nango-based
+    // /list-simpro-companies. We try the direct endpoint first since it's
+    // the current path for all new connections, and fall back to the old
+    // Nango endpoint only if that lookup fails — covering any
+    // connectionId that was created before this change.
+    fetch(WORKER + '/simpro-direct/list-companies?connectionId=' + encodeURIComponent(connectionId))
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+            if (data && data.ok && Array.isArray(data.companies)) {
+                companies = data.companies;
+                renderCompanies();
+            } else {
+                return loadCompaniesViaNangoFallback(connectionId);
+            }
+        })
+        .catch(function () {
+            return loadCompaniesViaNangoFallback(connectionId);
+        });
+}
+
+function loadCompaniesViaNangoFallback(connectionId) {
     fetch(WORKER + '/list-simpro-companies?connectionId=' + encodeURIComponent(connectionId))
         .then(function (r) { return r.json(); })
         .then(function (data) {
