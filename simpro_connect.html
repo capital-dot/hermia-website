@@ -50,14 +50,26 @@
   /* --- Simpro build-name field (replaces the old hardcoded Nango form) --- */
   .field-group{margin-bottom:28px}
   .field-label{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin-bottom:10px;font-weight:500}
-  .field-hint{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.5}
-  .build-row{display:flex;align-items:stretch;border:1px solid var(--border);border-radius:4px;background:rgba(255,255,255,0.02);overflow:hidden;transition:border-color .2s}
-  .build-row:focus-within{border-color:var(--gold-light)}
-  .build-prefix{display:flex;align-items:center;padding:0 14px;font-size:14px;color:var(--muted);background:rgba(255,255,255,0.02);border-right:1px solid var(--border);white-space:nowrap}
-  .build-input{flex:1;min-width:0;background:transparent;border:none;outline:none;color:var(--cream);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:400;padding:16px 12px}
+  .field-hint{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.5}
+
+  /* Row 1: https:// + build name input */
+  .build-input-row{display:flex;align-items:stretch;border:1px solid var(--border);border-radius:4px;background:rgba(255,255,255,0.02);overflow:hidden;transition:border-color .2s}
+  .build-input-row:focus-within{border-color:var(--gold-light)}
+  .build-prefix{display:flex;align-items:center;padding:0 14px;font-size:14px;color:var(--muted);background:rgba(255,255,255,0.03);border-right:1px solid var(--border);white-space:nowrap;flex-shrink:0}
+  .build-input{flex:1;min-width:0;background:transparent;border:none;outline:none;color:var(--cream);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:400;padding:16px 14px}
   .build-input::placeholder{color:var(--muted)}
-  .domain-select{flex:0 0 auto;background:rgba(255,255,255,0.02);border:none;border-left:1px solid var(--border);outline:none;color:var(--cream);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;padding:16px 14px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b0ada5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
-  .domain-select option{background:#0a0a0a;color:var(--cream)}
+
+  /* Row 2: platform toggle (two buttons, not a native select — avoids
+     the OS-rendered dropdown clipping/overlapping on dark backgrounds) */
+  .platform-row{display:flex;gap:10px;margin-top:10px}
+  .platform-btn{flex:1;padding:13px 10px;border:1px solid var(--border);border-radius:4px;background:rgba(255,255,255,0.02);color:var(--soft);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:.02em;cursor:pointer;transition:all .2s;text-align:center}
+  .platform-btn:hover{border-color:rgba(196,150,60,0.35);color:var(--cream)}
+  .platform-btn.selected{border-color:var(--gold-light);background:rgba(196,150,60,0.08);color:var(--gold-light);font-weight:600}
+
+  /* Live preview of the full resolved URL, so there's no ambiguity
+     about what will actually be sent before they click Connect */
+  .url-preview{margin-top:14px;padding:12px 14px;border-radius:4px;background:rgba(255,255,255,0.015);border:1px dashed var(--border);font-size:13px;color:var(--muted);word-break:break-all}
+  .url-preview strong{color:var(--gold-light);font-weight:500}
 
   .btn{position:relative;overflow:hidden;width:100%;padding:20px;border:none;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#000;background:linear-gradient(135deg,var(--gold-light),var(--gold));transition:all .3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 15px 35px rgba(196,150,60,0.25);display:flex;align-items:center;justify-content:center;gap:12px}
   .btn:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 20px 50px rgba(196,150,60,0.4)}
@@ -67,7 +79,7 @@
   .powered{margin-top:28px;display:flex;align-items:center;justify-content:center;gap:10px;color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
   .error-banner{display:none;margin-top:20px;padding:14px 20px;border-radius:2px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.2);color:#ef4444;font-size:13px;line-height:1.5;text-align:center}
   .error-banner.visible{display:block}
-  @media(max-width:480px){.card{padding:40px 24px}h1{font-size:36px}.steps{max-width:100%}.step .label{display:none}.build-row{flex-wrap:wrap}.build-prefix{border-right:none;border-bottom:1px solid var(--border);width:100%}.domain-select{border-left:none;border-top:1px solid var(--border);width:100%}}
+  @media(max-width:480px){.card{padding:40px 24px}h1{font-size:36px}.steps{max-width:100%}.step .label{display:none}.platform-row{flex-direction:column}}
 </style>
 </head>
 <body>
@@ -96,16 +108,20 @@
     </div>
 
     <div class="field-group">
-      <label class="field-label" for="buildName">Your Simpro build URL</label>
-      <div class="build-row">
+      <label class="field-label" for="buildName">Your Simpro build name</label>
+      <div class="build-input-row">
         <span class="build-prefix">https://</span>
         <input type="text" id="buildName" class="build-input" placeholder="yourcompany" autocomplete="off" autocapitalize="off" spellcheck="false" />
-        <select id="domainSelect" class="domain-select" aria-label="Simpro domain">
-          <option value="simprosuite.com">.simprosuite.com</option>
-          <option value="simprocloud.com">.simprocloud.com</option>
-        </select>
       </div>
-      <p class="field-hint">This is the subdomain part of the URL you use to log in to Simpro — for example, <em>yourcompany</em> in yourcompany.simprosuite.com.</p>
+
+      <div class="platform-row" id="platformRow" role="group" aria-label="Simpro platform">
+        <button type="button" class="platform-btn selected" data-domain="simprosuite.com">.simprosuite.com</button>
+        <button type="button" class="platform-btn" data-domain="simprocloud.com">.simprocloud.com</button>
+      </div>
+
+      <div class="url-preview" id="urlPreview">https://<strong>yourcompany</strong>.simprosuite.com</div>
+
+      <p class="field-hint">This is the subdomain part of the URL you use to log in to Simpro — for example, <em>yourcompany</em> in yourcompany.simprosuite.com. Not sure which platform? Check the address bar when you're logged in to Simpro.</p>
     </div>
 
     <button class="btn" id="connectBtn">Connect Simpro</button>
@@ -134,11 +150,28 @@
   const btn = document.getElementById('connectBtn');
   const errorBanner = document.getElementById('errorBanner');
   const buildNameInput = document.getElementById('buildName');
-  const domainSelect = document.getElementById('domainSelect');
+  const platformRow = document.getElementById('platformRow');
+  const urlPreview = document.getElementById('urlPreview');
   const customerId = sessionStorage.getItem('hermia_customer_id');
   const email = sessionStorage.getItem('hermia_email');
 
+  let selectedDomain = 'simprosuite.com';
   let sessionToken = null;
+
+  function updatePreview() {
+    const name = sanitizeBuildName(buildNameInput.value) || 'yourcompany';
+    urlPreview.innerHTML = `https://<strong>${name}</strong>.${selectedDomain}`;
+  }
+
+  platformRow.addEventListener('click', (e) => {
+    const target = e.target.closest('.platform-btn');
+    if (!target) return;
+    selectedDomain = target.dataset.domain;
+    platformRow.querySelectorAll('.platform-btn').forEach(b => b.classList.toggle('selected', b === target));
+    updatePreview();
+  });
+
+  buildNameInput.addEventListener('input', updatePreview);
 
   function showError(msg) {
     errorBanner.textContent = msg;
@@ -218,8 +251,19 @@
       buildNameInput.focus();
       return;
     }
-    const domain = domainSelect.value; // 'simprosuite.com' or 'simprocloud.com'
-    const subdomain = `${buildName}.${domain}`;
+    const domain = selectedDomain; // 'simprosuite.com' or 'simprocloud.com'
+
+    // Nango's Simpro provider template only builds URLs against
+    // *.simprosuite.com (confirmed via the "Missing Connection Config"
+    // console error, which showed the literal template string
+    // https://${connectionConfig.build}.simprosuite.com/oauth2/login).
+    // There is currently no way to target simprocloud.com through this
+    // integration — block it here with a clear message instead of letting
+    // the contractor hit Nango's generic "Connection failed" screen.
+    if (domain === 'simprocloud.com') {
+      showError('Simprocloud.com accounts aren\u2019t supported yet — we\u2019re working on this with our integration partner. Please contact us if this affects you, or select simprosuite.com if you\u2019re unsure which platform you\u2019re on.');
+      return;
+    }
 
     errorBanner.classList.remove('visible');
     btn.disabled = true;
@@ -244,12 +288,15 @@
       const nangoInstance = new NangoClass({ connectSessionToken: sessionToken });
 
       // Headless auth: bypass Nango's pre-built Connect UI (which hardcodes
-      // .simprosuite.com) and pass the full subdomain — including whichever
-      // domain the contractor selected — directly as connection config.
+      // .simprosuite.com) and pass the build name directly as connection
+      // config. Confirmed via console error that Nango's Simpro template
+      // expects the key "build" (not "subdomain") and interpolates it as
+      // https://${connectionConfig.build}.simprosuite.com — so only the
+      // bare build name is passed here, not a combined domain string.
       // No connectionId argument needed: with a connectSessionToken, Nango
       // generates one and returns it in the result.
       const result = await nangoInstance.auth('simpro', {
-        params: { subdomain: subdomain }
+        params: { build: buildName }
       });
 
       console.log('[simpro-connect] nango.auth() result:', JSON.stringify(result));
@@ -283,3 +330,4 @@
 </script>
 </body>
 </html>
+
