@@ -178,19 +178,41 @@ nav.visible{opacity:1;pointer-events:auto}
 .partner-section h3 em{font-style:italic;color:var(--gl)}
 .partner-section p{font-size:14.5px;color:var(--soft);line-height:1.65;max-width:520px}
 .combo-section{padding:80px 48px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg3)}
-.combo-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.08fr .92fr;gap:24px;align-items:stretch}
-.combo-card{position:relative;overflow:hidden;border-radius:20px;padding:46px 40px;border:1px solid var(--bhi);box-shadow:0 24px 60px rgba(0,0,0,.4);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.combo-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
+.combo-card{position:relative;overflow:hidden;border-radius:20px;padding:46px 40px;border:1px solid var(--bhi);box-shadow:0 24px 60px rgba(0,0,0,.4);display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start;text-align:left}
 .combo-card::before,.combo-card::after{content:"";position:absolute;width:13px;height:13px;border-color:var(--gold);border-style:solid;opacity:.85}
 .combo-card::before{top:14px;right:14px;border-width:1px 1px 0 0}
 .combo-card::after{bottom:14px;left:14px;border-width:0 0 1px 1px}
-.combo-card.demo-card{background:linear-gradient(135deg,rgba(196,150,60,.07),var(--card))}
-.combo-card.partner-card{background:linear-gradient(150deg,#130c03,#111)}
-.combo-card.partner-card .partner-badge-img{margin-bottom:6px}
+.combo-card.contact-card{background:linear-gradient(135deg,rgba(196,150,60,.05),#0a0a0a)}
+.combo-card.partner-card{background:linear-gradient(150deg,#130c03,#111);align-items:center;text-align:center;justify-content:center}
+.combo-card.partner-card .partner-badge-img{margin-bottom:18px}
 .combo-card .triage-h{margin-bottom:13px}
-.video-card-frame{width:100%;background:#000;border:1px solid var(--bhi);position:relative;border-radius:10px;overflow:hidden;margin:8px 0 22px;box-shadow:0 18px 44px rgba(0,0,0,.5)}
+
+/* VIDEO CARD - enlarged */
+.video-card-frame{width:100%;background:#000;border:1px solid var(--bhi);position:relative;border-radius:10px;overflow:hidden;margin:16px 0 0;box-shadow:0 18px 44px rgba(0,0,0,.5)}
 .video-card-frame::after{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--gl),transparent);z-index:2}
-.video-card-inner{position:relative;padding-bottom:56.25%;height:0}
+.video-card-inner{position:relative;padding-bottom:62%;height:0}
 .video-card-inner iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+
+/* CONTACT CARD STYLES */
+.contact-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-family:"Inter",sans-serif;font-weight:600;margin-bottom:14px}
+.contact-heading{font-family:var(--display);font-size:clamp(28px,3.2vw,40px);font-weight:600;color:#fff;line-height:1.1;margin-bottom:8px}
+.contact-heading em{font-style:italic;color:var(--gl)}
+.contact-sub{font-size:14px;color:var(--soft);line-height:1.6;margin-bottom:28px;max-width:320px}
+.contact-info-grid{display:flex;flex-direction:column;gap:10px;width:100%}
+.contact-info-item{background:rgba(196,150,60,0.05);border:1px solid rgba(196,150,60,0.18);border-radius:8px;padding:14px 18px;display:flex;flex-direction:column;gap:3px;transition:border-color .2s}
+.contact-info-item:hover{border-color:rgba(196,150,60,0.4)}
+.contact-info-label{font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-family:"Inter",sans-serif;font-weight:700}
+.contact-info-value{font-size:14px;color:var(--cream);font-weight:400}
+.contact-info-value a{color:var(--cream);text-decoration:none;transition:color .2s}
+.contact-info-value a:hover{color:var(--gl)}
+
+/* VIDEO SECTION SUBHEADING */
+.video-section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-family:"Inter",sans-serif;font-weight:600;margin-bottom:10px}
+.video-section-heading{font-family:var(--display);font-size:clamp(24px,2.8vw,34px);font-weight:600;color:#fff;line-height:1.1;margin-bottom:4px}
+.video-section-heading em{font-style:italic;color:var(--gl)}
+.video-section-sub{font-size:13px;color:var(--soft);margin-bottom:0;font-weight:400}
+
 .benefit-split{display:grid;grid-template-columns:1fr 1.1fr;gap:32px;align-items:center;max-width:1080px;margin:0 auto}
 .benefit-text-block{text-align:left;padding:8px 4px}
 .benefit-text-block .triage-p{margin:0 0 24px;max-width:none}
@@ -270,11 +292,11 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     <span>Hermia</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#features">Features</a></li>
-    <li><a href="#triage">Live Demo</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
     <li><a href="website.html" class="nav-ws">About Us</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#how-it-works">How It Works</a></li>
     <li><a href="apply.html" class="nav-cta">Start Free Trial</a></li>
   </ul>
 </nav>
@@ -611,13 +633,49 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     </div>
 </section>
 
+  <!-- UPDATED COMBO SECTION: Contact left, Simpro partner right -->
   <section class="combo-section" id="triage">
     <div class="combo-grid">
-      <div class="combo-card demo-card" style="text-align:left;align-items:flex-start">
-        <div class="eyebrow">Customer Experience</div>
-        <h2 class="triage-h" style="text-align:left">What your customers <em>actually experience.</em></h2>
-        <p class="triage-p" style="text-align:left;margin-bottom:22px">A real conversation, answered instantly, with no waiting and no chasing.</p>
-        <div class="video-card-frame" style="margin:0">
+
+      <!-- LEFT: Contact Us -->
+      <div class="combo-card contact-card" id="contact">
+        <div class="contact-eyebrow">Contact Us</div>
+        <h2 class="contact-heading">Get in touch <em>directly.</em></h2>
+        <p class="contact-sub">Have a question before signing up? Want to talk through whether Hermia is the right fit for your business? Reach out &mdash; we respond to every message personally.</p>
+        <div class="contact-info-grid">
+          <div class="contact-info-item">
+            <span class="contact-info-label">Email</span>
+            <span class="contact-info-value"><a href="mailto:capital@hermia.au">capital@hermia.au</a></span>
+          </div>
+          <div class="contact-info-item">
+            <span class="contact-info-label">Phone</span>
+            <span class="contact-info-value"><a href="tel:+61494719401">+61 494 719 401</a></span>
+          </div>
+          <div class="contact-info-item">
+            <span class="contact-info-label">Location</span>
+            <span class="contact-info-value">Victoria, Australia</span>
+          </div>
+          <div class="contact-info-item">
+            <span class="contact-info-label">ABN</span>
+            <span class="contact-info-value">75 434 177 026</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Simpro Partner + enlarged video with subheading -->
+      <div class="combo-card partner-card" id="partner">
+        <img class="partner-badge-img" src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Registered Partner">
+        <div class="eyebrow">Trusted Integration</div>
+        <h2 class="triage-h">A Simpro <em>Technology Partner.</em></h2>
+        <p class="triage-p" style="margin-bottom:20px">Hermia is a registered Simpro technology partner &mdash; we plug straight into the Simpro workflow your business already runs on.</p>
+
+        <!-- Video with subheading -->
+        <div style="width:100%;text-align:left;margin-bottom:10px">
+          <div class="video-section-label">Customer Experience</div>
+          <div class="video-section-heading">What&rsquo;s Your Customer <em>Experience?</em></div>
+          <p class="video-section-sub">Simple Technology Partner</p>
+        </div>
+        <div class="video-card-frame" style="margin:0;width:100%">
           <div class="video-card-inner">
             <iframe src="https://www.loom.com/embed/974b195caa584b33b56140493affb335"
                     frameborder="0"
@@ -627,12 +685,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           </div>
         </div>
       </div>
-      <div class="combo-card partner-card" id="partner">
-        <img class="partner-badge-img" src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Registered Partner">
-        <div class="eyebrow">Trusted integration</div>
-        <h2 class="triage-h">A Simpro <em>Technology Partner.</em></h2>
-        <p class="triage-p" style="margin-bottom:0">Hermia is a registered Simpro technology partner &mdash; we plug straight into the Simpro workflow your business already runs on, feeding it clean, structured job data from the first homeowner message.</p>
-      </div>
+
     </div>
   </section>
 
@@ -691,14 +744,14 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
       </a>
       <div class="foot-left-meta">
         <span>Victoria, Australia</span>
-        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
       </div>
     </div>
     <div class="foot-right">
       <div class="foot-meta">ABN 75 434 177 026 &middot; <a href="mailto:capital@hermia.au">capital@hermia.au</a></div>
       <div class="foot-links">
         <a href="#pricing">Pricing</a>
-        <a href="mailto:capital@hermia.au">Contact</a>
+        <a href="#contact">Contact</a>
         <a href="/privacy">Privacy</a>
       </div>
     </div>
@@ -841,5 +894,3 @@ document.querySelectorAll(".fc, .bt-row").forEach(function(el){
 <script src="/hermia-widget.js"></script>
 </body>
 </html>
-
-
