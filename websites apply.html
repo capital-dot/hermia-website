@@ -47,11 +47,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
 @media(max-width:520px){.field-row{grid-template-columns:1fr;}}
 
-/* Phone field — simple prefix label, no toggle */
-.phone-wrap{display:flex;gap:0;align-items:stretch;}
-.phone-prefix{display:flex;align-items:center;padding:0 14px;background:#0b0b0e;border:1px solid rgba(201,163,91,0.22);border-right:none;border-radius:11px 0 0 11px;font-size:14px;font-weight:500;color:var(--gold-light);white-space:nowrap;flex-shrink:0;}
-.phone-wrap input{flex:1;border-radius:0 11px 11px 0;}
-
 .submit-btn{position:relative;overflow:hidden;width:100%;padding:18px;background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#1a1408;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:11px;cursor:pointer;transition:all 0.3s;box-shadow:0 12px 32px rgba(201,163,91,0.28);font-family:'DM Sans',sans-serif;margin-top:6px;}
 .submit-btn::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,0.55),transparent);transform:skewX(-18deg);transition:left 0.6s;}
 .submit-btn:hover{filter:brightness(1.07);transform:translateY(-2px);box-shadow:0 16px 42px rgba(201,163,91,0.42);}
@@ -59,7 +54,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 .submit-btn:disabled{opacity:0.55;cursor:not-allowed;transform:none;}
 .form-note{font-size:12px;color:var(--muted);text-align:center;margin-top:16px;font-style:italic;}
 
-/* Verify */
 .verify{display:none;text-align:center;padding:20px 0 10px;}
 .verify.show{display:block;animation:fadeUp .4s ease both;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
@@ -88,7 +82,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
     <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia">
     <span>Hermia</span>
   </a>
-  <a href="index.html" class="nav-back-btn">← Back to Site</a>
+  <a href="website.html" class="nav-back-btn">← Back to Site</a>
 </nav>
 
 <div class="page">
@@ -113,11 +107,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
           <input type="text" id="name" placeholder="Jane Smith" required>
         </div>
         <div class="field">
-          <label>WhatsApp number</label>
-          <div class="phone-wrap">
-            <span class="phone-prefix">🇦🇺 +61</span>
-            <input type="tel" id="phone" placeholder="400 000 000" required>
-          </div>
+          <label>Company size</label>
+          <select id="company_size" required>
+            <option value="" disabled selected>How many in your team?</option>
+            <option value="Solo operator">Solo operator (just me)</option>
+            <option value="2–5 staff">Small team (2–5 staff)</option>
+            <option value="6–15 staff">Medium team (6–15 staff)</option>
+            <option value="16–30 staff">Growing company (16–30 staff)</option>
+            <option value="30+ staff">Large company (30+ staff)</option>
+          </select>
         </div>
       </div>
 
@@ -179,23 +177,23 @@ function advance(id, delay) {
 }
 
 async function handleSubmit() {
-  const name     = document.getElementById('name').value.trim();
-  const phoneRaw = document.getElementById('phone').value.trim();
-  const trade    = document.getElementById('trade').value;
-  const capacity = document.getElementById('capacity').value;
+  const name         = document.getElementById('name').value.trim();
+  const trade        = document.getElementById('trade').value;
+  const company_size = document.getElementById('company_size').value;
+  const capacity     = document.getElementById('capacity').value;
 
-  if (!name)     { document.getElementById('name').focus();     return; }
-  if (!phoneRaw) { document.getElementById('phone').focus();    return; }
-  if (!trade)    { document.getElementById('trade').focus();    return; }
-  if (!capacity) { document.getElementById('capacity').focus(); return; }
+  if (!name)         { document.getElementById('name').focus();         return; }
+  if (!trade)        { document.getElementById('trade').focus();        return; }
+  if (!company_size) { document.getElementById('company_size').focus(); return; }
+  if (!capacity)     { document.getElementById('capacity').focus();     return; }
 
   document.getElementById('submitBtn').disabled = true;
 
   const applicant = {
-    market: 'Australia',
+    market:       'Australia',
     name,
-    phone:        '+61 ' + phoneRaw,
     trade,
+    company_size,
     capacity,
     submitted_at: new Date().toISOString(),
     source:       'hermia-repairs-apply'
@@ -204,7 +202,6 @@ async function handleSubmit() {
   try {
     sessionStorage.setItem('hermia_applicant', JSON.stringify(applicant));
     sessionStorage.setItem('hermia_name',   name);
-    sessionStorage.setItem('hermia_phone',  '+61 ' + phoneRaw);
     sessionStorage.setItem('hermia_market', 'Australia');
   } catch(e) {}
 
