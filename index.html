@@ -633,49 +633,15 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     </div>
 </section>
 
-  <!-- UPDATED COMBO SECTION: Contact left, Simpro partner right -->
+  <!-- RESTRUCTURED SECTION -->
   <section class="combo-section" id="triage">
-    <div class="combo-grid">
+    <div style="max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:24px;">
 
-      <!-- LEFT: Contact Us -->
-      <div class="combo-card contact-card" id="contact">
-        <div class="contact-eyebrow">Contact Us</div>
-        <h2 class="contact-heading">Get in touch <em>directly.</em></h2>
-        <p class="contact-sub">Have a question before signing up? Want to talk through whether Hermia is the right fit for your business? Reach out &mdash; we respond to every message personally.</p>
-        <div class="contact-info-grid">
-          <div class="contact-info-item">
-            <span class="contact-info-label">Email</span>
-            <span class="contact-info-value"><a href="mailto:capital@hermia.au">capital@hermia.au</a></span>
-          </div>
-          <div class="contact-info-item">
-            <span class="contact-info-label">Phone</span>
-            <span class="contact-info-value"><a href="tel:+61494719401">+61 494 719 401</a></span>
-          </div>
-          <div class="contact-info-item">
-            <span class="contact-info-label">Location</span>
-            <span class="contact-info-value">Victoria, Australia</span>
-          </div>
-          <div class="contact-info-item">
-            <span class="contact-info-label">ABN</span>
-            <span class="contact-info-value">75 434 177 026</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT: Simpro Partner + enlarged video with subheading -->
-      <div class="combo-card partner-card" id="partner">
-        <img class="partner-badge-img" src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Registered Partner">
-        <div class="eyebrow">Trusted Integration</div>
-        <h2 class="triage-h">A Simpro <em>Technology Partner.</em></h2>
-        <p class="triage-p" style="margin-bottom:20px">Hermia is a registered Simpro technology partner &mdash; we plug straight into the Simpro workflow your business already runs on.</p>
-
-        <!-- Video with subheading -->
-        <div style="width:100%;text-align:left;margin-bottom:10px">
-          <div class="video-section-label">Customer Experience</div>
-          <div class="video-section-heading">What&rsquo;s Your Customer <em>Experience?</em></div>
-          <p class="video-section-sub">Simple Technology Partner</p>
-        </div>
-        <div class="video-card-frame" style="margin:0;width:100%">
+      <!-- TOP: Full-width video with heading above -->
+      <div style="width:100%">
+        <div class="eyebrow" style="margin-bottom:10px">Customer Experience</div>
+        <h2 class="triage-h" style="margin-bottom:18px">See How Every Homeowner <em>Feels Heard.</em></h2>
+        <div class="video-card-frame" style="margin:0">
           <div class="video-card-inner">
             <iframe src="https://www.loom.com/embed/974b195caa584b33b56140493affb335"
                     frameborder="0"
@@ -686,6 +652,43 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         </div>
       </div>
 
+      <!-- BOTTOM ROW: Contact left, Simpro right -->
+      <div class="combo-grid" style="margin:0">
+
+        <!-- LEFT: Contact Us -->
+        <div class="combo-card contact-card" id="contact">
+          <div class="contact-eyebrow">Contact Us</div>
+          <h2 class="contact-heading">Get in touch <em>directly.</em></h2>
+          <p class="contact-sub">Have a question before signing up? Want to talk through whether Hermia is the right fit for your business? Reach out &mdash; we respond to every message personally.</p>
+          <div class="contact-info-grid">
+            <div class="contact-info-item">
+              <span class="contact-info-label">Email</span>
+              <span class="contact-info-value"><a href="mailto:capital@hermia.au">capital@hermia.au</a></span>
+            </div>
+            <div class="contact-info-item">
+              <span class="contact-info-label">Phone</span>
+              <span class="contact-info-value"><a href="tel:+61494719401">+61 494 719 401</a></span>
+            </div>
+            <div class="contact-info-item">
+              <span class="contact-info-label">Location</span>
+              <span class="contact-info-value">Victoria, Australia</span>
+            </div>
+            <div class="contact-info-item">
+              <span class="contact-info-label">ABN</span>
+              <span class="contact-info-value">75 434 177 026</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Simpro Partner — untouched original -->
+        <div class="combo-card partner-card" id="partner">
+          <img class="partner-badge-img" src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Registered Partner">
+          <div class="eyebrow">Trusted integration</div>
+          <h2 class="triage-h">A Simpro <em>Technology Partner.</em></h2>
+          <p class="triage-p" style="margin-bottom:0">Hermia is a registered Simpro technology partner &mdash; we plug straight into the Simpro workflow your business already runs on, feeding it clean, structured job data from the first homeowner message.</p>
+        </div>
+
+      </div>
     </div>
   </section>
 
