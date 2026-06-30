@@ -30,7 +30,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;padding:0 48px;height:62px;d
 .nav-cta{background:linear-gradient(135deg,#9a6c28,#74511a);color:#fbf3e2;padding:9px 20px;border-radius:9px;font-weight:600;font-size:13px;text-decoration:none;transition:all .2s;box-shadow:0 6px 18px rgba(120,90,30,0.28)}
 .nav-cta:hover{transform:translateY(-1px);background:linear-gradient(135deg,#a8772c,#82591d)}
 
-/* ── Hero / Video ── */
+/* ── Hero / Triage demo ── */
 .about-hero{padding:140px 48px 80px;text-align:center;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(196,150,60,0.06),transparent 65%)}
 .about-hero-inner{max-width:860px;margin:0 auto}
 .eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-family:"Inter",sans-serif;font-weight:600;margin-bottom:18px}
@@ -38,12 +38,25 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;padding:0 48px;height:62px;d
 .hero-title em{font-style:italic;color:var(--gl)}
 .hero-sub{font-size:17px;color:var(--soft);line-height:1.7;max-width:620px;margin:0 auto 52px}
 
-/* Video */
-.video-hero-wrap{max-width:960px;margin:0 auto;position:relative}
-.video-frame{position:relative;padding-bottom:56.25%;background:#000;border:1px solid var(--bhi);box-shadow:0 40px 100px rgba(0,0,0,.8),0 0 60px rgba(196,150,60,0.08)}
-.video-frame::after{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--gl),transparent)}
-.video-frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
-.video-caption{margin-top:18px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-family:"Inter",sans-serif;text-align:center}
+/* Live Triage card (replaces hero video) */
+.triage-hero-wrap{max-width:680px;margin:0 auto}
+.triage-card{background:linear-gradient(135deg,rgba(196,150,60,.07),var(--card));border:1px solid var(--bhi);border-radius:20px;padding:48px 44px;text-align:center;position:relative;overflow:hidden;box-shadow:0 28px 66px rgba(0,0,0,.4)}
+.triage-card::before,.triage-card::after{content:"";position:absolute;width:14px;height:14px;border-color:var(--gold);border-style:solid}
+.triage-card::before{top:14px;right:14px;border-width:1px 1px 0 0}
+.triage-card::after{bottom:14px;left:14px;border-width:0 0 1px 1px}
+.triage-live{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:99px;font-size:9.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:rgba(16,185,129,.09);border:1px solid rgba(16,185,129,.28);color:var(--green);margin-bottom:18px}
+.triage-live-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.triage-h{font-family:"Cormorant Garamond",serif;font-size:clamp(24px,3.2vw,34px);font-weight:600;color:#fff;line-height:1.15;margin-bottom:12px;letter-spacing:-.3px}
+.triage-h em{font-style:italic;color:var(--gl)}
+.triage-p{font-size:14.5px;color:var(--soft);line-height:1.6;max-width:460px;margin:0 auto 24px}
+.triage-steps{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:24px;flex-wrap:wrap}
+.tstep{padding:5px 13px;border-radius:99px;font-size:10.5px;font-weight:600;border:1px solid}
+.te{background:rgba(239,68,68,.09);border-color:rgba(239,68,68,.28);color:#ef6666}
+.tc{background:rgba(196,150,60,.09);border-color:rgba(196,150,60,.28);color:var(--gl)}
+.ts{background:rgba(16,185,129,.09);border-color:rgba(16,185,129,.28);color:var(--green)}
+.btn-p{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--gl),var(--gold));color:#1a1008;padding:14px 26px;border-radius:11px;font-size:13.5px;font-weight:600;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:"DM Sans",sans-serif;box-shadow:0 10px 28px rgba(196,150,60,0.22)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(196,150,60,0.36)}
 
 /* ── About body ── */
 .about-body{max-width:1080px;margin:0 auto;padding:96px 48px}
@@ -214,6 +227,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   .cta-card{padding:40px 24px}
   footer{padding:28px 24px}
   .mission-block{padding:36px 24px}
+  .triage-card{padding:36px 24px}
 }
 @media(max-width:600px){
   .about-logo-wordmark{font-size:36px}
@@ -234,21 +248,12 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   </div>
 </nav>
 
-<!-- ── Hero + Video ── -->
+<!-- ── Hero ── -->
 <section class="about-hero">
   <div class="about-hero-inner">
     <div class="eyebrow">About Hermia</div>
     <h1 class="hero-title">The AI Service Coordinator Built for<br><em>Modern Trade Businesses</em></h1>
     <p class="hero-sub">From the moment a customer reaches out, Hermia responds, qualifies, and delivers a complete job brief into your workflow — automatically.</p>
-  </div>
-  <div class="video-hero-wrap">
-    <div class="video-frame">
-      <iframe src="https://fast.wistia.net/embed/iframe/joukqnhbxwczppp"
-              allowtransparency="true" frameborder="0" scrolling="no"
-              allowfullscreen mozallowfullscreen webkitallowfullscreen
-              oallowfullscreen msallowfullscreen></iframe>
-    </div>
-    <p class="video-caption">Hermia in action — real enquiry, real response, real job brief</p>
   </div>
 </section>
 
@@ -267,6 +272,27 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   <!-- Pull quote -->
   <div class="about-lead">
     Hermia was created to solve one of the biggest problems facing trade businesses today: managing the constant flow of customer enquiries while trying to run the actual business.
+  </div>
+
+  <!-- Crisscross: text left / Live Triage right -->
+  <div class="about-grid" style="margin-bottom:80px">
+    <div class="about-copy" style="display:flex;flex-direction:column;justify-content:center">
+      <p><strong>See it in action before you read another word.</strong> Watch Hermia qualify a homeowner end-to-end — reading damage photos, triaging urgency, and pushing a complete job brief into Simpro before you've finished your coffee.</p>
+      <p>No editing, no cherry-picking. This is what every enquiry looks like, every time.</p>
+    </div>
+    <div class="triage-card" style="margin:0">
+      <div class="triage-live"><span class="triage-live-dot"></span>Interactive Demo</div>
+      <h2 class="triage-h">See it happen. <em>Live.</em></h2>
+      <p class="triage-p">Click through Emergency, Critical, and Standard enquiries and watch the conversation play out field by field.</p>
+      <div class="triage-steps">
+        <span class="tstep te">Emergency</span>
+        <span style="color:var(--muted);font-size:12px">&rarr;</span>
+        <span class="tstep tc">Critical</span>
+        <span style="color:var(--muted);font-size:12px">&rarr;</span>
+        <span class="tstep ts">Standard</span>
+      </div>
+      <a href="hermia_triage.html" class="btn-p">Run Live Triage &rarr;</a>
+    </div>
   </div>
 
   <!-- Two-col: copy + stats -->
@@ -488,7 +514,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   <div class="cta-card">
     <h2 class="cta-title">Ready to put Hermia<br><em>to work?</em></h2>
     <p class="cta-sub">Start a 3-day free trial. No setup fee, no card required. See your first qualified job brief in Simpro within 24 hours of going live.</p>
-    <a href="website apply.html" class="btn-gold">Start Free Trial</a>
+    <a href="apply.html" class="btn-gold">Start Free Trial</a>
   </div>
 </div>
 
