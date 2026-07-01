@@ -692,361 +692,509 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     </div>
   </section>
   
-<!-- PRICING SECTION ONLY - Replace the existing pricing section in your main website with this updated version -->
 
-<!-- 1. Include the Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
-
-<!-- 2. The Pricing Section (Updated Background & Layout ) -->
+<!-- START IMPROVED PRICING SECTION -->
 <style>
-  :root {
-    --hermia-bg: #050505;
-    --hermia-bg2: #0e0e0e;
-    --hermia-card: #0f0f0f;
-    --hermia-border: rgba(196, 150, 60, 0.14);
-    --hermia-bhi: rgba(196, 150, 60, 0.35); /* From your site's CSS */
-    --hermia-gold: #c4963c;
-    --hermia-gl: #d9aa52;
-    --hermia-cream: #f4f0e6;
-    --hermia-soft: #b0ada5;
-    --hermia-muted: #7a7470;
-    --hermia-display: "Cormorant Garamond", serif;
-  }
+:root {
+  --hermia-bg: #050505;
+  --hermia-bg2: #0e0e0e;
+  --hermia-card: #0f0f0f;
+  --hermia-border: rgba(196, 150, 60, 0.14);
+  --hermia-bhi: rgba(196, 150, 60, 0.35);
+  --hermia-gold: #c4963c;
+  --hermia-gl: #d9aa52;
+  --hermia-cream: #f4f0e6;
+  --hermia-soft: #b0ada5;
+  --hermia-muted: #7a7470;
+  --hermia-display: "Cormorant Garamond", serif;
+}
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--hermia-bg);
+  color: var(--hermia-cream);
+  overflow-x: hidden;
+}
+
+/* PRICING SECTION - IMPROVED LAYOUT */
+.pricing-section {
+  padding: 120px 48px;
+  text-align: center;
+  background: linear-gradient(150deg, #130c03, #111);
+  border-top: 1px solid var(--hermia-border);
+  border-bottom: 1px solid var(--hermia-border);
+  color: var(--hermia-cream);
+  font-family: "DM Sans", sans-serif;
+  position: relative;
+}
+
+.pricing-header {
+  margin-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.eyebrow {
+  font-size: 10.5px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--hermia-gold);
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.pricing-h {
+  font-family: var(--hermia-display);
+  font-size: clamp(36px, 4.5vw, 56px);
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.4px;
+  margin-bottom: 24px;
+  line-height: 1.1;
+}
+
+.pricing-h em {
+  font-style: italic;
+  color: var(--hermia-gl);
+  font-weight: 600;
+}
+
+.pricing-sub {
+  color: var(--hermia-soft);
+  font-size: 16px;
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 1320px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+
+.p-card {
+  background: rgba(15, 15, 15, 0.95);
+  border: 1.5px solid var(--hermia-bhi);
+  border-radius: 24px;
+  padding: 56px 44px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+/* Corner accents */
+.p-card::before,
+.p-card::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--hermia-gold);
+  border-style: solid;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.p-card::before {
+  top: 16px;
+  right: 16px;
+  border-width: 2px 2px 0 0;
+}
+
+.p-card::after {
+  bottom: 16px;
+  left: 16px;
+  border-width: 0 0 2px 2px;
+}
+
+.p-card:hover {
+  border-color: var(--hermia-gold);
+  transform: translateY(-8px);
+  box-shadow: 0 36px 80px rgba(0, 0, 0, 0.5), 0 0 50px rgba(217, 170, 82, 0.15);
+}
+
+.p-card:hover::before,
+.p-card:hover::after {
+  opacity: 1;
+}
+
+/* Featured Card */
+.p-card.featured {
+  border-color: var(--hermia-gl);
+  background: linear-gradient(150deg, rgba(217, 170, 82, 0.12), rgba(15, 15, 15, 0.98));
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), 0 0 50px rgba(217, 170, 82, 0.18);
+  transform: scale(1.02);
+}
+
+.p-card.featured:hover {
+  transform: scale(1.02) translateY(-8px);
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5), 0 0 60px rgba(217, 170, 82, 0.25);
+}
+
+.p-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--hermia-gl), var(--hermia-gold));
+  color: #000;
+  padding: 8px 22px;
+  border-radius: 24px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  font-family: "DM Sans", sans-serif;
+  box-shadow: 0 8px 24px rgba(217, 170, 82, 0.3);
+}
+
+.p-card.featured .p-badge {
+  display: block;
+}
+
+.p-tier-name {
+  font-family: var(--hermia-display);
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 32px;
+  margin-top: 16px;
+  letter-spacing: -0.5px;
+}
+
+.p-price-wrap {
+  margin-bottom: 32px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(196, 150, 60, 0.18);
+}
+
+.p-price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.p-cur {
+  font-size: 22px;
+  color: var(--hermia-gl);
+  font-weight: 700;
+}
+
+.p-num {
+  font-family: var(--hermia-display);
+  font-size: 56px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+
+.p-per {
+  font-size: 14px;
+  color: var(--hermia-soft);
+  font-weight: 300;
+  letter-spacing: 0.3px;
+}
+
+.p-offer {
+  font-size: 13px;
+  color: var(--hermia-gl);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-top: 12px;
+}
+
+.p-feats {
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.p-feats li {
+  font-size: 14px;
+  color: var(--hermia-soft);
+  line-height: 1.6;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.p-feats li::before {
+  content: "✓";
+  color: var(--hermia-gl);
+  font-weight: 800;
+  flex-shrink: 0;
+  font-size: 16px;
+  margin-top: -2px;
+}
+
+.p-feats li span {
+  display: block;
+}
+
+.p-feats li span strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.p-btn {
+  background: linear-gradient(135deg, var(--hermia-gl), var(--hermia-gold));
+  color: #1a1008;
+  padding: 16px 32px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  text-align: center;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+  width: 100%;
+  box-shadow: 0 10px 28px rgba(196, 150, 60, 0.22);
+  border: none;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.p-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.p-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(196, 150, 60, 0.36);
+}
+
+.p-btn:hover::after {
+  left: 140%;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1200px) {
+  .pricing-grid {
+    gap: 28px;
+  }
+  
+  .p-card {
+    padding: 48px 36px;
+  }
+}
+
+@media (max-width: 1024px) {
   .pricing-section {
-    padding: 88px 48px;
-    text-align: center;
-    /* Matches your Simpro Partner card background exactly */
-    background: linear-gradient(150deg, #130c03, #111); 
-    border-top: 1px solid var(--hermia-border);
-    border-bottom: 1px solid var(--hermia-border);
-    color: var(--hermia-cream);
-    font-family: "DM Sans", sans-serif;
-    position: relative;
+    padding: 100px 36px;
   }
+  
+  .pricing-header {
+    margin-bottom: 60px;
+  }
+  
+  .pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .p-card.featured {
+    grid-column: 1 / -1;
+    max-width: 500px;
+    margin: 0 auto;
+    transform: scale(1);
+  }
+  
+  .p-card.featured:hover {
+    transform: scale(1) translateY(-8px);
+  }
+}
 
+@media (max-width: 768px) {
+  .pricing-section {
+    padding: 80px 24px;
+  }
+  
+  .pricing-header {
+    margin-bottom: 48px;
+  }
+  
   .pricing-h {
-    font-family: var(--hermia-display);
-    font-size: clamp(32px, 4.2vw, 50px);
-    font-weight: 600;
-    color: #fff;
-    letter-spacing: -0.4px;
+    font-size: clamp(28px, 5vw, 40px);
+    margin-bottom: 16px;
+  }
+  
+  .pricing-sub {
+    font-size: 15px;
+  }
+  
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .p-card {
+    padding: 40px 28px;
+  }
+  
+  .p-card.featured {
+    grid-column: auto;
+    max-width: 100%;
+  }
+  
+  .p-tier-name {
+    font-size: 26px;
+    margin-bottom: 24px;
+  }
+  
+  .p-num {
+    font-size: 44px;
+  }
+  
+  .p-feats {
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing-section {
+    padding: 60px 16px;
+  }
+  
+  .pricing-header {
+    margin-bottom: 40px;
+  }
+  
+  .pricing-h {
+    font-size: 28px;
     margin-bottom: 12px;
   }
-
-  .pricing-h em {
-    font-style: italic;
-    color: var(--hermia-gl);
+  
+  .eyebrow {
+    margin-bottom: 16px;
   }
-
-  .pricing-sub {
-    color: var(--hermia-soft);
-    font-size: 15px;
-    max-width: 520px;
-    margin: 0 auto 56px;
-    line-height: 1.65;
-  }
-
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 1200px;
-    margin: 0 auto;
-    align-items: stretch;
-  }
-
+  
   .p-card {
-    /* Slightly darker card background for contrast against the section background */
-    background: rgba(15, 15, 15, 0.95);
-    border: 1px solid var(--hermia-bhi);
-    border-radius: 20px;
-    padding: 48px 40px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    transition: all 0.4s ease;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    padding: 32px 20px;
   }
-
-  /* Neat corner accents matching your combo-cards */
-  .p-card::before, .p-card::after {
-    content: "";
-    position: absolute;
-    width: 13px;
-    height: 13px;
-    border-color: var(--hermia-gold);
-    border-style: solid;
-    opacity: 0.85;
-  }
-  .p-card::before { top: 14px; right: 14px; border-width: 1px 1px 0 0; }
-  .p-card::after { bottom: 14px; left: 14px; border-width: 0 0 1px 1px; }
-
-  .p-card:hover {
-    border-color: var(--hermia-gold);
-    transform: translateY(-5px);
-  }
-
-  .p-card.featured {
-    border-color: var(--hermia-gl);
-    background: linear-gradient(150deg, rgba(217, 170, 82, 0.08), rgba(15, 15, 15, 0.98));
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(217, 170, 82, 0.12);
-  }
-
-  .p-badge {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, var(--hermia-gl), var(--hermia-gold));
-    color: #000;
-    padding: 6px 18px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-family: "Inter", sans-serif;
-  }
-
-  .p-card.featured .p-badge {
-    display: block;
-  }
-
+  
   .p-tier-name {
-    font-family: var(--hermia-display);
-    font-size: 28px;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 24px;
-    margin-top: 12px;
-  }
-
-  .p-price-wrap {
+    font-size: 22px;
     margin-bottom: 20px;
   }
-
-  .p-price {
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-    margin-bottom: 4px;
-  }
-
-  .p-cur {
-    font-size: 20px;
-    color: var(--hermia-gl);
-    font-weight: 600;
-  }
-
+  
   .p-num {
-    font-family: var(--hermia-display);
-    font-size: 48px;
-    font-weight: 600;
-    color: #fff;
+    font-size: 36px;
   }
-
-  .p-per {
-    font-size: 14px;
-    color: var(--hermia-soft);
-    font-weight: 300;
-  }
-
-  .p-offer {
-    font-size: 14px;
-    color: var(--hermia-gl);
-    font-weight: 600;
-    margin-bottom: 28px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(196, 150, 60, 0.15);
-  }
-
-  .p-feats {
-    flex: 1;
-    list-style: none;
-    padding: 0;
-    margin-bottom: 28px;
-  }
-
-  .p-feats li {
-    font-size: 14px;
-    color: var(--hermia-soft);
-    line-height: 1.7;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .p-feats li::before {
-    content: "✓";
-    color: var(--hermia-gl);
-    font-weight: 700;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .p-feats li span {
-    display: block;
-  }
-
-  .p-feats li span strong {
-    color: #fff;
-    font-weight: 600;
-  }
-
+  
   .p-btn {
-    background: linear-gradient(135deg, var(--hermia-gl), var(--hermia-gold));
-    color: #1a1008;
-    padding: 18px 32px;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 700;
-    text-decoration: none;
-    text-align: center;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    display: inline-block;
-    width: 100%;
-    box-shadow: 0 10px 28px rgba(196, 150, 60, 0.22);
-    border: none;
-    cursor: pointer;
-    font-family: "DM Sans", sans-serif;
-    position: relative;
-    overflow: hidden;
+    padding: 14px 24px;
+    font-size: 12px;
   }
-
-  .p-btn::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -130%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    transform: skewX(-18deg);
-    transition: left 0.55s;
-  }
-
-  .p-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 16px 36px rgba(196, 150, 60, 0.36);
-  }
-
-  .p-btn:hover::after {
-    left: 140%;
-  }
-
-  @media (max-width: 1024px) {
-    .pricing-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .pricing-section {
-      padding: 60px 24px;
-    }
-    .pricing-grid {
-      grid-template-columns: 1fr;
-    }
-    .p-card {
-      padding: 36px 28px;
-    }
-    .p-tier-name {
-      font-size: 24px;
-    }
-    .p-num {
-      font-size: 40px;
-    }
-  }
+}
 </style>
-
-<!-- 3. The Pricing Section HTML -->
 <section class="pricing-section" id="pricing">
-  <div class="inner">
-     <section class="pricing-section" id="pricing">
-    <div class="inner" style="display:flex;flex-direction:column;align-items:center">
-      <div class="eyebrow">Pricing</div>
-      <h2 class="pricing-h">Recover missed repair jobs <em>automatically.</em></h2>
-      <p class="pricing-sub">One qualified repair job can cover months of Hermia.</p>
-      <div class="p-card-wide">
-    <div class="pricing-grid">
-      <!-- Entry Tier -->
-      <div class="p-card">
-        <div class="p-tier-name">Entry</div>
-        <div class="p-price-wrap">
-          <div class="p-price">
-            <span class="p-cur">$</span>
-            <span class="p-num">80</span>
-          </div>
-          <div class="p-per">AUD / month</div>
-        </div>
-        <div class="p-offer">$800 Setup Fee</div>
-        <ul class="p-feats">
-          <li><span><strong>40</strong> photos/videos per month</span></li>
-          <li><span>Hard block at monthly limit</span></li>
-          <li><span>Automatic monthly reset</span></li>
-          <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
-          <li><span>Weekly Business Summary</span></li>
-        </ul>
-        <!-- Updated link to contract with plan parameter -->
-        <a href="contract_updated.html?plan=entry" class="p-btn">Get Started</a>
-      </div>
+  <div class="pricing-header">
+    <div class="eyebrow">Pricing</div>
+    <h2 class="pricing-h">Recover missed repair jobs <em>automatically.</em></h2>
+    <p class="pricing-sub">One qualified repair job can cover months of Hermia.</p>
+  </div>
 
-      <!-- Mid Tier -->
-      <div class="p-card">
-        <div class="p-tier-name">Mid</div>
-        <div class="p-price-wrap">
-          <div class="p-price">
-            <span class="p-cur">$</span>
-            <span class="p-num">260</span>
-          </div>
-          <div class="p-per">AUD / month</div>
+  <div class="pricing-grid">
+    <!-- Entry Tier -->
+    <div class="p-card">
+      <div class="p-tier-name">Entry</div>
+      <div class="p-price-wrap">
+        <div class="p-price">
+          <span class="p-cur">$</span>
+          <span class="p-num">80</span>
         </div>
+        <div class="p-per">AUD / month</div>
         <div class="p-offer">$800 Setup Fee</div>
-        <ul class="p-feats">
-          <li><span><strong>150</strong> photos/videos per month</span></li>
-          <li><span>Hard block at monthly limit</span></li>
-          <li><span>Automatic monthly reset</span></li>
-          <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
-          <li><span>Weekly Business Summary</span></li>
-        </ul>
-        <!-- Updated link to contract with plan parameter -->
-        <a href="contract_updated.html?plan=mid" class="p-btn">Get Started</a>
       </div>
+      <ul class="p-feats">
+        <li><span><strong>40</strong> photos/videos per month</span></li>
+        <li><span>Hard block at monthly limit</span></li>
+        <li><span>Automatic monthly reset</span></li>
+        <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
+        <li><span>Weekly Business Summary</span></li>
+      </ul>
+      <a href="contract_updated.html?plan=entry" class="p-btn">Get Started</a>
+    </div>
 
-      <!-- Premium Tier (Featured) -->
-      <div class="p-card featured">
-        <div class="p-badge">16-Day Free Trial</div>
-        <div class="p-tier-name">Premium</div>
-        <div class="p-price-wrap">
-          <div class="p-price">
-            <span class="p-cur">$</span>
-            <span class="p-num">530</span>
-          </div>
-          <div class="p-per">AUD / month</div>
+    <!-- Mid Tier -->
+    <div class="p-card">
+      <div class="p-tier-name">Mid</div>
+      <div class="p-price-wrap">
+        <div class="p-price">
+          <span class="p-cur">$</span>
+          <span class="p-num">260</span>
         </div>
+        <div class="p-per">AUD / month</div>
         <div class="p-offer">$800 Setup Fee</div>
-        <ul class="p-feats">
-          <li><span><strong>Unlimited</strong> photos/videos</span></li>
-          <li><span>Weekly Business Summary</span></li>
-          <li><span>16-Day Free Trial Included</span></li>
-          <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
-          <li><span>Priority 24/7 Support</span></li>
-        </ul>
-        <!-- Updated link to contract with plan parameter -->
-        <a href="contract_updated.html?plan=premium" class="p-btn">Start 16-Day Free Trial</a>
       </div>
+      <ul class="p-feats">
+        <li><span><strong>150</strong> photos/videos per month</span></li>
+        <li><span>Hard block at monthly limit</span></li>
+        <li><span>Automatic monthly reset</span></li>
+        <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
+        <li><span>Weekly Business Summary</span></li>
+      </ul>
+      <a href="contract_updated.html?plan=mid" class="p-btn">Get Started</a>
+    </div>
+
+    <!-- Premium Tier (Featured) -->
+    <div class="p-card featured">
+      <div class="p-badge">16-Day Free Trial</div>
+      <div class="p-tier-name">Premium</div>
+      <div class="p-price-wrap">
+        <div class="p-price">
+          <span class="p-cur">$</span>
+          <span class="p-num">530</span>
+        </div>
+        <div class="p-per">AUD / month</div>
+        <div class="p-offer">$800 Setup Fee</div>
+      </div>
+      <ul class="p-feats">
+        <li><span><strong>Unlimited</strong> photos/videos</span></li>
+        <li><span>Weekly Business Summary</span></li>
+        <li><span>16-Day Free Trial Included</span></li>
+        <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
+        <li><span>Priority 24/7 Support</span></li>
+      </ul>
+      <a href="contract_updated.html?plan=premium" class="p-btn">Start 16-Day Free Trial</a>
     </div>
   </div>
 </section>
-
-
+<!-- END IMPROVED PRICING SECTION -->
 
   <section class="faq-section" id="faq" style="background:var(--bg2)">
     <div class="faq-inner">
