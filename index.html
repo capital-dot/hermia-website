@@ -696,13 +696,14 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
 
-<!-- 2. The Pricing Section (Updated to match your website's background ) -->
+<!-- 2. The Pricing Section (Updated Background & Layout ) -->
 <style>
   :root {
     --hermia-bg: #050505;
     --hermia-bg2: #0e0e0e;
     --hermia-card: #0f0f0f;
     --hermia-border: rgba(196, 150, 60, 0.14);
+    --hermia-bhi: rgba(196, 150, 60, 0.35); /* From your site's CSS */
     --hermia-gold: #c4963c;
     --hermia-gl: #d9aa52;
     --hermia-cream: #f4f0e6;
@@ -714,11 +715,13 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   .pricing-section {
     padding: 88px 48px;
     text-align: center;
-    /* Matches your website's background exactly */
-    background: var(--hermia-bg);
-    background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(196, 150, 60, 0.055), transparent 62%), var(--hermia-bg);
+    /* Matches your Simpro Partner card background exactly */
+    background: linear-gradient(150deg, #130c03, #111); 
+    border-top: 1px solid var(--hermia-border);
+    border-bottom: 1px solid var(--hermia-border);
     color: var(--hermia-cream);
     font-family: "DM Sans", sans-serif;
+    position: relative;
   }
 
   .pricing-h {
@@ -753,8 +756,9 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   }
 
   .p-card {
-    background: linear-gradient(150deg, #130c03, #111);
-    border: 1.5px solid var(--hermia-border);
+    /* Slightly darker card background for contrast against the section background */
+    background: rgba(15, 15, 15, 0.95);
+    border: 1px solid var(--hermia-bhi);
     border-radius: 20px;
     padding: 48px 40px;
     position: relative;
@@ -762,8 +766,21 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     flex-direction: column;
     text-align: left;
     transition: all 0.4s ease;
-    box-shadow: 0 28px 66px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
   }
+
+  /* Neat corner accents matching your combo-cards */
+  .p-card::before, .p-card::after {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    border-color: var(--hermia-gold);
+    border-style: solid;
+    opacity: 0.85;
+  }
+  .p-card::before { top: 14px; right: 14px; border-width: 1px 1px 0 0; }
+  .p-card::after { bottom: 14px; left: 14px; border-width: 0 0 1px 1px; }
 
   .p-card:hover {
     border-color: var(--hermia-gold);
@@ -774,19 +791,6 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     border-color: var(--hermia-gold);
     box-shadow: 0 28px 66px rgba(0, 0, 0, 0.5), 0 0 44px rgba(196, 150, 60, 0.08);
   }
-
-  .p-card::before, .p-card::after {
-    content: "";
-    position: absolute;
-    width: 13px;
-    height: 13px;
-    border-color: var(--hermia-gold);
-    border-style: solid;
-    opacity: 0.6;
-  }
-
-  .p-card::before { top: 12px; right: 12px; border-width: 1px 1px 0 0; }
-  .p-card::after { bottom: 12px; left: 12px; border-width: 0 0 1px 1px; }
 
   .p-badge {
     position: absolute;
@@ -802,6 +806,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     text-transform: uppercase;
     border-radius: 0 0 10px 10px;
     white-space: nowrap;
+    z-index: 2;
   }
 
   .p-tier-name {
@@ -996,11 +1001,12 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
           <li><span>Priority 24/7 Support</span></li>
         </ul>
-        <a href="apply.html" class="p-btn">Start 17-Day Free Trial</a>
+        <a href="apply.html" class="p-btn">Start 16-Day Free Trial</a>
       </div>
     </div>
   </div>
 </section>
+
 
   <section class="faq-section" id="faq" style="background:var(--bg2)">
     <div class="faq-inner">
