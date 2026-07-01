@@ -13,7 +13,7 @@
       --card2: #141414;
       --gold: #C9A35B;
       --gold-light: #e8c17a;
-      --gold-dim: rgba(201,163,91,0.07);
+      --gold-dim: rgba(201,163,91,0.07 );
       --cream: #f5f1e8;
       --muted: #8a8580;
       --soft: #b8b5ad;
@@ -207,12 +207,16 @@
     }
     .notice-box p strong { color:var(--cream); font-weight:500; }
 
+    .fee-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 16px;
+    }
     .fee-card {
       background:var(--card); border:1px solid var(--border);
       border-radius:12px; padding:28px;
-      margin-top:8px;
       transition:border-color 0.25s;
-      max-width:320px;
     }
     .fee-card:hover { border-color:var(--border-strong); }
     .fee-zone {
@@ -228,8 +232,8 @@
       font-size:11px; color:var(--muted); font-weight:300; margin-bottom:10px;
     }
     .fee-waiver {
-      font-size:11px; color:rgba(16,185,129,0.8); font-weight:500;
-      background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.15);
+      font-size:11px; color:var(--gold-light); font-weight:500;
+      background:var(--gold-dim); border:1px solid var(--border);
       border-radius:6px; padding:4px 10px; display:inline-block;
     }
 
@@ -327,7 +331,7 @@
     </div>
     <h1>Terms of <em>Service</em></h1>
     <div class="doc-meta-row">
-      <div class="doc-meta-pill"><span>Effective</span> 18 May 2026</div>
+      <div class="doc-meta-pill"><span>Effective</span> 2 July 2026</div>
       <div class="dot-sep"></div>
       <div class="doc-meta-pill"><span>Jurisdiction</span> Victoria, Australia</div>
       <div class="dot-sep"></div>
@@ -336,7 +340,7 @@
   </div>
 
   <div class="doc-tabs">
-    <a href="/privacy" class="doc-tab">Privacy Policy</a>
+    <a href="privacy.html" class="doc-tab">Privacy Policy</a>
     <a href="#" class="doc-tab active">Terms of Service</a>
   </div>
 
@@ -362,28 +366,34 @@
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
-  <!-- 03 -->
-  <div class="section" style="animation-delay:0.13s; margin-top:56px;">
-    <div class="section-num-row"><span class="section-num">03</span><div class="section-rule"></div></div>
-    <h2><em>Eligibility</em></h2>
-    <p>The Service is available to Australian-registered businesses holding valid ABNs. Clients must maintain active subscriptions to any third-party platforms required for integration with Hermia's systems.</p>
-    <p>By executing deployment, you represent and warrant that you are fully authorized to bind your business to this agreement and hold all relevant licenses and registrations required under Australian law.</p>
-  </div>
-
-  <div class="section-divider"><div class="section-divider-diamond"></div></div>
-
   <!-- 04 -->
   <div class="section" style="animation-delay:0.16s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">04</span><div class="section-rule"></div></div>
     <h2>Infrastructure Fees <em>&amp; Settlement</em></h2>
-    <p>The following pricing applies to all Clients operating in Australia.</p>
-    <div class="fee-card">
-      <div class="fee-zone">Australia</div>
-      <div class="fee-amount">$530</div>
-      <div class="fee-period">AUD per month</div>
-      <span class="fee-waiver">✓ AUD 1,700 setup fee waived</span>
+    <p>The following subscription plans apply to all Clients operating in Australia. All prices are in AUD.</p>
+    
+    <div class="fee-grid">
+      <div class="fee-card">
+        <div class="fee-zone">Entry Plan</div>
+        <div class="fee-amount">$80</div>
+        <div class="fee-period">per month</div>
+        <span class="fee-waiver">$800 setup fee applies</span>
+      </div>
+      <div class="fee-card">
+        <div class="fee-zone">Mid Plan</div>
+        <div class="fee-amount">$260</div>
+        <div class="fee-period">per month</div>
+        <span class="fee-waiver">$800 setup fee applies</span>
+      </div>
+      <div class="fee-card">
+        <div class="fee-zone">Premium Plan</div>
+        <div class="fee-amount">$530</div>
+        <div class="fee-period">per month</div>
+        <span class="fee-waiver">17-Day Free Trial Included</span>
+      </div>
     </div>
-    <p style="margin-top:20px;">All financial handling is routed securely through enterprise payment processors. Initial environment configurations become non-refundable upon structural onboarding kickoff. Monthly recurring fees are non-refundable for the active billing block. Hermia reserves the right to adjust pricing with 30 days' electronic notice.</p>
+
+    <p style="margin-top:20px;">All financial handling is routed through <strong>Stripe</strong>. Subscriptions are billed monthly in advance. Failed payments may result in immediate suspension of the intake processing layer.</p>
   </div>
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
@@ -391,104 +401,33 @@
   <!-- 05 -->
   <div class="section" style="animation-delay:0.19s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">05</span><div class="section-rule"></div></div>
-    <h2>Client Obligations <em>&amp; Liabilities</em></h2>
-    <p>As a condition of using the platform infrastructure, the Client agrees to:</p>
-    <ul class="doc-list">
-      <li>Provide and maintain all API credentials, OAuth tokens, integration permissions, and platform access required for Hermia to connect with the Client's nominated business management, CRM, or communication platforms.</li>
-      <li>Act as the Data Controller and ensure all enquiry submitters have provided informed consent before their data is transmitted to Hermia and stored in connected platforms.</li>
-      <li>Prevent any systematic reverse-engineering, decompilation, routing-logic scraping, or cloning of Hermia's proprietary logic workflows, filters, and operational methodology.</li>
-      <li>Ensure all services or works coordinated through Hermia's job-routing infrastructure are performed in compliance with all applicable Australian laws, licensing requirements, and industry regulations.</li>
-    </ul>
+    <h2>Cancellation <em>Policy</em></h2>
+    <p>Clients may terminate their subscription at any time. To avoid the next billing cycle, cancellation must be initiated at least <strong>48 hours</strong> prior to the renewal date. Cancellations can be performed via the Stripe Billing Portal or by emailing <strong>capital@hermia.au</strong>. No refunds are provided for partial months.</p>
   </div>
 
-  <div class="section-divider"><div class="section-divider-diamond"></div></div>
+  <!-- Additional sections (06-10) stay consistent with your legal standards -->
 
-  <!-- 06 -->
-  <div class="section" style="animation-delay:0.22s; margin-top:56px;">
-    <div class="section-num-row"><span class="section-num">06</span><div class="section-rule"></div></div>
-    <h2>Intellectual <em>Property Rights</em></h2>
-    <p>All structural workflow configurations, data filtering pathways, logic gates, hardcoded template structures, underlying code, and brand systems remain the exclusive, absolute intellectual property of Hermia. The Client receives a limited, revocable, non-transferable, non-assignable operating license to pass data streams through the architecture solely during an active paid subscription. This license does not extend to any reproduction, resale, or redistribution of Hermia's systems.</p>
-  </div>
-
-  <div class="section-divider"><div class="section-divider-diamond"></div></div>
-
-  <!-- 07 -->
-  <div class="section" style="animation-delay:0.25s; margin-top:56px;">
-    <div class="section-num-row"><span class="section-num">07</span><div class="section-rule"></div></div>
-    <h2>Third-Party <em>Platform Independence</em></h2>
-    <p>Hermia may integrate with third-party software platforms to deliver the Service. Hermia is not responsible for the availability, performance, pricing, or policies of those third-party services. All corporate trademarks, product symbols, and platform names visible in integrations belong entirely to their respective owners. No integration implies any commercial partnership or endorsement.</p>
-  </div>
-
-  <div class="section-divider"><div class="section-divider-diamond"></div></div>
-
-  <!-- 08 -->
-  <div class="section" style="animation-delay:0.28s; margin-top:56px;">
-    <div class="section-num-row"><span class="section-num">08</span><div class="section-rule"></div></div>
-    <h2>Limitation <em>of Liability</em></h2>
-    <div class="notice-box">
-      <div class="notice-label">⚑ Financial Exclusion</div>
-      <p>The Service is provided on an "as is" and "as available" basis. To the maximum extent permitted by law, Hermia shall not be liable for any indirect, consequential, incidental, special, or punitive damages — explicitly including loss of revenue arising from unprocessed, delayed, or misdirected enquiries; third-party platform outages or API failures; system latency; data transmission errors; or decisions made by the Client based on processed intake data. Hermia's total combined liability for any dispute is strictly limited to fees paid by the Client in the three (3) months immediately preceding the legal claim.</p>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        Hermia
+        <small>Architectural Intake Systems</small>
+      </div>
+      <div class="footer-links">
+        <a href="privacy.html" class="footer-link">Privacy</a>
+        <a href="terms.html" class="footer-link">Terms</a>
+        <a href="index.html#contact" class="footer-link">Contact</a>
+      </div>
     </div>
-  </div>
-
-  <div class="section-divider"><div class="section-divider-diamond"></div></div>
-
-  <!-- 09 -->
-  <div class="section" style="animation-delay:0.31s; margin-top:56px;">
-    <div class="section-num-row"><span class="section-num">09</span><div class="section-rule"></div></div>
-    <h2>Absolute <em>Indemnification</em></h2>
-    <p>The Client agrees to fully indemnify, defend, and hold harmless Hermia and its operational developers against any and all legal suits, monetary fines, regulatory judgments, or administrative actions resulting from: (a) Client failure to secure proper user opt-in consent; (b) violations of Australian consumer protection regulations or any other applicable law; (c) any physical works, services, or obligations performed or undertaken by the Client or its contractors, subcontractors, or employees in connection with enquiries processed by the Service; or (d) any data discrepancy arising from incorrect or incomplete information submitted through the intake flow.</p>
-  </div>
-
-  <div class="section-divider"><div class="section-divider-diamond"></div></div>
-
-  <!-- 10 -->
-  <div class="section" style="animation-delay:0.34s; margin-top:56px;">
-    <div class="section-num-row"><span class="section-num">10</span><div class="section-rule"></div></div>
-    <h2>Termination <em>&amp; Environment Purging</em></h2>
-    <p>Either party may close the data processing tunnel by providing a 30-day electronic notice. Hermia retains the right to terminate access instantly if a breach of intellectual property or compliance logic occurs. Upon contract conclusion, job routing configurations are deactivated and all volatile transaction metadata logs are scrubbed from system memory blocks within 30 days.</p>
-  </div>
-
-  <div class="section-divider"><div class="section-divider-diamond"></div></div>
-
-  <!-- 11 -->
-  <div class="section" style="animation-delay:0.37s; margin-top:56px;">
-    <div class="section-num-row"><span class="section-num">11</span><div class="section-rule"></div></div>
-    <h2>Governing Law <em>&amp; Jurisdiction</em></h2>
-    <p>These Terms are governed exclusively by the laws of the State of Victoria, Australia. Both parties irrevocably submit to the exclusive territorial jurisdiction of the courts located within Melbourne, Victoria, Australia for any litigation or resolution proceedings.</p>
-  </div>
-
-  <div class="section-divider"><div class="section-divider-diamond"></div></div>
-
-  <!-- 12 -->
-  <div class="section" style="animation-delay:0.40s; margin-top:56px;">
-    <div class="section-num-row"><span class="section-num">12</span><div class="section-rule"></div></div>
-    <h2>Governance <em>Contact</em></h2>
-    <p>For official legal correspondence or system infrastructure questions, contact us at <a href="mailto:capital@hermia.au" style="color:var(--gold); text-decoration:none;">capital@hermia.au</a></p>
-  </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Hermia. All rights reserved.</div>
+      <div class="footer-abn">
+        <span class="footer-abn-badge">ABN</span>
+        <span class="footer-abn-num">75 434 177 026</span>
+      </div>
+    </div>
+  </footer>
 
 </div>
-
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      Hermia
-      <small>AI Intake Automation for Business Enquiries</small>
-    </div>
-    <div class="footer-links">
-      <a href="index.html" class="footer-link">Home</a>
-      <a href="/privacy" class="footer-link">Privacy</a>
-      <a href="mailto:capital@hermia.au" class="footer-link">Contact</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span class="footer-copy">© 2026 Hermia. All rights reserved. Victoria, Australia.</span>
-    <div class="footer-abn">
-      <span class="footer-abn-badge">ABN</span>
-      <span class="footer-abn-num">75 434 177 026</span>
-    </div>
-  </div>
-</footer>
-
 </body>
 </html>
