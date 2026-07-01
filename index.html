@@ -691,12 +691,12 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
       </div>
     </div>
   </section>
-<!-- 1. Include the Fonts (Add this to your <head> if possible, or just before the section) -->
+<!-- 1. Include the Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
 
-<!-- 2. The Pricing Section (Everything included ) -->
+<!-- 2. The Pricing Section (Updated to match your website's background ) -->
 <style>
   :root {
     --hermia-bg: #050505;
@@ -714,8 +714,9 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   .pricing-section {
     padding: 88px 48px;
     text-align: center;
-    background: #050505; /* Fallback */
-    background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(196, 150, 60, 0.055), transparent 62%), #050505;
+    /* Matches your website's background exactly */
+    background: var(--hermia-bg);
+    background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(196, 150, 60, 0.055), transparent 62%), var(--hermia-bg);
     color: var(--hermia-cream);
     font-family: "DM Sans", sans-serif;
   }
@@ -944,7 +945,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           </div>
           <div class="p-per">AUD / month</div>
         </div>
-        <div class="p-offer">Launch offer &mdash; setup included</div>
+        <div class="p-offer">$800 Setup Fee</div>
         <ul class="p-feats">
           <li><span><strong>40</strong> photos/videos per month</span></li>
           <li><span>Hard block at monthly limit</span></li>
@@ -965,7 +966,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           </div>
           <div class="p-per">AUD / month</div>
         </div>
-        <div class="p-offer">Launch offer &mdash; setup included</div>
+        <div class="p-offer">$800 Setup Fee</div>
         <ul class="p-feats">
           <li><span><strong>150</strong> photos/videos per month</span></li>
           <li><span>Hard block at monthly limit</span></li>
@@ -978,8 +979,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 
       <!-- Premium Tier (Featured) -->
       <div class="p-card featured">
-        <div class="p-offer">$800 Setup Fee</div>
-        <div class="p-badge">16-Day Free Trial</div>
+        <div class="p-badge">17-Day Free Trial</div>
         <div class="p-tier-name">Premium</div>
         <div class="p-price-wrap">
           <div class="p-price">
@@ -988,15 +988,15 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           </div>
           <div class="p-per">AUD / month</div>
         </div>
-        <div class="p-offer">Launch offer &mdash; setup included</div>
+        <div class="p-offer">$800 Setup Fee</div>
         <ul class="p-feats">
           <li><span><strong>Unlimited</strong> photos/videos</span></li>
           <li><span>Weekly Business Summary</span></li>
-          <li><span>Inherited trial from Stripe</span></li>
+          <li><span>17-Day Free Trial Included</span></li>
           <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
           <li><span>Priority 24/7 Support</span></li>
         </ul>
-        <a href="apply.html" class="p-btn">Start Free Trial</a>
+        <a href="apply.html" class="p-btn">Start 17-Day Free Trial</a>
       </div>
     </div>
   </div>
