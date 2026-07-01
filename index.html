@@ -691,137 +691,316 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
       </div>
     </div>
   </section>
-<section class="pricing-section" id="pricing">
-  <div class="inner" style="display:flex;flex-direction:column;align-items:center;font-family:sans-serif;">
-    <div class="eyebrow" style="color:#d4af37; font-weight:700; text-transform:uppercase; letter-spacing:2px; margin-bottom:12px;">Pricing</div>
-    <h2 class="pricing-h" style="font-size:3rem; margin-bottom:16px; text-align:center;">Recover missed repair jobs <em>automatically.</em></h2>
-    <p class="pricing-sub" style="font-size:1.2rem; color:#666; margin-bottom:48px; text-align:center; max-width:800px;">Stop leaving money on the table. One qualified repair job can cover months of Hermia. Choose the volume that fits your business.</p>
-    
-    <div class="pricing-grid" style="display:flex; gap:30px; width:100%; max-width:1200px; flex-wrap:wrap; justify-content:center; align-items: stretch;">
-      
-      <!-- Entry Tier -->
-      <div class="p-card" style="flex:1; min-width:320px; background:#fff; border:1px solid #e0e0e0; border-radius:16px; padding:40px; display:flex; flex-direction:column; position:relative; transition: transform 0.3s ease;">
-        <div class="p-tier-name" style="font-weight:800; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:20px; color:#333; font-size:1.1rem;">Entry</div>
-        <div class="p-price" style="display:flex; align-items:baseline; margin-bottom:4px;">
-          <span class="p-cur" style="font-size:28px; font-weight:700; color:#d4af37;">$</span>
-          <span class="p-num" style="font-size:56px; font-weight:800; color:#1a1a1a;">80</span>
-        </div>
-        <div class="p-per" style="color:#888; margin-bottom:24px; font-weight:500;">AUD / month</div>
-        
-        <div class="p-offer-box" style="background:rgba(212, 175, 55, 0.1); padding:12px; border-radius:8px; margin-bottom:30px; border-left:4px solid #d4af37;">
-          <div class="p-offer" style="font-weight:700; color:#996515; font-size:0.9rem;">Launch offer &mdash; setup included</div>
-        </div>
+<!-- 1. Include the Fonts (Add this to your <head> if possible, or just before the section) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
 
-        <ul class="p-features" style="list-style:none; padding:0; margin:0 0 40px 0; flex-grow:1;">
-          <li style="margin-bottom:16px; display:flex; align-items:center;">
-            <span style="color:#d4af37; margin-right:12px; font-weight:900;">✓</span>
-            <span><strong>40</strong> photos/videos per month</span>
-          </li>
-          <li style="margin-bottom:16px; display:flex; align-items:center;">
-            <span style="color:#d4af37; margin-right:12px; font-weight:900;">✓</span>
-            <span>Hard block at limit</span>
-          </li>
-          <li style="margin-bottom:16px; display:flex; align-items:center;">
-            <span style="color:#d4af37; margin-right:12px; font-weight:900;">✓</span>
-            <span>Monthly automatic reset</span>
-          </li>
-          <li style="margin-bottom:16px; display:flex; align-items:center;">
-            <span style="color:#d4af37; margin-right:12px; font-weight:900;">✓</span>
-            <span>Simpro Integration</span>
-          </li>
-          <li style="margin-bottom:16px; display:flex; align-items:center;">
-            <span style="color:#d4af37; margin-right:12px; font-weight:900;">✓</span>
-            <span>Make Scenario 1 & 2 processing</span>
-          </li>
+<!-- 2. The Pricing Section (Everything included ) -->
+<style>
+  :root {
+    --hermia-bg: #050505;
+    --hermia-bg2: #0e0e0e;
+    --hermia-card: #0f0f0f;
+    --hermia-border: rgba(196, 150, 60, 0.14);
+    --hermia-gold: #c4963c;
+    --hermia-gl: #d9aa52;
+    --hermia-cream: #f4f0e6;
+    --hermia-soft: #b0ada5;
+    --hermia-muted: #7a7470;
+    --hermia-display: "Cormorant Garamond", serif;
+  }
+
+  .pricing-section {
+    padding: 88px 48px;
+    text-align: center;
+    background: #050505; /* Fallback */
+    background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(196, 150, 60, 0.055), transparent 62%), #050505;
+    color: var(--hermia-cream);
+    font-family: "DM Sans", sans-serif;
+  }
+
+  .pricing-h {
+    font-family: var(--hermia-display);
+    font-size: clamp(32px, 4.2vw, 50px);
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.4px;
+    margin-bottom: 12px;
+  }
+
+  .pricing-h em {
+    font-style: italic;
+    color: var(--hermia-gl);
+  }
+
+  .pricing-sub {
+    color: var(--hermia-soft);
+    font-size: 15px;
+    max-width: 520px;
+    margin: 0 auto 56px;
+    line-height: 1.65;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: stretch;
+  }
+
+  .p-card {
+    background: linear-gradient(150deg, #130c03, #111);
+    border: 1.5px solid var(--hermia-border);
+    border-radius: 20px;
+    padding: 48px 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    transition: all 0.4s ease;
+    box-shadow: 0 28px 66px rgba(0, 0, 0, 0.4);
+  }
+
+  .p-card:hover {
+    border-color: var(--hermia-gold);
+    transform: translateY(-5px);
+  }
+
+  .p-card.featured {
+    border-color: var(--hermia-gold);
+    box-shadow: 0 28px 66px rgba(0, 0, 0, 0.5), 0 0 44px rgba(196, 150, 60, 0.08);
+  }
+
+  .p-card::before, .p-card::after {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    border-color: var(--hermia-gold);
+    border-style: solid;
+    opacity: 0.6;
+  }
+
+  .p-card::before { top: 12px; right: 12px; border-width: 1px 1px 0 0; }
+  .p-card::after { bottom: 12px; left: 12px; border-width: 0 0 1px 1px; }
+
+  .p-badge {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #7a4a10, var(--hermia-gl), #7a4a10);
+    color: #1a0e04;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    padding: 5px 18px;
+    text-transform: uppercase;
+    border-radius: 0 0 10px 10px;
+    white-space: nowrap;
+  }
+
+  .p-tier-name {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--hermia-gold);
+    margin-bottom: 24px;
+  }
+
+  .p-price-wrap {
+    margin-bottom: 28px;
+  }
+
+  .p-price {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .p-cur {
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(244, 240, 230, 0.35);
+    margin-top: 14px;
+  }
+
+  .p-num {
+    font-family: var(--hermia-display);
+    font-size: 64px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--hermia-gl);
+    text-shadow: 0 0 30px rgba(196, 150, 60, 0.2);
+  }
+
+  .p-per {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--hermia-muted);
+    margin-top: 8px;
+  }
+
+  .p-offer {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--hermia-gold);
+    margin-bottom: 32px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--hermia-border);
+  }
+
+  .p-feats {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px 0;
+    flex-grow: 1;
+  }
+
+  .p-feats li {
+    font-size: 13px;
+    color: var(--hermia-soft);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .p-feats li::before {
+    content: "\25C6";
+    font-size: 7px;
+    color: var(--hermia-gold);
+    opacity: 0.65;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .p-feats li strong {
+    color: var(--hermia-cream);
+    font-weight: 500;
+  }
+
+  .p-btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-family: "DM Sans", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    background: linear-gradient(90deg, #c4963c, #e8c060, #c4963c);
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 22px rgba(196, 150, 60, 0.28);
+    transition: all 0.25s;
+  }
+
+  .p-btn:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(196, 150, 60, 0.36);
+  }
+
+  @media (max-width: 1024px) {
+    .pricing-grid { grid-template-columns: 1fr 1fr; }
+    .p-card.featured { grid-column: span 2; max-width: 600px; margin: 0 auto; }
+  }
+
+  @media (max-width: 768px) {
+    .pricing-grid { grid-template-columns: 1fr; }
+    .p-card.featured { grid-column: span 1; }
+    .pricing-section { padding: 72px 24px; }
+  }
+</style>
+
+<section class="pricing-section" id="pricing">
+  <div class="inner">
+    <div class="eyebrow" style="font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; color: var(--hermia-gold); margin-bottom: 14px;">Pricing</div>
+    <h2 class="pricing-h">Recover missed repair jobs <em>automatically.</em></h2>
+    <p class="pricing-sub">Stop leaving money on the table. One qualified repair job can cover months of Hermia. Choose the volume that fits your tools.</p>
+    
+    <div class="pricing-grid">
+      <!-- Entry Tier -->
+      <div class="p-card">
+        <div class="p-tier-name">Entry</div>
+        <div class="p-price-wrap">
+          <div class="p-price">
+            <span class="p-cur">$</span>
+            <span class="p-num">80</span>
+          </div>
+          <div class="p-per">AUD / month</div>
+        </div>
+        <div class="p-offer">Launch offer &mdash; setup included</div>
+        <ul class="p-feats">
+          <li><span><strong>40</strong> photos/videos per month</span></li>
+          <li><span>Hard block at monthly limit</span></li>
+          <li><span>Automatic monthly reset</span></li>
+          <li><span>Simpro Integration captured</span></li>
+          <li><span>Standard AI Vision Triage</span></li>
         </ul>
-        
-        <a href="apply.html" class="p-btn" style="width:100%; text-align:center; padding:18px; background:#1a1a1a; color:#fff; text-decoration:none; border-radius:8px; font-weight:700; font-size:1.1rem; transition: background 0.2s;">Get Started</a>
+        <a href="apply.html" class="p-btn">Get Started</a>
       </div>
 
       <!-- Mid Tier -->
-      <div class="p-card" style="flex:1; min-width:320px; background:#fff; border:1px solid #e0e0e0; border-radius:16px; padding:40px; display:flex; flex-direction:column; position:relative; box-shadow: 0 15px 40px rgba(0,0,0,0.04);">
-        <div class="p-tier-name" style="font-weight:800; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:20px; color:#333; font-size:1.1rem;">Mid</div>
-        <div class="p-price" style="display:flex; align-items:baseline; margin-bottom:4px;">
-          <span class="p-cur" style="font-size:28px; font-weight:700; color:#d4af37;">$</span>
-          <span class="p-num" style="font-size:56px; font-weight:800; color:#1a1a1a;">260</span>
+      <div class="p-card">
+        <div class="p-tier-name">Mid</div>
+        <div class="p-price-wrap">
+          <div class="p-price">
+            <span class="p-cur">$</span>
+            <span class="p-num">260</span>
+          </div>
+          <div class="p-per">AUD / month</div>
         </div>
-        <div class="p-per" style="color:#888; margin-bottom:24px; font-weight:500;">AUD / month</div>
-
-        <div class="p-offer-box" style="background:rgba(212, 175, 55, 0.1); padding:12px; border-radius:8px; margin-bottom:30px; border-left:4px solid #d4af37;">
-          <div class="p-offer" style="font-weight:700; color:#996515; font-size:0.9rem;">Launch offer &mdash; setup included</div>
-        </div>
-
-        <ul class="p-features" style="list-style:none; padding:0; margin:0 0 40px 0; flex-grow:1;">
-          <li style="margin-bottom:16px; display:flex; align-items:center;">
-            <span style="color:#d4af37; margin-right:12px; font-weight:900;">✓</span>
-            <span><strong>150</strong> photos/videos per month</span>
-          </li>
-          <li style="margin-bottom:16px; display:flex; align-items:center;">
-            <span style="color:#d4af37; margin-right:12px; font-weight:900;">✓</span>
-            <span>Hard block at limit</span>
-          </li>
-          <li style="margin-bottom:16px; display:flex; align-items:center;">
-            <span style="color:#d4af37; margin-right:12px; font-weight:900;">✓</span>
-            <span>Monthly automatic reset</span>
-          </li>
-          <li style="margin-bottom:16px; display:flex; align-items:center;">
-            <span style="color:#d4af37; margin-right:12px; font-weight:900;">✓</span>
-            <span>Full Simpro Syncing</span>
-          </li>
-          <li style="margin-bottom:16px; display:flex; align-items:center;">
-            <span style="color:#d4af37; margin-right:12px; font-weight:900;">✓</span>
-            <span>Advanced Automation Logic</span>
-          </li>
+        <div class="p-offer">Launch offer &mdash; setup included</div>
+        <ul class="p-feats">
+          <li><span><strong>150</strong> photos/videos per month</span></li>
+          <li><span>Hard block at monthly limit</span></li>
+          <li><span>Automatic monthly reset</span></li>
+          <li><span>Full Simpro Workflow Sync</span></li>
+          <li><span>Priority AI Triage Logic</span></li>
         </ul>
-        
-        <a href="apply.html" class="p-btn" style="width:100%; text-align:center; padding:18px; background:#1a1a1a; color:#fff; text-decoration:none; border-radius:8px; font-weight:700; font-size:1.1rem;">Get Started</a>
+        <a href="apply.html" class="p-btn">Get Started</a>
       </div>
 
       <!-- Premium Tier (Featured) -->
-      <div class="p-card-wide" style="flex:1; min-width:320px; background:#1a1a1a; border:2px solid #d4af37; border-radius:16px; padding:40px; display:flex; flex-direction:column; position:relative; box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2); transform: scale(1.05);">
-        <div class="p-badge-wide" style="position:absolute; top:-16px; left:50%; transform:translateX(-50%); background:#d4af37; color:#1a1a1a; padding:6px 20px; border-radius:30px; font-size:14px; font-weight:800; text-transform:uppercase; white-space:nowrap;">3-Day Free Trial</div>
-        
-        <div class="p-tier-name" style="font-weight:800; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:20px; color:#d4af37; font-size:1.1rem;">Premium</div>
-        
-        <div class="p-price" style="display:flex; align-items:baseline; margin-bottom:4px;">
-          <span class="p-cur" style="font-size:28px; font-weight:700; color:#d4af37;">$</span>
-          <span class="p-num" style="font-size:56px; font-weight:800; color:#fff;">530</span>
+      <div class="p-card featured">
+        <div class="p-badge">3-Day Free Trial</div>
+        <div class="p-tier-name">Premium</div>
+        <div class="p-price-wrap">
+          <div class="p-price">
+            <span class="p-cur">$</span>
+            <span class="p-num">530</span>
+          </div>
+          <div class="p-per">AUD / month</div>
         </div>
-        <div class="p-per" style="color:#aaa; margin-bottom:24px; font-weight:500;">AUD / month</div>
-
-        <div class="p-offer-box" style="background:rgba(212, 175, 55, 0.2); padding:12px; border-radius:8px; margin-bottom:30px; border-left:4px solid #d4af37;">
-          <div class="p-offer" style="font-weight:700; color:#d4af37; font-size:0.9rem;">Launch offer &mdash; setup included</div>
-        </div>
-
-        <ul class="p-features" style="list-style:none; padding:0; margin:0 0 40px 0; flex-grow:1; color:#fff;">
-          <li style="margin-bottom:16px; display:flex; align-items:center;">
-            <span style="color:#d4af37; margin-right:12px; font-weight:900;">✓</span>
-            <span><strong>Unlimited</strong> photos/videos</span>
-          </li>
-          <li style="margin-bottom:16px; display:flex; align-items:center;">
-            <span style="color:#d4af37; margin-right:12px; font-weight:900;">✓</span>
-            <span>No limits, zero blocks</span>
-          </li>
-          <li style="margin-bottom:16px; display:flex; align-items:center;">
-            <span style="color:#d4af37; margin-right:12px; font-weight:900;">✓</span>
-            <span>Priority processing speed</span>
-          </li>
-          <li style="margin-bottom:16px; display:flex; align-items:center;">
-            <span style="color:#d4af37; margin-right:12px; font-weight:900;">✓</span>
-            <span>Full Enterprise Automation</span>
-          </li>
-          <li style="margin-bottom:16px; display:flex; align-items:center;">
-            <span style="color:#d4af37; margin-right:12px; font-weight:900;">✓</span>
-            <span>Premium 24/7 Support</span>
-          </li>
+        <div class="p-offer">Launch offer &mdash; setup included</div>
+        <ul class="p-feats">
+          <li><span><strong>Unlimited</strong> photos/videos</span></li>
+          <li><span>Zero blocks, infinite scale</span></li>
+          <li><span>Inherited trial from Stripe</span></li>
+          <li><span>Full Enterprise Automation</span></li>
+          <li><span>Priority 24/7 Support</span></li>
         </ul>
-        
-        <a href="apply.html" class="p-btn" style="width:100%; text-align:center; padding:18px; background:#d4af37; color:#1a1a1a; text-decoration:none; border-radius:8px; font-weight:800; font-size:1.1rem; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);">Start Free Trial</a>
+        <a href="apply.html" class="p-btn">Start Free Trial</a>
       </div>
-
     </div>
   </div>
 </section>
+
         <div class="p-wide-divider"></div>
         <div class="p-feats-block">
           <div class="p-feats-label">What Hermia does</div>
