@@ -691,6 +691,9 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
       </div>
     </div>
   </section>
+  
+<!-- PRICING SECTION ONLY - Replace the existing pricing section in your main website with this updated version -->
+
 <!-- 1. Include the Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -788,157 +791,187 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   }
 
   .p-card.featured {
-    border-color: var(--hermia-gold);
-    box-shadow: 0 28px 66px rgba(0, 0, 0, 0.5), 0 0 44px rgba(196, 150, 60, 0.08);
+    border-color: var(--hermia-gl);
+    background: linear-gradient(150deg, rgba(217, 170, 82, 0.08), rgba(15, 15, 15, 0.98));
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(217, 170, 82, 0.12);
   }
 
   .p-badge {
     position: absolute;
-    top: -1px;
+    top: -12px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(90deg, #7a4a10, var(--hermia-gl), #7a4a10);
-    color: #1a0e04;
-    font-size: 8px;
-    font-weight: 800;
-    letter-spacing: 3px;
-    padding: 5px 18px;
+    background: linear-gradient(135deg, var(--hermia-gl), var(--hermia-gold));
+    color: #000;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    border-radius: 0 0 10px 10px;
-    white-space: nowrap;
-    z-index: 2;
+    font-family: "Inter", sans-serif;
+  }
+
+  .p-card.featured .p-badge {
+    display: block;
   }
 
   .p-tier-name {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--hermia-gold);
+    font-family: var(--hermia-display);
+    font-size: 28px;
+    font-weight: 600;
+    color: #fff;
     margin-bottom: 24px;
+    margin-top: 12px;
   }
 
   .p-price-wrap {
-    margin-bottom: 28px;
+    margin-bottom: 20px;
   }
 
   .p-price {
     display: flex;
-    align-items: flex-start;
+    align-items: baseline;
     gap: 4px;
+    margin-bottom: 4px;
   }
 
   .p-cur {
-    font-size: 16px;
-    font-weight: 300;
-    color: rgba(244, 240, 230, 0.35);
-    margin-top: 14px;
+    font-size: 20px;
+    color: var(--hermia-gl);
+    font-weight: 600;
   }
 
   .p-num {
     font-family: var(--hermia-display);
-    font-size: 64px;
+    font-size: 48px;
     font-weight: 600;
-    line-height: 1;
-    color: var(--hermia-gl);
-    text-shadow: 0 0 30px rgba(196, 150, 60, 0.2);
+    color: #fff;
   }
 
   .p-per {
-    font-size: 9px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--hermia-muted);
-    margin-top: 8px;
+    font-size: 14px;
+    color: var(--hermia-soft);
+    font-weight: 300;
   }
 
   .p-offer {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--hermia-gold);
-    margin-bottom: 32px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--hermia-border);
+    font-size: 14px;
+    color: var(--hermia-gl);
+    font-weight: 600;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(196, 150, 60, 0.15);
   }
 
   .p-feats {
+    flex: 1;
     list-style: none;
     padding: 0;
-    margin: 0 0 40px 0;
-    flex-grow: 1;
+    margin-bottom: 28px;
   }
 
   .p-feats li {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--hermia-soft);
+    line-height: 1.7;
+    margin-bottom: 14px;
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    line-height: 1.6;
-    margin-bottom: 14px;
   }
 
   .p-feats li::before {
-    content: "\25C6";
-    font-size: 7px;
-    color: var(--hermia-gold);
-    opacity: 0.65;
-    margin-top: 6px;
+    content: "✓";
+    color: var(--hermia-gl);
+    font-weight: 700;
     flex-shrink: 0;
+    margin-top: 2px;
   }
 
-  .p-feats li strong {
-    color: var(--hermia-cream);
-    font-weight: 500;
+  .p-feats li span {
+    display: block;
+  }
+
+  .p-feats li span strong {
+    color: #fff;
+    font-weight: 600;
   }
 
   .p-btn {
-    display: block;
+    background: linear-gradient(135deg, var(--hermia-gl), var(--hermia-gold));
+    color: #1a1008;
+    padding: 18px 32px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    display: inline-block;
     width: 100%;
-    padding: 16px;
-    border-radius: 10px;
+    box-shadow: 0 10px 28px rgba(196, 150, 60, 0.22);
     border: none;
     cursor: pointer;
     font-family: "DM Sans", sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    text-align: center;
-    text-decoration: none;
-    background: linear-gradient(90deg, #c4963c, #e8c060, #c4963c);
-    color: #fff;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 6px 22px rgba(196, 150, 60, 0.28);
-    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .p-btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -130%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: skewX(-18deg);
+    transition: left 0.55s;
   }
 
   .p-btn:hover {
-    filter: brightness(1.1);
     transform: translateY(-2px);
-    box-shadow: 0 10px 32px rgba(196, 150, 60, 0.36);
+    box-shadow: 0 16px 36px rgba(196, 150, 60, 0.36);
+  }
+
+  .p-btn:hover::after {
+    left: 140%;
   }
 
   @media (max-width: 1024px) {
-    .pricing-grid { grid-template-columns: 1fr 1fr; }
-    .p-card.featured { grid-column: span 2; max-width: 600px; margin: 0 auto; }
+    .pricing-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 768px) {
-    .pricing-grid { grid-template-columns: 1fr; }
-    .p-card.featured { grid-column: span 1; }
-    .pricing-section { padding: 72px 24px; }
+    .pricing-section {
+      padding: 60px 24px;
+    }
+    .pricing-grid {
+      grid-template-columns: 1fr;
+    }
+    .p-card {
+      padding: 36px 28px;
+    }
+    .p-tier-name {
+      font-size: 24px;
+    }
+    .p-num {
+      font-size: 40px;
+    }
   }
 </style>
 
+<!-- 3. The Pricing Section HTML -->
 <section class="pricing-section" id="pricing">
   <div class="inner">
-    <div class="eyebrow" style="font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; color: var(--hermia-gold); margin-bottom: 14px;">Pricing</div>
-    <h2 class="pricing-h">Recover missed repair jobs <em>automatically.</em></h2>
-    <p class="pricing-sub">Stop leaving money on the table. One qualified repair job can cover months of Hermia. Choose the volume that fits your tools.</p>
-    
+    <h2 class="pricing-h">Simple, <em>Transparent</em> Pricing</h2>
+    <p class="pricing-sub">Choose the plan that fits your business. All plans include professional setup, Simpro integration, and 24/7 support.</p>
+
     <div class="pricing-grid">
       <!-- Entry Tier -->
       <div class="p-card">
@@ -958,7 +991,8 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
           <li><span>Weekly Business Summary</span></li>
         </ul>
-        <a href="apply.html" class="p-btn">Get Started</a>
+        <!-- Updated link to contract with plan parameter -->
+        <a href="contract_updated.html?plan=entry" class="p-btn">Get Started</a>
       </div>
 
       <!-- Mid Tier -->
@@ -979,12 +1013,13 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
           <li><span>Weekly Business Summary</span></li>
         </ul>
-        <a href="apply.html" class="p-btn">Get Started</a>
+        <!-- Updated link to contract with plan parameter -->
+        <a href="contract_updated.html?plan=mid" class="p-btn">Get Started</a>
       </div>
 
       <!-- Premium Tier (Featured) -->
       <div class="p-card featured">
-        <div class="p-badge">17-Day Free Trial</div>
+        <div class="p-badge">16-Day Free Trial</div>
         <div class="p-tier-name">Premium</div>
         <div class="p-price-wrap">
           <div class="p-price">
@@ -997,15 +1032,17 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         <ul class="p-feats">
           <li><span><strong>Unlimited</strong> photos/videos</span></li>
           <li><span>Weekly Business Summary</span></li>
-          <li><span>17-Day Free Trial Included</span></li>
+          <li><span>16-Day Free Trial Included</span></li>
           <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
           <li><span>Priority 24/7 Support</span></li>
         </ul>
-        <a href="apply.html" class="p-btn">Start 16-Day Free Trial</a>
+        <!-- Updated link to contract with plan parameter -->
+        <a href="contract_updated.html?plan=premium" class="p-btn">Start 16-Day Free Trial</a>
       </div>
     </div>
   </div>
 </section>
+
 
 
   <section class="faq-section" id="faq" style="background:var(--bg2)">
