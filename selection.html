@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hermia | Select Your System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #080705;
+            --bg-card: rgba(10, 9, 7, 0.85);
+            --gold: #D4AF37;
+            --gold-bright: #FFD700;
+            --gold-light: #F9E2AF;
+            --gold-muted: rgba(212, 175, 55, 0.12);
+            --cream: #f4f0e6;
+            --soft: #a19d94;
+            --border: rgba(212, 175, 55, 0.2);
+            --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+        html, body { height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+        .bg-layers { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,1) 100%); z-index: 5; }
+        .light-bloom { position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 55%); animation: light-drift 35s infinite alternate ease-in-out; will-change: transform; }
+        @keyframes light-drift { 0% { transform: translate(-2%, -2%) scale(1); } 100% { transform: translate(2%, 2%) scale(1.05); } }
+        .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 120px 120px; -webkit-mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); opacity: 0.15; }
+        .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+        .wrap { position: relative; z-index: 10; width: 100%; max-width: 720px; margin: 0 auto; padding: 80px 24px 120px; display: flex; flex-direction: column; align-items: center; }
+        .logo-wrap { margin-bottom: 60px; position: relative; animation: fade-in-down 1.2s var(--ease-cinematic) forwards; }
+        .logo-aura { position: absolute; inset: -40px; background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%); filter: blur(25px); animation: aura-pulse 8s infinite ease-in-out; }
+        @keyframes aura-pulse { 0%, 100% { opacity: 0.3; transform: scale(0.9); } 50% { opacity: 0.6; transform: scale(1.05); } }
+        .logo { height: 58px; position: relative; z-index: 2; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
+        .steps { display: flex; justify-content: space-between; width: 100%; max-width: 600px; margin-bottom: 60px; position: relative; opacity: 0; animation: fade-in-up 1s var(--ease-cinematic) 0.4s forwards; }
+        .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.08); }
+        .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: linear-gradient(90deg, var(--gold-muted), var(--gold), var(--gold-muted)); box-shadow: 0 0 12px var(--gold); transition: width 1.2s var(--ease-cinematic); }
+        .step { display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; position: relative; z-index: 1; }
+        .dot { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 300; background: var(--bg); border: 1px solid var(--border); color: var(--soft); transition: all 0.6s var(--ease-cinematic); }
+        .step.active .dot { border-color: var(--gold); color: var(--gold-bright); box-shadow: 0 0 25px rgba(212, 175, 55, 0.25); transform: scale(1.05); }
+        .step.done .dot { background: var(--gold); border-color: var(--gold); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+        .dot svg { width: 14px; height: 14px; stroke-width: 2; }
+        .label { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--soft); opacity: 0.5; font-weight: 400; }
+        .step.active .label { color: var(--gold-light); opacity: 1; }
+        .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 24px; font-weight: 400; text-align: center; }
+        h1 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; line-height: 1.05; margin-bottom: 16px; letter-spacing: -0.02em; text-align: center; }
+        .sub { font-size: 15px; color: var(--soft); margin-bottom: 50px; line-height: 1.7; font-weight: 300; text-align: center; max-width: 480px; }
+        .choices { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; opacity: 0; animation: fade-in-up 1.2s var(--ease-cinematic) 0.6s forwards; }
+        .choice-card { background: var(--bg-card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); padding: 44px 28px; text-align: center; cursor: pointer; transition: all 0.4s var(--ease-cinematic); position: relative; overflow: hidden; }
+        .choice-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0; transition: opacity 0.4s ease; }
+        .choice-card:hover { border-color: var(--gold); transform: translateY(-6px); box-shadow: 0 30px 60px rgba(0,0,0,0.6); }
+        .choice-card:hover::before { opacity: 0.6; }
+        .choice-card.selected { border-color: var(--gold); background: rgba(212, 175, 55, 0.06); }
+        .choice-name { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500; color: var(--gold-light); margin-bottom: 10px; }
+        .choice-desc { font-size: 12.5px; color: var(--soft); line-height: 1.6; font-weight: 300; }
+        .formerr { color: #ff7e75; font-size: 12px; margin-top: 26px; text-align: center; line-height: 1.6; letter-spacing: 0.03em; display: none; }
+        .formerr.show { display: block; }
+        @keyframes fade-in-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fade-in-down { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 600px) { .choices { grid-template-columns: 1fr; } h1 { font-size: 34px; } .label { display: none; } }
+    </style>
+</head>
+<body>
+
+    <div class="bg-layers">
+        <div class="light-bloom"></div>
+        <div class="grid"></div>
+        <div class="vignette"></div>
+        <div class="grain"></div>
+    </div>
+
+    <div class="wrap">
+        <div class="logo-wrap">
+            <div class="logo-aura"></div>
+            <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" />
+        </div>
+
+        <div class="steps" id="stepTracker">
+            <div class="progressline" id="progressline"></div>
+        </div>
+
+        <div class="eyebrow">Setup Phase 1</div>
+        <h1>Which system do you use?</h1>
+        <p class="sub">Hermia connects directly to your CRM to deliver qualified leads. Select the platform your business runs on.</p>
+
+        <div class="choices">
+            <div class="choice-card" data-provider="simpro" id="cardSimpro">
+                <div class="choice-name">Simpro</div>
+                <div class="choice-desc">Connect securely via account login. No API key needed.</div>
+            </div>
+            <div class="choice-card" data-provider="servicem8" id="cardServiceM8">
+                <div class="choice-name">ServiceM8</div>
+                <div class="choice-desc">Connect using your ServiceM8 API key.</div>
+            </div>
+        </div>
+
+        <div class="formerr" id="formError"></div>
+    </div>
+
+    <script>
+        // NOTE: matches the array used on other onboarding pages. If you've
+        // changed the step sequence elsewhere, update this list to match —
+        // the tracker is just cosmetic and independent per-page.
+        const ALL_STEPS = ['Payment','Select CRM','Details','Connect','Setup'];
+        const ACTIVE_INDEX = 1;
+        const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+        (function buildSteps(){
+            const track = document.getElementById('stepTracker');
+            ALL_STEPS.forEach((label, i) => {
+                const div = document.createElement('div');
+                const state = i < ACTIVE_INDEX ? 'done' : (i === ACTIVE_INDEX ? 'active' : '');
+                div.className = 'step ' + state;
+                div.innerHTML = `<div class="dot">${state === 'done' ? CHECK_SVG : (i + 1)}</div><div class="label">${label}</div>`;
+                track.appendChild(div);
+            });
+            setTimeout(() => {
+                document.getElementById('progressline').style.width = `calc((100% - 34px) * ${ACTIVE_INDEX/(ALL_STEPS.length-1)})`;
+            }, 100);
+        })();
+
+        const $ = id => document.getElementById(id);
+
+        function selectProvider(provider) {
+            // Stored in sessionStorage, not Supabase — no customerId exists
+            // yet at this point. foundation_details.html reads this and
+            // sends it as `crmProvider` in the /create-customer call, so
+            // it lands in Supabase the moment the customer row is created.
+            sessionStorage.setItem('hermia_crm_provider', provider);
+
+            $('cardSimpro').classList.toggle('selected', provider === 'simpro');
+            $('cardServiceM8').classList.toggle('selected', provider === 'servicem8');
+
+            document.body.style.transition = 'opacity 0.6s ease';
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                window.location.href = 'https://onboarding.hermia.au/foundation_details.html';
+            }, 600);
+        }
+
+        $('cardSimpro').addEventListener('click', () => selectProvider('simpro'));
+        $('cardServiceM8').addEventListener('click', () => selectProvider('servicem8'));
+    </script>
+</body>
+</html>
