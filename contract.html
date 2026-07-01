@@ -54,9 +54,17 @@
     .checkbox-row input{margin-top:3px;accent-color:var(--gold);width:20px;height:20px;flex-shrink:0;}
     .checkbox-row span{color:var(--soft);font-size:14.5px;line-height:1.65;font-weight:300;}
     .checkbox-row span b{color:var(--cream);font-weight:600;}
-    .pay-btn-wrap{display:none;}
+    .pay-btn-wrap{display:none;margin-top:20px;}
     .pay-btn-wrap.visible{display:block;}
-    .pay-btn{position:relative;overflow:hidden;display:block;text-align:center;padding:22px;border-radius:14px;font-weight:700;text-decoration:none;margin-top:14px;transition:all 0.3s;font-size:15px;cursor:pointer;width:100%;font-family:'DM Sans',sans-serif;letter-spacing:1.5px;text-transform:uppercase;}
+    .pay-dropdown{background:#0b0b0e;border:1px solid var(--border-hi);border-radius:13px;padding:18px;margin-bottom:14px;transition:all 0.3s;}
+    .pay-dropdown-header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-weight:600;color:var(--cream);}
+    .pay-dropdown-header:hover{color:var(--gold-light);}
+    .pay-dropdown-icon{transition:transform 0.3s;font-size:18px;}
+    .pay-dropdown-icon.open{transform:rotate(180deg);}
+    .pay-dropdown-content{display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);max-height:0;overflow:hidden;transition:all 0.3s ease;}
+    .pay-dropdown-content.open{display:block;max-height:500px;}
+    .pay-dropdown-content p{font-size:13px;color:var(--soft);margin-bottom:16px;}
+    .pay-btn{position:relative;overflow:hidden;display:block;text-align:center;padding:22px;border-radius:14px;font-weight:700;text-decoration:none;margin-top:0;transition:all 0.3s;font-size:15px;cursor:pointer;width:100%;font-family:'DM Sans',sans-serif;letter-spacing:1.5px;text-transform:uppercase;}
     .btn-gold{background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#1a1408;border:none;box-shadow:0 10px 28px rgba(201,163,91,0.3);}
     .btn-gold::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,0.55),transparent);transform:skewX(-18deg);transition:left 0.6s;}
     .btn-gold:hover{filter:brightness(1.07);transform:translateY(-3px);box-shadow:0 14px 36px rgba(201,163,91,0.42);}
@@ -97,11 +105,7 @@
   <div class="highlight-box">
     <div class="price-row" id="setupRow">
       <span>Professional Setup &amp; Integration</span>
-      <span class="strike">$1,700 AUD</span>
-    </div>
-    <div class="price-row special" id="setupOffer">
-      <span>Launch Offer</span>
-      <span><strong>$800 Setup Fee</strong></span>
+      <strong id="displaySetup">$800 AUD</strong>
     </div>
     <div style="height:1px;background:var(--border);margin:20px 0;"></div>
     <div class="price-row">
@@ -148,7 +152,16 @@
     </label>
 
     <div class="pay-btn-wrap" id="payBtnWrap">
-      <button class="pay-btn btn-gold" id="paymentBtn" onclick="handlePayment()">Start Free Trial — $530 AUD / month</button>
+      <div class="pay-dropdown" id="payDropdown">
+        <div class="pay-dropdown-header" onclick="toggleDropdown()">
+          <span id="dropdownLabel">Click to proceed to payment</span>
+          <span class="pay-dropdown-icon" id="dropdownIcon">▼</span>
+        </div>
+        <div class="pay-dropdown-content" id="dropdownContent">
+          <p>By clicking the button below, you will be redirected to our secure Stripe payment portal to complete your subscription.</p>
+          <button class="pay-btn btn-gold" id="paymentBtn" onclick="handlePayment()">Complete Payment</button>
+        </div>
+      </div>
     </div>
 
     <p id="validationWarning"></p>
@@ -191,8 +204,8 @@
   }
 
   // Update Display Prices
+  document.getElementById('displaySetup').textContent = '$800 AUD';
   document.getElementById('displayPrice').textContent = planConfig.price + ' AUD / month';
-  document.getElementById('paymentBtn').textContent = (selectedPlan === 'premium' ? 'Start 17-Day Free Trial — ' : 'Get Started — ') + planConfig.price + ' AUD / month';
 
   // Applicant Data
   let applicant = {};
@@ -222,8 +235,23 @@
       warning.style.display = 'none';
     } else {
       payBtnWrap.classList.remove('visible');
+      closeDropdown();
     }
   });
+
+  function toggleDropdown() {
+    const content = document.getElementById('dropdownContent');
+    const icon = document.getElementById('dropdownIcon');
+    content.classList.toggle('open');
+    icon.classList.toggle('open');
+  }
+
+  function closeDropdown() {
+    const content = document.getElementById('dropdownContent');
+    const icon = document.getElementById('dropdownIcon');
+    content.classList.remove('open');
+    icon.classList.remove('open');
+  }
 
   async function handlePayment() {
     if (!checkbox.checked) {
@@ -258,4 +286,3 @@
 </script>
 </body>
 </html>
-
