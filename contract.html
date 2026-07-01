@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
   <style>
     :root{
-      --black:#07070a; --card:#0f0f12; --card2:#141418; --border:rgba(201,163,91,0.15); --border-hi:rgba(201,163,91,0.40);
+      --black:#07070a; --card:#0f0f12; --card2:#141418; --border:rgba(201,163,91,0.15 ); --border-hi:rgba(201,163,91,0.40);
       --gold:#C9A35B; --gold-light:#e8c17a; --gold-dim:rgba(201,163,91,0.08);
       --cream:#f4f0e6; --muted:#7a7672; --soft:#b0ada5; --green:#10b981;
       --display:'Cormorant Garamond',serif;
@@ -16,7 +16,7 @@
     *{margin:0;padding:0;box-sizing:border-box;}
     html{scroll-behavior:smooth;}
     body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--black);color:var(--cream);line-height:1.78;font-size:16px;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;}
-    body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+    body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n )'/%3E%3C/svg%3E");}
     ::selection{background:rgba(201,163,91,0.28);color:#fff;}
     .bg-glow{position:fixed;top:-220px;left:50%;transform:translateX(-50%);width:1100px;height:720px;background:radial-gradient(ellipse at 50% 8%,rgba(201,163,91,0.15) 0%,transparent 62%);pointer-events:none;filter:blur(54px);z-index:0;}
     .wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:80px 24px 60px;}
@@ -87,7 +87,7 @@
   </div>
 
   <h2><span class="clause-no">1</span> The Parties</h2>
-  <p>This Agreement is entered into between <strong>Hermia</strong> ("Provider", ABN 75 434 177 026) and the Client identified during sign-up. By proceeding, the Client agrees to receive Hermia's AI intake and lead qualification software on a month-to-month subscription basis.</p>
+  <p>This Agreement is entered into between <strong>Hermia</strong> ("Provider", ABN 75 434 177 026 ) and the Client identified during sign-up. By proceeding, the Client agrees to receive Hermia's AI intake and lead qualification software on a month-to-month subscription basis.</p>
 
   <h2><span class="clause-no">2</span> Hermia AI Intake &amp; Qualification Software</h2>
   <p>The Provider delivers AI-powered intake and qualification software designed to engage with the Client's existing inbound enquiries. When a prospective customer submits an enquiry through the Client's website, advertising campaigns, email, phone, forms, or other lead sources, Hermia may automatically collect and organise relevant information — including contact details, service requirements, urgency, supporting media, availability, and other qualification data.</p>
@@ -95,18 +95,18 @@
 
   <h2><span class="clause-no">3</span> Pricing</h2>
   <div class="highlight-box">
-    <div class="price-row">
+    <div class="price-row" id="setupRow">
       <span>Professional Setup &amp; Integration</span>
       <span class="strike">$1,700 AUD</span>
     </div>
-    <div class="price-row special">
+    <div class="price-row special" id="setupOffer">
       <span>Launch Offer</span>
-      <span><strong>No setup fee</strong></span>
+      <span><strong>$800 Setup Fee</strong></span>
     </div>
     <div style="height:1px;background:var(--border);margin:20px 0;"></div>
     <div class="price-row">
       <strong>Monthly Software Access</strong>
-      <strong>$530 AUD / month</strong>
+      <strong id="displayPrice">$530 AUD / month</strong>
     </div>
   </div>
 
@@ -133,9 +133,7 @@
 
   <h2><span class="clause-no">9</span> Limitation of Liability</h2>
   <p>Hermia helps qualify and organise enquiries received by the Client. While we strive to provide a reliable service, we do not guarantee lead conversions, sales, bookings, or other business outcomes.</p>
-
   <p>Hermia is not responsible for lost revenue, missed opportunities, or business losses arising from the use of the Service.</p>
-
   <p>Any liability relating to the Service is limited to the fees paid by the Client in the three (3) months before the claim.</p>
 
   <h2><span class="clause-no">10</span> Governing Law</h2>
@@ -150,7 +148,7 @@
     </label>
 
     <div class="pay-btn-wrap" id="payBtnWrap">
-      <button class="pay-btn btn-gold" onclick="handlePayment()">Start Free Trial — $530 AUD / month</button>
+      <button class="pay-btn btn-gold" id="paymentBtn" onclick="handlePayment()">Start Free Trial — $530 AUD / month</button>
     </div>
 
     <p id="validationWarning"></p>
@@ -158,8 +156,11 @@
   </div>
 
   <footer>
-    © 2026 Hermia · ABN 75 434 177 026<br>
-    Hermia is independent software. All third-party trademarks and platform names visible in integrations remain the property of their respective owners.<br><br>
+    © 2026 Hermia · ABN 75 434 177 026  
+
+    Hermia is independent software. All third-party trademarks and platform names visible in integrations remain the property of their respective owners.  
+  
+
     <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms.html">Terms of Service</a>
   </footer>
 
@@ -167,11 +168,33 @@
 
 <script>
   const WEBHOOK_URL = 'https://hook.eu1.make.com/55y5lsql5rmr8ju9cmlt9o5115q784ay';
-  const STRIPE_AU   = 'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04';
+  
+  // STRIPE LINKS
+  const STRIPE_ENTRY   = 'https://buy.stripe.com/9B68wR4Zjfn668i2fW9EI01'; // $80
+  const STRIPE_MID     = 'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00'; // $260
+  const STRIPE_PREMIUM = 'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04'; // $530
 
-  // Name comes from apply.html (sessionStorage), set the moment the
-  // applicant submits the Apply form. Nothing is retyped here — the
-  // person only ever ticks the agreement checkbox on this page.
+  // Detect Plan from URL (e.g., contract.html?plan=entry )
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectedPlan = urlParams.get('plan') || 'premium';
+
+  let planConfig = {
+    price: '$530',
+    link: STRIPE_PREMIUM,
+    name: 'Premium'
+  };
+
+  if (selectedPlan === 'entry') {
+    planConfig = { price: '$80', link: STRIPE_ENTRY, name: 'Entry' };
+  } else if (selectedPlan === 'mid') {
+    planConfig = { price: '$260', link: STRIPE_MID, name: 'Mid' };
+  }
+
+  // Update Display Prices
+  document.getElementById('displayPrice').textContent = planConfig.price + ' AUD / month';
+  document.getElementById('paymentBtn').textContent = (selectedPlan === 'premium' ? 'Start 17-Day Free Trial — ' : 'Get Started — ') + planConfig.price + ' AUD / month';
+
+  // Applicant Data
   let applicant = {};
   try { applicant = JSON.parse(sessionStorage.getItem('hermia_applicant') || '{}'); } catch(e){}
   const A_NAME  = applicant.name  || sessionStorage.getItem('hermia_name')  || '';
@@ -185,58 +208,54 @@
   if (A_NAME) {
     document.getElementById('preparedName').textContent = A_NAME;
     document.getElementById('preparedBanner').classList.add('show');
+    document.getElementById('agreeText').innerHTML = 'I, <b>' + A_NAME + '</b>, have read and agree to the terms of this Service Agreement. I confirm this constitutes my electronic signature, dated ' + todayFormatted + '.';
   }
 
   const checkbox   = document.getElementById('agreeCheckbox');
-  const agreeText  = document.getElementById('agreeText');
   const payBtnWrap = document.getElementById('payBtnWrap');
   const warning    = document.getElementById('validationWarning');
   const sendingMsg = document.getElementById('sendingMsg');
 
-  // Bake the applicant's name (already collected on apply.html) straight
-  // into the agreement text — no input field, no retyping.
-  if (A_NAME) {
-    agreeText.innerHTML =
-      'I, <b>' + A_NAME + '</b>, have read and agree to the terms of this Service Agreement. I confirm this constitutes my electronic signature, dated ' + todayFormatted + '.';
-  }
-
-  checkbox.addEventListener('change', function () {
-    if (this.checked) { payBtnWrap.classList.add('visible'); warning.style.display = 'none'; }
-    else { payBtnWrap.classList.remove('visible'); }
+  checkbox.addEventListener('change', () => {
+    if (checkbox.checked) {
+      payBtnWrap.classList.add('visible');
+      warning.style.display = 'none';
+    } else {
+      payBtnWrap.classList.remove('visible');
+    }
   });
 
   async function handlePayment() {
     if (!checkbox.checked) {
-      warning.textContent = 'Please check the agreement box to continue.';
+      warning.textContent = "Please agree to the terms to continue.";
       warning.style.display = 'block';
       return;
     }
 
     sendingMsg.style.display = 'block';
+    payBtnWrap.style.display = 'none';
 
-    const payload = {
-      full_name:        A_NAME,
-      signature_name:   A_NAME,
-      phone:            A_PHONE || '',
-      email:            A_EMAIL || '',
-      country:          'Australia',
-      plan:             '$260 AUD/month',
-      signed_at:        new Date().toISOString(),
-      agreed_to_terms:  true,
-      contract_version: '2.0'
-    };
-
+    // Log to Webhook
     try {
       await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({
+          event: 'agreement_signed',
+          plan: planConfig.name,
+          price: planConfig.price,
+          name: A_NAME,
+          email: A_EMAIL,
+          phone: A_PHONE,
+          date: todayFormatted
+        })
       });
-    } catch(e) {}
+    } catch(e) { console.error(e); }
 
-    setTimeout(() => { window.location.href = STRIPE_AU; }, 1200);
+    // Redirect to Stripe
+    window.location.href = planConfig.link;
   }
 </script>
-
 </body>
 </html>
+
