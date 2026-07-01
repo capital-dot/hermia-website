@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hermia | Business Configuration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #080705;
+            --bg-card: rgba(10, 9, 7, 0.85);
+            --gold: #D4AF37;
+            --gold-bright: #FFD700;
+            --gold-light: #F9E2AF;
+            --gold-muted: rgba(212, 175, 55, 0.12);
+            --cream: #f4f0e6;
+            --soft: #a19d94;
+            --border: rgba(212, 175, 55, 0.2);
+            --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+        html, body { height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+        .bg-layers { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,1) 100%); z-index: 5; }
+        .light-bloom { position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 55%); animation: light-drift 35s infinite alternate ease-in-out; will-change: transform; }
+        @keyframes light-drift { 0% { transform: translate(-2%, -2%) scale(1); } 100% { transform: translate(2%, 2%) scale(1.05); } }
+        .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 120px 120px; -webkit-mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); opacity: 0.15; }
+        .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+        .wrap { position: relative; z-index: 10; width: 100%; max-width: 600px; margin: 0 auto; padding: 80px 24px 120px; display: flex; flex-direction: column; align-items: center; }
+        .logo-wrap { margin-bottom: 60px; position: relative; animation: fade-in-down 1.2s var(--ease-cinematic) forwards; }
+        .logo-aura { position: absolute; inset: -40px; background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%); filter: blur(25px); animation: aura-pulse 8s infinite ease-in-out; }
+        @keyframes aura-pulse { 0%, 100% { opacity: 0.3; transform: scale(0.9); } 50% { opacity: 0.6; transform: scale(1.05); } }
+        .logo { height: 58px; position: relative; z-index: 2; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
+        .steps { display: flex; justify-content: space-between; width: 100%; margin-bottom: 60px; position: relative; opacity: 0; animation: fade-in-up 1s var(--ease-cinematic) 0.4s forwards; }
+        .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.08); }
+        .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: linear-gradient(90deg, var(--gold-muted), var(--gold), var(--gold-muted)); box-shadow: 0 0 12px var(--gold); transition: width 1.2s var(--ease-cinematic); }
+        .step { display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; position: relative; z-index: 1; }
+        .dot { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 300; background: var(--bg); border: 1px solid var(--border); color: var(--soft); transition: all 0.6s var(--ease-cinematic); }
+        .step.active .dot { border-color: var(--gold); color: var(--gold-bright); box-shadow: 0 0 25px rgba(212, 175, 55, 0.25); transform: scale(1.05); }
+        .step.done .dot { background: var(--gold); border-color: var(--gold); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+        .dot svg { width: 14px; height: 14px; stroke-width: 2; }
+        .label { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--soft); opacity: 0.5; font-weight: 400; }
+        .step.active .label { color: var(--gold-light); opacity: 1; }
+        .card { width: 100%; background: var(--bg-card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: 0; padding: 60px 50px; position: relative; opacity: 0; animation: fade-in-up 1.2s var(--ease-cinematic) 0.6s forwards; box-shadow: 0 50px 120px rgba(0,0,0,0.8); }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.6; }
+        .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 24px; font-weight: 400; }
+        h1 { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; line-height: 1.0; margin-bottom: 20px; letter-spacing: -0.02em; }
+        .sub { font-size: 16px; color: var(--soft); margin-bottom: 50px; line-height: 1.7; font-weight: 300; max-width: 90%; }
+        .field { margin-bottom: 32px; }
+        label { display: block; font-size: 12px; color: var(--cream); margin-bottom: 12px; letter-spacing: 0.05em; text-transform: uppercase; opacity: 0.8; }
+        input, select { width: 100%; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(212, 175, 55, 0.1); border-radius: 0; padding: 18px 20px; color: var(--cream); font-family: inherit; font-size: 15px; font-weight: 200; transition: all 0.4s ease; outline: none; letter-spacing: 0.02em; }
+        input:focus, select:focus { background: rgba(212, 175, 55, 0.04); border-color: var(--gold); box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.05); }
+        select { cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23D4AF37' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 20px center; }
+        select option { background: #1a1612; color: var(--cream); }
+        .tel { display: flex; align-items: center; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(212, 175, 55, 0.1); transition: all 0.4s ease; }
+        .tel:focus-within { border-color: var(--gold); background: rgba(212, 175, 55, 0.04); }
+        .cc-fixed { padding-left: 20px; color: var(--gold-light); font-weight: 400; font-size: 15px; min-width: 48px; }
+        .tel input { background: transparent; border: none; padding-left: 10px; }
+        .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .btn { width: 100%; margin-top: 30px; padding: 22px; border: none; background: linear-gradient(135deg, #E8C17A, #C9A35B); color: #000; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); position: relative; overflow: hidden; }
+        .btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2); filter: brightness(1.05); }
+        .btn:disabled { opacity: 0.5; cursor: wait; }
+        .btn-sweep { position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent); transform: skewX(-30deg); animation: btn-sweep 5s infinite ease-in-out; }
+        @keyframes btn-sweep { 0% { left: -100%; } 15% { left: 150%; } 100% { left: 150%; } }
+        .secure { margin-top: 45px; text-align: center; color: var(--soft); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.4; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .secure svg { width: 14px; height: 14px; stroke-width: 1; }
+        @keyframes fade-in-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fade-in-down { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        .err-msg { color: #ff7e75; font-size: 10px; margin-top: 10px; display: none; text-transform: uppercase; letter-spacing: 0.1em; }
+        .err-msg.show { display: block; }
+        .formerr { color: #ff7e75; font-size: 12px; margin-top: 26px; text-align: center; line-height: 1.6; letter-spacing: 0.03em; display: none; word-break: break-word; }
+        .formerr.show { display: block; }
+        input.err, select.err, .tel.err { border-color: #ff7e75; background: rgba(255, 126, 117, 0.02); }
+        @media (max-width: 600px) { .card { padding: 50px 30px; } h1 { font-size: 38px; } .label { display: none; } .steps { margin-bottom: 40px; } .row-2 { grid-template-columns: 1fr; gap: 32px; } }
+    </style>
+</head>
+<body>
+
+    <div class="bg-layers">
+        <div class="light-bloom"></div>
+        <div class="grid"></div>
+        <div class="vignette"></div>
+        <div class="grain"></div>
+    </div>
+
+    <div class="wrap">
+        <div class="logo-wrap">
+            <div class="logo-aura"></div>
+            <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" />
+        </div>
+
+        <div class="steps" id="stepTracker">
+            <div class="progressline" id="progressline"></div>
+        </div>
+
+        <div class="card">
+            <div class="eyebrow">Credential Phase</div>
+            <h1>Your business details</h1>
+            <p class="sub">Please provide your professional credentials to establish your secure workspace within the Hermia ecosystem.</p>
+
+            <div class="field">
+                <label for="fullName">Principal Name</label>
+                <input id="fullName" type="text" autocomplete="name" placeholder="John Mitchell" />
+                <div class="err-msg" id="err-fullName">Entry Required</div>
+            </div>
+
+            <div class="field">
+                <label for="company">Entity Name</label>
+                <input id="company" type="text" autocomplete="organization" placeholder="Mitchell Foundation Repair" />
+                <div class="err-msg" id="err-company">Entry Required</div>
+            </div>
+
+            <div class="field">
+                <label for="email">Professional Email</label>
+                <input id="email" type="email" autocomplete="email" placeholder="john@yourcompany.com.au" />
+                <div class="err-msg" id="err-email">Valid Email Required</div>
+            </div>
+
+            <div class="row-2">
+                <div class="field">
+                    <label for="country">Country</label>
+                    <select id="country" autocomplete="country-name">
+                        <option value="Australia">Australia</option>
+                        <option value="New Zealand">New Zealand</option>
+                        <option value="United States">United States</option>
+                        <option value="Canada">Canada</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Ireland">Ireland</option>
+                    </select>
+                    <div class="err-msg" id="err-country">Entry Required</div>
+                </div>
+
+                <div class="field">
+                    <label for="state" id="stateLabel">State</label>
+                    <select id="state" autocomplete="address-level1">
+                        <option value="">Select your state</option>
+                    </select>
+                    <div class="err-msg" id="err-state">Please select your state</div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="phone">Direct Line</label>
+                <div class="tel" id="telWrap">
+                    <span class="cc-fixed" id="ccPrefix">+61</span>
+                    <input id="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="400 000 000" />
+                </div>
+                <div class="err-msg" id="err-phone">Valid Number Required</div>
+            </div>
+
+            <button class="btn" id="submitBtn">
+                <span class="btn-text">Establish Workspace</span>
+                <div class="btn-sweep"></div>
+            </button>
+
+            <div class="formerr" id="formError"></div>
+
+            <div class="secure">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                ENCRYPTED PRIVATE ARCHITECTURE
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ServiceM8-specific variant of the business-details step.
+        // Same UI/validation as the Simpro version, but:
+        //  1. always tags crmProvider = 'servicem8' when creating the customer
+        //  2. always redirects to servicem8_connect.html afterward
+        const ALL_STEPS = ['Payment','Select CRM','Details','ServiceM8','Connect','Setup'];
+        const ACTIVE_INDEX = 2;
+        const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+        (function buildSteps(){
+            const track = document.getElementById('stepTracker');
+            ALL_STEPS.forEach((label, i) => {
+                const div = document.createElement('div');
+                const state = i < ACTIVE_INDEX ? 'done' : (i === ACTIVE_INDEX ? 'active' : '');
+                div.className = 'step ' + state;
+                div.innerHTML = `<div class="dot">${state === 'done' ? CHECK_SVG : (i + 1)}</div><div class="label">${label}</div>`;
+                track.appendChild(div);
+            });
+            setTimeout(() => {
+                document.getElementById('progressline').style.width = `calc((100% - 34px) * ${ACTIVE_INDEX/(ALL_STEPS.length-1)})`;
+            }, 100);
+        })();
+
+        const HERMIANANGO_URL = 'https://hermianango.capital-fbc.workers.dev';
+        const $ = id => document.getElementById(id);
+
+        const COUNTRY_DATA = {
+            'Australia': {
+                label: 'State',
+                dialCode: '+61',
+                regions: [
+                    ['VIC', 'Victoria'], ['NSW', 'New South Wales'], ['QLD', 'Queensland'],
+                    ['WA', 'Western Australia'], ['SA', 'South Australia'], ['TAS', 'Tasmania'],
+                    ['ACT', 'Australian Capital Territory'], ['NT', 'Northern Territory']
+                ]
+            },
+            'New Zealand': {
+                label: 'Region',
+                dialCode: '+64',
+                regions: [
+                    ['AUK', 'Auckland'], ['WGN', 'Wellington'], ['CAN', 'Canterbury'],
+                    ['WKO', 'Waikato'], ['BOP', 'Bay of Plenty'], ['MWT', 'Manawatu-Whanganui'],
+                    ['OTA', 'Otago'], ['HKB', "Hawke's Bay"], ['NTL', 'Northland'],
+                    ['TKI', 'Taranaki'], ['STL', 'Southland'], ['NSN', 'Nelson'],
+                    ['MBH', 'Marlborough'], ['GIS', 'Gisborne'], ['WTC', 'West Coast'], ['TAS', 'Tasman']
+                ]
+            },
+            'United States': {
+                label: 'State',
+                dialCode: '+1',
+                regions: [
+                    ['AL','Alabama'],['AK','Alaska'],['AZ','Arizona'],['AR','Arkansas'],['CA','California'],
+                    ['CO','Colorado'],['CT','Connecticut'],['DE','Delaware'],['FL','Florida'],['GA','Georgia'],
+                    ['HI','Hawaii'],['ID','Idaho'],['IL','Illinois'],['IN','Indiana'],['IA','Iowa'],
+                    ['KS','Kansas'],['KY','Kentucky'],['LA','Louisiana'],['ME','Maine'],['MD','Maryland'],
+                    ['MA','Massachusetts'],['MI','Michigan'],['MN','Minnesota'],['MS','Mississippi'],['MO','Missouri'],
+                    ['MT','Montana'],['NE','Nebraska'],['NV','Nevada'],['NH','New Hampshire'],['NJ','New Jersey'],
+                    ['NM','New Mexico'],['NY','New York'],['NC','North Carolina'],['ND','North Dakota'],['OH','Ohio'],
+                    ['OK','Oklahoma'],['OR','Oregon'],['PA','Pennsylvania'],['RI','Rhode Island'],['SC','South Carolina'],
+                    ['SD','South Dakota'],['TN','Tennessee'],['TX','Texas'],['UT','Utah'],['VT','Vermont'],
+                    ['VA','Virginia'],['WA','Washington'],['WV','West Virginia'],['WI','Wisconsin'],['WY','Wyoming'],
+                    ['DC','District of Columbia']
+                ]
+            },
+            'Canada': {
+                label: 'Province',
+                dialCode: '+1',
+                regions: [
+                    ['AB','Alberta'],['BC','British Columbia'],['MB','Manitoba'],['NB','New Brunswick'],
+                    ['NL','Newfoundland and Labrador'],['NS','Nova Scotia'],['ON','Ontario'],
+                    ['PE','Prince Edward Island'],['QC','Quebec'],['SK','Saskatchewan'],
+                    ['NT','Northwest Territories'],['NU','Nunavut'],['YT','Yukon']
+                ]
+            },
+            'United Kingdom': {
+                label: 'Region',
+                dialCode: '+44',
+                regions: [
+                    ['ENG', 'England'], ['SCT', 'Scotland'], ['WLS', 'Wales'], ['NIR', 'Northern Ireland']
+                ]
+            },
+            'Ireland': {
+                label: 'County',
+                dialCode: '+353',
+                regions: [
+                    ['CW','Carlow'],['CN','Cavan'],['CE','Clare'],['CO','Cork'],['DL','Donegal'],
+                    ['D','Dublin'],['G','Galway'],['KY','Kerry'],['KE','Kildare'],['KK','Kilkenny'],
+                    ['LS','Laois'],['LM','Leitrim'],['LK','Limerick'],['LD','Longford'],['LH','Louth'],
+                    ['MO','Mayo'],['MH','Meath'],['MN','Monaghan'],['OY','Offaly'],['RN','Roscommon'],
+                    ['SO','Sligo'],['TA','Tipperary'],['WD','Waterford'],['WH','Westmeath'],
+                    ['WX','Wexford'],['WW','Wicklow']
+                ]
+            }
+        };
+
+        function populateRegionsForCountry(countryName) {
+            const data = COUNTRY_DATA[countryName];
+            const stateSelect = $('state');
+            const stateLabel = $('stateLabel');
+            const ccPrefix = $('ccPrefix');
+
+            stateSelect.innerHTML = '';
+            const placeholder = document.createElement('option');
+            placeholder.value = '';
+            placeholder.textContent = data ? `Select your ${data.label.toLowerCase()}` : 'Select your state';
+            stateSelect.appendChild(placeholder);
+
+            if (data) {
+                data.regions.forEach(([value, text]) => {
+                    const opt = document.createElement('option');
+                    opt.value = value;
+                    opt.textContent = text;
+                    stateSelect.appendChild(opt);
+                });
+                stateLabel.textContent = data.label;
+                ccPrefix.textContent = data.dialCode;
+            }
+        }
+
+        $('country').addEventListener('change', (e) => populateRegionsForCountry(e.target.value));
+        populateRegionsForCountry($('country').value);
+
+        // Same session-carried Stripe session_id pattern as the Simpro version.
+        const urlParams = new URLSearchParams(window.location.search);
+        const stripeSessionId = urlParams.get('session_id');
+
+        function showErr(id, on) {
+            const t = id === 'phone' ? $('telWrap') : $(id);
+            if (t) t.classList.toggle('err', on);
+            const e = $('err-' + id);
+            if (e) e.classList.toggle('show', on);
+        }
+
+        ['fullName', 'company', 'email', 'country', 'state', 'phone'].forEach(id => {
+            const el = $(id);
+            if (el) el.addEventListener('input', () => showErr(id, false));
+            if (el) el.addEventListener('change', () => showErr(id, false));
+        });
+
+        $('submitBtn').addEventListener('click', async () => {
+            let ok = true;
+            const name = $('fullName').value.trim();
+            const company = $('company').value.trim();
+            const email = $('email').value.trim();
+            const country = $('country').value.trim();
+            const state = $('state').value.trim();
+            const local = $('phone').value.replace(/[^\d]/g, '');
+
+            if (!name) { showErr('fullName', true); ok = false; }
+            if (!company) { showErr('company', true); ok = false; }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr('email', true); ok = false; }
+            if (!country) { showErr('country', true); ok = false; }
+            if (!state) { showErr('state', true); ok = false; }
+            if (local.length < 6 || local.length > 12) { showErr('phone', true); ok = false; }
+            if (!ok) return;
+
+            const btn = $('submitBtn');
+            btn.disabled = true;
+            btn.querySelector('.btn-text').textContent = 'VERIFYING...';
+
+            try {
+                const res = await fetch(HERMIANANGO_URL + '/create-customer', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        fullName: name,
+                        companyName: company,
+                        email: email,
+                        country: country,
+                        state: state,
+                        phone: $('ccPrefix').textContent + ' ' + local,
+                        stripeSessionId: stripeSessionId || null,
+                        // This page only ever exists on the ServiceM8 branch of
+                        // selection.html, so we tag it directly rather than
+                        // trusting sessionStorage alone — belt and braces.
+                        crmProvider: 'servicem8'
+                    })
+                });
+                const data = await res.json();
+                if (!res.ok || !data.ok) {
+                    throw new Error((data && data.error) || ('request failed: ' + res.status));
+                }
+
+                const id = data.customerId;
+
+                sessionStorage.setItem('hermia_customer_id', id);
+                sessionStorage.setItem('hermia_email', email);
+                sessionStorage.setItem('hermia_crm_provider', 'servicem8');
+                sessionStorage.setItem('hermia_state', state);
+                sessionStorage.setItem('hermia_country', country);
+
+                document.body.style.transition = 'opacity 1s ease';
+                document.body.style.opacity = '0';
+                setTimeout(() => {
+                    window.location.href = 'https://onboarding.hermia.au/servicem8_connect.html';
+                }, 1000);
+            } catch (e) {
+                console.error(e);
+                btn.disabled = false;
+                btn.querySelector('.btn-text').textContent = 'RETRY ESTABLISHMENT';
+                const errEl = $('formError');
+                if (errEl) {
+                    errEl.textContent = 'Error: ' + (e && e.message ? e.message : String(e));
+                    errEl.classList.add('show');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
