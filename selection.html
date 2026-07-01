@@ -99,9 +99,6 @@
     </div>
 
     <script>
-        // NOTE: matches the array used on other onboarding pages. If you've
-        // changed the step sequence elsewhere, update this list to match —
-        // the tracker is just cosmetic and independent per-page.
         const ALL_STEPS = ['Payment','Select CRM','Details','Connect','Setup'];
         const ACTIVE_INDEX = 1;
         const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -122,20 +119,35 @@
 
         const $ = id => document.getElementById(id);
 
+        // Route map: each CRM choice goes to its OWN dedicated business-details
+        // page (not a shared one with branching logic inside it). This keeps
+        // each CRM's onboarding path self-contained — no hardcoded per-client
+        // conditionals, just a straight map of provider -> page.
+        const DETAILS_PAGE_BY_PROVIDER = {
+            simpro: 'foundation_details.html',
+            servicem8: 'foundation_details_servicem8.html'
+        };
+
         function selectProvider(provider) {
-            // Stored in sessionStorage, not Supabase — no customerId exists
-            // yet at this point. foundation_details.html reads this and
-            // sends it as `crmProvider` in the /create-customer call, so
-            // it lands in Supabase the moment the customer row is created.
             sessionStorage.setItem('hermia_crm_provider', provider);
 
             $('cardSimpro').classList.toggle('selected', provider === 'simpro');
             $('cardServiceM8').classList.toggle('selected', provider === 'servicem8');
 
+            const targetPage = DETAILS_PAGE_BY_PROVIDER[provider];
+            if (!targetPage) {
+                const errEl = $('formError');
+                if (errEl) {
+                    errEl.textContent = 'Unrecognised CRM selection.';
+                    errEl.classList.add('show');
+                }
+                return;
+            }
+
             document.body.style.transition = 'opacity 0.6s ease';
             document.body.style.opacity = '0';
             setTimeout(() => {
-                window.location.href = 'https://onboarding.hermia.au/foundation_details.html';
+                window.location.href = 'https://onboarding.hermia.au/' + targetPage;
             }, 600);
         }
 
