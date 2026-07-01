@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hermia | Go Live</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #080705;
+            --bg-card: rgba(10, 9, 7, 0.9);
+            --gold: #D4AF37;
+            --gold-bright: #FFD700;
+            --gold-light: #F9E2AF;
+            --gold-muted: rgba(212, 175, 55, 0.12);
+            --cream: #f4f0e6;
+            --soft: #a19d94;
+            --border: rgba(212, 175, 55, 0.2);
+            --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html, body {
+            height: 100%;
+            background: var(--bg);
+            color: var(--cream);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .quit-link,
+        .quit-link:link,
+        .quit-link:visited,
+        .quit-link:active {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold-light) !important;
+            text-decoration: none !important;
+            padding: 10px 18px;
+            border: 1px solid var(--border);
+            background: rgba(212, 175, 55, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.3s var(--ease-cinematic);
+        }
+        .quit-link:hover {
+            color: #000 !important;
+            background: var(--gold) !important;
+            border-color: var(--gold);
+        }
+        @media (max-width: 600px) {
+            .quit-link { top: 14px; right: 14px; padding: 8px 14px; font-size: 9.5px; }
+        }
+
+        .bg-layers {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .vignette {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,1) 100%);
+            z-index: 5;
+        }
+
+        /* PERFORMANCE: kept at viewport size (not the old 150vw/150vh
+           oversized layer) and uses the gradient's own falloff instead
+           of a blur() filter — cheap to animate continuously. */
+        .light-bloom {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 55%);
+            animation: light-drift 40s infinite alternate ease-in-out;
+            will-change: transform;
+        }
+
+        @keyframes light-drift {
+            0% { transform: translate(-2%, -2%) scale(1); }
+            100% { transform: translate(2%, 2%) scale(1.05); }
+        }
+
+        .grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 140px 140px;
+            -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%);
+            mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%);
+            opacity: 0.1;
+        }
+
+        .grain {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        .wrap {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-wrap {
+            margin-bottom: 40px;
+            position: relative;
+            animation: fade-in-down 1.2s var(--ease-cinematic) forwards;
+        }
+
+        .logo {
+            height: 48px;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 700px;
+            margin-bottom: 60px;
+            position: relative;
+            opacity: 0;
+            animation: fade-in-up 1s var(--ease-cinematic) 0.4s forwards;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 10px;
+            right: 10px;
+            height: 1px;
+            background: rgba(212, 175, 55, 0.08);
+        }
+
+        .progressline {
+            position: absolute;
+            top: 16px;
+            left: 10px;
+            height: 1px;
+            background: var(--gold);
+            box-shadow: 0 0 12px var(--gold);
+            transition: width 1.2s var(--ease-cinematic);
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 11px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--soft);
+            transition: all 0.6s var(--ease-cinematic);
+        }
+
+        .step.active .dot { border-color: var(--gold); color: var(--gold-bright); box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+        .step.done .dot { background: var(--gold); border-color: var(--gold); color: #000; }
+        .dot svg { width: 14px; height: 14px; stroke-width: 2; }
+        .label { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--soft); opacity: 0.5; }
+        .step.active .label { color: var(--gold-light); opacity: 1; }
+
+        .card {
+            width: 100%;
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 80px;
+            position: relative;
+            opacity: 0;
+            animation: fade-in-up 1.2s var(--ease-cinematic) 0.6s forwards;
+            box-shadow: 0 60px 150px rgba(0,0,0,0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .eyebrow {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 56px;
+            font-weight: 300;
+            line-height: 1.0;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .sub {
+            font-size: 17px;
+            color: var(--soft);
+            margin-bottom: 50px;
+            line-height: 1.7;
+            font-weight: 300;
+            max-width: 700px;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 50px;
+            position: relative;
+            border: 1px solid var(--border);
+            background: #000;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            isolation: isolate;
+            contain: layout paint size;
+        }
+
+        .video-container::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .video-frame {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        /* Click-to-load poster: no iframe exists, and no Loom JS runs,
+           until the user taps play. This is the fix for the dragging —
+           a live Loom iframe keeps its own resize/scroll listeners
+           running the whole time it's mounted, and here it was also
+           being torn down and rebuilt on every render() call (phase
+           changes), which made it worse. */
+        .video-poster {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212,175,55,0.06), rgba(0,0,0,0.5));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            z-index: 1;
+        }
+        .play-btn {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: grid;
+            place-items: center;
+            box-shadow: 0 0 30px rgba(212,175,55,0.5);
+            transition: transform 0.15s ease;
+        }
+        .video-poster:active .play-btn { transform: scale(0.94); }
+        .play-btn svg { width: 24px; height: 24px; fill: #000; margin-left: 2px; }
+        .video-caption {
+            position: absolute;
+            bottom: 16px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            opacity: 0.85;
+        }
+
+        .action-area {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .alias-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid var(--gold);
+            background: rgba(212,175,55,0.05);
+            padding: 20px 24px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .alias-text {
+            flex: 1;
+            font-size: 18px;
+            color: var(--gold-light);
+            word-break: break-all;
+            font-weight: 300;
+            text-align: left;
+            letter-spacing: 0.05em;
+        }
+
+        .copy-btn {
+            background: var(--gold);
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover { filter: brightness(1.1); }
+
+        .btn {
+            width: 100%;
+            padding: 24px;
+            border: none;
+            background: linear-gradient(135deg, #E8C17A, #C9A35B);
+            color: #000;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.5s var(--ease-cinematic);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .btn:hover { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.25); }
+
+        .btn-sweep {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            transform: skewX(-30deg);
+            animation: btn-sweep 5s infinite ease-in-out;
+        }
+
+        @keyframes btn-sweep { 0% { left: -100%; } 15% { left: 150%; } 100% { left: 150%; } }
+
+        .status-msg {
+            margin-top: 30px;
+            padding: 20px;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .status-msg.wait { border: 1px solid var(--border); color: var(--soft); opacity: 0.7; }
+        .status-msg.err { border: 1px solid #ff7e75; color: #ff7e75; background: rgba(255,126,117,0.05); }
+
+        .powered {
+            margin-top: 60px;
+            text-align: center;
+            color: var(--soft);
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.4;
+        }
+
+        .pulse-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--gold); margin: 0 auto 30px; animation: pulse-ring 2s infinite; }
+        @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(212,175,55,0.6); } 70% { box-shadow: 0 0 0 20px rgba(212,175,55,0); } 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); } }
+
+        @keyframes fade-in-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fade-in-down { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 1000px) {
+            .card { padding: 60px 40px; }
+            h1 { font-size: 42px; }
+            .label { display: none; }
+            .wrap { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="quit-link">✕ Exit to Home</a>
+
+    <div class="bg-layers">
+        <div class="light-bloom"></div>
+        <div class="grid"></div>
+        <div class="vignette"></div>
+        <div class="grain"></div>
+    </div>
+
+    <div class="wrap">
+        <div class="logo-wrap">
+            <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" />
+        </div>
+
+        <div class="steps" id="stepTracker">
+            <div class="progressline" id="progressline"></div>
+        </div>
+
+        <div class="card" id="mainCard"></div>
+    </div>
+
+    <script>
+        const WORKER = 'https://hermianango.capital-fbc.workers.dev';
+        const EMAIL_WORKER = 'https://gmailflitering.capital-fbc.workers.dev';
+        const CONNECT_WS_URL = 'wss://connnect.capital-fbc.workers.dev/ws';
+        const NEXT_PAGE = 'https://onboarding.hermia.au/hermia_setup.html';
+        const LOOM_ID = '56f182849da844709050c5d794f68332';
+
+        const ALL_STEPS = ['Payment','Business','Details','Simpro','Connect','Setup'];
+        const ACTIVE_IDX = 5;
+        const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+        (function buildSteps() {
+            const track = document.getElementById('stepTracker');
+            ALL_STEPS.forEach((label, i) => {
+                const div = document.createElement('div');
+                const state = i < ACTIVE_IDX ? 'done' : (i === ACTIVE_IDX ? 'active' : '');
+                div.className = 'step ' + state;
+                div.innerHTML = `<div class="dot">${state === 'done' ? CHECK_SVG : (i + 1)}</div><div class="label">${label}</div>`;
+                track.appendChild(div);
+            });
+            setTimeout(() => {
+                document.getElementById('progressline').style.width = `calc((100% - 32px) * ${ACTIVE_IDX / (ALL_STEPS.length - 1)})`;
+            }, 100);
+        })();
+
+        const STATE = {
+            phase: 'fwd-setup',
+            leadAlias: null,
+            verifySocket: null,
+            verifyLink: null,
+            verifyClicked: false,
+            verifyTimeoutTimer: null
+        };
+
+        function render() {
+            const card = document.getElementById('mainCard');
+
+            if (STATE.phase === 'fwd-setup') {
+                card.innerHTML = `
+                    <div class="eyebrow">Final Activation Phase</div>
+                    <h1>Initialize Forwarding</h1>
+                    <p class="sub">Establish the secure data bridge between your inbox and Hermia. Copy the address below and configure your Gmail forwarding rule to begin.</p>
+                    
+                    <div class="video-container" id="loomVideoContainer">
+                        <div class="video-poster" id="loomPoster">
+                            <div class="play-btn">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                            <div class="video-caption">Tap to play walkthrough</div>
+                        </div>
+                    </div>
+
+                    <div class="action-area">
+                        <div class="alias-box">
+                            <div class="alias-text" id="aliasText">${STATE.leadAlias || 'GENERATING...'}</div>
+                            <button class="copy-btn" onclick="copyAlias()">Copy Address</button>
+                        </div>
+                    </div>
+
+                    <div class="powered">Architected by Hermia &bull; Private Domain Architecture</div>
+                `;
+                attachLoomLoader();
+                loadAlias();
+                connectVerifySocket();
+            } else if (STATE.phase === 'verify') {
+                card.innerHTML = `
+                    <div class="eyebrow">Verification Required</div>
+                    <div class="pulse-dot"></div>
+                    <h1>Authorize Connection</h1>
+                    <p class="sub">Google has issued a verification request. Click below to approve the secure forwarding rule in your Gmail dashboard.</p>
+                    
+                    <div class="action-area" id="step1">
+                        <a class="btn" id="connectBtn" href="${STATE.verifyLink || '#'}" target="_blank" rel="noopener" onclick="onConfirmClick()">
+                            Confirm in Gmail
+                            <div class="btn-sweep"></div>
+                        </a>
+                    </div>
+                    <div class="action-area" id="step2" style="display:none;">
+                        <p class="sub">Verification confirmed. Proceed to finalize your ecosystem setup.</p>
+                        <button class="btn" onclick="onContinue()">
+                            Finalize Setup
+                            <div class="btn-sweep"></div>
+                        </button>
+                    </div>
+
+                    <div class="powered">Architected by Hermia &bull; Private Domain Architecture</div>
+                `;
+            } else if (STATE.phase === 'saving') {
+                card.innerHTML = `
+                    <div class="eyebrow">System Finalization</div>
+                    <h1>Establishing Workspace</h1>
+                    <p class="sub">Please wait while we finalize your secure lead architecture...</p>
+                    <div style="display:flex;justify-content:center;padding:60px 0;"><div class="spinner-light"></div></div>
+                `;
+            }
+        }
+
+        // Click-to-load: only create the Loom iframe (and let its JS run)
+        // once the user taps the poster. Nothing autoloads, and since
+        // this only runs inside the fwd-setup branch of render(), it
+        // also can't get re-triggered by later phase changes.
+        function attachLoomLoader() {
+            const container = document.getElementById('loomVideoContainer');
+            const poster = document.getElementById('loomPoster');
+            if (!container || !poster) return;
+
+            poster.addEventListener('click', function () {
+                const iframe = document.createElement('iframe');
+                iframe.className = 'video-frame';
+                iframe.src = 'https://www.loom.com/embed/' + LOOM_ID +
+                    '?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true&autoplay=1';
+                iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+                iframe.allowFullscreen = true;
+                iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+
+                poster.remove();
+                container.appendChild(iframe);
+            }, { once: true });
+        }
+
+        function showError(msg) {
+            console.error('[gmail-forwarding]', msg);
+        }
+
+        function copyAlias() {
+            navigator.clipboard.writeText(STATE.leadAlias || '');
+            const btn = document.querySelector('.copy-btn');
+            if (btn) { btn.textContent = 'COPIED'; setTimeout(() => btn.textContent = 'COPY ADDRESS', 1500); }
+        }
+
+        function loadAlias() {
+            const customerId = sessionStorage.getItem('hermia_customer_id');
+            if (!customerId) { showError('SESSION EXPIRED'); return; }
+            fetch(WORKER + '/get-lead-alias', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ customerId })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data && data.ok) {
+                    STATE.leadAlias = data.leadAlias;
+                    const el = document.getElementById('aliasText');
+                    if (el) el.textContent = data.leadAlias;
+                } else {
+                    showError('GENERATION FAILED');
+                }
+            })
+            .catch(() => showError('CONNECTION ERROR'));
+        }
+
+        function connectVerifySocket() {
+            const customerId = sessionStorage.getItem('hermia_customer_id');
+            if (!customerId) return;
+            fetch(EMAIL_WORKER + '/gmail-verify-status?customerId=' + encodeURIComponent(customerId))
+                .then(r => r.json())
+                .then(data => { if (data && data.verifyUrl) handleVerifyLink(data.verifyUrl); })
+                .catch(() => {});
+            openVerifySocket(customerId, 0);
+            STATE.verifyTimeoutTimer = setTimeout(() => {
+                if (STATE.phase !== 'fwd-setup') return;
+                showError("TIMEOUT - PLEASE REFRESH AND RETRY");
+            }, 600000);
+        }
+
+        function openVerifySocket(customerId, attempt) {
+            let socket;
+            try { socket = new WebSocket(CONNECT_WS_URL + '?customerId=' + encodeURIComponent(customerId)); }
+            catch (e) { scheduleVerifyReconnect(customerId, attempt); return; }
+            STATE.verifySocket = socket;
+            socket.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    if (data.link) handleVerifyLink(data.link);
+                } catch (e) {}
+            };
+            socket.onclose = () => { if (!STATE.verifyLink) scheduleVerifyReconnect(customerId, attempt + 1); };
+            const pingTimer = setInterval(() => {
+                if (socket.readyState === WebSocket.OPEN) { try { socket.send('ping'); } catch (e) {} }
+                else { clearInterval(pingTimer); }
+            }, 20000);
+        }
+
+        function scheduleVerifyReconnect(customerId, attempt) {
+            if (STATE.verifyLink || STATE.phase !== 'fwd-setup') return;
+            const delay = Math.min(15000, 1000 * Math.pow(2, attempt));
+            setTimeout(() => openVerifySocket(customerId, attempt), delay);
+        }
+
+        function handleVerifyLink(link) {
+            if (STATE.verifyLink) return;
+            STATE.verifyLink = link;
+            if (STATE.verifySocket) { try { STATE.verifySocket.close(); } catch (e) {} }
+            if (STATE.verifyTimeoutTimer) clearTimeout(STATE.verifyTimeoutTimer);
+            STATE.phase = 'verify';
+            render();
+        }
+
+        function onConfirmClick() {
+            STATE.verifyClicked = true;
+            const customerId = sessionStorage.getItem('hermia_customer_id');
+            if (customerId) fetch(EMAIL_WORKER + '/gmail-verify-clear?customerId=' + encodeURIComponent(customerId)).catch(() => {});
+            setTimeout(() => {
+                document.getElementById('step1').style.display = 'none';
+                const step2 = document.getElementById('step2');
+                step2.style.display = 'block';
+            }, 300);
+        }
+
+        function onContinue() { window.location.href = NEXT_PAGE; }
+
+        render();
+    </script>
+</body>
+</html>
