@@ -692,21 +692,69 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     </div>
   </section>
 
-  <section class="pricing-section" id="pricing">
-    <div class="inner" style="display:flex;flex-direction:column;align-items:center">
-      <div class="eyebrow">Pricing</div>
-      <h2 class="pricing-h">Recover missed repair jobs <em>automatically.</em></h2>
-      <p class="pricing-sub">One qualified repair job can cover months of Hermia.</p>
-      <div class="p-card-wide">
-        <div class="p-badge-wide">3-Day Free Trial</div>
-        <div class="p-wide-left">
-          <div class="p-rule"></div>
-          <div class="p-price"><span class="p-cur">$</span><span class="p-num">530</span></div>
-          <div class="p-per">AUD / month</div>
-          <div class="p-was">$1,700 setup fee</div>
-          <div class="p-offer">Launch offer &mdash; setup included</div>
-          <a href="apply.html" class="p-btn" style="margin-top:28px">Start Free Trial</a>
+ <section class="pricing-section" id="pricing">
+  <div class="inner" style="display:flex;flex-direction:column;align-items:center">
+    <div class="eyebrow">Pricing</div>
+    <h2 class="pricing-h">Recover missed repair jobs <em>automatically.</em></h2>
+    <p class="pricing-sub">Choose the plan that fits your volume. One qualified repair job can cover months of Hermia.</p>
+    
+    <div class="pricing-grid" style="display:flex; gap:20px; width:100%; max-width:1100px; margin-top:40px; flex-wrap:wrap; justify-content:center;">
+      
+      <!-- Entry Tier -->
+      <div class="p-card" style="flex:1; min-width:300px; background:#fff; border:1px solid #eee; border-radius:12px; padding:32px; display:flex; flex-direction:column; align-items:center; position:relative;">
+        <div class="p-tier-name" style="font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; color:#666;">Entry</div>
+        <div class="p-price" style="display:flex; align-items:baseline; margin-bottom:8px;">
+          <span class="p-cur" style="font-size:24px; font-weight:700;">$</span>
+          <span class="p-num" style="font-size:48px; font-weight:700;">80</span>
         </div>
+        <div class="p-per" style="color:#666; margin-bottom:24px;">AUD / month</div>
+        <div class="p-rule" style="width:100%; height:1px; background:#eee; margin-bottom:24px;"></div>
+        <ul class="p-features" style="list-style:none; padding:0; margin:0 0 32px 0; text-align:center; flex-grow:1;">
+          <li style="margin-bottom:12px;"><strong>40</strong> photos/videos per month</li>
+          <li style="margin-bottom:12px; color:#888; font-size:0.9em;">Hard limit reset monthly</li>
+          <li style="margin-bottom:12px;">Launch offer &mdash; setup included</li>
+        </ul>
+        <a href="apply.html" class="p-btn" style="width:100%; text-align:center; padding:14px; background:#000; color:#fff; text-decoration:none; border-radius:6px; font-weight:600;">Get Started</a>
+      </div>
+
+      <!-- Mid Tier -->
+      <div class="p-card" style="flex:1; min-width:300px; background:#fff; border:1px solid #eee; border-radius:12px; padding:32px; display:flex; flex-direction:column; align-items:center; position:relative;">
+        <div class="p-tier-name" style="font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; color:#666;">Mid</div>
+        <div class="p-price" style="display:flex; align-items:baseline; margin-bottom:8px;">
+          <span class="p-cur" style="font-size:24px; font-weight:700;">$</span>
+          <span class="p-num" style="font-size:48px; font-weight:700;">260</span>
+        </div>
+        <div class="p-per" style="color:#666; margin-bottom:24px;">AUD / month</div>
+        <div class="p-rule" style="width:100%; height:1px; background:#eee; margin-bottom:24px;"></div>
+        <ul class="p-features" style="list-style:none; padding:0; margin:0 0 32px 0; text-align:center; flex-grow:1;">
+          <li style="margin-bottom:12px;"><strong>150</strong> photos/videos per month</li>
+          <li style="margin-bottom:12px; color:#888; font-size:0.9em;">Hard limit reset monthly</li>
+          <li style="margin-bottom:12px;">Launch offer &mdash; setup included</li>
+        </ul>
+        <a href="apply.html" class="p-btn" style="width:100%; text-align:center; padding:14px; background:#000; color:#fff; text-decoration:none; border-radius:6px; font-weight:600;">Get Started</a>
+      </div>
+
+      <!-- Premium Tier -->
+      <div class="p-card" style="flex:1; min-width:300px; background:#fff; border:2px solid #000; border-radius:12px; padding:32px; display:flex; flex-direction:column; align-items:center; position:relative; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+        <div class="p-badge" style="position:absolute; top:-12px; background:#000; color:#fff; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:700; text-transform:uppercase;">3-Day Free Trial</div>
+        <div class="p-tier-name" style="font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; color:#000;">Premium</div>
+        <div class="p-price" style="display:flex; align-items:baseline; margin-bottom:8px;">
+          <span class="p-cur" style="font-size:24px; font-weight:700;">$</span>
+          <span class="p-num" style="font-size:48px; font-weight:700;">530</span>
+        </div>
+        <div class="p-per" style="color:#666; margin-bottom:24px;">AUD / month</div>
+        <div class="p-rule" style="width:100%; height:1px; background:#eee; margin-bottom:24px;"></div>
+        <ul class="p-features" style="list-style:none; padding:0; margin:0 0 32px 0; text-align:center; flex-grow:1;">
+          <li style="margin-bottom:12px;"><strong>Unlimited</strong> photos/videos</li>
+          <li style="margin-bottom:12px; color:#888; font-size:0.9em;">No limits, priority processing</li>
+          <li style="margin-bottom:12px;">Launch offer &mdash; setup included</li>
+        </ul>
+        <a href="apply.html" class="p-btn" style="width:100%; text-align:center; padding:14px; background:#000; color:#fff; text-decoration:none; border-radius:6px; font-weight:600;">Start Free Trial</a>
+      </div>
+
+    </div>
+  </div>
+</section>
         <div class="p-wide-divider"></div>
         <div class="p-feats-block">
           <div class="p-feats-label">What Hermia does</div>
