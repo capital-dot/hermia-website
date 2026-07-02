@@ -107,7 +107,7 @@
       <span>Professional Setup &amp; Integration</span>
       <strong id="displaySetup">$800 AUD</strong>
     </div>
-    <div style="height:1px;background:var(--border);margin:20px 0;"></div>
+    <div style="height:1px;background:var(--border);margin:20px 0;" id="setupDivider"></div>
     <div class="price-row">
       <strong>Monthly Software Access</strong>
       <strong id="displayPrice">$530 AUD / month</strong>
@@ -204,8 +204,15 @@
   }
 
   // Update Display Prices
-  document.getElementById('displaySetup').textContent = '$800 AUD';
   document.getElementById('displayPrice').textContent = planConfig.price + ' AUD / month';
+
+  // Setup fee only applies to the Standard plan
+  if (selectedPlan === 'standard') {
+    document.getElementById('displaySetup').textContent = '$800 AUD';
+  } else {
+    document.getElementById('setupRow').style.display = 'none';
+    document.getElementById('setupDivider').style.display = 'none';
+  }
 
   // Applicant Data
   let applicant = {};
@@ -286,3 +293,4 @@
 </script>
 </body>
 </html>
+
