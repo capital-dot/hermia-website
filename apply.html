@@ -169,6 +169,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 </div>
 
 <script>
+const urlParams = new URLSearchParams(window.location.search);
+const plan = urlParams.get('plan') || 'entry';
+sessionStorage.setItem('hermia_plan', plan);
+
 const WEBHOOK_URL = 'https://hook.eu1.make.com/3hq3jwbtjc6afnfem9rhshxwqlyx838j';
 const CONTRACT_URL = 'contract.html';
 
@@ -221,7 +225,7 @@ async function handleSubmit() {
   advance('vs1', 550);
   advance('vs2', 1200);
   advance('vs3', 1850);
-  setTimeout(() => { window.location.href = CONTRACT_URL; }, 2500);
+  setTimeout(() => { window.location.href = 'contract.html?plan=' + plan; }, 2500);
 }
 </script>
 </body>
