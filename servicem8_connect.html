@@ -126,8 +126,6 @@
     </div>
 
     <script>
-        // NOTE: labeling the 4th step "ServiceM8" here since this page only
-        // exists on the ServiceM8 branch. Simpro users never see this file.
         const ALL_STEPS = ['Payment','Select CRM','Details','ServiceM8','Connect','Setup'];
         const ACTIVE_INDEX = 3;
         const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -149,11 +147,13 @@
         const HERMIANANGO_URL = 'https://hermianango.capital-fbc.workers.dev';
         const $ = id => document.getElementById(id);
 
-        // CHANGE THIS: point to whatever the actual Gmail-forwarding page's
-        // filename is — it wasn't confirmed in this session. It's currently
-        // hardcoded here as a guess based on naming convention; verify before
-        // deploying.
-        const GMAIL_FORWARDING_PAGE = 'https://onboarding.hermia.au/gmail_forwarding.html';
+        // Facebook is lead-intake source #2 for every customer (alongside
+        // Gmail forwarding), so ServiceM8 key save now hands off into the
+        // Facebook connect step, not straight to Gmail. The worker itself
+        // continues into Gmail forwarding once Facebook connect finishes
+        // (single-page auto-connect or the multi-page picker) — see
+        // AFTER_FACEBOOK_CONNECT_PAGE in hermianango-worker.js.
+        const FACEBOOK_CONNECT_URL = HERMIANANGO_URL + '/facebook-auth-url?customerId=';
 
         function showErr(on) {
             $('apiKey').classList.toggle('err', on);
@@ -192,10 +192,6 @@
                     throw new Error('That key was rejected by ServiceM8 — double check it was copied in full, or generate a new one.');
                 }
 
-                // billingLapsed: true = key is valid, but the ServiceM8
-                // account itself has no active plan. We still save it and
-                // let the contractor continue — this is a real account
-                // state, not an error on their end.
                 if (data.billingLapsed) {
                     const noteEl = $('formNote');
                     noteEl.textContent = "Key saved. Note: your ServiceM8 account currently shows no active billing plan — leads may not sync until that's resolved.";
@@ -207,7 +203,7 @@
                 document.body.style.transition = 'opacity 1s ease';
                 document.body.style.opacity = '0';
                 setTimeout(() => {
-                    window.location.href = GMAIL_FORWARDING_PAGE;
+                    window.location.href = FACEBOOK_CONNECT_URL + encodeURIComponent(customerId);
                 }, 1000);
             } catch (e) {
                 console.error(e);
