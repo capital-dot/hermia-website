@@ -147,14 +147,6 @@
         const HERMIANANGO_URL = 'https://hermianango.capital-fbc.workers.dev';
         const $ = id => document.getElementById(id);
 
-        // Facebook is lead-intake source #2 for every customer (alongside
-        // Gmail forwarding), so ServiceM8 key save now hands off into the
-        // Facebook connect step, not straight to Gmail. The worker itself
-        // continues into Gmail forwarding once Facebook connect finishes
-        // (single-page auto-connect or the multi-page picker) — see
-        // AFTER_FACEBOOK_CONNECT_PAGE in hermianango-worker.js.
-        const FACEBOOK_CONNECT_URL = HERMIANANGO_URL + '/facebook-auth-url?customerId=';
-
         function showErr(on) {
             $('apiKey').classList.toggle('err', on);
             $('err-apiKey').classList.toggle('show', on);
@@ -203,7 +195,7 @@
                 document.body.style.transition = 'opacity 1s ease';
                 document.body.style.opacity = '0';
                 setTimeout(() => {
-                    window.location.href = FACEBOOK_CONNECT_URL + encodeURIComponent(customerId);
+                    window.location.href = 'servicem8_gmail.html';
                 }, 1000);
             } catch (e) {
                 console.error(e);
@@ -217,3 +209,4 @@
     </script>
 </body>
 </html>
+
