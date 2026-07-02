@@ -281,6 +281,27 @@
 <script>
   sessionStorage.setItem('hermia_vertical', 'foundation_repair');
 
+  // FIX: Stripe's success_url is
+  //   hermia_welcome.html?session_id={CHECKOUT_SESSION_ID}
+  // but this page was never reading that query param — it was created
+  // and then immediately discarded when the redirect below fired. That's
+  // why stripe_customer_id was never showing up in Supabase: by the time
+  // /create-customer runs later in the flow, there was nothing left to
+  // resolve a Stripe customer from.
+  //
+  // Persist it the same way hermia_vertical is persisted above, so
+  // whichever page calls POST /create-customer later (currently
+  // foundation_details.html / foundation_details_servicem8.html) can read
+  // it back out and send it as body.stripeSessionId. No value is invented
+  // here — if Stripe didn't put a session_id on the URL, nothing is stored.
+  const params = new URLSearchParams(window.location.search);
+  const stripeSessionId = params.get('session_id');
+  if (stripeSessionId) {
+    sessionStorage.setItem('hermia_stripe_session_id', stripeSessionId);
+  } else {
+    console.error('[welcome] no session_id on URL — stripe_customer_id will not be captured for this customer');
+  }
+
   // CHANGED: now redirects to selection.html so the contractor picks
   // Simpro or ServiceM8 before foundation_details.html. Previously went
   // straight to foundation_details.html.
