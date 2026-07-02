@@ -693,43 +693,15 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   </section>
   
 
-<!-- START IMPROVED PRICING SECTION -->
+<!-- START PRICING SECTION -->
 <style>
-:root {
-  --hermia-bg: #050505;
-  --hermia-bg2: #0e0e0e;
-  --hermia-card: #0f0f0f;
-  --hermia-border: rgba(196, 150, 60, 0.14);
-  --hermia-bhi: rgba(196, 150, 60, 0.35);
-  --hermia-gold: #c4963c;
-  --hermia-gl: #d9aa52;
-  --hermia-cream: #f4f0e6;
-  --hermia-soft: #b0ada5;
-  --hermia-muted: #7a7470;
-  --hermia-display: "Cormorant Garamond", serif;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: "DM Sans", sans-serif;
-  background: var(--hermia-bg);
-  color: var(--hermia-cream);
-  overflow-x: hidden;
-}
-
-/* PRICING SECTION - IMPROVED LAYOUT */
 .pricing-section {
   padding: 120px 48px;
   text-align: center;
   background: linear-gradient(150deg, #130c03, #111);
-  border-top: 1px solid var(--hermia-border);
-  border-bottom: 1px solid var(--hermia-border);
-  color: var(--hermia-cream);
+  border-top: 1px solid rgba(196,150,60,0.14);
+  border-bottom: 1px solid rgba(196,150,60,0.14);
+  color: #f4f0e6;
   font-family: "DM Sans", sans-serif;
   position: relative;
 }
@@ -741,17 +713,8 @@ body {
   align-items: center;
 }
 
-.eyebrow {
-  font-size: 10.5px;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--hermia-gold);
-  margin-bottom: 20px;
-  font-weight: 600;
-}
-
 .pricing-h {
-  font-family: var(--hermia-display);
+  font-family: "Cormorant Garamond", serif;
   font-size: clamp(36px, 4.5vw, 56px);
   font-weight: 600;
   color: #fff;
@@ -762,12 +725,12 @@ body {
 
 .pricing-h em {
   font-style: italic;
-  color: var(--hermia-gl);
+  color: #d9aa52;
   font-weight: 600;
 }
 
 .pricing-sub {
-  color: var(--hermia-soft);
+  color: #b0ada5;
   font-size: 16px;
   max-width: 580px;
   margin: 0 auto;
@@ -785,74 +748,59 @@ body {
 }
 
 .p-card {
-  background: rgba(15, 15, 15, 0.95);
-  border: 1.5px solid var(--hermia-bhi);
+  background: rgba(15,15,15,0.95);
+  border: 1.5px solid rgba(196,150,60,0.35);
   border-radius: 24px;
   padding: 56px 44px;
   position: relative;
   display: flex;
   flex-direction: column;
   text-align: left;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.4);
   overflow: hidden;
 }
 
-/* Corner accents */
-.p-card::before,
-.p-card::after {
+.p-card::before, .p-card::after {
   content: "";
   position: absolute;
   width: 16px;
   height: 16px;
-  border-color: var(--hermia-gold);
+  border-color: #c4963c;
   border-style: solid;
   opacity: 0.6;
   transition: opacity 0.3s ease;
 }
-
-.p-card::before {
-  top: 16px;
-  right: 16px;
-  border-width: 2px 2px 0 0;
-}
-
-.p-card::after {
-  bottom: 16px;
-  left: 16px;
-  border-width: 0 0 2px 2px;
-}
+.p-card::before { top:16px; right:16px; border-width:2px 2px 0 0; }
+.p-card::after  { bottom:16px; left:16px; border-width:0 0 2px 2px; }
 
 .p-card:hover {
-  border-color: var(--hermia-gold);
+  border-color: #c4963c;
   transform: translateY(-8px);
-  box-shadow: 0 36px 80px rgba(0, 0, 0, 0.5), 0 0 50px rgba(217, 170, 82, 0.15);
+  box-shadow: 0 36px 80px rgba(0,0,0,0.5), 0 0 50px rgba(217,170,82,0.15);
 }
+.p-card:hover::before, .p-card:hover::after { opacity:1; }
 
-.p-card:hover::before,
-.p-card:hover::after {
-  opacity: 1;
-}
-
-/* Featured Card */
+/* Featured card */
 .p-card.featured {
-  border-color: var(--hermia-gl);
-  background: linear-gradient(150deg, rgba(217, 170, 82, 0.12), rgba(15, 15, 15, 0.98));
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), 0 0 50px rgba(217, 170, 82, 0.18);
+  border-color: #d9aa52;
+  background: linear-gradient(150deg, rgba(217,170,82,0.12), rgba(15,15,15,0.98));
+  box-shadow: 0 24px 60px rgba(0,0,0,0.4), 0 0 50px rgba(217,170,82,0.18);
   transform: scale(1.02);
 }
-
 .p-card.featured:hover {
   transform: scale(1.02) translateY(-8px);
-  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5), 0 0 60px rgba(217, 170, 82, 0.25);
+  box-shadow: 0 40px 90px rgba(0,0,0,0.5), 0 0 60px rgba(217,170,82,0.25);
 }
 
+/* Badge on featured card - FIX: move down so it's not blocked */
 .p-badge {
+  display: none;
   position: absolute;
-  top: -14px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, var(--hermia-gl), var(--hermia-gold));
+  background: linear-gradient(135deg, #d9aa52, #c4963c);
   color: #000;
   padding: 8px 22px;
   border-radius: 24px;
@@ -861,15 +809,14 @@ body {
   letter-spacing: 1.8px;
   text-transform: uppercase;
   font-family: "DM Sans", sans-serif;
-  box-shadow: 0 8px 24px rgba(217, 170, 82, 0.3);
+  box-shadow: 0 8px 24px rgba(217,170,82,0.3);
+  white-space: nowrap;
+  z-index: 2;
 }
-
-.p-card.featured .p-badge {
-  display: block;
-}
+.p-card.featured .p-badge { display: block; }
 
 .p-tier-name {
-  font-family: var(--hermia-display);
+  font-family: "Cormorant Garamond", serif;
   font-size: 32px;
   font-weight: 600;
   color: #fff;
@@ -877,11 +824,13 @@ body {
   margin-top: 16px;
   letter-spacing: -0.5px;
 }
+/* Extra top margin on featured to make room for badge */
+.p-card.featured .p-tier-name { margin-top: 48px; }
 
 .p-price-wrap {
   margin-bottom: 32px;
   padding-bottom: 28px;
-  border-bottom: 1px solid rgba(196, 150, 60, 0.18);
+  border-bottom: 1px solid rgba(196,150,60,0.18);
 }
 
 .p-price {
@@ -891,34 +840,16 @@ body {
   margin-bottom: 8px;
 }
 
-.p-cur {
-  font-size: 22px;
-  color: var(--hermia-gl);
-  font-weight: 700;
-}
-
+.p-cur { font-size: 22px; color: #d9aa52; font-weight: 700; }
 .p-num {
-  font-family: var(--hermia-display);
+  font-family: "Cormorant Garamond", serif;
   font-size: 56px;
   font-weight: 700;
   color: #fff;
   line-height: 1;
 }
-
-.p-per {
-  font-size: 14px;
-  color: var(--hermia-soft);
-  font-weight: 300;
-  letter-spacing: 0.3px;
-}
-
-.p-offer {
-  font-size: 13px;
-  color: var(--hermia-gl);
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  margin-top: 12px;
-}
+.p-per { font-size: 14px; color: #b0ada5; font-weight: 300; letter-spacing: 0.3px; }
+.p-offer { font-size: 13px; color: #d9aa52; font-weight: 600; letter-spacing: 0.5px; margin-top: 12px; }
 
 .p-feats {
   flex: 1;
@@ -929,36 +860,27 @@ body {
   flex-direction: column;
   gap: 18px;
 }
-
 .p-feats li {
   font-size: 14px;
-  color: var(--hermia-soft);
+  color: #b0ada5;
   line-height: 1.6;
   display: flex;
   align-items: flex-start;
   gap: 12px;
 }
-
 .p-feats li::before {
   content: "✓";
-  color: var(--hermia-gl);
+  color: #d9aa52;
   font-weight: 800;
   flex-shrink: 0;
   font-size: 16px;
   margin-top: -2px;
 }
+.p-feats li strong { color: #fff; font-weight: 600; }
 
-.p-feats li span {
-  display: block;
-}
-
-.p-feats li span strong {
-  color: #fff;
-  font-weight: 600;
-}
-
+/* CTA button */
 .p-btn {
-  background: linear-gradient(135deg, var(--hermia-gl), var(--hermia-gold));
+  background: linear-gradient(135deg, #d9aa52, #c4963c);
   color: #1a1008;
   padding: 16px 32px;
   border-radius: 14px;
@@ -968,168 +890,242 @@ body {
   text-align: center;
   letter-spacing: 1.8px;
   text-transform: uppercase;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
   display: inline-block;
   width: 100%;
-  box-shadow: 0 10px 28px rgba(196, 150, 60, 0.22);
+  box-shadow: 0 10px 28px rgba(196,150,60,0.22);
   border: none;
   cursor: pointer;
   font-family: "DM Sans", sans-serif;
   position: relative;
   overflow: hidden;
 }
-
 .p-btn::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: -130%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  top: 0; left: -130%;
+  width: 60%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.4), transparent);
   transform: skewX(-18deg);
-  transition: left 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: left 0.55s cubic-bezier(0.4,0,0.2,1);
+}
+.p-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(196,150,60,0.36); }
+.p-btn:hover::after { left: 140%; }
+
+/* Verifying overlay */
+.verify-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(5,5,5,0.95);
+  z-index: 9999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+.verify-overlay.active { display: flex; }
+.verify-spinner {
+  width: 48px; height: 48px;
+  border: 2px solid rgba(196,150,60,0.2);
+  border-top-color: #d9aa52;
+  border-radius: 50%;
+  animation: vspin 0.8s linear infinite;
+}
+@keyframes vspin { to { transform: rotate(360deg); } }
+.verify-text {
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #d9aa52;
 }
 
-.p-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 40px rgba(196, 150, 60, 0.36);
+/* Start Free Trial Modal */
+.trial-modal-bg {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(5,5,5,0.92);
+  z-index: 9998;
+  align-items: center;
+  justify-content: center;
+}
+.trial-modal-bg.active { display: flex; }
+.trial-modal {
+  background: #111;
+  border: 1.5px solid rgba(196,150,60,0.35);
+  border-radius: 20px;
+  padding: 52px 48px;
+  max-width: 540px;
+  width: 90%;
+  position: relative;
+  text-align: left;
+}
+.trial-modal-close {
+  position: absolute;
+  top: 18px; right: 22px;
+  background: none;
+  border: none;
+  color: #7a7470;
+  font-size: 22px;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  line-height: 1;
+  transition: color 0.2s;
+}
+.trial-modal-close:hover { color: #d9aa52; }
+.trial-modal-eyebrow {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #c4963c;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.trial-modal-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+.trial-modal-title em { font-style: italic; color: #d9aa52; }
+.trial-modal-plan-display {
+  background: rgba(196,150,60,0.08);
+  border: 1px solid rgba(196,150,60,0.25);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 20px 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.trial-modal-plan-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+}
+.trial-modal-plan-price {
+  font-size: 13px;
+  color: #d9aa52;
+  font-weight: 600;
 }
 
-.p-btn:hover::after {
-  left: 140%;
+/* Form fields */
+.trial-form { display: flex; flex-direction: column; gap: 16px; }
+.trial-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
-
-/* RESPONSIVE DESIGN */
-@media (max-width: 1200px) {
-  .pricing-grid {
-    gap: 28px;
-  }
-  
-  .p-card {
-    padding: 48px 36px;
-  }
+.trial-label {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #c4963c;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 700;
 }
+.trial-input {
+  background: rgba(196,150,60,0.05);
+  border: 1px solid rgba(196,150,60,0.18);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 14px;
+  color: #f4f0e6;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.trial-input:focus { border-color: rgba(196,150,60,0.55); }
+.trial-submit {
+  margin-top: 8px;
+  background: linear-gradient(135deg, #d9aa52, #c4963c);
+  color: #1a1008;
+  padding: 16px 32px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  width: 100%;
+  transition: all 0.3s;
+}
+.trial-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(196,150,60,0.3); }
 
 @media (max-width: 1024px) {
-  .pricing-section {
-    padding: 100px 36px;
-  }
-  
-  .pricing-header {
-    margin-bottom: 60px;
-  }
-  
-  .pricing-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-  
-  .p-card.featured {
-    grid-column: 1 / -1;
-    max-width: 500px;
-    margin: 0 auto;
-    transform: scale(1);
-  }
-  
-  .p-card.featured:hover {
-    transform: scale(1) translateY(-8px);
-  }
+  .pricing-grid { grid-template-columns: repeat(2,1fr); gap:24px; }
+  .p-card.featured { grid-column: 1/-1; max-width: 500px; margin: 0 auto; transform: scale(1); }
+  .p-card.featured:hover { transform: scale(1) translateY(-8px); }
 }
-
 @media (max-width: 768px) {
-  .pricing-section {
-    padding: 80px 24px;
-  }
-  
-  .pricing-header {
-    margin-bottom: 48px;
-  }
-  
-  .pricing-h {
-    font-size: clamp(28px, 5vw, 40px);
-    margin-bottom: 16px;
-  }
-  
-  .pricing-sub {
-    font-size: 15px;
-  }
-  
-  .pricing-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  
-  .p-card {
-    padding: 40px 28px;
-  }
-  
-  .p-card.featured {
-    grid-column: auto;
-    max-width: 100%;
-  }
-  
-  .p-tier-name {
-    font-size: 26px;
-    margin-bottom: 24px;
-  }
-  
-  .p-num {
-    font-size: 44px;
-  }
-  
-  .p-feats {
-    gap: 14px;
-    margin-bottom: 32px;
-  }
-}
-
-@media (max-width: 480px) {
-  .pricing-section {
-    padding: 60px 16px;
-  }
-  
-  .pricing-header {
-    margin-bottom: 40px;
-  }
-  
-  .pricing-h {
-    font-size: 28px;
-    margin-bottom: 12px;
-  }
-  
-  .eyebrow {
-    margin-bottom: 16px;
-  }
-  
-  .p-card {
-    padding: 32px 20px;
-  }
-  
-  .p-tier-name {
-    font-size: 22px;
-    margin-bottom: 20px;
-  }
-  
-  .p-num {
-    font-size: 36px;
-  }
-  
-  .p-btn {
-    padding: 14px 24px;
-    font-size: 12px;
-  }
+  .pricing-section { padding: 80px 24px; }
+  .pricing-grid { grid-template-columns: 1fr; gap:20px; }
+  .p-card { padding: 40px 28px; }
+  .p-card.featured { grid-column: auto; max-width: 100%; }
+  .trial-modal { padding: 40px 28px; }
 }
 </style>
+
+<!-- Verifying overlay (shown briefly before redirect) -->
+<div class="verify-overlay" id="verify-overlay">
+  <div class="verify-spinner"></div>
+  <div class="verify-text">Verifying details</div>
+</div>
+
+<!-- Start Free Trial modal -->
+<div class="trial-modal-bg" id="trial-modal-bg">
+  <div class="trial-modal">
+    <button class="trial-modal-close" id="trial-modal-close">&#x2715;</button>
+    <div class="trial-modal-eyebrow">Start Free Trial</div>
+    <h2 class="trial-modal-title">You&rsquo;re one step <em>away.</em></h2>
+
+    <!-- Selected plan display — updated dynamically -->
+    <div class="trial-modal-plan-display">
+      <span class="trial-modal-plan-name" id="modal-plan-name">Entry</span>
+      <span class="trial-modal-plan-price" id="modal-plan-price">$80 / month</span>
+    </div>
+
+    <form class="trial-form" id="trial-form">
+      <div class="trial-field">
+        <label class="trial-label" for="trial-name">Full Name</label>
+        <input class="trial-input" type="text" id="trial-name" name="name" placeholder="Your full name" required>
+      </div>
+      <div class="trial-field">
+        <label class="trial-label" for="trial-email">Email Address</label>
+        <input class="trial-input" type="email" id="trial-email" name="email" placeholder="your@email.com" required>
+      </div>
+      <div class="trial-field">
+        <label class="trial-label" for="trial-phone">Phone Number</label>
+        <input class="trial-input" type="tel" id="trial-phone" name="phone" placeholder="+61 400 000 000">
+      </div>
+      <div class="trial-field">
+        <label class="trial-label" for="trial-business">Business Name</label>
+        <input class="trial-input" type="text" id="trial-business" name="business" placeholder="Your business name">
+      </div>
+      <button type="submit" class="trial-submit">Apply &rarr;</button>
+    </form>
+  </div>
+</div>
+
 <section class="pricing-section" id="pricing">
   <div class="pricing-header">
     <div class="eyebrow">Pricing</div>
     <h2 class="pricing-h">Recover missed repair jobs <em>automatically.</em></h2>
-    <p class="pricing-sub">One qualified repair job can cover months of Hermia.</p>
+    <p class="pricing-sub">One qualified repair job can cover months of Hermia. No lock-in, cancel any time.</p>
   </div>
 
   <div class="pricing-grid">
-    <!-- Entry Tier -->
+
+    <!-- Entry -->
     <div class="p-card">
       <div class="p-tier-name">Entry</div>
       <div class="p-price-wrap">
@@ -1138,7 +1134,7 @@ body {
           <span class="p-num">80</span>
         </div>
         <div class="p-per">AUD / month</div>
-        <div class="p-offer">$800 Setup Fee</div>
+        <!-- No setup fee for entry -->
       </div>
       <ul class="p-feats">
         <li><span><strong>40</strong> photos/videos per month</span></li>
@@ -1147,10 +1143,10 @@ body {
         <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
         <li><span>Weekly Business Summary</span></li>
       </ul>
-      <a href="contract_updated.html?plan=entry" class="p-btn">Get Started</a>
+      <button class="p-btn" onclick="openTrial('Entry','$80 / month','entry')">Start Free Trial</button>
     </div>
 
-    <!-- Mid Tier -->
+    <!-- Mid -->
     <div class="p-card">
       <div class="p-tier-name">Mid</div>
       <div class="p-price-wrap">
@@ -1159,7 +1155,7 @@ body {
           <span class="p-num">260</span>
         </div>
         <div class="p-per">AUD / month</div>
-        <div class="p-offer">$800 Setup Fee</div>
+        <!-- No setup fee for mid -->
       </div>
       <ul class="p-feats">
         <li><span><strong>150</strong> photos/videos per month</span></li>
@@ -1168,13 +1164,13 @@ body {
         <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
         <li><span>Weekly Business Summary</span></li>
       </ul>
-      <a href="contract_updated.html?plan=mid" class="p-btn">Get Started</a>
+      <button class="p-btn" onclick="openTrial('Mid','$260 / month','mid')">Start Free Trial</button>
     </div>
 
-    <!-- Premium Tier (Featured) -->
+    <!-- Standard (was Premium, renamed per req #3) -->
     <div class="p-card featured">
       <div class="p-badge">16-Day Free Trial</div>
-      <div class="p-tier-name">Premium</div>
+      <div class="p-tier-name">Standard</div>
       <div class="p-price-wrap">
         <div class="p-price">
           <span class="p-cur">$</span>
@@ -1190,11 +1186,65 @@ body {
         <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
         <li><span>Priority 24/7 Support</span></li>
       </ul>
-      <a href="contract_updated.html?plan=premium" class="p-btn">Start 16-Day Free Trial</a>
+      <button class="p-btn" onclick="openTrial('Standard','$530 / month','standard')">Start 16-Day Free Trial</button>
     </div>
+
   </div>
 </section>
-<!-- END IMPROVED PRICING SECTION -->
+
+<script>
+// Plan data for contract — flexible, not hard coded
+var planData = {
+  entry:    { name:'Entry',    price:'$80',  period:'month', setup: false, trial: false },
+  mid:      { name:'Mid',      price:'$260', period:'month', setup: false, trial: false },
+  standard: { name:'Standard', price:'$530', period:'month', setup: true,  trial: true  }
+};
+
+var selectedPlan = null;
+
+function openTrial(planName, planPrice, planKey) {
+  selectedPlan = planKey;
+  document.getElementById('modal-plan-name').textContent = planName;
+  document.getElementById('modal-plan-price').textContent = planPrice;
+  document.getElementById('trial-modal-bg').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('trial-modal-close').addEventListener('click', function() {
+  document.getElementById('trial-modal-bg').classList.remove('active');
+  document.body.style.overflow = '';
+});
+
+document.getElementById('trial-modal-bg').addEventListener('click', function(e) {
+  if (e.target === this) {
+    this.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+
+document.getElementById('trial-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  // Close modal
+  document.getElementById('trial-modal-bg').classList.remove('active');
+  document.body.style.overflow = '';
+
+  // Show "Verifying details" overlay
+  var overlay = document.getElementById('verify-overlay');
+  overlay.classList.add('active');
+
+  // Build contract URL with plan param — flexible, plan drives the contract
+  var plan = selectedPlan || 'entry';
+  var contractUrl = 'contract.html?plan=' + plan;
+
+  // Redirect after brief delay (verifying experience)
+  setTimeout(function() {
+    overlay.classList.remove('active');
+    window.location.href = contractUrl;
+  }, 2200);
+});
+</script>
+<!-- END PRICING SECTION -->
 
   <section class="faq-section" id="faq" style="background:var(--bg2)">
     <div class="faq-inner">
