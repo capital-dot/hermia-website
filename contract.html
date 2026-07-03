@@ -25,7 +25,10 @@
     h1{font-family:var(--display);font-size:clamp(40px,7vw,58px);font-weight:600;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:10px;}
     h1 em{font-style:italic;color:var(--gold);}
     .doc-meta{font-size:12px;color:var(--gold);margin-top:10px;text-transform:uppercase;letter-spacing:3px;font-weight:600;}
-    .prepared{max-width:520px;margin:30px auto 0;display:none;align-items:center;justify-content:center;gap:10px;padding:13px 22px;border:1px solid var(--border-hi);background:var(--gold-dim);border-radius:100px;font-size:13px;color:var(--cream);text-align:center;}
+    .plan-badge{max-width:520px;margin:22px auto 0;display:none;align-items:center;justify-content:center;gap:10px;padding:13px 22px;border:1px solid var(--border-hi);background:var(--gold-dim);border-radius:100px;font-size:13px;color:var(--cream);text-align:center;}
+    .plan-badge.show{display:flex;}
+    .plan-badge b{color:var(--gold-light);font-weight:600;}
+    .prepared{max-width:520px;margin:14px auto 0;display:none;align-items:center;justify-content:center;gap:10px;padding:13px 22px;border:1px solid var(--border-hi);background:var(--gold-dim);border-radius:100px;font-size:13px;color:var(--cream);text-align:center;}
     .prepared.show{display:flex;}
     .prepared b{color:var(--gold-light);font-weight:600;}
     .prepared .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
@@ -39,12 +42,9 @@
     em{font-style:italic;color:var(--gold-light);}
     .highlight-box{background:linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.005)),var(--card);border:1px solid var(--border-hi);padding:34px;border-radius:18px;margin:36px 0;box-shadow:0 20px 50px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.05);position:relative;overflow:hidden;}
     .highlight-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent);}
-    .strike{text-decoration:line-through;opacity:0.55;font-size:0.95em;}
     .price-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;font-size:16px;gap:14px;}
     .price-row span{color:var(--soft);}
     .price-row strong{color:var(--cream);font-weight:600;}
-    .price-row.special{color:var(--gold);}
-    .price-row.special strong{color:var(--gold-light);}
     .agreement-card{position:relative;overflow:hidden;background:linear-gradient(150deg,rgba(201,163,91,0.06) 0%,var(--card) 55%);border:1px solid var(--gold);border-radius:26px;padding:50px;margin-top:60px;box-shadow:0 30px 80px rgba(0,0,0,0.5),0 0 60px rgba(201,163,91,0.1);}
     .agreement-card::before,.agreement-card::after{content:'';position:absolute;width:16px;height:16px;border-color:var(--gold);border-style:solid;}
     .agreement-card::before{top:16px;right:16px;border-width:1px 1px 0 0;}
@@ -89,6 +89,10 @@
     <p class="doc-meta">Hermia · ABN 75 434 177 026</p>
   </div>
 
+  <div class="plan-badge" id="planBadge">
+    <span id="planBadgeText">Plan</span>
+  </div>
+
   <div class="prepared" id="preparedBanner">
     <span class="dot"></span>
     <span>Prepared for <b id="preparedName">you</b></span>
@@ -98,19 +102,14 @@
   <p>This Agreement is entered into between <strong>Hermia</strong> ("Provider", ABN 75 434 177 026 ) and the Client identified during sign-up. By proceeding, the Client agrees to receive Hermia's AI intake and lead qualification software on a month-to-month subscription basis.</p>
 
   <h2><span class="clause-no">2</span> Hermia AI Intake &amp; Qualification Software</h2>
-  <p>The Provider delivers AI-powered intake and qualification software designed to engage with the Client's existing inbound enquiries. When a prospective customer submits an enquiry through the Client's website, advertising campaigns, email, phone, forms, or other lead sources, Hermia may automatically collect and organise relevant information — including contact details, service requirements, urgency, supporting media, availability, and other qualification data.</p>
+  <p>The Provider delivers AI-powered intake and qualification software designed to engage with the Client's existing inbound enquiries. When a prospective customer submits an enquiry through the Client's connected channel — Facebook, Instagram, Email, or a custom-configured source — Hermia may automatically collect and organise relevant information — including contact details, service requirements, urgency, supporting media, availability, and other qualification data.</p>
   <p>This information is then structured and routed into the Client's connected CRM or business system to reduce manual administration and improve response times.</p>
 
   <h2><span class="clause-no">3</span> Pricing</h2>
   <div class="highlight-box">
-    <div class="price-row" id="setupRow">
-      <span>Professional Setup &amp; Integration</span>
-      <strong id="displaySetup">$800 AUD</strong>
-    </div>
-    <div style="height:1px;background:var(--border);margin:20px 0;" id="setupDivider"></div>
     <div class="price-row">
-      <strong>Monthly Software Access</strong>
-      <strong id="displayPrice">$530 AUD / month</strong>
+      <span id="planLabel">Monthly Software Access</span>
+      <strong id="displayPrice">$260 AUD / month</strong>
     </div>
   </div>
 
@@ -169,10 +168,9 @@
   </div>
 
   <footer>
-    © 2026 Hermia · ABN 75 434 177 026  
+    © 2026 Hermia · ABN 75 434 177 026
 
-    Hermia is independent software. All third-party trademarks and platform names visible in integrations remain the property of their respective owners.  
-  
+    Hermia is independent software. All third-party trademarks and platform names visible in integrations remain the property of their respective owners.
 
     <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms.html">Terms of Service</a>
   </footer>
@@ -181,38 +179,57 @@
 
 <script>
   const WEBHOOK_URL = 'https://hook.eu1.make.com/55y5lsql5rmr8ju9cmlt9o5115q784ay';
-  
-  // STRIPE LINKS
-  const STRIPE_ENTRY   = 'https://buy.stripe.com/9B68wR4Zjfn668i2fW9EI01'; // $80
-  const STRIPE_MID     = 'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00'; // $260
-  const STRIPE_PREMIUM = 'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04'; // $530
 
-  // Detect Plan from URL (e.g., contract.html?plan=entry )
-  const urlParams = new URLSearchParams(window.location.search);
-  const selectedPlan = urlParams.get('plan') || 'premium';
-
-  let planConfig = {
-    price: '$530',
-    link: STRIPE_PREMIUM,
-    name: 'Premium'
+  // ============================================================
+  // PLAN CONFIG — one entry per tile on the pricing page.
+  // "link" = Stripe Payment Link. Each Stripe link's own
+  // "after payment" redirect (set inside the Stripe Dashboard,
+  // not here) must point to:
+  //   welcome.html?plan=social   (for the social link)
+  //   welcome.html?plan=email    (for the email link)
+  //   welcome.html?plan=custom   (for the custom link)
+  // so welcome.html knows which plan was just purchased and can
+  // forward it to selection.html -> social_connected.html.
+  // ============================================================
+  const PLAN_CONFIG = {
+    social: {
+      name:  'Facebook & Instagram',
+      price: '$170',
+      // TODO: replace with the real Stripe Payment Link for the $170 tier
+      link:  'https://buy.stripe.com/REPLACE_WITH_SOCIAL_LINK'
+    },
+    email: {
+      name:  'Email',
+      price: '$260',
+      // Same price as the old "Mid" tier — reusing that existing Stripe link
+      link:  'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00'
+    },
+    custom: {
+      name:  'Custom',
+      // TODO: set the real custom price once you confirm the number
+      price: '$XXX',
+      // TODO: replace with the real Stripe Payment Link for the custom tier
+      link:  'https://buy.stripe.com/REPLACE_WITH_CUSTOM_LINK'
+    }
   };
 
-  if (selectedPlan === 'entry') {
-    planConfig = { price: '$80', link: STRIPE_ENTRY, name: 'Entry' };
-  } else if (selectedPlan === 'mid') {
-    planConfig = { price: '$260', link: STRIPE_MID, name: 'Mid' };
-  }
+  // Detect plan from URL (e.g. contract.html?plan=social )
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectedPlanKey = urlParams.get('plan') || 'email';
+  const planConfig = PLAN_CONFIG[selectedPlanKey] || PLAN_CONFIG.email;
 
-  // Update Display Prices
+  // Persist the plan choice so it survives the Stripe round-trip
+  // (welcome.html reads this as a fallback if the Stripe redirect
+  // URL param ever gets lost).
+  try { sessionStorage.setItem('hermia_plan', selectedPlanKey); } catch(e) {}
+
+  // Update Display
   document.getElementById('displayPrice').textContent = planConfig.price + ' AUD / month';
+  document.getElementById('planLabel').textContent = planConfig.name + ' — Monthly Software Access';
 
-  // Setup fee only applies to the Standard plan
-  if (selectedPlan === 'standard') {
-    document.getElementById('displaySetup').textContent = '$800 AUD';
-  } else {
-    document.getElementById('setupRow').style.display = 'none';
-    document.getElementById('setupDivider').style.display = 'none';
-  }
+  const planBadge = document.getElementById('planBadge');
+  document.getElementById('planBadgeText').innerHTML = 'You are subscribing to <b>' + planConfig.name + '</b>';
+  planBadge.classList.add('show');
 
   // Applicant Data
   let applicant = {};
@@ -277,7 +294,8 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           event: 'agreement_signed',
-          plan: planConfig.name,
+          plan: selectedPlanKey,
+          plan_name: planConfig.name,
           price: planConfig.price,
           name: A_NAME,
           email: A_EMAIL,
@@ -293,4 +311,5 @@
 </script>
 </body>
 </html>
+
 
