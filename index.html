@@ -743,116 +743,93 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   </section>
   
 
-<!-- START PRICING SECTION -->
-<style>
-.pricing-section {
-  padding: 120px 48px;
-  text-align: center;
-  background: linear-gradient(150deg, #130c03, #111);
-  border-top: 1px solid rgba(196,150,60,0.14);
-  border-bottom: 1px solid rgba(196,150,60,0.14);
-  color: #f4f0e6;
-  font-family: "DM Sans", sans-serif;
-  position: relative;
-}
-.pricing-header { margin-bottom: 80px; display: flex; flex-direction: column; align-items: center; }
-.pricing-h { font-family: "Cormorant Garamond", serif; font-size: clamp(36px,4.5vw,56px); font-weight: 600; color: #fff; letter-spacing: -0.4px; margin-bottom: 24px; line-height: 1.1; }
-.pricing-h em { font-style: italic; color: #d9aa52; }
-.pricing-sub { color: #b0ada5; font-size: 16px; max-width: 580px; margin: 0 auto; line-height: 1.7; font-weight: 300; }
-.pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; max-width: 1320px; margin: 0 auto; align-items: stretch; }
-.p-card { background: rgba(15,15,15,0.95); border: 1.5px solid #c4963c; border-radius: 24px; padding: 56px 44px; position: relative; display: flex; flex-direction: column; text-align: left; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), box-shadow 0.4s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 24px 60px rgba(0,0,0,0.4); overflow: hidden; }
-.p-card::before,.p-card::after { content:""; position:absolute; width:16px; height:16px; border-color:#c4963c; border-style:solid; opacity:0.6; transition:opacity 0.3s; }
-.p-card::before { top:16px; right:16px; border-width:2px 2px 0 0; }
-.p-card::after  { bottom:16px; left:16px; border-width:0 0 2px 2px; }
-.p-card:hover { transform:translateY(-8px); box-shadow:0 36px 80px rgba(0,0,0,0.5),0 0 50px rgba(217,170,82,0.15); }
-.p-card:hover::before,.p-card:hover::after { opacity:1; }
-.p-card.featured { background:linear-gradient(150deg,rgba(217,170,82,0.12),rgba(15,15,15,0.98)); box-shadow:0 24px 60px rgba(0,0,0,0.4),0 0 50px rgba(217,170,82,0.18); }
-.p-card.featured:hover { transform:translateY(-8px); }
-.p-badge { display:none; position:absolute; top:20px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,#d9aa52,#c4963c); color:#000; padding:8px 22px; border-radius:24px; font-size:11px; font-weight:800; letter-spacing:1.8px; text-transform:uppercase; font-family:"DM Sans",sans-serif; white-space:nowrap; z-index:2; }
-.p-card.featured .p-badge { display:block; }
-.p-tier-name { font-family:"Cormorant Garamond",serif; font-size:32px; font-weight:600; color:#fff; margin-bottom:32px; margin-top:16px; letter-spacing:-0.5px; }
-.p-card.featured .p-tier-name { margin-top:48px; }
-.p-price-wrap { margin-bottom:32px; padding-bottom:28px; border-bottom:1px solid rgba(196,150,60,0.18); }
-.p-price { display:flex; align-items:baseline; gap:6px; margin-bottom:8px; }
-.p-cur { font-size:22px; color:#d9aa52; font-weight:700; }
-.p-num { font-family:"Cormorant Garamond",serif; font-size:56px; font-weight:700; color:#fff; line-height:1; }
-.p-per { font-size:14px; color:#b0ada5; font-weight:300; }
-.p-offer { font-size:13px; color:#d9aa52; font-weight:600; margin-top:12px; }
-.p-feats { flex:1; list-style:none; padding:0; margin-bottom:40px; display:flex; flex-direction:column; gap:18px; }
-.p-feats li { font-size:14px; color:#b0ada5; line-height:1.6; display:flex; align-items:flex-start; gap:12px; }
-.p-feats li::before { content:"✓"; color:#d9aa52; font-weight:800; flex-shrink:0; font-size:16px; margin-top:-2px; }
-.p-feats li strong { color:#fff; font-weight:600; }
-.p-btn { background:linear-gradient(135deg,#d9aa52,#c4963c); color:#1a1008; padding:16px 32px; border-radius:14px; font-size:13px; font-weight:800; text-decoration:none; text-align:center; letter-spacing:1.8px; text-transform:uppercase; transition:all 0.3s; display:inline-block; width:100%; box-shadow:0 10px 28px rgba(196,150,60,0.22); border:none; cursor:pointer; font-family:"DM Sans",sans-serif; }
-.p-btn:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(196,150,60,0.36); }
-@media(max-width:1024px){ .pricing-grid{grid-template-columns:repeat(2,1fr);gap:24px;} .p-card.featured{grid-column:1/-1;max-width:500px;margin:0 auto;} .p-card.featured:hover{transform:translateY(-8px);} }
-@media(max-width:768px){ .pricing-section{padding:80px 24px;} .pricing-grid{grid-template-columns:1fr;gap:20px;} .p-card{padding:40px 28px;} .p-card.featured{grid-column:auto;max-width:100%;} }
-</style>
+<div class="pricing-grid">
 
-<section class="pricing-section" id="pricing">
-  <div class="pricing-header">
-    <div class="eyebrow">Pricing</div>
-    <h2 class="pricing-h">Recover missed repair jobs <em>automatically.</em></h2>
-    <p class="pricing-sub">One qualified repair job can cover months of Hermia. No lock-in, cancel any time.</p>
+  <!-- Email -->
+  <div class="p-card">
+    <div class="p-tier-name">Email</div>
+    <div class="p-price-wrap">
+      <div class="p-price"><span class="p-cur">$</span><span class="p-num">260</span></div>
+      <div class="p-per">AUD / month</div>
+    </div>
+    <ul class="p-feats">
+      <li><span>Email lead intake &amp; qualification</span></li>
+      <li><span><strong>80</strong> photos/videos per month</span></li>
+      <li><span>AI visual diagnostics on photos &amp; video</span></li>
+      <li><span>Voice note transcription &amp; extraction</span></li>
+      <li><span>Automatic urgency triage</span></li>
+      <li><span>Full Simpro or Servicem8 workflow sync</span></li>
+      <li><span>Autonomous scheduling &amp; calendar booking</span></li>
+      <li><span>Weekly Business Summary</span></li>
+    </ul>
+    <a href="apply.html?plan=email" class="p-btn">Start Free Trial</a>
   </div>
 
-  <div class="pricing-grid">
-
-    <!-- Entry -->
-    <div class="p-card">
-      <div class="p-tier-name">Entry</div>
-      <div class="p-price-wrap">
-        <div class="p-price"><span class="p-cur">$</span><span class="p-num">80</span></div>
-        <div class="p-per">AUD / month</div>
-      </div>
-      <ul class="p-feats">
-        <li><span><strong>40</strong> photos/videos per month</span></li>
-        <li><span>Hard block at monthly limit</span></li>
-        <li><span>Automatic monthly reset</span></li>
-        <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
-        <li><span>Weekly Business Summary</span></li>
-      </ul>
-      <a href="apply.html?plan=entry" class="p-btn">Start Free Trial</a>
+  <!-- Facebook -->
+  <div class="p-card">
+    <div class="p-tier-name">Facebook</div>
+    <div class="p-price-wrap">
+      <div class="p-price"><span class="p-cur">$</span><span class="p-num">170</span></div>
+      <div class="p-per">AUD / month</div>
     </div>
-
-    <!-- Mid -->
-    <div class="p-card">
-      <div class="p-tier-name">Mid</div>
-      <div class="p-price-wrap">
-        <div class="p-price"><span class="p-cur">$</span><span class="p-num">260</span></div>
-        <div class="p-per">AUD / month</div>
-      </div>
-      <ul class="p-feats">
-        <li><span><strong>150</strong> photos/videos per month</span></li>
-        <li><span>Hard block at monthly limit</span></li>
-        <li><span>Automatic monthly reset</span></li>
-        <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
-        <li><span>Weekly Business Summary</span></li>
-      </ul>
-      <a href="apply.html?plan=mid" class="p-btn">Start Free Trial</a>
-    </div>
-
-    <!-- Standard (featured) -->
-    <div class="p-card featured">
-      <div class="p-badge">16-Day Free Trial</div>
-      <div class="p-tier-name">Standard</div>
-      <div class="p-price-wrap">
-        <div class="p-price"><span class="p-cur">$</span><span class="p-num">530</span></div>
-        <div class="p-per">AUD / month</div>
-        <div class="p-offer">$800 Setup Fee</div>
-      </div>
-      <ul class="p-feats">
-        <li><span><strong>Unlimited</strong> photos/videos</span></li>
-        <li><span>Weekly Business Summary</span></li>
-        <li><span>16-Day Free Trial Included</span></li>
-        <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
-        <li><span>Priority 24/7 Support</span></li>
-      </ul>
-      <a href="apply.html?plan=standard" class="p-btn">Start 16-Day Free Trial</a>
-    </div>
-
+    <ul class="p-feats">
+      <li><span>Facebook Messenger lead intake</span></li>
+      <li><span><strong>80</strong> photos/videos per month</span></li>
+      <li><span>AI visual diagnostics on photos &amp; video</span></li>
+      <li><span>Voice note transcription &amp; extraction</span></li>
+      <li><span>Automatic urgency triage</span></li>
+      <li><span>Full Simpro or Servicem8 workflow sync</span></li>
+      <li><span>Autonomous scheduling &amp; calendar booking</span></li>
+      <li><span>Weekly Business Summary</span></li>
+    </ul>
+    <a href="apply.html?plan=facebook" class="p-btn">Start Free Trial</a>
   </div>
-</section>
-<!-- END PRICING SECTION -->
+
+  <!-- Instagram -->
+  <div class="p-card">
+    <div class="p-tier-name">Instagram</div>
+    <div class="p-price-wrap">
+      <div class="p-price"><span class="p-cur">$</span><span class="p-num">170</span></div>
+      <div class="p-per">AUD / month</div>
+    </div>
+    <ul class="p-feats">
+      <li><span>Instagram DM lead intake</span></li>
+      <li><span><strong>80</strong> photos/videos per month</span></li>
+      <li><span>AI visual diagnostics on photos &amp; video</span></li>
+      <li><span>Voice note transcription &amp; extraction</span></li>
+      <li><span>Automatic urgency triage</span></li>
+      <li><span>Full Simpro or Servicem8 workflow sync</span></li>
+      <li><span>Autonomous scheduling &amp; calendar booking</span></li>
+      <li><span>Weekly Business Summary</span></li>
+    </ul>
+    <a href="apply.html?plan=instagram" class="p-btn">Start Free Trial</a>
+  </div>
+
+  <!-- Custom (featured) -->
+  <div class="p-card featured">
+    <div class="p-badge">Fully Customized</div>
+    <div class="p-tier-name">Custom</div>
+    <div class="p-price-wrap">
+      <div class="p-price"><span class="p-cur">$</span><span class="p-num">530</span></div>
+      <div class="p-per">AUD / month</div>
+      <div class="p-offer">$1,700 Setup Fee</div>
+    </div>
+    <ul class="p-feats">
+      <li><span><strong>Unlimited</strong> photos/videos</span></li>
+      <li><span>Email, Facebook &amp; Instagram merged into one system</span></li>
+      <li><span>Custom messaging templates written for your business</span></li>
+      <li><span>Custom qualification questions per job type</span></li>
+      <li><span>AI visual diagnostics on photos &amp; video</span></li>
+      <li><span>Voice note transcription &amp; extraction</span></li>
+      <li><span>Full Simpro or Servicem8 workflow sync</span></li>
+      <li><span>Priority 24/7 Support</span></li>
+      <li><span>Weekly Business Summary</span></li>
+    </ul>
+    <a href="apply.html?plan=custom" class="p-btn">Get Started</a>
+  </div>
+</div>
+
+
 
 
   <section class="faq-section" id="faq" style="background:var(--bg2)">
