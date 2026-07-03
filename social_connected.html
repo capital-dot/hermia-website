@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hermia | Connect Your Channel</title>
+    <title>Hermia | Connection Successful</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
@@ -12,99 +12,57 @@
             --bg: #080705;
             --bg-card: rgba(10, 9, 7, 0.85);
             --gold: #D4AF37;
-            --gold-bright: #FFD700;
             --gold-light: #F9E2AF;
             --gold-muted: rgba(212, 175, 55, 0.12);
             --cream: #f4f0e6;
             --soft: #a19d94;
             --border: rgba(212, 175, 55, 0.2);
             --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
-            --ig: #E1306C;
-            --fb: #1877F2;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
-        html, body { height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
-        .bg-layers { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        html, body { height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow: hidden; }
+        
+        .bg-layers { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
         .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,1) 100%); z-index: 5; }
-        .light-bloom { position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 55%); animation: light-drift 35s infinite alternate ease-in-out; will-change: transform; }
-        @keyframes light-drift { 0% { transform: translate(-2%, -2%) scale(1); } 100% { transform: translate(2%, 2%) scale(1.05); } }
+        .light-bloom { position: absolute; width: 100%; height: 100%; background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 65%); }
         .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 120px 120px; -webkit-mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); opacity: 0.15; }
-        .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-        .wrap { position: relative; z-index: 10; width: 100%; max-width: 600px; margin: 0 auto; padding: 80px 24px 120px; display: flex; flex-direction: column; align-items: center; }
-        .logo-wrap { margin-bottom: 50px; position: relative; animation: fade-in-down 1.2s var(--ease-cinematic) forwards; }
-        .logo-aura { position: absolute; inset: -40px; background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%); filter: blur(25px); animation: aura-pulse 8s infinite ease-in-out; }
-        @keyframes aura-pulse { 0%, 100% { opacity: 0.3; transform: scale(0.9); } 50% { opacity: 0.6; transform: scale(1.05); } }
-        .logo { height: 54px; position: relative; z-index: 2; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
-        .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 20px; font-weight: 400; text-align: center; }
-        h1 { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; line-height: 1.05; margin-bottom: 16px; letter-spacing: -0.02em; text-align: center; }
-        .sub { font-size: 15px; color: var(--soft); margin-bottom: 44px; line-height: 1.7; font-weight: 300; text-align: center; max-width: 460px; }
-        .channels { width: 100%; display: flex; flex-direction: column; gap: 18px; }
-        .channel-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--border);
-            padding: 28px 30px;
-            display: flex;
-            align-items: center;
-            gap: 22px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s var(--ease-cinematic);
-        }
-        .channel-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.5; }
-        .channel-card.connected { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
-        .channel-card.not-included { opacity: 0.35; filter: grayscale(0.6); }
-        .channel-card.not-included::before { display: none; }
-        .channel-icon { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; background: var(--accent); box-shadow: 0 0 24px var(--accent-glow); }
-        .channel-icon svg { width: 24px; height: 24px; fill: #fff; }
-        .channel-info { flex: 1; min-width: 0; }
-        .channel-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--gold-light); margin-bottom: 4px; }
-        .channel-status { font-size: 12px; color: var(--soft); font-weight: 300; letter-spacing: 0.02em; }
-        .channel-status.is-connected { color: var(--gold); }
-        .channel-btn {
-            flex-shrink: 0;
-            padding: 12px 22px;
-            border: 1px solid var(--gold);
-            background: transparent;
-            color: var(--gold-light);
-            font-family: inherit;
-            font-weight: 600;
-            font-size: 11px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-        .channel-btn:hover { background: var(--gold); color: #000; }
-        .channel-btn.connected-btn { border-color: var(--gold); background: var(--gold); color: #000; cursor: default; }
-        .continue-btn {
+
+        .wrap { position: relative; z-index: 10; width: 100%; max-width: 600px; margin: 0 auto; padding: 80px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+        
+        .card {
             width: 100%;
-            margin-top: 40px;
-            padding: 22px;
-            border: none;
-            background: linear-gradient(135deg, #E8C17A, #C9A35B);
-            color: #000;
-            font-family: inherit;
-            font-weight: 600;
-            font-size: 14px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.5s var(--ease-cinematic);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            padding: 60px 50px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.6);
         }
-        .continue-btn:hover { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2); }
-        .formerr { color: #ff7e75; font-size: 12px; margin-top: 26px; text-align: center; line-height: 1.6; letter-spacing: 0.03em; display: none; }
-        .formerr.show { display: block; }
-        @keyframes fade-in-down { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 600px) {
-            h1 { font-size: 32px; }
-            .channel-card { flex-direction: column; align-items: flex-start; gap: 16px; }
-            .channel-btn { width: 100%; text-align: center; }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.6; }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+            display: grid;
+            place-items: center;
+            margin: 0 auto 32px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
         }
+        .success-icon svg { width: 28px; height: 28px; stroke: var(--gold); stroke-width: 2.5; fill: none; }
+
+        h1 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; line-height: 1.05; margin-bottom: 20px; letter-spacing: -0.02em; }
+        .sub { font-size: 16px; color: var(--soft); margin-bottom: 40px; line-height: 1.7; font-weight: 300; }
+
+        .loading-dots { display: flex; gap: 8px; justify-content: center; margin-top: 20px; }
+        .dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; opacity: 0.3; animation: dot-pulse 1.5s infinite; }
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes dot-pulse { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
     </style>
 </head>
 <body>
@@ -113,132 +71,64 @@
         <div class="light-bloom"></div>
         <div class="grid"></div>
         <div class="vignette"></div>
-        <div class="grain"></div>
     </div>
 
     <div class="wrap">
-        <div class="logo-wrap">
-            <div class="logo-aura"></div>
-            <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" />
-        </div>
-
-        <div class="eyebrow">Social Channel</div>
-        <h1>Connect your channel</h1>
-        <p class="sub">Your plan includes one social channel. Connect the one you signed up for below.</p>
-
-        <div class="channels">
-
-            <div class="channel-card" id="cardInstagram" style="--accent: var(--ig); --accent-glow: rgba(225,48,108,0.35);">
-                <div class="channel-icon">
-                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                </div>
-                <div class="channel-info">
-                    <div class="channel-name">Instagram</div>
-                    <div class="channel-status" id="statusInstagram">Not connected</div>
-                </div>
-                <a class="channel-btn" id="btnInstagram" href="#" onclick="connectChannel('instagram'); return false;">Connect</a>
+        <div class="card">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
-
-            <div class="channel-card" id="cardFacebook" style="--accent: var(--fb); --accent-glow: rgba(24,119,242,0.35);">
-                <div class="channel-icon">
-                    <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                </div>
-                <div class="channel-info">
-                    <div class="channel-name">Facebook</div>
-                    <div class="channel-status" id="statusFacebook">Not connected</div>
-                </div>
-                <a class="channel-btn" id="btnFacebook" href="#" onclick="connectChannel('facebook'); return false;">Connect</a>
+            <h1>Connection Successful</h1>
+            <p class="sub" id="statusText">Your channel has been connected. We're finalizing your setup...</p>
+            
+            <div class="loading-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
             </div>
-
         </div>
-
-        <div class="formerr" id="formError"></div>
-
-        <button class="continue-btn" id="continueBtn" style="display:none;">Continue</button>
     </div>
 
     <script>
-        const HERMIANANGO_URL = 'https://hermianango.capital-fbc.workers.dev';
-        const $ = id => document.getElementById(id);
+        const urlParams = new URLSearchParams(window.location.search);
+        const customerId = urlParams.get('customerId') || sessionStorage.getItem('hermia_customer_id');
+        const provider = urlParams.get('provider');
 
-        const customerId = sessionStorage.getItem('hermia_customer_id');
+        // Mark as connected in session
+        if (provider === 'instagram') sessionStorage.setItem('hermia_ig_connected', 'true');
+        if (provider === 'facebook') sessionStorage.setItem('hermia_fb_connected', 'true');
 
-        // The purchased channel comes from apply.html's existing
-        // sessionStorage.setItem('hermia_plan', plan) call — same field
-        // already used for Stripe tier routing. Expected values here:
-        // 'facebook' or 'instagram'. This assumes your marketing site's
-        // buttons link to apply.html?plan=facebook or ?plan=instagram —
-        // confirm that's actually how those buttons are set up.
-        const purchasedPlan = (sessionStorage.getItem('hermia_plan') || '').toLowerCase();
-
-        function applyExclusivity() {
-            if (purchasedPlan === 'facebook') {
-                lockOut('instagram');
-            } else if (purchasedPlan === 'instagram') {
-                lockOut('facebook');
-            } else {
-                // Unknown/missing plan — don't silently guess which channel
-                // to allow. Show an error instead of letting someone connect
-                // a channel they didn't pay for.
-                const errEl = $('formError');
-                errEl.textContent = 'Could not determine your channel plan — please restart from your confirmation email, or contact support.';
-                errEl.classList.add('show');
-                lockOut('instagram');
-                lockOut('facebook');
-            }
-        }
-
-        function lockOut(provider) {
-            const cap = provider === 'instagram' ? 'Instagram' : 'Facebook';
-            const card = $('card' + cap);
-            card.classList.add('not-included');
-            $('status' + cap).textContent = 'Not included in your plan';
-            const btn = $('btn' + cap);
-            btn.style.pointerEvents = 'none';
-            btn.style.opacity = '0.3';
-        }
-
-        function markConnected(provider) {
-            const cap = provider === 'instagram' ? 'Instagram' : 'Facebook';
-            $('card' + cap).classList.add('connected');
-            $('status' + cap).textContent = 'Connected';
-            $('status' + cap).classList.add('is-connected');
-            const btn = $('btn' + cap);
-            btn.textContent = 'Connected';
-            btn.classList.add('connected-btn');
-            btn.onclick = (e) => e.preventDefault();
-            $('continueBtn').style.display = 'block';
-        }
-
-        function reflectConnectedState() {
-            if (purchasedPlan === 'instagram' && sessionStorage.getItem('hermia_ig_connected') === 'true') {
-                markConnected('instagram');
-            }
-            if (purchasedPlan === 'facebook' && sessionStorage.getItem('hermia_fb_connected') === 'true') {
-                markConnected('facebook');
-            }
-        }
-
-        function connectChannel(provider) {
+        async function routeToSetup() {
             if (!customerId) {
-                const errEl = $('formError');
-                errEl.textContent = 'Session expired — please restart from the welcome page.';
-                errEl.classList.add('show');
+                document.getElementById('statusText').textContent = "Session error. Please restart from your email.";
                 return;
             }
-            window.location.href = HERMIANANGO_URL + '/social-auth-url?provider=' + provider + '&customerId=' + encodeURIComponent(customerId);
+
+            try {
+                // Fetch CRM provider from worker to decide where to go next
+                const res = await fetch(`https://hermianango.capital-fbc.workers.dev/get-contractor-state?customerId=${customerId}`);
+                const data = await res.json();
+                
+                // Authoritative routing
+                let nextPage = 'hermia_setup.html'; // Default Simpro
+                if (data.crm_provider === 'servicem8') {
+                    nextPage = 'servicem8_setup.html';
+                }
+
+                // Small delay for visual confirmation
+                setTimeout(() => {
+                    window.location.href = `${nextPage}?customerId=${customerId}`;
+                }, 2000);
+
+            } catch (e) {
+                console.error("Routing error:", e);
+                // Fallback to default setup page
+                window.location.href = `hermia_setup.html?customerId=${customerId}`;
+            }
         }
 
-        // NOTE: still unconfirmed — placeholder pending your answer on
-        // where Simpro/ServiceM8's connect flows should actually hand off.
-        const NEXT_PAGE = 'https://onboarding.hermia.au/hermia_setup.html';
-
-        $('continueBtn').addEventListener('click', () => {
-            window.location.href = NEXT_PAGE;
-        });
-
-        applyExclusivity();
-        reflectConnectedState();
+        routeToSetup();
     </script>
 </body>
 </html>
+
