@@ -43,8 +43,10 @@
     .highlight-box{background:linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.005)),var(--card);border:1px solid var(--border-hi);padding:34px;border-radius:18px;margin:36px 0;box-shadow:0 20px 50px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.05);position:relative;overflow:hidden;}
     .highlight-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent);}
     .price-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;font-size:16px;gap:14px;}
+    .price-row:last-child{margin-bottom:0;}
     .price-row span{color:var(--soft);}
     .price-row strong{color:var(--cream);font-weight:600;}
+    .price-divider{border:none;border-top:1px solid var(--border);margin:0 0 13px;}
     .agreement-card{position:relative;overflow:hidden;background:linear-gradient(150deg,rgba(201,163,91,0.06) 0%,var(--card) 55%);border:1px solid var(--gold);border-radius:26px;padding:50px;margin-top:60px;box-shadow:0 30px 80px rgba(0,0,0,0.5),0 0 60px rgba(201,163,91,0.1);}
     .agreement-card::before,.agreement-card::after{content:'';position:absolute;width:16px;height:16px;border-color:var(--gold);border-style:solid;}
     .agreement-card::before{top:16px;right:16px;border-width:1px 1px 0 0;}
@@ -107,6 +109,11 @@
 
   <h2><span class="clause-no">3</span> Pricing</h2>
   <div class="highlight-box">
+    <div class="price-row" id="setupFeeRow" style="display:none;">
+      <span>One-Time Setup Fee</span>
+      <strong id="setupFeePrice"></strong>
+    </div>
+    <hr class="price-divider" id="setupFeeDivider" style="display:none;">
     <div class="price-row">
       <span id="planLabel">Monthly Software Access</span>
       <strong id="displayPrice">$260 AUD / month</strong>
@@ -181,42 +188,57 @@
   const WEBHOOK_URL = 'https://hook.eu1.make.com/55y5lsql5rmr8ju9cmlt9o5115q784ay';
 
   // ============================================================
-  // PLAN CONFIG — one entry per tile on the pricing page.
-  // "link" = Stripe Payment Link. Each Stripe link's own
-  // "after payment" redirect (set inside the Stripe Dashboard,
-  // not here) must point to:
-  //   welcome.html?plan=social   (for the social link)
-  //   welcome.html?plan=email    (for the email link)
-  //   welcome.html?plan=custom   (for the custom link)
-  // so welcome.html knows which plan was just purchased and can
-  // forward it to selection.html -> social_connected.html.
+  // PLAN CONFIG — single source of truth for every tier.
+  // Keys MUST match the ?plan= value used on the pricing section
+  // and passed through apply.html (email, facebook, instagram, custom).
+  //
+  // To add, remove, or reprice a tier, edit ONLY this object —
+  // nothing else in this file needs to change.
+  //
+  // Each Stripe Payment Link's own "after payment" redirect
+  // (set inside the Stripe Dashboard, not here) should point to:
+  //   welcome.html?plan=<key>
+  // so welcome.html knows which plan was just purchased.
   // ============================================================
   const PLAN_CONFIG = {
-    social: {
-      name:  'Facebook & Instagram',
-      price: '$170',
-      // TODO: replace with the real Stripe Payment Link for the $170 tier
-      link:  'https://buy.stripe.com/REPLACE_WITH_SOCIAL_LINK'
-    },
     email: {
-      name:  'Email',
-      price: '$260',
-      // Same price as the old "Mid" tier — reusing that existing Stripe link
-      link:  'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00'
+      name:     'Email',
+      price:    '$260 AUD / month',
+      setupFee: null,
+      link:     'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00'
+    },
+    facebook: {
+      name:     'Facebook',
+      price:    '$170 AUD / month',
+      setupFee: null,
+      link:     'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04'
+    },
+    instagram: {
+      name:     'Instagram',
+      price:    '$170 AUD / month',
+      setupFee: null,
+      link:     'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04'
     },
     custom: {
-      name:  'Custom',
-      // TODO: set the real custom price once you confirm the number
-      price: '$XXX',
+      name:     'Custom',
+      price:    '$530 AUD / month',
+      setupFee: '$1,700 AUD (one-time)',
       // TODO: replace with the real Stripe Payment Link for the custom tier
-      link:  'https://buy.stripe.com/REPLACE_WITH_CUSTOM_LINK'
+      link:     'https://buy.stripe.com/REPLACE_WITH_CUSTOM_LINK'
     }
   };
+  const DEFAULT_PLAN = 'email';
 
-  // Detect plan from URL (e.g. contract.html?plan=social )
+  // Detect plan from URL (e.g. contract.html?plan=facebook ),
+  // falling back to whatever apply.html stored in sessionStorage,
+  // and finally to the default plan if neither is a known key.
   const urlParams = new URLSearchParams(window.location.search);
-  const selectedPlanKey = urlParams.get('plan') || 'email';
-  const planConfig = PLAN_CONFIG[selectedPlanKey] || PLAN_CONFIG.email;
+  const requestedPlanKey = urlParams.get('plan');
+  const storedPlanKey = sessionStorage.getItem('hermia_plan');
+  const selectedPlanKey = PLAN_CONFIG[requestedPlanKey]
+    ? requestedPlanKey
+    : (PLAN_CONFIG[storedPlanKey] ? storedPlanKey : DEFAULT_PLAN);
+  const planConfig = PLAN_CONFIG[selectedPlanKey];
 
   // Persist the plan choice so it survives the Stripe round-trip
   // (welcome.html reads this as a fallback if the Stripe redirect
@@ -224,8 +246,14 @@
   try { sessionStorage.setItem('hermia_plan', selectedPlanKey); } catch(e) {}
 
   // Update Display
-  document.getElementById('displayPrice').textContent = planConfig.price + ' AUD / month';
+  document.getElementById('displayPrice').textContent = planConfig.price;
   document.getElementById('planLabel').textContent = planConfig.name + ' — Monthly Software Access';
+
+  if (planConfig.setupFee) {
+    document.getElementById('setupFeePrice').textContent = planConfig.setupFee;
+    document.getElementById('setupFeeRow').style.display = 'flex';
+    document.getElementById('setupFeeDivider').style.display = 'block';
+  }
 
   const planBadge = document.getElementById('planBadge');
   document.getElementById('planBadgeText').innerHTML = 'You are subscribing to <b>' + planConfig.name + '</b>';
@@ -297,6 +325,7 @@
           plan: selectedPlanKey,
           plan_name: planConfig.name,
           price: planConfig.price,
+          setup_fee: planConfig.setupFee,
           name: A_NAME,
           email: A_EMAIL,
           phone: A_PHONE,
@@ -311,5 +340,4 @@
 </script>
 </body>
 </html>
-
 
