@@ -29,10 +29,13 @@
         .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 120px 120px; -webkit-mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); opacity: 0.15; }
         .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
         .wrap { position: relative; z-index: 10; width: 100%; max-width: 600px; margin: 0 auto; padding: 80px 24px 120px; display: flex; flex-direction: column; align-items: center; }
-        .logo-wrap { margin-bottom: 60px; position: relative; animation: fade-in-down 1.2s var(--ease-cinematic) forwards; }
+        .logo-wrap { margin-bottom: 44px; position: relative; animation: fade-in-down 1.2s var(--ease-cinematic) forwards; }
         .logo-aura { position: absolute; inset: -40px; background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%); filter: blur(25px); animation: aura-pulse 8s infinite ease-in-out; }
         @keyframes aura-pulse { 0%, 100% { opacity: 0.3; transform: scale(0.9); } 50% { opacity: 0.6; transform: scale(1.05); } }
         .logo { height: 58px; position: relative; z-index: 2; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
+        .plan-badge { display: inline-flex; align-items: center; gap: 9px; padding: 10px 20px; border: 1px solid var(--border); background: var(--gold-muted); border-radius: 100px; font-size: 12.5px; color: var(--cream); margin-bottom: 40px; opacity: 0; animation: fade-in-down 1s var(--ease-cinematic) 0.2s forwards; }
+        .plan-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-bright); box-shadow: 0 0 8px var(--gold-bright); }
+        .plan-badge b { color: var(--gold-light); font-weight: 500; }
         .steps { display: flex; justify-content: space-between; width: 100%; margin-bottom: 60px; position: relative; opacity: 0; animation: fade-in-up 1s var(--ease-cinematic) 0.4s forwards; }
         .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.08); }
         .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: linear-gradient(90deg, var(--gold-muted), var(--gold), var(--gold-muted)); box-shadow: 0 0 12px var(--gold); transition: width 1.2s var(--ease-cinematic); }
@@ -89,6 +92,11 @@
         <div class="logo-wrap">
             <div class="logo-aura"></div>
             <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" />
+        </div>
+
+        <div class="plan-badge" id="planBadge" style="display:none;">
+            <span class="dot"></span>
+            <span>Setting up <b id="planBadgeName">your plan</b></span>
         </div>
 
         <div class="steps" id="stepTracker">
@@ -190,6 +198,33 @@
         const HERMIANANGO_URL = 'https://hermianango.capital-fbc.workers.dev';
         const $ = id => document.getElementById(id);
 
+        // ============================================================
+        // PLAN CARRY-THROUGH
+        // selection.html redirects here as
+        //   foundation_details_servicem8.html?plan=social|email|custom
+        // Same pattern as the Simpro twin: URL first, sessionStorage
+        // fallback, display badge, save into create-customer, forward
+        // onward to servicem8_connect.html so social_connected.html
+        // downstream still knows which plan this is.
+        // ============================================================
+        const PLAN_NAMES = {
+            social: 'Facebook & Instagram',
+            email:  'Email',
+            custom: 'Custom'
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        let plan = urlParams.get('plan');
+        if (!plan) {
+            try { plan = sessionStorage.getItem('hermia_plan') || ''; } catch(e) { plan = ''; }
+        }
+        try { if (plan) sessionStorage.setItem('hermia_plan', plan); } catch(e) {}
+
+        if (plan && PLAN_NAMES[plan]) {
+            $('planBadgeName').textContent = PLAN_NAMES[plan];
+            $('planBadge').style.display = 'inline-flex';
+        }
+
         const COUNTRY_DATA = {
             'Australia': {
                 label: 'State',
@@ -287,7 +322,6 @@
         populateRegionsForCountry($('country').value);
 
         // Same session-carried Stripe session_id pattern as the Simpro version.
-        const urlParams = new URLSearchParams(window.location.search);
         const stripeSessionId = urlParams.get('session_id');
 
         function showErr(id, on) {
@@ -339,7 +373,14 @@
                         // This page only ever exists on the ServiceM8 branch of
                         // selection.html, so we tag it directly rather than
                         // trusting sessionStorage alone — belt and braces.
-                        crmProvider: 'servicem8'
+                        crmProvider: 'servicem8',
+                        // NEW: which package this customer bought
+                        // (social / email / custom). Same field name and
+                        // same reasoning as the Simpro version — saved
+                        // against the Supabase row at the earliest point
+                        // it exists, so downstream pages can look it up
+                        // instead of trusting a URL param alone.
+                        plan: plan || null
                     })
                 });
                 const data = await res.json();
@@ -354,11 +395,14 @@
                 sessionStorage.setItem('hermia_crm_provider', 'servicem8');
                 sessionStorage.setItem('hermia_state', state);
                 sessionStorage.setItem('hermia_country', country);
+                if (plan) sessionStorage.setItem('hermia_plan', plan);
 
                 document.body.style.transition = 'opacity 1s ease';
                 document.body.style.opacity = '0';
                 setTimeout(() => {
-                    window.location.href = 'https://onboarding.hermia.au/servicem8_connect.html';
+                    const nextUrl = 'https://onboarding.hermia.au/servicem8_connect.html' +
+                        (plan ? ('?plan=' + encodeURIComponent(plan)) : '');
+                    window.location.href = nextUrl;
                 }, 1000);
             } catch (e) {
                 console.error(e);
@@ -374,3 +418,4 @@
     </script>
 </body>
 </html>
+
