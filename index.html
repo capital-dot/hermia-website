@@ -20,6 +20,7 @@
 html{scroll-behavior:smooth}
 body{font-family:"DM Sans",sans-serif;font-weight:300;background:var(--bg);color:var(--cream);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 body.cinematic{overflow:hidden}
+body.modal-open{overflow:hidden}
 ::selection{background:rgba(196,150,60,0.2);color:#fff}
 a,a:link,a:visited,a:active{color:inherit;text-decoration:none}
 #cinematic-hero{position:relative;width:100%;height:100vh;background:#000;overflow:hidden}
@@ -33,8 +34,8 @@ nav.visible{opacity:1;pointer-events:auto}
 .nav-links a:hover{color:var(--cream)}
 .nav-ws{font-size:12px;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:1px;text-decoration:none;transition:color .2s}
 .nav-ws:hover{color:var(--soft)}
-.nav-cta{background:linear-gradient(135deg,#9a6c28,#74511a);color:#fbf3e2 !important;padding:9px 20px;border-radius:9px;font-weight:600;font-size:13px;text-decoration:none;transition:all .2s;box-shadow:0 6px 18px rgba(120,90,30,0.28)}
-.nav-cta:hover{transform:translateY(-1px);background:linear-gradient(135deg,#a8772c,#82591d);box-shadow:0 10px 26px rgba(120,90,30,0.4)}
+.nav-cta{background:linear-gradient(135deg,#ffe08a,#f3c455,#fff3cf);color:#1a0e04 !important;padding:9px 20px;border-radius:9px;font-weight:700;font-size:13px;text-decoration:none;transition:all .2s;box-shadow:0 6px 26px rgba(255,210,110,0.75),0 0 0 1px rgba(255,224,138,0.45);border:none;cursor:pointer;font-family:"DM Sans",sans-serif}
+.nav-cta:hover{transform:translateY(-2px);background:linear-gradient(135deg,#fff3cf,#ffe08a,#fffbe8);box-shadow:0 10px 38px rgba(255,210,110,0.9),0 0 0 1px rgba(255,224,138,0.6)}
 .scene{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;opacity:0;visibility:hidden;transition:opacity 1s cubic-bezier(0.4,0,0.2,1),visibility 1s ease}
 .scene.active{opacity:1;visibility:visible}
 #skip-btn{position:absolute;top:20px;right:24px;z-index:10;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:7px 16px;border-radius:4px;cursor:pointer;font-family:"Inter",sans-serif;transition:all .2s}
@@ -142,8 +143,8 @@ nav.visible{opacity:1;pointer-events:auto}
 .combo-card::before{top:14px;right:14px;border-width:1px 1px 0 0}
 .combo-card::after{bottom:14px;left:14px;border-width:0 0 1px 1px}
 .combo-card.contact-card{background:linear-gradient(135deg,rgba(196,150,60,.05),#0a0a0a)}
-.combo-card.partner-card{background:linear-gradient(150deg,#130c03,#111);align-items:center;text-align:center;justify-content:center}
-.combo-card.partner-card .partner-badge-img{margin-bottom:18px}
+.combo-card.partner-card{background:linear-gradient(150deg,#130c03,#111);align-items:center;text-align:center;justify-content:center;padding-top:56px}
+.combo-card.partner-card .partner-badge-img{margin-bottom:22px;width:96px}
 .partner-badge-img{width:124px;height:auto;filter:drop-shadow(0 10px 30px rgba(0,0,0,.55))}
 .video-card-frame{width:100%;background:#000;border:1px solid var(--bhi);position:relative;border-radius:10px;overflow:hidden;margin:16px 0 0;box-shadow:0 18px 44px rgba(0,0,0,.5)}
 .video-card-frame::after{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--gl),transparent);z-index:2}
@@ -251,8 +252,8 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 .p-card.featured{border-color:var(--gl);background:linear-gradient(150deg,rgba(217,170,82,.1),rgba(15,15,15,.98));box-shadow:0 24px 60px rgba(0,0,0,.4),0 0 50px rgba(217,170,82,.16);transform:scale(1.025);z-index:2}
 .p-card.featured:hover{transform:scale(1.025) translateY(-8px)}
 
-.p-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gl),var(--gold));color:#000;padding:7px 20px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;font-family:"DM Sans",sans-serif;box-shadow:0 6px 20px rgba(217,170,82,.3);white-space:nowrap}
-.p-tier-name{font-family:var(--display);font-size:30px;font-weight:600;color:#fff;margin-bottom:24px;margin-top:12px;letter-spacing:-.4px}
+.p-badge{display:inline-block;position:static;margin-bottom:18px;background:linear-gradient(135deg,var(--gl),var(--gold));color:#000;padding:7px 20px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;font-family:"DM Sans",sans-serif;box-shadow:0 6px 20px rgba(217,170,82,.3);white-space:nowrap}
+.p-tier-name{font-family:var(--display);font-size:30px;font-weight:600;color:#fff;margin-bottom:24px;letter-spacing:-.4px}
 .p-price-wrap{margin-bottom:26px;padding-bottom:22px;border-bottom:1px solid rgba(196,150,60,.18)}
 .p-price{display:flex;align-items:baseline;gap:5px;margin-bottom:5px}
 .p-cur{font-size:20px;color:var(--gl);font-weight:700}
@@ -263,7 +264,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 .p-no-setup{font-size:12px;color:var(--green);font-weight:600;margin-top:9px;display:flex;align-items:center;gap:5px}
 .p-setup-fee{font-size:12px;color:var(--muted);margin-top:9px}
 .p-setup-fee strong{color:var(--gl)}
-.p-trial-tag{display:inline-block;margin-top:9px;font-size:10.5px;font-weight:700;color:var(--green);background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.28);padding:4px 12px;border-radius:99px}
+.p-trial-tag{display:block;margin-bottom:16px;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gl)}
 
 /* Feature list */
 .p-feats{flex:1;list-style:none;padding:0;margin-bottom:32px;display:flex;flex-direction:column;gap:14px}
@@ -306,13 +307,43 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 @media(max-width:1200px){.pricing-grid{grid-template-columns:repeat(2,1fr)!important;gap:20px;max-width:760px}.p-card.featured{transform:scale(1);grid-column:auto}.p-card.featured:hover{transform:translateY(-8px)}}
 @media(max-width:600px){.pricing-section{padding:70px 16px}.pricing-grid{grid-template-columns:1fr!important;max-width:420px}.p-card{padding:40px 24px 36px}.p-num{font-size:46px}}
 @media(max-width:600px){.pricing-section{padding:70px 16px}.p-card{padding:40px 24px 36px}.p-num{font-size:46px}}
+
+/* ===== TRIAL PLAN MODAL ===== */
+#trial-modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(3,2,1,0.82);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:24px;opacity:0;transition:opacity .25s ease}
+#trial-modal-overlay.open{display:flex}
+#trial-modal-overlay.show{opacity:1}
+.trial-modal{width:100%;max-width:1080px;max-height:88vh;overflow-y:auto;background:linear-gradient(150deg,#130c03,#111);border:1.5px solid var(--bhi);border-radius:24px;padding:48px 44px;position:relative;box-shadow:0 40px 120px rgba(0,0,0,.7),0 0 60px rgba(217,170,82,.12);transform:translateY(18px) scale(.98);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+#trial-modal-overlay.show .trial-modal{transform:translateY(0) scale(1)}
+.trial-modal-close{position:absolute;top:20px;right:20px;width:36px;height:36px;border-radius:50%;border:1px solid var(--bhi);background:rgba(255,255,255,0.03);color:var(--soft);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.trial-modal-close:hover{border-color:var(--gold);color:var(--gl);background:rgba(196,150,60,.08)}
+.trial-modal-hdr{text-align:center;margin-bottom:40px}
+.trial-modal-eyebrow{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.trial-modal-title{font-family:var(--display);font-size:clamp(26px,3.4vw,38px);font-weight:600;color:#fff;letter-spacing:-.3px;line-height:1.15}
+.trial-modal-title em{font-style:italic;color:var(--gl)}
+.trial-modal-sub{color:var(--soft);font-size:14px;margin-top:10px}
+.trial-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media(max-width:1000px){.trial-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.trial-grid{grid-template-columns:1fr}.trial-modal{padding:36px 22px}}
+.trial-card{background:rgba(255,255,255,0.02);border:1.5px solid var(--bhi);border-radius:18px;padding:30px 24px;display:flex;flex-direction:column;text-align:left;transition:all .25s}
+.trial-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.4)}
+.trial-card.featured{border-color:var(--gl);background:linear-gradient(150deg,rgba(217,170,82,.1),rgba(15,15,15,.98))}
+.trial-card-name{font-family:var(--display);font-size:22px;font-weight:600;color:#fff;margin-bottom:10px}
+.trial-card-price{display:flex;align-items:baseline;gap:4px;margin-bottom:6px}
+.trial-card-price .cur{font-size:14px;color:var(--gl);font-weight:700}
+.trial-card-price .num{font-family:var(--display);font-size:34px;font-weight:700;color:#fff;line-height:1}
+.trial-card-price .per{font-size:11.5px;color:var(--soft)}
+.trial-card-tag{margin-top:2px;margin-bottom:16px}
+.trial-card-select{margin-top:auto;display:block;text-align:center;padding:12px 18px;border-radius:10px;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-family:"DM Sans",sans-serif;cursor:pointer;border:1.5px solid var(--bhi);background:transparent;color:var(--cream);transition:all .2s;text-decoration:none !important}
+.trial-card-select:hover{border-color:var(--gold);color:var(--gl);background:rgba(196,150,60,.08)}
+.trial-card.featured .trial-card-select{background:linear-gradient(135deg,var(--gl),var(--gold));color:#1a1008;border:none;box-shadow:0 8px 22px rgba(196,150,60,.25)}
+.trial-card.featured .trial-card-select:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(196,150,60,.35)}
 </style>
 </head>
 <body class="cinematic">
 
 <nav id="main-nav">
   <a href="/" class="nav-logo">
-    <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia">
+    <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" onerror="this.style.display='none'">
     <span>Hermia</span>
   </a>
   <ul class="nav-links">
@@ -321,7 +352,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#how-it-works">How It Works</a></li>
-    <li><a href="apply.html" class="nav-cta">Start Free Trial</a></li>
+    <li><button type="button" class="nav-cta" id="nav-trial-btn">Start Free Trial</button></li>
   </ul>
 </nav>
 
@@ -389,7 +420,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   </div>
   <div class="scene active" id="scene-final">
     <div class="final-content">
-      <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" class="final-logo" alt="Hermia">
+      <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" class="final-logo" alt="Hermia" onerror="this.style.display='none'">
       <h1 class="final-brand">HERMIA</h1>
       <p class="final-tagline">Every Job. Captured.</p>
     </div>
@@ -514,8 +545,9 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 
     <div class="pricing-grid">
 
-      <!-- EMAIL — $260/mo, no setup -->
+      <!-- EMAIL — $260/mo, no setup, 3-day trial -->
       <div class="p-card">
+        <div class="p-trial-tag">3-Day Free Trial</div>
         <div class="p-tier-name">Email</div>
         <div class="p-price-wrap">
           <div class="p-price">
@@ -528,13 +560,15 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         <ul class="p-feats">
           <li>Email lead intake &amp; qualification</li>
           <li>Full Simpro / Servicem8 sync</li>
+         <li>Photos, Voice Notes, Videos, and Transcriptions</li>
           <li>Weekly business summary</li>
         </ul>
         <a href="apply.html?plan=email" class="p-btn p-btn-ghost">Get Started &rarr;</a>
       </div>
 
-      <!-- FACEBOOK — $170/mo, no setup -->
+      <!-- FACEBOOK — $170/mo, no setup, 3-day trial -->
       <div class="p-card">
+        <div class="p-trial-tag">3-Day Free Trial</div>
         <div class="p-tier-name">Facebook</div>
         <div class="p-price-wrap">
           <div class="p-price">
@@ -547,14 +581,16 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         <ul class="p-feats">
           <li>Facebook Messenger lead intake</li>
           <li>Full Simpro / Servicem8 sync</li>
+          <li>Photos, Voice Notes, Videos, and Transcriptions</li>
           <li>Weekly business summary</li>
         </ul>
         <a href="apply.html?plan=facebook" class="p-btn p-btn-ghost">Get Started &rarr;</a>
       </div>
 
-      <!-- INSTAGRAM — $170/mo, no setup -->
+      <!-- WHATSAPP — $170/mo, no setup, 3-day trial -->
       <div class="p-card">
-        <div class="p-tier-name">Instagram</div>
+        <div class="p-trial-tag">3-Day Free Trial</div>
+        <div class="p-tier-name">WhatsApp</div>
         <div class="p-price-wrap">
           <div class="p-price">
             <span class="p-cur">$</span>
@@ -564,11 +600,12 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           <div class="p-no-setup">✓ No setup fee</div>
         </div>
         <ul class="p-feats">
-          <li>Instagram DM lead intake</li>
+          <li>WhatsApp lead intake &amp; qualification</li>
           <li>Full Simpro / Servicem8 sync</li>
+          <li>Photos, Voice Notes, Videos, and Transcriptions</li>
           <li>Weekly business summary</li>
         </ul>
-        <a href="apply.html?plan=instagram" class="p-btn p-btn-ghost">Get Started &rarr;</a>
+        <a href="apply.html?plan=whatsapp" class="p-btn p-btn-ghost">Get Started &rarr;</a>
       </div>
 
       <!-- CUSTOM — $530/mo, $1,700 setup, featured -->
@@ -584,7 +621,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           <div class="p-setup-fee"><strong>$1,700 setup fee</strong> &mdash; one-time</div>
         </div>
         <ul class="p-feats">
-          <li>Email, Facebook &amp; Instagram combined</li>
+          <li>Email, Facebook &amp; WhatsApp combined</li>
           <li>Full Simpro / Servicem8 sync</li>
           <li>Priority 24/7 support</li>
           <li>Weekly business summary</li>
@@ -615,7 +652,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   <footer>
     <div class="foot-left">
       <a href="/" class="foot-logo">
-        <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia">
+        <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" onerror="this.style.display='none'">
         <span>Hermia</span>
       </a>
       <div class="foot-left-meta">
@@ -632,6 +669,44 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
       </div>
     </div>
   </footer>
+</div>
+
+<!-- ===== TRIAL PLAN SELECT MODAL ===== -->
+<div id="trial-modal-overlay">
+  <div class="trial-modal">
+    <button class="trial-modal-close" id="trial-modal-close" aria-label="Close">&#10005;</button>
+    <div class="trial-modal-hdr">
+      <div class="trial-modal-eyebrow">Start Your Free Trial</div>
+      <h2 class="trial-modal-title">Choose the plan <em>you want to trial.</em></h2>
+      <p class="trial-modal-sub">Pick a channel below &mdash; you'll land on the signup page for that plan.</p>
+    </div>
+    <div class="trial-grid">
+      <div class="trial-card">
+        <div class="p-trial-tag">3-Day Free Trial</div>
+        <div class="trial-card-name">Email</div>
+        <div class="trial-card-price"><span class="cur">$</span><span class="num">260</span><span class="per">/mo</span></div>
+        <a href="apply.html?plan=email" class="trial-card-select">Select Email &rarr;</a>
+      </div>
+      <div class="trial-card">
+        <div class="p-trial-tag">3-Day Free Trial</div>
+        <div class="trial-card-name">Facebook</div>
+        <div class="trial-card-price"><span class="cur">$</span><span class="num">170</span><span class="per">/mo</span></div>
+        <a href="apply.html?plan=facebook" class="trial-card-select">Select Facebook &rarr;</a>
+      </div>
+      <div class="trial-card">
+        <div class="p-trial-tag">3-Day Free Trial</div>
+        <div class="trial-card-name">WhatsApp</div>
+        <div class="trial-card-price"><span class="cur">$</span><span class="num">170</span><span class="per">/mo</span></div>
+        <a href="apply.html?plan=whatsapp" class="trial-card-select">Select WhatsApp &rarr;</a>
+      </div>
+      <div class="trial-card featured">
+        <div class="trial-card-name">Custom</div>
+        <div class="trial-card-price"><span class="cur">$</span><span class="num">530</span><span class="per">/mo</span></div>
+        <div class="trial-card-tag" style="font-size:11.5px;color:var(--muted);margin-top:6px;margin-bottom:16px"><strong style="color:var(--gl)">$1,700</strong> setup fee</div>
+        <a href="apply.html?plan=custom" class="trial-card-select">Select Custom &rarr;</a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -698,6 +773,27 @@ document.querySelectorAll(".faq-q").forEach(function(btn){
 });
 var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.style.opacity="1";e.target.style.transform="translateY(0)"}})},{threshold:.07});
 document.querySelectorAll(".fc,.bt-row").forEach(function(el){el.style.opacity="0";el.style.transform="translateY(14px)";el.style.transition="opacity .5s ease,transform .5s ease";obs.observe(el)});
+
+/* ===== TRIAL PLAN MODAL LOGIC ===== */
+(function(){
+  var overlay=document.getElementById("trial-modal-overlay");
+  var openBtn=document.getElementById("nav-trial-btn");
+  var closeBtn=document.getElementById("trial-modal-close");
+  function openModal(){
+    overlay.classList.add("open");
+    document.body.classList.add("modal-open");
+    requestAnimationFrame(function(){overlay.classList.add("show")});
+  }
+  function closeModal(){
+    overlay.classList.remove("show");
+    document.body.classList.remove("modal-open");
+    setTimeout(function(){overlay.classList.remove("open")},250);
+  }
+  if(openBtn)openBtn.addEventListener("click",openModal);
+  if(closeBtn)closeBtn.addEventListener("click",closeModal);
+  overlay.addEventListener("click",function(e){if(e.target===overlay)closeModal()});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&overlay.classList.contains("open"))closeModal()});
+})();
 </script>
 <script src="/hermia-widget.js"></script>
 </body>
