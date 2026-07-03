@@ -33,8 +33,6 @@
         h1 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; line-height: 1.1; margin-bottom: 18px; letter-spacing: -0.02em; }
         .sub { font-size: 16px; color: var(--soft); margin-bottom: 36px; line-height: 1.7; font-weight: 300; }
 
-        /* Company list — NOTHING is selected by default. Each row is its
-           own clickable option; the contractor must actively choose one. */
         .company-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
         .company-option {
             display: flex; align-items: center; justify-content: space-between;
@@ -80,21 +78,46 @@
 </div>
 
 <script>
-const WORKER   = 'https://hermianango.capital-fbc.workers.dev';
-const NEXT_PAGE = 'https://onboarding.hermia.au/gmail.html';
+const WORKER = 'https://hermianango.capital-fbc.workers.dev';
+
+// ---------------------------------------------------------------------------
+// FIX: NEXT_PAGE was previously hardcoded to gmail.html, so every Simpro
+// customer landed on Gmail forwarding regardless of which channel (email /
+// facebook / instagram) they actually bought. This now branches on
+// hermia_plan, which was set in sessionStorage back in apply.html/contract.html
+// and survives the Simpro OAuth round-trip the same way it survives Stripe —
+// sessionStorage is scoped to (origin, tab), and this page is back on
+// onboarding.hermia.au in the same tab by the time it loads. No Worker
+// change needed.
+//
+// If hermia_plan is missing or unrecognized, this deliberately falls back
+// to gmail.html (the old default) rather than silently stalling — but it
+// logs an error so a broken upstream write doesn't fail invisibly.
+// ---------------------------------------------------------------------------
+function getNextPage() {
+    const plan = sessionStorage.getItem('hermia_plan');
+
+    if (plan === 'email') {
+        return 'https://onboarding.hermia.au/gmail.html';
+    }
+    if (plan === 'facebook' || plan === 'instagram') {
+        return 'https://onboarding.hermia.au/social_connect.html';
+    }
+
+    console.error('[company.html] hermia_plan missing or unrecognized ("' + plan + '") — defaulting to gmail.html');
+    return 'https://onboarding.hermia.au/gmail.html';
+}
 
 let selectedCompanyId = null;
 let companies = [];
 
-// NEW: the direct Simpro OAuth flow (simpro-auth-worker) redirects here
-// server-side after login, which means sessionStorage from the previous
-// page does NOT carry over automatically — sessionStorage is per-page,
-// and a server redirect is a fresh navigation, not a client-side one.
-// So the Worker's callback now appends connectionId AND customerId as
-// URL query params on this redirect specifically so we can restore them
-// here. The old Nango flow set these directly via JS before redirecting,
-// so this only matters for the new direct-auth path — but it's safe to
-// run unconditionally either way, since it just re-saves the same values.
+// The direct Simpro OAuth flow redirects here server-side after login,
+// which means sessionStorage from the previous page does NOT carry over
+// automatically for connectionId/customerId — those two are appended as
+// URL query params by the Worker's callback specifically so they can be
+// restored here. hermia_plan does NOT need this treatment: it was already
+// in sessionStorage before the OAuth redirect even started, and
+// sessionStorage itself (not the URL) is what survives the round-trip.
 (function restoreSessionFromUrl() {
     const params = new URLSearchParams(window.location.search);
     const urlConnectionId = params.get('connectionId');
@@ -128,9 +151,6 @@ function renderCompanies() {
         return;
     }
 
-    // Single-company Builds: still show the picker, just with one option,
-    // so the contractor explicitly confirms rather than it being silently
-    // assumed — matches the same active-choice requirement either way.
     let html = '<div class="company-list">';
     companies.forEach(function (c, i) {
         html += '<button type="button" class="company-option" data-id="' + c.id + '" onclick="selectCompany(\'' + c.id + '\')">' +
@@ -174,7 +194,7 @@ function confirmCompany() {
     .then(function (r) { return r.json(); })
     .then(function (data) {
         if (data && data.ok) {
-            window.location.href = NEXT_PAGE;
+            window.location.href = getNextPage();
         } else {
             renderError('Could not save your selection. Please try again.');
             btn.disabled = false;
@@ -192,14 +212,6 @@ function loadCompanies() {
     const connectionId = getConnectionId();
     if (!connectionId) { renderError('Session expired. Please restart onboarding.'); return; }
 
-    // NEW: connections made through the direct Simpro OAuth flow (used for
-    // both simprosuite.com and simprocloud.com builds) are stored in this
-    // Worker's own KV store, not in Nango — so they must be looked up via
-    // /simpro-direct/list-companies, not the old Nango-based
-    // /list-simpro-companies. We try the direct endpoint first since it's
-    // the current path for all new connections, and fall back to the old
-    // Nango endpoint only if that lookup fails — covering any
-    // connectionId that was created before this change.
     fetch(WORKER + '/simpro-direct/list-companies?connectionId=' + encodeURIComponent(connectionId))
         .then(function (r) { return r.json(); })
         .then(function (data) {
