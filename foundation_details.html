@@ -173,6 +173,10 @@
     </div>
 
     <script>
+        // Simpro-specific variant of the business-details step.
+        // Same UI/validation as the ServiceM8 version, but:
+        //  1. always tags crmProvider = 'simpro' when creating the customer
+        //  2. always redirects to simpro_connect.html afterward
         const ALL_STEPS = ['Payment','Business','Details','Simpro','Connect','Setup'];
         const ACTIVE_INDEX = 2;
         const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -197,18 +201,23 @@
         // ============================================================
         // PLAN CARRY-THROUGH
         // selection.html redirects here as
-        //   foundation_details.html?plan=social|email|custom
+        //   foundation_details.html?plan=email|facebook|instagram|custom
+        // FIXED: PLAN_NAMES was still keyed on an old 3-tier model
+        // (social/email/custom). Your live pricing keys are email,
+        // facebook, instagram, custom — corrected below to match,
+        // identical to the ServiceM8 twin.
         // We resolve it (URL first, sessionStorage as fallback since
         // contract.html already wrote it there), display it, save it
         // in the create-customer call so Supabase has it against this
         // customer record, and forward it on the final redirect to
-        // simpro_connect.html so that page — and eventually
-        // social_connected.html — still knows which plan this is.
+        // simpro_connect.html so that page — and eventually gmail.html
+        // or social_connected.html — still knows which plan this is.
         // ============================================================
         const PLAN_NAMES = {
-            social: 'Facebook & Instagram',
-            email:  'Email',
-            custom: 'Custom'
+            email:     'Email',
+            facebook:  'Facebook',
+            instagram: 'Instagram',
+            custom:    'Custom'
         };
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -381,13 +390,19 @@
                         // same insert — no second round-trip, no webhook
                         // dependency, no race condition.
                         stripeSessionId: stripeSessionId || null,
-                        // NEW: which package this customer bought
-                        // (social / email / custom). Saved against the
-                        // customer row now, at the earliest point we have
-                        // both a Supabase row and a confirmed plan, so
-                        // every downstream page can just look it up
-                        // instead of trusting a URL param that could be
-                        // stripped, shared, or opened in a new tab.
+                        // FIXED: this page only ever exists on the Simpro
+                        // branch of selection.html — was missing this tag
+                        // entirely before, unlike the ServiceM8 twin which
+                        // already sent it. Added for consistency.
+                        crmProvider: 'simpro',
+                        // Which package this customer bought
+                        // (email / facebook / instagram / custom). Saved
+                        // against the customer row now, at the earliest
+                        // point we have both a Supabase row and a
+                        // confirmed plan, so every downstream page can
+                        // just look it up instead of trusting a URL
+                        // param that could be stripped, shared, or
+                        // opened in a new tab.
                         plan: plan || null
                     })
                 });
@@ -401,6 +416,12 @@
                 sessionStorage.setItem('hermia_customer_id', id);
                 sessionStorage.setItem('hermia_email', email);
                 sessionStorage.setItem('hermia_vertical', 'foundation_repair');
+                // FIXED: was missing this write entirely before — the
+                // ServiceM8 twin already sets hermia_crm_provider, this
+                // page didn't. Added for consistency, since downstream
+                // pages may rely on this key existing regardless of
+                // which CRM branch the customer took.
+                sessionStorage.setItem('hermia_crm_provider', 'simpro');
                 sessionStorage.setItem('hermia_state', state);
                 sessionStorage.setItem('hermia_country', country);
                 if (plan) sessionStorage.setItem('hermia_plan', plan);
