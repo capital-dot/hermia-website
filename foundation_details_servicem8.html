@@ -201,16 +201,20 @@
         // ============================================================
         // PLAN CARRY-THROUGH
         // selection.html redirects here as
-        //   foundation_details_servicem8.html?plan=social|email|custom
+        //   foundation_details_servicem8.html?plan=email|facebook|instagram|custom
+        // FIXED: PLAN_NAMES was still keyed on an old 3-tier model
+        // (social/email/custom). Your live pricing keys are email,
+        // facebook, instagram, custom — corrected below to match.
         // Same pattern as the Simpro twin: URL first, sessionStorage
         // fallback, display badge, save into create-customer, forward
-        // onward to servicem8_connect.html so social_connected.html
-        // downstream still knows which plan this is.
+        // onward to servicem8_connect.html so social_connected.html/
+        // gmail.html downstream still knows which plan this is.
         // ============================================================
         const PLAN_NAMES = {
-            social: 'Facebook & Instagram',
-            email:  'Email',
-            custom: 'Custom'
+            email:     'Email',
+            facebook:  'Facebook',
+            instagram: 'Instagram',
+            custom:    'Custom'
         };
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -374,9 +378,8 @@
                         // selection.html, so we tag it directly rather than
                         // trusting sessionStorage alone — belt and braces.
                         crmProvider: 'servicem8',
-                        // NEW: which package this customer bought
-                        // (social / email / custom). Same field name and
-                        // same reasoning as the Simpro version — saved
+                        // Which package this customer bought
+                        // (email / facebook / instagram / custom). Saved
                         // against the Supabase row at the earliest point
                         // it exists, so downstream pages can look it up
                         // instead of trusting a URL param alone.
