@@ -154,24 +154,32 @@
   // ============================================================
   // PLAN CARRY-THROUGH
   // foundation_details.html redirects here as
-  //   simpro_connect.html?plan=social|email|custom
+  //   simpro_connect.html?plan=email|facebook|instagram|custom
   // We resolve it (URL first, sessionStorage fallback), show the
-  // badge for consistency with the rest of the funnel, and — this
-  // is the important part — pass it into the Worker's auth-start
-  // call below so the Worker can carry it through Simpro's OAuth
-  // `state` param and read it back out in its callback handler.
+  // badge for consistency with the rest of the funnel.
   //
   // WHY THIS MATTERS: Simpro's login page redirects the browser
   // straight to the Worker's own callback URL after auth, NOT back
-  // to this page. So this page never sees the user again post-OAuth
-  // — whatever decides "gmail.html vs social_connected.html" has to
-  // happen inside simpro-auth-worker.js, not here. All this file can
-  // do is make sure `plan` survives the trip TO the Worker.
+  // to this page — so this page never sees the user again post-OAuth.
+  // Whatever decides "gmail.html vs social_connected.html" has to
+  // happen on company.html (where the Worker sends the browser next),
+  // NOT here and NOT in the Worker itself.
+  //
+  // company.html can recover plan the same way this page does — via
+  // sessionStorage.getItem('hermia_plan') — because sessionStorage is
+  // scoped to (origin, tab) and survives the round trip through
+  // Simpro's login domain and back, the same way it already survives
+  // the Stripe checkout round trip. No Worker changes required.
+  //
+  // The `plan` param is still forwarded to /simpro/auth-start below in
+  // case the Worker is later wired to use it — today it's read by
+  // nothing server-side, so treat it as inert until confirmed otherwise.
   // ============================================================
   const PLAN_NAMES = {
-      social: 'Facebook & Instagram',
-      email:  'Email',
-      custom: 'Custom'
+      email:     'Email',
+      facebook:  'Facebook',
+      instagram: 'Instagram',
+      custom:    'Custom'
   };
   const pageParams = new URLSearchParams(window.location.search);
   let plan = pageParams.get('plan');
@@ -254,28 +262,27 @@
     authStartUrl.searchParams.set('build', buildName);
     authStartUrl.searchParams.set('domain', selectedDomain);
     authStartUrl.searchParams.set('customerId', customerId);
-    // NEW: forwarded so the Worker can embed it in the OAuth `state`
-    // param and read it back out in its callback handler, to decide
-    // whether the post-connect redirect should go to gmail.html
-    // (plan === 'email') or the social/custom connect step instead.
-    // *** Requires a matching change in simpro-auth-worker.js — see
-    // note below the button handler. ***
+    // Forwarded in case the Worker is later wired to read it — today
+    // handleSimproAuthStart does not store or use it, and
+    // handleSimproAuthCallback redirects unconditionally to
+    // company.html regardless of this value. See comment block above.
     if (plan) authStartUrl.searchParams.set('plan', plan);
 
     // Full-page redirect: the Worker builds the real Simpro login URL and
     // sends the browser there directly. After login, Simpro redirects back
     // to the Worker's callback, which exchanges the code, stores the
-    // tokens, and redirects on to the next step itself.
+    // tokens, and redirects on to the next step itself (company.html).
     window.location.href = authStartUrl.toString();
   });
 
   // If the Worker bounced us back here with an error (see
-  // redirectWithError in simpro-auth-worker.js), show a friendly message.
+  // simproRedirectWithError in the Worker), show a friendly message.
   (function checkForAuthError() {
     const params = new URLSearchParams(window.location.search);
     const err = params.get('error');
     if (!err) return;
     const messages = {
+      server_misconfigured: 'Something went wrong on our end connecting to Simpro. Please try again shortly.',
       missing_code_or_state: 'Something went wrong starting the connection. Please try again.',
       expired_or_invalid_state: 'That connection attempt expired. Please try again.',
       token_exchange_failed: 'We couldn\u2019t verify your Simpro login. Please check your build name and try again.',
@@ -286,4 +293,3 @@
 </script>
 </body>
 </html>
-
