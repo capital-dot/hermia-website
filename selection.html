@@ -29,10 +29,13 @@
         .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 120px 120px; -webkit-mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); opacity: 0.15; }
         .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
         .wrap { position: relative; z-index: 10; width: 100%; max-width: 720px; margin: 0 auto; padding: 80px 24px 120px; display: flex; flex-direction: column; align-items: center; }
-        .logo-wrap { margin-bottom: 60px; position: relative; animation: fade-in-down 1.2s var(--ease-cinematic) forwards; }
+        .logo-wrap { margin-bottom: 44px; position: relative; animation: fade-in-down 1.2s var(--ease-cinematic) forwards; }
         .logo-aura { position: absolute; inset: -40px; background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%); filter: blur(25px); animation: aura-pulse 8s infinite ease-in-out; }
         @keyframes aura-pulse { 0%, 100% { opacity: 0.3; transform: scale(0.9); } 50% { opacity: 0.6; transform: scale(1.05); } }
         .logo { height: 58px; position: relative; z-index: 2; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
+        .plan-badge { display: inline-flex; align-items: center; gap: 9px; padding: 10px 20px; border: 1px solid var(--border); background: var(--gold-muted); border-radius: 100px; font-size: 12.5px; color: var(--cream); margin-bottom: 40px; opacity: 0; animation: fade-in-down 1s var(--ease-cinematic) 0.2s forwards; }
+        .plan-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-bright); box-shadow: 0 0 8px var(--gold-bright); }
+        .plan-badge b { color: var(--gold-light); font-weight: 500; }
         .steps { display: flex; justify-content: space-between; width: 100%; max-width: 600px; margin-bottom: 60px; position: relative; opacity: 0; animation: fade-in-up 1s var(--ease-cinematic) 0.4s forwards; }
         .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.08); }
         .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: linear-gradient(90deg, var(--gold-muted), var(--gold), var(--gold-muted)); box-shadow: 0 0 12px var(--gold); transition: width 1.2s var(--ease-cinematic); }
@@ -74,6 +77,11 @@
         <div class="logo-wrap">
             <div class="logo-aura"></div>
             <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" />
+        </div>
+
+        <div class="plan-badge" id="planBadge" style="display:none;">
+            <span class="dot"></span>
+            <span>Setting up <b id="planBadgeName">your plan</b></span>
         </div>
 
         <div class="steps" id="stepTracker">
@@ -119,6 +127,34 @@
 
         const $ = id => document.getElementById(id);
 
+        // ============================================================
+        // PLAN CARRY-THROUGH
+        // welcome.html redirects here as selection.html?plan=social
+        // (or email / custom). We resolve it — falling back to
+        // sessionStorage if the URL param is ever missing, since it
+        // was already stored back in contract.html — then re-store it
+        // and pass it forward on every link from this page onward, so
+        // foundation_details.html and eventually social_connected.html
+        // still know which plan the client bought.
+        // ============================================================
+        const PLAN_NAMES = {
+            social: 'Facebook & Instagram',
+            email:  'Email',
+            custom: 'Custom'
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        let plan = urlParams.get('plan');
+        if (!plan) {
+            try { plan = sessionStorage.getItem('hermia_plan') || ''; } catch(e) { plan = ''; }
+        }
+        try { if (plan) sessionStorage.setItem('hermia_plan', plan); } catch(e) {}
+
+        if (plan && PLAN_NAMES[plan]) {
+            $('planBadgeName').textContent = PLAN_NAMES[plan];
+            $('planBadge').style.display = 'inline-flex';
+        }
+
         // Route map: each CRM choice goes to its OWN dedicated business-details
         // page (not a shared one with branching logic inside it). This keeps
         // each CRM's onboarding path self-contained — no hardcoded per-client
@@ -144,10 +180,18 @@
                 return;
             }
 
+            // Carry the plan forward as a query param too, not just
+            // sessionStorage — sessionStorage doesn't survive if the
+            // client opens the next step in a new tab, and it's the
+            // one piece of state social_connected.html absolutely
+            // needs to decide which platform tiles to unblur.
+            const nextUrl = 'https://onboarding.hermia.au/' + targetPage +
+                (plan ? ('?plan=' + encodeURIComponent(plan)) : '');
+
             document.body.style.transition = 'opacity 0.6s ease';
             document.body.style.opacity = '0';
             setTimeout(() => {
-                window.location.href = 'https://onboarding.hermia.au/' + targetPage;
+                window.location.href = nextUrl;
             }, 600);
         }
 
@@ -156,3 +200,4 @@
     </script>
 </body>
 </html>
+
