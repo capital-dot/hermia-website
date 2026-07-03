@@ -113,7 +113,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
       <div class="field-row">
         <div class="field">
           <label>Full name</label>
-          <input type="text" id="name" placeholder="Jared Bocca" required>
+          <input type="text" id="name" placeholder="Jane Smith" required>
         </div>
         <div class="field">
           <label>Company size</label>
@@ -183,15 +183,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 // on this page. Keys MUST match the ?plan= value used site-wide
 // (pricing section buttons -> apply.html -> contract.html), and
 // MUST match the keys in contract.html's PLAN_CONFIG exactly.
+// Current live keys: email, facebook, whatsapp, custom.
 //
 // To add/change a tier, edit ONLY this object — nothing else on
 // this page needs to change.
 // ============================================================
 const PLAN_MAP = {
-  email:     { name: 'Email',     price: '$260 AUD / month' },
-  facebook:  { name: 'Facebook',  price: '$170 AUD / month' },
-  instagram: { name: 'Instagram', price: '$170 AUD / month' },
-  custom:    { name: 'Custom',    price: '$1,700 AUD setup + $530 AUD / month' }
+  email:    { name: 'Email',    price: '$260 AUD / month' },
+  facebook: { name: 'Facebook', price: '$170 AUD / month' },
+  whatsapp: { name: 'WhatsApp', price: '$170 AUD / month' },
+  custom:   { name: 'Custom',   price: '$1,700 AUD setup + $530 AUD / month' }
 };
 const DEFAULT_PLAN = 'email';
 
