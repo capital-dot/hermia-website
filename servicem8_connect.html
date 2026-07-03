@@ -147,6 +147,19 @@
         const HERMIANANGO_URL = 'https://hermianango.capital-fbc.workers.dev';
         const $ = id => document.getElementById(id);
 
+        // ---------------------------------------------------------------
+        // PLAN CAPTURE — read once from URL (?plan=email|social|custom),
+        // persist to sessionStorage so it survives this page and is still
+        // readable if the user lands here again without the query param
+        // (e.g. back button). This is a product-tier flag carried per
+        // browser session, not a per-customer hardcoded value — every
+        // customer on a given plan gets the same redirect behavior below.
+        // ---------------------------------------------------------------
+        const urlParams = new URLSearchParams(window.location.search);
+        const planFromUrl = urlParams.get('plan');
+        if (planFromUrl) sessionStorage.setItem('hermia_plan', planFromUrl);
+        const plan = sessionStorage.getItem('hermia_plan');
+
         function showErr(on) {
             $('apiKey').classList.toggle('err', on);
             $('err-apiKey').classList.toggle('show', on);
@@ -192,10 +205,19 @@
 
                 sessionStorage.setItem('hermia_crm_provider', 'servicem8');
 
+                // -----------------------------------------------------------
+                // PLAN-BASED REDIRECT — email plan goes to Gmail setup,
+                // every other plan (social / custom) goes straight to the
+                // social connect page. Same branch for every customer on a
+                // given plan — nothing customer-specific here, only the
+                // plan flag captured above.
+                // -----------------------------------------------------------
+                const nextPage = plan === 'email' ? 'gmail.html' : 'social_connected.html';
+
                 document.body.style.transition = 'opacity 1s ease';
                 document.body.style.opacity = '0';
                 setTimeout(() => {
-                    window.location.href = 'servicem8_gmail.html';
+                    window.location.href = nextPage;
                 }, 1000);
             } catch (e) {
                 console.error(e);
