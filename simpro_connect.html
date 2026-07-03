@@ -23,6 +23,9 @@
   @keyframes levitate{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
   .partner-logo-box{margin-bottom:44px;text-align:center}
   .partner-logo{height:32px;width:auto;opacity:.9;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3))}
+  .plan-badge{display:inline-flex;align-items:center;gap:9px;padding:9px 18px;border:1px solid var(--border);background:rgba(196,150,60,0.06);border-radius:100px;font-size:12px;color:var(--cream);margin-bottom:36px}
+  .plan-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--gold-light);box-shadow:0 0 8px var(--gold-light)}
+  .plan-badge b{color:var(--gold-light);font-weight:600}
   .steps{display:flex;align-items:flex-start;justify-content:space-between;width:100%;max-width:620px;margin-bottom:56px;position:relative}
   .steps::before{content:'';position:absolute;top:15px;left:15px;right:15px;height:1px;background:var(--border)}
   .progressline{position:absolute;top:15px;left:15px;height:1px;background:linear-gradient(90deg,var(--gold),var(--gold-light));box-shadow:0 0 10px rgba(196,150,60,0.4);z-index:0}
@@ -92,6 +95,12 @@
   <div class="partner-logo-box">
     <img class="partner-logo" src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Horizontal_Registered.png" alt="Simpro Registered Partner" />
   </div>
+
+  <div class="plan-badge" id="planBadge" style="display:none;">
+    <span class="dot"></span>
+    <span>Setting up <b id="planBadgeName">your plan</b></span>
+  </div>
+
   <div class="steps" id="stepTracker">
     <div class="progressline" id="progressline"></div>
   </div>
@@ -141,6 +150,40 @@
     });
     document.getElementById('progressline').style.width = `calc((100% - 30px) * ${ACTIVE_INDEX/(ALL_STEPS.length-1)})`;
   })();
+
+  // ============================================================
+  // PLAN CARRY-THROUGH
+  // foundation_details.html redirects here as
+  //   simpro_connect.html?plan=social|email|custom
+  // We resolve it (URL first, sessionStorage fallback), show the
+  // badge for consistency with the rest of the funnel, and — this
+  // is the important part — pass it into the Worker's auth-start
+  // call below so the Worker can carry it through Simpro's OAuth
+  // `state` param and read it back out in its callback handler.
+  //
+  // WHY THIS MATTERS: Simpro's login page redirects the browser
+  // straight to the Worker's own callback URL after auth, NOT back
+  // to this page. So this page never sees the user again post-OAuth
+  // — whatever decides "gmail.html vs social_connected.html" has to
+  // happen inside simpro-auth-worker.js, not here. All this file can
+  // do is make sure `plan` survives the trip TO the Worker.
+  // ============================================================
+  const PLAN_NAMES = {
+      social: 'Facebook & Instagram',
+      email:  'Email',
+      custom: 'Custom'
+  };
+  const pageParams = new URLSearchParams(window.location.search);
+  let plan = pageParams.get('plan');
+  if (!plan) {
+      try { plan = sessionStorage.getItem('hermia_plan') || ''; } catch(e) { plan = ''; }
+  }
+  try { if (plan) sessionStorage.setItem('hermia_plan', plan); } catch(e) {}
+
+  if (plan && PLAN_NAMES[plan]) {
+      document.getElementById('planBadgeName').textContent = PLAN_NAMES[plan];
+      document.getElementById('planBadge').style.display = 'inline-flex';
+  }
 
   const WORKER = 'https://hermianango.capital-fbc.workers.dev';
   const btn = document.getElementById('connectBtn');
@@ -211,11 +254,18 @@
     authStartUrl.searchParams.set('build', buildName);
     authStartUrl.searchParams.set('domain', selectedDomain);
     authStartUrl.searchParams.set('customerId', customerId);
+    // NEW: forwarded so the Worker can embed it in the OAuth `state`
+    // param and read it back out in its callback handler, to decide
+    // whether the post-connect redirect should go to gmail.html
+    // (plan === 'email') or the social/custom connect step instead.
+    // *** Requires a matching change in simpro-auth-worker.js — see
+    // note below the button handler. ***
+    if (plan) authStartUrl.searchParams.set('plan', plan);
 
     // Full-page redirect: the Worker builds the real Simpro login URL and
     // sends the browser there directly. After login, Simpro redirects back
     // to the Worker's callback, which exchanges the code, stores the
-    // tokens, and redirects on to company.html?connectionId=... itself.
+    // tokens, and redirects on to the next step itself.
     window.location.href = authStartUrl.toString();
   });
 
@@ -236,3 +286,4 @@
 </script>
 </body>
 </html>
+
