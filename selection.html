@@ -129,18 +129,28 @@
 
         // ============================================================
         // PLAN CARRY-THROUGH
-        // welcome.html redirects here as selection.html?plan=social
-        // (or email / custom). We resolve it — falling back to
-        // sessionStorage if the URL param is ever missing, since it
-        // was already stored back in contract.html — then re-store it
-        // and pass it forward on every link from this page onward, so
-        // foundation_details.html and eventually social_connected.html
-        // still know which plan the client bought.
+        //
+        // ACCURACY NOTE: hermia_welcome.html (there is no separate
+        // "welcome.html" — that filename does not exist in this funnel)
+        // currently redirects here with ZERO query params:
+        //   window.location.href = 'https://onboarding.hermia.au/selection.html';
+        // So ?plan= will never actually arrive via the URL under the
+        // current welcome page. The sessionStorage fallback below is
+        // therefore not a fallback in practice — it is the ONLY
+        // mechanism currently delivering the plan to this page. It works
+        // because contract.html sets sessionStorage.hermia_plan before
+        // the Stripe redirect, and sessionStorage survives the Stripe
+        // round-trip within the same browser tab.
+        //
+        // If hermia_welcome.html is ever updated to pass ?plan= directly,
+        // the code below will prefer that automatically — no change
+        // needed here.
         // ============================================================
         const PLAN_NAMES = {
-            social: 'Facebook & Instagram',
-            email:  'Email',
-            custom: 'Custom'
+            email:     'Email',
+            facebook:  'Facebook',
+            instagram: 'Instagram',
+            custom:    'Custom'
         };
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -154,6 +164,25 @@
             $('planBadgeName').textContent = PLAN_NAMES[plan];
             $('planBadge').style.display = 'inline-flex';
         }
+
+        // ============================================================
+        // CUSTOMER ID CARRY-THROUGH
+        //
+        // ACCURACY NOTE — OPEN DEPENDENCY: as of this fix, nothing
+        // upstream of this page actually creates a customerId.
+        // hermia_welcome.html does not call POST /create-customer, so
+        // ?customerId= will arrive empty from the URL, and sessionStorage
+        // will also be empty on first visit. This code is written to
+        // correctly RECEIVE and FORWARD a customerId the moment
+        // hermia_welcome.html is fixed to generate one — but until that
+        // fix lands, `customerId` will be an empty string here and on
+        // every page downstream of this one.
+        // ============================================================
+        let customerId = urlParams.get('customerId');
+        if (!customerId) {
+            try { customerId = sessionStorage.getItem('hermia_customer_id') || ''; } catch(e) { customerId = ''; }
+        }
+        try { if (customerId) sessionStorage.setItem('hermia_customer_id', customerId); } catch(e) {}
 
         // Route map: each CRM choice goes to its OWN dedicated business-details
         // page (not a shared one with branching logic inside it). This keeps
@@ -180,13 +209,19 @@
                 return;
             }
 
-            // Carry the plan forward as a query param too, not just
-            // sessionStorage — sessionStorage doesn't survive if the
-            // client opens the next step in a new tab, and it's the
-            // one piece of state social_connected.html absolutely
-            // needs to decide which platform tiles to unblur.
+            // Carry plan AND customerId forward as query params, not just
+            // sessionStorage — sessionStorage doesn't survive if the client
+            // opens the next step in a new tab, and both pieces of state
+            // are required downstream: plan decides Gmail vs Composio
+            // social connect after CRM connect completes, and customerId
+            // is what every subsequent Supabase write must be attached to.
+            const qs = new URLSearchParams();
+            if (plan) qs.set('plan', plan);
+            if (customerId) qs.set('customerId', customerId);
+            const queryString = qs.toString();
+
             const nextUrl = 'https://onboarding.hermia.au/' + targetPage +
-                (plan ? ('?plan=' + encodeURIComponent(plan)) : '');
+                (queryString ? ('?' + queryString) : '');
 
             document.body.style.transition = 'opacity 0.6s ease';
             document.body.style.opacity = '0';
