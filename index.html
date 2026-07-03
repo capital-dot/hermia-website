@@ -743,91 +743,135 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   </section>
   
 
-<div class="pricing-grid">
-
-  <!-- Email -->
-  <div class="p-card">
-    <div class="p-tier-name">Email</div>
-    <div class="p-price-wrap">
-      <div class="p-price"><span class="p-cur">$</span><span class="p-num">260</span></div>
-      <div class="p-per">AUD / month</div>
-    </div>
-    <ul class="p-feats">
-      <li><span>Email lead intake &amp; qualification</span></li>
-      <li><span><strong>80</strong> photos/videos per month</span></li>
-      <li><span>AI visual diagnostics on photos &amp; video</span></li>
-      <li><span>Voice note transcription &amp; extraction</span></li>
-      <li><span>Automatic urgency triage</span></li>
-      <li><span>Full Simpro or Servicem8 workflow sync</span></li>
-      <li><span>Autonomous scheduling &amp; calendar booking</span></li>
-      <li><span>Weekly Business Summary</span></li>
-    </ul>
-    <a href="apply.html?plan=email" class="p-btn">Start Free Trial</a>
+<section class="pricing-section" id="pricing">
+  <div class="pricing-header">
+    <div class="eyebrow">Pricing</div>
+    <h2 class="pricing-h">Recover missed repair jobs <em>automatically.</em></h2>
+    <p class="pricing-sub">One qualified repair job can cover months of Hermia. No lock-in, cancel any time.</p>
   </div>
 
-  <!-- Facebook -->
-  <div class="p-card">
-    <div class="p-tier-name">Facebook</div>
-    <div class="p-price-wrap">
-      <div class="p-price"><span class="p-cur">$</span><span class="p-num">170</span></div>
-      <div class="p-per">AUD / month</div>
-    </div>
-    <ul class="p-feats">
-      <li><span>Facebook Messenger lead intake</span></li>
-      <li><span><strong>80</strong> photos/videos per month</span></li>
-      <li><span>AI visual diagnostics on photos &amp; video</span></li>
-      <li><span>Voice note transcription &amp; extraction</span></li>
-      <li><span>Automatic urgency triage</span></li>
-      <li><span>Full Simpro or Servicem8 workflow sync</span></li>
-      <li><span>Autonomous scheduling &amp; calendar booking</span></li>
-      <li><span>Weekly Business Summary</span></li>
-    </ul>
-    <a href="apply.html?plan=facebook" class="p-btn">Start Free Trial</a>
-  </div>
+  <div class="pricing-grid">
 
-  <!-- Instagram -->
-  <div class="p-card">
-    <div class="p-tier-name">Instagram</div>
-    <div class="p-price-wrap">
-      <div class="p-price"><span class="p-cur">$</span><span class="p-num">170</span></div>
-      <div class="p-per">AUD / month</div>
+    <!-- Entry -->
+    <div class="p-card">
+      <div class="p-tier-name">Entry</div>
+      <div class="p-price-wrap">
+        <div class="p-price">
+          <span class="p-cur">$</span>
+          <span class="p-num">80</span>
+        </div>
+        <div class="p-per">AUD / month</div>
+        <!-- No setup fee for entry -->
+      </div>
+      <ul class="p-feats">
+        <li><span><strong>40</strong> photos/videos per month</span></li>
+        <li><span>Hard block at monthly limit</span></li>
+        <li><span>Automatic monthly reset</span></li>
+        <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
+        <li><span>Weekly Business Summary</span></li>
+      </ul>
+      <button class="p-btn" onclick="openTrial('Entry','$80 / month','entry')">Start Free Trial</button>
     </div>
-    <ul class="p-feats">
-      <li><span>Instagram DM lead intake</span></li>
-      <li><span><strong>80</strong> photos/videos per month</span></li>
-      <li><span>AI visual diagnostics on photos &amp; video</span></li>
-      <li><span>Voice note transcription &amp; extraction</span></li>
-      <li><span>Automatic urgency triage</span></li>
-      <li><span>Full Simpro or Servicem8 workflow sync</span></li>
-      <li><span>Autonomous scheduling &amp; calendar booking</span></li>
-      <li><span>Weekly Business Summary</span></li>
-    </ul>
-    <a href="apply.html?plan=instagram" class="p-btn">Start Free Trial</a>
-  </div>
 
-  <!-- Custom (featured) -->
-  <div class="p-card featured">
-    <div class="p-badge">Fully Customized</div>
-    <div class="p-tier-name">Custom</div>
-    <div class="p-price-wrap">
-      <div class="p-price"><span class="p-cur">$</span><span class="p-num">530</span></div>
-      <div class="p-per">AUD / month</div>
-      <div class="p-offer">$1,700 Setup Fee</div>
+    <!-- Mid -->
+    <div class="p-card">
+      <div class="p-tier-name">Mid</div>
+      <div class="p-price-wrap">
+        <div class="p-price">
+          <span class="p-cur">$</span>
+          <span class="p-num">260</span>
+        </div>
+        <div class="p-per">AUD / month</div>
+        <!-- No setup fee for mid -->
+      </div>
+      <ul class="p-feats">
+        <li><span><strong>150</strong> photos/videos per month</span></li>
+        <li><span>Hard block at monthly limit</span></li>
+        <li><span>Automatic monthly reset</span></li>
+        <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
+        <li><span>Weekly Business Summary</span></li>
+      </ul>
+      <button class="p-btn" onclick="openTrial('Mid','$260 / month','mid')">Start Free Trial</button>
     </div>
-    <ul class="p-feats">
-      <li><span><strong>Unlimited</strong> photos/videos</span></li>
-      <li><span>Email, Facebook &amp; Instagram merged into one system</span></li>
-      <li><span>Custom messaging templates written for your business</span></li>
-      <li><span>Custom qualification questions per job type</span></li>
-      <li><span>AI visual diagnostics on photos &amp; video</span></li>
-      <li><span>Voice note transcription &amp; extraction</span></li>
-      <li><span>Full Simpro or Servicem8 workflow sync</span></li>
-      <li><span>Priority 24/7 Support</span></li>
-      <li><span>Weekly Business Summary</span></li>
-    </ul>
-    <a href="apply.html?plan=custom" class="p-btn">Get Started</a>
+
+    <!-- Standard (was Premium, renamed per req #3) -->
+    <div class="p-card featured">
+      <div class="p-badge">16-Day Free Trial</div>
+      <div class="p-tier-name">Standard</div>
+      <div class="p-price-wrap">
+        <div class="p-price">
+          <span class="p-cur">$</span>
+          <span class="p-num">530</span>
+        </div>
+        <div class="p-per">AUD / month</div>
+        <div class="p-offer">$800 Setup Fee</div>
+      </div>
+      <ul class="p-feats">
+        <li><span><strong>Unlimited</strong> photos/videos</span></li>
+        <li><span>Weekly Business Summary</span></li>
+        <li><span>16-Day Free Trial Included</span></li>
+        <li><span>Full Simpro or Servicem8 Workflow Sync</span></li>
+        <li><span>Priority 24/7 Support</span></li>
+      </ul>
+      <button class="p-btn" onclick="openTrial('Standard','$530 / month','standard')">Start 16-Day Free Trial</button>
+    </div>
+
   </div>
-</div>
+</section>
+
+<script>
+// Plan data for contract — flexible, not hard coded
+var planData = {
+  entry:    { name:'Entry',    price:'$80',  period:'month', setup: false, trial: false },
+  mid:      { name:'Mid',      price:'$260', period:'month', setup: false, trial: false },
+  standard: { name:'Standard', price:'$530', period:'month', setup: true,  trial: true  }
+};
+
+var selectedPlan = null;
+
+function openTrial(planName, planPrice, planKey) {
+  selectedPlan = planKey;
+  document.getElementById('modal-plan-name').textContent = planName;
+  document.getElementById('modal-plan-price').textContent = planPrice;
+  document.getElementById('trial-modal-bg').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('trial-modal-close').addEventListener('click', function() {
+  document.getElementById('trial-modal-bg').classList.remove('active');
+  document.body.style.overflow = '';
+});
+
+document.getElementById('trial-modal-bg').addEventListener('click', function(e) {
+  if (e.target === this) {
+    this.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+
+document.getElementById('trial-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  // Close modal
+  document.getElementById('trial-modal-bg').classList.remove('active');
+  document.body.style.overflow = '';
+
+  // Show "Verifying details" overlay
+  var overlay = document.getElementById('verify-overlay');
+  overlay.classList.add('active');
+
+  // Build contract URL with plan param — flexible, plan drives the contract
+  var plan = selectedPlan || 'entry';
+  var contractUrl = 'contract.html?plan=' + plan;
+
+  // Redirect after brief delay (verifying experience)
+  setTimeout(function() {
+    overlay.classList.remove('active');
+    window.location.href = contractUrl;
+  }, 2200);
+});
+</script>
+<!-- END PRICING SECTION -->
 
 
 
