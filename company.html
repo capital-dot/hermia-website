@@ -80,44 +80,11 @@
 <script>
 const WORKER = 'https://hermianango.capital-fbc.workers.dev';
 
-// ---------------------------------------------------------------------------
-// FIX: NEXT_PAGE was previously hardcoded to gmail.html, so every Simpro
-// customer landed on Gmail forwarding regardless of which channel (email /
-// facebook / instagram) they actually bought. This now branches on
-// hermia_plan, which was set in sessionStorage back in apply.html/contract.html
-// and survives the Simpro OAuth round-trip the same way it survives Stripe —
-// sessionStorage is scoped to (origin, tab), and this page is back on
-// onboarding.hermia.au in the same tab by the time it loads. No Worker
-// change needed.
-//
-// If hermia_plan is missing or unrecognized, this deliberately falls back
-// to gmail.html (the old default) rather than silently stalling — but it
-// logs an error so a broken upstream write doesn't fail invisibly.
-// ---------------------------------------------------------------------------
-function getNextPage() {
-    const plan = sessionStorage.getItem('hermia_plan');
-
-    if (plan === 'email') {
-        return 'https://onboarding.hermia.au/gmail.html';
-    }
-    if (plan === 'facebook' || plan === 'instagram') {
-        return 'https://onboarding.hermia.au/social_connect.html';
-    }
-
-    console.error('[company.html] hermia_plan missing or unrecognized ("' + plan + '") — defaulting to gmail.html');
-    return 'https://onboarding.hermia.au/gmail.html';
-}
-
 let selectedCompanyId = null;
 let companies = [];
 
-// The direct Simpro OAuth flow redirects here server-side after login,
-// which means sessionStorage from the previous page does NOT carry over
-// automatically for connectionId/customerId — those two are appended as
-// URL query params by the Worker's callback specifically so they can be
-// restored here. hermia_plan does NOT need this treatment: it was already
-// in sessionStorage before the OAuth redirect even started, and
-// sessionStorage itself (not the URL) is what survives the round-trip.
+// RESTORE SESSION: The Worker's callback appends connectionId AND customerId 
+// as URL query params on this redirect specifically so we can restore them.
 (function restoreSessionFromUrl() {
     const params = new URLSearchParams(window.location.search);
     const urlConnectionId = params.get('connectionId');
@@ -136,6 +103,19 @@ function getConnectionId() {
 }
 function getCustomerId() {
     return sessionStorage.getItem('hermia_customer_id');
+}
+function getPlan() {
+    return sessionStorage.getItem('hermia_plan');
+}
+
+// ROUTING: Determine the next page based on the selected plan.
+function getNextPage() {
+    const plan = getPlan();
+    if (plan === 'facebook' || plan === 'instagram') {
+        return 'https://onboarding.hermia.au/social_connect.html';
+    }
+    // Default fallback for 'email' or unknown plans
+    return 'https://onboarding.hermia.au/gmail.html';
 }
 
 function renderError(msg) {
