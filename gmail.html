@@ -441,15 +441,32 @@ function updateSteps() {
 
 function loadLeadAlias() {
     const id = getCustomerId();
-    if (!id) return;
-    fetch(WORKER + '/get-lead-alias', {
+    if (!id) {
+        document.getElementById('aliasDisplay').textContent = 'Session expired — please restart onboarding.';
+        return;
+    }
+    // FIXED: was calling '/get-lead-alias', which no longer exists in the
+    // Worker (confirmed 404 in logs). The current, real endpoint is
+    // '/generate-lead-alias' — same request/response shape, just a
+    // different path. This was the entire cause of the alias never
+    // appearing on this page.
+    fetch(WORKER + '/generate-lead-alias', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ customerId: id })
     })
     .then(r => r.json())
     .then(data => {
-        if (data.ok) document.getElementById('aliasDisplay').textContent = data.leadAlias;
+        if (data.ok) {
+            document.getElementById('aliasDisplay').textContent = data.leadAlias;
+        } else {
+            document.getElementById('aliasDisplay').textContent = 'Could not load your lead address — refresh to try again.';
+            console.error('[gmail.html] generate-lead-alias returned not-ok:', data);
+        }
+    })
+    .catch(err => {
+        document.getElementById('aliasDisplay').textContent = 'Could not load your lead address — refresh to try again.';
+        console.error('[gmail.html] generate-lead-alias request failed:', err);
     });
 }
 
