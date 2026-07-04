@@ -270,6 +270,7 @@
         class="logo"
         src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png"
         alt="Hermia"
+        draggable="false"
       />
     </div>
   </div>
@@ -287,6 +288,18 @@
 </div>
 
 <script>
+  // FIX: previously this page never read its own URL at all — it just
+  // hardcoded hermia_vertical and redirected to selection.html with no
+  // params. Stripe's success_url sends the customer here as
+  // hermia_welcome.html?session_id={CHECKOUT_SESSION_ID}, and that id
+  // was being silently dropped on this exact page. Captured here now,
+  // written to the same sessionStorage key that foundation_details.html
+  // and foundation_details_servicem8.html already read as their fallback.
+  try {
+    const sessionId = new URLSearchParams(window.location.search).get('session_id');
+    if (sessionId) sessionStorage.setItem('hermia_stripe_session_id', sessionId);
+  } catch (e) {}
+
   // Hardcode vertical — no step selector needed
   sessionStorage.setItem('hermia_vertical', 'foundation_repair');
 
