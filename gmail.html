@@ -100,9 +100,27 @@
                 <button class="copy-btn" onclick="copyAlias()">Copy</button>
             </div>
 
-            <button class="btn" id="gmailBtn" onclick="https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Faccounts.google.com%2F&dsh=S-117100427%3A1783150986420785&followup=https%3A%2F%2Faccounts.google.com%2F&passive=1209600&flowName=GlifWebSignIn&flowEntry=ServiceLogin&ifkv=AcDsRvxPrp61f3bKk_r3hqvP0F5RRpPXJz75HrdS0la2gmG21DcPVo_x6e2_DKfD1VJQS794l2cmVQ">
-                Connect Gmail Account
-            </button>
+            <!-- Plain link to Google's sign-in / account page. No OAuth,
+                 no token exchange, no Worker involvement — this just opens
+                 the normal Google account picker in a new tab so the
+                 contractor can sign in to whichever Gmail account they
+                 want to set the forwarding rule on. -->
+            <a
+                href="https://accounts.google.com/ServiceLogin?continue=https://myaccount.google.com/?pli=1"
+                target="_blank"
+                rel="noopener"
+                style="width:100%;display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 24px;background:#ffffff;border:1px solid #dadce0;border-radius:4px;cursor:pointer;font-family:'Google Sans',Roboto,Arial,sans-serif;font-size:15px;font-weight:500;color:#3c4043;letter-spacing:0.01em;transition:box-shadow 0.2s ease,background 0.2s ease;box-shadow:0 1px 3px rgba(0,0,0,0.2);text-decoration:none;"
+                onmouseover="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.3)';this.style.background='#f8f9fa';"
+                onmouseout="this.style.boxShadow='0 1px 3px rgba(0,0,0,0.2)';this.style.background='#ffffff';"
+            >
+                <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                </svg>
+                Sign in with Google
+            </a>
 
             <div id="statusArea"></div>
         </div>
@@ -112,13 +130,8 @@
 </div>
 
 <script>
-    // WORKER URL is the only value referenced here — never hardcoded per
-    // customer. Every customer-specific value (customerId, leadAlias) is
-    // resolved dynamically at runtime: customerId comes from sessionStorage
-    // (written by the previous onboarding step), leadAlias is generated
-    // by the Worker on demand and returned uniquely per customer. This
-    // means the same HTML file serves all 100+ contractors correctly with
-    // no changes needed per customer.
+    // WORKER URL is still used only for generating the lead alias — that
+    // part is unrelated to sign-in and stays the same.
     const WORKER = 'https://hermianango.capital-fbc.workers.dev';
     const ACTIVE_IDX = 6;
 
@@ -144,15 +157,6 @@
             return;
         }
 
-        // THE FIX: endpoint was '/get-lead-alias' (confirmed 404 in
-        // Cloudflare logs). The Worker's current live router only
-        // handles '/generate-lead-alias' — same request/response shape,
-        // just the correct path. This was the entire cause of the alias
-        // never appearing. The Worker's handleGenerateLeadAlias is also
-        // now idempotent (returns the existing alias if one already
-        // exists, only generates a new one when the column is empty), so
-        // calling this on page reload or back-navigation is safe — it
-        // will never overwrite a contractor's real alias with a new one.
         fetch(WORKER + '/generate-lead-alias', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -183,17 +187,6 @@
             btn.textContent = 'Copied!';
             setTimeout(() => btn.textContent = 'Copy', 2000);
         });
-    }
-
-    function startGmailAuth() {
-        const id = getCustomerId();
-        if (!id) return;
-        // customerId is passed as a query param — the Worker reads it,
-        // stores it in the OAuth state parameter, and after Google
-        // redirects back, uses it to save the refresh token to the
-        // correct customer row in Supabase. Never hardcoded, works
-        // identically for every contractor.
-        window.location.href = WORKER + '/gmail-auth-url?customerId=' + encodeURIComponent(id);
     }
 
     updateSteps();
