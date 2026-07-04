@@ -109,13 +109,18 @@ function getPlan() {
 }
 
 // ROUTING: Determine the next page based on the selected plan.
+// Returns null if the plan should NOT be auto-routed (e.g. 'custom',
+// or an unrecognized/missing value) — caller must handle null explicitly
+// rather than falling back to a default destination.
 function getNextPage() {
     const plan = getPlan();
+    if (plan === 'email') {
+        return 'https://onboarding.hermia.au/gmail.html';
+    }
     if (plan === 'facebook' || plan === 'instagram') {
         return 'https://onboarding.hermia.au/social_connect.html';
     }
-    // Default fallback for 'email' or unknown plans
-    return 'https://onboarding.hermia.au/gmail.html';
+    return null;
 }
 
 function renderError(msg) {
@@ -174,7 +179,12 @@ function confirmCompany() {
     .then(function (r) { return r.json(); })
     .then(function (data) {
         if (data && data.ok) {
-            window.location.href = getNextPage();
+            const nextPage = getNextPage();
+            if (nextPage) {
+                window.location.href = nextPage;
+            } else {
+                renderError('Your company was saved, but we could not determine your next step automatically. Please contact support to continue setup.');
+            }
         } else {
             renderError('Could not save your selection. Please try again.');
             btn.disabled = false;
