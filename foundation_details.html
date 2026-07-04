@@ -22,6 +22,21 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
         html, body { height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+        /* ------------------------------------------------------------
+           DRAG-PREVENTION FIX
+           Browsers make <img> draggable by default — on trackpad or
+           touch, a stray click-drag near the logo (or any image added
+           later) picks it up as a ghost-image drag instead of just
+           registering a click/tap. This is a browser default, not
+           anything this page's JS was doing. Apply this same block to
+           any other Hermia HTML file that shows the same behavior.
+        ------------------------------------------------------------ */
+        img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; }
+        .logo-wrap, .logo-aura, .bg-layers, .light-bloom, .grid, .grain, .vignette {
+            -webkit-user-select: none; user-select: none;
+        }
+
         .bg-layers { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
         .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,1) 100%); z-index: 5; }
         .light-bloom { position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 55%); animation: light-drift 35s infinite alternate ease-in-out; will-change: transform; }
@@ -91,7 +106,7 @@
     <div class="wrap">
         <div class="logo-wrap">
             <div class="logo-aura"></div>
-            <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" />
+            <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" draggable="false" />
         </div>
 
         <div class="plan-badge" id="planBadge" style="display:none;">
@@ -202,11 +217,7 @@
         // PLAN CARRY-THROUGH
         // selection.html redirects here as
         //   foundation_details.html?plan=email|facebook|instagram|custom
-        // FIXED: PLAN_NAMES was still keyed on an old 3-tier model
-        // (social/email/custom). Your live pricing keys are email,
-        // facebook, instagram, custom — corrected below to match,
-        // identical to the ServiceM8 twin.
-        // We resolve it (URL first, sessionStorage as fallback since
+        // We resolve it (URL first, sessionStorage fallback since
         // contract.html already wrote it there), display it, save it
         // in the create-customer call so Supabase has it against this
         // customer record, and forward it on the final redirect to
@@ -332,13 +343,34 @@
         $('country').addEventListener('change', (e) => populateRegionsForCountry(e.target.value));
         populateRegionsForCountry($('country').value); // initialize for the default selection
 
-        // Stripe redirects back to this page after checkout with
-        // ?session_id=cs_live_xxx appended to the URL automatically, IF
-        // the success_url is configured with the {CHECKOUT_SESSION_ID}
-        // placeholder. We read it here so the real Stripe customer ID
-        // can be saved directly into Supabase the moment this page
-        // loads — no webhook, no email matching, no race condition.
-        const stripeSessionId = urlParams.get('session_id');
+        // ============================================================
+        // STRIPE SESSION ID — same URL-first, sessionStorage-fallback
+        // pattern as `plan` above.
+        //
+        // WHY THE FALLBACK IS NEEDED: this page's own ?session_id=
+        // param only exists if the customer arrived directly from
+        // Stripe with no intermediate hop. The real funnel is
+        // Stripe -> hermia_welcome.html -> selection.html -> this
+        // page, and neither of those two intermediate pages currently
+        // forwards session_id as a URL param — confirmed in the audit
+        // of hermia_welcome.html (it never reads its own ?session_id=
+        // at all). So by the time someone reaches this page through
+        // the real flow, the URL param is already gone.
+        //
+        // This fallback checks sessionStorage('hermia_stripe_session_id')
+        // as a second option — but that key only gets populated if
+        // hermia_welcome.html is ALSO fixed to capture session_id from
+        // its own URL and write it to this exact key before its own
+        // redirect. Until that fix lands upstream, real customers
+        // going through the full funnel will still hit "email and
+        // stripeSessionId required" from the Worker — this page can't
+        // fix that gap by itself, only avoid making it worse.
+        // ============================================================
+        let stripeSessionId = urlParams.get('session_id');
+        if (!stripeSessionId) {
+            try { stripeSessionId = sessionStorage.getItem('hermia_stripe_session_id') || ''; } catch(e) { stripeSessionId = ''; }
+        }
+        try { if (stripeSessionId) sessionStorage.setItem('hermia_stripe_session_id', stripeSessionId); } catch(e) {}
 
         function showErr(id, on) {
             const t = id === 'phone' ? $('telWrap') : $(id);
@@ -390,10 +422,6 @@
                         // same insert — no second round-trip, no webhook
                         // dependency, no race condition.
                         stripeSessionId: stripeSessionId || null,
-                        // FIXED: this page only ever exists on the Simpro
-                        // branch of selection.html — was missing this tag
-                        // entirely before, unlike the ServiceM8 twin which
-                        // already sent it. Added for consistency.
                         crmProvider: 'simpro',
                         // Which package this customer bought
                         // (email / facebook / instagram / custom). Saved
@@ -416,11 +444,6 @@
                 sessionStorage.setItem('hermia_customer_id', id);
                 sessionStorage.setItem('hermia_email', email);
                 sessionStorage.setItem('hermia_vertical', 'foundation_repair');
-                // FIXED: was missing this write entirely before — the
-                // ServiceM8 twin already sets hermia_crm_provider, this
-                // page didn't. Added for consistency, since downstream
-                // pages may rely on this key existing regardless of
-                // which CRM branch the customer took.
                 sessionStorage.setItem('hermia_crm_provider', 'simpro');
                 sessionStorage.setItem('hermia_state', state);
                 sessionStorage.setItem('hermia_country', country);
@@ -447,3 +470,4 @@
     </script>
 </body>
 </html>
+
