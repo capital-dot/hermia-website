@@ -20,361 +20,50 @@
             --border: rgba(212, 175, 55, 0.2);
             --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        html, body {
-            height: 100%;
-            background: var(--bg);
-            color: var(--cream);
-            font-family: 'DM Sans', sans-serif;
-            overflow-x: hidden;
-        }
-
-        .quit-link {
-            position: fixed;
-            top: 24px;
-            right: 24px;
-            z-index: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--gold-light) !important;
-            text-decoration: none !important;
-            padding: 10px 18px;
-            border: 1px solid var(--border);
-            background: rgba(212, 175, 55, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            transition: all 0.3s var(--ease-cinematic);
-        }
-        .quit-link:hover {
-            color: #000 !important;
-            background: var(--gold) !important;
-            border-color: var(--gold);
-        }
-
-        .bg-layers {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .vignette {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,1) 100%);
-            z-index: 5;
-        }
-
-        .light-bloom {
-            position: absolute;
-            width: 100vw;
-            height: 100vh;
-            top: 0;
-            left: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 55%);
-            animation: light-drift 40s infinite alternate ease-in-out;
-            will-change: transform;
-        }
-
-        @keyframes light-drift {
-            0% { transform: translate(-2%, -2%) scale(1); }
-            100% { transform: translate(2%, 2%) scale(1.05); }
-        }
-
-        .grid {
-            position: absolute;
-            inset: 0;
-            background-image: 
-                linear-gradient(var(--border) 1px, transparent 1px),
-                linear-gradient(90deg, var(--border) 1px, transparent 1px);
-            background-size: 140px 140px;
-            -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%);
-            mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%);
-            opacity: 0.1;
-        }
-
-        .grain {
-            position: absolute;
-            inset: 0;
-            opacity: 0.03;
-            mix-blend-mode: overlay;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        }
-
-        .wrap {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 40px 100px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .logo-wrap {
-            margin-bottom: 40px;
-        }
-
-        .logo {
-            height: 48px;
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
-        }
-
-        .steps {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 700px;
-            margin-bottom: 60px;
-            position: relative;
-        }
-
-        .steps::before {
-            content: '';
-            position: absolute;
-            top: 16px;
-            left: 10px;
-            right: 10px;
-            height: 1px;
-            background: rgba(212, 175, 55, 0.08);
-        }
-
-        .progressline {
-            position: absolute;
-            top: 16px;
-            left: 10px;
-            height: 1px;
-            background: var(--gold);
-            box-shadow: 0 0 12px var(--gold);
-            transition: width 1.2s var(--ease-cinematic);
-        }
-
-        .step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            flex: 1;
-            position: relative;
-            z-index: 1;
-        }
-
-        .dot {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            font-size: 11px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            color: var(--soft);
-            transition: all 0.6s var(--ease-cinematic);
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+        html, body { height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+        .quit-link { position: fixed; top: 24px; right: 24px; z-index: 500; display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-light) !important; text-decoration: none !important; padding: 10px 18px; border: 1px solid var(--border); background: rgba(212, 175, 55, 0.05); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: all 0.3s var(--ease-cinematic); }
+        .quit-link:hover { color: #000 !important; background: var(--gold) !important; border-color: var(--gold); }
+        .bg-layers { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,1) 100%); z-index: 5; }
+        .light-bloom { position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 55%); animation: light-drift 40s infinite alternate ease-in-out; will-change: transform; }
+        @keyframes light-drift { 0% { transform: translate(-2%, -2%) scale(1); } 100% { transform: translate(2%, 2%) scale(1.05); } }
+        .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 140px 140px; -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%); mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%); opacity: 0.1; }
+        .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+        .wrap { position: relative; z-index: 10; width: 100%; max-width: 1200px; margin: 0 auto; padding: 60px 40px 100px; display: flex; flex-direction: column; align-items: center; }
+        .logo-wrap { margin-bottom: 40px; }
+        .logo { height: 48px; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4)); }
+        .steps { display: flex; justify-content: space-between; width: 100%; max-width: 700px; margin-bottom: 60px; position: relative; }
+        .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.08); }
+        .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: var(--gold); box-shadow: 0 0 12px var(--gold); transition: width 1.2s var(--ease-cinematic); }
+        .step { display: flex; flex-direction: column; align-items: center; gap: 12px; flex: 1; position: relative; z-index: 1; }
+        .dot { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; background: var(--bg); border: 1px solid var(--border); color: var(--soft); transition: all 0.6s var(--ease-cinematic); }
         .step.active .dot { border-color: var(--gold); color: var(--gold-bright); box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
         .step.done .dot { background: var(--gold); border-color: var(--gold); color: #000; }
         .label { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--soft); opacity: 0.5; }
         .step.active .label { color: var(--gold-light); opacity: 1; }
-
-        .card {
-            width: 100%;
-            background: var(--bg-card);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--border);
-            padding: 80px;
-            position: relative;
-            box-shadow: 0 60px 150px rgba(0,0,0,0.9);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-        }
-
-        .eyebrow {
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.5em;
-            color: var(--gold);
-            margin-bottom: 24px;
-        }
-
-        h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 56px;
-            font-weight: 300;
-            line-height: 1.0;
-            margin-bottom: 20px;
-            letter-spacing: -0.02em;
-        }
-
-        .sub {
-            font-size: 17px;
-            color: var(--soft);
-            margin-bottom: 50px;
-            line-height: 1.7;
-            font-weight: 300;
-            max-width: 700px;
-        }
-
-        /* SCARY WARNING SECTION */
-        .warning-box {
-            width: 100%;
-            max-width: 800px;
-            background: rgba(220, 80, 80, 0.05);
-            border: 1px solid rgba(220, 80, 80, 0.3);
-            padding: 40px;
-            margin-bottom: 50px;
-            text-align: center;
-        }
-        .warning-title {
-            color: #ff7e75;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .warning-text {
-            color: var(--cream);
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-        .video-trigger {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px 32px;
-            background: #ff7e75;
-            color: #000;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 13px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
+        .card { width: 100%; background: var(--bg-card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); padding: 80px; position: relative; box-shadow: 0 60px 150px rgba(0,0,0,0.9); display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+        .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 24px; }
+        h1 { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; line-height: 1.0; margin-bottom: 20px; letter-spacing: -0.02em; }
+        .sub { font-size: 17px; color: var(--soft); margin-bottom: 50px; line-height: 1.7; font-weight: 300; max-width: 700px; }
+        .warning-box { width: 100%; max-width: 800px; background: rgba(220, 80, 80, 0.05); border: 1px solid rgba(220, 80, 80, 0.3); padding: 40px; margin-bottom: 50px; text-align: center; }
+        .warning-title { color: #ff7e75; font-size: 14px; text-transform: uppercase; letter-spacing: 0.3em; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .warning-text { color: var(--cream); font-size: 16px; line-height: 1.6; margin-bottom: 25px; }
+        .video-trigger { display: inline-flex; align-items: center; gap: 12px; padding: 16px 32px; background: #ff7e75; color: #000; text-decoration: none; font-weight: 600; font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; transition: all 0.3s ease; }
         .video-trigger:hover { transform: scale(1.02); filter: brightness(1.1); }
-
-        .action-area {
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .alias-box {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border: 1px solid var(--gold);
-            background: rgba(212,175,55,0.05);
-            padding: 20px 24px;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .alias-text {
-            flex: 1;
-            font-size: 18px;
-            color: var(--gold-light);
-            word-break: break-all;
-            font-weight: 300;
-            text-align: left;
-            letter-spacing: 0.05em;
-        }
-
-        .copy-btn {
-            background: var(--gold);
-            color: #000;
-            border: none;
-            padding: 12px 20px;
-            font-size: 11px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 24px;
-            border: none;
-            background: linear-gradient(135deg, #E8C17A, #C9A35B);
-            color: #000;
-            font-family: inherit;
-            font-weight: 600;
-            font-size: 14px;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.5s var(--ease-cinematic);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-
+        .action-area { width: 100%; max-width: 600px; }
+        .alias-box { display: flex; align-items: center; gap: 15px; border: 1px solid var(--gold); background: rgba(212,175,55,0.05); padding: 20px 24px; margin-bottom: 40px; position: relative; }
+        .alias-text { flex: 1; font-size: 18px; color: var(--gold-light); word-break: break-all; font-weight: 300; text-align: left; letter-spacing: 0.05em; }
+        .copy-btn { background: var(--gold); color: #000; border: none; padding: 12px 20px; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+        .btn { width: 100%; padding: 24px; border: none; background: linear-gradient(135deg, #E8C17A, #C9A35B); color: #000; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; }
         .btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.25); }
         .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-        .status-msg {
-            margin-top: 30px;
-            padding: 20px;
-            font-size: 13px;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
+        .status-msg { margin-top: 30px; padding: 20px; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; }
         .status-msg.wait { border: 1px solid var(--border); color: var(--soft); }
         .status-msg.err { border: 1px solid #ff7e75; color: #ff7e75; background: rgba(255,126,117,0.05); }
-
-        .powered {
-            margin-top: 60px;
-            text-align: center;
-            color: var(--soft);
-            font-size: 9px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            opacity: 0.4;
-        }
-
-        @media (max-width: 900px) {
-            .card { padding: 60px 30px; }
-            h1 { font-size: 38px; }
-            .sub { font-size: 15px; }
-        }
+        .powered { margin-top: 60px; text-align: center; color: var(--soft); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.4; }
+        @media (max-width: 900px) { .card { padding: 60px 30px; } h1 { font-size: 38px; } .sub { font-size: 15px; } }
     </style>
 </head>
 <body>
@@ -383,7 +72,7 @@
 
 <div class="wrap">
     <div class="logo-wrap"><img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" /></div>
-    
+
     <div class="steps">
         <div class="progressline" id="progressLine"></div>
         <div class="step" id="step1"><div class="dot">1</div><div class="label">Payment</div></div>
@@ -399,7 +88,6 @@
         <h1>Forward your leads to Hermia</h1>
         <p class="sub">To begin qualifying your leads, you must set up a forwarding rule in your Gmail account. This takes less than 2 minutes.</p>
 
-        <!-- SCARY WARNING -->
         <div class="warning-box">
             <div class="warning-title">⚠️ IMPORTANT: WATCH THIS FIRST</div>
             <p class="warning-text">If you do not set up the forwarding rule correctly, Hermia will not receive your leads. Watch the 60-second guide before proceeding.</p>
@@ -424,68 +112,93 @@
 </div>
 
 <script>
-const WORKER = 'https://hermianango.capital-fbc.workers.dev';
-const ACTIVE_IDX = 6; // Set to step 6
+    // WORKER URL is the only value referenced here — never hardcoded per
+    // customer. Every customer-specific value (customerId, leadAlias) is
+    // resolved dynamically at runtime: customerId comes from sessionStorage
+    // (written by the previous onboarding step), leadAlias is generated
+    // by the Worker on demand and returned uniquely per customer. This
+    // means the same HTML file serves all 100+ contractors correctly with
+    // no changes needed per customer.
+    const WORKER = 'https://hermianango.capital-fbc.workers.dev';
+    const ACTIVE_IDX = 6;
 
-function getCustomerId() { return sessionStorage.getItem('hermia_customer_id'); }
-
-function updateSteps() {
-    const steps = [1,2,3,4,5,6];
-    steps.forEach(num => {
-        const el = document.getElementById('step' + num);
-        if (num < ACTIVE_IDX) el.classList.add('done');
-        if (num === ACTIVE_IDX) el.classList.add('active');
-    });
-    document.getElementById('progressLine').style.width = ((ACTIVE_IDX - 1) / (steps.length - 1) * 100) + '%';
-}
-
-function loadLeadAlias() {
-    const id = getCustomerId();
-    if (!id) {
-        document.getElementById('aliasDisplay').textContent = 'Session expired — please restart onboarding.';
-        return;
+    function getCustomerId() {
+        return sessionStorage.getItem('hermia_customer_id');
     }
-    // FIXED: was calling '/get-lead-alias', which no longer exists in the
-    // Worker (confirmed 404 in logs). The current, real endpoint is
-    // '/generate-lead-alias' — same request/response shape, just a
-    // different path. This was the entire cause of the alias never
-    // appearing on this page.
-    fetch(WORKER + '/generate-lead-alias', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ customerId: id })
-    })
-    .then(r => r.json())
-    .then(data => {
-        if (data.ok) {
-            document.getElementById('aliasDisplay').textContent = data.leadAlias;
-        } else {
-            document.getElementById('aliasDisplay').textContent = 'Could not load your lead address — refresh to try again.';
-            console.error('[gmail.html] generate-lead-alias returned not-ok:', data);
+
+    function updateSteps() {
+        [1,2,3,4,5,6].forEach(num => {
+            const el = document.getElementById('step' + num);
+            if (num < ACTIVE_IDX) el.classList.add('done');
+            if (num === ACTIVE_IDX) el.classList.add('active');
+        });
+        document.getElementById('progressLine').style.width =
+            ((ACTIVE_IDX - 1) / 5 * 100) + '%';
+    }
+
+    function loadLeadAlias() {
+        const id = getCustomerId();
+        if (!id) {
+            document.getElementById('aliasDisplay').textContent =
+                'Session expired — please restart onboarding.';
+            return;
         }
-    })
-    .catch(err => {
-        document.getElementById('aliasDisplay').textContent = 'Could not load your lead address — refresh to try again.';
-        console.error('[gmail.html] generate-lead-alias request failed:', err);
-    });
-}
 
-function copyAlias() {
-    const text = document.getElementById('aliasDisplay').textContent;
-    navigator.clipboard.writeText(text);
-    const btn = document.querySelector('.copy-btn');
-    btn.textContent = 'Copied!';
-    setTimeout(() => btn.textContent = 'Copy', 2000);
-}
+        // THE FIX: endpoint was '/get-lead-alias' (confirmed 404 in
+        // Cloudflare logs). The Worker's current live router only
+        // handles '/generate-lead-alias' — same request/response shape,
+        // just the correct path. This was the entire cause of the alias
+        // never appearing. The Worker's handleGenerateLeadAlias is also
+        // now idempotent (returns the existing alias if one already
+        // exists, only generates a new one when the column is empty), so
+        // calling this on page reload or back-navigation is safe — it
+        // will never overwrite a contractor's real alias with a new one.
+        fetch(WORKER + '/generate-lead-alias', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ customerId: id })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.ok && data.leadAlias) {
+                document.getElementById('aliasDisplay').textContent = data.leadAlias;
+            } else {
+                document.getElementById('aliasDisplay').textContent =
+                    'Could not load your lead address — refresh to try again.';
+                console.error('[gmail.html] generate-lead-alias error:', data);
+            }
+        })
+        .catch(err => {
+            document.getElementById('aliasDisplay').textContent =
+                'Could not load your lead address — refresh to try again.';
+            console.error('[gmail.html] generate-lead-alias request failed:', err);
+        });
+    }
 
-function startGmailAuth() {
-    const id = getCustomerId();
-    if (!id) return;
-    window.location.href = WORKER + '/gmail-auth-url?customerId=' + encodeURIComponent(id);
-}
+    function copyAlias() {
+        const text = document.getElementById('aliasDisplay').textContent;
+        if (!text || text.startsWith('Could not') || text.startsWith('Session')) return;
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = document.querySelector('.copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 2000);
+        });
+    }
 
-updateSteps();
-loadLeadAlias();
+    function startGmailAuth() {
+        const id = getCustomerId();
+        if (!id) return;
+        // customerId is passed as a query param — the Worker reads it,
+        // stores it in the OAuth state parameter, and after Google
+        // redirects back, uses it to save the refresh token to the
+        // correct customer row in Supabase. Never hardcoded, works
+        // identically for every contractor.
+        window.location.href = WORKER + '/gmail-auth-url?customerId=' + encodeURIComponent(id);
+    }
+
+    updateSteps();
+    loadLeadAlias();
 </script>
 </body>
 </html>
+
