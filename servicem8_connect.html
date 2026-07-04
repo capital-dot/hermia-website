@@ -206,13 +206,33 @@
                 sessionStorage.setItem('hermia_crm_provider', 'servicem8');
 
                 // -----------------------------------------------------------
-                // PLAN-BASED REDIRECT — email plan goes to Gmail setup,
-                // every other plan (social / custom) goes straight to the
-                // social connect page. Same branch for every customer on a
-                // given plan — nothing customer-specific here, only the
-                // plan flag captured above.
+                // PLAN-BASED REDIRECT
+                // email      -> gmail.html
+                // facebook / instagram -> social_connect.html (the page that
+                //                          INITIATES the Composio connection —
+                //                          NOT social_connected.html, which
+                //                          only reads back an already-completed
+                //                          connection. These are two different
+                //                          files; do not conflate them.)
+                // custom / anything else -> do NOT silently route into the
+                //                          automated funnel. Custom plan is
+                //                          call-based/manual by design.
                 // -----------------------------------------------------------
-                const nextPage = plan === 'email' ? 'gmail.html' : 'social_connected.html';
+                let nextPage = null;
+                if (plan === 'email') {
+                    nextPage = 'gmail.html';
+                } else if (plan === 'facebook' || plan === 'instagram') {
+                    nextPage = 'social_connect.html';
+                }
+
+                if (!nextPage) {
+                    btn.disabled = false;
+                    btn.querySelector('.btn-text').textContent = 'CONNECT SERVICEM8';
+                    const errEl = $('formError');
+                    errEl.textContent = 'Your key was saved, but we could not determine your next step automatically. Please contact support to continue setup.';
+                    errEl.classList.add('show');
+                    return;
+                }
 
                 document.body.style.transition = 'opacity 1s ease';
                 document.body.style.opacity = '0';
