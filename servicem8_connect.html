@@ -186,7 +186,7 @@
             $('formNote').classList.remove('show');
 
             try {
-                const res = await fetch(HERMIANANGO_URL + '/save-servicem8-key', {
+                const res = await fetch(HERMIANANGO_URL + '/servicem8/save-key', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ customerId, servicem8ApiKey: key })
@@ -251,4 +251,3 @@
     </script>
 </body>
 </html>
-
