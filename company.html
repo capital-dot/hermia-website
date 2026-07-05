@@ -104,16 +104,39 @@ function getConnectionId() {
 function getCustomerId() {
     return sessionStorage.getItem('hermia_customer_id');
 }
-function getPlan() {
-    return sessionStorage.getItem('hermia_plan');
+
+// PLAN SOURCE OF TRUTH: this page is only ever reached after a full
+// round-trip through Simpro's OAuth consent screen. sessionStorage is
+// not guaranteed to survive that hop — some browsers (Safari in
+// particular) clear it across cross-origin redirects — so the plan the
+// customer picked at signup can be gone by the time they land here even
+// though nothing actually went wrong.
+//
+// The durable copy of the plan lives in Supabase: it's written once at
+// signup (hermia_plan column, set in handleCreateCustomer) and never
+// changes after that. Fetch it fresh from there by customerId instead
+// of trusting whatever sessionStorage still has. sessionStorage is kept
+// only as a last-resort fallback for the (should-be-rare) case where
+// Supabase itself is unreachable.
+async function fetchHermiaPlan(customerId) {
+    try {
+        const r = await fetch(WORKER + '/get-customer-state?customerId=' + encodeURIComponent(customerId));
+        const data = await r.json();
+        if (data && data.ok && data.hermiaPlan) {
+            return data.hermiaPlan;
+        }
+        console.error('[simpro_connect] /get-customer-state returned no hermiaPlan for customerId=' + customerId, data);
+    } catch (e) {
+        console.error('[simpro_connect] could not reach /get-customer-state:', e);
+    }
+    return null;
 }
 
-// ROUTING: Determine the next page based on the selected plan.
+// ROUTING: Determine the next page based on the given plan value.
 // Returns null if the plan should NOT be auto-routed (e.g. 'custom',
 // or an unrecognized/missing value) — caller must handle null explicitly
 // rather than falling back to a default destination.
-function getNextPage() {
-    const plan = getPlan();
+function getNextPageForPlan(plan) {
     if (plan === 'email') {
         return 'https://onboarding.hermia.au/gmail.html';
     }
@@ -179,12 +202,19 @@ function confirmCompany() {
     .then(function (r) { return r.json(); })
     .then(function (data) {
         if (data && data.ok) {
-            const nextPage = getNextPage();
-            if (nextPage) {
-                window.location.href = nextPage;
-            } else {
-                renderError('Your company was saved, but we could not determine your next step automatically. Please contact support to continue setup.');
-            }
+            // Fetch the plan fresh from Supabase — do not trust
+            // sessionStorage here (see fetchHermiaPlan comment above).
+            fetchHermiaPlan(customerId).then(function (plan) {
+                // sessionStorage is only a fallback for the rare case
+                // Supabase itself couldn't be reached just now.
+                const effectivePlan = plan || sessionStorage.getItem('hermia_plan');
+                const nextPage = getNextPageForPlan(effectivePlan);
+                if (nextPage) {
+                    window.location.href = nextPage;
+                } else {
+                    renderError('Your company was saved, but we could not determine your next step automatically. Please contact support to continue setup.');
+                }
+            });
         } else {
             renderError('Could not save your selection. Please try again.');
             btn.disabled = false;
@@ -225,3 +255,4 @@ loadCompanies();
 </script>
 </body>
 </html>
+
