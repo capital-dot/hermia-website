@@ -227,41 +227,28 @@
 
             applyPlatformTheme(meta);
 
-            $('connectBtn').addEventListener('click', async () => {
+            $('connectBtn').addEventListener('click', () => {
                 const btn = $('connectBtn');
                 btn.disabled = true;
                 $('btnText').textContent = 'CONNECTING...';
                 renderStatus('Opening ' + meta.name + ' authorization...', 'wait');
 
-                try {
-                    // -----------------------------------------------------
-                    // ASSUMPTION FLAGGED FOR OWNER:
-                    // This endpoint/contract does not exist yet in the Worker
-                    // as far as this task was given. Naming follows the
-                    // convention of /save-servicem8-key, /save-company, etc.
-                    // Expected: POST { customerId, plan } ->
-                    //           { ok: true, authUrl: 'https://...' }
-                    // (a Composio/Nango-hosted OAuth consent URL to redirect to)
-                    // Replace with the real endpoint once it exists.
-                    // -----------------------------------------------------
-                    const res = await fetch(HERMIANANGO_URL + '/social-oauth/init', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ customerId, plan })
-                    });
-                    const data = await res.json();
+                // -----------------------------------------------------
+                // REAL ENDPOINT (confirmed against hermianango.js):
+                // GET /social-auth-url?provider=facebook|instagram&customerId=X
+                // The Worker itself issues a 302 redirect straight to
+                // Composio's hosted OAuth URL (it does not return JSON on
+                // success) — so this is a plain top-level navigation, not
+                // a fetch. `plan` already holds 'facebook' or 'instagram',
+                // which matches VALID_SOCIAL_PROVIDERS in the Worker
+                // exactly — no translation/mapping needed, and nothing
+                // customer-specific: every customer on the same plan
+                // hits the same URL shape, only customerId differs.
+                // -----------------------------------------------------
+                const authUrl = HERMIANANGO_URL + '/social-auth-url?provider=' +
+                    encodeURIComponent(plan) + '&customerId=' + encodeURIComponent(customerId);
 
-                    if (!res.ok || !data.ok || !data.authUrl) {
-                        throw new Error('Could not start the ' + meta.name + ' connection. Please try again or contact support.');
-                    }
-
-                    window.location.href = data.authUrl;
-                } catch (e) {
-                    console.error(e);
-                    btn.disabled = false;
-                    $('btnText').textContent = meta.btnLabel;
-                    renderStatus(e && e.message ? e.message : 'Something went wrong — please try again.', 'err');
-                }
+                window.location.href = authUrl;
             });
         }
 
@@ -269,3 +256,4 @@
     </script>
 </body>
 </html>
+
