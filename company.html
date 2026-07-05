@@ -202,23 +202,11 @@ function loadCompanies() {
     const connectionId = getConnectionId();
     if (!connectionId) { renderError('Session expired. Please restart onboarding.'); return; }
 
+    // NOTE: Nango is fully retired — this only ever calls the real
+    // Simpro Direct endpoint now. No fallback endpoint exists in the
+    // Worker, so a failure here surfaces as a clear error rather than
+    // silently retrying a second URL that would also 404.
     fetch(WORKER + '/simpro-direct/list-companies?connectionId=' + encodeURIComponent(connectionId))
-        .then(function (r) { return r.json(); })
-        .then(function (data) {
-            if (data && data.ok && Array.isArray(data.companies)) {
-                companies = data.companies;
-                renderCompanies();
-            } else {
-                return loadCompaniesViaNangoFallback(connectionId);
-            }
-        })
-        .catch(function () {
-            return loadCompaniesViaNangoFallback(connectionId);
-        });
-}
-
-function loadCompaniesViaNangoFallback(connectionId) {
-    fetch(WORKER + '/list-simpro-companies?connectionId=' + encodeURIComponent(connectionId))
         .then(function (r) { return r.json(); })
         .then(function (data) {
             if (data && data.ok && Array.isArray(data.companies)) {
