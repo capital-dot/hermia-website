@@ -77,6 +77,29 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 .security-footer svg{width:20px;height:20px;fill:var(--gold);flex-shrink:0;margin-top:2px;}
 .security-footer p{font-size:13px;line-height:1.6;color:var(--soft);font-weight:300;}
 .security-footer strong{color:var(--cream);font-weight:500;}
+
+/* ===================== PLAN CONFIRM MODAL ===================== */
+.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(4,4,6,0.72);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:24px;}
+.modal-overlay.show{display:flex;animation:fadeUp .25s ease both;}
+.modal-box{position:relative;width:100%;max-width:440px;background:linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.008)),var(--card);border:1px solid var(--border-hi);border-radius:20px;padding:36px 32px;box-shadow:0 30px 80px rgba(0,0,0,0.6);}
+.modal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent);}
+.modal-tag{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;text-align:center;}
+.modal-box h3{font-family:var(--display);font-size:26px;font-weight:600;color:#fff;text-align:center;margin-bottom:18px;}
+.modal-plan-display{border:1px solid var(--border-hi);background:var(--gold-dim);border-radius:14px;padding:18px 20px;text-align:center;margin-bottom:22px;}
+.modal-plan-display .mp-name{font-family:var(--display);font-size:24px;font-weight:600;color:var(--gold-light);}
+.modal-plan-display .mp-price{font-size:13px;color:var(--soft);margin-top:4px;}
+.modal-question{font-size:14px;color:var(--soft);text-align:center;margin-bottom:22px;line-height:1.6;}
+.modal-btn-row{display:flex;flex-direction:column;gap:10px;}
+.modal-confirm-btn{width:100%;padding:15px;background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#1a1408;font-size:12.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;border:none;border-radius:10px;cursor:pointer;transition:all .25s;font-family:'DM Sans',sans-serif;}
+.modal-confirm-btn:hover{filter:brightness(1.07);transform:translateY(-1px);}
+.modal-change-btn{width:100%;padding:14px;background:transparent;color:var(--soft);font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .25s;font-family:'DM Sans',sans-serif;}
+.modal-change-btn:hover{color:#fff;border-color:var(--gold);background:var(--gold-dim);}
+
+.modal-select-view{display:none;}
+.modal-select-view.show{display:block;}
+.modal-select-view label{display:block;font-size:12px;font-weight:500;color:var(--soft);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase;}
+.modal-select-view select{width:100%;padding:15px 18px;background:#0b0b0e;border:1px solid rgba(201,163,91,0.22);border-radius:11px;color:var(--cream);font-size:15px;margin-bottom:20px;font-family:'DM Sans',sans-serif;font-weight:300;appearance:none;cursor:pointer;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%23C9A35B' d='M0 0l5 5 5-5z'/></svg>");background-repeat:no-repeat;background-position:right 18px center;padding-right:42px;}
+.modal-select-view select:focus{outline:none;border-color:var(--gold);}
 </style>
 </head>
 <body>
@@ -155,7 +178,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         </select>
       </div>
 
-      <button class="submit-btn" type="button" id="submitBtn" onclick="handleSubmit()">Apply to Join →</button>
+      <button class="submit-btn" type="button" id="submitBtn" onclick="handleApplyClick()">Apply to Join →</button>
       <p class="form-note">No email back-and-forth — you go straight to the agreement.</p>
     </div>
 
@@ -174,6 +197,42 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
   <div class="security-footer" id="security-notice">
     <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
     <p><strong>Your details are safe:</strong> We use bank-grade encryption and never share your personal information with third parties. Only verified Hermia clients can see your trade profile.</p>
+  </div>
+</div>
+
+<!-- ===================== PLAN CONFIRM MODAL ===================== -->
+<div class="modal-overlay" id="planModal">
+  <div class="modal-box">
+
+    <div id="modal-confirm-view">
+      <div class="modal-tag">One quick check</div>
+      <h3>Which plan did you pay for?</h3>
+      <div class="modal-plan-display">
+        <div class="mp-name" id="modalPlanName">Email</div>
+        <div class="mp-price" id="modalPlanPrice">$260 AUD / month</div>
+      </div>
+      <p class="modal-question">This is the plan we'll set your agreement and account up for. Make sure it matches what you actually paid for before continuing.</p>
+      <div class="modal-btn-row">
+        <button class="modal-confirm-btn" type="button" onclick="confirmPlanAndSubmit()">Yes, this is correct →</button>
+        <button class="modal-change-btn" type="button" onclick="showPlanSelectView()">This isn't right — change plan</button>
+      </div>
+    </div>
+
+    <div class="modal-select-view" id="modal-select-view">
+      <div class="modal-tag">Select the correct plan</div>
+      <h3>Which plan did you pay for?</h3>
+      <label>Plan</label>
+      <select id="modalPlanSelect">
+        <option value="email">Email — $260 AUD / month</option>
+        <option value="facebook">Facebook — $170 AUD / month</option>
+        <option value="instagram">Instagram — $170 AUD / month</option>
+        <option value="custom">Custom — $1,700 AUD setup + $530 AUD / month</option>
+      </select>
+      <div class="modal-btn-row">
+        <button class="modal-confirm-btn" type="button" onclick="applyPlanChange()">Confirm this plan →</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -198,14 +257,17 @@ const DEFAULT_PLAN = 'email';
 
 const urlParams = new URLSearchParams(window.location.search);
 const requestedPlan = urlParams.get('plan');
-const plan = PLAN_MAP[requestedPlan] ? requestedPlan : DEFAULT_PLAN;
-const planInfo = PLAN_MAP[plan];
+let plan = PLAN_MAP[requestedPlan] ? requestedPlan : DEFAULT_PLAN;
+let planInfo = PLAN_MAP[plan];
 
 sessionStorage.setItem('hermia_plan', plan);
 
 const planBadgeEl = document.getElementById('planBadge');
-document.getElementById('planBadgeText').innerHTML = 'Applying for <b>' + planInfo.name + '</b> — ' + planInfo.price;
-planBadgeEl.classList.add('show');
+function refreshPlanBadge() {
+  document.getElementById('planBadgeText').innerHTML = 'Applying for <b>' + planInfo.name + '</b> — ' + planInfo.price;
+  planBadgeEl.classList.add('show');
+}
+refreshPlanBadge();
 
 const WEBHOOK_URL = 'https://hook.eu1.make.com/3hq3jwbtjc6afnfem9rhshxwqlyx838j';
 
@@ -213,7 +275,8 @@ function advance(id, delay) {
   setTimeout(() => document.getElementById(id).classList.add('done'), delay);
 }
 
-async function handleSubmit() {
+// ---- Step 1: form validation, then open the plan-confirm modal ----
+function handleApplyClick() {
   const name         = document.getElementById('name').value.trim();
   const trade        = document.getElementById('trade').value;
   const company_size = document.getElementById('company_size').value;
@@ -223,6 +286,58 @@ async function handleSubmit() {
   if (!trade)        { document.getElementById('trade').focus();        return; }
   if (!company_size) { document.getElementById('company_size').focus(); return; }
   if (!capacity)     { document.getElementById('capacity').focus();     return; }
+
+  openPlanModal();
+}
+
+function openPlanModal() {
+  document.getElementById('modalPlanName').textContent  = planInfo.name;
+  document.getElementById('modalPlanPrice').textContent = planInfo.price;
+  document.getElementById('modal-select-view').classList.remove('show');
+  document.getElementById('modal-confirm-view').style.display = 'block';
+  document.getElementById('modalPlanSelect').value = plan;
+  document.getElementById('planModal').classList.add('show');
+}
+
+function closePlanModal() {
+  document.getElementById('planModal').classList.remove('show');
+}
+
+function showPlanSelectView() {
+  document.getElementById('modal-confirm-view').style.display = 'none';
+  document.getElementById('modal-select-view').classList.add('show');
+}
+
+// User picked a different plan in the dropdown — update state everywhere
+// (URL, sessionStorage, badge) then drop back into the confirm view so
+// they still get a final "yes that's right" click before it submits.
+function applyPlanChange() {
+  const chosen = document.getElementById('modalPlanSelect').value;
+  if (!PLAN_MAP[chosen]) return;
+
+  plan = chosen;
+  planInfo = PLAN_MAP[plan];
+  sessionStorage.setItem('hermia_plan', plan);
+  refreshPlanBadge();
+
+  const newUrl = new URL(window.location.href);
+  newUrl.searchParams.set('plan', plan);
+  window.history.replaceState({}, '', newUrl);
+
+  document.getElementById('modal-select-view').classList.remove('show');
+  document.getElementById('modal-confirm-view').style.display = 'block';
+  document.getElementById('modalPlanName').textContent  = planInfo.name;
+  document.getElementById('modalPlanPrice').textContent = planInfo.price;
+}
+
+// ---- Step 2: confirmed — proceed with the original submit flow ----
+async function confirmPlanAndSubmit() {
+  closePlanModal();
+
+  const name         = document.getElementById('name').value.trim();
+  const trade        = document.getElementById('trade').value;
+  const company_size = document.getElementById('company_size').value;
+  const capacity     = document.getElementById('capacity').value;
 
   document.getElementById('submitBtn').disabled = true;
 
@@ -266,3 +381,4 @@ async function handleSubmit() {
 </script>
 </body>
 </html>
+
