@@ -304,6 +304,13 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 .p-btn-ghost{background:transparent !important;border:1.5px solid var(--bhi) !important;color:var(--cream) !important;box-shadow:none !important}
 .p-btn-ghost:hover{border-color:var(--gold) !important;color:var(--gl) !important;background:rgba(196,150,60,.06) !important;box-shadow:none !important}
 
+/* Coming Soon Badge */
+.coming-soon-badge{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;padding:6px 14px;border-radius:20px;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-family:"DM Sans",sans-serif;box-shadow:0 4px 12px rgba(239,68,68,.3);z-index:10}
+
+/* Social Logo Container */
+.social-logo-container{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px;height:48px}
+.social-logo-container img{height:40px;width:auto;filter:drop-shadow(0 2px 8px rgba(196,150,60,0.15))}
+
 @media(max-width:1200px){.pricing-grid{grid-template-columns:repeat(2,1fr)!important;gap:20px;max-width:760px}.p-card.featured{transform:scale(1);grid-column:auto}.p-card.featured:hover{transform:translateY(-8px)}}
 @media(max-width:600px){.pricing-section{padding:70px 16px}.pricing-grid{grid-template-columns:1fr!important;max-width:420px}.p-card{padding:40px 24px 36px}.p-num{font-size:46px}}
 @media(max-width:600px){.pricing-section{padding:70px 16px}.p-card{padding:40px 24px 36px}.p-num{font-size:46px}}
@@ -315,7 +322,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 .trial-modal{width:100%;max-width:1080px;max-height:88vh;overflow-y:auto;background:linear-gradient(150deg,#130c03,#111);border:1.5px solid var(--bhi);border-radius:24px;padding:48px 44px;position:relative;box-shadow:0 40px 120px rgba(0,0,0,.7),0 0 60px rgba(217,170,82,.12);transform:translateY(18px) scale(.98);transition:transform .3s cubic-bezier(.4,0,.2,1)}
 #trial-modal-overlay.show .trial-modal{transform:translateY(0) scale(1)}
 .trial-modal-close{position:absolute;top:20px;right:20px;width:36px;height:36px;border-radius:50%;border:1px solid var(--bhi);background:rgba(255,255,255,0.03);color:var(--soft);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.trial-modal-close:hover{border-color:var(--gold);color:var(--gl);background:rgba(196,150,60,.08)}
+.trial-modal-close:hover{border-color:var(--gold);color:var(--gl);background:rgba(196,150,60,.06)}
 .trial-modal-hdr{text-align:center;margin-bottom:40px}
 .trial-modal-eyebrow{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
 .trial-modal-title{font-family:var(--display);font-size:clamp(26px,3.4vw,38px);font-weight:600;color:#fff;letter-spacing:-.3px;line-height:1.15}
@@ -338,10 +345,6 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 .trial-card.featured .trial-card-select{background:linear-gradient(135deg,var(--gl),var(--gold));color:#1a1008;border:none;box-shadow:0 8px 22px rgba(196,150,60,.25)}
 .trial-card.featured .trial-card-select:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(196,150,60,.35)}
 
-/* Trial modal now reuses the exact .p-card pricing format from the
-   Pricing section below — these overrides only tighten spacing/type
-   scale so those same cards fit comfortably inside the modal's
-   narrower width. No styles in the main #pricing section are touched. */
 .trial-modal .pricing-grid{max-width:100%;gap:18px}
 .trial-modal .p-card{padding:34px 26px 30px;border-radius:18px}
 .trial-modal .p-card.featured{transform:none}
@@ -398,8 +401,8 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
       <div class="phone-header">
         <div class="phone-avatar">J</div>
         <div class="phone-info">
-          <div class="phone-name">Jared Bocca</div>
-          <div class="phone-subtitle">Homeowner &middot; Brisbane</div>
+          <div class="phone-name">Jared</div>
+          <div class="phone-subtitle">Homeowner</div>
         </div>
       </div>
       <div class="phone-chat" id="chat-box"></div>
@@ -408,98 +411,52 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   <div class="scene" id="scene-dashboard">
     <div class="crm-container">
       <div class="crm-header">
-        <h2 class="crm-title">Simpro <span style="color:var(--gl)">Integration</span></h2>
-        <div class="simpro-badge">Auto-Created</div>
+        <h2 class="crm-title">Job Created in Simpro</h2>
+        <span class="simpro-badge">Simpro</span>
       </div>
       <div class="crm-grid">
         <div class="crm-card">
-          <span class="crm-label">Customer Record</span>
+          <span class="crm-label">Customer Details</span>
           <div class="crm-data-row"><span class="crm-key">Name</span><span class="crm-value">Jared Bocca</span></div>
-          <div class="crm-data-row"><span class="crm-key">Phone</span><span class="crm-value">+61 400 123 456</span></div>
-          <div class="crm-data-row"><span class="crm-key">Email</span><span class="crm-value">jared.bocca@gmail.com</span></div>
+          <div class="crm-data-row"><span class="crm-key">Address</span><span class="crm-value">42 Brisbane Way, Brisbane</span></div>
+          <div class="crm-data-row"><span class="crm-key">Phone</span><span class="crm-value">+61 494 719 401</span></div>
+          <div class="crm-data-row"><span class="crm-key">Budget</span><span class="crm-value">$1,500 — $2,500</span></div>
           <div class="crm-data-row"><span class="crm-key">Urgency</span><span class="crm-value"><span class="status-tag">Emergency</span></span></div>
-          <div class="crm-data-row"><span class="crm-key">Issue</span><span class="crm-value">Burst pipe &mdash; active leak under kitchen sink</span></div>
-          <div class="crm-data-row"><span class="crm-key">Budget</span><span class="crm-value">$1,500 &mdash; $2,500</span></div>
-          <div class="crm-data-row"><span class="crm-key">Address</span><span class="crm-value">42 Brisbane Way, Brisbane QLD</span></div>
         </div>
         <div class="calendar-card">
-          <span class="crm-label">Calendar Event</span>
-          <div class="calendar-day"><span class="cal-m">JUN</span><span class="cal-d">19</span></div>
+          <div class="calendar-day">
+            <div class="cal-m">Dec</div>
+            <div class="cal-d">14</div>
+          </div>
           <div class="event-details">
-            <div class="event-time">09:00 &mdash; 10:00 (AEST)</div>
-            <div class="event-title">Burst Pipe Repair</div>
+            <div class="event-time">Available Now or Tomorrow 9am</div>
+            <div class="event-title">Emergency Pipe Burst</div>
             <div class="event-loc">42 Brisbane Way, Brisbane</div>
           </div>
+          <div class="sync-footer">Syncing...</div>
         </div>
       </div>
-      <div class="sync-footer">Synced to Simpro workflow &middot; Calendar event created</div>
     </div>
   </div>
-  <div class="scene active" id="scene-final">
+  <div class="scene" id="scene-final">
     <div class="final-content">
-      <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" class="final-logo" alt="Hermia" onerror="this.style.display='none'">
-      <h1 class="final-brand">HERMIA</h1>
-      <p class="final-tagline">Every Job. Captured.</p>
+      <img class="final-logo" src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" onerror="this.style.display='none'">
+      <h1 class="final-brand">Hermia</h1>
+      <p class="final-tagline">Never Miss A Repair Job Again</p>
     </div>
   </div>
   <div id="partner-badge">
-    <img src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Registered Partner">
-    <span class="pb-cap">Official Simpro Partner</span>
+    <img src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Partner">
+    <span class="pb-cap">Simpro Partner</span>
   </div>
   <div id="scroll-indicator">
-    <div class="scroll-text">Scroll to explore</div>
+    <span class="scroll-text">Scroll</span>
     <div class="scroll-arrow"></div>
   </div>
 </div>
 
 <div id="page-content">
 
-  <section class="section benefits" id="benefits">
-    <div class="inner">
-      <div class="eyebrow">The real problem</div>
-      <div class="sec-title">Contractors don&rsquo;t lose work to<br><em>better tradespeople.</em></div>
-      <p class="sec-sub">They lose it to more organised ones. Homeowners submit the same enquiry to five or six companies. The contractor with a clear scope, confirmed budget, and a professional brief wins &mdash; not the cheapest, not the quickest. <strong style="color:var(--cream)">The most prepared.</strong></p>
-      <div class="bt-wrap">
-        <div class="bt-col left">
-          <div class="bt-hdr bad">Without Hermia</div>
-          <div class="bt-row"><span class="bt-ic">&#10005;</span>Vague enquiries &mdash; no budget, no scope, no detail</div>
-          <div class="bt-row"><span class="bt-ic">&#10005;</span>Same lead sent to five to ten other contractors</div>
-          <div class="bt-row"><span class="bt-ic">&#10005;</span>Scope creep starts before the quote even goes out</div>
-          <div class="bt-row"><span class="bt-ic">&#10005;</span>No budget info upfront &mdash; wasted site visits</div>
-          <div class="bt-row"><span class="bt-ic">&#10005;</span>Disorganised inbox &mdash; context lost across 30 email threads</div>
-          <div class="bt-row"><span class="bt-ic">&#10005;</span>No urgency triage &mdash; burst pipes wait with minor jobs</div>
-          <div class="bt-row"><span class="bt-ic">&#10005;</span>No visibility into your monthly enquiry performance</div>
-        </div>
-        <div class="bt-col right">
-          <div class="bt-hdr good">With Hermia</div>
-          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Budget, scope, and damage captured from the first message</span></div>
-          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Only qualified, serious leads reach your inbox</span></div>
-          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Clear damage description and expectations set from the start</span></div>
-          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Budget screened upfront &mdash; no wasted visits on bad-fit jobs</span></div>
-          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Structured job brief in Simpro &mdash; nothing lost, nothing chased</span></div>
-          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Emergency / Critical / Standard classified automatically</span></div>
-          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Weekly business report delivered every Monday morning</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="hermia-features">
-    <div class="inner">
-      <div class="eyebrow">The Intelligence Engine</div>
-      <h2 class="sec-title">From the first message<br>to a <em>booked job.</em></h2>
-      <div class="features-grid">
-        <div class="fc"><div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M12 9c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm9 3c0 4.971-4.029 9-9 9s-9-4.029-9-9 4.029-9 9-9 9 4.029 9 9zm-18 0c0 4.971 4.029 9 9 9s9-4.029 9-9-4.029-9-9-9-9 4.029-9 9z"/></svg></div><div class="fc-tag">AI Vision</div><h3>Visual Diagnostics</h3><p>Hermia analyzes damage photos and videos instantly, identifying the trade required and urgency level before you've even seen the message.</p></div>
-        <div class="fc"><div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M12 2c1.103 0 2 .897 2 2v7c0 1.103-.897 2-2 2s-2-.897-2-2v-7c0-1.103.897-2 2-2zm0-2c-2.209 0-4 1.791-4 4v7c0 2.209 1.791 4 4 4s4-1.791 4-4v-7c0-2.209-1.791-4-4-4zm8 9v2c0 4.418-3.582 8-8 8s-8-3.582-8-8v-2h2v2c0 3.309 2.691 6 6 6s6-2.691 6-6v-2h2zm-7 13v-2h-2v2h-4v2h10v-2h-4z"/></svg></div><div class="fc-tag">AI Audio</div><h3>Vocal Intelligence</h3><p>Voice notes are transcribed and synthesized. Hermia extracts critical briefs: location, owner status, and technical requirements.</p></div>
-        <div class="fc"><div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M12 0l-12 12h8v12l12-12h-8z"/></svg></div><div class="fc-tag">Dynamic Triage</div><h3>Urgency Classification</h3><p>Enquiries are triaged by severity. Emergencies are escalated immediately, while standard jobs are seamlessly queued.</p></div>
-        <div class="fc"><div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M19 3h-14c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-14c0-1.103-.897-2-2-2zm-7 10h-4v-2h4v2zm0-4h-4v-2h4v2zm5 8h-9v-2h9v2zm0-4h-9v-2h9v2zm0-4h-9v-2h9v2z"/></svg></div><div class="fc-tag">Simpro Integration</div><h3>Automated Synchronization</h3><p>All lead data—contact info, site address, and photos—is captured and synced directly into your Simpro workflow with zero typing.</p></div>
-        <div class="fc"><div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M20 20h-16v-16h16v16zm2-18h-20v20h20v-20zm-7 13h-5v-5h5v5zm-2-11h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 0h-2v2h2v-2z"/></svg></div><div class="fc-tag">Scheduling</div><h3>Autonomous Booking</h3><p>Hermia confirms availability within the chat and creates calendar events. No phone tag, no missing info, just a confirmed schedule.</p></div>
-        <div class="fc"><div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M7 19h-6v-11h6v11zm8-18h-6v18h6v-18zm8 11h-6v7h6v-7z"/></svg></div><div class="fc-tag">Analytics</div><h3>Weekly Business Reports</h3><p>Receive your production numbers—total jobs, booked rates, and urgency breakdowns—delivered to your inbox every Monday morning.</p></div>
-      </div>
-    </div>
-  </section>
-
-  
   <section class="section" style="background:var(--bg3);padding:88px 48px">
     <div class="inner">
       <div class="eyebrow">The Workflow</div>
@@ -603,10 +560,13 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 
     <div class="pricing-grid">
 
-      <!-- EMAIL — $260/mo, no setup, 3-day trial -->
+      <!-- GMAIL — $260/mo, no setup, 3-day trial -->
       <div class="p-card">
         <div class="p-trial-tag">3-Day Free Trial</div>
-        <div class="p-tier-name">Email</div>
+        <div class="social-logo-container">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail Logo" style="height:35px;width:auto;">
+        </div>
+        <div class="p-tier-name">Gmail</div>
         <div class="p-price-wrap">
           <div class="p-price">
             <span class="p-cur">$</span>
@@ -616,17 +576,21 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           <div class="p-no-setup">✓ No setup fee</div>
         </div>
         <ul class="p-feats">
-          <li>Email lead intake &amp; qualification</li>
+          <li>Gmail lead intake &amp; qualification</li>
           <li>Full Simpro / Servicem8 sync</li>
          <li>Photos, Voice Notes, Videos, and Transcriptions</li>
           <li>Weekly business summary</li>
         </ul>
-        <a href="apply.html?plan=email" class="p-btn p-btn-ghost">Get Started &rarr;</a>
+        <a href="apply.html?plan=gmail" class="p-btn p-btn-ghost">Get Started &rarr;</a>
       </div>
 
       <!-- FACEBOOK — $170/mo, no setup, 3-day trial -->
-      <div class="p-card">
+      <div class="p-card" style="position:relative;">
+        <div class="coming-soon-badge">Coming Soon</div>
         <div class="p-trial-tag">3-Day Free Trial</div>
+        <div class="social-logo-container">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo" style="height:35px;width:auto;">
+        </div>
         <div class="p-tier-name">Facebook</div>
         <div class="p-price-wrap">
           <div class="p-price">
@@ -642,12 +606,16 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           <li>Photos, Voice Notes, Videos, and Transcriptions</li>
           <li>Weekly business summary</li>
         </ul>
-        <a href="apply.html?plan=facebook" class="p-btn p-btn-ghost">Get Started &rarr;</a>
+        <a href="apply.html?plan=facebook" class="p-btn p-btn-ghost" style="opacity:0.6;cursor:not-allowed;">Coming Soon &rarr;</a>
       </div>
 
       <!-- INSTAGRAM — $170/mo, no setup, 3-day trial -->
-      <div class="p-card">
+      <div class="p-card" style="position:relative;">
+        <div class="coming-soon-badge">Coming Soon</div>
         <div class="p-trial-tag">3-Day Free Trial</div>
+        <div class="social-logo-container">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram Logo" style="height:35px;width:auto;">
+        </div>
         <div class="p-tier-name">Instagram</div>
         <div class="p-price-wrap">
           <div class="p-price">
@@ -658,16 +626,41 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           <div class="p-no-setup">✓ No setup fee</div>
         </div>
         <ul class="p-feats">
-          <li>WhatsApp lead intake &amp; qualification</li>
+          <li>Instagram DM lead intake &amp; qualification</li>
           <li>Full Simpro / Servicem8 sync</li>
           <li>Photos, Voice Notes, Videos, and Transcriptions</li>
           <li>Weekly business summary</li>
         </ul>
-        <a href="apply.html?plan=whatsapp" class="p-btn p-btn-ghost">Get Started &rarr;</a>
+        <a href="apply.html?plan=instagram" class="p-btn p-btn-ghost" style="opacity:0.6;cursor:not-allowed;">Coming Soon &rarr;</a>
+      </div>
+
+      <!-- OUTLOOK — $660/mo -->
+      <div class="p-card" style="position:relative;">
+        <div class="coming-soon-badge">Coming Soon</div>
+        <div class="p-trial-tag">3-Day Free Trial</div>
+        <div class="social-logo-container">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg" alt="Outlook Logo" style="height:35px;width:auto;">
+        </div>
+        <div class="p-tier-name">Outlook</div>
+        <div class="p-price-wrap">
+          <div class="p-price">
+            <span class="p-cur">$</span>
+            <span class="p-num">660</span>
+          </div>
+          <div class="p-per">AUD / month</div>
+          <div class="p-no-setup">✓ No setup fee</div>
+        </div>
+        <ul class="p-feats">
+          <li>Outlook email lead intake &amp; qualification</li>
+          <li>Simpro &amp; ServiceM8 sync</li>
+          <li>Photos, voice notes &amp; transcriptions</li>
+          <li>Weekly Performance Report</li>
+        </ul>
+        <a href="apply.html?plan=outlook" class="p-btn p-btn-ghost" style="opacity:0.6;cursor:not-allowed;">Coming Soon &rarr;</a>
       </div>
 
     <!-- CUSTOM — Bespoke -->
-      <div class="p-card featured">
+      <div class="p-card featured" style="grid-column:span 2;margin:0 auto;max-width:400px;">
         <div class="p-badge">Bespoke Solution</div>
         <div class="p-tier-name">Custom</div>
         <div class="p-price-wrap">
@@ -678,7 +671,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           <div class="p-setup-fee">Flexible integration options</div>
         </div>
         <ul class="p-feats">
-          <li>Email, Facebook, Instagram &amp; Outlook</li>
+          <li>Gmail, Facebook, Instagram &amp; Outlook</li>
           <li>Full Simpro &amp; Servicem8 sync</li>
           <li>Priority 24/7 support</li>
           <li>Custom branding &amp; workflows</li>
@@ -702,7 +695,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         <div class="faq-item"><button class="faq-q"><span>Do I need to change my number or learn an app?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No.</strong> Hermia works behind your existing contact form and email. Jobs arrive as a clean brief on your phone. <em>If you can read a text, you can run Hermia.</em></div></div></div>
         <div class="faq-item"><button class="faq-q"><span>What does the weekly report include?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Total enquiries, jobs sent to Simpro, urgency breakdown by tier, job types, filtered leads, and estimated revenue.</strong> Delivered to your inbox every Monday morning. <em>No logging in. No dashboards.</em></div></div></div>
         <div class="faq-item"><button class="faq-q"><span>Does Hermia hallucinate in SMS?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No &mdash; we use pre-approved templates.</strong> Every message Hermia sends comes from approved wording, so it can&rsquo;t go off-script or make anything up.</div></div></div>
-        <div class="faq-item"><button class="faq-q"><span>Why is response time on Facebook and Instagram around 15 minutes instead of instant?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Because social media messages are often longer, less structured, and require proper review before responding.</strong> The 15-minute window ensures every enquiry is properly understood and handled correctly, while still keeping response times fast enough so no lead goes cold. <em>It supports your business by handling early-stage communication and ensuring every enquiry is captured and progressed, even when you’re busy.</em></div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>When will Facebook and Instagram be available?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Coming Soon.</strong> <em>Facebook and Instagram integrations are currently in development and will be available shortly. Email us at capital@hermia.au to express interest or get on the waitlist.</em></div></div></div>
       </div>
     </div>
   </section>
@@ -739,18 +732,15 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
       <p class="trial-modal-sub">Pick a channel below &mdash; you'll land on the signup page for that plan.</p>
     </div>
 
-    <!-- This grid now mirrors the "Pricing" section at the bottom of the
-         page exactly: same card markup/classes (.p-card / .p-tier-name /
-         .p-price-wrap / .p-feats / .p-btn), same copy, same prices, same
-         links. The Custom card matches the bottom section's "Tailored
-         Pricing" / "Bespoke Solution" card instead of the old flat
-         $530/mo figure. -->
     <div class="pricing-grid">
 
-      <!-- EMAIL — $260/mo, no setup, 3-day trial -->
+      <!-- GMAIL — $260/mo, no setup, 3-day trial -->
       <div class="p-card">
         <div class="p-trial-tag">3-Day Free Trial</div>
-        <div class="p-tier-name">Email</div>
+        <div class="social-logo-container">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail Logo" style="height:35px;width:auto;">
+        </div>
+        <div class="p-tier-name">Gmail</div>
         <div class="p-price-wrap">
           <div class="p-price">
             <span class="p-cur">$</span>
@@ -760,17 +750,21 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           <div class="p-no-setup">✓ No setup fee</div>
         </div>
         <ul class="p-feats">
-          <li>Email lead intake &amp; qualification</li>
+          <li>Gmail lead intake &amp; qualification</li>
           <li>Full Simpro / Servicem8 sync</li>
           <li>Photos, Voice Notes, Videos, and Transcriptions</li>
           <li>Weekly business summary</li>
         </ul>
-        <a href="apply.html?plan=email" class="p-btn p-btn-ghost">Get Started &rarr;</a>
+        <a href="apply.html?plan=gmail" class="p-btn p-btn-ghost">Get Started &rarr;</a>
       </div>
 
       <!-- FACEBOOK — $170/mo, no setup, 3-day trial -->
-      <div class="p-card">
+      <div class="p-card" style="position:relative;">
+        <div class="coming-soon-badge">Coming Soon</div>
         <div class="p-trial-tag">3-Day Free Trial</div>
+        <div class="social-logo-container">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo" style="height:35px;width:auto;">
+        </div>
         <div class="p-tier-name">Facebook</div>
         <div class="p-price-wrap">
           <div class="p-price">
@@ -786,12 +780,16 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           <li>Photos, Voice Notes, Videos, and Transcriptions</li>
           <li>Weekly business summary</li>
         </ul>
-        <a href="apply.html?plan=facebook" class="p-btn p-btn-ghost">Get Started &rarr;</a>
+        <a href="apply.html?plan=facebook" class="p-btn p-btn-ghost" style="opacity:0.6;cursor:not-allowed;">Coming Soon &rarr;</a>
       </div>
 
       <!-- INSTAGRAM — $170/mo, no setup, 3-day trial -->
-      <div class="p-card">
+      <div class="p-card" style="position:relative;">
+        <div class="coming-soon-badge">Coming Soon</div>
         <div class="p-trial-tag">3-Day Free Trial</div>
+        <div class="social-logo-container">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram Logo" style="height:35px;width:auto;">
+        </div>
         <div class="p-tier-name">Instagram</div>
         <div class="p-price-wrap">
           <div class="p-price">
@@ -802,33 +800,36 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           <div class="p-no-setup">✓ No setup fee</div>
         </div>
         <ul class="p-feats">
-          <li>WhatsApp lead intake &amp; qualification</li>
+          <li>Instagram DM lead intake &amp; qualification</li>
           <li>Full Simpro / Servicem8 sync</li>
           <li>Photos, Voice Notes, Videos, and Transcriptions</li>
           <li>Weekly business summary</li>
         </ul>
-        <a href="apply.html?plan=whatsapp" class="p-btn p-btn-ghost">Get Started &rarr;</a>
+        <a href="apply.html?plan=instagram" class="p-btn p-btn-ghost" style="opacity:0.6;cursor:not-allowed;">Coming Soon &rarr;</a>
       </div>
 
-      <!-- CUSTOM — Bespoke -->
-      <div class="p-card featured">
-        <div class="p-badge">Bespoke Solution</div>
-        <div class="p-tier-name">Custom</div>
+       <!-- OUTLOOK — $660/mo -->
+      <div class="p-card">
+        <div class="p-trial-tag">3-Day Free Trial</div>
+        <div class="social-logo-container">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg" alt="Outlook Logo" style="height:35px;width:auto;">
+        </div>
+        <div class="p-tier-name">Outlook</div>
         <div class="p-price-wrap">
           <div class="p-price">
-            <span class="p-num" style="font-size: 28px;">Tailored Pricing</span>
+            <span class="p-cur">$</span>
+            <span class="p-num">660</span>
           </div>
-          <div class="p-per">Based on brand requirements</div>
-          <div class="p-setup-fee">Flexible integration options</div>
+          <div class="p-per">AUD / month</div>
+          <div class="p-no-setup">✓ No setup fee</div>
         </div>
         <ul class="p-feats">
-          <li>Email, Facebook, Instagram &amp; Outlook</li>
-          <li>Full Simpro &amp; Servicem8 sync</li>
-          <li>Priority 24/7 support</li>
-          <li>Custom branding &amp; workflows</li>
-          <li>Weekly business summary</li>
+          <li>Outlook email lead intake &amp; qualification</li>
+          <li>Simpro &amp; ServiceM8 sync</li>
+          <li>Photos, voice notes &amp; transcriptions</li>
+          <li>Weekly Performance Report</li>
         </ul>
-        <a href="calendar.html" class="p-btn">Book a Call &rarr;</a>
+        <a href="apply.html?plan=outlook" class="p-btn p-btn-ghost">Get Started &rarr;</a>
       </div>
 
     </div>
