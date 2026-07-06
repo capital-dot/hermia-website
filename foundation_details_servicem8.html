@@ -22,10 +22,6 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
         html, body { height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
-        /* Global drag-prevention fix — browsers make <img> draggable by
-           default, which produces the ghost-image drag effect on
-           trackpad/touch. Same two properties can be pasted into any
-           other Hermia HTML file to fix it there too. */
         img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; }
         .bg-layers { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
         .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,1) 100%); z-index: 5; }
@@ -325,17 +321,9 @@
 
         // ============================================================
         // STRIPE SESSION ID CARRY-THROUGH
-        // Same fallback pattern as `plan` above: read ?session_id= off
-        // this page's own URL first; if absent (e.g. an upstream page
-        // in the funnel didn't forward it), fall back to
-        // sessionStorage.hermia_stripe_session_id. Whatever value we
-        // end up with, persist it back to sessionStorage so any later
-        // step (retry, back-navigation) still has it.
-        //
-        // NOTE: this fallback only has something to fall back to once
-        // hermia_welcome.html is patched to capture session_id from
-        // its own URL and write it to sessionStorage.hermia_stripe_session_id
-        // before it redirects onward. That is a separate, still-open fix.
+        // Reads ?session_id= off this page's own URL first; if absent,
+        // falls back to sessionStorage.hermia_stripe_session_id, which
+        // hermia_welcome.html now writes before redirecting onward.
         // ============================================================
         let stripeSessionId = urlParams.get('session_id');
         if (!stripeSessionId) {
@@ -418,8 +406,21 @@
                 document.body.style.transition = 'opacity 1s ease';
                 document.body.style.opacity = '0';
                 setTimeout(() => {
+                    // FIX: previously only forwarded `plan` — customerId
+                    // was written to sessionStorage only, which does not
+                    // survive the cross-origin hop to onboarding.hermia.au
+                    // (same root cause as the hermia_plan bug on
+                    // simpro_connect.html). Now forwarded as a URL param
+                    // exactly like plan is, so servicem8_connect.html's
+                    // URL-first restore logic can pick it up regardless
+                    // of whether sessionStorage survived the jump.
+                    const qs = new URLSearchParams();
+                    if (plan) qs.set('plan', plan);
+                    if (id) qs.set('customerId', id);
+                    const queryString = qs.toString();
+
                     const nextUrl = 'https://onboarding.hermia.au/servicem8_connect.html' +
-                        (plan ? ('?plan=' + encodeURIComponent(plan)) : '');
+                        (queryString ? ('?' + queryString) : '');
                     window.location.href = nextUrl;
                 }, 1000);
             } catch (e) {
@@ -436,3 +437,4 @@
     </script>
 </body>
 </html>
+
