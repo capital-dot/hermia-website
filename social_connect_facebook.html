@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hermia | Connect Your Social Account</title>
+    <title>Hermia | Connect Instagram</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
@@ -19,7 +19,6 @@
             --soft: #a19d94;
             --border: rgba(212, 175, 55, 0.2);
             --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
-            --fb-blue: #1877F2;
             --ig-c1: #833AB4;
             --ig-c2: #C13584;
             --ig-c3: #E1306C;
@@ -42,7 +41,7 @@
         .logo { height: 58px; position: relative; z-index: 2; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
         .steps { display: flex; justify-content: space-between; width: 100%; margin-bottom: 60px; position: relative; opacity: 0; animation: fade-in-up 1s var(--ease-cinematic) 0.4s forwards; }
         .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.08); }
-        .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: linear-gradient(90deg, var(--gold-muted), var(--gold), var(--gold-muted)); box-shadow: 0 0 12px var(--gold); transition: width 1.2s var(--ease-cinematic); }
+        .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: linear-gradient(90deg, var(--gold-muted), var(--gold), var(--gold-muted)); box-shadow: 0 0 12px var(--gold); }
         .step { display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; position: relative; z-index: 1; }
         .dot { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 300; background: var(--bg); border: 1px solid var(--border); color: var(--soft); transition: all 0.6s var(--ease-cinematic); }
         .step.active .dot { border-color: var(--gold); color: var(--gold-bright); box-shadow: 0 0 25px rgba(212, 175, 55, 0.25); transform: scale(1.05); }
@@ -56,17 +55,13 @@
         h1 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; line-height: 1.1; margin-bottom: 18px; letter-spacing: -0.02em; }
         .sub { font-size: 15.5px; color: var(--soft); margin-bottom: 36px; line-height: 1.7; font-weight: 300; }
         .platform-badge { display: flex; align-items: center; gap: 18px; padding: 22px 24px; border: 1px solid var(--border); background: rgba(212,175,55,0.03); margin-bottom: 36px; }
-        .platform-icon { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; flex-shrink: 0; }
+        .platform-icon { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; flex-shrink: 0; background: linear-gradient(45deg, var(--ig-c6), var(--ig-c5), var(--ig-c4), var(--ig-c3), var(--ig-c2), var(--ig-c1)); }
         .platform-icon svg { width: 28px; height: 28px; }
-        .platform-icon.facebook { background: var(--fb-blue); }
-        .platform-icon.instagram { background: linear-gradient(45deg, var(--ig-c6), var(--ig-c5), var(--ig-c4), var(--ig-c3), var(--ig-c2), var(--ig-c1)); }
         .platform-name { font-size: 17px; font-weight: 500; color: var(--cream); }
         .platform-sub { font-size: 12.5px; color: var(--soft); margin-top: 3px; }
-        .btn { width: 100%; padding: 20px; border: none; color: #fff; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .btn { width: 100%; padding: 20px; border: none; color: #fff; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(90deg, var(--ig-c1), var(--ig-c2), var(--ig-c3), var(--ig-c4), var(--ig-c5), var(--ig-c6)); }
         .btn:hover:not(:disabled) { transform: translateY(-4px); filter: brightness(1.08); }
         .btn:disabled { opacity: 0.5; cursor: wait; }
-        .btn.facebook { background: var(--fb-blue); }
-        .btn.instagram { background: linear-gradient(90deg, var(--ig-c1), var(--ig-c2), var(--ig-c3), var(--ig-c4), var(--ig-c5), var(--ig-c6)); }
         .btn svg { width: 18px; height: 18px; }
         .status-msg { margin-top: 18px; padding: 14px 16px; font-size: 13px; text-align: center; }
         .status-msg.wait { background: rgba(212,175,55,0.04); border: 1px solid var(--border); color: var(--soft); }
@@ -99,20 +94,22 @@
 
         <div class="card">
             <div class="eyebrow">Connect Your Social Account</div>
-            <h1 id="headline">Link your account</h1>
-            <p class="sub" id="subcopy">Hermia replies to messages and comments on your behalf. Authorize the connection below to finish setup.</p>
+            <h1>Connect Instagram</h1>
+            <p class="sub">Hermia replies to Instagram DMs and comments on your behalf. Authorize the connection below to finish setup.</p>
 
-            <div class="platform-badge" id="platformBadge">
-                <div class="platform-icon" id="platformIcon"></div>
+            <div class="platform-badge">
+                <div class="platform-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="#fff" stroke="none"/></svg>
+                </div>
                 <div>
-                    <div class="platform-name" id="platformName">—</div>
-                    <div class="platform-sub" id="platformSub">Not yet connected</div>
+                    <div class="platform-name">Instagram</div>
+                    <div class="platform-sub">DM replies & comment management</div>
                 </div>
             </div>
 
             <button class="btn" id="connectBtn">
-                <span id="btnIcon"></span>
-                <span id="btnText">Connect</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="#fff" stroke="none"/></svg>
+                <span id="btnText">Connect Instagram</span>
             </button>
 
             <div id="statusArea"></div>
@@ -143,116 +140,36 @@
             }, 100);
         })();
 
+        // -------------------------------------------------------------
+        // No plan-resolution logic here on purpose. This page is only
+        // ever reached via the social_connect.html dispatcher, which
+        // has already confirmed the plan is "instagram" before sending
+        // the browser here. This page's only job is: get customerId,
+        // wire the button, hit /social-auth-url with provider=instagram.
+        // -------------------------------------------------------------
         const HERMIANANGO_URL = 'https://hermianango.capital-fbc.workers.dev';
         const $ = id => document.getElementById(id);
-
-        const ICONS = {
-            facebook: '<svg viewBox="0 0 24 24" fill="#fff"><path d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.8c0-.9.3-1.6 1.6-1.6h1.7V3.3C16.5 3.2 15.5 3 14.4 3c-2.5 0-4.2 1.5-4.2 4.3v2.5H7.5V13h2.7v8h3.3z"/></svg>',
-            instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="#fff" stroke="none"/></svg>'
-        };
-
-        const PLATFORM_META = {
-            facebook: {
-                name: 'Facebook',
-                sub: 'Messenger replies & comment management',
-                headline: 'Connect Facebook',
-                copy: 'Hermia replies to Facebook Messenger conversations and page comments on your behalf. Authorize the connection below to finish setup.',
-                btnClass: 'facebook',
-                badgeClass: 'facebook',
-                btnLabel: 'Connect Facebook'
-            },
-            instagram: {
-                name: 'Instagram',
-                sub: 'DM replies & comment management',
-                headline: 'Connect Instagram',
-                copy: 'Hermia replies to Instagram DMs and comments on your behalf. Authorize the connection below to finish setup.',
-                btnClass: 'instagram',
-                badgeClass: 'instagram',
-                btnLabel: 'Connect Instagram'
-            }
-        };
-
-        // -------------------------------------------------------------
-        // PLAN RESOLUTION
-        // sessionStorage is a cache, not a source of truth — it does not
-        // survive a new tab, a cleared session, or a contractor reopening
-        // a bookmarked/emailed link days later. At 100+ contractors this
-        // WILL happen periodically. Supabase (via the existing
-        // /get-customer-state endpoint — no new Worker route needed) is
-        // the durable source of truth. Try the cheap local cache first,
-        // fall back to a network read, and re-populate the cache so
-        // repeat calls on this page stay fast.
-        // -------------------------------------------------------------
         const customerId = sessionStorage.getItem('hermia_customer_id');
-
-        async function resolvePlan() {
-            const cached = sessionStorage.getItem('hermia_plan');
-            if (cached && PLATFORM_META[cached]) return cached;
-
-            if (!customerId) return null;
-
-            try {
-                const res = await fetch(
-                    HERMIANANGO_URL + '/get-customer-state?customerId=' + encodeURIComponent(customerId)
-                );
-                if (!res.ok) return null;
-                const data = await res.json();
-                if (data.hermiaPlan && PLATFORM_META[data.hermiaPlan]) {
-                    sessionStorage.setItem('hermia_plan', data.hermiaPlan);
-                    return data.hermiaPlan;
-                }
-                return null;
-            } catch (e) {
-                console.error('[social_connect] plan lookup failed:', e);
-                return null;
-            }
-        }
 
         function renderStatus(msg, kind) {
             $('statusArea').innerHTML = '<div class="status-msg ' + kind + '">' + msg + '</div>';
         }
 
-        function applyPlatformTheme(meta) {
-            $('headline').textContent = meta.headline;
-            $('subcopy').textContent = meta.copy;
-            $('platformName').textContent = meta.name;
-            $('platformSub').textContent = meta.sub;
-            $('platformIcon').className = 'platform-icon ' + meta.badgeClass;
-            $('platformIcon').innerHTML = ICONS[meta.badgeClass];
-            $('connectBtn').className = 'btn ' + meta.btnClass;
-            $('btnIcon').innerHTML = ICONS[meta.badgeClass];
-            $('btnText').textContent = meta.btnLabel;
-        }
-
-        async function init() {
+        function init() {
             if (!customerId) {
-                $('platformBadge').style.display = 'none';
+                document.querySelector('.platform-badge').style.display = 'none';
                 $('connectBtn').style.display = 'none';
                 renderStatus('Session expired — please restart from the welcome page.', 'err');
                 return;
             }
 
-            const plan = await resolvePlan();
-            const meta = PLATFORM_META[plan];
-
-            if (!meta) {
-                $('platformBadge').style.display = 'none';
-                $('connectBtn').style.display = 'none';
-                renderStatus('We could not determine which social account to connect. Please contact support to continue setup.', 'err');
-                return;
-            }
-
-            applyPlatformTheme(meta);
-
             $('connectBtn').addEventListener('click', () => {
                 const btn = $('connectBtn');
                 btn.disabled = true;
                 $('btnText').textContent = 'CONNECTING...';
-                renderStatus('Opening ' + meta.name + ' authorization...', 'wait');
+                renderStatus('Opening Instagram authorization...', 'wait');
 
-                const authUrl = HERMIANANGO_URL + '/social-auth-url?provider=' +
-                    encodeURIComponent(plan) + '&customerId=' + encodeURIComponent(customerId);
-
+                const authUrl = HERMIANANGO_URL + '/social-auth-url?provider=instagram&customerId=' + encodeURIComponent(customerId);
                 window.location.href = authUrl;
             });
         }
@@ -261,4 +178,3 @@
     </script>
 </body>
 </html>
-
