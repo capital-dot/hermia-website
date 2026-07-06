@@ -10,7 +10,7 @@
 <style>
 :root{
   --bg:#050505;--bg2:#0e0e0e;--bg3:#141414;--card:#0f0f0f;
-  --border:rgba(196,150,60,0.14 );--bhi:rgba(196,150,60,0.35);
+  --border:rgba(196,150,60,0.14);--bhi:rgba(196,150,60,0.35);
   --gold:#c4963c;--gl:#d9aa52;--gdim:rgba(196,150,60,0.07);
   --cream:#f4f0e6;--soft:#b0ada5;--muted:#7a7470;
   --green:#10b981;--red:#ef4444;
@@ -143,22 +143,101 @@ nav.visible{opacity:1;pointer-events:auto}
 .combo-card::before{top:14px;right:14px;border-width:1px 1px 0 0}
 .combo-card::after{bottom:14px;left:14px;border-width:0 0 1px 1px}
 .combo-card.contact-card{background:linear-gradient(135deg,rgba(196,150,60,.05),#0a0a0a)}
-.combo-card.partner-card{background:linear-gradient(150deg,#130c03,#111);align-items:center;text-align:center;justify-content:center}
-.partner-badge-img{width:160px;margin-bottom:28px;filter:drop-shadow(0 12px 30px rgba(0,0,0,0.6))}
-.contact-eyebrow{font-size:10.5px;letter-spacing:4px;text-transform:uppercase;color:var(--gl);margin-bottom:14px;font-weight:600}
-.contact-heading{font-family:var(--display);font-size:38px;font-weight:600;color:#fff;margin-bottom:16px;letter-spacing:-.5px}
+.combo-card.partner-card{background:linear-gradient(150deg,#130c03,#111);align-items:center;text-align:center;justify-content:center;padding-top:56px}
+.combo-card.partner-card .partner-badge-img{margin-bottom:22px;width:96px}
+.partner-badge-img{width:124px;height:auto;filter:drop-shadow(0 10px 30px rgba(0,0,0,.55))}
+.video-card-frame{width:100%;background:#000;border:1px solid var(--bhi);position:relative;border-radius:10px;overflow:hidden;margin:16px 0 0;box-shadow:0 18px 44px rgba(0,0,0,.5)}
+.video-card-frame::after{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--gl),transparent);z-index:2}
+.video-card-inner{position:relative;padding-bottom:62%;height:0}
+.video-card-inner iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.contact-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-family:"Inter",sans-serif;font-weight:600;margin-bottom:14px}
+.contact-heading{font-family:var(--display);font-size:clamp(28px,3.2vw,40px);font-weight:600;color:#fff;line-height:1.1;margin-bottom:8px}
 .contact-heading em{font-style:italic;color:var(--gl)}
-.contact-sub{font-size:14.5px;color:var(--soft);line-height:1.6;margin-bottom:32px;max-width:440px}
-.contact-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;width:100%}
-.contact-info-item{display:flex;flex-direction:column;gap:4px}
-.contact-info-label{font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);font-weight:600}
-.contact-info-value{font-size:13.5px;color:var(--cream);font-weight:400}
+.contact-sub{font-size:14px;color:var(--soft);line-height:1.6;margin-bottom:28px;max-width:320px}
+.contact-info-grid{display:flex;flex-direction:column;gap:10px;width:100%}
+.contact-info-item{background:rgba(196,150,60,0.05);border:1px solid rgba(196,150,60,0.18);border-radius:8px;padding:14px 18px;display:flex;flex-direction:column;gap:3px;transition:border-color .2s}
+.contact-info-item:hover{border-color:rgba(196,150,60,0.4)}
+.contact-info-label{font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-family:"Inter",sans-serif;font-weight:700}
+.contact-info-value{font-size:14px;color:var(--cream);font-weight:400}
+.contact-info-value a{color:var(--cream);text-decoration:none;transition:color .2s}
 .contact-info-value a:hover{color:var(--gl)}
-.pricing-section{padding:120px 48px;background:var(--bg);position:relative}
-.pricing-header{text-align:center;margin-bottom:64px}
-.pricing-h{font-family:var(--display);font-size:clamp(32px,4.5vw,56px);font-weight:600;color:#fff;letter-spacing:-.5px;line-height:1.1}
+.faq-section{border-top:1px solid var(--border);padding:88px 48px}
+.faq-inner{max-width:840px;margin:0 auto}
+.faq-hdr{text-align:center;margin-bottom:44px}
+.faq-list{display:flex;flex-direction:column;gap:9px}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .25s}
+.faq-item:hover{border-color:rgba(196,150,60,.24)}
+.faq-item.open{border-color:var(--gold);background:linear-gradient(135deg,rgba(196,150,60,.04),var(--card))}
+.faq-q{width:100%;background:none;border:none;padding:20px 24px;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;font-family:"DM Sans",sans-serif;color:#fff;font-size:15px;font-weight:600;line-height:1.4}
+.faq-icon{flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:12px;transition:all .25s}
+.faq-item.open .faq-icon{background:var(--gold);color:#1a0e04;transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease}
+.faq-item.open .faq-a{max-height:360px;padding:0 24px 20px}
+.faq-a-text{color:var(--soft);font-size:14px;line-height:1.7;padding-top:8px;border-top:1px solid var(--border)}
+.faq-a-text strong{color:#fff;font-weight:600}
+.faq-a-text em{color:var(--gl);font-style:italic}
+footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.foot-left{display:flex;flex-direction:column;gap:11px}
+.foot-logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+.foot-logo img{height:20px;opacity:.7}
+.foot-logo span{font-family:var(--display);font-size:18px;font-weight:600;color:var(--cream)}
+.foot-left-meta{display:flex;align-items:center;gap:18px;font-size:12px;color:var(--muted);padding-left:1px;flex-wrap:wrap}
+.foot-left-meta a{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s}
+.foot-left-meta a:hover{color:var(--soft)}
+.foot-right{display:flex;flex-direction:column;align-items:flex-end;gap:12px;padding-right:104px}
+.foot-meta{font-size:12px;color:var(--muted)}
+.foot-meta a{color:var(--muted);text-decoration:none}
+.foot-meta a:hover{color:var(--soft)}
+.foot-links{display:flex;gap:20px}
+.foot-links a{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s}
+.foot-links a:hover{color:var(--soft)}
+@media(max-width:900px){nav{padding:0 20px}.nav-links{display:none}.section,.faq-section{padding:72px 24px}.bt-wrap{grid-template-columns:1fr}.left{border-right:none;border-bottom:1px solid var(--border)}.crm-grid{grid-template-columns:1fr}.phone{width:320px;height:660px}footer{flex-direction:column;align-items:flex-start;gap:18px;padding:30px 24px}.foot-right{align-items:flex-start;padding-right:0}.combo-section{padding:56px 24px}.combo-grid{grid-template-columns:1fr}.combo-card{padding:40px 26px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* FEATURES */
+#hermia-features{--hg:#e6c27a;background:#050505;color:#fff;font-family:'Inter',sans-serif;padding:100px 20px;overflow:hidden}
+#hermia-features .inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center}
+#hermia-features .eyebrow{font-size:11px;letter-spacing:6px;color:var(--hg);text-transform:uppercase;margin-bottom:25px;font-weight:600}
+#hermia-features .sec-title{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;line-height:1.2;margin-bottom:80px;letter-spacing:2px}
+#hermia-features .sec-title em{font-style:italic;color:var(--hg);font-weight:500}
+#hermia-features .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;width:100%}
+#hermia-features .fc{background:#0a0a0a;border:1px solid rgba(230,194,122,0.2);padding:50px 40px;text-align:left;transition:all .5s cubic-bezier(.25,.46,.45,.94);border-radius:2px}
+#hermia-features .fc:hover{border-color:var(--hg);transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,0,0,.4)}
+#hermia-features .fc-icon{width:32px;height:32px;margin-bottom:30px}
+#hermia-features .fc-icon svg{width:100%;height:100%;fill:var(--hg)}
+#hermia-features .fc-tag{font-size:9px;letter-spacing:3px;color:var(--hg);text-transform:uppercase;margin-bottom:15px;font-weight:600;opacity:.8}
+#hermia-features .fc h3{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;margin-bottom:20px;color:#fff;letter-spacing:1px}
+#hermia-features .fc p{font-size:14px;line-height:1.8;color:#999;font-weight:300}
+@media(max-width:1024px){#hermia-features .features-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){#hermia-features .features-grid{grid-template-columns:1fr}#hermia-features .sec-title{font-size:40px}}
+
+/* HOW IT WORKS */
+:root{--hb:#080705;--hgold:#D4AF37;--hgl:#F9E2AF;--hcream:#f4f0e6;--hsoft:#a19d94;--hborder:rgba(212,175,55,0.2);--ease-lux:cubic-bezier(0.19,1,0.22,1)}
+.video-journey-section{background:var(--hb);color:var(--hcream);padding:120px 24px;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;position:relative;overflow:hidden}
+.video-journey-section::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:100%;height:100%;background:radial-gradient(circle at 50% 20%,rgba(212,175,55,.05) 0%,transparent 70%);pointer-events:none}
+.section-wrap{width:100%;max-width:1100px;position:relative;z-index:2}
+.section-header{text-align:center;margin-bottom:80px}
+.eyebrow-gold{font-size:11px;text-transform:uppercase;letter-spacing:.5em;color:var(--hgold);margin-bottom:20px;display:block}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,64px);font-weight:300;line-height:1.1;margin-bottom:24px;letter-spacing:-.02em}
+.section-subtitle{font-size:18px;color:var(--hsoft);max-width:700px;margin:0 auto;line-height:1.6;font-weight:300}
+.video-showcase{width:100%;background:#000;border:1px solid var(--hborder);box-shadow:0 40px 100px rgba(0,0,0,.8);margin-bottom:100px;position:relative}
+.video-showcase::after{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--hgold),transparent)}
+.video-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden}
+.video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.stages-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-bottom:80px}
+.stage-card{background:rgba(255,255,255,.02);border:1px solid var(--hborder);padding:48px 32px;transition:all .6s var(--ease-lux);text-align:left}
+.stage-card:hover{background:rgba(212,175,55,.03);transform:translateY(-10px);border-color:var(--hgold)}
+.stage-num{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--hgold);margin-bottom:24px;display:block;opacity:.6}
+.stage-h{font-size:22px;font-weight:400;margin-bottom:16px;color:var(--hcream)}
+.stage-p{font-size:15px;color:var(--hsoft);line-height:1.6;font-weight:300}
+@media(max-width:900px){.stages-grid{grid-template-columns:1fr}.section-title{font-size:36px}}
+
+/* ===== PRICING ===== */
+.pricing-section{padding:120px 48px;text-align:center;background:linear-gradient(150deg,#130c03,#111);border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative}
+.pricing-header{margin-bottom:80px;display:flex;flex-direction:column;align-items:center}
+.pricing-h{font-family:var(--display);font-size:clamp(36px,4.5vw,56px);font-weight:600;color:#fff;letter-spacing:-.4px;margin-bottom:24px;line-height:1.1}
 .pricing-h em{font-style:italic;color:var(--gl)}
-.pricing-sub{color:var(--soft);font-size:16px;margin-top:16px;max-width:600px;margin-left:auto;margin-right:auto}
+.pricing-sub{color:var(--soft);font-size:16px;max-width:580px;margin:0 auto;line-height:1.7;font-weight:300}
 .pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1300px;margin:0 auto;align-items:stretch}
 
 /* Card base */
@@ -225,32 +304,6 @@ nav.visible{opacity:1;pointer-events:auto}
 .p-btn-ghost{background:transparent !important;border:1.5px solid var(--bhi) !important;color:var(--cream) !important;box-shadow:none !important}
 .p-btn-ghost:hover{border-color:var(--gold) !important;color:var(--gl) !important;background:rgba(196,150,60,.06) !important;box-shadow:none !important}
 
-/* Coming Soon Overlay */
-.coming-soon-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(5, 5, 5, 0.75);
-  backdrop-filter: blur(4px);
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-.coming-soon-badge {
-  background: var(--gl);
-  color: #000;
-  padding: 10px 24px;
-  border-radius: 30px;
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  font-family: "DM Sans", sans-serif;
-  box-shadow: 0 10px 30px rgba(196, 150, 60, 0.4);
-  transform: rotate(-5deg);
-}
-
 @media(max-width:1200px){.pricing-grid{grid-template-columns:repeat(2,1fr)!important;gap:20px;max-width:760px}.p-card.featured{transform:scale(1);grid-column:auto}.p-card.featured:hover{transform:translateY(-8px)}}
 @media(max-width:600px){.pricing-section{padding:70px 16px}.pricing-grid{grid-template-columns:1fr!important;max-width:420px}.p-card{padding:40px 24px 36px}.p-num{font-size:46px}}
 @media(max-width:600px){.pricing-section{padding:70px 16px}.p-card{padding:40px 24px 36px}.p-num{font-size:46px}}
@@ -305,567 +358,569 @@ nav.visible{opacity:1;pointer-events:auto}
 </head>
 <body class="cinematic">
 
-  <div id="cinematic-hero">
-    <button id="skip-btn">Skip Intro</button>
-    <div id="partner-badge">
-      <img src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Partner">
-      <span class="pb-cap">Technology Partner</span>
-    </div>
-    <div id="scroll-indicator">
-      <span class="scroll-text">Scroll</span>
-      <div class="scroll-arrow"></div>
-    </div>
+<nav id="main-nav">
+  <a href="/" class="nav-logo">
+    <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" onerror="this.style.display='none'">
+    <span>Hermia</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="about us.html" class="nav-ws">About Us</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#how-it-works">How It Works</a></li>
+    <li><button type="button" class="nav-cta" id="nav-trial-btn">Start Free Trial</button></li>
+  </ul>
+</nav>
 
-    <!-- SCENE 1: THE PROBLEM -->
-    <div class="scene active" id="scene-alert">
-      <div class="alert-box">
-        <h1 class="alert-title">Stop Losing <span class="gold">Repair Jobs</span></h1>
-        <div class="alert-card">
-          <div class="alert-label">Critical Operational Leak</div>
-          <p style="font-size:17px;line-height:1.6;color:var(--soft );font-weight:300">"We missed the enquiry because we were on the tools all day. By the time we replied, they'd already booked someone else."</p>
-          <div class="alert-line"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SCENE 2: THE HOOK -->
-    <div class="scene" id="scene-narrative">
-      <div class="narrative-box">
-        <h2 class="narrative-title">While you're on site, Hermia is <em>winning the job.</em></h2>
-        <span class="narrative-sub">Architectural Lead Intelligence</span>
-      </div>
-    </div>
-
-    <!-- SCENE 3: THE INTERACTION -->
-    <div class="scene" id="scene-chat">
-      <div class="phone">
-        <div class="phone-header">
-          <div class="phone-avatar">H</div>
-          <div class="phone-info">
-            <div class="phone-name">Hermia AI</div>
-            <div class="phone-subtitle">Active Qualification</div>
-          </div>
-        </div>
-        <div class="phone-chat" id="chat-flow">
-          <!-- JS injected -->
-        </div>
-      </div>
-    </div>
-
-    <!-- SCENE 4: THE OUTCOME -->
-    <div class="scene" id="scene-dashboard">
-      <div class="crm-container">
-        <div class="crm-header">
-          <div class="crm-title">Lead Sync</div>
-          <div class="simpro-badge">Simpro Connected</div>
-        </div>
-        <div class="crm-grid">
-          <div class="crm-card">
-            <span class="crm-label">Qualified Job Brief</span>
-            <div class="crm-data-row"><span class="crm-key">Customer</span><span class="crm-value">Sarah Jenkins</span></div>
-            <div class="crm-data-row"><span class="crm-key">Issue</span><span class="crm-value">Burst pipe in kitchen island</span></div>
-            <div class="crm-data-row"><span class="crm-key">Urgency</span><span class="crm-value"><span class="status-tag">High / Emergency</span></span></div>
-            <div class="crm-data-row"><span class="crm-key">Photos</span><span class="crm-value">3 Analysed (Visible water damage)</span></div>
-          </div>
-          <div class="calendar-card">
-            <span class="crm-label">Ready to Book</span>
-            <div class="calendar-day"><span class="cal-m">JUL</span><span class="cal-d">08</span></div>
-            <div class="event-details">
-              <div class="event-time">09:00 AM - 11:00 AM</div>
-              <div class="event-title">Sarah Jenkins (Repair)</div>
-              <div class="event-loc">St Kilda, VIC</div>
-            </div>
-          </div>
-        </div>
-        <div class="sync-footer">Synchronising data to Simpro...</div>
-      </div>
-    </div>
-
-    <!-- SCENE 5: FINAL -->
-    <div class="scene" id="scene-final">
-      <div class="final-content">
-        <img src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Hermia_Logo_Gold.png" class="final-logo" alt="Hermia">
-        <h1 class="final-brand">HERMIA</h1>
-        <p class="final-tagline">Never miss a repair job again.</p>
-      </div>
+<div id="cinematic-hero">
+  <button id="skip-btn">Skip intro</button>
+  <div class="scene" id="scene-alert">
+    <div class="alert-box">
+      <h1 class="alert-title">Homeowner Sends <span class="gold">Repair</span> Request</h1>
+      <div class="alert-card"><div class="alert-label">Plumbing Issue</div><div class="alert-line"></div></div>
     </div>
   </div>
-
-  <nav id="main-nav">
-    <a href="#" class="nav-logo">
-      <img src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Hermia_Logo_Gold.png" alt="Hermia">
-      <span>Hermia</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#how-it-works">Workflow</a></li>
-      <li><a href="#triage">Triage</a></li>
-      <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="apply.html" class="nav-cta">Apply Now</a></li>
-    </ul>
-  </nav>
-
-  <div id="page-content">
-    <section class="section" style="padding-top:120px">
-      <div class="inner">
-        <div class="eyebrow">The Problem</div>
-        <h2 class="sec-title">Stop losing jobs to the <em>fastest replier.</em></h2>
-        <p class="sec-sub">In the repair game, the first person to reply wins. If you're on the tools, you're losing money every time your phone pings and you can't answer.</p>
-        
-        <div class="bt-wrap">
-          <div class="bt-col left">
-            <div class="bt-hdr bad">WITHOUT HERMIA</div>
-            <div class="bt-row"><span class="bt-ic">✕</span>Enquiry sits for 4 hours while you work</div>
-            <div class="bt-row"><span class="bt-ic">✕</span>Customer messages 3 competitors</div>
-            <div class="bt-row"><span class="bt-ic">✕</span>Competitor replies in 10 minutes</div>
-            <div class="bt-row"><span class="bt-ic">✕</span>You lose the job before you see it</div>
-          </div>
-          <div class="bt-col right">
-            <div class="bt-hdr good">WITH HERMIA</div>
-            <div class="bt-row"><span class="bt-ic">✓</span><span>Instant reply</span> to every enquiry</div>
-            <div class="bt-row"><span class="bt-ic">✓</span><span>AI qualifies</span> the customer & damage</div>
-            <div class="bt-row"><span class="bt-ic">✓</span><span>Photos read</span> & job created in Simpro</div>
-            <div class="bt-row"><span class="bt-ic">✓</span><span>You book the job</span> while still on site</div>
+  <div class="scene" id="scene-narrative-1">
+    <div class="narrative-box">
+      <h2 class="narrative-title">Stop chasing <em>missing details</em>.</h2>
+      <p class="narrative-sub">Hermia AI Instantly Qualifies &amp; Structures</p>
+    </div>
+  </div>
+  <div class="scene" id="scene-narrative-2">
+    <div class="narrative-box">
+      <h2 class="narrative-title">From <em>Chaos</em> to <em>Organised</em>.</h2>
+      <p class="narrative-sub">See what Hermia Can Do For You.</p>
+    </div>
+  </div>
+  <div class="scene" id="scene-chat">
+    <div class="phone">
+      <div class="phone-header">
+        <div class="phone-avatar">J</div>
+        <div class="phone-info">
+          <div class="phone-name">Jared Bocca</div>
+          <div class="phone-subtitle">Homeowner &middot; Brisbane</div>
+        </div>
+      </div>
+      <div class="phone-chat" id="chat-box"></div>
+    </div>
+  </div>
+  <div class="scene" id="scene-dashboard">
+    <div class="crm-container">
+      <div class="crm-header">
+        <h2 class="crm-title">Simpro <span style="color:var(--gl)">Integration</span></h2>
+        <div class="simpro-badge">Auto-Created</div>
+      </div>
+      <div class="crm-grid">
+        <div class="crm-card">
+          <span class="crm-label">Customer Record</span>
+          <div class="crm-data-row"><span class="crm-key">Name</span><span class="crm-value">Jared Bocca</span></div>
+          <div class="crm-data-row"><span class="crm-key">Phone</span><span class="crm-value">+61 400 123 456</span></div>
+          <div class="crm-data-row"><span class="crm-key">Email</span><span class="crm-value">jared.bocca@gmail.com</span></div>
+          <div class="crm-data-row"><span class="crm-key">Urgency</span><span class="crm-value"><span class="status-tag">Emergency</span></span></div>
+          <div class="crm-data-row"><span class="crm-key">Issue</span><span class="crm-value">Burst pipe &mdash; active leak under kitchen sink</span></div>
+          <div class="crm-data-row"><span class="crm-key">Budget</span><span class="crm-value">$1,500 &mdash; $2,500</span></div>
+          <div class="crm-data-row"><span class="crm-key">Address</span><span class="crm-value">42 Brisbane Way, Brisbane QLD</span></div>
+        </div>
+        <div class="calendar-card">
+          <span class="crm-label">Calendar Event</span>
+          <div class="calendar-day"><span class="cal-m">JUN</span><span class="cal-d">19</span></div>
+          <div class="event-details">
+            <div class="event-time">09:00 &mdash; 10:00 (AEST)</div>
+            <div class="event-title">Burst Pipe Repair</div>
+            <div class="event-loc">42 Brisbane Way, Brisbane</div>
           </div>
         </div>
       </div>
-    </section>
+      <div class="sync-footer">Synced to Simpro workflow &middot; Calendar event created</div>
+    </div>
+  </div>
+  <div class="scene active" id="scene-final">
+    <div class="final-content">
+      <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" class="final-logo" alt="Hermia" onerror="this.style.display='none'">
+      <h1 class="final-brand">HERMIA</h1>
+      <p class="final-tagline">Every Job. Captured.</p>
+    </div>
+  </div>
+  <div id="partner-badge">
+    <img src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Registered Partner">
+    <span class="pb-cap">Official Simpro Partner</span>
+  </div>
+  <div id="scroll-indicator">
+    <div class="scroll-text">Scroll to explore</div>
+    <div class="scroll-arrow"></div>
+  </div>
+</div>
 
-    <section class="section" style="background:var(--bg3 );padding:88px 48px">
-      <div class="inner">
-        <div class="eyebrow">The Workflow</div>
-        <h2 class="sec-title">How Hermia Captures Every <em>Opportunity.</em></h2>
-        <p class="sec-sub" style="margin-bottom:48px">Your customers message. Hermia replies instantly, qualifies them, reads damage photos, captures budget and availability, then creates a ready-to-book job in your system.</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px">
-          <div style="background:#0a0a0a;border:1px solid rgba(196,150,60,0.14);border-radius:12px;padding:32px;text-align:center">
-            <div style="font-size:32px;font-weight:700;color:var(--gl);margin-bottom:12px">1</div>
-            <h3 style="font-size:16px;font-weight:600;color:#fff;margin-bottom:12px">Capture Every Enquiry</h3>
-            <p style="font-size:13.5px;color:var(--soft);line-height:1.6">Email, Facebook, Instagram, Outlook, or WhatsApp — Hermia replies instantly to every customer message.</p>
-          </div>
-          <div style="background:#0a0a0a;border:1px solid rgba(196,150,60,0.14);border-radius:12px;padding:32px;text-align:center">
-            <div style="font-size:32px;font-weight:700;color:var(--gl);margin-bottom:12px">2</div>
-            <h3 style="font-size:16px;font-weight:600;color:#fff;margin-bottom:12px">Qualify Every Customer</h3>
-            <p style="font-size:13.5px;color:var(--soft);line-height:1.6">Hermia asks the critical questions, gathers scope of work, and filters out unqualified leads automatically.</p>
-          </div>
-          <div style="background:#0a0a0a;border:1px solid rgba(196,150,60,0.14);border-radius:12px;padding:32px;text-align:center">
-            <div style="font-size:32px;font-weight:700;color:var(--gl);margin-bottom:12px">3</div>
-            <h3 style="font-size:16px;font-weight:600;color:#fff;margin-bottom:12px">Understand Photos & Voice</h3>
-            <p style="font-size:13.5px;color:var(--soft);line-height:1.6">AI vision reads damage from photos. Voice notes are transcribed and analysed for urgency and scope.</p>
-          </div>
-          <div style="background:#0a0a0a;border:1px solid rgba(196,150,60,0.14);border-radius:12px;padding:32px;text-align:center">
-            <div style="font-size:32px;font-weight:700;color:var(--gl);margin-bottom:12px">4</div>
-            <h3 style="font-size:16px;font-weight:600;color:#fff;margin-bottom:12px">Secure Customer Availability</h3>
-            <p style="font-size:13.5px;color:var(--soft);line-height:1.6">Before you even open the enquiry, Hermia already knows when the customer is available.</p>
-          </div>
-          <div style="background:#0a0a0a;border:1px solid rgba(196,150,60,0.14);border-radius:12px;padding:32px;text-align:center">
-            <div style="font-size:32px;font-weight:700;color:var(--gl);margin-bottom:12px">5</div>
-            <h3 style="font-size:16px;font-weight:600;color:#fff;margin-bottom:12px">Create Ready-to-Book Jobs</h3>
-            <p style="font-size:13.5px;color:var(--soft);line-height:1.6">Structured job data lands in Simpro, ServiceM8, and Outlook with full customer details and urgency level.</p>
-          </div>
-          <div style="background:#0a0a0a;border:1px solid rgba(196,150,60,0.14);border-radius:12px;padding:32px;text-align:center">
-            <div style="font-size:32px;font-weight:700;color:var(--gl);margin-bottom:12px">6</div>
-            <h3 style="font-size:16px;font-weight:600;color:#fff;margin-bottom:12px">Sync Everything Automatically</h3>
-            <p style="font-size:13.5px;color:var(--soft);line-height:1.6">Simpro, ServiceM8, and Outlook stay in sync. Your data flows automatically — no manual entry.</p>
+<div id="page-content">
+
+  <section class="section benefits" id="benefits">
+    <div class="inner">
+      <div class="eyebrow">The real problem</div>
+      <div class="sec-title">Contractors don&rsquo;t lose work to<br><em>better tradespeople.</em></div>
+      <p class="sec-sub">They lose it to more organised ones. Homeowners submit the same enquiry to five or six companies. The contractor with a clear scope, confirmed budget, and a professional brief wins &mdash; not the cheapest, not the quickest. <strong style="color:var(--cream)">The most prepared.</strong></p>
+      <div class="bt-wrap">
+        <div class="bt-col left">
+          <div class="bt-hdr bad">Without Hermia</div>
+          <div class="bt-row"><span class="bt-ic">&#10005;</span>Vague enquiries &mdash; no budget, no scope, no detail</div>
+          <div class="bt-row"><span class="bt-ic">&#10005;</span>Same lead sent to five to ten other contractors</div>
+          <div class="bt-row"><span class="bt-ic">&#10005;</span>Scope creep starts before the quote even goes out</div>
+          <div class="bt-row"><span class="bt-ic">&#10005;</span>No budget info upfront &mdash; wasted site visits</div>
+          <div class="bt-row"><span class="bt-ic">&#10005;</span>Disorganised inbox &mdash; context lost across 30 email threads</div>
+          <div class="bt-row"><span class="bt-ic">&#10005;</span>No urgency triage &mdash; burst pipes wait with minor jobs</div>
+          <div class="bt-row"><span class="bt-ic">&#10005;</span>No visibility into your monthly enquiry performance</div>
+        </div>
+        <div class="bt-col right">
+          <div class="bt-hdr good">With Hermia</div>
+          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Budget, scope, and damage captured from the first message</span></div>
+          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Only qualified, serious leads reach your inbox</span></div>
+          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Clear damage description and expectations set from the start</span></div>
+          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Budget screened upfront &mdash; no wasted visits on bad-fit jobs</span></div>
+          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Structured job brief in Simpro &mdash; nothing lost, nothing chased</span></div>
+          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Emergency / Critical / Standard classified automatically</span></div>
+          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span>Weekly business report delivered every Monday morning</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="hermia-features">
+    <div class="inner">
+      <div class="eyebrow">The Intelligence Engine</div>
+      <h2 class="sec-title">From the first message<br>to a <em>booked job.</em></h2>
+      <div class="features-grid">
+        <div class="fc"><div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M12 9c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm9 3c0 4.971-4.029 9-9 9s-9-4.029-9-9 4.029-9 9-9 9 4.029 9 9zm-18 0c0 4.971 4.029 9 9 9s9-4.029 9-9-4.029-9-9-9-9 4.029-9 9z"/></svg></div><div class="fc-tag">AI Vision</div><h3>Visual Diagnostics</h3><p>Hermia analyzes damage photos and videos instantly, identifying the trade required and urgency level before you've even seen the message.</p></div>
+        <div class="fc"><div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M12 2c1.103 0 2 .897 2 2v7c0 1.103-.897 2-2 2s-2-.897-2-2v-7c0-1.103.897-2 2-2zm0-2c-2.209 0-4 1.791-4 4v7c0 2.209 1.791 4 4 4s4-1.791 4-4v-7c0-2.209-1.791-4-4-4zm8 9v2c0 4.418-3.582 8-8 8s-8-3.582-8-8v-2h2v2c0 3.309 2.691 6 6 6s6-2.691 6-6v-2h2zm-7 13v-2h-2v2h-4v2h10v-2h-4z"/></svg></div><div class="fc-tag">AI Audio</div><h3>Vocal Intelligence</h3><p>Voice notes are transcribed and synthesized. Hermia extracts critical briefs: location, owner status, and technical requirements.</p></div>
+        <div class="fc"><div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M12 0l-12 12h8v12l12-12h-8z"/></svg></div><div class="fc-tag">Dynamic Triage</div><h3>Urgency Classification</h3><p>Enquiries are triaged by severity. Emergencies are escalated immediately, while standard jobs are seamlessly queued.</p></div>
+        <div class="fc"><div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M19 3h-14c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-14c0-1.103-.897-2-2-2zm-7 10h-4v-2h4v2zm0-4h-4v-2h4v2zm5 8h-9v-2h9v2zm0-4h-9v-2h9v2zm0-4h-9v-2h9v2z"/></svg></div><div class="fc-tag">Simpro Integration</div><h3>Automated Synchronization</h3><p>All lead data—contact info, site address, and photos—is captured and synced directly into your Simpro workflow with zero typing.</p></div>
+        <div class="fc"><div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M20 20h-16v-16h16v16zm2-18h-20v20h20v-20zm-7 13h-5v-5h5v5zm-2-11h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 0h-2v2h2v-2z"/></svg></div><div class="fc-tag">Scheduling</div><h3>Autonomous Booking</h3><p>Hermia confirms availability within the chat and creates calendar events. No phone tag, no missing info, just a confirmed schedule.</p></div>
+        <div class="fc"><div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M7 19h-6v-11h6v11zm8-18h-6v18h6v-18zm8 11h-6v7h6v-7z"/></svg></div><div class="fc-tag">Analytics</div><h3>Weekly Business Reports</h3><p>Receive your production numbers—total jobs, booked rates, and urgency breakdowns—delivered to your inbox every Monday morning.</p></div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="section" style="background:var(--bg3);padding:88px 48px">
+    <div class="inner">
+      <div class="eyebrow">The Workflow</div>
+      <h2 class="sec-title">How Hermia Captures Every <em>Opportunity.</em></h2>
+      <p class="sec-sub" style="margin-bottom:48px">Your customers message. Hermia replies instantly, qualifies them, reads damage photos, captures budget and availability, then creates a ready-to-book job in your system.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px">
+        <div style="background:#0a0a0a;border:1px solid rgba(196,150,60,0.14);border-radius:12px;padding:32px;text-align:center">
+          <div style="font-size:32px;font-weight:700;color:var(--gl);margin-bottom:12px">1</div>
+          <h3 style="font-size:16px;font-weight:600;color:#fff;margin-bottom:12px">Capture Every Enquiry</h3>
+          <p style="font-size:13.5px;color:var(--soft);line-height:1.6">Email, Facebook, Instagram, Outlook, or WhatsApp — Hermia replies instantly to every customer message.</p>
+        </div>
+        <div style="background:#0a0a0a;border:1px solid rgba(196,150,60,0.14);border-radius:12px;padding:32px;text-align:center">
+          <div style="font-size:32px;font-weight:700;color:var(--gl);margin-bottom:12px">2</div>
+          <h3 style="font-size:16px;font-weight:600;color:#fff;margin-bottom:12px">Qualify Every Customer</h3>
+          <p style="font-size:13.5px;color:var(--soft);line-height:1.6">Hermia asks the critical questions, gathers scope of work, and filters out unqualified leads automatically.</p>
+        </div>
+        <div style="background:#0a0a0a;border:1px solid rgba(196,150,60,0.14);border-radius:12px;padding:32px;text-align:center">
+          <div style="font-size:32px;font-weight:700;color:var(--gl);margin-bottom:12px">3</div>
+          <h3 style="font-size:16px;font-weight:600;color:#fff;margin-bottom:12px">Understand Photos & Voice</h3>
+          <p style="font-size:13.5px;color:var(--soft);line-height:1.6">AI vision reads damage from photos. Voice notes are transcribed and analysed for urgency and scope.</p>
+        </div>
+        <div style="background:#0a0a0a;border:1px solid rgba(196,150,60,0.14);border-radius:12px;padding:32px;text-align:center">
+          <div style="font-size:32px;font-weight:700;color:var(--gl);margin-bottom:12px">4</div>
+          <h3 style="font-size:16px;font-weight:600;color:#fff;margin-bottom:12px">Secure Customer Availability</h3>
+          <p style="font-size:13.5px;color:var(--soft);line-height:1.6">Before you even open the enquiry, Hermia already knows when the customer is available.</p>
+        </div>
+        <div style="background:#0a0a0a;border:1px solid rgba(196,150,60,0.14);border-radius:12px;padding:32px;text-align:center">
+          <div style="font-size:32px;font-weight:700;color:var(--gl);margin-bottom:12px">5</div>
+          <h3 style="font-size:16px;font-weight:600;color:#fff;margin-bottom:12px">Create Ready-to-Book Jobs</h3>
+          <p style="font-size:13.5px;color:var(--soft);line-height:1.6">Structured job data lands in Simpro, ServiceM8, and Outlook with full customer details and urgency level.</p>
+        </div>
+        <div style="background:#0a0a0a;border:1px solid rgba(196,150,60,0.14);border-radius:12px;padding:32px;text-align:center">
+          <div style="font-size:32px;font-weight:700;color:var(--gl);margin-bottom:12px">6</div>
+          <h3 style="font-size:16px;font-weight:600;color:#fff;margin-bottom:12px">Sync Everything Automatically</h3>
+          <p style="font-size:13.5px;color:var(--soft);line-height:1.6">Simpro, ServiceM8, and Outlook stay in sync. Your data flows automatically — no manual entry.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="video-journey-section" id="how-it-works">
+    <div class="section-wrap">
+      <div class="section-header">
+        <span class="eyebrow-gold">Operational Excellence</span>
+        <h2 class="section-title">A Real Enquiry, Handled in <br><em>Under a Minute.</em></h2>
+        <p class="section-subtitle">Experience how Hermia qualifies and manages your homeowners with architectural precision, ensuring every lead is a ready-to-book job.</p>
+      </div>
+      <div class="video-showcase">
+        <div class="video-container">
+          <iframe src="https://www.loom.com/embed/1599102056974089890aea9ffad11adc" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        </div>
+      </div>
+      <div class="stages-grid">
+        <div class="stage-card"><span class="stage-num">01</span><h3 class="stage-h">Immediate Intelligence</h3><p class="stage-p">The moment a homeowner messages, Hermia engages. It reads descriptions, analyzes photos, and identifies the core issue within seconds.</p></div>
+        <div class="stage-card"><span class="stage-num">02</span><h3 class="stage-h">Surgical Qualification</h3><p class="stage-p">No more back-and-forth. Hermia asks the critical questions, gathers the full scope of work, and filters out the noise before you even see it.</p></div>
+        <div class="stage-card"><span class="stage-num">03</span><h3 class="stage-h">Seamless Integration</h3><p class="stage-p">Once qualified, the job lands in Simpro fully briefed. You get a ready-to-book client while you stay focused on the tools or site.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="combo-section" id="triage">
+    <div style="max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:24px;">
+      <div style="width:100%">
+        <div class="eyebrow" style="margin-bottom:10px">Customer Experience</div>
+        <h2 class="triage-h" style="margin-bottom:18px">See How Every Homeowner <em>Feels Heard.</em></h2>
+        <div class="video-card-frame" style="margin:0">
+          <div class="video-card-inner">
+            <iframe src="https://www.loom.com/embed/cfe6b007e348401ea336300db8dab377" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
           </div>
         </div>
       </div>
-    </section>
-
-    <section class="video-journey-section" id="how-it-works">
-      <div class="section-wrap">
-        <div class="section-header">
-          <span class="eyebrow-gold">Operational Excellence</span>
-          <h2 class="section-title">A Real Enquiry, Handled in   
-<em>Under a Minute.</em></h2>
-          <p class="section-subtitle">Experience how Hermia qualifies and manages your homeowners with architectural precision, ensuring every lead is a ready-to-book job.</p>
-        </div>
-        <div class="video-showcase">
-          <div class="video-container">
-            <iframe src="https://www.loom.com/embed/1599102056974089890aea9ffad11adc" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      <div class="combo-grid" style="margin:0">
+        <div class="combo-card contact-card" id="contact">
+          <div class="contact-eyebrow">Contact Us</div>
+          <h2 class="contact-heading">Get in touch <em>directly.</em></h2>
+          <p class="contact-sub">Have a question before signing up? Want to talk through whether Hermia is the right fit for your business? Reach out &mdash; we respond to every message personally.</p>
+          <div class="contact-info-grid">
+            <div class="contact-info-item"><span class="contact-info-label">Email</span><span class="contact-info-value"><a href="mailto:capital@hermia.au">capital@hermia.au</a></span></div>
+            <div class="contact-info-item"><span class="contact-info-label">Phone</span><span class="contact-info-value"><a href="tel:+61494719401">+61 494 719 401</a></span></div>
+            <div class="contact-info-item"><span class="contact-info-label">Location</span><span class="contact-info-value">Victoria, Australia</span></div>
+            <div class="contact-info-item"><span class="contact-info-label">ABN</span><span class="contact-info-value">75 434 177 026</span></div>
           </div>
         </div>
-        <div class="stages-grid">
-          <div class="stage-card"><span class="stage-num">01</span><h3 class="stage-h">Immediate Intelligence</h3><p class="stage-p">The moment a homeowner messages, Hermia engages. It reads descriptions, analyzes photos, and identifies the core issue within seconds.</p></div>
-          <div class="stage-card"><span class="stage-num">02</span><h3 class="stage-h">Surgical Qualification</h3><p class="stage-p">No more back-and-forth. Hermia asks the critical questions, gathers the full scope of work, and filters out the noise before you even see it.</p></div>
-          <div class="stage-card"><span class="stage-num">03</span><h3 class="stage-h">Seamless Integration</h3><p class="stage-p">Once qualified, the job lands in Simpro fully briefed. You get a ready-to-book client while you stay focused on the tools or site.</p></div>
+        <div class="combo-card partner-card" id="partner">
+          <img class="partner-badge-img" src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Registered Partner">
+          <div class="eyebrow">Trusted integration</div>
+          <h2 class="triage-h">A Simpro <em>Technology Partner.</em></h2>
+          <p class="triage-p" style="margin-bottom:0">Hermia is a registered Simpro technology partner &mdash; we plug straight into the Simpro workflow your business already runs on, feeding it clean, structured job data from the first homeowner message.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="combo-section" id="triage">
-      <div style="max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:24px;">
-        <div style="width:100%">
-          <div class="eyebrow" style="margin-bottom:10px">Customer Experience</div>
-          <h2 class="triage-h" style="margin-bottom:18px">See How Every Homeowner <em>Feels Heard.</em></h2>
-          <div class="video-card-frame" style="margin:0">
-            <div class="video-card-inner">
-              <iframe src="https://www.loom.com/embed/cfe6b007e348401ea336300db8dab377" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-        <div class="combo-grid" style="margin:0">
-          <div class="combo-card contact-card" id="contact">
-            <div class="contact-eyebrow">Contact Us</div>
-            <h2 class="contact-heading">Get in touch <em>directly.</em></h2>
-            <p class="contact-sub">Have a question before signing up? Want to talk through whether Hermia is the right fit for your business? Reach out &mdash; we respond to every message personally.</p>
-            <div class="contact-info-grid">
-              <div class="contact-info-item"><span class="contact-info-label">Email</span><span class="contact-info-value"><a href="mailto:capital@hermia.au">capital@hermia.au</a></span></div>
-              <div class="contact-info-item"><span class="contact-info-label">Phone</span><span class="contact-info-value"><a href="tel:+61494719401">+61 494 719 401</a></span></div>
-              <div class="contact-info-item"><span class="contact-info-label">Location</span><span class="contact-info-value">Victoria, Australia</span></div>
-              <div class="contact-info-item"><span class="contact-info-label">ABN</span><span class="contact-info-value">75 434 177 026</span></div>
-            </div>
-          </div>
-          <div class="combo-card partner-card" id="partner">
-            <img class="partner-badge-img" src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Registered Partner">
-            <div class="eyebrow">Trusted integration</div>
-            <h2 class="triage-h">A Simpro <em>Technology Partner.</em></h2>
-            <p class="triage-p" style="margin-bottom:0">Hermia is a registered Simpro technology partner &mdash; we plug straight into the Simpro workflow your business already runs on, feeding it clean, structured job data from the first homeowner message.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+  <!-- ===== PRICING ===== -->
+  <section class="pricing-section" id="pricing">
+    <div class="pricing-header">
+      <div class="eyebrow">Pricing</div>
+      <h2 class="pricing-h">Recover missed repair jobs <em>automatically.</em></h2>
+      <p class="pricing-sub">Pick the channel your customers use. Combine them all with Custom for one complete system.</p>
+    </div>
 
-    <!-- ===== PRICING ===== -->
-    <section class="pricing-section" id="pricing">
-      <div class="pricing-header">
-        <div class="eyebrow">Pricing</div>
-        <h2 class="pricing-h">Recover missed repair jobs <em>automatically.</em></h2>
-        <p class="pricing-sub">Pick the channel your customers use. Combine them all with Custom for one complete system.</p>
+    <div class="pricing-grid">
+
+      <!-- EMAIL — $260/mo, no setup, 3-day trial -->
+      <div class="p-card">
+        <div class="p-trial-tag">3-Day Free Trial</div>
+        <div class="p-tier-name">Email</div>
+        <div class="p-price-wrap">
+          <div class="p-price">
+            <span class="p-cur">$</span>
+            <span class="p-num">260</span>
+          </div>
+          <div class="p-per">AUD / month</div>
+          <div class="p-no-setup">✓ No setup fee</div>
+        </div>
+        <ul class="p-feats">
+          <li>Email lead intake &amp; qualification</li>
+          <li>Full Simpro / Servicem8 sync</li>
+         <li>Photos, Voice Notes, Videos, and Transcriptions</li>
+          <li>Weekly business summary</li>
+        </ul>
+        <a href="apply.html?plan=email" class="p-btn p-btn-ghost">Get Started &rarr;</a>
       </div>
 
-      <div class="pricing-grid">
-
-        <!-- EMAIL — $260/mo, no setup, 3-day trial -->
-        <div class="p-card">
-          <div class="p-trial-tag">3-Day Free Trial</div>
-          <div class="p-tier-name">Email</div>
-          <div class="p-price-wrap">
-            <div class="p-price">
-              <span class="p-cur">$</span>
-              <span class="p-num">260</span>
-            </div>
-            <div class="p-per">AUD / month</div>
-            <div class="p-no-setup">✓ No setup fee</div>
+      <!-- FACEBOOK — $170/mo, no setup, 3-day trial -->
+      <div class="p-card">
+        <div class="p-trial-tag">3-Day Free Trial</div>
+        <div class="p-tier-name">Facebook</div>
+        <div class="p-price-wrap">
+          <div class="p-price">
+            <span class="p-cur">$</span>
+            <span class="p-num">170</span>
           </div>
-          <ul class="p-feats">
-            <li>Email lead intake &amp; qualification</li>
-            <li>Full Simpro / Servicem8 sync</li>
-           <li>Photos, Voice Notes, Videos, and Transcriptions</li>
-            <li>Weekly business summary</li>
-          </ul>
-          <a href="apply.html?plan=email" class="p-btn p-btn-ghost">Get Started &rarr;</a>
+          <div class="p-per">AUD / month</div>
+          <div class="p-no-setup">✓ No setup fee</div>
         </div>
+        <ul class="p-feats">
+          <li>Facebook Messenger lead intake</li>
+          <li>Full Simpro / Servicem8 sync</li>
+          <li>Photos, Voice Notes, Videos, and Transcriptions</li>
+          <li>Weekly business summary</li>
+        </ul>
+        <a href="apply.html?plan=facebook" class="p-btn p-btn-ghost">Get Started &rarr;</a>
+      </div>
 
-        <!-- FACEBOOK — $170/mo, no setup, 3-day trial -->
-        <div class="p-card">
-          <div class="p-trial-tag">3-Day Free Trial</div>
-          <div class="p-tier-name">Facebook</div>
-          <div class="p-price-wrap">
-            <div class="p-price">
-              <span class="p-cur">$</span>
-              <span class="p-num">170</span>
-            </div>
-            <div class="p-per">AUD / month</div>
-            <div class="p-no-setup">✓ No setup fee</div>
+      <!-- INSTAGRAM — $170/mo, no setup, 3-day trial -->
+      <div class="p-card">
+        <div class="p-trial-tag">3-Day Free Trial</div>
+        <div class="p-tier-name">Instagram</div>
+        <div class="p-price-wrap">
+          <div class="p-price">
+            <span class="p-cur">$</span>
+            <span class="p-num">170</span>
           </div>
-          <ul class="p-feats">
-            <li>Facebook Messenger lead intake</li>
-            <li>Full Simpro / Servicem8 sync</li>
-            <li>Photos, Voice Notes, Videos, and Transcriptions</li>
-            <li>Weekly business summary</li>
-          </ul>
-          <a href="apply.html?plan=facebook" class="p-btn p-btn-ghost">Get Started &rarr;</a>
+          <div class="p-per">AUD / month</div>
+          <div class="p-no-setup">✓ No setup fee</div>
         </div>
+        <ul class="p-feats">
+          <li>WhatsApp lead intake &amp; qualification</li>
+          <li>Full Simpro / Servicem8 sync</li>
+          <li>Photos, Voice Notes, Videos, and Transcriptions</li>
+          <li>Weekly business summary</li>
+        </ul>
+        <a href="apply.html?plan=whatsapp" class="p-btn p-btn-ghost">Get Started &rarr;</a>
+      </div>
 
-        <!-- INSTAGRAM — $170/mo, no setup, 3-day trial -->
-        <div class="p-card">
-          <div class="coming-soon-overlay">
-            <div class="coming-soon-badge">Coming Soon</div>
+    <!-- CUSTOM — Bespoke -->
+      <div class="p-card featured">
+        <div class="p-badge">Bespoke Solution</div>
+        <div class="p-tier-name">Custom</div>
+        <div class="p-price-wrap">
+          <div class="p-price">
+            <span class="p-num" style="font-size: 28px;">Tailored Pricing</span>
           </div>
-          <div class="p-trial-tag">3-Day Free Trial</div>
-          <div class="p-tier-name">Instagram</div>
-          <div class="p-price-wrap">
-            <div class="p-price">
-              <span class="p-cur">$</span>
-              <span class="p-num">170</span>
-            </div>
-            <div class="p-per">AUD / month</div>
-            <div class="p-no-setup">✓ No setup fee</div>
-          </div>
-          <ul class="p-feats">
-            <li>WhatsApp lead intake &amp; qualification</li>
-            <li>Full Simpro / Servicem8 sync</li>
-            <li>Photos, Voice Notes, Videos, and Transcriptions</li>
-            <li>Weekly business summary</li>
-          </ul>
-          <a href="apply.html?plan=whatsapp" class="p-btn p-btn-ghost">Get Started &rarr;</a>
+          <div class="p-per">Based on brand requirements</div>
+          <div class="p-setup-fee">Flexible integration options</div>
         </div>
+        <ul class="p-feats">
+          <li>Email, Facebook, Instagram &amp; Outlook</li>
+          <li>Full Simpro &amp; Servicem8 sync</li>
+          <li>Priority 24/7 support</li>
+          <li>Custom branding &amp; workflows</li>
+          <li>Weekly business summary</li>
+        </ul>
+        <a href="calendar.html" class="p-btn">Book a Call &rarr;</a>
+      </div>
 
-         <!-- OUTLOOK — $170/mo -->
-        <div class="p-card">
-          <div class="p-trial-tag">3-Day Free Trial</div>
-          <div class="p-tier-name">Outlook</div>
-          <div class="p-price-wrap">
-            <div class="p-price">
-              <span class="p-cur">$</span>
-              <span class="p-num">660</span>
-            </div>
-            <div class="p-per">AUD / month</div>
-            <div class="p-no-setup">✓ No setup fee</div>
+    </div>
+  </section>
+
+  <section class="faq-section" id="faq" style="background:var(--bg2)">
+    <div class="faq-inner">
+      <div class="faq-hdr">
+        <div class="eyebrow" style="text-align:center">FAQ</div>
+        <div class="sec-title" style="text-align:center">Questions <em>before you start</em></div>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item"><button class="faq-q"><span>How does Hermia connect with Simpro & ServiceM8?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Hermia creates structured customer and job data that feeds into your Simpro & ServiceM8 workflow.</strong> During onboarding we set up the connection to your Simpro account &mdash; <em>your data, your records, nothing manual on your end.</em></div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>What does it do with a photo or voice note?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Photos &amp; video:</strong> AI vision reads the damage &mdash; type, urgency, trade required. <strong>Voice notes:</strong> Full transcription, then key fields extracted (damage, address, urgency, owner status). <em>Both happen before a human looks at anything.</em></div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>Do I need to change my number or learn an app?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No.</strong> Hermia works behind your existing contact form and email. Jobs arrive as a clean brief on your phone. <em>If you can read a text, you can run Hermia.</em></div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>What does the weekly report include?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Total enquiries, jobs sent to Simpro, urgency breakdown by tier, job types, filtered leads, and estimated revenue.</strong> Delivered to your inbox every Monday morning. <em>No logging in. No dashboards.</em></div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>Does Hermia hallucinate in SMS?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No &mdash; we use pre-approved templates.</strong> Every message Hermia sends comes from approved wording, so it can&rsquo;t go off-script or make anything up.</div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>Why is response time on Facebook and Instagram around 15 minutes instead of instant?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Because social media messages are often longer, less structured, and require proper review before responding.</strong> The 15-minute window ensures every enquiry is properly understood and handled correctly, while still keeping response times fast enough so no lead goes cold. <em>It supports your business by handling early-stage communication and ensuring every enquiry is captured and progressed, even when you’re busy.</em></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-left">
+      <a href="/" class="foot-logo">
+        <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" onerror="this.style.display='none'">
+        <span>Hermia</span>
+      </a>
+      <div class="foot-left-meta">
+        <span>Victoria, Australia</span>
+        <a href="#how-it-works">How It Works</a>
+      </div>
+    </div>
+    <div class="foot-right">
+      <div class="foot-meta">ABN 75 434 177 026 &middot; <a href="mailto:capital@hermia.au">capital@hermia.au</a></div>
+      <div class="foot-links">
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+        <a href="/privacy">Privacy</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===== TRIAL PLAN SELECT MODAL ===== -->
+<div id="trial-modal-overlay">
+  <div class="trial-modal">
+    <button class="trial-modal-close" id="trial-modal-close" aria-label="Close">&#10005;</button>
+    <div class="trial-modal-hdr">
+      <div class="trial-modal-eyebrow">Start Your Free Trial</div>
+      <h2 class="trial-modal-title">Choose the plan <em>you want to trial.</em></h2>
+      <p class="trial-modal-sub">Pick a channel below &mdash; you'll land on the signup page for that plan.</p>
+    </div>
+
+    <!-- This grid now mirrors the "Pricing" section at the bottom of the
+         page exactly: same card markup/classes (.p-card / .p-tier-name /
+         .p-price-wrap / .p-feats / .p-btn), same copy, same prices, same
+         links. The Custom card matches the bottom section's "Tailored
+         Pricing" / "Bespoke Solution" card instead of the old flat
+         $530/mo figure. -->
+    <div class="pricing-grid">
+
+      <!-- EMAIL — $260/mo, no setup, 3-day trial -->
+      <div class="p-card">
+        <div class="p-trial-tag">3-Day Free Trial</div>
+        <div class="p-tier-name">Email</div>
+        <div class="p-price-wrap">
+          <div class="p-price">
+            <span class="p-cur">$</span>
+            <span class="p-num">260</span>
           </div>
-          <ul class="p-feats">
-            <li>Outlook email lead intake & qualification</li>
-            <li>Simpro & ServiceM8 sync</li>
-            <li>Photos, voice notes & transcriptions</li>
-            <li>Weekly Performance Report</li>
-          </ul>
-          <a href="apply.html?plan=outlook" class="p-btn">Get Started →</a>
+          <div class="p-per">AUD / month</div>
+          <div class="p-no-setup">✓ No setup fee</div>
         </div>
+        <ul class="p-feats">
+          <li>Email lead intake &amp; qualification</li>
+          <li>Full Simpro / Servicem8 sync</li>
+          <li>Photos, Voice Notes, Videos, and Transcriptions</li>
+          <li>Weekly business summary</li>
+        </ul>
+        <a href="apply.html?plan=email" class="p-btn p-btn-ghost">Get Started &rarr;</a>
+      </div>
+
+      <!-- FACEBOOK — $170/mo, no setup, 3-day trial -->
+      <div class="p-card">
+        <div class="p-trial-tag">3-Day Free Trial</div>
+        <div class="p-tier-name">Facebook</div>
+        <div class="p-price-wrap">
+          <div class="p-price">
+            <span class="p-cur">$</span>
+            <span class="p-num">170</span>
+          </div>
+          <div class="p-per">AUD / month</div>
+          <div class="p-no-setup">✓ No setup fee</div>
+        </div>
+        <ul class="p-feats">
+          <li>Facebook Messenger lead intake</li>
+          <li>Full Simpro / Servicem8 sync</li>
+          <li>Photos, Voice Notes, Videos, and Transcriptions</li>
+          <li>Weekly business summary</li>
+        </ul>
+        <a href="apply.html?plan=facebook" class="p-btn p-btn-ghost">Get Started &rarr;</a>
+      </div>
+
+      <!-- INSTAGRAM — $170/mo, no setup, 3-day trial -->
+      <div class="p-card">
+        <div class="p-trial-tag">3-Day Free Trial</div>
+        <div class="p-tier-name">Instagram</div>
+        <div class="p-price-wrap">
+          <div class="p-price">
+            <span class="p-cur">$</span>
+            <span class="p-num">170</span>
+          </div>
+          <div class="p-per">AUD / month</div>
+          <div class="p-no-setup">✓ No setup fee</div>
+        </div>
+        <ul class="p-feats">
+          <li>WhatsApp lead intake &amp; qualification</li>
+          <li>Full Simpro / Servicem8 sync</li>
+          <li>Photos, Voice Notes, Videos, and Transcriptions</li>
+          <li>Weekly business summary</li>
+        </ul>
+        <a href="apply.html?plan=whatsapp" class="p-btn p-btn-ghost">Get Started &rarr;</a>
+      </div>
 
       <!-- CUSTOM — Bespoke -->
-        <div class="p-card featured">
-          <div class="coming-soon-overlay">
-            <div class="coming-soon-badge">Coming Soon</div>
+      <div class="p-card featured">
+        <div class="p-badge">Bespoke Solution</div>
+        <div class="p-tier-name">Custom</div>
+        <div class="p-price-wrap">
+          <div class="p-price">
+            <span class="p-num" style="font-size: 28px;">Tailored Pricing</span>
           </div>
-          <div class="p-badge">Bespoke Solution</div>
-          <div class="p-tier-name">Custom</div>
-          <div class="p-price-wrap">
-            <div class="p-price">
-              <span class="p-num" style="font-size: 28px;">Tailored Pricing</span>
-            </div>
-            <div class="p-per">Based on brand requirements</div>
-            <div class="p-setup-fee">Flexible integration options</div>
-          </div>
-          <ul class="p-feats">
-            <li>Email, Facebook, Instagram &amp; Outlook</li>
-            <li>Full Simpro &amp; Servicem8 sync</li>
-            <li>Priority 24/7 support</li>
-            <li>Custom branding &amp; workflows</li>
-            <li>Weekly business summary</li>
-          </ul>
-          <a href="calendar.html" class="p-btn">Book a Call &rarr;</a>
+          <div class="p-per">Based on brand requirements</div>
+          <div class="p-setup-fee">Flexible integration options</div>
         </div>
+        <ul class="p-feats">
+          <li>Email, Facebook, Instagram &amp; Outlook</li>
+          <li>Full Simpro &amp; Servicem8 sync</li>
+          <li>Priority 24/7 support</li>
+          <li>Custom branding &amp; workflows</li>
+          <li>Weekly business summary</li>
+        </ul>
+        <a href="calendar.html" class="p-btn">Book a Call &rarr;</a>
+      </div>
 
-      </div>
-    </section>
-
-    <section class="faq-section" id="faq" style="background:var(--bg2 )">
-      <div class="faq-inner">
-        <div class="faq-hdr">
-          <div class="eyebrow" style="text-align:center">FAQ</div>
-          <div class="sec-title" style="text-align:center">Questions <em>before you start</em></div>
-        </div>
-        <div class="faq-list">
-          <div class="faq-item"><button class="faq-q"><span>How does Hermia connect with Simpro & ServiceM8?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Hermia creates structured customer and job data that feeds into your Simpro & ServiceM8 workflow.</strong> During onboarding we set up the connection to your Simpro account &mdash; <em>your data, your records, nothing manual on your end.</em></div></div></div>
-          <div class="faq-item"><button class="faq-q"><span>What does it do with a photo or voice note?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Photos &amp; video:</strong> AI vision reads the damage &mdash; type, urgency, trade required. <strong>Voice notes:</strong> Full transcription, then key fields extracted (damage, address, urgency, owner status). <em>Both happen before a human looks at anything.</em></div></div></div>
-          <div class="faq-item"><button class="faq-q"><span>Do I need to change my number or learn an app?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No.</strong> Hermia works behind your existing contact form and email. Jobs arrive as a clean brief on your phone. <em>If you can read a text, you can run Hermia.</em></div></div></div>
-          <div class="faq-item"><button class="faq-q"><span>What does the weekly report include?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Total enquiries, jobs sent to Simpro, urgency breakdown by tier, job types, filtered leads, and estimated revenue.</strong> Delivered to your inbox every Monday morning. <em>No logging in. No dashboards.</em></div></div></div>
-          <div class="faq-item"><button class="faq-q"><span>Does Hermia hallucinate in SMS?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No &mdash; we use pre-approved templates.</strong> Every message Hermia sends comes from approved wording, so it can&rsquo;t go off-script or make anything up.</div></div></div>
-          <div class="faq-item"><button class="faq-q"><span>Why is response time on Facebook and Instagram around 15 minutes instead of instant?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Because social media messages are often longer, less structured, and require deeper contextual analysis than a standard contact form.</strong> We process these in batches to ensure the highest accuracy in qualification.</div></div></div>
-        </div>
-      </div>
-    </section>
-
-    <footer style="padding:60px 48px;border-top:1px solid var(--border);text-align:center;background:var(--bg)">
-      <div class="inner">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:24px">
-          <img src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Hermia_Logo_Gold.png" style="width:40px" alt="Hermia">
-          <div style="font-size:12px;color:var(--muted );letter-spacing:1px">&copy; 2024 Hermia. Built for the trades.</div>
-        </div>
-      </div>
-    </footer>
-  </div>
-
-  <div id="trial-modal-overlay">
-    <div class="trial-modal">
-      <button class="trial-modal-close">&times;</button>
-      <div class="trial-modal-hdr">
-        <div class="trial-modal-eyebrow">Risk-Free Trial</div>
-        <h2 class="trial-modal-title">Try Hermia for <em>3 Days.</em></h2>
-        <p class="trial-modal-sub">Experience the power of automated lead qualification before committing.</p>
-      </div>
-      <div class="pricing-grid">
-        <!-- EMAIL -->
-        <div class="p-card">
-          <div class="p-tier-name">Email</div>
-          <div class="p-price-wrap">
-            <div class="p-price"><span class="p-cur">$</span><span class="p-num">260</span></div>
-            <div class="p-per">AUD / month</div>
-          </div>
-          <ul class="p-feats">
-            <li>Email lead intake</li>
-            <li>Full Simpro sync</li>
-          </ul>
-          <a href="apply.html?plan=email&trial=true" class="p-btn p-btn-ghost">Start Trial</a>
-        </div>
-        <!-- FACEBOOK -->
-        <div class="p-card">
-          <div class="p-tier-name">Facebook</div>
-          <div class="p-price-wrap">
-            <div class="p-price"><span class="p-cur">$</span><span class="p-num">170</span></div>
-            <div class="p-per">AUD / month</div>
-          </div>
-          <ul class="p-feats">
-            <li>Messenger intake</li>
-            <li>Full Simpro sync</li>
-          </ul>
-          <a href="apply.html?plan=facebook&trial=true" class="p-btn p-btn-ghost">Start Trial</a>
-        </div>
-        <!-- INSTAGRAM -->
-        <div class="p-card">
-          <div class="coming-soon-overlay">
-            <div class="coming-soon-badge">Coming Soon</div>
-          </div>
-          <div class="p-tier-name">Instagram</div>
-          <div class="p-price-wrap">
-            <div class="p-price"><span class="p-cur">$</span><span class="p-num">170</span></div>
-            <div class="p-per">AUD / month</div>
-          </div>
-          <ul class="p-feats">
-            <li>WhatsApp intake</li>
-            <li>Full Simpro sync</li>
-          </ul>
-          <a href="apply.html?plan=whatsapp&trial=true" class="p-btn p-btn-ghost">Start Trial</a>
-        </div>
-        <!-- CUSTOM -->
-        <div class="p-card featured">
-          <div class="coming-soon-overlay">
-            <div class="coming-soon-badge">Coming Soon</div>
-          </div>
-          <div class="p-tier-name">Custom</div>
-          <div class="p-price-wrap">
-            <div class="p-price"><span class="p-num" style="font-size:24px">Bespoke</span></div>
-            <div class="p-per">Tailored solution</div>
-          </div>
-          <ul class="p-feats">
-            <li>All channels</li>
-            <li>Priority support</li>
-          </ul>
-          <a href="calendar.html" class="p-btn">Book Call</a>
-        </div>
-      </div>
     </div>
   </div>
+</div>
 
-  <script>
-    // INTRO ANIMATION & SCROLL LOGIC
-    document.addEventListener('DOMContentLoaded', () => {
-      const scenes = document.querySelectorAll('.scene');
-      const nav = document.getElementById('main-nav');
-      const skipBtn = document.getElementById('skip-btn');
-      const scrollInd = document.getElementById('scroll-indicator');
-      const partnerBadge = document.getElementById('partner-badge');
-      let currentScene = 0;
-      let isAnimating = false;
+<script>
+var chatMessages=[
+  {type:'hermia',text:"Hi, I'm Hermia, digital assistant for Company Sun Repairs. We recieved your request regarding your kitchen pipe. Is this an <strong>Emergency</strong>, <strong>Critical</strong>, or <strong>Standard</strong> repair?"},
+  {type:'jared',text:"Emergency. Pipe burst under the kitchen sink."},
+  {type:'hermia',text:"Got it. Can you send a quick photo of the damage?"},
+  {type:'jared',image:"https://cdn-hmoif.nitrocdn.com/fYbXRiSEFRtFGxZPadPoOJtFkaGchcGt/assets/images/optimized/rev-2e5a667/www.waterleakdetection.net.au/wp-content/uploads/2020/09/burst-pipes.jpg"},
+  {type:'hermia',text:"Thank you. Can you briefly describe what is happening?"},
+  {type:'jared',text:"Fitting came apart under the sink. Water on the floor, mains are off."},
+  {type:'hermia',text:"Understood. What is your rough budget for this repair?"},
+  {type:'jared',text:"Around $1,500 to $2,500 — happy to discuss."},
+  {type:'hermia',text:"Great. What is the property address, and when are you available?"},
+  {type:'jared',text:"42 Brisbane Way, Brisbane. Available now or first thing tomorrow."},
+  {type:'hermia',text:"Perfect &mdash; all done. Your details are with the team. They will be in touch to confirm your appointment."}
+];
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
+async function playChat(){
+  var chatBox=document.getElementById("chat-box");chatBox.innerHTML="";
+  for(var i=0;i<chatMessages.length;i++){
+    var msg=chatMessages[i],isH=msg.type==="hermia";
+    var g=document.createElement("div");g.className="message-group "+(isH?"outgoing":"incoming");
+    var lbl=document.createElement("div");lbl.className="sender-label";lbl.textContent=isH?"Hermia AI":"Jared Bocca";
+    var el=document.createElement("div");el.className="message "+(isH?"outgoing":"incoming");
+    if(msg.image){el.innerHTML='<img src="'+msg.image+'" alt="Damage photo">';}else{el.innerHTML=msg.text;}
+    g.appendChild(lbl);g.appendChild(el);chatBox.appendChild(g);chatBox.scrollTop=chatBox.scrollHeight;
+    await sleep(2900);
+  }
+}
+var pageUnlocked=false;
+function unlockPage(){
+  if(pageUnlocked)return;pageUnlocked=true;
+  document.body.classList.remove("cinematic");
+  document.getElementById("main-nav").classList.add("visible");
+  document.getElementById("scroll-indicator").classList.add("show");
+  document.getElementById("skip-btn").style.display="none";
+}
+async function runSequence(){
+  var s1=document.getElementById("scene-alert"),n1=document.getElementById("scene-narrative-1"),n2=document.getElementById("scene-narrative-2"),s2=document.getElementById("scene-chat"),s3=document.getElementById("scene-dashboard"),s4=document.getElementById("scene-final"),badge=document.getElementById("partner-badge");
+  await sleep(2400);
+  while(true){
+    s4.classList.remove("active");n1.classList.add("active");if(badge)badge.classList.add("show");await sleep(4400);
+    n1.classList.remove("active");n2.classList.add("active");await sleep(4400);
+    n2.classList.remove("active");s1.classList.add("active");await sleep(5800);
+    s1.classList.remove("active");s2.classList.add("active");await playChat();await sleep(1200);
+    s2.classList.remove("active");s3.classList.add("active");await sleep(8500);
+    s3.classList.remove("active");s4.classList.add("active");if(badge)badge.classList.remove("show");
+    unlockPage();await sleep(4400);
+  }
+}
+document.getElementById("skip-btn").addEventListener("click",function(){
+  document.querySelectorAll(".scene").forEach(function(s){s.classList.remove("active")});
+  document.getElementById("scene-final").classList.add("active");
+  var pb=document.getElementById("partner-badge");if(pb)pb.classList.remove("show");
+  setTimeout(unlockPage,800);
+});
+window.addEventListener("load",runSequence);
+document.querySelectorAll(".faq-q").forEach(function(btn){
+  btn.addEventListener("click",function(){
+    var item=btn.closest(".faq-item"),open=item.classList.contains("open");
+    document.querySelectorAll(".faq-item").forEach(function(i){i.classList.remove("open")});
+    if(!open)item.classList.add("open");
+  });
+});
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.style.opacity="1";e.target.style.transform="translateY(0)"}})},{threshold:.07});
+document.querySelectorAll(".fc,.bt-row").forEach(function(el){el.style.opacity="0";el.style.transform="translateY(14px)";el.style.transition="opacity .5s ease,transform .5s ease";obs.observe(el)});
 
-      const showScene = (index) => {
-        scenes.forEach(s => s.classList.remove('active'));
-        scenes[index].classList.add('active');
-        
-        if(index === 2) startChat();
-        if(index === 4) {
-          setTimeout(() => {
-            document.body.classList.remove('cinematic');
-            nav.classList.add('visible');
-            scrollInd.classList.add('show');
-            partnerBadge.classList.add('show');
-            skipBtn.style.display = 'none';
-          }, 2000);
-        }
-      };
-
-      const nextScene = () => {
-        if(isAnimating || currentScene >= scenes.length - 1) return;
-        isAnimating = true;
-        currentScene++;
-        showScene(currentScene);
-        setTimeout(() => { isAnimating = false; }, 1200);
-      };
-
-      const skipIntro = () => {
-        currentScene = scenes.length - 1;
-        showScene(currentScene);
-        document.body.classList.remove('cinematic');
-        nav.classList.add('visible');
-        scrollInd.classList.add('show');
-        partnerBadge.classList.add('show');
-        skipBtn.style.display = 'none';
-      };
-
-      skipBtn.addEventListener('click', skipIntro);
-
-      window.addEventListener('wheel', (e) => {
-        if(!document.body.classList.contains('cinematic')) return;
-        if(e.deltaY > 0) nextScene();
-      }, {passive:true});
-
-      // CHAT SIMULATION
-      const chatData = [
-        { type: 'incoming', sender: 'Homeowner', text: 'Hi, I have a burst pipe in my kitchen island. Water is everywhere. Can you help?' },
-        { type: 'outgoing', sender: 'Hermia AI', text: 'I am sorry to hear that. I can help you get this booked in immediately. Could you please send a photo of the leak?' },
-        { type: 'incoming', sender: 'Homeowner', img: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&q=80&w=400' },
-        { type: 'outgoing', sender: 'Hermia AI', text: 'Thank you. I have analysed the photo. This looks like a high-priority emergency. Are you the homeowner?' },
-        { type: 'incoming', sender: 'Homeowner', text: 'Yes, I am.' },
-        { type: 'outgoing', sender: 'Hermia AI', text: 'Perfect. I have created a job brief for the team. They are available this Wednesday at 9:00 AM. Does that work for you?' }
-      ];
-
-      function startChat( ) {
-        const container = document.getElementById('chat-flow');
-        if(container.children.length > 0) return;
-        let delay = 800;
-        chatData.forEach((msg, i) => {
-          setTimeout(() => {
-            const group = document.createElement('div');
-            group.className = `message-group ${msg.type}`;
-            group.innerHTML = `
-              <span class="sender-label">${msg.sender}</span>
-              <div class="message ${msg.type}">
-                ${msg.text ? msg.text : ''}
-                ${msg.img ? `<img src="${msg.img}" alt="Damage">` : ''}
-              </div>
-            `;
-            container.appendChild(group);
-            container.scrollTop = container.scrollHeight;
-          }, delay);
-          delay += (msg.text ? msg.text.length * 20 : 1500) + 800;
-        });
-      }
-
-      // FAQ Accordion
-      document.querySelectorAll('.faq-q').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const item = btn.parentElement;
-          const isActive = item.classList.contains('active');
-          document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-          if(!isActive) item.classList.add('active');
-        });
-      });
-
-      // Trial Modal Logic
-      const modal = document.getElementById('trial-modal-overlay');
-      const closeBtn = document.querySelector('.trial-modal-close');
-      
-      document.querySelectorAll('a[href*="apply.html"]').forEach(link => {
-        link.addEventListener('click', (e) => {
-          if(!link.classList.contains('nav-cta') && !link.closest('.p-card')) return; 
-          e.preventDefault();
-          document.body.classList.add('modal-open');
-          modal.classList.add('open');
-          setTimeout(() => modal.classList.add('show'), 10);
-        });
-      });
-
-      const closeModal = () => {
-        modal.classList.remove('show');
-        setTimeout(() => {
-          modal.classList.remove('open');
-          document.body.classList.remove('modal-open');
-        }, 300);
-      };
-
-      closeBtn.addEventListener('click', closeModal);
-      modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
-    });
-  </script>
+/* ===== TRIAL PLAN MODAL LOGIC ===== */
+(function(){
+  var overlay=document.getElementById("trial-modal-overlay");
+  var openBtn=document.getElementById("nav-trial-btn");
+  var closeBtn=document.getElementById("trial-modal-close");
+  function openModal(){
+    overlay.classList.add("open");
+    document.body.classList.add("modal-open");
+    requestAnimationFrame(function(){overlay.classList.add("show")});
+  }
+  function closeModal(){
+    overlay.classList.remove("show");
+    document.body.classList.remove("modal-open");
+    setTimeout(function(){overlay.classList.remove("open")},250);
+  }
+  if(openBtn)openBtn.addEventListener("click",openModal);
+  if(closeBtn)closeBtn.addEventListener("click",closeModal);
+  overlay.addEventListener("click",function(e){if(e.target===overlay)closeModal()});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&overlay.classList.contains("open"))closeModal()});
+})();
+</script>
+<script src="/hermia-widget.js"></script>
 </body>
 </html>
