@@ -288,25 +288,58 @@
 </div>
 
 <script>
-  // FIX: previously this page never read its own URL at all — it just
-  // hardcoded hermia_vertical and redirected to selection.html with no
-  // params. Stripe's success_url sends the customer here as
-  // hermia_welcome.html?session_id={CHECKOUT_SESSION_ID}, and that id
-  // was being silently dropped on this exact page. Captured here now,
-  // written to the same sessionStorage key that foundation_details.html
-  // and foundation_details_servicem8.html already read as their fallback.
+  // Captures session_id from Stripe's success_url
+  // (hermia_welcome.html?session_id={CHECKOUT_SESSION_ID}) and writes
+  // it to sessionStorage for foundation_details.html /
+  // foundation_details_servicem8.html to read as their fallback.
+  //
+  // FIX (this pass): plan is now ALSO read from this page's own URL,
+  // in case a future change to the Stripe success_url ever appends
+  // ?plan=... alongside session_id — matching the pattern every other
+  // page in this funnel uses (URL first, sessionStorage fallback).
+  //
+  // OPEN DEPENDENCY: as of this fix, the Worker's /stripe/create-checkout
+  // default success_url only contains session_id, no plan — see
+  // worker-merged.js. Until that's confirmed/changed, plan continues to
+  // reach selection.html via sessionStorage set earlier by
+  // contract.html, exactly as selection.html's own comment describes.
+  // This change costs nothing and closes the gap automatically the
+  // moment the success_url is updated to include ?plan=.
+  const urlParams = new URLSearchParams(window.location.search);
+
   try {
-    const sessionId = new URLSearchParams(window.location.search).get('session_id');
+    const sessionId = urlParams.get('session_id');
     if (sessionId) sessionStorage.setItem('hermia_stripe_session_id', sessionId);
   } catch (e) {}
 
-  // Hardcode vertical — no step selector needed
+  try {
+    const planFromUrl = urlParams.get('plan');
+    if (planFromUrl) sessionStorage.setItem('hermia_plan', planFromUrl);
+  } catch (e) {}
+
+  // Hardcode vertical — no step selector needed.
+  // NOTE: confirm this page is dedicated to foundation_repair only. If
+  // other verticals ever route through this same welcome page, this
+  // needs to come from a URL param / map instead, same as plan does.
   sessionStorage.setItem('hermia_vertical', 'foundation_repair');
+
+  // Forward plan onward via URL too, so selection.html gets it even if
+  // sessionStorage doesn't survive whatever comes next — same
+  // URL-first, sessionStorage-fallback pattern used everywhere else in
+  // this funnel.
+  let outgoingPlan = urlParams.get('plan');
+  if (!outgoingPlan) {
+    try { outgoingPlan = sessionStorage.getItem('hermia_plan') || ''; } catch (e) { outgoingPlan = ''; }
+  }
+
+  const nextUrl = new URL('https://onboarding.hermia.au/selection.html');
+  if (outgoingPlan) nextUrl.searchParams.set('plan', outgoingPlan);
 
   // Redirect to details after bar completes (1.6s delay + 2.6s fill = 4.2s + 0.3s buffer)
   setTimeout(function () {
-    window.location.href = 'https://onboarding.hermia.au/selection.html';
+    window.location.href = nextUrl.toString();
   }, 4500);
 </script>
 </body>
 </html>
+
