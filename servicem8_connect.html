@@ -148,17 +148,35 @@
         const $ = id => document.getElementById(id);
 
         // ---------------------------------------------------------------
-        // PLAN CAPTURE — read once from URL (?plan=email|social|custom),
-        // persist to sessionStorage so it survives this page and is still
-        // readable if the user lands here again without the query param
-        // (e.g. back button). This is a product-tier flag carried per
-        // browser session, not a per-customer hardcoded value — every
-        // customer on a given plan gets the same redirect behavior below.
+        // SESSION RESTORE — mirrors simpro_connect.html's
+        // restoreSessionFromUrl() pattern exactly. This page can now be
+        // reached with customerId/plan missing from sessionStorage (e.g.
+        // a future routing change, a new tab, or any cross-origin hop),
+        // so every value is restored from the URL first and only falls
+        // back to sessionStorage if the URL didn't have it. Same
+        // mechanism used everywhere else in this funnel — one map, no
+        // hardcoded values, no per-client branching.
         // ---------------------------------------------------------------
         const urlParams = new URLSearchParams(window.location.search);
+
+        let customerId = urlParams.get('customerId');
+        if (!customerId) {
+            try { customerId = sessionStorage.getItem('hermia_customer_id') || ''; } catch(e) { customerId = ''; }
+        }
+        try { if (customerId) sessionStorage.setItem('hermia_customer_id', customerId); } catch(e) {}
+
         const planFromUrl = urlParams.get('plan');
-        if (planFromUrl) sessionStorage.setItem('hermia_plan', planFromUrl);
-        const plan = sessionStorage.getItem('hermia_plan');
+        if (planFromUrl) {
+            try { sessionStorage.setItem('hermia_plan', planFromUrl); } catch(e) {}
+        }
+        // sessionStorage is now only the LAST-RESORT fallback if a fresh
+        // fetch from Supabase (below) fails outright — same pattern as
+        // simpro_connect.html's fix. hermia_plan is written once at
+        // signup and never changes, so /get-customer-state is the
+        // durable source of truth here, not sessionStorage.
+        let plan = planFromUrl || (function() {
+            try { return sessionStorage.getItem('hermia_plan') || ''; } catch(e) { return ''; }
+        })();
 
         function showErr(on) {
             $('apiKey').classList.toggle('err', on);
@@ -171,7 +189,6 @@
             const key = $('apiKey').value.trim();
             if (!key) { showErr(true); return; }
 
-            const customerId = sessionStorage.getItem('hermia_customer_id');
             if (!customerId) {
                 const errEl = $('formError');
                 errEl.textContent = 'Session expired — please restart from the welcome page.';
@@ -204,6 +221,26 @@
                 }
 
                 sessionStorage.setItem('hermia_crm_provider', 'servicem8');
+
+                // -----------------------------------------------------------
+                // PLAN RESOLUTION — fetch fresh from Supabase before routing.
+                // Same fix as simpro_connect.html: /get-customer-state now
+                // returns hermiaPlan, written once at signup and durable
+                // regardless of what sessionStorage/URL happened to carry
+                // through whatever got the customer to this page. If that
+                // fetch fails outright, fall back to whatever `plan` value
+                // we already resolved from URL/sessionStorage above.
+                // -----------------------------------------------------------
+                try {
+                    const stateRes = await fetch(HERMIANANGO_URL + '/get-customer-state?customerId=' + encodeURIComponent(customerId));
+                    const stateData = await stateRes.json();
+                    if (stateRes.ok && stateData.ok && stateData.hermiaPlan) {
+                        plan = stateData.hermiaPlan;
+                        try { sessionStorage.setItem('hermia_plan', plan); } catch(e) {}
+                    }
+                } catch (e) {
+                    console.error('[servicem8_connect] /get-customer-state fetch failed, using URL/sessionStorage fallback:', e);
+                }
 
                 // -----------------------------------------------------------
                 // PLAN-BASED REDIRECT
@@ -251,3 +288,4 @@
     </script>
 </body>
 </html>
+
