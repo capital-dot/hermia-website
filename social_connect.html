@@ -19,9 +19,6 @@
             --soft: #a19d94;
             --border: rgba(212, 175, 55, 0.2);
             --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
-            /* Official-ish brand marks, used only to signal which platform
-               the customer is connecting — not redistributing brand assets,
-               just recognizable colors so people trust the right button. */
             --fb-blue: #1877F2;
             --ig-c1: #833AB4;
             --ig-c2: #C13584;
@@ -58,8 +55,6 @@
         .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 24px; font-weight: 400; }
         h1 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; line-height: 1.1; margin-bottom: 18px; letter-spacing: -0.02em; }
         .sub { font-size: 15.5px; color: var(--soft); margin-bottom: 36px; line-height: 1.7; font-weight: 300; }
-
-        /* Platform identity card — color/icon change based on plan */
         .platform-badge { display: flex; align-items: center; gap: 18px; padding: 22px 24px; border: 1px solid var(--border); background: rgba(212,175,55,0.03); margin-bottom: 36px; }
         .platform-icon { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; flex-shrink: 0; }
         .platform-icon svg { width: 28px; height: 28px; }
@@ -67,14 +62,12 @@
         .platform-icon.instagram { background: linear-gradient(45deg, var(--ig-c6), var(--ig-c5), var(--ig-c4), var(--ig-c3), var(--ig-c2), var(--ig-c1)); }
         .platform-name { font-size: 17px; font-weight: 500; color: var(--cream); }
         .platform-sub { font-size: 12.5px; color: var(--soft); margin-top: 3px; }
-
         .btn { width: 100%; padding: 20px; border: none; color: #fff; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; gap: 12px; }
         .btn:hover:not(:disabled) { transform: translateY(-4px); filter: brightness(1.08); }
         .btn:disabled { opacity: 0.5; cursor: wait; }
         .btn.facebook { background: var(--fb-blue); }
         .btn.instagram { background: linear-gradient(90deg, var(--ig-c1), var(--ig-c2), var(--ig-c3), var(--ig-c4), var(--ig-c5), var(--ig-c6)); }
         .btn svg { width: 18px; height: 18px; }
-
         .status-msg { margin-top: 18px; padding: 14px 16px; font-size: 13px; text-align: center; }
         .status-msg.wait { background: rgba(212,175,55,0.04); border: 1px solid var(--border); color: var(--soft); }
         .status-msg.err { background: rgba(220,80,80,0.08); border: 1px solid rgba(220,80,80,0.25); color: #ff7e75; }
@@ -153,9 +146,6 @@
         const HERMIANANGO_URL = 'https://hermianango.capital-fbc.workers.dev';
         const $ = id => document.getElementById(id);
 
-        // Simplified, generic platform icon marks (not pixel copies of the
-        // official logo files) — just enough for a customer to recognize
-        // which app they're authorizing.
         const ICONS = {
             facebook: '<svg viewBox="0 0 24 24" fill="#fff"><path d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.8c0-.9.3-1.6 1.6-1.6h1.7V3.3C16.5 3.2 15.5 3 14.4 3c-2.5 0-4.2 1.5-4.2 4.3v2.5H7.5V13h2.7v8h3.3z"/></svg>',
             instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="#fff" stroke="none"/></svg>'
@@ -183,12 +173,40 @@
         };
 
         // -------------------------------------------------------------
-        // PLAN READ — same pattern as company.html / servicem8_connect.html:
-        // this is a per-session product-tier flag, not per-customer logic.
-        // Every customer on the same plan gets identical behavior here.
+        // PLAN RESOLUTION
+        // sessionStorage is a cache, not a source of truth — it does not
+        // survive a new tab, a cleared session, or a contractor reopening
+        // a bookmarked/emailed link days later. At 100+ contractors this
+        // WILL happen periodically. Supabase (via the existing
+        // /get-customer-state endpoint — no new Worker route needed) is
+        // the durable source of truth. Try the cheap local cache first,
+        // fall back to a network read, and re-populate the cache so
+        // repeat calls on this page stay fast.
         // -------------------------------------------------------------
-        const plan = sessionStorage.getItem('hermia_plan');
         const customerId = sessionStorage.getItem('hermia_customer_id');
+
+        async function resolvePlan() {
+            const cached = sessionStorage.getItem('hermia_plan');
+            if (cached && PLATFORM_META[cached]) return cached;
+
+            if (!customerId) return null;
+
+            try {
+                const res = await fetch(
+                    HERMIANANGO_URL + '/get-customer-state?customerId=' + encodeURIComponent(customerId)
+                );
+                if (!res.ok) return null;
+                const data = await res.json();
+                if (data.hermiaPlan && PLATFORM_META[data.hermiaPlan]) {
+                    sessionStorage.setItem('hermia_plan', data.hermiaPlan);
+                    return data.hermiaPlan;
+                }
+                return null;
+            } catch (e) {
+                console.error('[social_connect] plan lookup failed:', e);
+                return null;
+            }
+        }
 
         function renderStatus(msg, kind) {
             $('statusArea').innerHTML = '<div class="status-msg ' + kind + '">' + msg + '</div>';
@@ -206,22 +224,21 @@
             $('btnText').textContent = meta.btnLabel;
         }
 
-        function init() {
-            const meta = PLATFORM_META[plan];
-
-            if (!meta) {
-                // Plan isn't facebook/instagram (or session flag missing) —
-                // this page has nothing valid to do. Don't guess a platform.
-                $('platformBadge').style.display = 'none';
-                $('connectBtn').style.display = 'none';
-                renderStatus('We could not determine which social account to connect. Please contact support to continue setup.', 'err');
-                return;
-            }
-
+        async function init() {
             if (!customerId) {
                 $('platformBadge').style.display = 'none';
                 $('connectBtn').style.display = 'none';
                 renderStatus('Session expired — please restart from the welcome page.', 'err');
+                return;
+            }
+
+            const plan = await resolvePlan();
+            const meta = PLATFORM_META[plan];
+
+            if (!meta) {
+                $('platformBadge').style.display = 'none';
+                $('connectBtn').style.display = 'none';
+                renderStatus('We could not determine which social account to connect. Please contact support to continue setup.', 'err');
                 return;
             }
 
@@ -233,18 +250,6 @@
                 $('btnText').textContent = 'CONNECTING...';
                 renderStatus('Opening ' + meta.name + ' authorization...', 'wait');
 
-                // -----------------------------------------------------
-                // REAL ENDPOINT (confirmed against hermianango.js):
-                // GET /social-auth-url?provider=facebook|instagram&customerId=X
-                // The Worker itself issues a 302 redirect straight to
-                // Composio's hosted OAuth URL (it does not return JSON on
-                // success) — so this is a plain top-level navigation, not
-                // a fetch. `plan` already holds 'facebook' or 'instagram',
-                // which matches VALID_SOCIAL_PROVIDERS in the Worker
-                // exactly — no translation/mapping needed, and nothing
-                // customer-specific: every customer on the same plan
-                // hits the same URL shape, only customerId differs.
-                // -----------------------------------------------------
                 const authUrl = HERMIANANGO_URL + '/social-auth-url?provider=' +
                     encodeURIComponent(plan) + '&customerId=' + encodeURIComponent(customerId);
 
@@ -256,3 +261,4 @@
     </script>
 </body>
 </html>
+
