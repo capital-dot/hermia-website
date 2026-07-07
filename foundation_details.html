@@ -136,9 +136,9 @@
             </div>
 
             <div class="field">
-                <label for="email">Professional Email</label>
-                <input id="email" type="email" autocomplete="email" placeholder="john@yourcompany.com.au" />
-                <div class="err-msg" id="err-email">Valid Email Required</div>
+                <label for="gmail">Professional Gmail</label>
+                <input id="gmail" type="email" autocomplete="gmail" placeholder="john@yourcompany.com.au" />
+                <div class="err-msg" id="err-gmail">Valid Gmail Required</div>
             </div>
 
             <div class="row-2">
@@ -190,7 +190,7 @@
     <script>
         // Simpro-specific variant of the business-details step.
         // Same UI/validation as the ServiceM8 version, but:
-        //  1. always tags crmProvider = 'simpro' when creating the customer
+        //  1. always tags crmProvider = 'simpro' when creating the outlooker
         //  2. always redirects to simpro_connect.html afterward
         const ALL_STEPS = ['Payment','Business','Details','Simpro','Connect','Setup'];
         const ACTIVE_INDEX = 2;
@@ -216,16 +216,16 @@
         // ============================================================
         // PLAN CARRY-THROUGH
         // selection.html redirects here as
-        //   foundation_details.html?plan=email|facebook|instagram|custom
+        //   foundation_details.html?plan=gmail|facebook|instagram|outlook
         // We resolve it (URL first, sessionStorage fallback since
         // contract.html already wrote it there), display it, save it
-        // in the create-customer call so Supabase has it against this
-        // customer record, and forward it on the final redirect to
+        // in the create-outlooker call so Supabase has it against this
+        // outlooker record, and forward it on the final redirect to
         // simpro_connect.html so that page — and eventually gmail.html
         // or social_connected.html — still knows which plan this is.
         // ============================================================
         const PLAN_NAMES = {
-            email:     'Email',
+            gmail:     'Gmail',
             facebook:  'Facebook',
             instagram: 'Instagram',
             outlook:    'Outlook'
@@ -348,7 +348,7 @@
         // pattern as `plan` above.
         //
         // WHY THE FALLBACK IS NEEDED: this page's own ?session_id=
-        // param only exists if the customer arrived directly from
+        // param only exists if the outlooker arrived directly from
         // Stripe with no intermediate hop. The real funnel is
         // Stripe -> hermia_welcome.html -> selection.html -> this
         // page, and neither of those two intermediate pages currently
@@ -361,8 +361,8 @@
         // as a second option — but that key only gets populated if
         // hermia_welcome.html is ALSO fixed to capture session_id from
         // its own URL and write it to this exact key before its own
-        // redirect. Until that fix lands upstream, real customers
-        // going through the full funnel will still hit "email and
+        // redirect. Until that fix lands upstream, real outlookers
+        // going through the full funnel will still hit "gmail and
         // stripeSessionId required" from the Worker — this page can't
         // fix that gap by itself, only avoid making it worse.
         // ============================================================
@@ -379,7 +379,7 @@
             if (e) e.classList.toggle('show', on);
         }
 
-        ['fullName', 'company', 'email', 'country', 'state', 'phone'].forEach(id => {
+        ['fullName', 'company', 'gmail', 'country', 'state', 'phone'].forEach(id => {
             const el = $(id);
             if (el) el.addEventListener('input', () => showErr(id, false));
             if (el) el.addEventListener('change', () => showErr(id, false));
@@ -389,14 +389,14 @@
             let ok = true;
             const name = $('fullName').value.trim();
             const company = $('company').value.trim();
-            const email = $('email').value.trim();
+            const gmail = $('gmail').value.trim();
             const country = $('country').value.trim();
             const state = $('state').value.trim();
             const local = $('phone').value.replace(/[^\d]/g, '');
 
             if (!name) { showErr('fullName', true); ok = false; }
             if (!company) { showErr('company', true); ok = false; }
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr('email', true); ok = false; }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(gmail)) { showErr('gmail', true); ok = false; }
             if (!country) { showErr('country', true); ok = false; }
             if (!state) { showErr('state', true); ok = false; }
             if (local.length < 6 || local.length > 12) { showErr('phone', true); ok = false; }
@@ -407,25 +407,25 @@
             btn.querySelector('.btn-text').textContent = 'VERIFYING...';
 
             try {
-                const res = await fetch(HERMIANANGO_URL + '/create-customer', {
+                const res = await fetch(HERMIANANGO_URL + '/create-outlooker', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         fullName: name,
                         companyName: company,
-                        email: email,
+                        gmail: gmail,
                         country: country,
                         state: state,
                         phone: $('ccPrefix').textContent + ' ' + local,
                         // Stripe session ID, so hermianango can resolve it to
-                        // a real stripe_customer_id and save both in the
+                        // a real stripe_outlooker_id and save both in the
                         // same insert — no second round-trip, no webhook
                         // dependency, no race condition.
                         stripeSessionId: stripeSessionId || null,
                         crmProvider: 'simpro',
-                        // Which package this customer bought
-                        // (email / facebook / instagram / custom). Saved
-                        // against the customer row now, at the earliest
+                        // Which package this outlooker bought
+                        // (gmail / facebook / instagram / outlook). Saved
+                        // against the outlooker row now, at the earliest
                         // point we have both a Supabase row and a
                         // confirmed plan, so every downstream page can
                         // just look it up instead of trusting a URL
@@ -439,10 +439,10 @@
                     throw new Error((data && data.error) || ('request failed: ' + res.status));
                 }
 
-                const id = data.customerId;
+                const id = data.outlookerId;
 
-                sessionStorage.setItem('hermia_customer_id', id);
-                sessionStorage.setItem('hermia_email', email);
+                sessionStorage.setItem('hermia_outlooker_id', id);
+                sessionStorage.setItem('hermia_gmail', gmail);
                 sessionStorage.setItem('hermia_vertical', 'foundation_repair');
                 sessionStorage.setItem('hermia_crm_provider', 'simpro');
                 sessionStorage.setItem('hermia_state', state);
@@ -470,4 +470,3 @@
     </script>
 </body>
 </html>
-
