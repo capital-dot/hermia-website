@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Referral Partnership Agreement — Hermia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Dancing+Script:wght@700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  :root {
+    --bg: #080705;
+    --gold: #D4AF37;
+    --gold-bright: #FFD700;
+    --gold-light: #F9E2AF;
+    --cream: #f4f0e6;
+    --soft: #a19d94;
+    --ink: #1a1a1a;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: Georgia, 'Times New Roman', serif; background: var(--bg); margin: 0; padding: 40px 20px; color: var(--ink); }
+  #doc { max-width: 800px; margin: 0 auto; background: var(--cream); padding: 60px; box-shadow: 0 20px 60px rgba(0,0,0,0.6); border-top: 6px solid var(--gold); }
+  .brandbar { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 6px; }
+  .brandbar .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gold); }
+  .brandbar .word { font-family: 'DM Sans', Arial, sans-serif; font-weight: 700; letter-spacing: 3px; color: var(--ink); }
+  h1 { text-align: center; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 30px; margin: 6px 0 2px; color: var(--ink); }
+  .sub { text-align: center; color: var(--gold); font-family: 'DM Sans', Arial, sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; font-weight: 500; }
+  h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 20px; font-weight: 600; margin-top: 32px; color: var(--ink); border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 2px; }
+  p, li { font-size: 15px; line-height: 1.6; }
+  .parties { margin: 24px 0; background: rgba(212,175,55,0.06); border-left: 3px solid var(--gold); padding: 14px 18px; }
+  .parties b { display: inline-block; min-width: 110px; }
+  input[type=text] { font-family: inherit; font-size: 15px; border: none; border-bottom: 1px solid var(--soft); padding: 2px 4px; background: transparent; color: var(--ink); }
+  input.inline-pct { width: 46px; text-align: center; font-weight: 600; }
+
+  .fee-highlight { margin: 16px 0; font-family: 'DM Sans', Arial, sans-serif; font-size: 14px; background: rgba(212,175,55,0.08); border: 1px solid var(--gold); padding: 14px 18px; }
+  .fee-highlight b { font-size: 16px; }
+  .fee-example { font-size: 13px; color: #6b6b6b; font-style: italic; margin-top: 6px; }
+
+  .sig-block { margin-top: 40px; display: flex; gap: 40px; flex-wrap: wrap; }
+  .sig-col { flex: 1; min-width: 280px; }
+  .sig-col h3 { font-family: 'DM Sans', Arial, sans-serif; font-size: 14px; margin-bottom: 8px; color: var(--ink); text-transform: uppercase; letter-spacing: 1px; }
+  .sig-preview { border: 1px solid var(--gold); background: rgba(212,175,55,0.04); width: 100%; height: 120px; display: flex; align-items: center; justify-content: center; }
+  .signature-script { font-family: 'Dancing Script', cursive; font-weight: 700; font-size: 46px; color: var(--ink); transform: rotate(-3deg); }
+  .signature-caption { text-align: center; font-family: 'DM Sans', Arial, sans-serif; font-size: 11px; color: var(--soft); margin-top: 6px; letter-spacing: 0.5px; }
+  canvas.sig-pad { border: 1px solid var(--soft); background: #fafafa; width: 100%; height: 120px; touch-action: none; }
+  .sig-col button.clear { font-family: 'DM Sans', Arial, sans-serif; font-size: 12px; margin-top: 4px; background: none; border: 1px solid var(--soft); padding: 4px 10px; cursor: pointer; color: var(--ink); }
+  .field-row { margin-top: 10px; font-size: 14px; }
+
+  .controls { max-width: 800px; margin: 20px auto; text-align: center; }
+  .controls button { font-size: 15px; padding: 14px 30px; margin: 0 8px; border: none; border-radius: 4px; cursor: pointer; font-family: 'DM Sans', Arial, sans-serif; font-weight: 700; letter-spacing: 0.5px; }
+  #downloadBtn { background: var(--gold); color: var(--ink); }
+  #downloadBtn:disabled { background: #555; color: #ccc; cursor: not-allowed; }
+  .note { max-width: 800px; margin: 0 auto 10px; font-family: 'DM Sans', Arial, sans-serif; font-size: 12.5px; color: var(--soft); text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="note">Referral fee is now a single percentage of the client's first month's subscription — channel-agnostic, no per-channel table. Hermia's side is pre-signed (Archie) — AutoM8 signs below, then either party downloads the signed PDF.</div>
+
+<div id="doc">
+  <div class="brandbar"><span class="dot"></span><span class="word">HERMIA</span><span class="dot"></span></div>
+  <div class="sub">Referral Partnership Agreement</div>
+  <h1>Referral Partnership Agreement</h1>
+  <p style="text-align:center;color:#6b6b6b;font-family:'DM Sans',Arial,sans-serif;font-size:12.5px;">Hermia &nbsp;&middot;&nbsp; ABN 75 434 177 026 &nbsp;&middot;&nbsp; Victoria, Australia</p>
+
+  <p style="margin-top:28px;">This Referral Partnership Agreement ("Agreement") is entered into as of
+  <input type="text" id="dateField" value="7 July 2026" style="width:140px;">, by and between:</p>
+
+  <div class="parties">
+    <p><b>Company:</b> Hermia, ABN 75 434 177 026, of Victoria, Australia</p>
+    <p><b>Referrer:</b> AutoM8, of <input type="text" id="referrerAddress" placeholder="referrer address" style="width:260px;"></p>
+  </div>
+
+  <h2>1. Purpose</h2>
+  <p>Referrer agrees to refer prospective clients to Company for Company's AI-powered lead intake, qualification, and job-scheduling service ("the Service"), integrated with ServiceM8 and/or Simpro. Company agrees to pay Referrer a referral fee for each referred client who becomes a paying subscriber, as set out below.</p>
+
+  <h2>2. Referral Fee</h2>
+  <p>For each client referred by Referrer who signs up for and remains a paying, active subscriber of the Service for at least thirty (30) consecutive days, Company will pay Referrer a referral fee equal to
+  <input type="text" id="referralPercent" class="inline-pct" value="15">% of that client's first full month's subscription fee — regardless of lead channel (Gmail, Outlook, Facebook, or Instagram) or subscription tier.</p>
+
+  <div class="fee-highlight">
+    <b><span id="pctDisplay">15</span>% of first month's subscription fee</b>, paid once per successfully referred, retained client.
+    <div class="fee-example">Example: a client onboarded onto a $260/month plan who stays active 30+ days yields a <span class="pctDisplay2">15</span>% × $260 = <span id="exampleAmt">$39</span> referral payment. A client on a different tier is calculated the same way, off their actual invoiced amount.</div>
+  </div>
+
+  <ul>
+    <li>The fee is a one-time payment per referred client, calculated on that client's actual first month's invoiced subscription amount — it is not recalculated if the client later upgrades or downgrades tier.</li>
+    <li>Payment will be made within fourteen (14) business days of the referred client's 30th consecutive day as an active, paying subscriber.</li>
+    <li>Referral fees apply only to new clients not already in a commercial relationship with Company at the time of referral.</li>
+    <li>No cap on the number of clients referred — the more clients AutoM8 refers, the more they earn, with no minimum volume required.</li>
+    <li>This percentage applies uniformly across all current and future lead channels; no separate per-channel schedule is maintained.</li>
+  </ul>
+
+  <h2>3. Referrer Responsibilities</h2>
+  <p>Referrer agrees to introduce prospective clients in good faith with accurate representation of the Service, provide Company with referred clients' contact details, and not make representations or guarantees on Company's behalf beyond what Company has approved in writing.</p>
+
+  <h2>4. Company Responsibilities</h2>
+  <p>Company agrees to onboard referred clients promptly, track referrals accurately, and pay referral fees on time as set out in Section 2.</p>
+
+  <h2>5. Term &amp; Termination</h2>
+  <p>This Agreement begins on the date above and continues until terminated by either Party with fourteen (14) days' written notice. Referral fees earned prior to termination remain payable.</p>
+
+  <h2>6. Confidentiality</h2>
+  <p>Each Party agrees to keep confidential any non-public business, technical, or client information shared under this Agreement.</p>
+
+  <h2>7. Co-Marketing / Partner Badge</h2>
+  <p>Company may ask Referrer to provide a "Partner" or "Certified Partner" badge, logo, or similar graphic asset, for optional display on Company's website and marketing materials to indicate this ongoing referral partnership. Providing any such badge is entirely at Referrer's discretion and is not a condition of, or requirement under, this Agreement. Any badge, logo, or trademark supplied remains Referrer's property at all times and is licensed to Company on a non-exclusive, royalty-free, revocable basis solely to indicate the partnership. Company will remove it promptly upon termination of this Agreement or at Referrer's written request at any time.</p>
+
+  <h2>8. Independent Parties</h2>
+  <p>Referrer is an independent party and not an employee, partner, or agent of Company. Nothing in this Agreement creates a partnership, joint venture, or employment relationship.</p>
+
+  <h2>9. Governing Law</h2>
+  <p>This Agreement is governed by the laws of Victoria, Australia.</p>
+
+  <div class="sig-block">
+    <div class="sig-col">
+      <h3>For Hermia</h3>
+      <input type="text" value="Archie — Authorized Representative, Hermia" id="nameHermia" style="width:100%;margin-bottom:6px;">
+      <div class="sig-preview">
+        <div class="signature-script">Archie</div>
+      </div>
+      <div class="signature-caption">Signed by Archie, on behalf of Hermia</div>
+    </div>
+    <div class="sig-col">
+      <h3>For AutoM8</h3>
+      <input type="text" placeholder="Full name" id="nameAutoM8" style="width:100%;margin-bottom:6px;">
+      <canvas class="sig-pad" id="sigAutoM8"></canvas>
+      <button class="clear" data-target="sigAutoM8">Clear signature</button>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button id="downloadBtn">Download Signed PDF</button>
+</div>
+
+<script>
+function setupPad(id) {
+  const canvas = document.getElementById(id);
+  const ctx = canvas.getContext('2d');
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * 2;
+    canvas.height = rect.height * 2;
+    ctx.scale(2,2);
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#111';
+  }
+  resize();
+  let drawing = false;
+  function pos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const t = e.touches ? e.touches[0] : e;
+    return { x: t.clientX - rect.left, y: t.clientY - rect.top };
+  }
+  function start(e) { drawing = true; const p = pos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); e.preventDefault(); }
+  function move(e) { if (!drawing) return; const p = pos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); e.preventDefault(); }
+  function end() { drawing = false; }
+  canvas.addEventListener('mousedown', start);
+  canvas.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', end);
+  canvas.addEventListener('touchstart', start, {passive:false});
+  canvas.addEventListener('touchmove', move, {passive:false});
+  canvas.addEventListener('touchend', end);
+}
+setupPad('sigAutoM8');
+
+document.querySelectorAll('.clear').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const canvas = document.getElementById(btn.dataset.target);
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+  });
+});
+
+// Live-update the highlighted percentage/example if Kevin edits the % field before sending.
+const pctInput = document.getElementById('referralPercent');
+function refreshPct() {
+  const pct = parseFloat(pctInput.value) || 0;
+  document.getElementById('pctDisplay').textContent = pct;
+  document.querySelectorAll('.pctDisplay2').forEach(el => el.textContent = pct);
+  document.getElementById('exampleAmt').textContent = '$' + Math.round((pct / 100) * 260);
+}
+pctInput.addEventListener('input', refreshPct);
+refreshPct();
+
+document.getElementById('downloadBtn').addEventListener('click', async () => {
+  const doc = document.getElementById('doc');
+  const canvas = await html2canvas(doc, { scale: 2 });
+  const imgData = canvas.toDataURL('image/png');
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF('p', 'pt', 'a4');
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+  const imgWidth = pageWidth;
+  const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  let heightLeft = imgHeight;
+  let position = 0;
+  pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+  heightLeft -= pageHeight;
+  while (heightLeft > 0) {
+    position = heightLeft - imgHeight;
+    pdf.addPage();
+    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+  }
+  pdf.save('Hermia-AutoM8-Referral-Agreement.pdf');
+});
+</script>
+
+</body>
+</html>
