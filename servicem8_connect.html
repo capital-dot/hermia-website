@@ -167,15 +167,28 @@
 
         const planFromUrl = urlParams.get('plan');
         if (planFromUrl) {
-            try { sessionStorage.setItem('hermia_plan', planFromUrl); } catch(e) {}
+            try {
+                // Apply mapping: email -> gmail, custom -> outlook
+                let normalizedPlan = planFromUrl;
+                if (normalizedPlan === 'email') normalizedPlan = 'gmail';
+                if (normalizedPlan === 'custom') normalizedPlan = 'outlook';
+                sessionStorage.setItem('hermia_plan', normalizedPlan);
+            } catch(e) {}
         }
         // sessionStorage is now only the LAST-RESORT fallback if a fresh
         // fetch from Supabase (below) fails outright — same pattern as
         // simpro_connect.html's fix. hermia_plan is written once at
         // signup and never changes, so /get-customer-state is the
         // durable source of truth here, not sessionStorage.
-        let plan = planFromUrl || (function() {
-            try { return sessionStorage.getItem('hermia_plan') || ''; } catch(e) { return ''; }
+        let plan = (function() {
+            let p = planFromUrl;
+            if (!p) {
+                try { p = sessionStorage.getItem('hermia_plan') || ''; } catch(e) { p = ''; }
+            }
+            // Normalize plan
+            if (p === 'email') p = 'gmail';
+            if (p === 'custom') p = 'outlook';
+            return p;
         })();
 
         function showErr(on) {
@@ -206,7 +219,7 @@
                 const res = await fetch(HERMIANANGO_URL + '/servicem8/save-key', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ customerId, servicem8ApiKey: key })
+                    body: JSON.stringify({ customerId, apiKey: key })
                 });
                 const data = await res.json();
 
@@ -236,6 +249,9 @@
                     const stateData = await stateRes.json();
                     if (stateRes.ok && stateData.ok && stateData.hermiaPlan) {
                         plan = stateData.hermiaPlan;
+                        // Normalize plan from Supabase too
+                        if (plan === 'email') plan = 'gmail';
+                        if (plan === 'custom') plan = 'outlook';
                         try { sessionStorage.setItem('hermia_plan', plan); } catch(e) {}
                     }
                 } catch (e) {
@@ -244,22 +260,22 @@
 
                 // -----------------------------------------------------------
                 // PLAN-BASED REDIRECT
-                // email      -> gmail.html
-                // facebook / instagram -> social_connect.html (the page that
+                // gmail      -> gmail.html
+                // facebook / instagram / outlook -> social_connect.html (the page that
                 //                          INITIATES the Composio connection —
                 //                          NOT social_connected.html, which
                 //                          only reads back an already-completed
                 //                          connection. These are two different
                 //                          files; do not conflate them.)
-                // custom / anything else -> do NOT silently route into the
-                //                          automated funnel. Custom plan is
-                //                          call-based/manual by design.
+                // outlook redirect -> social_connect_outlook.html if specified
                 // -----------------------------------------------------------
                 let nextPage = null;
-                if (plan === 'email') {
+                if (plan === 'gmail') {
                     nextPage = 'gmail.html';
-                } else if (plan === 'facebook' || plan === 'outlook' || plan === 'instagram') {
+                } else if (plan === 'facebook' || plan === 'instagram') {
                     nextPage = 'social_connect.html';
+                } else if (plan === 'outlook') {
+                    nextPage = 'social_connect_outlook.html';
                 }
 
                 if (!nextPage) {
@@ -288,4 +304,5 @@
     </script>
 </body>
 </html>
+
 
