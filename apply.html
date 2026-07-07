@@ -239,33 +239,29 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 // PLAN MAP — single source of truth for plan name + display price
 // on this page. Keys MUST match the ?plan= value used site-wide
 // (pricing section buttons -> apply.html -> contract.html), and
-// MUST match the keys in contract.html's PLAN_CONFIG exactly —
-// go check contract.html now that 'outlook' has been added here,
-// since it needs the matching key added there too or an Outlook
-// customer's agreement step will fall back to whatever
-// contract.html's default is.
+// MUST match the keys in contract.html's PLAN_CONFIG and
+// hermianango.js's VALID_PLANS exactly.
 //
-// FIXED (2026-07-07): a previous edit renamed the 'custom' key's
-// display name to 'Outlook' instead of adding a new key, which
-// silently broke ?plan=outlook (it matched nothing, so it fell
-// back to 'email') and put a different Outlook price on this page
-// than what the modal's <select> still said. 'outlook' below is
-// confirmed at $660 AUD/month from the live Stripe payment link
-// (buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02 — "Hermia Lead Manager").
-// 'custom' has been restored to the price that was still hardcoded
-// in the old <select> markup, since that was the only surviving
-// record of it — confirm this is still correct.
+// CORRECTED (2026-07-07): a previous pass here wrongly assumed the
+// 'custom' key being renamed to 'Outlook' was an accidental overwrite,
+// and "fixed" it by adding a separate 'outlook' key. That was wrong —
+// contract.html's PLAN_CONFIG.custom already carries the real,
+// confirmed Outlook Stripe link (buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02)
+// under the SAME 'custom' key, and hermianango.js's VALID_PLANS only
+// recognizes 'custom', not 'outlook'. There is one key here, matching
+// both of those files exactly — 'custom' is what Outlook is called
+// internally. This page, contract.html, and VALID_PLANS in
+// hermianango.js must always share the identical set of keys.
 //
 // To add/change a tier, edit ONLY this object — the modal <select>
-// now populates itself from these keys (see populatePlanSelect()),
-// so nothing else on this page needs to change.
+// populates itself from these keys (see populatePlanSelect()), so
+// nothing else on this page needs to change.
 // ============================================================
 const PLAN_MAP = {
   email:     { name: 'Email',     price: '$260 AUD / month' },
   facebook:  { name: 'Facebook',  price: '$170 AUD / month' },
   instagram: { name: 'Instagram', price: '$170 AUD / month' },
-  outlook:   { name: 'Outlook',   price: '$660 AUD / month' },
-  custom:    { name: 'Custom',    price: '$1,700 AUD setup + $530 AUD / month' }
+  custom:    { name: 'Outlook',   price: '$660 AUD / month' }
 };
 const DEFAULT_PLAN = 'email';
 
