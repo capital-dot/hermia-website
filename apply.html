@@ -222,12 +222,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
       <div class="modal-tag">Select the correct plan</div>
       <h3>Which plan did you pay for?</h3>
       <label>Plan</label>
-      <select id="modalPlanSelect">
-        <option value="email">Email — $260 AUD / month</option>
-        <option value="facebook">Facebook — $170 AUD / month</option>
-        <option value="instagram">Instagram — $170 AUD / month</option>
-        <option value="custom">Custom — $1,700 AUD setup + $530 AUD / month</option>
-      </select>
+      <!-- Options are generated from PLAN_MAP in JS (see populatePlanSelect())
+           instead of being hand-typed here, so this list can never drift
+           out of sync with the badge/modal display again. -->
+      <select id="modalPlanSelect"></select>
       <div class="modal-btn-row">
         <button class="modal-confirm-btn" type="button" onclick="applyPlanChange()">Confirm this plan →</button>
       </div>
@@ -241,24 +239,56 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 // PLAN MAP — single source of truth for plan name + display price
 // on this page. Keys MUST match the ?plan= value used site-wide
 // (pricing section buttons -> apply.html -> contract.html), and
-// MUST match the keys in contract.html's PLAN_CONFIG exactly.
-// Current live keys: email, facebook, instagram, custom.
+// MUST match the keys in contract.html's PLAN_CONFIG exactly —
+// go check contract.html now that 'outlook' has been added here,
+// since it needs the matching key added there too or an Outlook
+// customer's agreement step will fall back to whatever
+// contract.html's default is.
 //
-// To add/change a tier, edit ONLY this object — nothing else on
-// this page needs to change.
+// FIXED (2026-07-07): a previous edit renamed the 'custom' key's
+// display name to 'Outlook' instead of adding a new key, which
+// silently broke ?plan=outlook (it matched nothing, so it fell
+// back to 'email') and put a different Outlook price on this page
+// than what the modal's <select> still said. 'outlook' below is
+// confirmed at $660 AUD/month from the live Stripe payment link
+// (buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02 — "Hermia Lead Manager").
+// 'custom' has been restored to the price that was still hardcoded
+// in the old <select> markup, since that was the only surviving
+// record of it — confirm this is still correct.
+//
+// To add/change a tier, edit ONLY this object — the modal <select>
+// now populates itself from these keys (see populatePlanSelect()),
+// so nothing else on this page needs to change.
 // ============================================================
 const PLAN_MAP = {
   email:     { name: 'Email',     price: '$260 AUD / month' },
   facebook:  { name: 'Facebook',  price: '$170 AUD / month' },
   instagram: { name: 'Instagram', price: '$170 AUD / month' },
-  custom:    { name: 'Outlook',    price: '$660 AUD / month' }
+  outlook:   { name: 'Outlook',   price: '$660 AUD / month' },
+  custom:    { name: 'Custom',    price: '$1,700 AUD setup + $530 AUD / month' }
 };
 const DEFAULT_PLAN = 'email';
+
+function populatePlanSelect() {
+  const select = document.getElementById('modalPlanSelect');
+  select.innerHTML = '';
+  Object.keys(PLAN_MAP).forEach(function (key) {
+    const opt = document.createElement('option');
+    opt.value = key;
+    opt.textContent = PLAN_MAP[key].name + ' — ' + PLAN_MAP[key].price;
+    select.appendChild(opt);
+  });
+}
+populatePlanSelect();
 
 const urlParams = new URLSearchParams(window.location.search);
 const requestedPlan = urlParams.get('plan');
 let plan = PLAN_MAP[requestedPlan] ? requestedPlan : DEFAULT_PLAN;
 let planInfo = PLAN_MAP[plan];
+
+if (!PLAN_MAP[requestedPlan] && requestedPlan) {
+  console.error('[apply.html] unrecognized ?plan=' + requestedPlan + ' — falling back to ' + DEFAULT_PLAN + '. Check this matches a key in PLAN_MAP.');
+}
 
 sessionStorage.setItem('hermia_plan', plan);
 
