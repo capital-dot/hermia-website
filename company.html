@@ -133,15 +133,18 @@ async function fetchHermiaPlan(customerId) {
 }
 
 // ROUTING: Determine the next page based on the given plan value.
-// Returns null if the plan should NOT be auto-routed (e.g. 'custom',
+// Returns null if the plan should NOT be auto-routed (e.g. 'outlook',
 // or an unrecognized/missing value) — caller must handle null explicitly
 // rather than falling back to a default destination.
 function getNextPageForPlan(plan) {
-    if (plan === 'email') {
+    if (plan === 'gmail') {
         return 'https://onboarding.hermia.au/gmail.html';
     }
-    if (plan === 'facebook'  || plan === 'outlook' || plan === 'instagram') {
+    if (plan === 'facebook' || plan === 'instagram') {
         return 'https://onboarding.hermia.au/social_connect.html';
+    }
+    if (plan === 'outlook') {
+        return 'https://onboarding.hermia.au/social_connect_outlook.html';
     }
     return null;
 }
