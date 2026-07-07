@@ -314,7 +314,13 @@
 
   try {
     const planFromUrl = urlParams.get('plan');
-    if (planFromUrl) sessionStorage.setItem('hermia_plan', planFromUrl);
+    if (planFromUrl) {
+      // Apply mapping: email -> gmail, custom -> outlook
+      let normalizedPlan = planFromUrl;
+      if (normalizedPlan === 'email') normalizedPlan = 'gmail';
+      if (normalizedPlan === 'custom') normalizedPlan = 'outlook';
+      sessionStorage.setItem('hermia_plan', normalizedPlan);
+    }
   } catch (e) {}
 
   // Hardcode vertical — no step selector needed.
@@ -332,6 +338,10 @@
     try { outgoingPlan = sessionStorage.getItem('hermia_plan') || ''; } catch (e) { outgoingPlan = ''; }
   }
 
+  // Ensure outgoing plan is also normalized
+  if (outgoingPlan === 'email') outgoingPlan = 'gmail';
+  if (outgoingPlan === 'custom') outgoingPlan = 'outlook';
+
   const nextUrl = new URL('https://onboarding.hermia.au/selection.html');
   if (outgoingPlan) nextUrl.searchParams.set('plan', outgoingPlan);
 
@@ -342,4 +352,3 @@
 </script>
 </body>
 </html>
-
