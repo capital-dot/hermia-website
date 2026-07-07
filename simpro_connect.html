@@ -154,7 +154,7 @@
   // ============================================================
   // PLAN CARRY-THROUGH
   // foundation_details.html redirects here as
-  //   simpro_connect.html?plan=email|facebook|instagram|custom
+  //   simpro_connect.html?plan=gmail|facebook|instagram|outlook
   // We resolve it (URL first, sessionStorage fallback), show the
   // badge for consistency with the rest of the funnel.
   //
@@ -176,7 +176,7 @@
   // nothing server-side, so treat it as inert until confirmed otherwise.
   // ============================================================
   const PLAN_NAMES = {
-      email:     'Email',
+      gmail:     'Gmail',
       facebook:  'Facebook',
       instagram: 'Instagram',
       outlook:    'Outlook'
@@ -186,6 +186,11 @@
   if (!plan) {
       try { plan = sessionStorage.getItem('hermia_plan') || ''; } catch(e) { plan = ''; }
   }
+  
+  // Normalize plan
+  if (plan === 'email') plan = 'gmail';
+  if (plan === 'custom') plan = 'outlook';
+  
   try { if (plan) sessionStorage.setItem('hermia_plan', plan); } catch(e) {}
 
   if (plan && PLAN_NAMES[plan]) {
@@ -293,3 +298,4 @@
 </script>
 </body>
 </html>
+
