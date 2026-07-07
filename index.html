@@ -304,13 +304,6 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 .p-btn-ghost{background:transparent !important;border:1.5px solid var(--bhi) !important;color:var(--cream) !important;box-shadow:none !important}
 .p-btn-ghost:hover{border-color:var(--gold) !important;color:var(--gl) !important;background:rgba(196,150,60,.06) !important;box-shadow:none !important}
 
-/* Coming Soon Badge */
-.coming-soon-badge{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;padding:6px 14px;border-radius:20px;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-family:"DM Sans",sans-serif;box-shadow:0 4px 12px rgba(239,68,68,.3);z-index:10}
-
-/* Social Logo Container */
-.social-logo-container{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px;height:48px}
-.social-logo-container img{height:40px;width:auto;filter:drop-shadow(0 2px 8px rgba(196,150,60,0.15))}
-
 @media(max-width:1200px){.pricing-grid{grid-template-columns:repeat(2,1fr)!important;gap:20px;max-width:760px}.p-card.featured{transform:scale(1);grid-column:auto}.p-card.featured:hover{transform:translateY(-8px)}}
 @media(max-width:600px){.pricing-section{padding:70px 16px}.pricing-grid{grid-template-columns:1fr!important;max-width:420px}.p-card{padding:40px 24px 36px}.p-num{font-size:46px}}
 @media(max-width:600px){.pricing-section{padding:70px 16px}.p-card{padding:40px 24px 36px}.p-num{font-size:46px}}
@@ -322,7 +315,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 .trial-modal{width:100%;max-width:1080px;max-height:88vh;overflow-y:auto;background:linear-gradient(150deg,#130c03,#111);border:1.5px solid var(--bhi);border-radius:24px;padding:48px 44px;position:relative;box-shadow:0 40px 120px rgba(0,0,0,.7),0 0 60px rgba(217,170,82,.12);transform:translateY(18px) scale(.98);transition:transform .3s cubic-bezier(.4,0,.2,1)}
 #trial-modal-overlay.show .trial-modal{transform:translateY(0) scale(1)}
 .trial-modal-close{position:absolute;top:20px;right:20px;width:36px;height:36px;border-radius:50%;border:1px solid var(--bhi);background:rgba(255,255,255,0.03);color:var(--soft);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.trial-modal-close:hover{border-color:var(--gold);color:var(--gl);background:rgba(196,150,60,.06)}
+.trial-modal-close:hover{border-color:var(--gold);color:var(--gl);background:rgba(196,150,60,.08)}
 .trial-modal-hdr{text-align:center;margin-bottom:40px}
 .trial-modal-eyebrow{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
 .trial-modal-title{font-family:var(--display);font-size:clamp(26px,3.4vw,38px);font-weight:600;color:#fff;letter-spacing:-.3px;line-height:1.15}
@@ -345,6 +338,10 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 .trial-card.featured .trial-card-select{background:linear-gradient(135deg,var(--gl),var(--gold));color:#1a1008;border:none;box-shadow:0 8px 22px rgba(196,150,60,.25)}
 .trial-card.featured .trial-card-select:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(196,150,60,.35)}
 
+/* Trial modal now reuses the exact .p-card pricing format from the
+   Pricing section below — these overrides only tighten spacing/type
+   scale so those same cards fit comfortably inside the modal's
+   narrower width. No styles in the main #pricing section are touched. */
 .trial-modal .pricing-grid{max-width:100%;gap:18px}
 .trial-modal .p-card{padding:34px 26px 30px;border-radius:18px}
 .trial-modal .p-card.featured{transform:none}
@@ -401,8 +398,8 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
       <div class="phone-header">
         <div class="phone-avatar">J</div>
         <div class="phone-info">
-          <div class="phone-name">Jared</div>
-          <div class="phone-subtitle">Homeowner</div>
+          <div class="phone-name">Jared Bocca</div>
+          <div class="phone-subtitle">Homeowner &middot; Brisbane</div>
         </div>
       </div>
       <div class="phone-chat" id="chat-box"></div>
@@ -411,51 +408,52 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   <div class="scene" id="scene-dashboard">
     <div class="crm-container">
       <div class="crm-header">
-        <h2 class="crm-title">Job Created in Simpro</h2>
-        <span class="simpro-badge">Simpro</span>
+        <h2 class="crm-title">Simpro <span style="color:var(--gl)">Integration</span></h2>
+        <div class="simpro-badge">Auto-Created</div>
       </div>
       <div class="crm-grid">
         <div class="crm-card">
-          <span class="crm-label">Customer Details</span>
+          <span class="crm-label">Customer Record</span>
           <div class="crm-data-row"><span class="crm-key">Name</span><span class="crm-value">Jared Bocca</span></div>
-          <div class="crm-data-row"><span class="crm-key">Address</span><span class="crm-value">42 Brisbane Way, Brisbane</span></div>
-          <div class="crm-data-row"><span class="crm-key">Phone</span><span class="crm-value">+61 494 719 401</span></div>
-          <div class="crm-data-row"><span class="crm-key">Budget</span><span class="crm-value">$1,500 — $2,500</span></div>
+          <div class="crm-data-row"><span class="crm-key">Phone</span><span class="crm-value">+61 400 123 456</span></div>
+          <div class="crm-data-row"><span class="crm-key">Email</span><span class="crm-value">jared.bocca@gmail.com</span></div>
           <div class="crm-data-row"><span class="crm-key">Urgency</span><span class="crm-value"><span class="status-tag">Emergency</span></span></div>
+          <div class="crm-data-row"><span class="crm-key">Issue</span><span class="crm-value">Burst pipe &mdash; active leak under kitchen sink</span></div>
+          <div class="crm-data-row"><span class="crm-key">Budget</span><span class="crm-value">$1,500 &mdash; $2,500</span></div>
+          <div class="crm-data-row"><span class="crm-key">Address</span><span class="crm-value">42 Brisbane Way, Brisbane QLD</span></div>
         </div>
         <div class="calendar-card">
-          <div class="calendar-day">
-            <div class="cal-m">Dec</div>
-            <div class="cal-d">14</div>
-          </div>
+          <span class="crm-label">Calendar Event</span>
+          <div class="calendar-day"><span class="cal-m">JUN</span><span class="cal-d">19</span></div>
           <div class="event-details">
-            <div class="event-time">Available Now or Tomorrow 9am</div>
-            <div class="event-title">Emergency Pipe Burst</div>
+            <div class="event-time">09:00 &mdash; 10:00 (AEST)</div>
+            <div class="event-title">Burst Pipe Repair</div>
             <div class="event-loc">42 Brisbane Way, Brisbane</div>
           </div>
-          <div class="sync-footer">Syncing...</div>
         </div>
       </div>
+      <div class="sync-footer">Synced to Simpro workflow &middot; Calendar event created</div>
     </div>
   </div>
-  <div class="scene" id="scene-final">
+  <div class="scene active" id="scene-final">
     <div class="final-content">
-      <img class="final-logo" src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" onerror="this.style.display='none'">
-      <h1 class="final-brand">Hermia</h1>
-      <p class="final-tagline">Never Miss A Repair Job Again</p>
+      <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" class="final-logo" alt="Hermia" onerror="this.style.display='none'">
+      <h1 class="final-brand">HERMIA</h1>
+      <p class="final-tagline">Every Job. Captured.</p>
     </div>
   </div>
   <div id="partner-badge">
-    <img src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Partner">
-    <span class="pb-cap">Simpro Partner</span>
+    <img src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Registered Partner">
+    <span class="pb-cap">Official Simpro Partner</span>
   </div>
   <div id="scroll-indicator">
-    <span class="scroll-text">Scroll</span>
+    <div class="scroll-text">Scroll to explore</div>
     <div class="scroll-arrow"></div>
   </div>
 </div>
 
 <div id="page-content">
+
 
   <section class="section" style="background:var(--bg3);padding:88px 48px">
     <div class="inner">
