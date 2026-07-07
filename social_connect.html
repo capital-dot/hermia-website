@@ -20,12 +20,8 @@
             --border: rgba(212, 175, 55, 0.2);
             --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
             --fb-blue: #1877F2;
-            --ig-c1: #833AB4;
-            --ig-c2: #C13584;
-            --ig-c3: #E1306C;
-            --ig-c4: #FD1D1D;
-            --ig-c5: #F77737;
-            --ig-c6: #FCAF45;
+            --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            --outlook-blue: #0078D4;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
         html, body { height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
@@ -46,23 +42,20 @@
 
         .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 24px; font-weight: 400; }
 
-        /* Icon transition — replaces the bare spinner. Both platform
-           marks sit dimmed side-by-side while resolving; once the plan
-           is known, the correct one brightens and scales up briefly
-           before the redirect fires, so it reads as "found it" rather
-           than a stall. */
         .icon-stage { display: flex; align-items: center; justify-content: center; gap: 22px; margin-bottom: 34px; height: 64px; }
-        .platform-icon { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; flex-shrink: 0; opacity: 0.25; filter: grayscale(1); transform: scale(0.92); transition: all 0.6s var(--ease-cinematic); }
-        .platform-icon svg { width: 30px; height: 30px; }
-        .platform-icon.facebook { background: var(--fb-blue); }
-        .platform-icon.instagram { background: linear-gradient(45deg, var(--ig-c6), var(--ig-c5), var(--ig-c4), var(--ig-c3), var(--ig-c2), var(--ig-c1)); }
+        .platform-icon { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; flex-shrink: 0; opacity: 0.25; filter: grayscale(1); transform: scale(0.92); transition: all 0.6s var(--ease-cinematic); overflow: hidden; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+        .platform-icon img { height: 35px; width: auto; transition: all 0.6s var(--ease-cinematic); }
         .platform-icon.pulse { animation: icon-pulse 1.6s ease-in-out infinite; }
         @keyframes icon-pulse { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.45; } }
-        .platform-icon.resolved { opacity: 1; filter: grayscale(0); transform: scale(1.08); box-shadow: 0 0 30px rgba(212, 175, 55, 0.3); }
+        .platform-icon.resolved { opacity: 1; filter: grayscale(0); transform: scale(1.08); box-shadow: 0 0 30px rgba(212, 175, 55, 0.3); border-color: var(--gold); }
         .platform-icon.faded-out { opacity: 0; transform: scale(0.8); }
 
         h1 { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; line-height: 1.2; margin-bottom: 12px; letter-spacing: -0.01em; }
         p.loading-text { color: var(--soft); font-size: 14.5px; font-weight: 300; line-height: 1.6; }
+
+        /* Progress Bar */
+        .progress-container { width: 100%; height: 2px; background: rgba(212, 175, 55, 0.1); margin: 30px 0 10px; overflow: hidden; border-radius: 2px; }
+        .progress-bar { height: 100%; width: 0%; background: var(--gold); transition: width 4s linear; }
 
         .status-msg { margin-top: 22px; padding: 14px 16px; font-size: 13px; text-align: center; }
         .status-msg.err { background: rgba(220,80,80,0.08); border: 1px solid rgba(220,80,80,0.25); color: #ff7e75; }
@@ -94,15 +87,22 @@
 
             <div class="icon-stage" id="iconStage">
                 <div class="platform-icon facebook pulse" id="iconFacebook">
-                    <svg viewBox="0 0 24 24" fill="#fff"><path d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.8c0-.9.3-1.6 1.6-1.6h1.7V3.3C16.5 3.2 15.5 3 14.4 3c-2.5 0-4.2 1.5-4.2 4.3v2.5H7.5V13h2.7v8h3.3z"/></svg>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo">
                 </div>
                 <div class="platform-icon instagram pulse" id="iconInstagram">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="#fff" stroke="none"/></svg>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram Logo">
+                </div>
+                <div class="platform-icon outlook pulse" id="iconOutlook">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg" alt="Outlook Logo">
                 </div>
             </div>
 
             <h1 id="headline">Finding your connection</h1>
             <p class="loading-text" id="loadingText">One moment — preparing your account...</p>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
 
             <div id="statusArea"></div>
 
@@ -114,43 +114,33 @@
     </div>
 
     <script>
-        // -------------------------------------------------------------
-        // DISPATCHER ONLY — same resolution logic as before (cache, then
-        // Supabase fallback via /get-customer-state), just restyled.
-        // social_connect_facebook.html and social_connect_instagram.html
-        // still contain zero plan-resolution logic; they assume they
-        // were reached correctly. Nothing that links to social_connect.html
-        // elsewhere in the funnel needs to change.
-        // -------------------------------------------------------------
         const HERMIANANGO_URL = 'https://hermianango.capital-fbc.workers.dev';
         const $ = id => document.getElementById(id);
         const customerId = sessionStorage.getItem('hermia_customer_id');
 
         const DESTINATION_BY_PLAN = {
             facebook: 'social_connect_facebook.html',
-            instagram: 'social_connect_instagram.html'
+            instagram: 'social_connect_instagram.html',
             outlook: 'social_connect_outlook.html'
-            // Add future providers here (e.g. whatsapp) — the Worker
-            // already has COMPOSIO_WHATSAPP_AUTH_CONFIG_ID stubbed in
-            // VALID_SOCIAL_PROVIDERS, so this is the only file that
-            // needs a new line when that's turned on.
         };
 
         const ICON_ID_BY_PLAN = {
             facebook: 'iconFacebook',
-            instagram: 'iconInstagram'
+            instagram: 'iconInstagram',
+            outlook: 'iconOutlook'
         };
 
         function showError(msg) {
             $('iconStage').style.display = 'none';
             $('headline').textContent = 'Something went wrong';
             $('loadingText').style.display = 'none';
+            $('progressBar').parentElement.style.display = 'none';
             $('statusArea').innerHTML = '<div class="status-msg err">' + msg + '</div>';
         }
 
         function showResolved(plan) {
             const resolvedIconId = ICON_ID_BY_PLAN[plan];
-            ['iconFacebook', 'iconInstagram'].forEach(function (id) {
+            ['iconFacebook', 'iconInstagram', 'iconOutlook'].forEach(function (id) {
                 const el = $(id);
                 el.classList.remove('pulse');
                 if (id === resolvedIconId) {
@@ -159,7 +149,13 @@
                     el.classList.add('faded-out');
                 }
             });
-            $('headline').textContent = plan === 'facebook' ? 'Connecting to Facebook' : 'Connecting to Instagram';
+            
+            let planName = 'Social Account';
+            if (plan === 'facebook') planName = 'Facebook';
+            else if (plan === 'instagram') planName = 'Instagram';
+            else if (plan === 'outlook') planName = 'Outlook';
+            
+            $('headline').textContent = 'Connecting to ' + planName;
             $('loadingText').textContent = 'Taking you there now...';
         }
 
@@ -192,19 +188,31 @@
                 return;
             }
 
+            // Start progress bar animation
+            setTimeout(() => {
+                $('progressBar').style.width = '100%';
+            }, 50);
+
             const plan = await resolvePlan();
             const destination = DESTINATION_BY_PLAN[plan];
 
             if (!destination) {
-                showError('We could not determine which social account to connect. Please contact support to continue setup.');
+                // Wait a bit to show the error if it fails instantly
+                setTimeout(() => {
+                    showError('We could not determine which social account to connect. Please contact support to continue setup.');
+                }, 2000);
                 return;
             }
 
-            showResolved(plan);
+            // Forced 4-second delay for cinematic effect
             setTimeout(function () {
-                window.location.replace(destination);
-            }, 650);
+                showResolved(plan);
+                setTimeout(function () {
+                    window.location.replace(destination);
+                }, 1000);
+            }, 4000);
         })();
     </script>
 </body>
 </html>
+
