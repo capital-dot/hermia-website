@@ -104,7 +104,7 @@
   <p>This Agreement is entered into between <strong>Hermia</strong> ("Provider", ABN 75 434 177 026 ) and the Client identified during sign-up. By proceeding, the Client agrees to receive Hermia's AI intake and lead qualification software on a month-to-month subscription basis.</p>
 
   <h2><span class="clause-no">2</span> Hermia AI Intake &amp; Qualification Software</h2>
-  <p>The Provider delivers AI-powered intake and qualification software designed to engage with the Client's existing inbound enquiries. When a prospective customer submits an enquiry through the Client's connected channel — Facebook, Instagram, Email, or a custom-configured source — Hermia may automatically collect and organise relevant information — including contact details, service requirements, urgency, supporting media, availability, and other qualification data.</p>
+  <p>The Provider delivers AI-powered intake and qualification software designed to engage with the Client's existing inbound enquiries. When a prospective customer submits an enquiry through the Client's connected channel — Facebook, Instagram, Gmail, or an outlook-configured source — Hermia may automatically collect and organise relevant information — including contact details, service requirements, urgency, supporting media, availability, and other qualification data.</p>
   <p>This information is then structured and routed into the Client's connected CRM or business system to reduce manual administration and improve response times.</p>
 
   <h2><span class="clause-no">3</span> Pricing</h2>
@@ -123,7 +123,7 @@
   <h2><span class="clause-no">4</span> How to Cancel</h2>
   <p>This is a month-to-month service with no long-term lock-in. To cancel, the Client must simply:</p>
   <ul>
-    <li>Send an email to <strong>capital@hermia.au</strong> with the subject line "Cancel Subscription"; or</li>
+    <li>Send a gmail to <strong>capital@hermia.au</strong> with the subject line "Cancel Subscription"; or</li>
     <li>Manage and cancel the subscription directly via the <strong>Stripe Billing Portal</strong> link provided in your monthly invoice.</li>
   </ul>
   <p>Cancellations must be made at least <strong>48 hours before</strong> the next billing date to avoid further charges.</p>
@@ -190,25 +190,14 @@
   // ============================================================
   // PLAN CONFIG — single source of truth for every tier.
   // Keys MUST match the ?plan= value used on the pricing section
-  // and passed through apply.html (email, facebook, instagram, custom).
+  // and passed through apply.html (gmail, facebook, instagram, outlook).
   //
   // To add, remove, or reprice a tier, edit ONLY this object —
   // nothing else in this file needs to change.
-  //
-  // NOTE ON PLAN TRACKING:
-  // Stripe Payment Link "after payment" redirects are configured
-  // in the Stripe Dashboard, not in this file, and do NOT carry
-  // ?plan= automatically. sessionStorage does not survive the
-  // cross-origin Stripe redirect. The durable fix is below:
-  // client_reference_id is appended to the link at redirect time,
-  // Stripe attaches it to the resulting Checkout Session, and the
-  // Worker reads it back via the same session lookup it already
-  // does in resolveStripeCustomerId. This also disambiguates
-  // facebook/instagram even though they currently share one link.
   // ============================================================
   const PLAN_CONFIG = {
-    email: {
-      name:     'Email',
+    gmail: {
+      name:     'Gmail',
       price:    '$260 AUD / month',
       setupFee: null,
       link:     'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00'
@@ -225,15 +214,15 @@
       setupFee: null,
       link:     'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04'
     },
-    custom: {
+    outlook: {
       name:     'Outlook',
       price:    '$660 AUD / month',
-     setupFee: null,
+      setupFee: null,
       link:     'https://buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02'
     }
   };
-  const DEFAULT_PLAN = 'email';
-  const PLACEHOLDER_MARKER = 'REPLACE_WITH_CUSTOM_LINK';
+  const DEFAULT_PLAN = 'gmail';
+  const PLACEHOLDER_MARKER = 'REPLACE_WITH_OUTLOOK_LINK';
 
   // Detect plan from URL (e.g. contract.html?plan=facebook ),
   // falling back to whatever apply.html stored in sessionStorage,
@@ -270,7 +259,7 @@
   try { applicant = JSON.parse(sessionStorage.getItem('hermia_applicant') || '{}'); } catch(e){}
   const A_NAME  = applicant.name  || sessionStorage.getItem('hermia_name')  || '';
   const A_PHONE = applicant.phone || sessionStorage.getItem('hermia_phone') || '';
-  const A_EMAIL = applicant.email || sessionStorage.getItem('hermia_email') || '';
+  const A_GMAIL = applicant.email || sessionStorage.getItem('hermia_email') || '';
 
   const today = new Date();
   const todayFormatted = today.toLocaleDateString('en-AU', { day:'numeric', month:'long', year:'numeric' });
@@ -326,10 +315,10 @@
     }
 
     // Hard stop: never send a real customer to the unconfigured
-    // custom-plan link. Remove this block only after PLAN_CONFIG.custom.link
+    // outlook-plan link. Remove this block only after PLAN_CONFIG.outlook.link
     // is replaced with the live Stripe Payment Link.
     if (planConfig.link.indexOf(PLACEHOLDER_MARKER) !== -1) {
-      warning.textContent = "Custom plan checkout isn't set up yet — contact capital@hermia.au to complete this manually.";
+      warning.textContent = "Outlook plan checkout isn't set up yet — contact capital@hermia.au to complete this manually.";
       warning.style.display = 'block';
       return;
     }
@@ -349,7 +338,7 @@
           price: planConfig.price,
           setup_fee: planConfig.setupFee,
           name: A_NAME,
-          email: A_EMAIL,
+          email: A_GMAIL,
           phone: A_PHONE,
           date: todayFormatted
         })
@@ -357,14 +346,10 @@
     } catch(e) { console.error(e); }
 
     // Redirect to Stripe, carrying the plan as client_reference_id.
-    // Stripe attaches this to the Checkout Session server-side, so it
-    // survives even if sessionStorage is wiped or the redirect drops
-    // any ?plan= param. handleCreateCustomer / resolveStripeCustomerId
-    // on the Worker should read plan from here as the authoritative
-    // source, falling back to body.plan only if this is missing.
     const finalUrl = appendParam(planConfig.link, 'client_reference_id', selectedPlanKey);
     window.location.href = finalUrl;
   }
 </script>
 </body>
 </html>
+
