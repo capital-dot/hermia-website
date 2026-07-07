@@ -122,9 +122,9 @@
             </div>
 
             <div class="field">
-                <label for="email">Professional Email</label>
-                <input id="email" type="email" autocomplete="email" placeholder="john@yourcompany.com.au" />
-                <div class="err-msg" id="err-email">Valid Email Required</div>
+                <label for="gmail">Professional Gmail</label>
+                <input id="gmail" type="email" autocomplete="gmail" placeholder="john@yourcompany.com.au" />
+                <div class="err-msg" id="err-gmail">Valid Gmail Required</div>
             </div>
 
             <div class="row-2">
@@ -176,7 +176,7 @@
     <script>
         // ServiceM8-specific variant of the business-details step.
         // Same UI/validation as the Simpro version, but:
-        //  1. always tags crmProvider = 'servicem8' when creating the customer
+        //  1. always tags crmProvider = 'servicem8' when creating the outlooker
         //  2. always redirects to servicem8_connect.html afterward
         const ALL_STEPS = ['Payment','Select CRM','Details','ServiceM8','Connect','Setup'];
         const ACTIVE_INDEX = 2;
@@ -202,10 +202,10 @@
         // ============================================================
         // PLAN CARRY-THROUGH
         // selection.html redirects here as
-        //   foundation_details_servicem8.html?plan=email|facebook|instagram|custom
+        //   foundation_details_servicem8.html?plan=gmail|facebook|instagram|outlook
         // ============================================================
         const PLAN_NAMES = {
-            email:     'Email',
+            gmail:     'Gmail',
             facebook:  'Facebook',
             instagram: 'Instagram',
             outlook:    'Outlook'
@@ -338,7 +338,7 @@
             if (e) e.classList.toggle('show', on);
         }
 
-        ['fullName', 'company', 'email', 'country', 'state', 'phone'].forEach(id => {
+        ['fullName', 'company', 'gmail', 'country', 'state', 'phone'].forEach(id => {
             const el = $(id);
             if (el) el.addEventListener('input', () => showErr(id, false));
             if (el) el.addEventListener('change', () => showErr(id, false));
@@ -348,14 +348,14 @@
             let ok = true;
             const name = $('fullName').value.trim();
             const company = $('company').value.trim();
-            const email = $('email').value.trim();
+            const gmail = $('gmail').value.trim();
             const country = $('country').value.trim();
             const state = $('state').value.trim();
             const local = $('phone').value.replace(/[^\d]/g, '');
 
             if (!name) { showErr('fullName', true); ok = false; }
             if (!company) { showErr('company', true); ok = false; }
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr('email', true); ok = false; }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(gmail)) { showErr('gmail', true); ok = false; }
             if (!country) { showErr('country', true); ok = false; }
             if (!state) { showErr('state', true); ok = false; }
             if (local.length < 6 || local.length > 12) { showErr('phone', true); ok = false; }
@@ -366,13 +366,13 @@
             btn.querySelector('.btn-text').textContent = 'VERIFYING...';
 
             try {
-                const res = await fetch(HERMIANANGO_URL + '/create-customer', {
+                const res = await fetch(HERMIANANGO_URL + '/create-outlooker', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         fullName: name,
                         companyName: company,
-                        email: email,
+                        gmail: gmail,
                         country: country,
                         state: state,
                         phone: $('ccPrefix').textContent + ' ' + local,
@@ -381,8 +381,8 @@
                         // selection.html, so we tag it directly rather than
                         // trusting sessionStorage alone — belt and braces.
                         crmProvider: 'servicem8',
-                        // Which package this customer bought
-                        // (email / facebook / instagram / custom). Saved
+                        // Which package this outlooker bought
+                        // (gmail / facebook / instagram / outlook). Saved
                         // against the Supabase row at the earliest point
                         // it exists, so downstream pages can look it up
                         // instead of trusting a URL param alone.
@@ -394,10 +394,10 @@
                     throw new Error((data && data.error) || ('request failed: ' + res.status));
                 }
 
-                const id = data.customerId;
+                const id = data.outlookerId;
 
-                sessionStorage.setItem('hermia_customer_id', id);
-                sessionStorage.setItem('hermia_email', email);
+                sessionStorage.setItem('hermia_outlooker_id', id);
+                sessionStorage.setItem('hermia_gmail', gmail);
                 sessionStorage.setItem('hermia_crm_provider', 'servicem8');
                 sessionStorage.setItem('hermia_state', state);
                 sessionStorage.setItem('hermia_country', country);
@@ -406,7 +406,7 @@
                 document.body.style.transition = 'opacity 1s ease';
                 document.body.style.opacity = '0';
                 setTimeout(() => {
-                    // FIX: previously only forwarded `plan` — customerId
+                    // FIX: previously only forwarded `plan` — outlookerId
                     // was written to sessionStorage only, which does not
                     // survive the cross-origin hop to onboarding.hermia.au
                     // (same root cause as the hermia_plan bug on
@@ -416,7 +416,7 @@
                     // of whether sessionStorage survived the jump.
                     const qs = new URLSearchParams();
                     if (plan) qs.set('plan', plan);
-                    if (id) qs.set('customerId', id);
+                    if (id) qs.set('outlookerId', id);
                     const queryString = qs.toString();
 
                     const nextUrl = 'https://onboarding.hermia.au/servicem8_connect.html' +
@@ -437,4 +437,3 @@
     </script>
 </body>
 </html>
-
