@@ -29,7 +29,7 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   .err{font-size:12.5px;color:var(--red);text-align:center;margin-top:14px;line-height:1.6}
   footer{margin-top:32px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
-  
+
   /* Redirection notice */
   .redirect-notice {
     margin-top: 20px;
@@ -71,7 +71,7 @@
   // ── CONFIG ──
   const HERMIANANGO_BASE = 'https://hermianango.capital-fbc.workers.dev'; // confirm this matches your deployed worker URL
   const params = new URLSearchParams(window.location.search);
-  
+
   // ── SESSION & PLAN HANDLING ──
   // Capture plan from URL and persist it
   let plan = params.get('plan');
@@ -194,7 +194,7 @@
         qrState.style.display = 'none';
         successState.classList.add('show');
         phoneDisplay.textContent = data.phoneNumber ? '+' + data.phoneNumber : '';
-        
+
         // ── REDIRECTION LOGIC ──
         // Show redirect notice and move to Simpro Connect
         redirectNotice.classList.add('show');
@@ -250,3 +250,4 @@
   init();
 </script>
 </body>
+</html>
