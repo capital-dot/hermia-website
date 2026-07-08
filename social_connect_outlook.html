@@ -58,8 +58,9 @@
         .alias-text { flex: 1; font-size: 18px; color: var(--gold-light); word-break: break-all; font-weight: 300; text-align: left; letter-spacing: 0.05em; }
         .copy-btn { background: var(--gold); color: #000; border: none; padding: 12px 20px; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
         .btn { width: 100%; padding: 24px; border: none; background: linear-gradient(135deg, #E8C17A, #C9A35B); color: #000; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; }
-        .btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.25); }
-        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn:hover:not(.btn-disabled) { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.25); }
+        .btn.btn-disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+        .btn img { display: block; }
         .status-msg { margin-top: 30px; padding: 20px; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; }
         .status-msg.wait { border: 1px solid var(--border); color: var(--soft); }
         .status-msg.err { border: 1px solid #ff7e75; color: #ff7e75; background: rgba(255,126,117,0.05); }
@@ -100,15 +101,10 @@
                 <div class="alias-text" id="aliasDisplay">Loading lead address...</div>
                 <button class="copy-btn" onclick="copyAlias()">Copy</button>
             </div>
-<div class="social-logo-container"> <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg" alt="Outlook Logo" style="height:35px;width:auto;"> </div>
-            >
-                <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#0078d4" d="M12 0L0 4v16l12 4 12-4V4L12 0zm10 18.3L12 21.6 2 18.3V5.7L12 2.4l10 3.3v12.6z"/>
-                    <path fill="#0078d4" d="M12 5.5l-8 3.5v6l8 3.5 8-3.5v-6l-8-3.5zm6 9.2l-6 2.6-6-2.6v-5.4l6-2.6 6 2.6v5.4z"/>
-                </svg>
+
+            <a href="#" id="outlookSigninBtn" class="btn btn-disabled" onclick="return startOutlookAuth(event)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg" alt="Outlook Logo" style="height:20px;width:auto;">
                 Sign in to Outlook
-            </a>
-  Sign in to Outlook
             </a>
 
             <div id="statusArea"></div>
@@ -136,8 +132,15 @@
             ((ACTIVE_IDX - 1) / 5 * 100) + '%';
     }
 
+    function setStatus(msg, isError) {
+        const area = document.getElementById('statusArea');
+        area.innerHTML = '<div class="status-msg ' + (isError ? 'err' : 'wait') + '">' + msg + '</div>';
+    }
+
     function loadLeadAlias() {
         const id = getCustomerId();
+        const signinBtn = document.getElementById('outlookSigninBtn');
+
         if (!id) {
             document.getElementById('aliasDisplay').textContent =
                 'Session expired — please restart onboarding.';
@@ -153,6 +156,8 @@
         .then(data => {
             if (data.ok && data.leadAlias) {
                 document.getElementById('aliasDisplay').textContent = data.leadAlias;
+                // Lead alias is ready, so the sign-in button can be used
+                signinBtn.classList.remove('btn-disabled');
             } else {
                 document.getElementById('aliasDisplay').textContent =
                     'Could not load your lead address — refresh to try again.';
@@ -174,6 +179,42 @@
             btn.textContent = 'Copied!';
             setTimeout(() => btn.textContent = 'Copy', 2000);
         });
+    }
+
+    function startOutlookAuth(evt) {
+        evt.preventDefault();
+
+        const id = getCustomerId();
+        if (!id) {
+            setStatus('Session expired — please restart onboarding.', true);
+            return false;
+        }
+
+        const btn = document.getElementById('outlookSigninBtn');
+        if (btn.classList.contains('btn-disabled')) return false;
+
+        setStatus('Redirecting to Microsoft…', false);
+
+        fetch(WORKER + '/outlook-auth-url', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ customerId: id })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.ok && data.authUrl) {
+                window.location.href = data.authUrl;
+            } else {
+                setStatus('Could not start Microsoft sign-in — please try again.', true);
+                console.error('[outlook.html] outlook-auth-url error:', data);
+            }
+        })
+        .catch(err => {
+            setStatus('Could not start Microsoft sign-in — please try again.', true);
+            console.error('[outlook.html] outlook-auth-url request failed:', err);
+        });
+
+        return false;
     }
 
     updateSteps();
