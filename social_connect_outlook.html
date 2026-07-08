@@ -42,7 +42,7 @@
         .light-bloom { position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 55%); animation: light-drift 40s infinite alternate ease-in-out; will-change: transform; }
         @keyframes light-drift { 0% { transform: translate(-2%, -2%) scale(1); } 100% { transform: translate(2%, 2%) scale(1.05); } }
         .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 140px 140px; -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%); mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%); opacity: 0.1; }
-        .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+        .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E"); }
         .wrap { position: relative; z-index: 10; width: 100%; max-width: 1200px; margin: 0 auto; padding: 60px 40px 100px; display: flex; flex-direction: column; align-items: center; }
         .logo-wrap { margin-bottom: 40px; }
         .logo { height: 48px; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4)); }
@@ -121,15 +121,6 @@
     const WORKER = 'https://hermianango.capital-fbc.workers.dev';
     const ACTIVE_IDX = 6;
 
-    // ============================================================
-    // FILL THIS IN before deploying: Nango dashboard -> your
-    // environment (Dev or Prod) -> Environment Settings -> "Public Key".
-    // This is DIFFERENT from the secret key stored as the `Nango`
-    // secret in Cloudflare — the public key is safe to expose in
-    // frontend JS (it can only start an auth flow, not read data),
-    // the secret key must never appear in any HTML/JS file.
-    // ============================================================
-    const NANGO_PUBLIC_KEY = 'REPLACE_WITH_NANGO_PUBLIC_KEY';
     const NANGO_OUTLOOK_INTEGRATION_ID = 'outlook';
 
     function getCustomerId() {
@@ -154,7 +145,7 @@
 
     let nango;
 
-    function initNango() {
+    async function initNango() {
         const id = getCustomerId();
         const btn = document.getElementById('outlookSigninBtn');
 
@@ -169,14 +160,24 @@
             return;
         }
 
-        if (NANGO_PUBLIC_KEY === 'REPLACE_WITH_NANGO_PUBLIC_KEY') {
-            setStatus('Outlook connection is not configured yet — contact support.', 'err');
-            console.error('[outlook.html] NANGO_PUBLIC_KEY has not been set. Get it from the Nango dashboard: Environment Settings -> Public Key.');
-            return;
-        }
+        // Fetch session token from the worker
+        try {
+            const response = await fetch(WORKER + '/nango/create-outlook-session', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ customerId: id })
+            });
+            const data = await response.json();
 
-        nango = new Nango({ publicKey: NANGO_PUBLIC_KEY });
-        btn.disabled = false;
+            if (!response.ok || !data.token) {
+                throw new Error(data.error || 'Failed to get Nango session token');
+            }
+            nango = new Nango({ connectSessionToken: data.token });
+            btn.disabled = false;
+        } catch (e) {
+            console.error('[outlook.html] Failed to initialize Nango:', e);
+            setStatus('Outlook connection is not configured yet — contact support.', 'err');
+        }
     }
 
     function startOutlookAuth() {
@@ -194,12 +195,6 @@
         btn.disabled = true;
         setStatus('Opening Microsoft sign-in…', 'wait');
 
-        // Using the customerId directly as the Nango connectionId keeps
-        // the mapping 1:1 and readable — no extra ID generation needed.
-        // handleSaveOutlookConnection on the Worker verifies this
-        // connectionId against Nango's API before trusting it, so a
-        // mismatched or forged customerId here can't be used to hijack
-        // another customer's connection.
         const connectionId = id;
 
         nango.auth(NANGO_OUTLOOK_INTEGRATION_ID, connectionId)
