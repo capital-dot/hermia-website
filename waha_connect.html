@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connect your WhatsApp — Hermia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#050505;--card:#0f0f0f;--border:rgba(196,150,60,0.18);--gold:#c4963c;--gl:#d9aa52;--cream:#f4f0e6;--soft:#b0ada5;--muted:#7a7470;--green:#3ba55d;--red:#c45c3c;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:48px 20px;-webkit-font-smoothing:antialiased}
+  h1{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:26px;color:#fff;margin-bottom:8px;text-align:center}
+  .sub{font-size:13px;color:var(--soft);text-align:center;max-width:360px;margin-bottom:36px;line-height:1.6}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;width:100%;max-width:340px;display:flex;flex-direction:column;align-items:center;box-shadow:0 14px 34px rgba(0,0,0,0.45)}
+  .qr-wrap{width:240px;height:240px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:20px}
+  .qr-wrap img{width:100%;height:100%;object-fit:contain}
+  .status-row{display:flex;align-items:center;gap:8px;font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+  .dot.scan{background:var(--gold)}
+  .dot.connected{background:var(--green)}
+  .dot.failed{background:var(--red)}
+  .success{display:none;flex-direction:column;align-items:center;gap:10px;text-align:center}
+  .success.show{display:flex}
+  .success h2{font-family:"Cormorant Garamond",serif;font-size:22px;color:#fff}
+  .success p{font-size:13px;color:var(--soft)}
+  .phone{font-size:14px;color:var(--gl);letter-spacing:0.5px;margin-top:4px}
+  .spinner{width:22px;height:22px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:16px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .err{font-size:12.5px;color:var(--red);text-align:center;margin-top:14px;line-height:1.6}
+  footer{margin-top:32px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+</style>
+</head>
+<body>
+  <h1>Connect Your WhatsApp</h1>
+  <p class="sub">Scan this code with the WhatsApp app on the phone you want your leads to message. Keep that phone on and connected to the internet.</p>
+
+  <div class="card">
+    <div id="qrState">
+      <div class="qr-wrap" id="qrWrap">
+        <div class="spinner"></div>
+      </div>
+      <div class="status-row"><span class="dot" id="statusDot"></span><span id="statusText">Starting session…</span></div>
+      <div class="err" id="errBox" style="display:none;"></div>
+    </div>
+
+    <div class="success" id="successState">
+      <h2>Connected</h2>
+      <p>Your WhatsApp is linked. Leads will start reaching you here.</p>
+      <div class="phone" id="phoneDisplay"></div>
+    </div>
+  </div>
+
+  <footer>Hermia &middot; hermia.au</footer>
+
+<script>
+  // ── CONFIG ──
+  const HERMIANANGO_BASE = 'https://hermianango.capital-fbc.workers.dev'; // confirm this matches your deployed worker URL
+  const params = new URLSearchParams(window.location.search);
+  const customerId = params.get('customerId');
+  const token = params.get('token'); // signed link token — required, see /waha/get-link
+
+  const qrWrap = document.getElementById('qrWrap');
+  const statusDot = document.getElementById('statusDot');
+  const statusText = document.getElementById('statusText');
+  const errBox = document.getElementById('errBox');
+  const qrState = document.getElementById('qrState');
+  const successState = document.getElementById('successState');
+  const phoneDisplay = document.getElementById('phoneDisplay');
+
+  let pollTimer = null;
+  let qrRefreshTimer = null;
+  let consecutiveFailures = 0;
+  const MAX_CONSECUTIVE_FAILURES = 5;
+
+  function showError(msg) {
+    errBox.style.display = 'block';
+    errBox.textContent = msg;
+  }
+
+  function setStatus(label, dotClass) {
+    statusText.textContent = label;
+    statusDot.className = 'dot' + (dotClass ? ' ' + dotClass : '');
+  }
+
+  function stopAllPolling() {
+    if (pollTimer) clearInterval(pollTimer);
+    if (qrRefreshTimer) clearInterval(qrRefreshTimer);
+    pollTimer = null;
+    qrRefreshTimer = null;
+  }
+
+  async function startSession() {
+    try {
+      const r = await fetch(HERMIANANGO_BASE + '/waha/start-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ customerId, token })
+      });
+      const data = await r.json();
+      if (r.status === 403) {
+        showError('This link has expired or is invalid. Ask Hermia to send you a fresh connect link.');
+        return false;
+      }
+      if (!data.ok) {
+        showError('Could not start WhatsApp session: ' + (data.error || 'unknown error'));
+        return false;
+      }
+      return true;
+    } catch (e) {
+      showError('Network error starting session. Check your connection and refresh the page.');
+      return false;
+    }
+  }
+
+  async function loadQr() {
+    try {
+      const r = await fetch(HERMIANANGO_BASE + '/waha/qr?customerId=' + encodeURIComponent(customerId) + '&token=' + encodeURIComponent(token));
+      if (r.status === 403) {
+        stopAllPolling();
+        showError('This link has expired or is invalid. Ask Hermia to send you a fresh connect link.');
+        return;
+      }
+      const data = await r.json();
+      if (data.ok && data.qrImageBase64) {
+        qrWrap.innerHTML = '<img src="' + data.qrImageBase64 + '" alt="WhatsApp QR code">';
+        consecutiveFailures = 0;
+      }
+    } catch (e) {
+      // Non-fatal — status poll below will keep retrying and this will
+      // pick back up on the next tick.
+    }
+  }
+
+  async function pollStatus() {
+    try {
+      const r = await fetch(HERMIANANGO_BASE + '/waha/session-status?customerId=' + encodeURIComponent(customerId) + '&token=' + encodeURIComponent(token));
+
+      if (r.status === 403) {
+        stopAllPolling();
+        showError('This link has expired or is invalid. Ask Hermia to send you a fresh connect link.');
+        return;
+      }
+
+      const data = await r.json();
+
+      if (!data.ok) {
+        consecutiveFailures++;
+        if (consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
+          stopAllPolling();
+          setStatus('Losing connection to server — refresh to retry', 'failed');
+        } else {
+          setStatus('Checking connection…');
+        }
+        return;
+      }
+
+      consecutiveFailures = 0;
+
+      if (data.status === 'WORKING') {
+        stopAllPolling();
+        qrState.style.display = 'none';
+        successState.classList.add('show');
+        phoneDisplay.textContent = data.phoneNumber ? '+' + data.phoneNumber : '';
+        return;
+      }
+
+      if (data.status === 'FAILED' || data.status === 'STOPPED') {
+        stopAllPolling();
+        setStatus('Connection failed — refresh to retry', 'failed');
+        return;
+      }
+
+      if (data.status === 'SCAN_QR_CODE') {
+        setStatus('Waiting for scan…', 'scan');
+      } else {
+        setStatus('Starting up…');
+      }
+    } catch (e) {
+      consecutiveFailures++;
+      if (consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
+        stopAllPolling();
+        setStatus('Losing connection to server — refresh to retry', 'failed');
+      } else {
+        setStatus('Checking connection…');
+      }
+    }
+  }
+
+  async function init() {
+    if (!customerId) {
+      showError('Missing customerId in the URL — this link looks incomplete. Ask Hermia to resend it.');
+      return;
+    }
+    if (!token) {
+      showError('This link is missing its security token. Ask Hermia to resend your connect link.');
+      return;
+    }
+
+    const started = await startSession();
+    if (!started) return;
+
+    await loadQr();
+    setStatus('Waiting for scan…', 'scan');
+
+    pollTimer = setInterval(pollStatus, 2500);
+    qrRefreshTimer = setInterval(loadQr, 20000); // WAHA rotates the QR periodically
+  }
+
+  init();
+</script>
+</body>
+</html>
+
