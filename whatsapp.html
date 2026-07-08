@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hermia | Connect WhatsApp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #080705;
+            --bg-card: rgba(10, 9, 7, 0.9);
+            --gold: #D4AF37;
+            --gold-bright: #FFD700;
+            --gold-light: #F9E2AF;
+            --gold-muted: rgba(212, 175, 55, 0.12);
+            --cream: #f4f0e6;
+            --soft: #a19d94;
+            --border: rgba(212, 175, 55, 0.2);
+            --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
+            --wa-green: #3ba55d;
+            --red: #ff7e75;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+        html, body { height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+        .quit-link { position: fixed; top: 24px; right: 24px; z-index: 500; display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-light) !important; text-decoration: none !important; padding: 10px 18px; border: 1px solid var(--border); background: rgba(212, 175, 55, 0.05); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: all 0.3s var(--ease-cinematic); }
+        .quit-link:hover { color: #000 !important; background: var(--gold) !important; border-color: var(--gold); }
+        .bg-layers { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,1) 100%); z-index: 5; }
+        .light-bloom { position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 55%); animation: light-drift 40s infinite alternate ease-in-out; will-change: transform; }
+        @keyframes light-drift { 0% { transform: translate(-2%, -2%) scale(1); } 100% { transform: translate(2%, 2%) scale(1.05); } }
+        .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 140px 140px; -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%); mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%); opacity: 0.1; }
+        .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+        .wrap { position: relative; z-index: 10; width: 100%; max-width: 1200px; margin: 0 auto; padding: 60px 40px 100px; display: flex; flex-direction: column; align-items: center; }
+        .logo-wrap { margin-bottom: 40px; }
+        .logo { height: 48px; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4)); }
+        .steps { display: flex; justify-content: space-between; width: 100%; max-width: 700px; margin-bottom: 60px; position: relative; }
+        .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.08); }
+        .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: var(--gold); box-shadow: 0 0 12px var(--gold); transition: width 1.2s var(--ease-cinematic); }
+        .step { display: flex; flex-direction: column; align-items: center; gap: 12px; flex: 1; position: relative; z-index: 1; }
+        .dot-step { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; background: var(--bg); border: 1px solid var(--border); color: var(--soft); transition: all 0.6s var(--ease-cinematic); }
+        .step.active .dot-step { border-color: var(--gold); color: var(--gold-bright); box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+        .step.done .dot-step { background: var(--gold); border-color: var(--gold); color: #000; }
+        .label { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--soft); opacity: 0.5; }
+        .step.active .label { color: var(--gold-light); opacity: 1; }
+        .card { width: 100%; max-width: 460px; background: var(--bg-card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); padding: 64px 56px; position: relative; box-shadow: 0 60px 150px rgba(0,0,0,0.9); display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+        .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 24px; }
+        h1 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; line-height: 1.05; margin-bottom: 16px; letter-spacing: -0.02em; }
+        .sub { font-size: 15px; color: var(--soft); margin-bottom: 44px; line-height: 1.7; font-weight: 300; max-width: 340px; }
+
+        .qr-frame { width: 240px; height: 240px; background: #fff; border-radius: 4px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 28px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .qr-frame::before { content: ''; position: absolute; inset: -1px; border: 1px solid var(--gold); pointer-events: none; opacity: 0.6; }
+        .qr-frame img { width: 100%; height: 100%; object-fit: contain; }
+        .spinner { width: 24px; height: 24px; border: 1px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.9s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .status-row { display: flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--soft); }
+        .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--soft); box-shadow: 0 0 0 rgba(0,0,0,0); transition: all 0.4s var(--ease-cinematic); }
+        .dot.scan { background: var(--gold); box-shadow: 0 0 10px rgba(212, 175, 55, 0.6); }
+        .dot.connected { background: var(--wa-green); box-shadow: 0 0 10px rgba(59, 165, 93, 0.6); }
+        .dot.failed { background: var(--red); box-shadow: 0 0 10px rgba(255, 126, 117, 0.5); }
+
+        .err { font-size: 12px; color: var(--red); text-align: center; margin-top: 20px; line-height: 1.6; max-width: 320px; }
+
+        .success { display: none; flex-direction: column; align-items: center; gap: 6px; }
+        .success.show { display: flex; }
+        .success-mark { width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--wa-green); display: grid; place-items: center; margin-bottom: 20px; }
+        .success h2 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 28px; color: #fff; margin-bottom: 10px; }
+        .success p { font-size: 14px; color: var(--soft); line-height: 1.6; max-width: 300px; margin-bottom: 6px; }
+        .phone { font-size: 14px; color: var(--gold-light); letter-spacing: 0.05em; margin-top: 10px; padding: 10px 20px; border: 1px solid var(--border); background: rgba(212,175,55,0.05); }
+
+        .powered { margin-top: 60px; text-align: center; color: var(--soft); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.4; }
+        @media (max-width: 900px) { .card { padding: 48px 28px; } h1 { font-size: 32px; } }
+    </style>
+</head>
+<body>
+<div class="bg-layers"><div class="light-bloom"></div><div class="grid"></div><div class="vignette"></div><div class="grain"></div></div>
+<a href="https://hermia.au" class="quit-link">Exit Onboarding</a>
+
+<div class="wrap">
+    <div class="logo-wrap"><img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" /></div>
+
+    <div class="card">
+        <div class="eyebrow">Connect Channel</div>
+        <h1>Connect your WhatsApp</h1>
+        <p class="sub">Scan this code with the WhatsApp app on the phone you want your leads to message. Keep that phone on and connected to the internet.</p>
+
+        <div id="qrState">
+            <div class="qr-frame" id="qrWrap">
+                <div class="spinner"></div>
+            </div>
+            <div class="status-row"><span class="dot" id="statusDot"></span><span id="statusText">Starting session…</span></div>
+            <div class="err" id="errBox" style="display:none;"></div>
+        </div>
+
+        <div class="success" id="successState">
+            <div class="success-mark">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 12.5L9.5 18L20 6" stroke="#3ba55d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h2>Connected</h2>
+            <p>Your WhatsApp is linked. Leads will start reaching you here.</p>
+            <div class="phone" id="phoneDisplay"></div>
+        </div>
+
+        <div class="powered">Secured by Hermia &amp; WhatsApp</div>
+    </div>
+</div>
+
+<script>
+  // ── CONFIG ──
+  const HERMIANANGO_BASE = 'https://hermianango.capital-fbc.workers.dev'; // confirm this matches your deployed worker URL
+  const params = new URLSearchParams(window.location.search);
+  const customerId = params.get('customerId');
+
+  const ACTIVE_IDX = 5;
+
+  const qrWrap = document.getElementById('qrWrap');
+  const statusDot = document.getElementById('statusDot');
+  const statusText = document.getElementById('statusText');
+  const errBox = document.getElementById('errBox');
+  const qrState = document.getElementById('qrState');
+  const successState = document.getElementById('successState');
+  const phoneDisplay = document.getElementById('phoneDisplay');
+
+  let pollTimer = null;
+  let qrRefreshTimer = null;
+
+  function updateSteps() {
+    [1,2,3,4,5,6].forEach(num => {
+      const el = document.getElementById('step' + num);
+      if (num < ACTIVE_IDX) el.classList.add('done');
+      if (num === ACTIVE_IDX) el.classList.add('active');
+    });
+    document.getElementById('progressLine').style.width =
+      ((ACTIVE_IDX - 1) / 5 * 100) + '%';
+  }
+
+  function showError(msg) {
+    errBox.style.display = 'block';
+    errBox.textContent = msg;
+  }
+
+  function setStatus(label, dotClass) {
+    statusText.textContent = label;
+    statusDot.className = 'dot' + (dotClass ? ' ' + dotClass : '');
+  }
+
+  async function startSession() {
+    try {
+      const r = await fetch(HERMIANANGO_BASE + '/waha/start-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ customerId })
+      });
+      const data = await r.json();
+      if (!data.ok) {
+        showError('Could not start WhatsApp session: ' + (data.error || 'unknown error'));
+        return false;
+      }
+      return true;
+    } catch (e) {
+      showError('Network error starting session: ' + e.message);
+      return false;
+    }
+  }
+
+  async function loadQr() {
+    try {
+      const r = await fetch(HERMIANANGO_BASE + '/waha/qr?customerId=' + encodeURIComponent(customerId));
+      const data = await r.json();
+      if (data.ok && data.qrImageBase64) {
+        qrWrap.innerHTML = '<img src="' + data.qrImageBase64 + '" alt="WhatsApp QR code">';
+      }
+    } catch (e) {
+      // Non-fatal — status poll below will keep retrying and this will
+      // pick back up on the next tick.
+    }
+  }
+
+  async function pollStatus() {
+    try {
+      const r = await fetch(HERMIANANGO_BASE + '/waha/session-status?customerId=' + encodeURIComponent(customerId));
+      const data = await r.json();
+
+      if (!data.ok) {
+        setStatus('Checking connection…');
+        return;
+      }
+
+      if (data.status === 'WORKING') {
+        clearInterval(pollTimer);
+        clearInterval(qrRefreshTimer);
+        qrState.style.display = 'none';
+        successState.classList.add('show');
+        phoneDisplay.textContent = data.phoneNumber ? '+' + data.phoneNumber : '';
+        return;
+      }
+
+      if (data.status === 'FAILED' || data.status === 'STOPPED') {
+        setStatus('Connection failed — refresh to retry', 'failed');
+        return;
+      }
+
+      if (data.status === 'SCAN_QR_CODE') {
+        setStatus('Waiting for scan…', 'scan');
+      } else {
+        setStatus('Starting up…');
+      }
+    } catch (e) {
+      setStatus('Checking connection…');
+    }
+  }
+
+  async function init() {
+    updateSteps();
+
+    if (!customerId) {
+      showError('Missing customerId in the URL — this page needs a link like waha_connect.html?customerId=1042');
+      return;
+    }
+
+    const started = await startSession();
+    if (!started) return;
+
+    await loadQr();
+    setStatus('Waiting for scan…', 'scan');
+
+    pollTimer = setInterval(pollStatus, 2500);
+    qrRefreshTimer = setInterval(loadQr, 20000); // WAHA rotates the QR periodically
+  }
+
+  init();
+</script>
+</body>
+</html>
