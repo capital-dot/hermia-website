@@ -451,11 +451,42 @@
 
                 document.body.style.transition = 'opacity 1s ease';
                 document.body.style.opacity = '0';
-                setTimeout(() => {
-                    const nextUrl = 'https://onboarding.hermia.au/waha_connect.html' +
-                        (plan ? ('?plan=' + encodeURIComponent(plan)) : '');
-                    window.location.href = nextUrl;
-                }, 1000);
+
+                // FIXED: this used to build the waha_connect.html URL by
+                // hand with only `plan` attached — no customerId, no
+                // token — which is exactly why /waha/start-session,
+                // /waha/qr, and /waha/session-status all 403'd with
+                // "invalid or expired link" the moment the page loaded.
+                // /waha/get-link is the endpoint that actually signs a
+                // real token for this outlookerId (see signWahaToken /
+                // handleWahaGetLink in hermianango.js) — it has to be
+                // called, not guessed around.
+                try {
+                    const linkRes = await fetch(HERMIANANGO_URL + '/waha/get-link?customerId=' + encodeURIComponent(id));
+                    const linkData = await linkRes.json();
+                    if (!linkRes.ok || !linkData.link) {
+                        throw new Error('Could not generate WhatsApp connect link');
+                    }
+
+                    const nextUrl = new URL(linkData.link);
+                    if (plan) nextUrl.searchParams.set('plan', plan);
+
+                    setTimeout(() => {
+                        window.location.href = nextUrl.toString();
+                    }, 1000);
+                } catch (linkErr) {
+                    console.error('[foundation-details] link generation failed:', linkErr);
+                    // Fall back to the old URL shape rather than stranding
+                    // the outlooker mid-transition with no redirect at
+                    // all — it will still show the "missing token" error
+                    // on waha_connect.html, but at least gives them
+                    // somewhere to land and retry from, instead of a
+                    // frozen faded-out page.
+                    setTimeout(() => {
+                        window.location.href = 'https://onboarding.hermia.au/waha_connect.html' +
+                            (plan ? ('?plan=' + encodeURIComponent(plan)) : '');
+                    }, 1000);
+                }
             } catch (e) {
                 console.error(e);
                 btn.disabled = false;
