@@ -1,71 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Connect your WhatsApp — Hermia</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hermia · Connect WhatsApp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
 <style>
-  :root{--bg:#050505;--card:#0f0f0f;--border:rgba(196,150,60,0.18);--gold:#c4963c;--gl:#d9aa52;--cream:#f4f0e6;--soft:#b0ada5;--muted:#7a7470;--green:#3ba55d;--red:#c45c3c;}
+  :root {
+    --bg:#16140f; --gold:#C9A35B; --gold-light:#e8c17a;
+    --cream:#f4f0e6; --soft:#b6b1a6; --border:rgba(201,163,91,0.16);
+    --green:#7fb88a; --red:#c97b6a;
+  }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:48px 20px;-webkit-font-smoothing:antialiased}
-  h1{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:26px;color:#fff;margin-bottom:8px;text-align:center}
-  .sub{font-size:13px;color:var(--soft);text-align:center;max-width:360px;margin-bottom:36px;line-height:1.6}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;width:100%;max-width:340px;display:flex;flex-direction:column;align-items:center;box-shadow:0 14px 34px rgba(0,0,0,0.45)}
-  .qr-wrap{width:240px;height:240px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:20px}
-  .qr-wrap img{width:100%;height:100%;object-fit:contain}
-  .status-row{display:flex;align-items:center;gap:8px;font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
-  .dot.scan{background:var(--gold)}
-  .dot.connected{background:var(--green)}
-  .dot.failed{background:var(--red)}
-  .success{display:none;flex-direction:column;align-items:center;gap:10px;text-align:center}
-  .success.show{display:flex}
-  .success h2{font-family:"Cormorant Garamond",serif;font-size:22px;color:#fff}
-  .success p{font-size:13px;color:var(--soft)}
-  .phone{font-size:14px;color:var(--gl);letter-spacing:0.5px;margin-top:4px}
-  .spinner{width:22px;height:22px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:16px}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .err{font-size:12.5px;color:var(--red);text-align:center;margin-top:14px;line-height:1.6}
-  footer{margin-top:32px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+  html,body{height:100%;overflow:hidden}
 
-  /* Redirection notice */
-  .redirect-notice {
-    margin-top: 20px;
-    font-size: 12px;
-    color: var(--gold);
-    font-style: italic;
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Background ── */
+  .bg { position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden }
+
+  .bloom {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(900px 700px at 50% 50%, rgba(201,163,91,0.18) 0%, transparent 58%),
+      radial-gradient(600px 500px at 50% 50%, rgba(201,163,91,0.09) 0%, transparent 50%),
+      radial-gradient(400px 800px at 18% 90%, rgba(201,163,91,0.05), transparent 60%),
+      radial-gradient(400px 600px at 82% 10%, rgba(201,163,91,0.04), transparent 60%);
+  }
+
+  .gridfloor {
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(201,163,91,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,163,91,0.045) 1px, transparent 1px);
+    background-size:62px 62px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 0%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 0%, transparent 100%);
+  }
+
+  .grain {
+    position:absolute;inset:0;opacity:.035;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
+  }
+
+  /* ── Floating panels ── */
+  .float {
+    position:absolute;border:1px solid rgba(201,163,91,0.10);border-radius:20px;
+    background:linear-gradient(135deg,rgba(201,163,91,0.04),rgba(201,163,91,0.003));
+    backdrop-filter:blur(2px);opacity:.6;
+  }
+  .f1{width:130px;height:170px;top:12%;left:-44px;animation:drift1 18s ease-in-out infinite}
+  .f2{width:100px;height:100px;bottom:16%;left:6%;animation:drift2 22s ease-in-out infinite}
+  .f3{width:180px;height:130px;top:8%;right:-58px;animation:drift3 24s ease-in-out infinite}
+  .f4{width:110px;height:145px;bottom:8%;right:6%;animation:drift1 20s ease-in-out infinite reverse}
+  @keyframes drift1{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-22px) rotate(3deg)}}
+  @keyframes drift2{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(12px,-18px) rotate(-4deg)}}
+  @keyframes drift3{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-16px,16px) rotate(2deg)}}
+
+  .brandmark {
+    position: relative; z-index: 2;
+    margin-bottom: 36px;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    animation: fadeUp .7s ease 0s forwards;
   }
-  .redirect-notice.show {
-    opacity: 1;
+  .brandmark img {
+    height: 34px;
+    display: block;
+    filter: drop-shadow(0 0 10px rgba(201,163,91,0.35));
   }
+
+  /* ── Main content ── */
+  .stage {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 24px;
+  }
+
+  /* ── QR / seal centerpiece (same treatment as the animated 3D logo) ── */
+  .logo-outer {
+    perspective: 700px;
+    perspective-origin: 50% 50%;
+    position: relative;
+    margin-bottom: 44px;
+    cursor: default;
+  }
+
+  .logo-orb {
+    position: absolute;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(201,163,91,0.38) 0%, rgba(201,163,91,0.12) 40%, transparent 72%);
+    filter: blur(18px);
+    animation: orb-pulse 4s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+    transition: background 0.6s ease;
+  }
+  .logo-orb.connected { background: radial-gradient(circle, rgba(127,184,138,0.4) 0%, rgba(127,184,138,0.12) 40%, transparent 72%); }
+  .logo-orb.failed { background: radial-gradient(circle, rgba(201,123,106,0.35) 0%, rgba(201,123,106,0.1) 40%, transparent 72%); animation: none; opacity: .6; }
+  @keyframes orb-pulse {
+    0%,100% { opacity: .7; transform: translate(-50%,-50%) scale(.88); }
+    50%      { opacity: 1;  transform: translate(-50%,-50%) scale(1.08); }
+  }
+
+  .logo-sheen-wrap {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 14px;
+    padding: 4px 6px;
+  }
+  .logo-sheen-wrap::after {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: -120%;
+    width: 50%;
+    height: 180%;
+    background: linear-gradient(
+      108deg,
+      transparent 20%,
+      rgba(255,255,255,0.42) 50%,
+      transparent 80%
+    );
+    transform: skewX(-14deg);
+    animation: sheen 6s ease-in-out infinite 1.5s;
+    pointer-events: none;
+  }
+  @keyframes sheen {
+    0%, 35%  { left: -120%; opacity: 0; }
+    40%      { opacity: 1; }
+    60%      { opacity: 1; left: 160%; }
+    65%, 100%{ left: 160%; opacity: 0; }
+  }
+
+  /* QR frame — no rotation while it needs to stay scannable, just a soft breathing float */
+  .qr-frame {
+    width: 168px; height: 168px;
+    background: #fff;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    filter:
+      drop-shadow(0 0 28px rgba(201,163,91,0.55))
+      drop-shadow(0 14px 40px rgba(201,163,91,0.28));
+    animation: qrIn 1.1s cubic-bezier(.22,1,.36,1) both, qr-breathe 5s ease-in-out infinite;
+  }
+  .qr-frame img { width: 100%; height: 100%; object-fit: contain; padding: 12px; }
+  @keyframes qr-breathe { 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.015); } }
+  @keyframes qrIn {
+    from { opacity:0; transform: scale(0.6); filter: blur(12px) drop-shadow(0 0 0px rgba(201,163,91,0)); }
+    to   { opacity:1; }
+  }
+  .qr-frame.loading { background: rgba(201,163,91,0.06); }
+  .spinner {
+    width: 26px; height: 26px; border-radius: 50%;
+    border: 1.5px solid rgba(201,163,91,0.2); border-top-color: var(--gold);
+    animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Seal (success) reuses the same 3D spin treatment as the brand logo, since it no longer needs to stay flat for scanning */
+  .seal {
+    width: 96px; height: 96px; border-radius: 50%;
+    background: linear-gradient(135deg, rgba(127,184,138,0.16), rgba(127,184,138,0.03));
+    border: 1px solid rgba(127,184,138,0.4);
+    display: flex; align-items: center; justify-content: center;
+    transform-style: preserve-3d;
+    filter: drop-shadow(0 0 24px rgba(127,184,138,0.55)) drop-shadow(0 14px 34px rgba(127,184,138,0.25));
+    animation: sealIn 0.7s cubic-bezier(.22,1,.36,1) both, sealSpin 7s ease-in-out infinite 0.7s;
+  }
+  @keyframes sealIn { from { opacity:0; transform: scale(0.5); } to { opacity:1; } }
+  @keyframes sealSpin {
+    0%   { transform: rotateY(-18deg) rotateX(4deg) scale(1); }
+    50%  { transform: rotateY(18deg)  rotateX(-4deg) scale(1.05); }
+    100% { transform: rotateY(-18deg) rotateX(4deg) scale(1); }
+  }
+  .seal svg path { stroke-dasharray: 26; stroke-dashoffset: 26; animation: draw 0.5s ease-out 0.35s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  /* ── Text ── */
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: .30em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+    opacity: 0;
+    animation: fadeUp .7s ease .15s forwards;
+    transition: color 0.4s ease;
+  }
+  .eyebrow.failed { color: var(--red); }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(38px, 8vw, 54px);
+    line-height: 1.05;
+    letter-spacing: -.01em;
+    color: var(--cream);
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp .75s ease .3s forwards;
+    min-height: 1.05em;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .sub {
+    font-size: 15px;
+    color: var(--soft);
+    letter-spacing: .02em;
+    font-weight: 300;
+    line-height: 1.55;
+    max-width: 320px;
+    opacity: 0;
+    animation: fadeUp .7s ease .45s forwards;
+  }
+
+  .status-line {
+    margin-top: 20px;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--soft);
+    opacity: 0; animation: fadeUp .6s ease .6s forwards;
+  }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--soft); position: relative; }
+  .status-dot::after { content:''; position:absolute; inset:-5px; border-radius:50%; border:1px solid transparent; }
+  .status-dot.amber { background: var(--gold); }
+  .status-dot.amber::after { border-color: rgba(201,163,91,0.5); animation: pulse-ring 1.7s ease-out infinite; }
+  .status-dot.green { background: var(--green); box-shadow: 0 0 8px rgba(127,184,138,0.7); }
+  .status-dot.red { background: var(--red); box-shadow: 0 0 8px rgba(201,123,106,0.6); }
+  @keyframes pulse-ring { 0%{transform:scale(.6);opacity:.8} 100%{transform:scale(2);opacity:0} }
+
+  /* ── Progress bar (redirect countdown) ── */
+  .progress-wrap {
+    margin-top: 40px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+  }
+  .progress-wrap.show { display: flex; animation: fadeUp .6s ease forwards; }
+
+  .progress-track {
+    width: 180px;
+    height: 1.5px;
+    background: rgba(201,163,91,0.14);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--gold-light), var(--gold));
+    border-radius: 99px;
+    box-shadow: 0 0 10px rgba(201,163,91,0.7);
+  }
+  .progress-wrap.show .progress-fill { animation: fill-bar 2s cubic-bezier(.4,0,.2,1) 0.15s forwards; }
+  @keyframes fill-bar { from { width: 0%; } to { width: 100%; } }
+
+  .progress-label {
+    font-size: 10.5px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--soft);
+    opacity: .7;
+  }
+
+  .err-line {
+    margin-top: 24px;
+    font-size: 12.5px;
+    color: var(--red);
+    max-width: 300px;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeUp .6s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(14px) }
+    to   { opacity:1; transform:translateY(0) }
+  }
+
+  @media(prefers-reduced-motion:reduce){ *{ animation-duration:.01ms !important; animation-delay:.01ms !important } }
+  @media(max-width:480px){ h1{font-size:36px} .qr-frame{width:150px;height:150px} .float{display:none} }
 </style>
 </head>
 <body>
-  <h1>Connect Your WhatsApp</h1>
-  <p class="sub">Scan this code with the WhatsApp app on the phone you want your leads to message. Keep that phone on and connected to the internet.</p>
 
-  <div class="card">
-    <div id="qrState">
-      <div class="qr-wrap" id="qrWrap">
-        <div class="spinner"></div>
-      </div>
-      <div class="status-row"><span class="dot" id="statusDot"></span><span id="statusText">Starting session…</span></div>
-      <div class="err" id="errBox" style="display:none;"></div>
-    </div>
+<div class="bg" aria-hidden="true">
+  <div class="bloom"></div>
+  <div class="gridfloor"></div>
+  <div class="float f1"></div>
+  <div class="float f2"></div>
+  <div class="float f3"></div>
+  <div class="float f4"></div>
+  <div class="grain"></div>
+</div>
 
-    <div class="success" id="successState">
-      <h2>Connected</h2>
-      <p>Your WhatsApp is linked. Leads will start reaching you here.</p>
-      <div class="phone" id="phoneDisplay"></div>
-      <div class="redirect-notice" id="redirectNotice">Redirecting to Simpro connection...</div>
+<div class="brandmark">
+  <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" draggable="false" />
+</div>
+
+<div class="stage">
+  <div class="logo-outer">
+    <div class="logo-orb" id="orb"></div>
+    <div class="logo-sheen-wrap">
+      <div class="qr-frame loading" id="qrFrame"><div class="spinner"></div></div>
     </div>
   </div>
 
-  <footer>Hermia &middot; hermia.au</footer>
+  <div class="eyebrow" id="eyebrow">One moment</div>
+  <h1 id="heading">Connecting your<br><em>WhatsApp.</em></h1>
+  <p class="sub" id="subText">Setting up a secure session for your leads.</p>
+
+  <div class="status-line" id="statusLine" style="display:none;">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="statusText">Starting session…</span>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-label" id="progressLabel">Redirecting to Simpro connection</span>
+  </div>
+
+  <div class="err-line" id="errBox" style="display:none;"></div>
+</div>
 
 <script>
   // ── CONFIG ──
@@ -73,7 +358,6 @@
   const params = new URLSearchParams(window.location.search);
 
   // ── SESSION & PLAN HANDLING ──
-  // Capture plan from URL and persist it
   let plan = params.get('plan');
   if (plan) {
     sessionStorage.setItem('hermia_plan', plan);
@@ -81,7 +365,6 @@
     plan = sessionStorage.getItem('hermia_plan');
   }
 
-  // Ensure customerId is available (either from URL or sessionStorage)
   let customerId = params.get('customerId');
   if (customerId) {
     sessionStorage.setItem('hermia_outlooker_id', customerId);
@@ -91,28 +374,43 @@
 
   const token = params.get('token'); // signed link token — required, see /waha/get-link
 
-  const qrWrap = document.getElementById('qrWrap');
+  const orb = document.getElementById('orb');
+  const qrFrame = document.getElementById('qrFrame');
+  const eyebrow = document.getElementById('eyebrow');
+  const heading = document.getElementById('heading');
+  const subText = document.getElementById('subText');
+  const statusLine = document.getElementById('statusLine');
   const statusDot = document.getElementById('statusDot');
   const statusText = document.getElementById('statusText');
+  const progressWrap = document.getElementById('progressWrap');
+  const progressLabel = document.getElementById('progressLabel');
   const errBox = document.getElementById('errBox');
-  const qrState = document.getElementById('qrState');
-  const successState = document.getElementById('successState');
-  const phoneDisplay = document.getElementById('phoneDisplay');
-  const redirectNotice = document.getElementById('redirectNotice');
 
   let pollTimer = null;
   let qrRefreshTimer = null;
   let consecutiveFailures = 0;
   const MAX_CONSECUTIVE_FAILURES = 5;
 
+  function setScene(eyebrowText, headingHtml, subTextText) {
+    eyebrow.textContent = eyebrowText;
+    heading.innerHTML = headingHtml;
+    subText.textContent = subTextText;
+  }
+
   function showError(msg) {
+    stopAllPolling();
+    orb.classList.add('failed');
+    eyebrow.classList.add('failed');
+    statusLine.style.display = 'none';
     errBox.style.display = 'block';
     errBox.textContent = msg;
   }
 
-  function setStatus(label, dotClass) {
+  // kind: 'amber' | 'green' | 'red' | null
+  function setStatus(label, kind) {
+    statusLine.style.display = 'inline-flex';
     statusText.textContent = label;
-    statusDot.className = 'dot' + (dotClass ? ' ' + dotClass : '');
+    statusDot.className = 'status-dot' + (kind ? ' ' + kind : '');
   }
 
   function stopAllPolling() {
@@ -149,13 +447,13 @@
     try {
       const r = await fetch(HERMIANANGO_BASE + '/waha/qr?customerId=' + encodeURIComponent(customerId) + '&token=' + encodeURIComponent(token));
       if (r.status === 403) {
-        stopAllPolling();
         showError('This link has expired or is invalid. Ask Hermia to send you a fresh connect link.');
         return;
       }
       const data = await r.json();
       if (data.ok && data.qrImageBase64) {
-        qrWrap.innerHTML = '<img src="' + data.qrImageBase64 + '" alt="WhatsApp QR code">';
+        qrFrame.classList.remove('loading');
+        qrFrame.innerHTML = '<img src="' + data.qrImageBase64 + '" alt="WhatsApp QR code">';
         consecutiveFailures = 0;
       }
     } catch (e) {
@@ -169,7 +467,6 @@
       const r = await fetch(HERMIANANGO_BASE + '/waha/session-status?customerId=' + encodeURIComponent(customerId) + '&token=' + encodeURIComponent(token));
 
       if (r.status === 403) {
-        stopAllPolling();
         showError('This link has expired or is invalid. Ask Hermia to send you a fresh connect link.');
         return;
       }
@@ -179,10 +476,9 @@
       if (!data.ok) {
         consecutiveFailures++;
         if (consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
-          stopAllPolling();
-          setStatus('Losing connection to server — refresh to retry', 'failed');
+          showError('Losing connection to the server — refresh to retry.');
         } else {
-          setStatus('Checking connection…');
+          setStatus('Checking connection…', 'amber');
         }
         return;
       }
@@ -191,38 +487,45 @@
 
       if (data.status === 'WORKING') {
         stopAllPolling();
-        qrState.style.display = 'none';
-        successState.classList.add('show');
-        phoneDisplay.textContent = data.phoneNumber ? '+' + data.phoneNumber : '';
+        orb.classList.add('connected');
+        statusLine.style.display = 'none';
 
-        // ── REDIRECTION LOGIC ──
-        // Show redirect notice and move to Simpro Connect
-        redirectNotice.classList.add('show');
+        const phoneStr = data.phoneNumber ? '+' + data.phoneNumber : 'your phone';
+        setScene(
+          "You're in",
+          'WhatsApp<br><em>connected.</em>',
+          'Leads will start reaching ' + phoneStr + ' from here.'
+        );
+
+        qrFrame.outerHTML = '<div class="seal" id="qrFrame"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 12.5L9.5 18L20 6" stroke="#7fb88a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
+
+        progressLabel.textContent = 'Redirecting to Simpro connection';
+        progressWrap.classList.add('show');
+
         setTimeout(() => {
           const nextUrl = 'simpro_connect.html' + (plan ? ('?plan=' + encodeURIComponent(plan)) : '');
           window.location.href = nextUrl;
-        }, 2000);
+        }, 2200);
         return;
       }
 
       if (data.status === 'FAILED' || data.status === 'STOPPED') {
-        stopAllPolling();
-        setStatus('Connection failed — refresh to retry', 'failed');
+        showError('The connection failed — refresh the page to try again.');
         return;
       }
 
       if (data.status === 'SCAN_QR_CODE') {
-        setStatus('Waiting for scan…', 'scan');
+        setScene('Almost there', 'Scan to<br><em>connect.</em>', 'Open WhatsApp on your phone and scan the code above.');
+        setStatus('Waiting for scan…', 'amber');
       } else {
-        setStatus('Starting up…');
+        setStatus('Starting up…', 'amber');
       }
     } catch (e) {
       consecutiveFailures++;
       if (consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
-        stopAllPolling();
-        setStatus('Losing connection to server — refresh to retry', 'failed');
+        showError('Losing connection to the server — refresh to retry.');
       } else {
-        setStatus('Checking connection…');
+        setStatus('Checking connection…', 'amber');
       }
     }
   }
@@ -241,7 +544,8 @@
     if (!started) return;
 
     await loadQr();
-    setStatus('Waiting for scan…', 'scan');
+    setScene('Almost there', 'Scan to<br><em>connect.</em>', 'Open WhatsApp on your phone and scan the code above.');
+    setStatus('Waiting for scan…', 'amber');
 
     pollTimer = setInterval(pollStatus, 2500);
     qrRefreshTimer = setInterval(loadQr, 20000); // WAHA rotates the QR periodically
