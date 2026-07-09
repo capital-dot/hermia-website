@@ -8,15 +8,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
 
-    <!--
-      ADDED (2026-07-08): Nango frontend SDK. This replaces the entire
-      lead_alias / outlook-auth-url flow this page used to run. Outlook
-      no longer forwards mail via a rule — it connects via OAuth through
-      Nango, same category of flow as Simpro's direct OAuth, except
-      Nango hosts the callback and holds/refreshes the tokens instead of
-      hermianango.js doing it itself.
+    <!-- 
+      Nango SDK - Loaded with error handling to prevent "SDK not found" issues.
+      We use the browser-specific bundle for maximum compatibility.
     -->
-    <script src="https://cdn.jsdelivr.net/npm/@nangohq/frontend@latest/dist/index.browser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@nangohq/frontend@latest/dist/index.browser.js" onerror="handleSdkLoadError()"></script>
 
     <style>
         :root {
@@ -42,7 +38,7 @@
         .light-bloom { position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 55%); animation: light-drift 40s infinite alternate ease-in-out; will-change: transform; }
         @keyframes light-drift { 0% { transform: translate(-2%, -2%) scale(1); } 100% { transform: translate(2%, 2%) scale(1.05); } }
         .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 140px 140px; -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%); mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%); opacity: 0.1; }
-        .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E"); }
+        .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
         .wrap { position: relative; z-index: 10; width: 100%; max-width: 1200px; margin: 0 auto; padding: 60px 40px 100px; display: flex; flex-direction: column; align-items: center; }
         .logo-wrap { margin-bottom: 40px; }
         .logo { height: 48px; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4)); }
@@ -118,114 +114,190 @@
 </div>
 
 <script>
+    /**
+     * CONFIGURATION
+     * These must match the Cloudflare Worker (hermianango.js)
+     */
     const WORKER = 'https://hermianango.capital-fbc.workers.dev';
     const ACTIVE_IDX = 6;
-
     const NANGO_OUTLOOK_INTEGRATION_ID = 'outlook';
 
+    /**
+     * GLOBAL STATE
+     */
+    let nango;
+
+    /**
+     * SDK ERROR HANDLER
+     */
+    function handleSdkLoadError() {
+        setStatus('Microsoft SDK failed to load. Please check your internet and refresh.', 'err');
+        console.error('[outlook.html] Failed to load Nango SDK from CDN.');
+    }
+
+    /**
+     * SESSION MANAGEMENT
+     * Looks in URL, SessionStorage, and LocalStorage to prevent "Session Finished" errors.
+     */
     function getCustomerId() {
-        return sessionStorage.getItem('hermia_customer_id') || sessionStorage.getItem('hermia_outlooker_id');
+        const urlParams = new URLSearchParams(window.location.search);
+        const idFromUrl = urlParams.get('customer_id') || urlParams.get('id');
+        if (idFromUrl) return idFromUrl;
+
+        const idFromSession = sessionStorage.getItem('hermia_customer_id') || sessionStorage.getItem('hermia_outlooker_id');
+        if (idFromSession) return idFromSession;
+
+        const idFromLocal = localStorage.getItem('hermia_customer_id');
+        if (idFromLocal) return idFromLocal;
+
+        return null;
     }
 
     function updateSteps() {
         [1,2,3,4,5,6].forEach(num => {
             const el = document.getElementById('step' + num);
+            if (!el) return;
             if (num < ACTIVE_IDX) el.classList.add('done');
             if (num === ACTIVE_IDX) el.classList.add('active');
         });
-        document.getElementById('progressLine').style.width =
-            ((ACTIVE_IDX - 1) / 5 * 100) + '%';
+        const line = document.getElementById('progressLine');
+        if (line) line.style.width = ((ACTIVE_IDX - 1) / 5 * 100) + '%';
     }
 
     function setStatus(msg, kind) {
-        // kind: 'wait' | 'ok' | 'err'
         const area = document.getElementById('statusArea');
-        area.innerHTML = '<div class="status-msg ' + kind + '">' + msg + '</div>';
+        if (!area) return;
+        area.innerHTML = msg ? '<div class="status-msg ' + kind + '">' + msg + '</div>' : '';
     }
 
-    let nango;
-
+    /**
+     * INITIALIZATION
+     * Connects to the worker to get a secure session token.
+     */
     async function initNango() {
         const id = getCustomerId();
         const btn = document.getElementById('outlookSigninBtn');
 
         if (!id) {
-            setStatus('Session expired — please restart onboarding.', 'err');
+            setStatus('Onboarding session not found. Please go back and try again.', 'err');
+            console.error('[outlook.html] No customer ID found in URL or storage.');
             return;
         }
 
-        if (!window.Nango) {
-            setStatus('Could not load Microsoft sign-in — refresh to try again.', 'err');
-            console.error('[outlook.html] Nango frontend SDK failed to load from unpkg.');
+        // Persist the ID immediately to avoid "Session Finished" on refresh
+        sessionStorage.setItem('hermia_customer_id', id);
+        localStorage.setItem('hermia_customer_id', id);
+
+        // Wait for SDK to be ready
+        if (typeof Nango === 'undefined') {
+            console.log('[outlook.html] Waiting for Nango SDK...');
+            setTimeout(initNango, 500);
             return;
         }
 
-        // Fetch session token from the worker
+        setStatus('Preparing secure session...', 'wait');
+
         try {
             const response = await fetch(WORKER + '/nango/create-outlook-session', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ customerId: id })
             });
-            const data = await response.json();
-
-            if (!response.ok || !data.token) {
-                throw new Error(data.error || 'Failed to get Nango session token');
+            
+            if (!response.ok) {
+                const errData = await response.json().catch(() => ({}));
+                throw new Error(errData.error || `Worker error: ${response.status}`);
             }
+
+            const data = await response.json();
+            if (!data.token) throw new Error('Worker returned success but no token.');
+
+            // Instantiate Nango with the session token
             nango = new Nango({ connectSessionToken: data.token });
+            
             btn.disabled = false;
+            setStatus('', 'wait'); // Clear "Preparing" status
+            console.log('[outlook.html] Nango initialized successfully.');
         } catch (e) {
-            console.error('[outlook.html] Failed to initialize Nango:', e);
-            setStatus('Outlook connection is not configured yet — contact support.', 'err');
+            console.error('[outlook.html] Initialization failed:', e);
+            setStatus('Could not start secure session. Please refresh the page.', 'err');
         }
     }
 
-    function startOutlookAuth() {
+    /**
+     * AUTHENTICATION FLOW
+     * Triggers the Microsoft OAuth popup via Nango.
+     */
+    async function startOutlookAuth() {
         const id = getCustomerId();
         if (!id) {
-            setStatus('Session expired — please restart onboarding.', 'err');
+            setStatus('Session lost. Please restart onboarding.', 'err');
             return;
         }
+
         if (!nango) {
-            setStatus('Still loading — try again in a moment.', 'wait');
-            return;
+            setStatus('Session not ready. Retrying...', 'wait');
+            await initNango();
+            if (!nango) return;
         }
 
         const btn = document.getElementById('outlookSigninBtn');
         btn.disabled = true;
-        setStatus('Opening Microsoft sign-in…', 'wait');
+        setStatus('Opening Microsoft sign-in...', 'wait');
 
-        const connectionId = id;
-
-        nango.auth(NANGO_OUTLOOK_INTEGRATION_ID, connectionId)
-            .then(function (result) {
-                setStatus('Saving your connection…', 'wait');
-                return fetch(WORKER + '/nango/save-outlook-connection', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        customerId: id,
-                        connectionId: connectionId
-                    })
-                });
-            })
-            .then(function (r) { return r.json(); })
-            .then(function (data) {
-                if (!data.ok) {
-                    throw new Error(data.error || 'save-outlook-connection failed');
-                }
-                setStatus('Outlook connected. Redirecting…', 'ok');
-                setTimeout(function () {
-                    window.location.href = 'https://onboarding.hermia.au/hermia_setup_complete.html';
-                }, 1200);
-            })
-            .catch(function (err) {
-                console.error('[outlook.html] Outlook auth failed:', err);
-                setStatus('Could not connect Outlook — please try again.', 'err');
-                btn.disabled = false;
+        try {
+            /**
+             * STEP 1: AUTHENTICATE
+             * nango.auth() opens the popup. Nango generates a random connectionId.
+             */
+            const result = await nango.auth(NANGO_OUTLOOK_INTEGRATION_ID);
+            console.log('[outlook.html] Auth successful. Connection ID:', result.connectionId);
+            
+            setStatus('Finalizing connection...', 'wait');
+            
+            /**
+             * STEP 2: PERSIST
+             * Send the connectionId to the worker to save in Supabase.
+             */
+            const saveResponse = await fetch(WORKER + '/nango/save-outlook-connection', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    customerId: id,
+                    connectionId: result.connectionId
+                })
             });
+
+            const saveData = await saveResponse.json();
+            if (!saveResponse.ok || !saveData.ok) {
+                throw new Error(saveData.error || 'Failed to save connection in backend.');
+            }
+
+            setStatus('Success! Outlook connected.', 'ok');
+            
+            // Short delay for user to see success message before redirect
+            setTimeout(() => {
+                window.location.href = 'https://onboarding.hermia.au/hermia_setup_complete.html';
+            }, 1200);
+
+        } catch (err) {
+            console.error('[outlook.html] Auth Error:', err);
+            
+            let userMsg = 'Connection failed. Please try again.';
+            if (err.type === 'blocked_by_browser') {
+                userMsg = 'Popup blocked! Please allow popups for this site.';
+            } else if (err.type === 'window_closed') {
+                userMsg = 'Sign-in window closed before completion.';
+            } else if (err.message && err.message.includes('Nango verification failed')) {
+                userMsg = 'Verification failed. Please try signing in again.';
+            }
+            
+            setStatus(userMsg, 'err');
+            btn.disabled = false;
+        }
     }
 
+    // Run on load
     updateSteps();
     initNango();
 </script>
