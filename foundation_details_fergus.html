@@ -174,11 +174,11 @@
     </div>
 
     <script>
-        // ServiceM8-specific variant of the business-details step.
+        // Fergus-specific variant of the business-details step.
         // Same UI/validation as the Simpro version, but:
-        //  1. always tags crmProvider = 'servicem8' when creating the outlooker
-        //  2. always redirects to servicem8_connect.html afterward
-        const ALL_STEPS = ['Payment','Select CRM','Details','ServiceM8','Connect','Setup'];
+        //  1. always tags crmProvider = 'fergus' when creating the outlooker
+        //  2. always redirects to fergus_connect.html afterward
+        const ALL_STEPS = ['Payment','Select CRM','Details','Fergus','Connect','Setup'];
         const ACTIVE_INDEX = 2;
         const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
 
@@ -202,7 +202,7 @@
         // ============================================================
         // PLAN CARRY-THROUGH
         // selection.html redirects here as
-        //   foundation_details_servicem8.html?plan=gmail|facebook|instagram|outlook
+        //   foundation_details_fergus.html?plan=gmail|facebook|instagram|outlook
         // ============================================================
         const PLAN_NAMES = {
             gmail:     'Gmail',
@@ -377,10 +377,10 @@
                         state: state,
                         phone: $('ccPrefix').textContent + ' ' + local,
                         stripeSessionId: stripeSessionId || null,
-                        // This page only ever exists on the ServiceM8 branch of
+                        // This page only ever exists on the Fergus branch of
                         // selection.html, so we tag it directly rather than
                         // trusting sessionStorage alone — belt and braces.
-                        crmProvider: 'servicem8',
+                        crmProvider: 'fergus',
                         // Which package this outlooker bought
                         // (gmail / facebook / instagram / outlook). Saved
                         // against the Supabase row at the earliest point
@@ -398,7 +398,7 @@
 
                 sessionStorage.setItem('hermia_outlooker_id', id);
                 sessionStorage.setItem('hermia_gmail', gmail);
-                sessionStorage.setItem('hermia_crm_provider', 'servicem8');
+                sessionStorage.setItem('hermia_crm_provider', 'fergus');
                 sessionStorage.setItem('hermia_state', state);
                 sessionStorage.setItem('hermia_country', country);
                 if (plan) sessionStorage.setItem('hermia_plan', plan);
@@ -411,7 +411,7 @@
                     // survive the cross-origin hop to onboarding.hermia.au
                     // (same root cause as the hermia_plan bug on
                     // simpro_connect.html). Now forwarded as a URL param
-                    // exactly like plan is, so servicem8_connect.html's
+                    // exactly like plan is, so fergus_connect.html's
                     // URL-first restore logic can pick it up regardless
                     // of whether sessionStorage survived the jump.
                     const qs = new URLSearchParams();
@@ -419,7 +419,7 @@
                     if (id) qs.set('outlookerId', id);
                     const queryString = qs.toString();
 
-                    const nextUrl = 'https://onboarding.hermia.au/servicem8_connect.html' +
+                    const nextUrl = 'https://onboarding.hermia.au/fergus_connect.html' +
                         (queryString ? ('?' + queryString) : '');
                     window.location.href = nextUrl;
                 }, 1000);
