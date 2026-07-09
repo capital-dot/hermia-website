@@ -8,11 +8,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
 
-    <!-- 
-      Nango SDK - Loaded with error handling to prevent "SDK not found" issues.
-      We use the browser-specific bundle for maximum compatibility.
+    <!--
+      Nango SDK loader. The onerror handler MUST be defined before this
+      tag runs, or a fast network failure fires "handleSdkLoadError is
+      not defined" instead of the intended error message.
     -->
-    <script src="https://cdn.jsdelivr.net/npm/@nangohq/frontend@latest/dist/index.browser.js" onerror="handleSdkLoadError()"></script>
+    <script>
+        function handleSdkLoadError() {
+            console.error('[outlook.html] Failed to load Nango SDK from CDN.');
+            var area = document.getElementById('statusArea');
+            if (area) {
+                area.innerHTML = '<div class="status-msg err">Microsoft SDK failed to load. Please check your internet and refresh.</div>';
+            }
+            var btn = document.getElementById('outlookSigninBtn');
+            if (btn) btn.disabled = true;
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@nangohq/frontend@0.45.0/dist/index.browser.js" onerror="handleSdkLoadError()"></script>
 
     <style>
         :root {
@@ -128,14 +140,6 @@
     let nango;
 
     /**
-     * SDK ERROR HANDLER
-     */
-    function handleSdkLoadError() {
-        setStatus('Microsoft SDK failed to load. Please check your internet and refresh.', 'err');
-        console.error('[outlook.html] Failed to load Nango SDK from CDN.');
-    }
-
-    /**
      * SESSION MANAGEMENT
      * Looks in URL, SessionStorage, and LocalStorage to prevent "Session Finished" errors.
      */
@@ -203,7 +207,7 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ customerId: id })
             });
-            
+
             if (!response.ok) {
                 const errData = await response.json().catch(() => ({}));
                 throw new Error(errData.error || `Worker error: ${response.status}`);
@@ -214,7 +218,7 @@
 
             // Instantiate Nango with the session token
             nango = new Nango({ connectSessionToken: data.token });
-            
+
             btn.disabled = false;
             setStatus('', 'wait'); // Clear "Preparing" status
             console.log('[outlook.html] Nango initialized successfully.');
@@ -252,9 +256,9 @@
              */
             const result = await nango.auth(NANGO_OUTLOOK_INTEGRATION_ID);
             console.log('[outlook.html] Auth successful. Connection ID:', result.connectionId);
-            
+
             setStatus('Finalizing connection...', 'wait');
-            
+
             /**
              * STEP 2: PERSIST
              * Send the connectionId to the worker to save in Supabase.
@@ -274,7 +278,7 @@
             }
 
             setStatus('Success! Outlook connected.', 'ok');
-            
+
             // Short delay for user to see success message before redirect
             setTimeout(() => {
                 window.location.href = 'https://onboarding.hermia.au/hermia_setup_complete.html';
@@ -282,7 +286,7 @@
 
         } catch (err) {
             console.error('[outlook.html] Auth Error:', err);
-            
+
             let userMsg = 'Connection failed. Please try again.';
             if (err.type === 'blocked_by_browser') {
                 userMsg = 'Popup blocked! Please allow popups for this site.';
@@ -291,7 +295,7 @@
             } else if (err.message && err.message.includes('Nango verification failed')) {
                 userMsg = 'Verification failed. Please try signing in again.';
             }
-            
+
             setStatus(userMsg, 'err');
             btn.disabled = false;
         }
@@ -303,4 +307,5 @@
 </script>
 </body>
 </html>
+
 
