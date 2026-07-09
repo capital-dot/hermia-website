@@ -54,13 +54,22 @@
         .choice-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0; transition: opacity 0.4s ease; }
         .choice-card:hover { border-color: var(--gold); transform: translateY(-6px); box-shadow: 0 30px 60px rgba(0,0,0,0.6); }
         .choice-card:hover::before { opacity: 0.6; }
-        .choice-card.selected { border-color: var(--gold); background: rgba(212, 175, 55, 0.06); }
+        .choice-card:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 4px; }
+        .choice-card.selected { border-color: var(--gold); background: rgba(212, 175, 55, 0.08); box-shadow: 0 0 0 1px var(--gold), 0 30px 60px rgba(0,0,0,0.6); transform: translateY(-6px) scale(1.01); }
+        .choice-card.selected::before { opacity: 1; }
+        .choice-card.selected .choice-check { opacity: 1; transform: scale(1); }
+        .choice-check { position: absolute; top: 16px; right: 16px; width: 22px; height: 22px; border-radius: 50%; background: var(--gold); color: #000; display: grid; place-items: center; opacity: 0; transform: scale(0.5); transition: all 0.35s var(--ease-cinematic); }
+        .choice-check svg { width: 12px; height: 12px; stroke-width: 3; }
         .choice-name { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500; color: var(--gold-light); margin-bottom: 10px; }
         .choice-desc { font-size: 12.5px; color: var(--soft); line-height: 1.6; font-weight: 300; }
         .formerr { color: #ff7e75; font-size: 12px; margin-top: 26px; text-align: center; line-height: 1.6; letter-spacing: 0.03em; display: none; }
         .formerr.show { display: block; }
         @keyframes fade-in-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fade-in-down { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @media (prefers-reduced-motion: reduce) {
+            .logo-wrap, .plan-badge, .steps, .choices, .light-bloom, .logo-aura { animation: none !important; opacity: 1 !important; }
+            .choice-card, .choice-card.selected { transition: none; }
+        }
         @media (max-width: 600px) { .choices { grid-template-columns: 1fr; } h1 { font-size: 34px; } .label { display: none; } }
     </style>
 </head>
@@ -92,12 +101,16 @@
         <h1>Which system do you use?</h1>
         <p class="sub">Hermia connects directly to your CRM to deliver qualified leads. Select the platform your business runs on.</p>
 
-        <div class="choices">
-            <div class="choice-card" data-provider="simpro" id="cardSimpro">
+        <div class="choices" role="radiogroup" aria-label="CRM selection">
+            <div class="choice-card" data-provider="simpro" id="cardSimpro" role="radio" aria-checked="false" tabindex="0">
+                <div class="choice-check">CHECK_SVG_SIMPRO</div>
                 <div class="choice-name">Simpro</div>
+                <div class="choice-desc">Job management &amp; quoting for trades businesses.</div>
             </div>
-            <div class="choice-card" data-provider="servicem8" id="cardfergus">
-                <div class="choice-name"> FERGUS</div>
+            <div class="choice-card" data-provider="fergus" id="cardFergus" role="radio" aria-checked="false" tabindex="0">
+                <div class="choice-check">CHECK_SVG_FERGUS</div>
+                <div class="choice-name">Fergus</div>
+                <div class="choice-desc">Job management built for tradies, end to end.</div>
             </div>
         </div>
 
@@ -122,6 +135,9 @@
                 document.getElementById('progressline').style.width = `calc((100% - 34px) * ${ACTIVE_INDEX/(ALL_STEPS.length-1)})`;
             }, 100);
         })();
+
+        // Fill in the little check-mark badges on each card now that CHECK_SVG exists.
+        document.querySelectorAll('.choice-check').forEach(el => { el.innerHTML = CHECK_SVG; });
 
         const $ = id => document.getElementById(id);
 
@@ -182,21 +198,34 @@
         }
         try { if (customerId) sessionStorage.setItem('hermia_customer_id', customerId); } catch(e) {}
 
-        // Route map: each CRM choice goes to its OWN dedicated business-details
-        // page (not a shared one with branching logic inside it). This keeps
-        // each CRM's onboarding path self-contained — no hardcoded per-client
-        // conditionals, just a straight map of provider -> page.
+        // ============================================================
+        // BUGFIX NOTE: the previous version of this file had two
+        // mismatched identifiers that together made the Fergus card
+        // completely non-functional:
+        //   1. The card's element id was "cardfergus" but the selection
+        //      handler looked up "cardServiceM8" (doesn't exist) —
+        //      calling .classList on that null reference threw a
+        //      TypeError and stopped execution before the redirect ever
+        //      ran.
+        //   2. The click listener called selectProvider('fergus') but
+        //      DETAILS_PAGE_BY_PROVIDER only had a 'servicem8' key, so
+        //      even without bug #1 it would have hit the "Unrecognised
+        //      CRM selection" error path instead of redirecting.
+        // Fixed by standardising on 'fergus' as the provider key
+        // end-to-end: element id, data-provider attribute, map key, and
+        // click handler all now agree.
+        // ============================================================
         const DETAILS_PAGE_BY_PROVIDER = {
             simpro: 'foundation_details.html',
-            servicem8: 'foundation_details_fergus.html'
+            fergus: 'foundation_details_fergus.html'
+        };
+
+        const CARD_ELEMENTS = {
+            simpro: $('cardSimpro'),
+            fergus: $('cardFergus')
         };
 
         function selectProvider(provider) {
-            sessionStorage.setItem('hermia_crm_provider', provider);
-
-            $('cardSimpro').classList.toggle('selected', provider === 'simpro');
-            $('cardServiceM8').classList.toggle('selected', provider === 'servicem8');
-
             const targetPage = DETAILS_PAGE_BY_PROVIDER[provider];
             if (!targetPage) {
                 const errEl = $('formError');
@@ -206,6 +235,15 @@
                 }
                 return;
             }
+
+            try { sessionStorage.setItem('hermia_crm_provider', provider); } catch(e) {}
+
+            Object.entries(CARD_ELEMENTS).forEach(([key, el]) => {
+                if (!el) return;
+                const isSelected = key === provider;
+                el.classList.toggle('selected', isSelected);
+                el.setAttribute('aria-checked', String(isSelected));
+            });
 
             // Carry plan AND customerId forward as query params, not just
             // sessionStorage — sessionStorage doesn't survive if the client
@@ -228,9 +266,16 @@
             }, 600);
         }
 
-        $('cardSimpro').addEventListener('click', () => selectProvider('simpro'));
-        $('cardfergus').addEventListener('click', () => selectProvider('fergus'));
+        Object.entries(CARD_ELEMENTS).forEach(([provider, el]) => {
+            if (!el) return;
+            el.addEventListener('click', () => selectProvider(provider));
+            el.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    selectProvider(provider);
+                }
+            });
+        });
     </script>
 </body>
 </html>
-
