@@ -9,9 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
 
     <!--
-      Nango SDK loader. The onerror handler MUST be defined before this
-      tag runs, or a fast network failure fires "handleSdkLoadError is
-      not defined" instead of the intended error message.
+      Nango SDK loader.
+      @nangohq/frontend is ESM-only from v0.4x onward — there is no
+      dist/index.browser.js UMD/global bundle to <script src> anymore
+      (that's why every pinned version 404'd / errored silently). It
+      must be loaded via dynamic import() and attached to window.Nango
+      manually so the rest of this page (which expects a global `Nango`)
+      keeps working unchanged.
     -->
     <script>
         function handleSdkLoadError() {
@@ -23,8 +27,21 @@
             var btn = document.getElementById('outlookSigninBtn');
             if (btn) btn.disabled = true;
         }
+
+        (async function loadNangoSdk() {
+            try {
+                const mod = await import('https://cdn.jsdelivr.net/npm/@nangohq/frontend@0.70.9/+esm');
+                window.Nango = mod.default || mod.Nango || mod;
+                if (typeof window.Nango !== 'function') {
+                    throw new Error('Nango SDK loaded but no usable export was found.');
+                }
+                console.log('[outlook.html] Nango SDK loaded via ESM.');
+            } catch (e) {
+                console.error('[outlook.html] Nango SDK import failed:', e);
+                handleSdkLoadError();
+            }
+        })();
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/@nangohq/frontend@0.45.0/dist/index.browser.js" onerror="handleSdkLoadError()"></script>
 
     <style>
         :root {
@@ -307,5 +324,4 @@
 </script>
 </body>
 </html>
-
 
