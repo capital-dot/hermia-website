@@ -177,7 +177,8 @@
         // Fergus-specific variant of the business-details step.
         // Same UI/validation as the Simpro version, but:
         //  1. always tags crmProvider = 'fergus' when creating the outlooker
-        //  2. always redirects to fergus_connect.html afterward
+        //  2. always routes onward via waha_connect.html (WhatsApp connect),
+        //     same as the Simpro version — see the redirect fix below
         const ALL_STEPS = ['Payment','Select CRM','Details','Fergus','Connect','Setup'];
         const ACTIVE_INDEX = 2;
         const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -405,24 +406,57 @@
 
                 document.body.style.transition = 'opacity 1s ease';
                 document.body.style.opacity = '0';
-                setTimeout(() => {
-                    // FIX: previously only forwarded `plan` — outlookerId
-                    // was written to sessionStorage only, which does not
-                    // survive the cross-origin hop to onboarding.hermia.au
-                    // (same root cause as the hermia_plan bug on
-                    // simpro_connect.html). Now forwarded as a URL param
-                    // exactly like plan is, so fergus_connect.html's
-                    // URL-first restore logic can pick it up regardless
-                    // of whether sessionStorage survived the jump.
-                    const qs = new URLSearchParams();
-                    if (plan) qs.set('plan', plan);
-                    if (id) qs.set('outlookerId', id);
-                    const queryString = qs.toString();
 
-                    const nextUrl = 'https://onboarding.hermia.au/fergus_connect.html' +
-                        (queryString ? ('?' + queryString) : '');
-                    window.location.href = nextUrl;
-                }, 1000);
+                // FIXED (same bug as the Simpro variant): this used to
+                // skip WhatsApp connect entirely and jump straight to
+                // fergus_connect.html?plan=...&outlookerId=... — built by
+                // hand, no signed token, and no waha_connect.html step at
+                // all. That's inconsistent with the Simpro funnel (Details
+                // -> WhatsApp connect -> CRM connect) and, separately,
+                // means Fergus outlookers were never getting a WhatsApp
+                // session started.
+                //
+                // Now this calls /waha/get-link the same way the Simpro
+                // variant does, gets back a real signed token, and sends
+                // the outlooker to waha_connect.html first. It also passes
+                // provider=fergus on that URL — see the OPEN DEPENDENCY
+                // note below, this is not yet enough by itself.
+                try {
+                    const linkRes = await fetch(HERMIANANGO_URL + '/waha/get-link?customerId=' + encodeURIComponent(id));
+                    const linkData = await linkRes.json();
+                    if (!linkRes.ok || !linkData.link) {
+                        throw new Error('Could not generate WhatsApp connect link');
+                    }
+
+                    const nextUrl = new URL(linkData.link);
+                    if (plan) nextUrl.searchParams.set('plan', plan);
+                    // OPEN DEPENDENCY: waha_connect.html's own success
+                    // handler currently hardcodes its next redirect to
+                    // 'simpro_connect.html' — it does not read this
+                    // `provider` param yet. Until waha_connect.html is
+                    // updated to check provider (or read
+                    // hermia_crm_provider from sessionStorage) and branch
+                    // to fergus_connect.html when it's 'fergus', a Fergus
+                    // outlooker will connect WhatsApp successfully and
+                    // then get sent to the wrong CRM-connect page. Adding
+                    // this param now so the fix on that end is a one-line
+                    // read, not another round-trip through this file.
+                    nextUrl.searchParams.set('provider', 'fergus');
+
+                    setTimeout(() => {
+                        window.location.href = nextUrl.toString();
+                    }, 1000);
+                } catch (linkErr) {
+                    console.error('[foundation-details-fergus] link generation failed:', linkErr);
+                    // Same fallback pattern as the Simpro variant: don't
+                    // strand the outlooker with no redirect at all if
+                    // link generation itself fails.
+                    setTimeout(() => {
+                        window.location.href = 'https://onboarding.hermia.au/waha_connect.html' +
+                            (plan ? ('?plan=' + encodeURIComponent(plan)) : '') +
+                            (plan ? '&' : '?') + 'provider=fergus';
+                    }, 1000);
+                }
             } catch (e) {
                 console.error(e);
                 btn.disabled = false;
