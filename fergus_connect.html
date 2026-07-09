@@ -1,308 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hermia | Connect ServiceM8</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
-    <style>
-        :root {
-            --bg: #080705;
-            --bg-card: rgba(10, 9, 7, 0.85);
-            --gold: #D4AF37;
-            --gold-bright: #FFD700;
-            --gold-light: #F9E2AF;
-            --gold-muted: rgba(212, 175, 55, 0.12);
-            --cream: #f4f0e6;
-            --soft: #a19d94;
-            --border: rgba(212, 175, 55, 0.2);
-            --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
-        html, body { height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
-        .bg-layers { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-        .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,1) 100%); z-index: 5; }
-        .light-bloom { position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 55%); animation: light-drift 35s infinite alternate ease-in-out; will-change: transform; }
-        @keyframes light-drift { 0% { transform: translate(-2%, -2%) scale(1); } 100% { transform: translate(2%, 2%) scale(1.05); } }
-        .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 120px 120px; -webkit-mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); opacity: 0.15; }
-        .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-        .wrap { position: relative; z-index: 10; width: 100%; max-width: 600px; margin: 0 auto; padding: 80px 24px 120px; display: flex; flex-direction: column; align-items: center; }
-        .logo-wrap { margin-bottom: 60px; position: relative; animation: fade-in-down 1.2s var(--ease-cinematic) forwards; }
-        .logo-aura { position: absolute; inset: -40px; background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%); filter: blur(25px); animation: aura-pulse 8s infinite ease-in-out; }
-        @keyframes aura-pulse { 0%, 100% { opacity: 0.3; transform: scale(0.9); } 50% { opacity: 0.6; transform: scale(1.05); } }
-        .logo { height: 58px; position: relative; z-index: 2; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
-        .steps { display: flex; justify-content: space-between; width: 100%; margin-bottom: 60px; position: relative; opacity: 0; animation: fade-in-up 1s var(--ease-cinematic) 0.4s forwards; }
-        .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.08); }
-        .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: linear-gradient(90deg, var(--gold-muted), var(--gold), var(--gold-muted)); box-shadow: 0 0 12px var(--gold); transition: width 1.2s var(--ease-cinematic); }
-        .step { display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; position: relative; z-index: 1; }
-        .dot { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 300; background: var(--bg); border: 1px solid var(--border); color: var(--soft); transition: all 0.6s var(--ease-cinematic); }
-        .step.active .dot { border-color: var(--gold); color: var(--gold-bright); box-shadow: 0 0 25px rgba(212, 175, 55, 0.25); transform: scale(1.05); }
-        .step.done .dot { background: var(--gold); border-color: var(--gold); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
-        .dot svg { width: 14px; height: 14px; stroke-width: 2; }
-        .label { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--soft); opacity: 0.5; font-weight: 400; }
-        .step.active .label { color: var(--gold-light); opacity: 1; }
-        .card { width: 100%; background: var(--bg-card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: 0; padding: 60px 50px; position: relative; opacity: 0; animation: fade-in-up 1.2s var(--ease-cinematic) 0.6s forwards; box-shadow: 0 50px 120px rgba(0,0,0,0.8); }
-        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.6; }
-        .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 24px; font-weight: 400; }
-        h1 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; line-height: 1.05; margin-bottom: 20px; letter-spacing: -0.02em; }
-        .sub { font-size: 15.5px; color: var(--soft); margin-bottom: 36px; line-height: 1.7; font-weight: 300; }
-        .instruction-box { padding: 25px; border: 1px solid var(--border); background: rgba(212,175,55,0.03); margin-bottom: 36px; }
-        .instruction-step { font-size: 14px; line-height: 1.8; color: var(--cream); font-weight: 300; margin-bottom: 10px; display: flex; gap: 10px; }
-        .instruction-step b { color: var(--gold-light); font-weight: 500; }
-        .field { margin-bottom: 24px; }
-        label { display: block; font-size: 12px; color: var(--cream); margin-bottom: 12px; letter-spacing: 0.05em; text-transform: uppercase; opacity: 0.8; }
-        input { width: 100%; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(212, 175, 55, 0.1); border-radius: 0; padding: 18px 20px; color: var(--cream); font-family: inherit; font-size: 14px; font-weight: 200; transition: all 0.4s ease; outline: none; letter-spacing: 0.02em; }
-        input:focus { background: rgba(212, 175, 55, 0.04); border-color: var(--gold); box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.05); }
-        input.err { border-color: #ff7e75; background: rgba(255, 126, 117, 0.02); }
-        .err-msg { color: #ff7e75; font-size: 10px; margin-top: 10px; display: none; text-transform: uppercase; letter-spacing: 0.1em; }
-        .err-msg.show { display: block; }
-        .btn { width: 100%; margin-top: 10px; padding: 22px; border: none; background: linear-gradient(135deg, #E8C17A, #C9A35B); color: #000; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); position: relative; overflow: hidden; }
-        .btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2); filter: brightness(1.05); }
-        .btn:disabled { opacity: 0.5; cursor: wait; }
-        .btn-sweep { position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent); transform: skewX(-30deg); animation: btn-sweep 5s infinite ease-in-out; }
-        @keyframes btn-sweep { 0% { left: -100%; } 15% { left: 150%; } 100% { left: 150%; } }
-        .formerr { color: #ff7e75; font-size: 12px; margin-top: 26px; text-align: center; line-height: 1.6; letter-spacing: 0.03em; display: none; word-break: break-word; }
-        .formerr.show { display: block; }
-        .formnote { color: var(--gold-light); font-size: 12px; margin-top: 26px; text-align: center; line-height: 1.6; letter-spacing: 0.03em; display: none; }
-        .formnote.show { display: block; }
-        .secure { margin-top: 45px; text-align: center; color: var(--soft); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.4; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .secure svg { width: 14px; height: 14px; stroke-width: 1; }
-        @keyframes fade-in-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fade-in-down { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 600px) { .card { padding: 50px 30px; } h1 { font-size: 34px; } .label { display: none; } }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hermia · Connect Fergus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg:#050505;--gold:#c4963c;--gold-light:#d9aa52;--cream:#f4f0e6;--soft:#b0ada5;--muted:#7a7470;--border:rgba(196,150,60,0.14);--display:"Cormorant Garamond",serif;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:54px 20px 90px;position:relative;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+  .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .bloom{position:absolute;inset:0;background:radial-gradient(1000px 600px at 50% -10%,rgba(196,150,60,0.12),transparent 70%),radial-gradient(800px 800px at 90% 90%,rgba(196,150,60,0.05),transparent 70%)}
+  .gridfloor{position:absolute;inset:0;background-image:linear-gradient(rgba(196,150,60,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(196,150,60,0.03) 1px,transparent 1px);background-size:50px 50px;-webkit-mask-image:radial-gradient(circle at 50% 20%,#000 0%,transparent 80%);mask-image:radial-gradient(circle at 50% 20%,#000 0%,transparent 80%)}
+  .grain{position:absolute;inset:0;opacity:.03;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .vignette{position:absolute;inset:0;background:radial-gradient(circle at center,transparent 40%,rgba(0,0,0,0.4) 100%)}
+  .wrap{position:relative;z-index:2;width:100%;max-width:600px;display:flex;flex-direction:column;align-items:center}
+  .logo-wrap{position:relative;margin-bottom:48px;display:grid;place-items:center}
+  .logo{height:48px;filter:drop-shadow(0 8px 20px rgba(196,150,60,0.3));animation:levitate 5s ease-in-out infinite}
+  @keyframes levitate{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .plan-badge{display:inline-flex;align-items:center;gap:9px;padding:9px 18px;border:1px solid var(--border);background:rgba(196,150,60,0.06);border-radius:100px;font-size:12px;color:var(--cream);margin-bottom:36px}
+  .plan-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--gold-light);box-shadow:0 0 8px var(--gold-light)}
+  .plan-badge b{color:var(--gold-light);font-weight:600}
+  .steps{display:flex;align-items:flex-start;justify-content:space-between;width:100%;max-width:620px;margin-bottom:56px;position:relative}
+  .steps::before{content:'';position:absolute;top:15px;left:15px;right:15px;height:1px;background:var(--border)}
+  .progressline{position:absolute;top:15px;left:15px;height:1px;background:linear-gradient(90deg,var(--gold),var(--gold-light));box-shadow:0 0 10px rgba(196,150,60,0.4);z-index:0}
+  .step{display:flex;flex-direction:column;align-items:center;gap:10px;flex:1;position:relative;z-index:1}
+  .dot{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:500;background:#0a0a0a;border:1px solid var(--border);color:var(--muted);transition:all .4s cubic-bezier(0.4,0,0.2,1)}
+  .dot svg{width:14px;height:14px}
+  .step.done .dot{background:var(--gold);border-color:transparent;color:#000;box-shadow:0 0 20px rgba(196,150,60,0.3)}
+  .step.active .dot{border-color:var(--gold-light);color:var(--gold-light);background:#111;box-shadow:0 0 0 4px rgba(196,150,60,0.1),0 0 25px rgba(196,150,60,0.2)}
+  .step .label{font-size:9px;letter-spacing:.15em;color:var(--muted);text-align:center;text-transform:uppercase;font-weight:500}
+  .step.active .label{color:var(--cream)}
+  .step.done .label{color:var(--gold)}
+  .card{position:relative;width:100%;border-radius:4px;padding:52px 48px;background:rgba(10,10,10,0.8);backdrop-filter:blur(24px);border:1px solid var(--border);box-shadow:0 40px 100px rgba(0,0,0,0.6),inset 0 0 40px rgba(196,150,60,0.02)}
+  .card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.4}
+  .eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:600}
+  h1{font-family:var(--display);font-weight:600;font-size:44px;line-height:1;margin-bottom:16px;color:#fff}
+  .sub{color:var(--soft);font-size:16px;line-height:1.6;margin-bottom:36px;font-weight:300}
+  .info-box{border:1px solid rgba(196,150,60,0.1);border-radius:2px;padding:22px;background:rgba(196,150,60,0.03);font-size:14px;line-height:1.6;color:var(--soft);margin-bottom:40px;position:relative}
+  .info-box::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold)}
+  .info-box strong{color:var(--cream);font-weight:500}
+  .btn{position:relative;overflow:hidden;width:100%;padding:20px;border:none;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#000;background:linear-gradient(135deg,var(--gold-light),var(--gold));transition:all .3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 15px 35px rgba(196,150,60,0.25);display:flex;align-items:center;justify-content:center;gap:12px}
+  .btn:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 20px 50px rgba(196,150,60,0.4)}
+  .btn:disabled{opacity:.6;cursor:not-allowed}
+  .spinner{width:20px;height:20px;border:2px solid rgba(0,0,0,0.2);border-top-color:#000;border-radius:50%;animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .powered{margin-top:28px;display:flex;align-items:center;justify-content:center;gap:10px;color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+  .error-banner{display:none;margin-top:20px;padding:14px 20px;border-radius:2px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.2);color:#ef4444;font-size:13px;line-height:1.5;text-align:center}
+  .error-banner.visible{display:block}
+  @media(max-width:480px){.card{padding:40px 24px}h1{font-size:36px}.steps{max-width:100%}.step .label{display:none}}
+</style>
 </head>
 <body>
+<div class="bg" aria-hidden="true">
+  <div class="bloom"></div>
+  <div class="gridfloor"></div>
+  <div class="vignette"></div>
+  <div class="grain"></div>
+</div>
+<div class="wrap">
+  <div class="logo-wrap">
+    <img class="logo" src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" />
+  </div>
 
-    <div class="bg-layers">
-        <div class="light-bloom"></div>
-        <div class="grid"></div>
-        <div class="vignette"></div>
-        <div class="grain"></div>
+  <div class="plan-badge" id="planBadge" style="display:none;">
+    <span class="dot"></span>
+    <span>Setting up <b id="planBadgeName">your plan</b></span>
+  </div>
+
+  <div class="steps" id="stepTracker">
+    <div class="progressline" id="progressline"></div>
+  </div>
+  <div class="card">
+    <div class="eyebrow">Phase 04 &bull; Integration</div>
+    <h1>Connect Fergus</h1>
+    <p class="sub">This links Hermia to your Fergus account so every qualified job enquiry is pushed straight in as a lead — no manual entry.</p>
+    <div class="info-box">
+      Hermia creates and updates <strong>job leads and customer records</strong> in your Fergus account, using the access level you grant on the next screen. It never touches invoicing or financial data.
     </div>
 
-    <div class="wrap">
-        <div class="logo-wrap">
-            <div class="logo-aura"></div>
-            <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" />
-        </div>
+    <button class="btn" id="connectBtn">Connect Fergus</button>
+    <div class="error-banner" id="errorBanner"></div>
+    <div class="powered">Secured connection &bull; OAuth 2.0</div>
+  </div>
+</div>
 
-        <div class="steps" id="stepTracker">
-            <div class="progressline" id="progressline"></div>
-        </div>
+<script>
+  // Step label at index 3 reads "CRM" rather than "Simpro" — this same
+  // page slot in the funnel now serves either CRM (Simpro or Fergus,
+  // chosen back on selection.html), so the tracker shouldn't name one
+  // specific provider.
+  const ALL_STEPS = ['Payment','Business','Details','CRM','Connect','Setup'];
+  const ACTIVE_INDEX = 3;
+  const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  (function buildSteps(){
+    const track = document.getElementById('stepTracker');
+    ALL_STEPS.forEach((label,i)=>{
+      const div = document.createElement('div');
+      const state = i < ACTIVE_INDEX ? 'done' : (i===ACTIVE_INDEX ? 'active' : '');
+      div.className = 'step ' + state;
+      div.innerHTML = `<div class="dot">${state==='done'?CHECK_SVG:(i+1)}</div><div class="label">${label}</div>`;
+      track.appendChild(div);
+    });
+    document.getElementById('progressline').style.width = `calc((100% - 30px) * ${ACTIVE_INDEX/(ALL_STEPS.length-1)})`;
+  })();
 
-        <div class="card">
-            <div class="eyebrow">Connect ServiceM8</div>
-            <h1>Paste your API key</h1>
-            <p class="sub">Hermia connects to ServiceM8 using an API key generated from your account. This key is encrypted the moment it's saved and is never shared.</p>
+  // ============================================================
+  // PLAN CARRY-THROUGH — identical pattern to simpro_connect.html.
+  // foundation_details_fergus.html redirects here as
+  //   fergus_connect.html?plan=gmail|facebook|instagram|outlook
+  // Resolved URL-first, sessionStorage-fallback, same as everywhere
+  // else in this funnel.
+  //
+  // Same caveat as simpro_connect.html: Fergus's own login page
+  // redirects the browser straight to the Worker's callback after
+  // auth, not back to this page — so whatever decides what happens
+  // next has to read hermia_plan from sessionStorage on company.html,
+  // not here.
+  // ============================================================
+  const PLAN_NAMES = {
+      gmail:     'Gmail',
+      facebook:  'Facebook',
+      instagram: 'Instagram',
+      outlook:    'Outlook'
+  };
+  const pageParams = new URLSearchParams(window.location.search);
+  let plan = pageParams.get('plan');
+  if (!plan) {
+      try { plan = sessionStorage.getItem('hermia_plan') || ''; } catch(e) { plan = ''; }
+  }
 
-            <div class="instruction-box">
-                <div class="instruction-step"><span>1.</span> <span>In ServiceM8, go to <b>Settings</b> &rarr; <b>API Keys</b> (or your <b>Add-on / Developer</b> settings).</span></div>
-                <div class="instruction-step"><span>2.</span> <span>Generate a new key and copy it.</span></div>
-                <div class="instruction-step"><span>3.</span> <span>Paste it below.</span></div>
-            </div>
+  // Normalize plan
+  if (plan === 'email') plan = 'gmail';
+  if (plan === 'custom') plan = 'outlook';
 
-            <div class="field">
-                <label for="apiKey">ServiceM8 API Key</label>
-                <input id="apiKey" type="text" autocomplete="off" spellcheck="false" placeholder="Paste your key here" />
-                <div class="err-msg" id="err-apiKey">A valid API key is required</div>
-            </div>
+  try { if (plan) sessionStorage.setItem('hermia_plan', plan); } catch(e) {}
 
-            <button class="btn" id="submitBtn">
-                <span class="btn-text">Connect ServiceM8</span>
-                <div class="btn-sweep"></div>
-            </button>
+  if (plan && PLAN_NAMES[plan]) {
+      document.getElementById('planBadgeName').textContent = PLAN_NAMES[plan];
+      document.getElementById('planBadge').style.display = 'inline-flex';
+  }
 
-            <div class="formerr" id="formError"></div>
-            <div class="formnote" id="formNote"></div>
+  const WORKER = 'https://hermianango.capital-fbc.workers.dev';
+  const btn = document.getElementById('connectBtn');
+  const errorBanner = document.getElementById('errorBanner');
+  const customerId = sessionStorage.getItem('hermia_outlooker_id');
 
-            <div class="secure">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                ENCRYPTED PRIVATE ARCHITECTURE
-            </div>
-        </div>
-    </div>
+  function showError(msg) {
+    errorBanner.textContent = msg;
+    errorBanner.classList.add('visible');
+    btn.disabled = false;
+    btn.textContent = 'Connect Fergus';
+  }
 
-    <script>
-        const ALL_STEPS = ['Payment','Select CRM','Details','ServiceM8','Connect','Setup'];
-        const ACTIVE_INDEX = 3;
-        const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  // No build-name / platform picker here — unlike Simpro, Fergus is not
+  // multi-tenant per subdomain, so /fergus/auth-start only ever needs
+  // customerId. See hermianango.js: handleFergusAuthStart.
+  btn.addEventListener('click', () => {
+    if (!customerId) { showError('Session expired. Please restart onboarding from the beginning.'); return; }
 
-        (function buildSteps(){
-            const track = document.getElementById('stepTracker');
-            ALL_STEPS.forEach((label, i) => {
-                const div = document.createElement('div');
-                const state = i < ACTIVE_INDEX ? 'done' : (i === ACTIVE_INDEX ? 'active' : '');
-                div.className = 'step ' + state;
-                div.innerHTML = `<div class="dot">${state === 'done' ? CHECK_SVG : (i + 1)}</div><div class="label">${label}</div>`;
-                track.appendChild(div);
-            });
-            setTimeout(() => {
-                document.getElementById('progressline').style.width = `calc((100% - 34px) * ${ACTIVE_INDEX/(ALL_STEPS.length-1)})`;
-            }, 100);
-        })();
+    errorBanner.classList.remove('visible');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner"></div> Connecting…';
 
-        const HERMIANANGO_URL = 'https://hermianango.capital-fbc.workers.dev';
-        const $ = id => document.getElementById(id);
+    const authStartUrl = new URL(WORKER + '/fergus/auth-start');
+    authStartUrl.searchParams.set('customerId', customerId);
+    // Forwarded in case the Worker is later wired to read it — today
+    // handleFergusAuthStart does not store or use it, and
+    // handleFergusAuthCallback redirects unconditionally to
+    // company.html regardless of this value. Same as Simpro.
+    if (plan) authStartUrl.searchParams.set('plan', plan);
 
-        // ---------------------------------------------------------------
-        // SESSION RESTORE — mirrors simpro_connect.html's
-        // restoreSessionFromUrl() pattern exactly. This page can now be
-        // reached with customerId/plan missing from sessionStorage (e.g.
-        // a future routing change, a new tab, or any cross-origin hop),
-        // so every value is restored from the URL first and only falls
-        // back to sessionStorage if the URL didn't have it. Same
-        // mechanism used everywhere else in this funnel — one map, no
-        // hardcoded values, no per-client branching.
-        // ---------------------------------------------------------------
-        const urlParams = new URLSearchParams(window.location.search);
+    // Full-page redirect: the Worker builds the real Fergus login URL and
+    // sends the browser there directly. After login, Fergus redirects back
+    // to the Worker's callback, which exchanges the code, stores the
+    // tokens, and redirects on to the next step itself (company.html).
+    window.location.href = authStartUrl.toString();
+  });
 
-        let customerId = urlParams.get('customerId');
-        if (!customerId) {
-            try { customerId = sessionStorage.getItem('hermia_customer_id') || ''; } catch(e) { customerId = ''; }
-        }
-        try { if (customerId) sessionStorage.setItem('hermia_customer_id', customerId); } catch(e) {}
-
-        const planFromUrl = urlParams.get('plan');
-        if (planFromUrl) {
-            try {
-                // Apply mapping: email -> gmail, custom -> outlook
-                let normalizedPlan = planFromUrl;
-                if (normalizedPlan === 'email') normalizedPlan = 'gmail';
-                if (normalizedPlan === 'custom') normalizedPlan = 'outlook';
-                sessionStorage.setItem('hermia_plan', normalizedPlan);
-            } catch(e) {}
-        }
-        // sessionStorage is now only the LAST-RESORT fallback if a fresh
-        // fetch from Supabase (below) fails outright — same pattern as
-        // simpro_connect.html's fix. hermia_plan is written once at
-        // signup and never changes, so /get-customer-state is the
-        // durable source of truth here, not sessionStorage.
-        let plan = (function() {
-            let p = planFromUrl;
-            if (!p) {
-                try { p = sessionStorage.getItem('hermia_plan') || ''; } catch(e) { p = ''; }
-            }
-            // Normalize plan
-            if (p === 'email') p = 'gmail';
-            if (p === 'custom') p = 'outlook';
-            return p;
-        })();
-
-        function showErr(on) {
-            $('apiKey').classList.toggle('err', on);
-            $('err-apiKey').classList.toggle('show', on);
-        }
-
-        $('apiKey').addEventListener('input', () => showErr(false));
-
-        $('submitBtn').addEventListener('click', async () => {
-            const key = $('apiKey').value.trim();
-            if (!key) { showErr(true); return; }
-
-            if (!customerId) {
-                const errEl = $('formError');
-                errEl.textContent = 'Session expired — please restart from the welcome page.';
-                errEl.classList.add('show');
-                return;
-            }
-
-            const btn = $('submitBtn');
-            btn.disabled = true;
-            btn.querySelector('.btn-text').textContent = 'VERIFYING...';
-            $('formError').classList.remove('show');
-            $('formNote').classList.remove('show');
-
-            try {
-                const res = await fetch(HERMIANANGO_URL + '/servicem8/save-key', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ customerId, apiKey: key })
-                });
-                const data = await res.json();
-
-                if (res.status === 401 || !data.ok) {
-                    throw new Error('That key was rejected by ServiceM8 — double check it was copied in full, or generate a new one.');
-                }
-
-                if (data.billingLapsed) {
-                    const noteEl = $('formNote');
-                    noteEl.textContent = "Key saved. Note: your ServiceM8 account currently shows no active billing plan — leads may not sync until that's resolved.";
-                    noteEl.classList.add('show');
-                }
-
-                sessionStorage.setItem('hermia_crm_provider', 'servicem8');
-
-                // -----------------------------------------------------------
-                // PLAN RESOLUTION — fetch fresh from Supabase before routing.
-                // Same fix as simpro_connect.html: /get-customer-state now
-                // returns hermiaPlan, written once at signup and durable
-                // regardless of what sessionStorage/URL happened to carry
-                // through whatever got the customer to this page. If that
-                // fetch fails outright, fall back to whatever `plan` value
-                // we already resolved from URL/sessionStorage above.
-                // -----------------------------------------------------------
-                try {
-                    const stateRes = await fetch(HERMIANANGO_URL + '/get-customer-state?customerId=' + encodeURIComponent(customerId));
-                    const stateData = await stateRes.json();
-                    if (stateRes.ok && stateData.ok && stateData.hermiaPlan) {
-                        plan = stateData.hermiaPlan;
-                        // Normalize plan from Supabase too
-                        if (plan === 'email') plan = 'gmail';
-                        if (plan === 'custom') plan = 'outlook';
-                        try { sessionStorage.setItem('hermia_plan', plan); } catch(e) {}
-                    }
-                } catch (e) {
-                    console.error('[servicem8_connect] /get-customer-state fetch failed, using URL/sessionStorage fallback:', e);
-                }
-
-                // -----------------------------------------------------------
-                // PLAN-BASED REDIRECT
-                // gmail      -> gmail.html
-                // facebook / instagram / outlook -> social_connect.html (the page that
-                //                          INITIATES the Composio connection —
-                //                          NOT social_connected.html, which
-                //                          only reads back an already-completed
-                //                          connection. These are two different
-                //                          files; do not conflate them.)
-                // outlook redirect -> social_connect_outlook.html if specified
-                // -----------------------------------------------------------
-                let nextPage = null;
-                if (plan === 'gmail') {
-                    nextPage = 'gmail.html';
-                } else if (plan === 'facebook' || plan === 'instagram') {
-                    nextPage = 'social_connect.html';
-                } else if (plan === 'outlook') {
-                    nextPage = 'social_connect_outlook.html';
-                }
-
-                if (!nextPage) {
-                    btn.disabled = false;
-                    btn.querySelector('.btn-text').textContent = 'CONNECT SERVICEM8';
-                    const errEl = $('formError');
-                    errEl.textContent = 'Your key was saved, but we could not determine your next step automatically. Please contact support to continue setup.';
-                    errEl.classList.add('show');
-                    return;
-                }
-
-                document.body.style.transition = 'opacity 1s ease';
-                document.body.style.opacity = '0';
-                setTimeout(() => {
-                    window.location.href = nextPage;
-                }, 1000);
-            } catch (e) {
-                console.error(e);
-                btn.disabled = false;
-                btn.querySelector('.btn-text').textContent = 'RETRY CONNECTION';
-                const errEl = $('formError');
-                errEl.textContent = e && e.message ? e.message : 'Something went wrong — please try again.';
-                errEl.classList.add('show');
-            }
-        });
-    </script>
+  // If the Worker bounced us back here with an error (see
+  // fergusRedirectWithError in the Worker), show a friendly message.
+  (function checkForAuthError() {
+    const params = new URLSearchParams(window.location.search);
+    const err = params.get('error');
+    if (!err) return;
+    const messages = {
+      server_misconfigured: 'Something went wrong on our end connecting to Fergus. Please try again shortly.',
+      missing_code_or_state: 'Something went wrong starting the connection. Please try again.',
+      expired_session: 'That connection attempt expired. Please try again.',
+      token_exchange_failed: 'We couldn\u2019t verify your Fergus login. Please try again.',
+      token_exchange_error: 'We couldn\u2019t reach Fergus to verify your login. Please try again.',
+      missing_tokens: 'Fergus didn\u2019t return a valid connection. Please try again.',
+      kv_write_failed: 'Something went wrong on our end saving the connection. Please try again.',
+      refresh_failed_reconnect_required: 'Your Fergus connection needs to be re-authorized. Please connect again.'
+    };
+    showError(messages[err] || 'Something went wrong connecting to Fergus. Please try again.');
+  })();
+</script>
 </body>
 </html>
-
 
