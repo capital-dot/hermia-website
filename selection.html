@@ -95,11 +95,9 @@
         <div class="choices">
             <div class="choice-card" data-provider="simpro" id="cardSimpro">
                 <div class="choice-name">Simpro</div>
-                <div class="choice-desc">Connect securely via account login. No API key needed.</div>
             </div>
-            <div class="choice-card" data-provider="servicem8" id="cardServiceM8">
-                <div class="choice-name">ServiceM8</div>
-                <div class="choice-desc">Connect using your ServiceM8 API key.</div>
+            <div class="choice-card" data-provider="servicem8" id="cardfergus">
+                <div class="choice-name"> FERGUS</div>
             </div>
         </div>
 
@@ -190,7 +188,7 @@
         // conditionals, just a straight map of provider -> page.
         const DETAILS_PAGE_BY_PROVIDER = {
             simpro: 'foundation_details.html',
-            servicem8: 'foundation_details_servicem8.html'
+            servicem8: 'foundation_details_fergus.html'
         };
 
         function selectProvider(provider) {
@@ -231,7 +229,7 @@
         }
 
         $('cardSimpro').addEventListener('click', () => selectProvider('simpro'));
-        $('cardServiceM8').addEventListener('click', () => selectProvider('servicem8'));
+        $('cardfergus').addEventListener('click', () => selectProvider('fergus'));
     </script>
 </body>
 </html>
