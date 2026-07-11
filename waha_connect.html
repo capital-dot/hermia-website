@@ -281,7 +281,7 @@
     border-radius: 99px;
     box-shadow: 0 0 10px rgba(201,163,91,0.7);
   }
-  .progress-wrap.show .progress-fill { animation: fill-bar 2s cubic-bezier(.4,0,.2,1) 0.15s forwards; }
+  .progress-wrap.show .progress-fill { animation: fill-bar 8s linear 0.15s forwards; }
   @keyframes fill-bar { from { width: 0%; } to { width: 100%; } }
 
   .progress-label {
@@ -343,6 +343,81 @@
   color: var(--cream);
   font-weight: 500;
 }
+
+/* ── Custom Button ── */
+  .btn-next {
+    margin-top: 24px;
+    padding: 14px 40px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    border: none;
+    color: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-radius: 99px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    opacity: 0;
+    display: none;
+    transform: translateY(10px);
+    box-shadow: 0 4px 15px rgba(201,163,91,0.2);
+  }
+  .btn-next:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(201,163,91,0.4);
+    filter: brightness(1.1);
+  }
+  .btn-next:active {
+    transform: translateY(0);
+  }
+  .btn-next.show {
+    display: inline-block;
+    animation: btnFadeIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  }
+  @keyframes btnFadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .disclaimer-box {
+    max-width: 420px;
+    margin-bottom: 40px;
+    padding: 32px;
+    border: 1px solid rgba(201,163,91,0.12);
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(201,163,91,0.05), rgba(201,163,91,0.01));
+    backdrop-filter: blur(12px);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--soft);
+    text-align: left;
+    opacity: 0;
+    animation: fadeUp .8s ease forwards;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  }
+  .disclaimer-box strong {
+    color: var(--gold-light);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 11px;
+  }
+  .disclaimer-box p {
+    margin-bottom: 16px;
+  }
+  .disclaimer-box p:last-of-type {
+    margin-bottom: 0;
+  }
+  .disclaimer-box .highlight {
+    color: var(--cream);
+    font-weight: 500;
+    background: rgba(201,163,91,0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
 </style>
 </head>
 <body>
@@ -366,6 +441,7 @@
   <p>Use the WhatsApp number you want your leads to contact. This is the number Hermia will use to reply and qualify leads.</p>
   <p>Do not use your personal WhatsApp number unless it is your business contact number.</p>
   <p>If WhatsApp asks you to name this linked device, save it as <span class="highlight">Hermia8</span>.</p>
+  <button id="btnNext" class="btn-next">Press Next to proceed</button>
 </div>
 
 <div class="stage" id="scanStage" style="display:none;">
@@ -395,7 +471,7 @@
 
 <script>
   // ── CONFIG ──
-  const HERMIANANGO_BASE = 'https://hermianango.capital-fbc.workers.dev'; // confirm this matches your deployed worker URL
+  const HERMIANANGO_BASE = 'https://hermianango.capital-fbc.workers.dev';
   const params = new URLSearchParams(window.location.search);
 
   // ── SESSION & PLAN HANDLING ──
@@ -413,7 +489,7 @@
     customerId = sessionStorage.getItem('hermia_outlooker_id');
   }
 
-  const token = params.get('token'); // signed link token — required, see /waha/get-link
+  const token = params.get('token');
 
   const orb = document.getElementById('orb');
   const qrFrame = document.getElementById('qrFrame');
@@ -424,13 +500,18 @@
   const statusDot = document.getElementById('statusDot');
   const statusText = document.getElementById('statusText');
   const progressWrap = document.getElementById('progressWrap');
+  const progressFill = document.getElementById('progressFill');
   const progressLabel = document.getElementById('progressLabel');
   const errBox = document.getElementById('errBox');
+  const btnNext = document.getElementById('btnNext');
+  const disclaimerBox = document.getElementById('disclaimerBox');
+  const scanStage = document.getElementById('scanStage');
 
   let pollTimer = null;
   let qrRefreshTimer = null;
   let consecutiveFailures = 0;
   const MAX_CONSECUTIVE_FAILURES = 5;
+  let qrLoaded = false;
 
   function setScene(eyebrowText, headingHtml, subTextText) {
     eyebrow.textContent = eyebrowText;
@@ -447,7 +528,6 @@
     errBox.textContent = msg;
   }
 
-  // kind: 'amber' | 'green' | 'red' | null
   function setStatus(label, kind) {
     statusLine.style.display = 'inline-flex';
     statusText.textContent = label;
@@ -496,24 +576,22 @@
         qrFrame.classList.remove('loading');
         qrFrame.innerHTML = '<img src="' + data.qrImageBase64 + '" alt="WhatsApp QR code">';
         consecutiveFailures = 0;
+        if (!qrLoaded) {
+          qrLoaded = true;
+          btnNext.classList.add('show');
+        }
       }
-    } catch (e) {
-      // Non-fatal — status poll below will keep retrying and this will
-      // pick back up on the next tick.
-    }
+    } catch (e) {}
   }
 
   async function pollStatus() {
     try {
       const r = await fetch(HERMIANANGO_BASE + '/waha/session-status?customerId=' + encodeURIComponent(customerId) + '&token=' + encodeURIComponent(token));
-
       if (r.status === 403) {
         showError('This link has expired or is invalid. Ask Hermia to send you a fresh connect link.');
         return;
       }
-
       const data = await r.json();
-
       if (!data.ok) {
         consecutiveFailures++;
         if (consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
@@ -523,9 +601,7 @@
         }
         return;
       }
-
       consecutiveFailures = 0;
-
       if (data.status === 'WORKING') {
         stopAllPolling();
         orb.classList.add('connected');
@@ -540,21 +616,20 @@
 
         qrFrame.outerHTML = '<div class="seal" id="qrFrame"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 12.5L9.5 18L20 6" stroke="#7fb88a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
 
-        progressLabel.textContent = 'Redirecting to Simpro connection';
+        progressLabel.textContent = 'Connection successful. Finalizing...';
         progressWrap.classList.add('show');
 
+        // Post-scan delay: 8 seconds to allow user to see the success state
         setTimeout(() => {
           const nextUrl = 'simpro_connect.html' + (plan ? ('?plan=' + encodeURIComponent(plan)) : '');
           window.location.href = nextUrl;
-        }, 2200);
+        }, 8000);
         return;
       }
-
       if (data.status === 'FAILED' || data.status === 'STOPPED') {
         showError('The connection failed — refresh the page to try again.');
         return;
       }
-
       if (data.status === 'SCAN_QR_CODE') {
         setScene('Almost there', 'Scan to<br><em>connect.</em>', 'Open WhatsApp on your phone and scan the code above.');
         setStatus('Waiting for scan…', 'amber');
@@ -571,35 +646,25 @@
     }
   }
 
-  async function init() {
-    if (!customerId) {
-      showError('Missing customerId — this link looks incomplete. Ask Hermia to resend it.');
-      return;
-    }
-    if (!token) {
-      showError('This link is missing its security token. Ask Hermia to resend your connect link.');
-      return;
-    }
+  btnNext.addEventListener('click', () => {
+    disclaimerBox.style.display = 'none';
+    scanStage.style.display = 'flex';
+  });
 
+  async function init() {
+    if (!customerId || !token) {
+      showError('Missing parameters — this link looks incomplete.');
+      return;
+    }
     const started = await startSession();
     if (!started) return;
-
     await loadQr();
-    setScene('Almost there', 'Scan to<br><em>connect.</em>', 'Open WhatsApp on your phone and scan the code above.');
-    setStatus('Waiting for scan…', 'amber');
-
     pollTimer = setInterval(pollStatus, 2500);
-    qrRefreshTimer = setInterval(loadQr, 20000); // WAHA rotates the QR periodically
+    qrRefreshTimer = setInterval(loadQr, 20000);
   }
-
-setTimeout(function () {
-  const disclaimerBox = document.getElementById('disclaimerBox');
-  const scanStage = document.getElementById('scanStage');
-  if (disclaimerBox) disclaimerBox.style.display = 'none';
-  if (scanStage) scanStage.style.display = 'flex';
-}, 5500);
 
   init();
 </script>
 </body>
 </html>
+
