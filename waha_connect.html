@@ -309,6 +309,40 @@
 
   @media(prefers-reduced-motion:reduce){ *{ animation-duration:.01ms !important; animation-delay:.01ms !important } }
   @media(max-width:480px){ h1{font-size:36px} .qr-frame{width:150px;height:150px} .float{display:none} }
+.disclaimer-box {
+  max-width: 380px;
+  margin-bottom: 40px;
+  padding: 24px;
+  border: 1px solid rgba(201,163,91,0.15);
+  border-radius: 16px;
+  background: rgba(201, 163, 91, 0.03);
+  backdrop-filter: blur(10px);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--soft);
+  text-align: left;
+  opacity: 0;
+  animation: fadeUp .8s ease forwards;
+}
+.disclaimer-box strong {
+  color: var(--gold-light);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 11px;
+}
+.disclaimer-box p {
+  margin-bottom: 12px;
+}
+.disclaimer-box p:last-child {
+  margin-bottom: 0;
+}
+.disclaimer-box .highlight {
+  color: var(--cream);
+  font-weight: 500;
+}
 </style>
 </head>
 <body>
@@ -327,7 +361,14 @@
   <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" draggable="false" />
 </div>
 
-<div class="stage">
+<div class="disclaimer-box" id="disclaimerBox">
+  <strong>Before you scan</strong>
+  <p>Use the WhatsApp number you want your leads to contact. This is the number Hermia will use to reply and qualify leads.</p>
+  <p>Do not use your personal WhatsApp number unless it is your business contact number.</p>
+  <p>If WhatsApp asks you to name this linked device, save it as <span class="highlight">Hermia8</span>.</p>
+</div>
+
+<div class="stage" id="scanStage" style="display:none;">
   <div class="logo-outer">
     <div class="logo-orb" id="orb"></div>
     <div class="logo-sheen-wrap">
@@ -550,6 +591,13 @@
     pollTimer = setInterval(pollStatus, 2500);
     qrRefreshTimer = setInterval(loadQr, 20000); // WAHA rotates the QR periodically
   }
+
+setTimeout(function () {
+  const disclaimerBox = document.getElementById('disclaimerBox');
+  const scanStage = document.getElementById('scanStage');
+  if (disclaimerBox) disclaimerBox.style.display = 'none';
+  if (scanStage) scanStage.style.display = 'flex';
+}, 5500);
 
   init();
 </script>
