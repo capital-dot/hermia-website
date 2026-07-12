@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -243,41 +244,40 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 .pricing-h{font-family:var(--display);font-size:clamp(36px,4.5vw,56px);font-weight:600;color:#fff;letter-spacing:-.4px;margin-bottom:24px;line-height:1.1}
 .pricing-h em{font-style:italic;color:var(--gl)}
 .pricing-sub{color:var(--soft);font-size:16px;max-width:580px;margin:0 auto;line-height:1.7;font-weight:300}
-.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1300px;margin:0 auto;align-items:stretch}
 
-/* Card base */
-.p-card{background:rgba(15,15,15,0.95);border:1.5px solid var(--bhi);border-radius:24px;padding:52px 40px 44px;position:relative;display:flex;flex-direction:column;text-align:left;transition:all .4s cubic-bezier(.4,0,.2,1);box-shadow:0 24px 60px rgba(0,0,0,.4);overflow:hidden}
-.p-card::before,.p-card::after{content:"";position:absolute;width:16px;height:16px;border-color:var(--gold);border-style:solid;opacity:.5;transition:opacity .3s}
-.p-card::before{top:16px;right:16px;border-width:2px 2px 0 0}
-.p-card::after{bottom:16px;left:16px;border-width:0 0 2px 2px}
-.p-card:hover{border-color:var(--gold);transform:translateY(-8px);box-shadow:0 36px 80px rgba(0,0,0,.5),0 0 40px rgba(217,170,82,.12)}
-.p-card:hover::before,.p-card:hover::after{opacity:1}
+/* ===== PRICING v3 — each plan is ONE box: left = plan info, right = that plan's own features ===== */
+.pricing-stack{display:flex;flex-direction:column;gap:24px;max-width:1080px;margin:0 auto;text-align:left}
+.plan-box{background:rgba(15,15,15,.95);border:1.5px solid var(--bhi);border-radius:20px;padding:0;display:grid;grid-template-columns:300px 1fr;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.plan-box.custom{border-color:var(--gl);box-shadow:0 24px 60px rgba(0,0,0,.4),0 0 50px rgba(217,170,82,.14)}
+.plan-box-left{padding:36px 32px;border-right:1px solid rgba(196,150,60,.18);background:rgba(255,255,255,0.015);display:flex;flex-direction:column}
+.plan-box.custom .plan-box-left{background:linear-gradient(150deg,rgba(217,170,82,.08),transparent)}
+.plan-box-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.plan-box-head img{height:28px;width:auto;flex-shrink:0}
+.plan-box-name{font-family:var(--display);font-size:24px;font-weight:600;color:#fff}
+.plan-box-tag{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gl);font-weight:700;margin-bottom:14px}
+.plan-box-trial{display:inline-block;width:fit-content;font-size:10.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gl);background:rgba(196,150,60,.1);border:1px solid rgba(196,150,60,.3);padding:4px 10px;border-radius:20px;margin-bottom:14px}
+.plan-box-price-row{display:flex;align-items:baseline;gap:4px;margin-bottom:3px}
+.plan-box-cur{font-size:16px;color:var(--gl);font-weight:700}
+.plan-box-num{font-family:var(--display);font-size:40px;font-weight:700;color:#fff;line-height:1}
+.plan-box-per{font-size:11.5px;color:var(--soft);line-height:1.5;margin-bottom:8px}
+.plan-box-setup{font-size:11.5px;color:var(--muted);margin-bottom:4px;line-height:1.5}
+.plan-box-setup strong{color:var(--gl)}
+.plan-box-cta{display:block;text-align:center;margin-top:auto;padding-top:16px}
+.plan-box-cta a{display:block;padding:12px 18px;border-radius:10px;font-size:11.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-family:"DM Sans",sans-serif;text-decoration:none!important;border:1.5px solid var(--bhi);color:var(--cream);transition:all .2s;text-align:center}
+.plan-box-cta a:hover{border-color:var(--gold);color:var(--gl);background:rgba(196,150,60,.06)}
+.plan-box-cta a.primary{background:linear-gradient(135deg,var(--gl),var(--gold));color:#1a1008!important;border:none;box-shadow:0 8px 22px rgba(196,150,60,.25)}
+.plan-box-right{padding:36px 40px}
+.plan-box-right-title{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gl);font-weight:700;margin-bottom:18px}
+.plan-box-feats{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;margin:0;padding:0}
+.plan-box-feats li{position:relative;padding-left:22px;font-size:13px;color:var(--soft);line-height:1.55;word-break:break-word;overflow-wrap:break-word}
+.plan-box-feats li::before{content:"✓";color:var(--gl);font-weight:800;position:absolute;left:0;top:0}
+.plan-box-feats li strong{color:#fff;font-weight:600}
+.plan-box-steps{display:flex;flex-direction:column;gap:10px;margin-top:22px;padding-top:20px;border-top:1px solid rgba(196,150,60,.18)}
+.plan-box-steps div{font-size:12.5px;color:var(--soft);line-height:1.5}
+.plan-box-steps strong{color:#fff}
+@media(max-width:900px){.plan-box{grid-template-columns:1fr}.plan-box-left{border-right:none;border-bottom:1px solid rgba(196,150,60,.18)}.plan-box-feats{grid-template-columns:1fr}}
 
-/* Featured card (Standard) */
-.p-card.featured{border-color:var(--gl);background:linear-gradient(150deg,rgba(217,170,82,.1),rgba(15,15,15,.98));box-shadow:0 24px 60px rgba(0,0,0,.4),0 0 50px rgba(217,170,82,.16);transform:scale(1.025);z-index:2}
-.p-card.featured:hover{transform:scale(1.025) translateY(-8px)}
-
-.p-badge{display:inline-block;position:static;margin-bottom:18px;background:linear-gradient(135deg,var(--gl),var(--gold));color:#000;padding:7px 20px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;font-family:"DM Sans",sans-serif;box-shadow:0 6px 20px rgba(217,170,82,.3);white-space:nowrap}
-.p-tier-name{font-family:var(--display);font-size:30px;font-weight:600;color:#fff;margin-bottom:24px;letter-spacing:-.4px}
-.p-price-wrap{margin-bottom:26px;padding-bottom:22px;border-bottom:1px solid rgba(196,150,60,.18)}
-.p-price{display:flex;align-items:baseline;gap:5px;margin-bottom:5px}
-.p-cur{font-size:20px;color:var(--gl);font-weight:700}
-.p-num{font-family:var(--display);font-size:58px;font-weight:700;color:#fff;line-height:1}
-.p-per{font-size:13px;color:var(--soft);font-weight:300}
-
-/* Setup / no-setup tags */
-.p-no-setup{font-size:12px;color:var(--green);font-weight:600;margin-top:9px;display:flex;align-items:center;gap:5px}
-.p-setup-fee{font-size:12px;color:var(--muted);margin-top:9px}
-.p-setup-fee strong{color:var(--gl)}
-.p-trial-tag{display:block;margin-bottom:16px;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gl)}
-
-/* Feature list */
-.p-feats{flex:1;list-style:none;padding:0;margin-bottom:32px;display:flex;flex-direction:column;gap:14px}
-.p-feats li{position:relative;padding-left:24px;font-size:13.5px;color:var(--soft);line-height:1.55;word-break:break-word;overflow-wrap:break-word}
-.p-feats li::before{content:"✓";color:var(--gl);font-weight:800;font-size:14px;position:absolute;left:0;top:0}
-.p-feats li strong{color:#fff;font-weight:600}
-
-/* CTA BUTTON — gold, always visible */
+/* CTA BUTTON base (kept for other sections) */
 .p-btn{
   display:block !important;
   visibility:visible !important;
@@ -296,7 +296,6 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   position:relative;
   overflow:hidden;
   transition:all .3s cubic-bezier(.4,0,.2,1);
-  /* Gold fill by default */
   background:linear-gradient(135deg,var(--gl),var(--gold));
   color:#1a1008 !important;
   box-shadow:0 8px 24px rgba(196,150,60,.22);
@@ -305,20 +304,15 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 .p-btn::after{content:"";position:absolute;top:0;left:-130%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.38),transparent);transform:skewX(-18deg);transition:left .5s}
 .p-btn:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(196,150,60,.35)}
 .p-btn:hover::after{left:140%}
-/* Ghost variant for Entry & Mid */
 .p-btn-ghost{background:transparent !important;border:1.5px solid var(--bhi) !important;color:var(--cream) !important;box-shadow:none !important}
 .p-btn-ghost:hover{border-color:var(--gold) !important;color:var(--gl) !important;background:rgba(196,150,60,.06) !important;box-shadow:none !important}
 
-/* Coming Soon Badge */
 .coming-soon-badge{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;padding:6px 14px;border-radius:20px;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-family:"DM Sans",sans-serif;box-shadow:0 4px 12px rgba(239,68,68,.3);z-index:10}
 
-/* Social Logo Container */
 .social-logo-container{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px;height:48px}
 .social-logo-container img{-webkit-user-select:none;user-select:none;height:40px;width:auto;filter:drop-shadow(0 2px 8px rgba(196,150,60,0.15))}
 
-@media(max-width:1200px){.pricing-grid{grid-template-columns:repeat(2,1fr)!important;gap:20px;max-width:760px}.p-card.featured{transform:scale(1);grid-column:auto}.p-card.featured:hover{transform:translateY(-8px)}}
-@media(max-width:600px){.pricing-section{padding:70px 16px}.pricing-grid{grid-template-columns:1fr!important;max-width:420px}.p-card{padding:40px 24px 36px}.p-num{font-size:46px}}
-@media(max-width:600px){.pricing-section{padding:70px 16px}.p-card{padding:40px 24px 36px}.p-num{font-size:46px}}
+@media(max-width:600px){.pricing-section{padding:70px 16px}}
 
 /* ===== TRIAL PLAN MODAL ===== */
 #trial-modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(3,2,1,0.82);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:24px;opacity:0;transition:opacity .25s ease;}
@@ -362,6 +356,26 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 .trial-modal .p-btn{padding:13px 22px;font-size:11px}
 @media(max-width:1200px){.trial-modal .pricing-grid{grid-template-columns:repeat(2,1fr)!important;max-width:100%}.trial-modal .p-card.featured{transform:none}.trial-modal .p-card.featured:hover{transform:translateY(-6px)}}@media(max-width:768px){.trial-modal .pricing-grid{grid-template-columns:1fr!important;max-width:400px;}}
 @media(max-width:560px){.trial-modal .pricing-grid{grid-template-columns:1fr!important}}
+.p-card{background:rgba(15,15,15,0.95);border:1.5px solid var(--bhi);border-radius:24px;padding:52px 40px 44px;position:relative;display:flex;flex-direction:column;text-align:left;transition:all .4s cubic-bezier(.4,0,.2,1);box-shadow:0 24px 60px rgba(0,0,0,.4);overflow:hidden}
+.p-card::before,.p-card::after{content:"";position:absolute;width:16px;height:16px;border-color:var(--gold);border-style:solid;opacity:.5;transition:opacity .3s}
+.p-card::before{top:16px;right:16px;border-width:2px 2px 0 0}
+.p-card::after{bottom:16px;left:16px;border-width:0 0 2px 2px}
+.p-card:hover{border-color:var(--gold);transform:translateY(-8px);box-shadow:0 36px 80px rgba(0,0,0,.5),0 0 40px rgba(217,170,82,.12)}
+.p-card:hover::before,.p-card:hover::after{opacity:1}
+.p-tier-name{font-family:var(--display);font-size:30px;font-weight:600;color:#fff;margin-bottom:24px;letter-spacing:-.4px}
+.p-price-wrap{margin-bottom:26px;padding-bottom:22px;border-bottom:1px solid rgba(196,150,60,.18)}
+.p-price{display:flex;align-items:baseline;gap:5px;margin-bottom:5px}
+.p-cur{font-size:20px;color:var(--gl);font-weight:700}
+.p-num{font-family:var(--display);font-size:58px;font-weight:700;color:#fff;line-height:1}
+.p-per{font-size:13px;color:var(--soft);font-weight:300}
+.p-setup-fee{font-size:12px;color:var(--muted);margin-top:9px}
+.p-setup-fee strong{color:var(--gl)}
+.p-trial-tag{display:block;margin-bottom:16px;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gl)}
+.p-feats{flex:1;list-style:none;padding:0;margin-bottom:32px;display:flex;flex-direction:column;gap:14px}
+.p-feats li{position:relative;padding-left:24px;font-size:13.5px;color:var(--soft);line-height:1.55;word-break:break-word;overflow-wrap:break-word}
+.p-feats li::before{content:"✓";color:var(--gl);font-weight:800;font-size:14px;position:absolute;left:0;top:0}
+.p-feats li strong{color:#fff;font-weight:600}
+.pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1300px;margin:0 auto;align-items:stretch}
 </style>
 </head>
 <body class="cinematic">
@@ -430,8 +444,8 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         </div>
         <div class="calendar-card">
           <div class="calendar-day">
-            <div class="cal-m">Dec</div>
-            <div class="cal-d">14</div>
+            <div class="cal-m">Aug</div>
+            <div class="cal-d">17</div>
           </div>
           <div class="event-details">
             <div class="event-time">Available Now or Tomorrow 9am</div>
@@ -577,7 +591,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     </div>
   </section>
 
-  <!-- ===== PRICING ===== -->
+  <!-- ===== PRICING (each plan = one box, features on the right inside that same box) ===== -->
   <section class="pricing-section" id="pricing">
     <div class="pricing-header">
       <div class="eyebrow">Pricing</div>
@@ -585,95 +599,91 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
       <p class="pricing-sub">Pick the channel your customers use. Combine them all with Custom for one complete system. Try it risk-free with a 7-day free trial before your monthly fee is charged.</p>
     </div>
 
-    <div class="pricing-grid">
+    <div class="pricing-stack">
 
       <!-- GMAIL -->
-      <div class="p-card">
-        <div class="social-logo-container">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail Logo" style="height:35px;width:auto;">
-        </div>
-        <div class="p-tier-name">Gmail</div>
-        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gl);font-weight:700;margin-bottom:18px;margin-top:-8px;">Pre-Built &middot; Fire &amp; ESM Compliance Blueprint</div>
-        <span class="p-trial-tag">7-Day Free Trial</span>
-        <div class="p-price-wrap">
-          <div class="p-price">
-            <span class="p-cur">$</span>
-            <span class="p-num">1700</span>
+      <div class="plan-box">
+        <div class="plan-box-left">
+          <div class="plan-box-head">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail Logo">
+            <div class="plan-box-name">Gmail</div>
           </div>
-          <div class="p-per">AUD / month &mdash; billed annually, first charge after your 7-day free trial</div>
-          <div class="p-setup-fee"><strong>$4500 AUD</strong> implementation &amp; connection fee (one-off)</div>
+          <div class="plan-box-tag">Pre-Built &middot; Fire &amp; ESM Compliance Blueprint</div>
+          <span class="plan-box-trial">7-Day Free Trial</span>
+          <div class="plan-box-price-row"><span class="plan-box-cur">$</span><span class="plan-box-num">1700</span></div>
+          <div class="plan-box-per">AUD / month &mdash; billed annually, first charge after your 7-day free trial</div>
+          <div class="plan-box-setup"><strong>$4,500 AUD</strong> implementation &amp; connection fee (one-off)</div>
+          <div class="plan-box-cta"><a href="apply.html?plan=gmail">Get Started</a></div>
         </div>
-        <ul class="p-feats">
-          <li>Reads Gmail inboxes, website forms &amp; other channels within seconds</li>
-          <li>Responds while customers are still engaged &amp; qualifies every opportunity</li>
-          <li><strong>Hardcoded fire &amp; ESM qualification engine</strong> &mdash; auto-logs Site Card / Asset ID, site access constraints, AS1851 compliance code, emergency vs standard status &amp; the accountable billing entity</li>
-          <li><strong>Visual asset evidence capture</strong> &mdash; fire panel fault codes, asset barcode tags, photos, videos &amp; voice notes (auto-transcribed)</li>
-          <li><strong>Real-time calendar booking</strong> &mdash; your team's live Simpro availability and the customer's availability are booked straight into the calendar, no admin required</li>
-          <li><strong>Zero-duplicate Simpro integration</strong> &mdash; search-before-create logic keeps your database clean</li>
-          <li>Pre-approved AS1851 scenario templates &mdash; on-script, every time</li>
-          <li>Full client history logged per asset &amp; customer</li>
-          <li>Weekly business summary report</li>
-        </ul>
-        <a href="apply.html?plan=gmail" class="p-btn p-btn-ghost">&#128640; Deploy Live Fire Blueprint Instantly</a>
+        <div class="plan-box-right">
+          <div class="plan-box-right-title">Included with Gmail</div>
+          <ul class="plan-box-feats">
+            <li>Reads your Gmail inbox within seconds of a new enquiry</li>
+            <li>Responds while customers are still engaged &amp; qualifies every opportunity</li>
+            <li><strong>Hardcoded fire &amp; ESM qualification engine</strong> &mdash; auto-logs Site Card / Asset ID, site access constraints, AS1851 compliance code, emergency vs standard status &amp; the accountable billing entity</li>
+            <li><strong>Visual asset evidence capture</strong> &mdash; fire panel fault codes, asset barcode tags, photos, videos &amp; voice notes (auto-transcribed)</li>
+            <li><strong>Real-time calendar booking</strong> &mdash; your team's live Simpro availability and the customer's availability are booked straight into the calendar, no admin required</li>
+            <li><strong>Zero-duplicate Simpro integration</strong> &mdash; search-before-create logic keeps your database clean</li>
+            <li>Pre-approved AS1851 scenario templates &mdash; on-script, every time</li>
+            <li>Full client history logged per asset &amp; customer</li>
+            <li>Weekly business summary report</li>
+          </ul>
+        </div>
       </div>
 
-<!-- OUTLOOK -->
-<div class="p-card" style="position:relative;">
-  <div class="social-logo-container">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg" alt="Outlook Logo" style="height:35px;width:auto;">
-        </div>
-  <div class="p-tier-name">Outlook</div>
-  <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gl);font-weight:700;margin-bottom:18px;margin-top:-8px;">Pre-Built &middot; Fire &amp; ESM Compliance Blueprint</div>
-  <span class="p-trial-tag">7-Day Free Trial</span>
-  <div class="p-price-wrap">
-    <div class="p-price">
-      <span class="p-cur">$</span>
-      <span class="p-num">1700</span>
-    </div>
-    <div class="p-per">AUD / month &mdash; billed annually, first charge after your 7-day free trial</div>
-    <div class="p-setup-fee"><strong>$4500 AUD</strong> implementation &amp; connection fee (one-off)</div>
-  </div>
-  <ul class="p-feats">
-    <li>Reads Outlook inboxes, website forms &amp; other channels within seconds</li>
-    <li>Responds while customers are still engaged &amp; qualifies every opportunity</li>
-    <li><strong>Hardcoded fire &amp; ESM qualification engine</strong> &mdash; auto-logs Site Card / Asset ID, site access constraints, AS1851 compliance code, emergency vs standard status &amp; the accountable billing entity</li>
-    <li><strong>Visual asset evidence capture</strong> &mdash; fire panel fault codes, asset barcode tags, photos, videos &amp; voice notes (auto-transcribed)</li>
-    <li><strong>Real-time calendar booking</strong> &mdash; your team's live Simpro availability and the customer's availability are booked straight into the calendar, no admin required</li>
-    <li><strong>Zero-duplicate Simpro integration</strong> &mdash; search-before-create logic keeps your database clean</li>
-    <li>Pre-approved AS1851 scenario templates &mdash; on-script, every time</li>
-    <li>Full client history logged per asset &amp; customer</li>
-    <li>Weekly business summary report</li>
-  </ul>
-  <a href="apply.html?plan=outlook" class="p-btn p-btn-ghost">&#128640; Deploy Live Fire Blueprint Instantly</a>
-</div>
-
-
-    <!-- CUSTOM — Enterprise Custom Architecture -->
-      <div class="p-card featured" style="grid-column:span 2;margin:0 auto;max-width:680px;">
-        <div class="p-badge">Enterprise Custom Architecture</div>
-        <div class="p-tier-name">Custom</div>
-        <div class="p-price-wrap">
-          <div class="p-price">
-            <span class="p-num" style="font-size: 28px;">Tailored Pricing</span>
+      <!-- OUTLOOK -->
+      <div class="plan-box">
+        <div class="plan-box-left">
+          <div class="plan-box-head">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg" alt="Outlook Logo">
+            <div class="plan-box-name">Outlook</div>
           </div>
-          <div class="p-per">Multi-State Contractors, Tier-1 Infrastructure &amp; Industrial Asset Networks</div>
-          <div class="p-setup-fee">Any trade, any scale &mdash; built to your exact workflow</div>
+          <div class="plan-box-tag">Pre-Built &middot; Fire &amp; ESM Compliance Blueprint</div>
+          <span class="plan-box-trial">7-Day Free Trial</span>
+          <div class="plan-box-price-row"><span class="plan-box-cur">$</span><span class="plan-box-num">1700</span></div>
+          <div class="plan-box-per">AUD / month &mdash; billed annually, first charge after your 7-day free trial</div>
+          <div class="plan-box-setup"><strong>$4,500 AUD</strong> implementation &amp; connection fee (one-off)</div>
+          <div class="plan-box-cta"><a href="apply.html?plan=outlook">Get Started</a></div>
         </div>
-        <ul class="p-feats">
-          <li><strong>Multi-Channel Enterprise Aggregation</strong> &mdash; monitors high-volume corporate channels simultaneously, processing engineering spreadsheets, client B2B portals &amp; complex email networks in real-time</li>
-          <li><strong>Proprietary Domain Qualification Logic</strong> &mdash; define your exact system parameters so Hermia extracts high-nuance requirements instead of basic contact details</li>
-          <li><strong>Multi-Branch Entity Resolution</strong> &mdash; search-before-create logic across multi-state branch structures matches inquiries to existing customer profiles &amp; site cards</li>
-          <li><strong>Isolated Custom Field Architecture</strong> &mdash; maps extracted variables straight into your proprietary, custom-built Simpro field IDs</li>
-          <li><strong>Automated Conditional Triage &amp; Revenue Safeguards</strong> &mdash; routes standard jobs to scheduling and flags high-value or complex work for senior review</li>
-          <li><strong>Live Capacity Allocation &amp; Automated Dispatch</strong> &mdash; injects qualified, tier-sorted work orders straight into your live technician availability calendar</li>
-        </ul>
-        <a href="mailto:capital@hermia.au?subject=Configure%20My%20Custom%20Build" class="p-btn">&#9881;&#65039; Configure Your Custom Build</a>
-        <div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(196,150,60,.18);">
-          <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gl);font-weight:700;margin-bottom:14px;">How It Works &mdash; Zero Meetings. Pure Execution.</div>
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="font-size:12.5px;color:var(--soft);line-height:1.5;"><strong style="color:#fff;">1. Design Your Build</strong> &mdash; tell us your Simpro fields, engineering parameters &amp; triage workflows.</div>
-            <div style="font-size:12.5px;color:var(--soft);line-height:1.5;"><strong style="color:#fff;">2. We Build It on the Backend</strong> &mdash; our integration architects engineer your isolated workflow within 48&ndash;72 hours.</div>
-            <div style="font-size:12.5px;color:var(--soft);line-height:1.5;"><strong style="color:#fff;">3. Receive Your Proof</strong> &mdash; a private walkthrough video of your completed, live system, ready to deploy.</div>
+        <div class="plan-box-right">
+          <div class="plan-box-right-title">Included with Outlook</div>
+          <ul class="plan-box-feats">
+            <li>Reads your Outlook inbox within seconds of a new enquiry</li>
+            <li>Outlook Calendar sync &mdash; bookings land straight on your live calendar</li>
+            <li>Responds while customers are still engaged &amp; qualifies every opportunity</li>
+            <li><strong>Hardcoded fire &amp; ESM qualification engine</strong> &mdash; auto-logs Site Card / Asset ID, site access constraints, AS1851 compliance code, emergency vs standard status &amp; the accountable billing entity</li>
+            <li><strong>Visual asset evidence capture</strong> &mdash; fire panel fault codes, asset barcode tags, photos, videos &amp; voice notes (auto-transcribed)</li>
+            <li><strong>Zero-duplicate Simpro integration</strong> &mdash; search-before-create logic keeps your database clean</li>
+            <li>Pre-approved AS1851 scenario templates &mdash; on-script, every time</li>
+            <li>Full client history logged per asset &amp; customer</li>
+            <li>Weekly business summary report</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CUSTOM -->
+      <div class="plan-box custom">
+        <div class="plan-box-left">
+          <div class="plan-box-tag">Enterprise Custom Architecture</div>
+          <div class="plan-box-name" style="margin-bottom:10px">Custom</div>
+          <div class="plan-box-per"><strong style="color:#fff">Tailored Pricing</strong> &mdash; Multi-State Contractors, Tier-1 Infrastructure &amp; Industrial Asset Networks</div>
+          <div class="plan-box-setup">Any trade, any scale &mdash; built to your exact workflow</div>
+          <div class="plan-box-cta"><a href="mailto:capital@hermia.au?subject=Configure%20My%20Custom%20Build" class="primary">Configure Your Custom Build</a></div>
+        </div>
+        <div class="plan-box-right">
+          <div class="plan-box-right-title">Custom Build Also Includes</div>
+          <ul class="plan-box-feats">
+            <li><strong>Multi-Channel Enterprise Aggregation</strong> &mdash; monitors high-volume corporate channels simultaneously, processing engineering spreadsheets, client B2B portals &amp; complex email networks in real-time</li>
+            <li><strong>Proprietary Domain Qualification Logic</strong> &mdash; define your exact system parameters so Hermia extracts high-nuance requirements instead of basic contact details</li>
+            <li><strong>Multi-Branch Entity Resolution</strong> &mdash; search-before-create logic across multi-state branch structures matches inquiries to existing customer profiles &amp; site cards</li>
+            <li><strong>Isolated Custom Field Architecture</strong> &mdash; maps extracted variables straight into your proprietary, custom-built Simpro field IDs</li>
+            <li><strong>Automated Conditional Triage &amp; Revenue Safeguards</strong> &mdash; routes standard jobs to scheduling and flags high-value or complex work for senior review</li>
+            <li><strong>Live Capacity Allocation &amp; Automated Dispatch</strong> &mdash; injects qualified, tier-sorted work orders straight into your live technician availability calendar</li>
+          </ul>
+          <div class="plan-box-steps">
+            <div><strong>1. Design Your Build</strong> &mdash; tell us your Simpro fields, engineering parameters &amp; triage workflows.</div>
+            <div><strong>2. We Build It on the Backend</strong> &mdash; our integration architects engineer your isolated workflow within 48&ndash;72 hours.</div>
+            <div><strong>3. Receive Your Proof</strong> &mdash; a private walkthrough video of your completed, live system, ready to deploy.</div>
           </div>
         </div>
       </div>
