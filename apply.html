@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apply — Hermia Repairs</title>
+<title>Apply — Hermia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
@@ -114,9 +114,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 </nav>
 
 <div class="page">
-  <div class="page-tag">Join the Network</div>
-  <h1 class="page-title">Get Hermia<br><em>sending you jobs.</em></h1>
-  <p class="page-sub">Tell us what you do and where you work. You'll be live and receiving repair jobs straight to your phone — no chasing leads.</p>
+  <div class="page-tag">Deploy Your Blueprint</div>
+  <h1 class="page-title">Get Hermia<br><em>qualifying your leads.</em></h1>
+  <p class="page-sub">Tell us about your operation. Once live, every enquiry through your Gmail or Outlook inbox is qualified and booked straight into Simpro &mdash; no chasing, no manual entry.</p>
 
   <div class="plan-badge" id="planBadge">
     <span id="planBadgeText">Plan</span>
@@ -155,6 +155,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
         <label>Trade / specialty</label>
         <select id="trade" required>
           <option value="" disabled selected>What do you do?</option>
+          <option value="Fire Protection / ESM Compliance">Fire Protection / ESM Compliance</option>
           <option value="Plumbing">Plumbing</option>
           <option value="Electrical">Electrical</option>
           <option value="Roofing">Roofing</option>
@@ -184,11 +185,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 
     <div class="verify" id="verify-view">
       <div class="v-spinner"></div>
-      <div class="v-tag">Hermia · Repairs Network</div>
+      <div class="v-tag">Hermia · Deployment</div>
       <h2>Reviewing your application</h2>
       <ul class="v-steps">
         <li id="vs1"><span class="vdot"></span> Validating your details</li>
-        <li id="vs2"><span class="vdot"></span> Checking trade availability</li>
+        <li id="vs2"><span class="vdot"></span> Checking channel availability</li>
         <li id="vs3"><span class="vdot"></span> Preparing your agreement</li>
       </ul>
     </div>
@@ -196,7 +197,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 
   <div class="security-footer" id="security-notice">
     <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
-    <p><strong>Your details are safe:</strong> We use bank-grade encryption and never share your personal information with third parties. Only verified Hermia clients can see your trade profile.</p>
+    <p><strong>Your details are safe:</strong> We use bank-grade encryption and never share your personal information with third parties. Only verified Hermia clients can see your profile.</p>
   </div>
 </div>
 
@@ -208,8 +209,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
       <div class="modal-tag">One quick check</div>
       <h3>Which plan did you pay for?</h3>
       <div class="modal-plan-display">
-        <div class="mp-name" id="modalPlanName">Email</div>
-        <div class="mp-price" id="modalPlanPrice">$170 AUD / month</div>
+        <div class="mp-name" id="modalPlanName">Gmail</div>
+        <div class="mp-price" id="modalPlanPrice">$2,600 AUD / month + $530 AUD setup</div>
       </div>
       <p class="modal-question">This is the plan we'll set your agreement and account up for. Make sure it matches what you actually paid for before continuing.</p>
       <div class="modal-btn-row">
@@ -242,28 +243,32 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 // MUST match the keys in contract.html's PLAN_CONFIG and
 // hermianango.js's VALID_PLANS exactly.
 //
-// CORRECTED (2026-07-07): a previous pass here wrongly assumed the
-// 'custom' key being renamed to 'Outlook' was an accidental overwrite,
-// and "fixed" it by adding a separate 'outlook' key. That was wrong —
-// contract.html's PLAN_CONFIG.custom already carries the real,
-// confirmed Outlook Stripe link (buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02)
-// under the SAME 'custom' key, and hermianango.js's VALID_PLANS only
-// recognizes 'custom', not 'outlook'. There is one key here, matching
-// both of those files exactly — 'custom' is what Outlook is called
-// internally. This page, contract.html, and VALID_PLANS in
-// hermianango.js must always share the identical set of keys.
+// UPDATED (2026-07-12): the live pricing page now only sells two
+// channels — Gmail and Outlook, both at $2,600 AUD/month + $530 AUD
+// one-off setup — and its buttons link to apply.html?plan=gmail and
+// apply.html?plan=outlook. The old 'email' key here did NOT match
+// the live '?plan=gmail' links, so anyone applying from the Gmail
+// card was silently falling back to DEFAULT_PLAN. Renamed 'email' ->
+// 'gmail' to fix that. Facebook and Instagram are removed site-wide,
+// so their keys are removed here too.
+//
+// ⚠️ CHECK BEFORE SHIPPING: there was a prior note in this file
+// about contract.html/hermianango.js expecting a 'custom' key rather
+// than 'outlook' for the Outlook Stripe link. That file isn't in
+// front of me right now, so I have NOT touched that wiring — please
+// verify contract.html's PLAN_CONFIG and hermianango.js's
+// VALID_PLANS both recognize 'gmail' and 'outlook' as keys (matching
+// this file) before this goes live, so the correct Stripe link fires.
 //
 // To add/change a tier, edit ONLY this object — the modal <select>
 // populates itself from these keys (see populatePlanSelect()), so
 // nothing else on this page needs to change.
 // ============================================================
 const PLAN_MAP = {
-  email:     { name: 'Email',     price: '$170 AUD / month' },
-  facebook:  { name: 'Facebook',  price: '$80 AUD / month' },
-  instagram: { name: 'Instagram', price: '$80 AUD / month' },
-  outlook:    { name: 'Outlook',   price: '$170 AUD / month' }
+  gmail:   { name: 'Gmail',   price: '$2,600 AUD / month + $530 AUD setup' },
+  outlook: { name: 'Outlook', price: '$2,600 AUD / month + $530 AUD setup' }
 };
-const DEFAULT_PLAN = 'email';
+const DEFAULT_PLAN = 'gmail';
 
 function populatePlanSelect() {
   const select = document.getElementById('modalPlanSelect');
@@ -377,7 +382,7 @@ async function confirmPlanAndSubmit() {
     plan_name:    planInfo.name,
     plan_price:   planInfo.price,
     submitted_at: new Date().toISOString(),
-    source:       'hermia-repairs-apply'
+    source:       'hermia-apply'
   };
 
   try {
@@ -390,7 +395,7 @@ async function confirmPlanAndSubmit() {
     await fetch(WEBHOOK_URL, {
       method: 'POST', mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'repairs-application', ...applicant })
+      body: JSON.stringify({ type: 'hermia-application', ...applicant })
     });
   } catch(e) {}
 
@@ -407,4 +412,3 @@ async function confirmPlanAndSubmit() {
 </script>
 </body>
 </html>
-
