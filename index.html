@@ -17,8 +17,9 @@
   --display:"Cormorant Garamond",serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:"DM Sans",sans-serif;font-weight:300;background:var(--bg);color:var(--cream);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;max-width:100%;overflow-x:hidden}
+body{font-family:"DM Sans",sans-serif;font-weight:300;background:var(--bg);color:var(--cream);overflow-x:hidden;max-width:100vw;-webkit-font-smoothing:antialiased}
+.p-card,.trial-card,.combo-card{min-width:0}
 body.cinematic{overflow:hidden}
 body.modal-open{overflow:hidden}
 ::selection{background:rgba(196,150,60,0.2);color:#fff}
@@ -272,8 +273,8 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 
 /* Feature list */
 .p-feats{flex:1;list-style:none;padding:0;margin-bottom:32px;display:flex;flex-direction:column;gap:14px}
-.p-feats li{font-size:13.5px;color:var(--soft);line-height:1.55;display:flex;align-items:flex-start;gap:11px}
-.p-feats li::before{content:"✓";color:var(--gl);font-weight:800;flex-shrink:0;font-size:14px;margin-top:0px}
+.p-feats li{position:relative;padding-left:24px;font-size:13.5px;color:var(--soft);line-height:1.55;word-break:break-word;overflow-wrap:break-word}
+.p-feats li::before{content:"✓";color:var(--gl);font-weight:800;font-size:14px;position:absolute;left:0;top:0}
 .p-feats li strong{color:#fff;font-weight:600}
 
 /* CTA BUTTON — gold, always visible */
@@ -613,7 +614,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           <li>Full client history logged per asset &amp; customer</li>
           <li>Weekly business summary report</li>
         </ul>
-        <a href="apply.html?plan=gmail" class="p-btn p-btn-ghost">Get Started</a>
+        <a href="apply.html?plan=gmail" class="p-btn p-btn-ghost">&#128640; Deploy Live Fire Blueprint Instantly</a>
       </div>
 
 <!-- OUTLOOK -->
@@ -643,7 +644,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     <li>Full client history logged per asset &amp; customer</li>
     <li>Weekly business summary report</li>
   </ul>
-  <a href="apply.html?plan=outlook" class="p-btn p-btn-ghost">Get Started</a>
+  <a href="apply.html?plan=outlook" class="p-btn p-btn-ghost">&#128640; Deploy Live Fire Blueprint Instantly</a>
 </div>
 
 
