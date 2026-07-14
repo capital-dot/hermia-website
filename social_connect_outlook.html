@@ -7,42 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
-
-    <!--
-      Nango SDK loader.
-      @nangohq/frontend is ESM-only from v0.4x onward — there is no
-      dist/index.browser.js UMD/global bundle to <script src> anymore
-      (that's why every pinned version 404'd / errored silently). It
-      must be loaded via dynamic import() and attached to window.Nango
-      manually so the rest of this page (which expects a global `Nango`)
-      keeps working unchanged.
-    -->
-    <script>
-        function handleSdkLoadError() {
-            console.error('[outlook.html] Failed to load Nango SDK from CDN.');
-            var area = document.getElementById('statusArea');
-            if (area) {
-                area.innerHTML = '<div class="status-msg err">Microsoft SDK failed to load. Please check your internet and refresh.</div>';
-            }
-            var btn = document.getElementById('outlookSigninBtn');
-            if (btn) btn.disabled = true;
-        }
-
-        (async function loadNangoSdk() {
-            try {
-                const mod = await import('https://cdn.jsdelivr.net/npm/@nangohq/frontend@0.70.9/+esm');
-                window.Nango = mod.default || mod.Nango || mod;
-                if (typeof window.Nango !== 'function') {
-                    throw new Error('Nango SDK loaded but no usable export was found.');
-                }
-                console.log('[outlook.html] Nango SDK loaded via ESM.');
-            } catch (e) {
-                console.error('[outlook.html] Nango SDK import failed:', e);
-                handleSdkLoadError();
-            }
-        })();
-    </script>
-
     <style>
         :root {
             --bg: #080705;
@@ -55,7 +19,6 @@
             --soft: #a19d94;
             --border: rgba(212, 175, 55, 0.2);
             --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
-            --outlook-blue: #0078d4;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
         html, body { height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
@@ -122,7 +85,7 @@
     <div class="card">
         <div class="eyebrow">Final Step</div>
         <h1>Connect your Outlook</h1>
-        <p class="sub">Sign in with Microsoft to securely connect your Outlook inbox. Hermia reads new leads directly through Microsoft's official API — no forwarding rules, no settings to babysit, nothing that can silently get switched off.</p>
+        <p class="sub">Securely connect your Outlook inbox so Hermia can start qualifying your leads automatically. This takes less than a minute.</p>
 
         <div class="action-area">
             <div class="info-box">
@@ -130,36 +93,21 @@
                 <p>You'll be taken to Microsoft's own sign-in page to approve access. Hermia never sees or stores your Outlook password — only Microsoft handles your credentials.</p>
             </div>
 
-            <button id="outlookSigninBtn" class="btn" disabled onclick="startOutlookAuth()">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg" alt="Outlook Logo" style="height:20px;width:auto;">
-                Sign in to Outlook
-            </button>
-
             <div id="statusArea"></div>
+            <button class="btn" id="connectBtn" onclick="startUnipileConnect()">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg" alt="Outlook Logo" style="height:20px;width:auto;">
+                Connect Outlook
+            </button>
         </div>
 
-        <div class="powered">Secured by Hermia &amp; Microsoft</div>
+        <div class="powered">Secured by Hermia &amp; Unipile</div>
     </div>
 </div>
 
 <script>
-    /**
-     * CONFIGURATION
-     * These must match the Cloudflare Worker (hermianango.js)
-     */
     const WORKER = 'https://hermianango.capital-fbc.workers.dev';
     const ACTIVE_IDX = 6;
-    const NANGO_OUTLOOK_INTEGRATION_ID = 'outlook';
 
-    /**
-     * GLOBAL STATE
-     */
-    let nango;
-
-    /**
-     * SESSION MANAGEMENT
-     * Looks in URL, SessionStorage, and LocalStorage to prevent "Session Finished" errors.
-     */
     function getCustomerId() {
         const urlParams = new URLSearchParams(window.location.search);
         const idFromUrl = urlParams.get('customer_id') || urlParams.get('id');
@@ -191,136 +139,50 @@
         area.innerHTML = msg ? '<div class="status-msg ' + kind + '">' + msg + '</div>' : '';
     }
 
-    /**
-     * INITIALIZATION
-     * Connects to the worker to get a secure session token.
-     */
-    async function initNango() {
+    function startUnipileConnect() {
         const id = getCustomerId();
-        const btn = document.getElementById('outlookSigninBtn');
+        const btn = document.getElementById('connectBtn');
 
         if (!id) {
             setStatus('Onboarding session not found. Please go back and try again.', 'err');
-            console.error('[outlook.html] No customer ID found in URL or storage.');
+            console.error('[outlook-unipile.html] No customer ID found in URL or storage.');
             return;
         }
 
-        // Persist the ID immediately to avoid "Session Finished" on refresh
         sessionStorage.setItem('hermia_customer_id', id);
         localStorage.setItem('hermia_customer_id', id);
 
-        // Wait for SDK to be ready
-        if (typeof Nango === 'undefined') {
-            console.log('[outlook.html] Waiting for Nango SDK...');
-            setTimeout(initNango, 500);
-            return;
-        }
-
-        setStatus('Preparing secure session...', 'wait');
-
-        try {
-            const response = await fetch(WORKER + '/nango/create-outlook-session', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ customerId: id })
-            });
-
-            if (!response.ok) {
-                const errData = await response.json().catch(() => ({}));
-                throw new Error(errData.error || `Worker error: ${response.status}`);
-            }
-
-            const data = await response.json();
-            if (!data.token) throw new Error('Worker returned success but no token.');
-
-            // Instantiate Nango with the session token
-            nango = new Nango({ connectSessionToken: data.token });
-
-            btn.disabled = false;
-            setStatus('', 'wait'); // Clear "Preparing" status
-            console.log('[outlook.html] Nango initialized successfully.');
-        } catch (e) {
-            console.error('[outlook.html] Initialization failed:', e);
-            setStatus('Could not start secure session. Please refresh the page.', 'err');
-        }
-    }
-
-    /**
-     * AUTHENTICATION FLOW
-     * Triggers the Microsoft OAuth popup via Nango.
-     */
-    async function startOutlookAuth() {
-        const id = getCustomerId();
-        if (!id) {
-            setStatus('Session lost. Please restart onboarding.', 'err');
-            return;
-        }
-
-        if (!nango) {
-            setStatus('Session not ready. Retrying...', 'wait');
-            await initNango();
-            if (!nango) return;
-        }
-
-        const btn = document.getElementById('outlookSigninBtn');
         btn.disabled = true;
-        setStatus('Opening Microsoft sign-in...', 'wait');
+        btn.textContent = 'Connecting...';
+        setStatus('Preparing secure connection...', 'wait');
 
-        try {
-            /**
-             * STEP 1: AUTHENTICATE
-             * nango.auth() opens the popup. Nango generates a random connectionId.
-             */
-            const result = await nango.auth(NANGO_OUTLOOK_INTEGRATION_ID);
-            console.log('[outlook.html] Auth successful. Connection ID:', result.connectionId);
-
-            setStatus('Finalizing connection...', 'wait');
-
-            /**
-             * STEP 2: PERSIST
-             * Send the connectionId to the worker to save in Supabase.
-             */
-            const saveResponse = await fetch(WORKER + '/nango/save-outlook-connection', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    customerId: id,
-                    connectionId: result.connectionId
-                })
-            });
-
-            const saveData = await saveResponse.json();
-            if (!saveResponse.ok || !saveData.ok) {
-                throw new Error(saveData.error || 'Failed to save connection in backend.');
+        fetch(WORKER + '/unipile/connect-link', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ customerId: id })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.ok && data.url) {
+                setStatus('Redirecting to Microsoft sign-in...', 'ok');
+                window.location.href = data.url;
+            } else {
+                setStatus('Could not start connection &mdash; refresh and try again.', 'err');
+                console.error('[outlook-unipile.html] unipile/connect-link error:', data);
+                btn.disabled = false;
+                btn.textContent = 'Connect Outlook';
             }
-
-            setStatus('Success! Outlook connected.', 'ok');
-
-            // Short delay for user to see success message before redirect
-            setTimeout(() => {
-                window.location.href = 'https://onboarding.hermia.au/hermia_setup_complete.html';
-            }, 1200);
-
-        } catch (err) {
-            console.error('[outlook.html] Auth Error:', err);
-
-            let userMsg = 'Connection failed. Please try again.';
-            if (err.type === 'blocked_by_browser') {
-                userMsg = 'Popup blocked! Please allow popups for this site.';
-            } else if (err.type === 'window_closed') {
-                userMsg = 'Sign-in window closed before completion.';
-            } else if (err.message && err.message.includes('Nango verification failed')) {
-                userMsg = 'Verification failed. Please try signing in again.';
-            }
-
-            setStatus(userMsg, 'err');
+        })
+        .catch(err => {
+            setStatus('Could not start connection &mdash; refresh and try again.', 'err');
+            console.error('[outlook-unipile.html] unipile/connect-link request failed:', err);
             btn.disabled = false;
-        }
+            btn.textContent = 'Connect Outlook';
+        });
     }
 
-    // Run on load
     updateSteps();
-    initNango();
 </script>
 </body>
 </html>
+
