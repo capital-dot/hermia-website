@@ -47,15 +47,7 @@
         .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 24px; }
         h1 { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; line-height: 1.0; margin-bottom: 20px; letter-spacing: -0.02em; }
         .sub { font-size: 17px; color: var(--soft); margin-bottom: 50px; line-height: 1.7; font-weight: 300; max-width: 700px; }
-        .warning-box { width: 100%; max-width: 800px; background: rgba(220, 80, 80, 0.05); border: 1px solid rgba(220, 80, 80, 0.3); padding: 40px; margin-bottom: 50px; text-align: center; }
-        .warning-title { color: #ff7e75; font-size: 14px; text-transform: uppercase; letter-spacing: 0.3em; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .warning-text { color: var(--cream); font-size: 16px; line-height: 1.6; margin-bottom: 25px; }
-        .video-trigger { display: inline-flex; align-items: center; gap: 12px; padding: 16px 32px; background: #ff7e75; color: #000; text-decoration: none; font-weight: 600; font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; transition: all 0.3s ease; }
-        .video-trigger:hover { transform: scale(1.02); filter: brightness(1.1); }
         .action-area { width: 100%; max-width: 600px; }
-        .alias-box { display: flex; align-items: center; gap: 15px; border: 1px solid var(--gold); background: rgba(212,175,55,0.05); padding: 20px 24px; margin-bottom: 40px; position: relative; }
-        .alias-text { flex: 1; font-size: 18px; color: var(--gold-light); word-break: break-all; font-weight: 300; text-align: left; letter-spacing: 0.05em; }
-        .copy-btn { background: var(--gold); color: #000; border: none; padding: 12px 20px; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
         .btn { width: 100%; padding: 24px; border: none; background: linear-gradient(135deg, #E8C17A, #C9A35B); color: #000; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; }
         .btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.25); }
         .btn:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -85,54 +77,21 @@
 
     <div class="card">
         <div class="eyebrow">Final Step</div>
-        <h1>Forward your leads to Hermia</h1>
-        <p class="sub">To begin qualifying your leads, you must set up a forwarding rule in your Gmail account. This takes less than 2 minutes.</p>
-
-        <div class="warning-box">
-            <div class="warning-title">⚠️ IMPORTANT: WATCH THIS FIRST</div>
-            <p class="warning-text">If you do not set up the forwarding rule correctly, Hermia will not receive your leads. Watch the 60-second guide before proceeding.</p>
-            <a href="video_guide.html" target="_blank" class="video-trigger">Watch Video Guide</a>
-        </div>
+        <h1>Connect your Gmail to Hermia</h1>
+        <p class="sub">Securely connect your Gmail account so Hermia can start qualifying your leads automatically. This takes less than a minute.</p>
 
         <div class="action-area">
-            <div class="alias-box">
-                <div class="alias-text" id="aliasDisplay">Loading lead address...</div>
-                <button class="copy-btn" onclick="copyAlias()">Copy</button>
-            </div>
-
-            <!-- Plain link to Google's sign-in / account page. No OAuth,
-                 no token exchange, no Worker involvement — this just opens
-                 the normal Google account picker in a new tab so the
-                 contractor can sign in to whichever Gmail account they
-                 want to set the forwarding rule on. -->
-            <a
-                href="https://mail.google.com/mail/u/0/#inbox"
-                target="_blank"
-                rel="noopener"
-                style="width:100%;display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 24px;background:#ffffff;border:1px solid #dadce0;border-radius:4px;cursor:pointer;font-family:'Google Sans',Roboto,Arial,sans-serif;font-size:15px;font-weight:500;color:#3c4043;letter-spacing:0.01em;transition:box-shadow 0.2s ease,background 0.2s ease;box-shadow:0 1px 3px rgba(0,0,0,0.2);text-decoration:none;"
-                onmouseover="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.3)';this.style.background='#f8f9fa';"
-                onmouseout="this.style.boxShadow='0 1px 3px rgba(0,0,0,0.2)';this.style.background='#ffffff';"
-            >
-                <svg width="20" height="20" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#4caf50" d="M45,16.2l-5,2.75l-5,4.75L35,40h7c1.657,0,3-1.343,3-3V16.2z"/>
-                    <path fill="#1e88e5" d="M3,16.2l3.614,1.71L13,23.7V40H6c-1.657,0-3-1.343-3-3V16.2z"/>
-                    <path fill="#e53935" d="M35,11.2V23.7l-11,8.325L13,23.7V11.2l11,8.325L35,11.2z"/>
-                    <path fill="#c62828" d="M3,12.298V16.2l10,7.5V11.2L9.876,8.859C9.132,8.301,8.228,8,7.298,8h-.343 C4.198,8,3,9.198,3,10.955V12.298z"/>
-                    <path fill="#fbc02d" d="M45,12.298V16.2l-10,7.5V11.2l3.124-2.341C38.868,8.301,39.772,8,40.702,8h.343 C43.802,8,45,9.198,45,10.955V12.298z"/>
-                </svg>
-                Sign in to Gmail
-            </a>
-
             <div id="statusArea"></div>
+            <button class="btn" id="connectBtn" onclick="startUnipileConnect()">
+                Connect Gmail
+            </button>
         </div>
 
-        <div class="powered">Secured by Hermia &amp; Google</div>
+        <div class="powered">Secured by Hermia &amp; Unipile</div>
     </div>
 </div>
 
 <script>
-    // WORKER URL is still used only for generating the lead alias — that
-    // part is unrelated to sign-in and stays the same.
     const WORKER = 'https://hermianango.capital-fbc.workers.dev';
     const ACTIVE_IDX = 6;
 
@@ -150,48 +109,46 @@
             ((ACTIVE_IDX - 1) / 5 * 100) + '%';
     }
 
-    function loadLeadAlias() {
+    function startUnipileConnect() {
         const id = getCustomerId();
+        const statusArea = document.getElementById('statusArea');
+        const btn = document.getElementById('connectBtn');
+
         if (!id) {
-            document.getElementById('aliasDisplay').textContent =
-                'Session expired — please restart onboarding.';
+            statusArea.innerHTML = '<div class="status-msg err">Session expired — please restart onboarding.</div>';
             return;
         }
 
-        fetch(WORKER + '/generate-lead-alias', {
+        btn.disabled = true;
+        btn.textContent = 'Connecting...';
+        statusArea.innerHTML = '';
+
+        fetch(WORKER + '/unipile/connect-link', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ customerId: id })
         })
         .then(r => r.json())
         .then(data => {
-            if (data.ok && data.leadAlias) {
-                document.getElementById('aliasDisplay').textContent = data.leadAlias;
+            if (data.ok && data.url) {
+                window.location.href = data.url;
             } else {
-                document.getElementById('aliasDisplay').textContent =
-                    'Could not load your lead address — refresh to try again.';
-                console.error('[gmail.html] generate-lead-alias error:', data);
+                statusArea.innerHTML = '<div class="status-msg err">Could not start connection &mdash; refresh and try again.</div>';
+                console.error('[gmail.html] unipile/connect-link error:', data);
+                btn.disabled = false;
+                btn.textContent = 'Connect Gmail';
             }
         })
         .catch(err => {
-            document.getElementById('aliasDisplay').textContent =
-                'Could not load your lead address — refresh to try again.';
-            console.error('[gmail.html] generate-lead-alias request failed:', err);
-        });
-    }
-
-    function copyAlias() {
-        const text = document.getElementById('aliasDisplay').textContent;
-        if (!text || text.startsWith('Could not') || text.startsWith('Session')) return;
-        navigator.clipboard.writeText(text).then(() => {
-            const btn = document.querySelector('.copy-btn');
-            btn.textContent = 'Copied!';
-            setTimeout(() => btn.textContent = 'Copy', 2000);
+            statusArea.innerHTML = '<div class="status-msg err">Could not start connection &mdash; refresh and try again.</div>';
+            console.error('[gmail.html] unipile/connect-link request failed:', err);
+            btn.disabled = false;
+            btn.textContent = 'Connect Gmail';
         });
     }
 
     updateSteps();
-    loadLeadAlias();
 </script>
 </body>
 </html>
+
