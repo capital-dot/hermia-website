@@ -130,12 +130,20 @@
 <div class="shell">
   <div class="topbar">
     <div class="brandmark"><img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" draggable="false"></div>
-    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
-    <span class="progress-label" id="progressLabel">Step 1 of 5</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:16.6%"></div></div>
+    <span class="progress-label" id="progressLabel">Step 1 of 6</span>
+  </div>
+
+  <!-- STAGE 0: WELCOME -->
+  <div class="stage show" data-stage="welcome">
+    <div class="eyebrow">Welcome to Hermia</div>
+    <h1>Let's configure<br><em>your own workflow.</em></h1>
+    <p class="sub">Over the next few minutes you'll build your own version of Hermia — the problems you want solved, the questions it should ask, your pricing, and how it plugs into your business. Nothing generic, nothing off-the-shelf.</p>
+    <div class="actions-row"><button class="btn-primary" style="flex:1;" onclick="nextStage()">Let's Begin →</button></div>
   </div>
 
   <!-- STAGE 1: PROBLEM -->
-  <div class="stage show" data-stage="problem">
+  <div class="stage" data-stage="problem">
     <div class="eyebrow">The Problem</div>
     <h1>What's not<br><em>working right now?</em></h1>
     <p class="sub">Add one problem at a time — press <strong>Enter</strong> after each to lock it in.</p>
@@ -274,7 +282,7 @@
 
 <script>
   const NEXT_PAGE = 'configure.html';
-  const stageOrder = ['problem','goal','business','channels','pricing'];
+  const stageOrder = ['welcome','problem','goal','business','channels','pricing'];
   let currentStageIndex = 0;
 
   function renderProgress() {
