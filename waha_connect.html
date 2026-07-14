@@ -186,8 +186,32 @@
     font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase;
     color: var(--gold); display: block; margin-bottom: 12px;
   }
+
+  /* NEW: country-code + number row. Country code is its own <select> so
+     the value sent to the backend is always an unambiguous dial code —
+     no more guessing the country from a lone Country column that might
+     not be set yet at this point in onboarding. */
+  .phone-row { display: flex; gap: 10px; }
+  .country-select {
+    flex: 0 0 128px;
+    padding: 15px 10px;
+    background: rgba(22,20,15,0.5); border: 1px solid var(--border);
+    border-radius: 13px; color: var(--cream);
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    outline: none; transition: border-color .3s ease;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C9A35B' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 28px;
+  }
+  .country-select:focus { border-color: var(--gold); }
+  .country-select option { background: #16140f; color: var(--cream); }
+
   .phone-input {
-    width: 100%; padding: 15px 17px;
+    flex: 1;
+    min-width: 0;
+    padding: 15px 17px;
     background: rgba(22,20,15,0.5); border: 1px solid var(--border);
     border-radius: 13px; color: var(--cream);
     font-family: 'DM Sans', sans-serif; font-size: 16px; letter-spacing: .02em;
@@ -349,6 +373,7 @@
     .step .lbl { display: none; }        /* dots only on small screens */
     .step-line { width: 18px; margin: 0 8px; }
     .topbar { margin-bottom: 28px; gap: 18px; }
+    .country-select { flex-basis: 108px; }
   }
 </style>
 </head>
@@ -430,11 +455,27 @@
 
     <div class="phone-card card">
       <label for="negotiationPhoneInput">Contact number</label>
-      <input type="tel" id="negotiationPhoneInput" class="phone-input"
-        placeholder="e.g. +61 4XX XXX XXX" autocomplete="tel" />
+      <div class="phone-row">
+        <!-- NEW: explicit country-code selector. Values are dial codes
+             (no plus sign — added at submit time) and data-country carries
+             the matching Hermia Country string, sent to the backend as a
+             fallback in case the customer's Country column isn't set yet
+             at this point in onboarding. -->
+        <select id="countryCodeSelect" class="country-select" aria-label="Country code">
+          <option value="61" data-country="Australia" selected>🇦🇺 +61</option>
+          <option value="1" data-country="Canada">🇨🇦 +1</option>
+          <option value="64" data-country="New Zealand">🇳🇿 +64</option>
+          <option value="44" data-country="United Kingdom">🇬🇧 +44</option>
+          <option value="353" data-country="Ireland">🇮🇪 +353</option>
+          <option value="1" data-country="United States">🇺🇸 +1</option>
+        </select>
+        <input type="tel" id="negotiationPhoneInput" class="phone-input"
+          placeholder="e.g. 4XX XXX XXX" autocomplete="tel" inputmode="numeric" />
+      </div>
       <p class="phone-hint">
         <span class="warn">Use your business number.</span> This is shown directly to leads —
         don't use a personal mobile unless that's genuinely the number you want clients calling.
+        Enter it without the leading 0 (we'll add your country code automatically).
       </p>
       <p class="phone-err" id="phoneErr">That doesn't look like a valid phone number — check the digits and try again.</p>
     </div>
@@ -539,6 +580,7 @@
   const stageToStep = { explain: 1, phone: 2, choose: 3, processing: 3, success: 3 };
 
   const negotiationPhoneInput = document.getElementById('negotiationPhoneInput');
+  const countryCodeSelect = document.getElementById('countryCodeSelect');
   const phoneErr = document.getElementById('phoneErr');
   const phoneConfirmBox = document.getElementById('phoneConfirmBox');
   const phoneConfirmNumber = document.getElementById('phoneConfirmNumber');
@@ -559,6 +601,7 @@
   const procSub = document.getElementById('procSub');
 
   let selectedFile = null;
+  let normalizedPhone = null; // set by reviewPhone(), sent as-is on confirm
 
   // ── Stage + step-indicator navigation ─────────────────────────────
   function goToStage(name) {
@@ -577,15 +620,41 @@
   // ── Negotiation phone ─────────────────────────────────────────────
   function digitsOnly(v) { return (v || '').replace(/[^0-9]/g, ''); }
 
+  // Pre-fill the country-code dropdown from whatever country the
+  // customer already gave us during signup, if we have it — saves a tap
+  // and reduces the chance of picking the wrong code by accident.
+  (async function prefillCountryFromCustomer() {
+    if (!customerId) return;
+    try {
+      const res = await fetch(HERMIANANGO_BASE + '/get-customer-state?customerId=' + encodeURIComponent(customerId));
+      const data = await res.json();
+      if (data && data.ok && data.country) {
+        const opt = Array.from(countryCodeSelect.options).find(o => o.dataset.country === data.country);
+        if (opt) countryCodeSelect.value = opt.value, opt.selected = true;
+      }
+    } catch (e) {
+      // non-fatal — dropdown just stays on its default (Australia)
+    }
+  })();
+
+  function buildE164() {
+    const selectedOption = countryCodeSelect.options[countryCodeSelect.selectedIndex];
+    const dialCode = selectedOption.value;
+    let local = digitsOnly(negotiationPhoneInput.value);
+    local = local.replace(/^0+/, ''); // strip leading trunk 0 if the contractor typed it anyway
+    return { e164: '+' + dialCode + local, country: selectedOption.dataset.country, localDigits: local };
+  }
+
   function reviewPhone() {
-    const val = negotiationPhoneInput.value.trim();
-    if (digitsOnly(val).length < 6) {
+    const { e164, country, localDigits } = buildE164();
+    if (localDigits.length < 6) {
       phoneErr.textContent = "That doesn't look like a valid phone number — check the digits and try again.";
       phoneErr.classList.add('show');
       return;
     }
     phoneErr.classList.remove('show');
-    phoneConfirmNumber.textContent = val;
+    normalizedPhone = e164;
+    phoneConfirmNumber.textContent = e164;
     phoneConfirmBox.classList.add('show');
     btnReviewPhone.style.display = 'none';
   }
@@ -602,14 +671,18 @@
       phoneErr.classList.add('show');
       return;
     }
-    const val = negotiationPhoneInput.value.trim();
+    const { e164, country } = buildE164();
     btnConfirmPhone.disabled = true;
     btnConfirmPhone.textContent = 'Saving...';
     try {
       const res = await fetch(HERMIANANGO_BASE + '/save-negotiation-phone', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ customerId, negotiationPhone: val })
+        // Send the already-normalized E.164 number (starts with "+") so
+        // the worker's normalizePhoneForCountry() passes it straight
+        // through, plus `country` as an explicit fallback for the case
+        // where customers.Country isn't set yet at this onboarding step.
+        body: JSON.stringify({ customerId, negotiationPhone: e164, country })
       });
       const data = await res.json();
       if (!data.ok) throw new Error(data.error || 'Could not save that number');
