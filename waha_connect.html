@@ -23,9 +23,6 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
 
-  /* FIX: no more justify-content:center on body — tall content was getting
-     clipped off the top with no way to scroll to it. Content now flows from
-     the top; .shell handles centering for short stages via margin:auto. */
   html{height:100%}
   body {
     background: var(--bg);
@@ -41,7 +38,7 @@
     padding: 32px 20px 56px;
   }
   .shell {
-    margin: auto 0;                /* centers short stages, lets tall ones scroll */
+    margin: auto 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -81,40 +78,25 @@
   }
   .brandmark img { height: 30px; display: block; filter: drop-shadow(0 0 10px rgba(201,163,91,0.3)); }
 
-  .steps {
-    display: flex; align-items: center; gap: 0;
-  }
+  .steps { display: flex; align-items: center; gap: 0; }
   .step {
     display: flex; align-items: center; gap: 8px;
     font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
     color: var(--soft); opacity: .45; transition: opacity .4s ease, color .4s ease;
     white-space: nowrap;
   }
-  .step .dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    border: 1px solid var(--soft); transition: all .4s ease;
-  }
+  .step .dot { width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--soft); transition: all .4s ease; }
   .step.current { color: var(--gold-light); opacity: 1; }
   .step.current .dot { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 8px rgba(201,163,91,0.6); }
   .step.done { opacity: .8; color: var(--soft); }
   .step.done .dot { background: var(--green); border-color: var(--green); }
-  .step-line {
-    width: 26px; height: 1px; background: var(--border); margin: 0 10px;
-  }
+  .step-line { width: 26px; height: 1px; background: var(--border); margin: 0 10px; }
 
   /* ── Stage shell ── */
-  .stage {
-    display: none;
-    flex-direction: column; align-items: center; text-align: center;
-    max-width: 480px; width: 100%;
-  }
+  .stage { display: none; flex-direction: column; align-items: center; text-align: center; max-width: 480px; width: 100%; }
   .stage.show { display: flex; }
 
-  .eyebrow {
-    font-size: 10.5px; letter-spacing: .32em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 14px;
-    opacity: 0; animation: fadeUp .6s ease .1s forwards;
-  }
+  .eyebrow { font-size: 10.5px; letter-spacing: .32em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; opacity: 0; animation: fadeUp .6s ease .1s forwards; }
   h1 {
     font-family: 'Cormorant Garamond', serif; font-weight: 500;
     font-size: clamp(30px, 6.5vw, 42px); line-height: 1.1; letter-spacing: -.01em;
@@ -122,11 +104,7 @@
     opacity: 0; animation: fadeUp .65s ease .2s forwards;
   }
   h1 em { font-style: italic; color: var(--gold-light); }
-  .sub {
-    font-size: 14.5px; color: var(--soft); line-height: 1.6; max-width: 360px;
-    margin-bottom: 30px;
-    opacity: 0; animation: fadeUp .6s ease .3s forwards;
-  }
+  .sub { font-size: 14.5px; color: var(--soft); line-height: 1.6; max-width: 360px; margin-bottom: 30px; opacity: 0; animation: fadeUp .6s ease .3s forwards; }
 
   /* ── Cards (shared) ── */
   .card {
@@ -136,19 +114,9 @@
   }
 
   /* ── Explain list ── */
-  .explain-list {
-    width: 100%; display: flex; flex-direction: column; gap: 10px;
-    opacity: 0; animation: fadeUp .6s ease .4s forwards;
-  }
-  .explain-item {
-    display: flex; gap: 15px; align-items: flex-start; padding: 16px 17px;
-  }
-  .explain-item .icon {
-    flex-shrink: 0; width: 34px; height: 34px; border-radius: 10px;
-    background: rgba(201,163,91,0.1);
-    display: flex; align-items: center; justify-content: center;
-    margin-top: 1px;
-  }
+  .explain-list { width: 100%; display: flex; flex-direction: column; gap: 10px; opacity: 0; animation: fadeUp .6s ease .4s forwards; }
+  .explain-item { display: flex; gap: 15px; align-items: flex-start; padding: 16px 17px; }
+  .explain-item .icon { flex-shrink: 0; width: 34px; height: 34px; border-radius: 10px; background: rgba(201,163,91,0.1); display: flex; align-items: center; justify-content: center; margin-top: 1px; }
   .explain-item h4 { font-size: 13.5px; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
   .explain-item p { font-size: 12.5px; color: var(--soft); line-height: 1.55; }
   .explain-item .highlight { color: var(--gold-light); font-weight: 500; }
@@ -177,20 +145,24 @@
   }
   .btn-ghost:hover { opacity: 1; color: var(--cream); }
 
-  /* ── Phone stage ── */
-  .phone-card {
+  /* ── Negotiation contact stage ── */
+  .contact-note {
+    width: 100%; text-align: left; font-size: 12.5px; color: var(--soft); line-height: 1.6;
+    padding: 14px 16px; border: 1px solid var(--border-strong); background: rgba(201,163,91,0.06);
+    border-radius: 12px; margin-bottom: 20px;
+    opacity: 0; animation: fadeUp .6s ease .32s forwards;
+  }
+  .contact-note .warn { color: var(--gold-light); font-weight: 500; }
+
+  .phone-card, .email-card {
     width: 100%; padding: 22px 20px 20px; text-align: left;
     opacity: 0; animation: fadeUp .6s ease .4s forwards;
   }
-  .phone-card label {
+  .phone-card label, .email-card label {
     font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase;
     color: var(--gold); display: block; margin-bottom: 12px;
   }
 
-  /* NEW: country-code + number row. Country code is its own <select> so
-     the value sent to the backend is always an unambiguous dial code —
-     no more guessing the country from a lone Country column that might
-     not be set yet at this point in onboarding. */
   .phone-row { display: flex; gap: 10px; }
   .country-select {
     flex: 0 0 128px;
@@ -208,17 +180,18 @@
   .country-select:focus { border-color: var(--gold); }
   .country-select option { background: #16140f; color: var(--cream); }
 
-  .phone-input {
+  .phone-input, .email-input {
     flex: 1;
     min-width: 0;
+    width: 100%;
     padding: 15px 17px;
     background: rgba(22,20,15,0.5); border: 1px solid var(--border);
     border-radius: 13px; color: var(--cream);
     font-family: 'DM Sans', sans-serif; font-size: 16px; letter-spacing: .02em;
     outline: none; transition: border-color .3s ease;
   }
-  .phone-input::placeholder { color: var(--soft); opacity: .4; }
-  .phone-input:focus { border-color: var(--gold); }
+  .phone-input::placeholder, .email-input::placeholder { color: var(--soft); opacity: .4; }
+  .phone-input:focus, .email-input:focus { border-color: var(--gold); }
   .phone-hint {
     font-size: 12px; color: var(--soft); margin-top: 12px; line-height: 1.6;
     padding-left: 12px; border-left: 2px solid var(--border-strong);
@@ -227,20 +200,10 @@
   .phone-err { font-size: 12px; color: var(--red); margin-top: 12px; display: none; line-height: 1.5; }
   .phone-err.show { display: block; }
 
-  .phone-confirm {
-    display: none; width: 100%; margin-top: 14px; padding: 20px;
-    text-align: left;
-    border-color: var(--border-strong);
-  }
+  .phone-confirm { display: none; width: 100%; margin-top: 14px; padding: 20px; text-align: left; border-color: var(--border-strong); }
   .phone-confirm.show { display: block; animation: fadeUp .4s ease forwards; }
-  .phone-confirm .confirm-label {
-    font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase;
-    color: var(--soft); margin-bottom: 8px;
-  }
-  .phone-confirm .number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 26px; font-weight: 500; color: var(--gold-light); letter-spacing: .01em;
-  }
+  .phone-confirm .confirm-label { font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--soft); margin-bottom: 8px; }
+  .phone-confirm .number { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; color: var(--gold-light); letter-spacing: .01em; word-break: break-all; }
   .phone-confirm .confirm-note { font-size: 12px; color: var(--soft); margin-top: 6px; line-height: 1.5; }
   .phone-confirm-row { display: flex; gap: 10px; margin-top: 18px; }
   .btn-edit, .btn-confirm {
@@ -255,25 +218,16 @@
   .btn-confirm:hover { transform: translateY(-1px); filter: brightness(1.08); }
   .btn-confirm:disabled { opacity: .4; cursor: not-allowed; transform: none; }
 
-  /* ── Method choice ── */
-  .method-row {
-    display: flex; gap: 12px; width: 100%;
-    opacity: 0; animation: fadeUp .6s ease .35s forwards;
-  }
-  .method-card {
-    flex: 1; padding: 24px 18px; cursor: pointer; text-align: left;
-    transition: border-color .3s ease, transform .3s cubic-bezier(.23,1,.32,1), background .3s ease;
-  }
+  /* ── Method choice (shared: contact method + pricing method) ── */
+  .method-row { display: flex; gap: 12px; width: 100%; opacity: 0; animation: fadeUp .6s ease .35s forwards; }
+  .method-card { flex: 1; padding: 24px 18px; cursor: pointer; text-align: left; transition: border-color .3s ease, transform .3s cubic-bezier(.23,1,.32,1), background .3s ease; }
   .method-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
-  .method-card.active {
-    border-color: var(--gold);
-    background: linear-gradient(135deg, rgba(201,163,91,0.1), rgba(201,163,91,0.015));
-  }
+  .method-card.active { border-color: var(--gold); background: linear-gradient(135deg, rgba(201,163,91,0.1), rgba(201,163,91,0.015)); }
   .method-card svg { margin-bottom: 12px; opacity: .85; }
   .method-card h3 { font-size: 14px; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
   .method-card p { font-size: 12px; color: var(--soft); line-height: 1.5; }
 
-  /* ── Upload / text zones ── */
+  /* ── Upload / text zones (also reused for phone/email zones) ── */
   .input-zone { width: 100%; margin-top: 20px; display: none; opacity: 0; }
   .input-zone.show { display: block; animation: fadeUp .45s ease forwards; }
 
@@ -344,10 +298,7 @@
   @keyframes draw { to { stroke-dashoffset: 0; } }
 
   .tier-preview { width: 100%; margin-top: 20px; overflow: hidden; text-align: left; }
-  .tier-row {
-    display: flex; justify-content: space-between; align-items: baseline;
-    padding: 13px 18px; font-size: 13px; border-bottom: 1px solid var(--border);
-  }
+  .tier-row { display: flex; justify-content: space-between; align-items: baseline; padding: 13px 18px; font-size: 13px; border-bottom: 1px solid var(--border); }
   .tier-row:last-child { border-bottom: none; }
   .tier-row .name { color: var(--cream); }
   .tier-row .price { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--gold-light); font-weight: 500; }
@@ -370,7 +321,7 @@
   @media(max-width:480px){
     body { padding: 24px 16px 48px; }
     .method-row { flex-direction: column; }
-    .step .lbl { display: none; }        /* dots only on small screens */
+    .step .lbl { display: none; }
     .step-line { width: 18px; margin: 0 8px; }
     .topbar { margin-bottom: 28px; gap: 18px; }
     .country-select { flex-basis: 108px; }
@@ -432,14 +383,14 @@
         <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 15a4 4 0 01-4 4H8l-5 3V7a4 4 0 014-4h10a4 4 0 014 4v8z" stroke="#C9A35B" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
         <div>
           <h4>If they want to negotiate</h4>
-          <p>Leads can accept the estimate or ask to negotiate — if they do, Hermia passes them the contact number you set on the next step.</p>
+          <p>Leads can accept the estimate or ask to negotiate — if they do, Hermia passes them the contact detail you set on the next step.</p>
         </div>
       </div>
       <div class="explain-item card">
         <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0114-5.3M20 4v5h-5" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 12a8 8 0 01-14 5.3M4 20v-5h5" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div>
           <h4>Update anytime</h4>
-          <p>Change your prices or contact number whenever you like — new quotes always use your latest version.</p>
+          <p>Change your prices or contact detail whenever you like — new quotes always use your latest version.</p>
         </div>
       </div>
     </div>
@@ -447,50 +398,77 @@
     <button class="btn-primary" onclick="goToStage('phone')">Continue</button>
   </div>
 
-  <!-- ═══════════════ STAGE 2: NEGOTIATION PHONE ═══════════════ -->
+  <!-- ═══════════════ STAGE 2: NEGOTIATION CONTACT (phone OR email) ═══════════════ -->
   <div class="stage" id="phoneStage">
     <div class="eyebrow">Negotiation contact</div>
     <h1>Where should leads<br><em>reach you?</em></h1>
-    <p class="sub">If a lead isn't happy with the estimate, this is the number Hermia gives them to negotiate directly.</p>
+    <p class="sub">If a lead isn't happy with the estimate, this is how Hermia lets them reach you to negotiate directly.</p>
 
-    <div class="phone-card card">
-      <label for="negotiationPhoneInput">Contact number</label>
-      <div class="phone-row">
-        <!-- NEW: explicit country-code selector. Values are dial codes
-             (no plus sign — added at submit time) and data-country carries
-             the matching Hermia Country string, sent to the backend as a
-             fallback in case the customer's Country column isn't set yet
-             at this point in onboarding. -->
-        <select id="countryCodeSelect" class="country-select" aria-label="Country code">
-          <option value="61" data-country="Australia" selected>🇦🇺 +61</option>
-          <option value="1" data-country="Canada">🇨🇦 +1</option>
-          <option value="64" data-country="New Zealand">🇳🇿 +64</option>
-          <option value="44" data-country="United Kingdom">🇬🇧 +44</option>
-          <option value="353" data-country="Ireland">🇮🇪 +353</option>
-          <option value="1" data-country="United States">🇺🇸 +1</option>
-        </select>
-        <input type="tel" id="negotiationPhoneInput" class="phone-input"
-          placeholder="e.g. 4XX XXX XXX" autocomplete="tel" inputmode="numeric" />
+    <p class="contact-note">
+      <span class="warn">Heads up:</span> whichever you choose, Hermia hands this detail directly to leads as their way of contacting you —
+      so only give a number or inbox you actually want clients reaching out to. Don't want to share your phone? Use email instead.
+      Don't want email? Use your phone.
+    </p>
+
+    <div class="method-row">
+      <div class="method-card card" id="cardContactPhone" onclick="chooseContactMethod('phone')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Phone Number</h3>
+        <p>Leads message or call you directly</p>
       </div>
-      <p class="phone-hint">
-        <span class="warn">Use your business number.</span> This is shown directly to leads —
-        don't use a personal mobile unless that's genuinely the number you want clients calling.
-        Enter it without the leading 0 (we'll add your country code automatically).
-      </p>
-      <p class="phone-err" id="phoneErr">That doesn't look like a valid phone number — check the digits and try again.</p>
+      <div class="method-card card" id="cardContactEmail" onclick="chooseContactMethod('email')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="#C9A35B" stroke-width="1.6"/><path d="M22 6l-10 7L2 6" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Email Address</h3>
+        <p>Leads email you directly instead</p>
+      </div>
     </div>
+
+    <div class="input-zone" id="phoneInputZone">
+      <div class="phone-card card">
+        <label for="negotiationPhoneInput">Contact number</label>
+        <div class="phone-row">
+          <select id="countryCodeSelect" class="country-select" aria-label="Country code">
+            <option value="61" data-country="Australia" selected>🇦🇺 +61</option>
+            <option value="1" data-country="Canada">🇨🇦 +1</option>
+            <option value="64" data-country="New Zealand">🇳🇿 +64</option>
+            <option value="44" data-country="United Kingdom">🇬🇧 +44</option>
+            <option value="353" data-country="Ireland">🇮🇪 +353</option>
+            <option value="1" data-country="United States">🇺🇸 +1</option>
+          </select>
+          <input type="tel" id="negotiationPhoneInput" class="phone-input"
+            placeholder="e.g. 4XX XXX XXX" autocomplete="tel" inputmode="numeric" />
+        </div>
+        <p class="phone-hint">
+          <span class="warn">Use your business number.</span> Not a personal mobile unless that's genuinely who you want clients calling.
+          Enter it without the leading 0 (we'll add your country code automatically).
+        </p>
+      </div>
+    </div>
+
+    <div class="input-zone" id="emailInputZone">
+      <div class="email-card card">
+        <label for="negotiationEmailInput">Contact email</label>
+        <input type="email" id="negotiationEmailInput" class="email-input"
+          placeholder="e.g. jobs@yourbusiness.com" autocomplete="email" />
+        <p class="phone-hint">
+          <span class="warn">Use your business inbox.</span> Not a personal address unless that's genuinely who you want clients emailing.
+        </p>
+      </div>
+    </div>
+
+    <p class="phone-err" id="phoneErr">That doesn't look like a valid contact detail — check it and try again.</p>
 
     <div class="phone-confirm card" id="phoneConfirmBox">
-      <div class="confirm-label">Leads will be given</div>
+      <div class="confirm-label" id="confirmLabel">Leads will be given</div>
       <div class="number" id="phoneConfirmNumber"></div>
-      <p class="confirm-note">Double-check it — a typo here means missed negotiation calls.</p>
+      <p class="confirm-note">Double-check it — a typo here means missed negotiation enquiries.</p>
       <div class="phone-confirm-row">
-        <button class="btn-edit" onclick="editPhone()">Edit</button>
-        <button class="btn-confirm" id="btnConfirmPhone" onclick="submitNegotiationPhone()">Confirm &amp; continue</button>
+        <button class="btn-edit" onclick="editContact()">Edit</button>
+        <button class="btn-confirm" id="btnConfirmPhone" onclick="submitNegotiationContact()">Confirm &amp; continue</button>
       </div>
     </div>
 
-    <button class="btn-primary" id="btnReviewPhone" onclick="reviewPhone()">Review number</button>
+    <button class="btn-primary" id="btnReviewPhone" onclick="reviewContact()">Review contact detail</button>
     <button class="btn-ghost" onclick="goToStage('explain')">Back</button>
   </div>
 
@@ -580,12 +558,18 @@
   const stageToStep = { explain: 1, phone: 2, choose: 3, processing: 3, success: 3 };
 
   const negotiationPhoneInput = document.getElementById('negotiationPhoneInput');
+  const negotiationEmailInput = document.getElementById('negotiationEmailInput');
   const countryCodeSelect = document.getElementById('countryCodeSelect');
   const phoneErr = document.getElementById('phoneErr');
   const phoneConfirmBox = document.getElementById('phoneConfirmBox');
+  const confirmLabel = document.getElementById('confirmLabel');
   const phoneConfirmNumber = document.getElementById('phoneConfirmNumber');
   const btnReviewPhone = document.getElementById('btnReviewPhone');
   const btnConfirmPhone = document.getElementById('btnConfirmPhone');
+  const cardContactPhone = document.getElementById('cardContactPhone');
+  const cardContactEmail = document.getElementById('cardContactEmail');
+  const phoneInputZone = document.getElementById('phoneInputZone');
+  const emailInputZone = document.getElementById('emailInputZone');
 
   const fileZone = document.getElementById('fileZone');
   const textZone = document.getElementById('textZone');
@@ -601,7 +585,9 @@
   const procSub = document.getElementById('procSub');
 
   let selectedFile = null;
-  let normalizedPhone = null; // set by reviewPhone(), sent as-is on confirm
+  let contactMethod = null;      // 'phone' | 'email'
+  let normalizedPhone = null;    // set by reviewContact(), sent as-is on confirm
+  let normalizedEmail = null;    // set by reviewContact(), sent as-is on confirm
 
   // ── Stage + step-indicator navigation ─────────────────────────────
   function goToStage(name) {
@@ -617,12 +603,20 @@
     });
   }
 
-  // ── Negotiation phone ─────────────────────────────────────────────
+  // ── Negotiation contact: phone/email method choice ─────────────────
   function digitsOnly(v) { return (v || '').replace(/[^0-9]/g, ''); }
 
+  function chooseContactMethod(kind) {
+    contactMethod = kind;
+    cardContactPhone.classList.toggle('active', kind === 'phone');
+    cardContactEmail.classList.toggle('active', kind === 'email');
+    phoneInputZone.classList.toggle('show', kind === 'phone');
+    emailInputZone.classList.toggle('show', kind === 'email');
+    phoneErr.classList.remove('show');
+  }
+
   // Pre-fill the country-code dropdown from whatever country the
-  // customer already gave us during signup, if we have it — saves a tap
-  // and reduces the chance of picking the wrong code by accident.
+  // customer already gave us during signup, if we have it.
   (async function prefillCountryFromCustomer() {
     if (!customerId) return;
     try {
@@ -641,54 +635,87 @@
     const selectedOption = countryCodeSelect.options[countryCodeSelect.selectedIndex];
     const dialCode = selectedOption.value;
     let local = digitsOnly(negotiationPhoneInput.value);
-    local = local.replace(/^0+/, ''); // strip leading trunk 0 if the contractor typed it anyway
+    local = local.replace(/^0+/, '');
     return { e164: '+' + dialCode + local, country: selectedOption.dataset.country, localDigits: local };
   }
 
-  function reviewPhone() {
-    const { e164, country, localDigits } = buildE164();
-    if (localDigits.length < 6) {
-      phoneErr.textContent = "That doesn't look like a valid phone number — check the digits and try again.";
+  function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  function reviewContact() {
+    if (!contactMethod) {
+      phoneErr.textContent = 'Pick how leads should reach you — phone or email.';
       phoneErr.classList.add('show');
       return;
     }
-    phoneErr.classList.remove('show');
-    normalizedPhone = e164;
-    phoneConfirmNumber.textContent = e164;
+    if (contactMethod === 'phone') {
+      const { e164, localDigits } = buildE164();
+      if (localDigits.length < 6) {
+        phoneErr.textContent = "That doesn't look like a valid phone number — check the digits and try again.";
+        phoneErr.classList.add('show');
+        return;
+      }
+      phoneErr.classList.remove('show');
+      normalizedPhone = e164;
+      normalizedEmail = null;
+      confirmLabel.textContent = 'Leads will be given';
+      phoneConfirmNumber.textContent = e164;
+    } else {
+      const email = negotiationEmailInput.value.trim();
+      if (!isValidEmail(email)) {
+        phoneErr.textContent = "That doesn't look like a valid email address — check it and try again.";
+        phoneErr.classList.add('show');
+        return;
+      }
+      phoneErr.classList.remove('show');
+      normalizedEmail = email;
+      normalizedPhone = null;
+      confirmLabel.textContent = 'Leads will email you at';
+      phoneConfirmNumber.textContent = email;
+    }
     phoneConfirmBox.classList.add('show');
     btnReviewPhone.style.display = 'none';
   }
 
-  function editPhone() {
+  function editContact() {
     phoneConfirmBox.classList.remove('show');
     btnReviewPhone.style.display = 'block';
-    negotiationPhoneInput.focus();
+    if (contactMethod === 'phone') negotiationPhoneInput.focus();
+    else negotiationEmailInput.focus();
   }
 
-  async function submitNegotiationPhone() {
+  async function submitNegotiationContact() {
     if (!customerId) {
       phoneErr.textContent = 'Missing your account details — reopen this link from your onboarding email.';
       phoneErr.classList.add('show');
       return;
     }
-    const { e164, country } = buildE164();
     btnConfirmPhone.disabled = true;
     btnConfirmPhone.textContent = 'Saving...';
     try {
-      const res = await fetch(HERMIANANGO_BASE + '/save-negotiation-phone', {
+      // ASSUMPTION: renamed endpoint from /save-negotiation-phone to
+      // /save-negotiation-contact since it now handles either a phone
+      // OR an email. Update your hermianango worker route to match —
+      // payload is { customerId, method: 'phone'|'email',
+      // negotiationPhone, negotiationEmail, country }. Only one of
+      // negotiationPhone/negotiationEmail will be non-null depending
+      // on `method`. See the accompanying Supabase SQL for the new
+      // columns this expects to write to.
+      const res = await fetch(HERMIANANGO_BASE + '/save-negotiation-contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        // Send the already-normalized E.164 number (starts with "+") so
-        // the worker's normalizePhoneForCountry() passes it straight
-        // through, plus `country` as an explicit fallback for the case
-        // where customers.Country isn't set yet at this onboarding step.
-        body: JSON.stringify({ customerId, negotiationPhone: e164, country })
+        body: JSON.stringify({
+          customerId,
+          method: contactMethod,
+          negotiationPhone: normalizedPhone,
+          negotiationEmail: normalizedEmail,
+          country: contactMethod === 'phone' ? countryCodeSelect.options[countryCodeSelect.selectedIndex].dataset.country : null
+        })
       });
       const data = await res.json();
-      if (!data.ok) throw new Error(data.error || 'Could not save that number');
+      if (!data.ok) throw new Error(data.error || 'Could not save that contact detail');
       goToStage('choose');
     } catch (e) {
-      phoneErr.textContent = e.message || 'Something went wrong saving that number — try again.';
+      phoneErr.textContent = e.message || 'Something went wrong saving that — try again.';
       phoneErr.classList.add('show');
       phoneConfirmBox.classList.remove('show');
       btnReviewPhone.style.display = 'block';
@@ -829,4 +856,3 @@
 </script>
 </body>
 </html>
-
