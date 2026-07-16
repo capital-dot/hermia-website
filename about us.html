@@ -197,7 +197,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 @media(max-width:768px){
   nav{padding:0 20px}
   .nav-links li:not(:last-child){display:none}
-  .section,.channels-section,.hiw-section,.values-section,.cta-section,.match-section,.pricing-flow-section{padding:70px 20px}
+  .section,.channels-section,.hiw-section,.values-section,.cta-section,.match-section,.pricing-flow-section,.problems-section{padding:70px 20px}
   .channels-grid{grid-template-columns:1fr}
   .channels-strip{flex-direction:column;align-items:flex-start}
   .channels-strip-right{width:100%}
@@ -234,7 +234,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     <h1>Built for the contractor<br>running the <em>tightest office.</em></h1>
     <p class="hero-sub">Hermia is an integration software system that uses AI to qualify every enquiry your business receives. We're official technology partners with <strong style="color:#fff;">Simpro</strong> and <strong style="color:#fff;">AroFlo</strong> &mdash; you tell us the custom fields your build already uses, and every qualified lead is mapped straight into them. Every enquiry from Gmail or Outlook is qualified, structured, and pushed into a ready-to-book job before you've even opened your inbox.</p>
     <p class="hero-note" style="margin-bottom:10px;">Every message Hermia sends comes from pre-approved, on-script templates &mdash; not freeform AI generation. No hallucinations. No made-up answers. Just accurate, professional communication, every time.</p>
-    <p class="hero-note">Hermia is designed for the contractor, not the lead. <strong style="color:#fff;font-weight:600;">You</strong> tell us what to ask, what to charge, and what your Simpro custom fields are  &mdash; Hermia just executes it, exactly as instructed, every single time.</p>
+    <p class="hero-note">Hermia is designed for the contractor, not the lead. <strong style="color:#fff;font-weight:600;">You</strong> tell us what to ask, what to charge, and what your Simpro fields mean &mdash; Hermia just executes it, exactly as instructed, every single time.</p>
   </div>
 </div>
 
@@ -255,8 +255,8 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           <div class="stat-label">Channels monitored simultaneously<br>Gmail · Outlook</div>
         </div>
         <div class="stat-card">
-          <div class="stat-num">&lt;90s</div>
-          <div class="stat-label">From enquiry received to structured<br>job record in Simpro or AroFlo</div>
+          <div class="stat-num">&lt;60s</div>
+          <div class="stat-label">From enquiry received to a qualifying<br>conversation already underway</div>
         </div>
         <div class="stat-card">
           <div class="stat-num">0</div>
@@ -323,10 +323,33 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 
     </div>
 
+    <!-- Media Handling -->
+    <div style="margin-top:60px;padding:40px 36px;background:rgba(196,150,60,0.03);border:1px solid var(--border);border-radius:16px;text-align:center">
+      <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:18px">Media Handling</div>
+      <h3 style="font-family:var(--display);font-size:24px;font-weight:600;color:#fff;margin-bottom:24px">Voice notes, pictures, and videos</h3>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:12px">
+          <div style="font-size:32px;margin-bottom:12px">🎙️</div>
+          <div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:8px">Voice Notes</div>
+          <div style="font-size:12px;color:var(--soft)">Clients record voice messages directly in the conversation. Hermia transcribes and extracts key details automatically.</div>
+        </div>
+        <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:12px">
+          <div style="font-size:32px;margin-bottom:12px">📸</div>
+          <div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:8px">Pictures</div>
+          <div style="font-size:12px;color:var(--soft)">Photos of damage, defects, or site conditions are captured and attached directly to the job record in Simpro or AroFlo.</div>
+        </div>
+        <div style="padding:20px;background:var(--card);border:1px solid var(--border);border-radius:12px">
+          <div style="font-size:32px;margin-bottom:12px">🎥</div>
+          <div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:8px">Videos</div>
+          <div style="font-size:12px;color:var(--soft)">Short video clips provide technicians with visual context before they arrive on-site, improving first-time fix rates.</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Strip -->
-    <div class="channels-strip">
+    <div class="channels-strip" style="margin-top:40px">
       <div class="channels-strip-left">
-        <span class="channels-strip-label">All channels feed into</span>
+        <span class="channels-strip-label">Official Partners</span>
         <div class="channels-strip-logos">
           <div class="strip-logo">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
@@ -356,7 +379,8 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   <div class="inner">
     <div class="eyebrow">The Process</div>
     <h2 class="sec-title">How we <em>operate.</em></h2>
-    <p class="sec-sub">No dashboards to learn, no admin to manage. Here's exactly what happens between an enquiry landing and a job hitting your Simpro calendar.</p>
+    <p class="sec-sub">No dashboards to learn, no admin to manage. Here's exactly what happens between an enquiry landing and a job hitting your Simpro or AroFlo calendar.</p>
+    <p class="sec-sub" style="margin-top:14px;margin-bottom:56px">From lead arrival to job dispatch, Hermia handles every step&mdash;qualification, scheduling, and data integrity&mdash;without you lifting a finger.</p>
     <div class="hiw-steps">
       <div class="hiw-step">
         <div class="hiw-num">01</div>
@@ -369,28 +393,35 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         <div class="hiw-num">02</div>
         <div class="hiw-content">
           <h3>Hermia asks <em>permission first.</em></h3>
-          <p>Before the conversation moves anywhere, Hermia emails the client asking for their consent to continue on WhatsApp &mdash; in line with the Privacy Act 1988 (Cth) and the Australian Privacy Principles. No client is ever moved to a new channel without their explicit sign-off.</p>
+          <p>Before the conversation moves anywhere, Hermia emails the client asking for their consent to continue the conversation &mdash; in line with the Privacy Act 1988 (Cth) and the Australian Privacy Principles. No client is ever moved to a new channel without their explicit sign-off.</p>
         </div>
       </div>
       <div class="hiw-step">
         <div class="hiw-num">03</div>
         <div class="hiw-content">
-          <h3>Consent given &mdash; <em>conversation moves to WhatsApp.</em></h3>
-          <p>Once the client agrees, the conversation continues directly on your business's own WhatsApp number. Every message, photo, and voice note lives in one thread against your number &mdash; so you can always see the full history.</p>
+          <h3>Consent given &mdash; <em>Hermia takes the conversation from here.</em></h3>
+          <p>Once the client agrees, Hermia continues the conversation directly on Hermia's own dedicated number &mdash; not yours. Your team never sees a raw chat thread and never has to manage a conversation. You get the finished result: a clean, structured, ready-to-book job in Simpro or AroFlo.</p>
         </div>
       </div>
       <div class="hiw-step">
         <div class="hiw-num">04</div>
         <div class="hiw-content">
-          <h3>Hermia handles it &mdash; <em>you just watch.</em></h3>
-          <p>Hermia keeps qualifying the client on that same WhatsApp thread. You don't type a single message or lift a finger &mdash; you can simply watch Hermia respond in real time on your own number.</p>
+          <h3>Aggressive qualification &mdash; <em>no vague answers, ever.</em></h3>
+          <p>Hermia doesn't accept incomplete information. It keeps working the conversation until every question you've configured is actually answered &mdash; following up automatically if a lead skips something you've marked as required. No guessing, no gaps, nothing for your office to chase afterward.</p>
         </div>
       </div>
       <div class="hiw-step">
         <div class="hiw-num">05</div>
         <div class="hiw-content">
+          <h3>Smart scheduling &mdash; <em>matched to available staff.</em></h3>
+          <p>Hermia doesn't just book a job blindly. Once the lead gives their availability, Hermia checks your technician roster for who's actually free that day &mdash; and looks up to five days ahead if nobody is. The lead is told exactly which technician is assigned and on what date, before the conversation even ends.</p>
+        </div>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-num">06</div>
+        <div class="hiw-content">
           <h3>Job booked &mdash; <em>reports delivered.</em></h3>
-          <p>Once qualified, the job is booked straight into your Simpro account, fully briefed and ready to dispatch. Every week, a business performance report lands in your inbox summarising everything that came through.</p>
+          <p>Once fully qualified and scheduled, the job lands in your Simpro or AroFlo account with a technician assigned, ready to dispatch. Every week, a business performance report lands in your inbox summarising everything that came through.</p>
         </div>
       </div>
     </div>
@@ -398,17 +429,47 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 </section>
 
 
+<!-- ── Lead Generation Channel ── -->
+<section class="section" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="inner">
+    <div class="eyebrow">Beyond Email</div>
+    <h2 class="sec-title">Your advanced <em>receptionist.</em></h2>
+    <p class="sec-sub">Hermia isn't just an intake tool for enquiries that already exist. It becomes a channel in its own right &mdash; one that generates new business for you.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:56px;align-items:center">
+      <div>
+        <h3 style="font-family:var(--display);font-size:22px;font-weight:600;color:#fff;margin-bottom:16px">How it works</h3>
+        <p style="font-size:14px;color:var(--soft);line-height:1.8;margin-bottom:18px">Instead of filling out a form or writing an email, past and potential customers can simply message Hermia directly. They describe their situation, Hermia qualifies them through the exact same process as any other enquiry, and the job lands in your Simpro or AroFlo &mdash; fully briefed.</p>
+        <p style="font-size:14px;color:var(--soft);line-height:1.8;margin-bottom:18px">A customer who had work done six months ago now has a new issue. Instead of Googling a competitor, they message the number they already know. Hermia handles the entire conversation. You get the lead &mdash; not the admin.</p>
+        <p style="font-size:14px;color:var(--soft);line-height:1.8"><strong style="color:var(--cream)">Result:</strong> repeat business and referrals flow straight into your system with zero manual effort, and become one of your most efficient lead sources.</p>
+      </div>
+      <div style="padding:40px;background:var(--card);border:1px solid var(--border);border-radius:16px;text-align:center">
+        <div style="font-size:48px;margin-bottom:24px">💬</div>
+        <div style="font-size:13px;color:var(--soft);line-height:1.8">
+          <p style="margin-bottom:16px"><strong style="color:var(--gl)">A lead messages Hermia</strong></p>
+          <p style="margin-bottom:16px">↓</p>
+          <p style="margin-bottom:16px"><strong style="color:var(--gl)">Hermia qualifies automatically</strong></p>
+          <p style="margin-bottom:16px">↓</p>
+          <p style="margin-bottom:16px"><strong style="color:var(--gl)">Job lands in your Simpro or AroFlo</strong></p>
+          <p style="margin-bottom:16px">↓</p>
+          <p><strong style="color:var(--gl)">Technician assigned &amp; dispatched</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── Zero-Duplicate Matching ── -->
 <section class="match-section section">
   <div class="inner">
     <div class="eyebrow">Data Integrity</div>
-    <h2 class="sec-title">We protect your <em>Simpro data.</em></h2>
-    <p class="sec-sub">Hermia never blindly creates a new customer and site for every enquiry. Before anything is booked, it checks what already exists in your Simpro &mdash; and only creates what's actually missing.</p>
+    <h2 class="sec-title">We protect your <em>CRM data.</em></h2>
+    <p class="sec-sub">Hermia never blindly creates a new customer and site for every enquiry. Before anything is booked, it checks what already exists in your Simpro or AroFlo build &mdash; and only creates what's actually missing.</p>
     <div class="match-grid">
       <div class="match-card">
         <span class="match-tag">Scenario 01</span>
         <h3>Existing customer, existing site</h3>
-        <p>Hermia matches the enquiry straight to the customer and site already in your Simpro &mdash; no new records created at all.</p>
+        <p>Hermia matches the enquiry straight to the customer and site already on file &mdash; no new records created at all.</p>
         <div class="match-result">Result: qualified job booked directly against your existing records. Zero duplicates.</div>
       </div>
       <div class="match-card">
@@ -439,17 +500,69 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
     <div class="flow-outcome-row">
       <div class="flow-outcome accept">
         <div class="flow-outcome-tag">If they accept</div>
-        <p>The estimate is logged straight into the job record in Simpro, noting the figure they agreed to &mdash; so there's no confusion about price when the job lands on your schedule.</p>
+        <p>The estimate is logged straight into the job record in Simpro or AroFlo, noting the figure they agreed to &mdash; so there's no confusion about price when the job lands on your schedule.</p>
       </div>
       <div class="flow-outcome negotiate">
         <div class="flow-outcome-tag">If they negotiate</div>
-        <p>Hermia instantly hands them the negotiation contact you set during onboarding &mdash; your phone or your email, whichever you chose. <strong>You're told they're reaching out about pricing before they ever contact you</strong>, and the job still lands in Simpro either way.</p>
+        <p>Hermia instantly hands them the negotiation contact you set during onboarding &mdash; your phone or your email, whichever you chose. <strong>You're told they're reaching out about pricing before they ever contact you</strong>, and the job still lands in your CRM either way.</p>
       </div>
     </div>
 
     <div class="fields-callout">
       <h3>Your custom fields, <em>mapped automatically.</em></h3>
-      <p>Hermia doesn't just fill in Simpro's default fields. During setup, you tell us the custom fields your business actually uses &mdash; and what each one is for. From then on, every qualified detail from a lead is mapped straight into the correct custom field, exactly where your team expects to find it. Hermia doesn't change your Simpro, your workflow, or your naming conventions &mdash; it simply learns them and works inside them.</p>
+      <p>Hermia doesn't just fill in the default fields. During setup, you tell us the custom fields your business actually uses &mdash; and what each one is for &mdash; and those become the exact questions Hermia asks every lead before the job goes ahead. Every qualified detail is mapped straight into the correct custom field, exactly where your team expects to find it. Hermia doesn't change your CRM, your workflow, or your naming conventions &mdash; it simply learns them and works inside them.</p>
+      <p style="margin-top:14px;">Want to change what's asked? Just email us. Updates to your question set are usually live within <strong style="color:var(--cream)">1&ndash;3 business days</strong> &mdash; no new onboarding call required.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Problems We Solve ── -->
+<section class="problems-section section" style="background:var(--bg3);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="inner">
+    <div class="eyebrow">The Real Issues</div>
+    <h2 class="sec-title">Problems we <em>actually solve.</em></h2>
+    <p class="sec-sub">Beyond messy CRM data and pricing friction, contractors face a gauntlet of daily operational headaches. Here's how Hermia tackles them head-on.</p>
+    
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:56px;align-items:start">
+      <!-- Problem 1 -->
+      <div style="padding:32px;background:var(--card);border:1px solid var(--border);border-radius:16px;transition:all .25s">
+        <div style="font-size:28px;margin-bottom:16px">👻</div>
+        <h3 style="font-family:var(--display);font-size:20px;font-weight:600;color:#fff;margin-bottom:12px">Ghost Leads &amp; Long ETAs</h3>
+        <p style="font-size:13.5px;color:var(--soft);line-height:1.7;margin-bottom:16px"><strong style="color:var(--cream)">The Problem:</strong> Customers go radio silent after submitting a form. Office wastes time booking vague "9 AM to 1 PM" windows, leading to frustrated clients.</p>
+        <p style="font-size:13.5px;color:var(--soft);line-height:1.7"><strong style="color:var(--gl)">Hermia's Solution:</strong> Instant engagement skyrockets response rates. Hermia captures exact availability and confirms a specific slot directly in the conversation, locking clients in before they jump to competitors.</p>
+      </div>
+      
+      <!-- Problem 2 -->
+      <div style="padding:32px;background:var(--card);border:1px solid var(--border);border-radius:16px;transition:all .25s">
+        <div style="font-size:28px;margin-bottom:16px">🚨</div>
+        <h3 style="font-family:var(--display);font-size:20px;font-weight:600;color:#fff;margin-bottom:12px">Emergency Callout Chaos</h3>
+        <p style="font-size:13.5px;color:var(--soft);line-height:1.7;margin-bottom:16px"><strong style="color:var(--cream)">The Problem:</strong> 11 PM panic call: "There's water everywhere!" Tech rolls out blind, finds a minor fixture leak, or lacks the part needed.</p>
+        <p style="font-size:13.5px;color:var(--soft);line-height:1.7"><strong style="color:var(--gl)">Hermia's Solution:</strong> Hermia forces categorization &mdash; "send a photo or short video here." Media and a clear description drop straight into the job notes, letting techs triage, check inventory, or reject the midnight call.</p>
+      </div>
+      
+      <!-- Problem 3 -->
+      <div style="padding:32px;background:var(--card);border:1px solid var(--border);border-radius:16px;transition:all .25s">
+        <div style="font-size:28px;margin-bottom:16px">😴</div>
+        <h3 style="font-family:var(--display);font-size:20px;font-weight:600;color:#fff;margin-bottom:12px">Out-of-Hours Burnout</h3>
+        <p style="font-size:13.5px;color:var(--soft);line-height:1.7;margin-bottom:16px"><strong style="color:var(--cream)">The Problem:</strong> Owners glued to phones 24/7. Miss an 8 PM email by 15 minutes? Client goes to the next Google listing. Constant burnout.</p>
+        <p style="font-size:13.5px;color:var(--soft);line-height:1.7"><strong style="color:var(--gl)">Hermia's Solution:</strong> Hermia acts as your 24/7 advanced receptionist. Greeting, vetting, pricing, booking &mdash; all autonomous. The job sits clean in your CRM by sunrise while you sleep.</p>
+      </div>
+      
+      <!-- Problem 4 -->
+      <div style="padding:32px;background:var(--card);border:1px solid var(--border);border-radius:16px;transition:all .25s">
+        <div style="font-size:28px;margin-bottom:16px">🔧</div>
+        <h3 style="font-family:var(--display);font-size:20px;font-weight:600;color:#fff;margin-bottom:12px">Poor First-Time Fix Rates</h3>
+        <p style="font-size:13.5px;color:var(--soft);line-height:1.7;margin-bottom:16px"><strong style="color:var(--cream)">The Problem:</strong> Tech arrives with incomplete notes from a frantic phone call. Spends 30 minutes diagnosing, realizes they don't have materials, reschedules. Profitability dies.</p>
+        <p style="font-size:13.5px;color:var(--soft);line-height:1.7"><strong style="color:var(--gl)">Hermia's Solution:</strong> Hermia collects deep, standardized technical details using the exact criteria you configured. The tech opens the job and sees structured data with photos and video &mdash; not a vague note.</p>
+      </div>
+      
+      <!-- Problem 5 -->
+      <div style="padding:32px;background:var(--card);border:1px solid var(--border);border-radius:16px;transition:all .25s;grid-column:1 / -1">
+        <div style="font-size:28px;margin-bottom:16px">📱</div>
+        <h3 style="font-family:var(--display);font-size:20px;font-weight:600;color:#fff;margin-bottom:12px">Tech Adoption Friction</h3>
+        <p style="font-size:13.5px;color:var(--soft);line-height:1.7;margin-bottom:16px"><strong style="color:var(--cream)">The Problem:</strong> Field service software is powerful but has a steep learning curve. Field staff hate navigating clunky interfaces, leading to missing information.</p>
+        <p style="font-size:13.5px;color:var(--soft);line-height:1.7"><strong style="color:var(--gl)">Hermia's Solution:</strong> Data collection happens entirely on the client's side, in conversation &mdash; never inside a clunky app. By the time the tech opens the job, it's already perfectly laid out. No complex menus. Just work.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -464,7 +577,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
       <div class="val-card">
         <div class="val-icon">⚡</div>
         <h3>Speed over delay</h3>
-        <p>The contractor who responds first wins the job. Hermia qualifies enquiries and structures job records in under 90 seconds — before your competitor's office has even read the email.</p>
+        <p>The contractor who responds first wins the job. Hermia opens a qualifying conversation in under 60 seconds — before your competitor's office has even read the email.</p>
       </div>
       <div class="val-card">
         <div class="val-icon">🎯</div>
@@ -474,7 +587,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
       <div class="val-card">
         <div class="val-icon">🔒</div>
         <h3>Data you can trust</h3>
-        <p>We're a registered Simpro technology partner. Your data is encrypted end-to-end, stored in Australian infrastructure, and never sold or shared. Your customers' data belongs to you.</p>
+        <p>We're a registered Simpro and AroFlo technology partner. Your data is encrypted end-to-end, stored in Australian infrastructure, and never sold or shared. Your customers' data belongs to you.</p>
       </div>
     </div>
   </div>
@@ -514,4 +627,3 @@ document.querySelectorAll('.ch-card,.stat-card,.val-card,.hiw-step').forEach(fun
 </script>
 </body>
 </html>
-
