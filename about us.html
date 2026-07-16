@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About Hermia &mdash; AI Lead Qualification for Commercial Contractors</title>
-<meta name="description" content="Hermia qualifies every enquiry from Gmail and Outlook — using pre-approved templates, never freeform AI — automatically pushing clean, ready-to-book job records into Simpro.">
+<meta name="description" content="Hermia is an integration software system that uses AI to qualify every enquiry from Gmail and Outlook — using pre-approved templates, never freeform AI — automatically pushing clean, ready-to-book job records into Simpro or AroFlo.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -168,15 +168,43 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   .story-grid{grid-template-columns:1fr;gap:48px}
   .values-grid{grid-template-columns:1fr 1fr}
 }
+/* ── Zero-Duplicate Matching ── */
+.match-section{background:var(--bg3);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.match-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
+.match-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px;transition:all .25s;position:relative}
+.match-card:hover{border-color:var(--bhi);transform:translateY(-4px)}
+.match-tag{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:rgba(196,150,60,0.1);border:1px solid var(--border);padding:5px 12px;border-radius:99px;margin-bottom:16px}
+.match-card h3{font-family:var(--display);font-size:21px;font-weight:600;color:#fff;margin-bottom:10px;line-height:1.2}
+.match-card p{font-size:13px;color:var(--soft);line-height:1.7;font-weight:300}
+.match-card .match-result{margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--gl);font-weight:500}
+
+/* ── Pricing & custom fields ── */
+.pricing-flow-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.flow-outcome-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
+.flow-outcome{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px 28px}
+.flow-outcome.accept{border-color:rgba(16,185,129,0.3)}
+.flow-outcome.negotiate{border-color:rgba(196,150,60,0.3)}
+.flow-outcome-tag{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.flow-outcome.accept .flow-outcome-tag{color:var(--green)}
+.flow-outcome.negotiate .flow-outcome-tag{color:var(--gold)}
+.flow-outcome p{font-size:13.5px;color:var(--soft);line-height:1.7;font-weight:300}
+.flow-outcome p strong{color:var(--cream);font-weight:500}
+.fields-callout{margin-top:48px;padding:30px 32px;background:var(--card);border:1px solid var(--border);border-radius:16px}
+.fields-callout h3{font-family:var(--display);font-size:24px;font-weight:600;color:#fff;margin-bottom:12px}
+.fields-callout h3 em{font-style:italic;color:var(--gl)}
+.fields-callout p{font-size:14px;color:var(--soft);line-height:1.75;font-weight:300}
+
 @media(max-width:768px){
   nav{padding:0 20px}
   .nav-links li:not(:last-child){display:none}
-  .section,.channels-section,.hiw-section,.values-section,.cta-section{padding:70px 20px}
+  .section,.channels-section,.hiw-section,.values-section,.cta-section,.match-section,.pricing-flow-section{padding:70px 20px}
   .channels-grid{grid-template-columns:1fr}
   .channels-strip{flex-direction:column;align-items:flex-start}
   .channels-strip-right{width:100%}
   .values-grid{grid-template-columns:1fr}
   .hiw-step{grid-template-columns:50px 1fr;gap:20px}
+  .match-grid{grid-template-columns:1fr}
+  .flow-outcome-row{grid-template-columns:1fr}
   footer{flex-direction:column;gap:16px;padding:28px 20px}
 }
 </style>
@@ -193,6 +221,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
   </ul>
 </nav>
 
+
 <!-- ── Hero ── -->
 <div class="hero">
   <div class="hero-glow-1"></div>
@@ -203,8 +232,9 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
       About Hermia
     </div>
     <h1>Built for the contractor<br>running the <em>tightest office.</em></h1>
-    <p class="hero-sub">Hermia is a pre-built AI qualification engine for commercial contractors &mdash; Fire &amp; ESM compliance firms first, and any trade business running Simpro behind it. Every enquiry from Gmail or Outlook is qualified, structured, and pushed into a ready-to-book Simpro job before you've even opened your inbox.</p>
-    <p class="hero-note">Every message Hermia sends comes from pre-approved, on-script templates &mdash; not freeform AI generation. No hallucinations. No made-up answers. Just accurate, professional communication, every time.</p>
+    <p class="hero-sub">Hermia is an integration software system that uses AI to qualify every enquiry your business receives. We're official technology partners with <strong style="color:#fff;">Simpro</strong> and <strong style="color:#fff;">AroFlo</strong> &mdash; you tell us the custom fields your build already uses, and every qualified lead is mapped straight into them. Every enquiry from Gmail or Outlook is qualified, structured, and pushed into a ready-to-book job before you've even opened your inbox.</p>
+    <p class="hero-note" style="margin-bottom:10px;">Every message Hermia sends comes from pre-approved, on-script templates &mdash; not freeform AI generation. No hallucinations. No made-up answers. Just accurate, professional communication, every time.</p>
+    <p class="hero-note">Hermia is designed for the contractor, not the lead. <strong style="color:#fff;font-weight:600;">You</strong> tell us what to ask, what to charge, and what your Simpro custom fields are  &mdash; Hermia just executes it, exactly as instructed, every single time.</p>
   </div>
 </div>
 
@@ -215,9 +245,9 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
       <div class="story-text">
         <div class="eyebrow">Our Story</div>
         <h2 class="sec-title" style="margin-bottom:28px">The problem was<br><em>hiding in plain sight.</em></h2>
-        <p>Contractors don't lose massive commercial jobs to better field techs. They lose them to more organised offices. Property managers and facilities teams blast the exact same defect reports and service requests to five or six companies at the exact same time &mdash; and the contractor who replies first with a clear scope, verified site details, and a flawlessly professional Simpro brief wins the job.</p>
+        <p>Contractors don't lose massive commercial jobs to better field techs. They lose them to more organised offices. Property managers and facilities teams blast the exact same defect reports and service requests to five or six companies at the exact same time &mdash; and the contractor who replies first with a clear scope, verified site details, and a flawlessly professional job brief wins the work.</p>
         <p>The problem was never skill on the tools. It was <strong>the gap between an enquiry landing in the inbox and the office actually being ready to act on it.</strong> Missing asset IDs. Access constraints nobody asked about. Voice notes nobody transcribed. Budget and billing details chased after the quote already went out.</p>
-        <p>Hermia closes that gap. Every enquiry from Gmail or Outlook is automatically qualified and structured, then pushed into Simpro as a clean, ready-to-book job record &mdash; using pre-approved templates only, so nothing is ever guessed, invented, or off-script. <strong>Before your office has even picked up the phone.</strong></p>
+        <p>Most trade software is designed to cater to the lead's convenience. <strong>Hermia is designed exclusively for the contractor.</strong> Every enquiry from Gmail or Outlook is automatically qualified and structured, then pushed into Simpro or AroFlo as a clean, ready-to-book job record &mdash; using pre-approved templates only, so nothing is ever guessed, invented, or off-script. <strong>Before your office has even picked up the phone.</strong></p>
       </div>
       <div class="story-stats">
         <div class="stat-card">
@@ -226,7 +256,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         </div>
         <div class="stat-card">
           <div class="stat-num">&lt;90s</div>
-          <div class="stat-label">From enquiry received to structured<br>job record in Simpro</div>
+          <div class="stat-label">From enquiry received to structured<br>job record in Simpro or AroFlo</div>
         </div>
         <div class="stat-card">
           <div class="stat-num">0</div>
@@ -250,7 +280,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
         Channel Coverage
       </div>
       <h2 class="channels-title">Every channel your<br><em>clients actually use.</em></h2>
-      <p class="channels-sub">Hermia plugs straight into the inboxes your commercial clients already use. Every enquiry &mdash; no matter which one it comes from &mdash; gets qualified, structured, and pushed into Simpro automatically.</p>
+      <p class="channels-sub">Hermia plugs straight into the inboxes your commercial clients already use. Every enquiry &mdash; no matter which one it comes from &mdash; gets qualified, structured, and pushed into Simpro or AroFlo automatically.</p>
     </div>
 
     <div class="channels-grid">
@@ -301,6 +331,11 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
           <div class="strip-logo">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
             Simpro
+          </div>
+          <div class="strip-sep">+</div>
+          <div class="strip-logo">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            AroFlo
           </div>
         </div>
       </div>
@@ -363,7 +398,62 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-i
 </section>
 
 
-<!-- ── Values ── -->
+<!-- ── Zero-Duplicate Matching ── -->
+<section class="match-section section">
+  <div class="inner">
+    <div class="eyebrow">Data Integrity</div>
+    <h2 class="sec-title">We protect your <em>Simpro data.</em></h2>
+    <p class="sec-sub">Hermia never blindly creates a new customer and site for every enquiry. Before anything is booked, it checks what already exists in your Simpro &mdash; and only creates what's actually missing.</p>
+    <div class="match-grid">
+      <div class="match-card">
+        <span class="match-tag">Scenario 01</span>
+        <h3>Existing customer, existing site</h3>
+        <p>Hermia matches the enquiry straight to the customer and site already in your Simpro &mdash; no new records created at all.</p>
+        <div class="match-result">Result: qualified job booked directly against your existing records. Zero duplicates.</div>
+      </div>
+      <div class="match-card">
+        <span class="match-tag">Scenario 02</span>
+        <h3>Existing customer, new site</h3>
+        <p>Hermia recognises the customer but sees this is a site they haven't used before &mdash; so it creates <em>only</em> the new site, and reuses the existing customer ID.</p>
+        <div class="match-result">Result: one new site record. Customer record stays exactly as it was.</div>
+      </div>
+      <div class="match-card">
+        <span class="match-tag">Scenario 03</span>
+        <h3>Brand new customer</h3>
+        <p>No match found anywhere. Hermia creates a new customer ID and a new site, fully populated with everything gathered from the enquiry.</p>
+        <div class="match-result">Result: a clean new record, booked and ready &mdash; nothing for your office to tidy up.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── Pricing Estimates & Custom Fields ── -->
+<section class="pricing-flow-section section">
+  <div class="inner">
+    <div class="eyebrow">Pricing &amp; Custom Fields</div>
+    <h2 class="sec-title">Pricing, estimated <em>automatically.</em></h2>
+    <p class="sec-sub">Most contractors lose hours chasing leads back and forth over price. Hermia removes that step entirely &mdash; using pricing criteria <strong style="color:var(--cream)">you</strong> set during onboarding, not a guess.</p>
+    <p class="sec-sub" style="margin-top:18px;">When a lead describes their situation, Hermia matches that description against your pricing tiers and gives them a real estimate &mdash; for example, roughly what a burst pipe repair costs based on your own rates. From there, it's their call.</p>
+
+    <div class="flow-outcome-row">
+      <div class="flow-outcome accept">
+        <div class="flow-outcome-tag">If they accept</div>
+        <p>The estimate is logged straight into the job record in Simpro, noting the figure they agreed to &mdash; so there's no confusion about price when the job lands on your schedule.</p>
+      </div>
+      <div class="flow-outcome negotiate">
+        <div class="flow-outcome-tag">If they negotiate</div>
+        <p>Hermia instantly hands them the negotiation contact you set during onboarding &mdash; your phone or your email, whichever you chose. <strong>You're told they're reaching out about pricing before they ever contact you</strong>, and the job still lands in Simpro either way.</p>
+      </div>
+    </div>
+
+    <div class="fields-callout">
+      <h3>Your custom fields, <em>mapped automatically.</em></h3>
+      <p>Hermia doesn't just fill in Simpro's default fields. During setup, you tell us the custom fields your business actually uses &mdash; and what each one is for. From then on, every qualified detail from a lead is mapped straight into the correct custom field, exactly where your team expects to find it. Hermia doesn't change your Simpro, your workflow, or your naming conventions &mdash; it simply learns them and works inside them.</p>
+    </div>
+  </div>
+</section>
+
 <section class="values-section section">
   <div class="inner">
     <div class="eyebrow">Why Hermia</div>
@@ -424,3 +514,4 @@ document.querySelectorAll('.ch-card,.stat-card,.val-card,.hiw-step').forEach(fun
 </script>
 </body>
 </html>
+
