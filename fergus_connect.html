@@ -18,9 +18,14 @@
   .grain{position:absolute;inset:0;opacity:.03;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   .vignette{position:absolute;inset:0;background:radial-gradient(circle at center,transparent 40%,rgba(0,0,0,0.4) 100%)}
   .wrap{position:relative;z-index:2;width:100%;max-width:600px;display:flex;flex-direction:column;align-items:center}
-  .logo-wrap{position:relative;margin-bottom:48px;display:grid;place-items:center}
+  .logo-wrap{position:relative;margin-bottom:24px;display:grid;place-items:center}
   .logo{height:48px;filter:drop-shadow(0 8px 20px rgba(196,150,60,0.3));animation:levitate 5s ease-in-out infinite}
   @keyframes levitate{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .partner-logo-box{margin-bottom:44px;text-align:center}
+  .partner-badge{display:inline-flex;align-items:center;gap:10px;padding:10px 20px;border:1px solid var(--border);border-radius:100px;background:rgba(196,150,60,0.04)}
+  .partner-badge .mark{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#2b2b2b,#111);border:1px solid rgba(196,150,60,0.25);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:13px;color:var(--gold-light)}
+  .partner-badge span{font-size:13px;letter-spacing:.04em;color:var(--soft)}
+  .partner-badge b{color:var(--cream);font-weight:600}
   .plan-badge{display:inline-flex;align-items:center;gap:9px;padding:9px 18px;border:1px solid var(--border);background:rgba(196,150,60,0.06);border-radius:100px;font-size:12px;color:var(--cream);margin-bottom:36px}
   .plan-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--gold-light);box-shadow:0 0 8px var(--gold-light)}
   .plan-badge b{color:var(--gold-light);font-weight:600}
@@ -43,6 +48,13 @@
   .info-box{border:1px solid rgba(196,150,60,0.1);border-radius:2px;padding:22px;background:rgba(196,150,60,0.03);font-size:14px;line-height:1.6;color:var(--soft);margin-bottom:40px;position:relative}
   .info-box::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold)}
   .info-box strong{color:var(--cream);font-weight:500}
+  .scope-list{list-style:none;margin-bottom:40px;display:flex;flex-direction:column;gap:14px}
+  .scope-list li{display:flex;align-items:flex-start;gap:14px;font-size:14px;line-height:1.6;color:var(--soft)}
+  .scope-list .mark-ok,.scope-list .mark-no{flex-shrink:0;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;margin-top:1px}
+  .scope-list .mark-ok{background:rgba(196,150,60,0.12);color:var(--gold-light)}
+  .scope-list .mark-no{background:rgba(255,255,255,0.03);color:var(--muted)}
+  .scope-list svg{width:11px;height:11px}
+  .scope-list b{color:var(--cream);font-weight:500}
   .btn{position:relative;overflow:hidden;width:100%;padding:20px;border:none;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#000;background:linear-gradient(135deg,var(--gold-light),var(--gold));transition:all .3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 15px 35px rgba(196,150,60,0.25);display:flex;align-items:center;justify-content:center;gap:12px}
   .btn:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 20px 50px rgba(196,150,60,0.4)}
   .btn:disabled{opacity:.6;cursor:not-allowed}
@@ -65,6 +77,12 @@
   <div class="logo-wrap">
     <img class="logo" src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" />
   </div>
+  <div class="partner-logo-box">
+    <div class="partner-badge">
+      <span class="mark">F</span>
+      <span>Connecting to <b>Fergus</b></span>
+    </div>
+  </div>
 
   <div class="plan-badge" id="planBadge" style="display:none;">
     <span class="dot"></span>
@@ -74,13 +92,21 @@
   <div class="steps" id="stepTracker">
     <div class="progressline" id="progressline"></div>
   </div>
+
   <div class="card">
     <div class="eyebrow">Phase 04 &bull; Integration</div>
     <h1>Connect Fergus</h1>
-    <p class="sub">This links Hermia to your Fergus account so every qualified job enquiry is pushed straight in as a lead — no manual entry.</p>
+    <p class="sub">This links Hermia to your Fergus account so every qualified job enquiry becomes a customer, site, and job in Fergus automatically — no manual entry.</p>
+
     <div class="info-box">
-      Hermia creates and updates <strong>job leads and customer records</strong> in your Fergus account, using the access level you grant on the next screen. It never touches invoicing or financial data.
+      You'll be sent to Fergus to sign in and approve access. Nothing happens in your Fergus account until you approve it there.
     </div>
+
+    <ul class="scope-list">
+      <li><span class="mark-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>Creates <b>customers, sites, and jobs</b> from qualified leads</span></li>
+      <li><span class="mark-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>Checks staff <b>calendars</b> to book the closest available visit</span></li>
+      <li><span class="mark-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span><span>Never touches <b>invoices, payroll, or financial data</b></span></li>
+    </ul>
 
     <button class="btn" id="connectBtn">Connect Fergus</button>
     <div class="error-banner" id="errorBanner"></div>
@@ -89,10 +115,6 @@
 </div>
 
 <script>
-  // Step label at index 3 reads "CRM" rather than "Simpro" — this same
-  // page slot in the funnel now serves either CRM (Simpro or Fergus,
-  // chosen back on selection.html), so the tracker shouldn't name one
-  // specific provider.
   const ALL_STEPS = ['Payment','Business','Details','CRM','Connect','Setup'];
   const ACTIVE_INDEX = 3;
   const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -109,36 +131,17 @@
   })();
 
   // ============================================================
-  // PLAN CARRY-THROUGH — identical pattern to simpro_connect.html.
-  // foundation_details_fergus.html redirects here as
-  //   fergus_connect.html?plan=gmail|facebook|instagram|outlook
-  // Resolved URL-first, sessionStorage-fallback, same as everywhere
-  // else in this funnel.
-  //
-  // Same caveat as simpro_connect.html: Fergus's own login page
-  // redirects the browser straight to the Worker's callback after
-  // auth, not back to this page — so whatever decides what happens
-  // next has to read hermia_plan from sessionStorage on company.html,
-  // not here.
+  // PLAN CARRY-THROUGH — same pattern as simpro_connect.html.
   // ============================================================
-  const PLAN_NAMES = {
-      gmail:     'Gmail',
-      facebook:  'Facebook',
-      instagram: 'Instagram',
-      outlook:    'Outlook'
-  };
+  const PLAN_NAMES = { gmail: 'Gmail', facebook: 'Facebook', instagram: 'Instagram', outlook: 'Outlook' };
   const pageParams = new URLSearchParams(window.location.search);
   let plan = pageParams.get('plan');
   if (!plan) {
       try { plan = sessionStorage.getItem('hermia_plan') || ''; } catch(e) { plan = ''; }
   }
-
-  // Normalize plan
   if (plan === 'email') plan = 'gmail';
   if (plan === 'custom') plan = 'outlook';
-
   try { if (plan) sessionStorage.setItem('hermia_plan', plan); } catch(e) {}
-
   if (plan && PLAN_NAMES[plan]) {
       document.getElementById('planBadgeName').textContent = PLAN_NAMES[plan];
       document.getElementById('planBadge').style.display = 'inline-flex';
@@ -156,9 +159,9 @@
     btn.textContent = 'Connect Fergus';
   }
 
-  // No build-name / platform picker here — unlike Simpro, Fergus is not
-  // multi-tenant per subdomain, so /fergus/auth-start only ever needs
-  // customerId. See hermianango.js: handleFergusAuthStart.
+  // Fergus is a plain OAuth redirect — no build name/domain to collect,
+  // unlike Simpro. The Worker's /fergus/auth-start only needs customerId;
+  // it builds the Fergus authorize URL itself and redirects the browser.
   btn.addEventListener('click', () => {
     if (!customerId) { showError('Session expired. Please restart onboarding from the beginning.'); return; }
 
@@ -168,16 +171,10 @@
 
     const authStartUrl = new URL(WORKER + '/fergus/auth-start');
     authStartUrl.searchParams.set('customerId', customerId);
-    // Forwarded in case the Worker is later wired to read it — today
-    // handleFergusAuthStart does not store or use it, and
-    // handleFergusAuthCallback redirects unconditionally to
-    // company.html regardless of this value. Same as Simpro.
-    if (plan) authStartUrl.searchParams.set('plan', plan);
 
-    // Full-page redirect: the Worker builds the real Fergus login URL and
-    // sends the browser there directly. After login, Fergus redirects back
-    // to the Worker's callback, which exchanges the code, stores the
-    // tokens, and redirects on to the next step itself (company.html).
+    // Full-page redirect: Worker sends the browser to Fergus's login/consent
+    // screen. Fergus redirects back to the Worker's own callback, which
+    // exchanges the code, stores tokens, and redirects on to company.html.
     window.location.href = authStartUrl.toString();
   });
 
@@ -193,9 +190,7 @@
       expired_session: 'That connection attempt expired. Please try again.',
       token_exchange_failed: 'We couldn\u2019t verify your Fergus login. Please try again.',
       token_exchange_error: 'We couldn\u2019t reach Fergus to verify your login. Please try again.',
-      missing_tokens: 'Fergus didn\u2019t return a valid connection. Please try again.',
-      kv_write_failed: 'Something went wrong on our end saving the connection. Please try again.',
-      refresh_failed_reconnect_required: 'Your Fergus connection needs to be re-authorized. Please connect again.'
+      missing_tokens: 'Fergus didn\u2019t return the expected access details. Please try again.'
     };
     showError(messages[err] || 'Something went wrong connecting to Fergus. Please try again.');
   })();
