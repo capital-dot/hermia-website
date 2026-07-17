@@ -96,8 +96,8 @@
             <div class="choice-card" data-provider="simpro" id="cardSimpro">
                 <div class="choice-name">Simpro</div>
             </div>
-            <div class="choice-card" data-provider="fergus" id="cardFergus">
-                <div class="choice-name">Fergus</div>
+            <div class="choice-card" data-provider="aroflo" id="cardAroflo">
+                <div class="choice-name">AroFlo</div>
             </div>
         </div>
 
@@ -144,10 +144,8 @@
         // needed here.
         // ============================================================
         const PLAN_NAMES = {
-            email:     'Email',
-            facebook:  'Facebook',
-            instagram: 'Instagram',
-            outlook:    'Outlook'
+            gmail:     'Gmail',
+            outlook:   'Outlook'
         };
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -186,19 +184,22 @@
         // each CRM's onboarding path self-contained — no hardcoded per-client
         // conditionals, just a straight map of provider -> page.
         //
-        // NOTE: ServiceM8 is not offered. The second option is Fergus, and
-        // its provider key is 'fergus' throughout — matching the id/data
-        // attributes on the card and the click handler below.
+        // UPDATED: Fergus is no longer offered. The second option is now
+        // AroFlo, provider key 'aroflo' throughout — matching the id/data
+        // attributes on the card and the click handler below. If a
+        // foundation_details_aroflo.html page doesn't exist yet, create
+        // it as a copy of the old foundation_details_fergus.html pattern
+        // before this goes live, or this route will 404.
         const DETAILS_PAGE_BY_PROVIDER = {
             simpro: 'foundation_details.html',
-            fergus: 'foundation_details_fergus.html'
+            aroflo: 'foundation_details_aroflo.html'
         };
 
         function selectProvider(provider) {
             sessionStorage.setItem('hermia_crm_provider', provider);
 
             $('cardSimpro').classList.toggle('selected', provider === 'simpro');
-            $('cardFergus').classList.toggle('selected', provider === 'fergus');
+            $('cardAroflo').classList.toggle('selected', provider === 'aroflo');
 
             const targetPage = DETAILS_PAGE_BY_PROVIDER[provider];
             if (!targetPage) {
@@ -213,9 +214,9 @@
             // Carry plan AND customerId forward as query params, not just
             // sessionStorage — sessionStorage doesn't survive if the client
             // opens the next step in a new tab, and both pieces of state
-            // are required downstream: plan decides Gmail vs Composio
-            // social connect after CRM connect completes, and customerId
-            // is what every subsequent Supabase write must be attached to.
+            // are required downstream: plan decides Gmail vs Outlook connect
+            // after CRM connect completes, and customerId is what every
+            // subsequent Supabase write must be attached to.
             const qs = new URLSearchParams();
             if (plan) qs.set('plan', plan);
             if (customerId) qs.set('customerId', customerId);
@@ -232,8 +233,7 @@
         }
 
         $('cardSimpro').addEventListener('click', () => selectProvider('simpro'));
-        $('cardFergus').addEventListener('click', () => selectProvider('fergus'));
+        $('cardAroflo').addEventListener('click', () => selectProvider('aroflo'));
     </script>
 </body>
 </html>
-
