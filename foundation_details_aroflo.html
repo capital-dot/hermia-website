@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hermia | Business Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #080705;
+            --bg-card: rgba(10, 9, 7, 0.85);
+            --gold: #D4AF37;
+            --gold-bright: #FFD700;
+            --gold-light: #F9E2AF;
+            --gold-muted: rgba(212, 175, 55, 0.12);
+            --cream: #f4f0e6;
+            --soft: #a19d94;
+            --border: rgba(212, 175, 55, 0.2);
+            --error: #ff7e75;
+            --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+        html, body { min-height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+        .bg-layers { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,1) 100%); z-index: 5; }
+        .light-bloom { position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 55%); animation: light-drift 35s infinite alternate ease-in-out; will-change: transform; }
+        @keyframes light-drift { 0% { transform: translate(-2%, -2%) scale(1); } 100% { transform: translate(2%, 2%) scale(1.05); } }
+        .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 120px 120px; -webkit-mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); opacity: 0.15; }
+        .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+        .wrap { position: relative; z-index: 10; width: 100%; max-width: 640px; margin: 0 auto; padding: 80px 24px 120px; display: flex; flex-direction: column; align-items: center; }
+        .logo-wrap { margin-bottom: 44px; position: relative; animation: fade-in-down 1.2s var(--ease-cinematic) forwards; }
+        .logo-aura { position: absolute; inset: -40px; background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%); filter: blur(25px); animation: aura-pulse 8s infinite ease-in-out; }
+        @keyframes aura-pulse { 0%, 100% { opacity: 0.3; transform: scale(0.9); } 50% { opacity: 0.6; transform: scale(1.05); } }
+        .logo { height: 58px; position: relative; z-index: 2; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
+        .plan-badge { display: inline-flex; align-items: center; gap: 9px; padding: 10px 20px; border: 1px solid var(--border); background: var(--gold-muted); border-radius: 100px; font-size: 12.5px; color: var(--cream); margin-bottom: 40px; opacity: 0; animation: fade-in-down 1s var(--ease-cinematic) 0.2s forwards; }
+        .plan-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-bright); box-shadow: 0 0 8px var(--gold-bright); }
+        .plan-badge b { color: var(--gold-light); font-weight: 500; }
+        .steps { display: flex; justify-content: space-between; width: 100%; max-width: 600px; margin-bottom: 60px; position: relative; opacity: 0; animation: fade-in-up 1s var(--ease-cinematic) 0.4s forwards; }
+        .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.08); }
+        .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: linear-gradient(90deg, var(--gold-muted), var(--gold), var(--gold-muted)); box-shadow: 0 0 12px var(--gold); transition: width 1.2s var(--ease-cinematic); }
+        .step { display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; position: relative; z-index: 1; }
+        .dot { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 300; background: var(--bg); border: 1px solid var(--border); color: var(--soft); transition: all 0.6s var(--ease-cinematic); }
+        .step.active .dot { border-color: var(--gold); color: var(--gold-bright); box-shadow: 0 0 25px rgba(212, 175, 55, 0.25); transform: scale(1.05); }
+        .step.done .dot { background: var(--gold); border-color: var(--gold); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+        .dot svg { width: 14px; height: 14px; stroke-width: 2; }
+        .label { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--soft); opacity: 0.5; font-weight: 400; }
+        .step.active .label { color: var(--gold-light); opacity: 1; }
+        .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 24px; font-weight: 400; text-align: center; }
+        h1 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; line-height: 1.05; margin-bottom: 16px; letter-spacing: -0.02em; text-align: center; }
+        .sub { font-size: 15px; color: var(--soft); margin-bottom: 50px; line-height: 1.7; font-weight: 300; text-align: center; max-width: 480px; }
+
+        .form-card { width: 100%; background: var(--bg-card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); padding: 44px 40px; opacity: 0; animation: fade-in-up 1.2s var(--ease-cinematic) 0.6s forwards; }
+        .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .field { margin-bottom: 24px; text-align: left; }
+        .field label { display: block; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+        .field input, .field select { width: 100%; padding: 14px 16px; background: rgba(0,0,0,0.35); border: 1px solid var(--border); border-radius: 4px; color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; transition: border-color 0.3s ease; }
+        .field input:focus, .field select:focus { border-color: var(--gold); }
+        .field input::placeholder { color: var(--soft); opacity: 0.4; }
+        .field select { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23D4AF37' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 32px; }
+        .phone-row { display: flex; gap: 10px; }
+        .country-select { flex: 0 0 112px; padding: 14px 10px; }
+        .phone-row .field { flex: 1; margin-bottom: 0; }
+
+        .abn-note { font-size: 11.5px; color: var(--soft); line-height: 1.6; margin-top: -14px; margin-bottom: 24px; }
+
+        .btn-primary { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--gold), var(--gold-bright)); border: none; color: #1a1400; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; border-radius: 4px; cursor: pointer; transition: all 0.3s var(--ease-cinematic); margin-top: 8px; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(212, 175, 55, 0.3); }
+        .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+        .aroflo-note { display: flex; gap: 12px; align-items: flex-start; margin-top: 28px; padding: 16px 18px; background: rgba(212,175,55,0.05); border: 1px dashed var(--border); border-radius: 4px; }
+        .aroflo-note svg { flex-shrink: 0; width: 18px; height: 18px; stroke: var(--gold); margin-top: 1px; }
+        .aroflo-note p { font-size: 12px; color: var(--soft); line-height: 1.6; }
+
+        .formerr { color: var(--error); font-size: 12px; margin-top: 18px; text-align: center; line-height: 1.6; letter-spacing: 0.03em; display: none; }
+        .formerr.show { display: block; }
+
+        @keyframes fade-in-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fade-in-down { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 600px) { h1 { font-size: 34px; } .label { display: none; } .field-row { grid-template-columns: 1fr; } .form-card { padding: 32px 22px; } }
+    </style>
+</head>
+<body>
+
+    <div class="bg-layers">
+        <div class="light-bloom"></div>
+        <div class="grid"></div>
+        <div class="vignette"></div>
+        <div class="grain"></div>
+    </div>
+
+    <div class="wrap">
+        <div class="logo-wrap">
+            <div class="logo-aura"></div>
+            <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" />
+        </div>
+
+        <div class="plan-badge" id="planBadge" style="display:none;">
+            <span class="dot"></span>
+            <span>Setting up <b id="planBadgeName">your plan</b></span>
+        </div>
+
+        <div class="steps" id="stepTracker">
+            <div class="progressline" id="progressline"></div>
+        </div>
+
+        <div class="eyebrow">Setup Phase 2 &middot; AroFlo</div>
+        <h1>Your business details</h1>
+        <p class="sub">We use this to set up your AroFlo connection and get every qualified job routed to the right place.</p>
+
+        <div class="form-card">
+            <div class="field-row">
+                <div class="field">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="Jane Smith" />
+                </div>
+                <div class="field">
+                    <label for="businessEmail">Business Email</label>
+                    <input type="email" id="businessEmail" placeholder="you@company.com" />
+                </div>
+            </div>
+
+            <div class="field-row">
+                <div class="field">
+                    <label for="companyName">Company Name</label>
+                    <input type="text" id="companyName" placeholder="Business name" />
+                </div>
+                <div class="field">
+                    <label for="abn">ABN</label>
+                    <input type="text" id="abn" placeholder="e.g. 51 824 753 556" inputmode="numeric" />
+                </div>
+            </div>
+            <p class="abn-note">Used to verify your business and set up your Simpro-equivalent AroFlo build correctly.</p>
+
+            <div class="field">
+                <label for="phone">Mobile Number</label>
+                <div class="phone-row">
+                    <select id="countryCode" class="country-select">
+                        <option value="61" data-country="Australia" selected>🇦🇺 +61</option>
+                        <option value="1" data-country="Canada">🇨🇦 +1</option>
+                        <option value="64" data-country="New Zealand">🇳🇿 +64</option>
+                        <option value="44" data-country="United Kingdom">🇬🇧 +44</option>
+                        <option value="353" data-country="Ireland">🇮🇪 +353</option>
+                        <option value="1" data-country="United States">🇺🇸 +1</option>
+                    </select>
+                    <div class="field">
+                        <input type="tel" id="phone" placeholder="e.g. 412 345 678" inputmode="numeric" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="aroflo-note">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+                <p>Next step, we'll connect directly to your AroFlo account so Hermia can push qualified jobs straight into your build &mdash; no manual entry, no duplicate customer cards.</p>
+            </div>
+
+            <button class="btn-primary" id="btnContinue">Continue to AroFlo Connect &rarr;</button>
+            <div class="formerr" id="formError"></div>
+        </div>
+    </div>
+
+    <script>
+        const ALL_STEPS = ['Payment','Select CRM','Details','Connect','Setup'];
+        const ACTIVE_INDEX = 2;
+        const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+        (function buildSteps(){
+            const track = document.getElementById('stepTracker');
+            ALL_STEPS.forEach((label, i) => {
+                const div = document.createElement('div');
+                const state = i < ACTIVE_INDEX ? 'done' : (i === ACTIVE_INDEX ? 'active' : '');
+                div.className = 'step ' + state;
+                div.innerHTML = `<div class="dot">${state === 'done' ? CHECK_SVG : (i + 1)}</div><div class="label">${label}</div>`;
+                track.appendChild(div);
+            });
+            setTimeout(() => {
+                document.getElementById('progressline').style.width = `calc((100% - 34px) * ${ACTIVE_INDEX/(ALL_STEPS.length-1)})`;
+            }, 100);
+        })();
+
+        const $ = id => document.getElementById(id);
+
+        // ============================================================
+        // PLAN / CUSTOMER ID / CRM PROVIDER CARRY-THROUGH
+        // Same pattern as selection.html: prefer the URL query param,
+        // fall back to sessionStorage (set by the previous step), and
+        // re-persist so the NEXT step can read it the same way.
+        // ============================================================
+        const PLAN_NAMES = { gmail: 'Gmail', outlook: 'Outlook' };
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        let plan = urlParams.get('plan');
+        if (!plan) { try { plan = sessionStorage.getItem('hermia_plan') || ''; } catch(e) { plan = ''; } }
+        try { if (plan) sessionStorage.setItem('hermia_plan', plan); } catch(e) {}
+
+        let customerId = urlParams.get('customerId');
+        if (!customerId) { try { customerId = sessionStorage.getItem('hermia_customer_id') || ''; } catch(e) { customerId = ''; } }
+        try { if (customerId) sessionStorage.setItem('hermia_customer_id', customerId); } catch(e) {}
+
+        // ACCURACY NOTE: this page assumes selection.html already set
+        // hermia_crm_provider = 'aroflo' in sessionStorage before redirecting
+        // here (it does — see selection.html's selectProvider()). We don't
+        // re-derive it from the URL since selection.html doesn't pass a
+        // ?provider= param, only ?plan= and ?customerId=.
+        let crmProvider = '';
+        try { crmProvider = sessionStorage.getItem('hermia_crm_provider') || 'aroflo'; } catch(e) { crmProvider = 'aroflo'; }
+
+        if (plan && PLAN_NAMES[plan]) {
+            $('planBadgeName').textContent = PLAN_NAMES[plan];
+            $('planBadge').style.display = 'inline-flex';
+        }
+
+        function digitsOnly(v) { return (v || '').replace(/[^0-9]/g, ''); }
+
+        function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+        function showError(msg) {
+            const el = $('formError');
+            el.textContent = msg;
+            el.classList.add('show');
+        }
+        function clearError() {
+            $('formError').classList.remove('show');
+        }
+
+        $('btnContinue').addEventListener('click', function () {
+            clearError();
+
+            const fullName = $('fullName').value.trim();
+            const businessEmail = $('businessEmail').value.trim();
+            const companyName = $('companyName').value.trim();
+            const abn = $('abn').value.trim();
+            const phoneRaw = $('phone').value.trim();
+            const countrySelect = $('countryCode');
+            const dialCode = countrySelect.value;
+            const country = countrySelect.options[countrySelect.selectedIndex].dataset.country;
+
+            if (!fullName) { showError('Enter your full name.'); $('fullName').focus(); return; }
+            if (!businessEmail || !isValidEmail(businessEmail)) { showError('Enter a valid business email.'); $('businessEmail').focus(); return; }
+            if (!companyName) { showError('Enter your company name.'); $('companyName').focus(); return; }
+            if (!abn || digitsOnly(abn).length < 9) { showError('Enter a valid ABN.'); $('abn').focus(); return; }
+            const localDigits = digitsOnly(phoneRaw).replace(/^0+/, '');
+            if (localDigits.length < 6) { showError("That doesn't look like a valid mobile number."); $('phone').focus(); return; }
+
+            const phoneE164 = '+' + dialCode + localDigits;
+
+            const businessDetails = {
+                fullName,
+                businessEmail,
+                companyName,
+                abn,
+                phone: phoneE164,
+                country,
+                plan,
+                customerId,
+                crmProvider
+            };
+
+            try { sessionStorage.setItem('hermia_business_details', JSON.stringify(businessDetails)); } catch(e) {}
+
+            // ACCURACY NOTE — OPEN DEPENDENCY: there's no confirmed backend
+            // endpoint yet for saving these business details against the
+            // customer record before the AroFlo OAuth connect step. If one
+            // exists (e.g. a /save-company or /save-business-details route
+            // on the hermianango worker), wire the POST in here before
+            // shipping. For now these details travel forward via
+            // sessionStorage + query params only, same pattern used by
+            // selection.html.
+            const qs = new URLSearchParams();
+            if (plan) qs.set('plan', plan);
+            if (customerId) qs.set('customerId', customerId);
+            const queryString = qs.toString();
+
+            const nextUrl = 'https://onboarding.hermia.au/aroflo_connect.html' +
+                (queryString ? ('?' + queryString) : '');
+
+            document.body.style.transition = 'opacity 0.6s ease';
+            document.body.style.opacity = '0';
+            setTimeout(() => { window.location.href = nextUrl; }, 600);
+        });
+    </script>
+</body>
+</html>
