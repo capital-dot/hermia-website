@@ -266,7 +266,7 @@
       }
       btn.innerHTML = 'Connected';
       showSuccess('AroFlo connected. Redirecting…');
-      const nextUrl = new URL('https://onboarding.hermia.au/company.html');
+      const nextUrl = new URL('https://onboarding.hermia.au/gmail.html');
       nextUrl.searchParams.set('customerId', customerId);
       setTimeout(() => { window.location.href = nextUrl.toString(); }, 900);
     } catch (e) {
