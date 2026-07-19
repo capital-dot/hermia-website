@@ -31,8 +31,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 .page-title em{font-style:italic;color:var(--gold);text-shadow:0 0 28px rgba(201,163,91,0.4);}
 .page-sub{font-size:16px;color:var(--soft);line-height:1.7;font-weight:300;margin-bottom:28px;max-width:500px;}
 
-.plan-badge{max-width:500px;margin:0 0 36px;display:none;align-items:center;justify-content:center;gap:10px;padding:13px 22px;border:1px solid var(--border-hi);background:var(--gold-dim);border-radius:100px;font-size:13px;color:var(--cream);text-align:center;}
-.plan-badge.show{display:flex;}
+.plan-badge{max-width:500px;margin:0 0 36px;display:flex;align-items:center;justify-content:center;gap:10px;padding:13px 22px;border:1px solid var(--border-hi);background:var(--gold-dim);border-radius:100px;font-size:13px;color:var(--cream);text-align:center;}
 .plan-badge b{color:var(--gold-light);font-weight:600;}
 
 .flow-steps{display:flex;align-items:center;gap:10px;margin-bottom:44px;flex-wrap:wrap;}
@@ -77,29 +76,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 .security-footer svg{width:20px;height:20px;fill:var(--gold);flex-shrink:0;margin-top:2px;}
 .security-footer p{font-size:13px;line-height:1.6;color:var(--soft);font-weight:300;}
 .security-footer strong{color:var(--cream);font-weight:500;}
-
-/* ===================== PLAN CONFIRM MODAL ===================== */
-.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(4,4,6,0.72);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:24px;}
-.modal-overlay.show{display:flex;animation:fadeUp .25s ease both;}
-.modal-box{position:relative;width:100%;max-width:440px;background:linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.008)),var(--card);border:1px solid var(--border-hi);border-radius:20px;padding:36px 32px;box-shadow:0 30px 80px rgba(0,0,0,0.6);}
-.modal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent);}
-.modal-tag{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;text-align:center;}
-.modal-box h3{font-family:var(--display);font-size:26px;font-weight:600;color:#fff;text-align:center;margin-bottom:18px;}
-.modal-plan-display{border:1px solid var(--border-hi);background:var(--gold-dim);border-radius:14px;padding:18px 20px;text-align:center;margin-bottom:22px;}
-.modal-plan-display .mp-name{font-family:var(--display);font-size:24px;font-weight:600;color:var(--gold-light);}
-.modal-plan-display .mp-price{font-size:13px;color:var(--soft);margin-top:4px;}
-.modal-question{font-size:14px;color:var(--soft);text-align:center;margin-bottom:22px;line-height:1.6;}
-.modal-btn-row{display:flex;flex-direction:column;gap:10px;}
-.modal-confirm-btn{width:100%;padding:15px;background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#1a1408;font-size:12.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;border:none;border-radius:10px;cursor:pointer;transition:all .25s;font-family:'DM Sans',sans-serif;}
-.modal-confirm-btn:hover{filter:brightness(1.07);transform:translateY(-1px);}
-.modal-change-btn{width:100%;padding:14px;background:transparent;color:var(--soft);font-size:12px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .25s;font-family:'DM Sans',sans-serif;}
-.modal-change-btn:hover{color:#fff;border-color:var(--gold);background:var(--gold-dim);}
-
-.modal-select-view{display:none;}
-.modal-select-view.show{display:block;}
-.modal-select-view label{display:block;font-size:12px;font-weight:500;color:var(--soft);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase;}
-.modal-select-view select{width:100%;padding:15px 18px;background:#0b0b0e;border:1px solid rgba(201,163,91,0.22);border-radius:11px;color:var(--cream);font-size:15px;margin-bottom:20px;font-family:'DM Sans',sans-serif;font-weight:300;appearance:none;cursor:pointer;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%23C9A35B' d='M0 0l5 5 5-5z'/></svg>");background-repeat:no-repeat;background-position:right 18px center;padding-right:42px;}
-.modal-select-view select:focus{outline:none;border-color:var(--gold);}
 </style>
 </head>
 <body>
@@ -119,7 +95,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
   <p class="page-sub">Tell us about your operation. Once live, every enquiry through your Gmail or Outlook inbox is qualified and booked straight into Simpro &mdash; no chasing, no manual entry.</p>
 
   <div class="plan-badge" id="planBadge">
-    <span id="planBadgeText">Plan</span>
+    <span id="planBadgeText">Hermia — <b>$1,700 AUD/month</b> (first charge after your 7-day free trial) + <b>$900 AUD</b> one-off setup</span>
   </div>
 
   <div class="flow-steps">
@@ -152,19 +128,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
       </div>
 
       <div class="field">
-        <label>Trade / specialty</label>
+        <label>Compliance specialty</label>
         <select id="trade" required>
-          <option value="" disabled selected>What do you do?</option>
+          <option value="" disabled selected>What does your business focus on?</option>
           <option value="Fire Protection / ESM Compliance">Fire Protection / ESM Compliance</option>
-          <option value="Plumbing">Plumbing</option>
-          <option value="Electrical">Electrical</option>
-          <option value="Roofing">Roofing</option>
-          <option value="Air Conditioning">Air conditioning</option>
-          <option value="Carpentry">Carpentry</option>
-          <option value="Painting">Painting</option>
-          <option value="Tiling">Tiling</option>
-          <option value="General Maintenance">General maintenance</option>
-          <option value="Multi-trade">Multi-trade</option>
+          <option value="Fire & ESM + Multi-trade">Fire & ESM + other essential safety measures</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Email inbox you use</label>
+        <select id="provider" required>
+          <option value="" disabled selected>Which inbox handles your enquiries?</option>
+          <option value="gmail">Gmail</option>
+          <option value="outlook">Outlook / Microsoft 365</option>
         </select>
       </div>
 
@@ -201,104 +178,51 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
   </div>
 </div>
 
-<!-- ===================== PLAN CONFIRM MODAL ===================== -->
-<div class="modal-overlay" id="planModal">
-  <div class="modal-box">
-
-    <div id="modal-confirm-view">
-      <div class="modal-tag">One quick check</div>
-      <h3>Which plan did you pay for?</h3>
-      <div class="modal-plan-display">
-        <div class="mp-name" id="modalPlanName">Gmail</div>
-        <div class="mp-price" id="modalPlanPrice">$2,600 AUD / month + $530 AUD setup</div>
-      </div>
-      <p class="modal-question">This is the plan we'll set your agreement and account up for. Make sure it matches what you actually paid for before continuing.</p>
-      <div class="modal-btn-row">
-        <button class="modal-confirm-btn" type="button" onclick="confirmPlanAndSubmit()">Yes, this is correct →</button>
-        <button class="modal-change-btn" type="button" onclick="showPlanSelectView()">This isn't right — change plan</button>
-      </div>
-    </div>
-
-    <div class="modal-select-view" id="modal-select-view">
-      <div class="modal-tag">Select the correct plan</div>
-      <h3>Which plan did you pay for?</h3>
-      <label>Plan</label>
-      <!-- Options are generated from PLAN_MAP in JS (see populatePlanSelect())
-           instead of being hand-typed here, so this list can never drift
-           out of sync with the badge/modal display again. -->
-      <select id="modalPlanSelect"></select>
-      <div class="modal-btn-row">
-        <button class="modal-confirm-btn" type="button" onclick="applyPlanChange()">Confirm this plan →</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
 <script>
 // ============================================================
-// PLAN MAP — single source of truth for plan name + display price
-// on this page. Keys MUST match the ?plan= value used site-wide
-// (pricing section buttons -> apply.html -> contract.html), and
-// MUST match the keys in contract.html's PLAN_CONFIG and
-// hermianango.js's VALID_PLANS exactly.
-//
-// UPDATED (2026-07-12): the live pricing page now only sells two
-// channels — Gmail and Outlook, both at $2,600 AUD/month + $530 AUD
-// one-off setup — and its buttons link to apply.html?plan=gmail and
-// apply.html?plan=outlook. The old 'email' key here did NOT match
-// the live '?plan=gmail' links, so anyone applying from the Gmail
-// card was silently falling back to DEFAULT_PLAN. Renamed 'email' ->
-// 'gmail' to fix that. Facebook and Instagram are removed site-wide,
-// so their keys are removed here too.
-//
-// ⚠️ CHECK BEFORE SHIPPING: there was a prior note in this file
-// about contract.html/hermianango.js expecting a 'custom' key rather
-// than 'outlook' for the Outlook Stripe link. That file isn't in
-// front of me right now, so I have NOT touched that wiring — please
-// verify contract.html's PLAN_CONFIG and hermianango.js's
-// VALID_PLANS both recognize 'gmail' and 'outlook' as keys (matching
-// this file) before this goes live, so the correct Stripe link fires.
-//
-// To add/change a tier, edit ONLY this object — the modal <select>
-// populates itself from these keys (see populatePlanSelect()), so
-// nothing else on this page needs to change.
+// PRICING — Hermia now runs ONE price for every Client, regardless
+// of inbox (Gmail or Outlook). There is no plan-tier decision to
+// make and nothing to "confirm" against a menu of prices, so the
+// old plan-picker modal (which asked "which plan did you pay for?"
+// as if Gmail/Outlook were priced differently) has been removed
+// entirely. Update PRICE in exactly one place if the rate changes.
 // ============================================================
-const PLAN_MAP = {
-  gmail:   { name: 'Gmail',   price: '$2,600 AUD / month + $530 AUD setup' },
-  outlook: { name: 'Outlook', price: '$2,600 AUD / month + $530 AUD setup' }
-};
-const DEFAULT_PLAN = 'gmail';
+const PRICE = '$1,700 AUD/month (first charge after your 7-day free trial) + $900 AUD one-off setup';
 
-function populatePlanSelect() {
-  const select = document.getElementById('modalPlanSelect');
-  select.innerHTML = '';
-  Object.keys(PLAN_MAP).forEach(function (key) {
-    const opt = document.createElement('option');
-    opt.value = key;
-    opt.textContent = PLAN_MAP[key].name + ' — ' + PLAN_MAP[key].price;
-    select.appendChild(opt);
-  });
-}
-populatePlanSelect();
+// ============================================================
+// PROVIDER MAP — this is a routing key, not a pricing tier. It only
+// exists so contract.html / hermianango.js know whether to connect
+// a Gmail or an Outlook inbox. Keys MUST match contract.html's
+// PLAN_CONFIG and hermianango.js's VALID_PLANS ('gmail' / 'outlook').
+// ⚠️ Not verified against those files in this session — please
+// confirm both recognize 'gmail' and 'outlook' before this ships.
+// ============================================================
+const PROVIDER_MAP = {
+  gmail:   { name: 'Gmail' },
+  outlook: { name: 'Outlook' }
+};
+const DEFAULT_PROVIDER = 'gmail';
 
 const urlParams = new URLSearchParams(window.location.search);
-const requestedPlan = urlParams.get('plan');
-let plan = PLAN_MAP[requestedPlan] ? requestedPlan : DEFAULT_PLAN;
-let planInfo = PLAN_MAP[plan];
+const requestedProvider = urlParams.get('plan'); // param name kept as 'plan' for compatibility with contract.html links
+let provider = PROVIDER_MAP[requestedProvider] ? requestedProvider : DEFAULT_PROVIDER;
 
-if (!PLAN_MAP[requestedPlan] && requestedPlan) {
-  console.error('[apply.html] unrecognized ?plan=' + requestedPlan + ' — falling back to ' + DEFAULT_PLAN + '. Check this matches a key in PLAN_MAP.');
+if (!PROVIDER_MAP[requestedProvider] && requestedProvider) {
+  console.error('[apply.html] unrecognized ?plan=' + requestedProvider + ' — falling back to ' + DEFAULT_PROVIDER + '.');
 }
 
-sessionStorage.setItem('hermia_plan', plan);
-
-const planBadgeEl = document.getElementById('planBadge');
-function refreshPlanBadge() {
-  document.getElementById('planBadgeText').innerHTML = 'Applying for <b>' + planInfo.name + '</b> — ' + planInfo.price;
-  planBadgeEl.classList.add('show');
+// Pre-select the inbox dropdown if it arrived via the URL (e.g. a
+// site button already told us which inbox this visitor uses).
+const providerSelectEl = document.getElementById('provider');
+if (requestedProvider && PROVIDER_MAP[requestedProvider]) {
+  providerSelectEl.value = requestedProvider;
 }
-refreshPlanBadge();
+
+// Badge text is already set correctly in the HTML above — no need to
+// overwrite it here (doing so previously collapsed the nicely formatted
+// price/trial copy into one plain bold string).
+
+sessionStorage.setItem('hermia_plan', provider);
 
 const WEBHOOK_URL = 'https://hook.eu1.make.com/3hq3jwbtjc6afnfem9rhshxwqlyx838j';
 
@@ -306,69 +230,25 @@ function advance(id, delay) {
   setTimeout(() => document.getElementById(id).classList.add('done'), delay);
 }
 
-// ---- Step 1: form validation, then open the plan-confirm modal ----
-function handleApplyClick() {
+// ---- Validate, then submit directly — no plan/price modal needed ----
+async function handleApplyClick() {
   const name         = document.getElementById('name').value.trim();
   const trade        = document.getElementById('trade').value;
   const company_size = document.getElementById('company_size').value;
   const capacity     = document.getElementById('capacity').value;
+  const providerVal  = document.getElementById('provider').value;
 
   if (!name)         { document.getElementById('name').focus();         return; }
   if (!trade)        { document.getElementById('trade').focus();        return; }
   if (!company_size) { document.getElementById('company_size').focus(); return; }
+  if (!providerVal)  { document.getElementById('provider').focus();     return; }
   if (!capacity)     { document.getElementById('capacity').focus();     return; }
 
-  openPlanModal();
-}
-
-function openPlanModal() {
-  document.getElementById('modalPlanName').textContent  = planInfo.name;
-  document.getElementById('modalPlanPrice').textContent = planInfo.price;
-  document.getElementById('modal-select-view').classList.remove('show');
-  document.getElementById('modal-confirm-view').style.display = 'block';
-  document.getElementById('modalPlanSelect').value = plan;
-  document.getElementById('planModal').classList.add('show');
-}
-
-function closePlanModal() {
-  document.getElementById('planModal').classList.remove('show');
-}
-
-function showPlanSelectView() {
-  document.getElementById('modal-confirm-view').style.display = 'none';
-  document.getElementById('modal-select-view').classList.add('show');
-}
-
-// User picked a different plan in the dropdown — update state everywhere
-// (URL, sessionStorage, badge) then drop back into the confirm view so
-// they still get a final "yes that's right" click before it submits.
-function applyPlanChange() {
-  const chosen = document.getElementById('modalPlanSelect').value;
-  if (!PLAN_MAP[chosen]) return;
-
-  plan = chosen;
-  planInfo = PLAN_MAP[plan];
-  sessionStorage.setItem('hermia_plan', plan);
-  refreshPlanBadge();
-
+  provider = providerVal;
+  sessionStorage.setItem('hermia_plan', provider);
   const newUrl = new URL(window.location.href);
-  newUrl.searchParams.set('plan', plan);
+  newUrl.searchParams.set('plan', provider);
   window.history.replaceState({}, '', newUrl);
-
-  document.getElementById('modal-select-view').classList.remove('show');
-  document.getElementById('modal-confirm-view').style.display = 'block';
-  document.getElementById('modalPlanName').textContent  = planInfo.name;
-  document.getElementById('modalPlanPrice').textContent = planInfo.price;
-}
-
-// ---- Step 2: confirmed — proceed with the original submit flow ----
-async function confirmPlanAndSubmit() {
-  closePlanModal();
-
-  const name         = document.getElementById('name').value.trim();
-  const trade        = document.getElementById('trade').value;
-  const company_size = document.getElementById('company_size').value;
-  const capacity     = document.getElementById('capacity').value;
 
   document.getElementById('submitBtn').disabled = true;
 
@@ -378,9 +258,9 @@ async function confirmPlanAndSubmit() {
     trade,
     company_size,
     capacity,
-    plan,
-    plan_name:    planInfo.name,
-    plan_price:   planInfo.price,
+    provider,
+    provider_name: PROVIDER_MAP[provider].name,
+    price:        PRICE,
     submitted_at: new Date().toISOString(),
     source:       'hermia-apply'
   };
@@ -407,7 +287,7 @@ async function confirmPlanAndSubmit() {
   advance('vs1', 550);
   advance('vs2', 1200);
   advance('vs3', 1850);
-  setTimeout(() => { window.location.href = 'contract.html?plan=' + plan; }, 2500);
+  setTimeout(() => { window.location.href = 'contract.html?plan=' + provider; }, 2500);
 }
 </script>
 </body>
