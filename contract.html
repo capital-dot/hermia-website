@@ -47,6 +47,8 @@
     .price-row span{color:var(--soft);}
     .price-row strong{color:var(--cream);font-weight:600;}
     .price-divider{border:none;border-top:1px solid var(--border);margin:0 0 13px;}
+    .price-note{font-size:12.5px;color:var(--muted);margin-top:16px;padding-top:16px;border-top:1px solid var(--border);font-weight:300;line-height:1.6;}
+    .price-note strong{color:var(--soft);}
     .agreement-card{position:relative;overflow:hidden;background:linear-gradient(150deg,rgba(201,163,91,0.06) 0%,var(--card) 55%);border:1px solid var(--gold);border-radius:26px;padding:50px;margin-top:60px;box-shadow:0 30px 80px rgba(0,0,0,0.5),0 0 60px rgba(201,163,91,0.1);}
     .agreement-card::before,.agreement-card::after{content:'';position:absolute;width:16px;height:16px;border-color:var(--gold);border-style:solid;}
     .agreement-card::before{top:16px;right:16px;border-width:1px 1px 0 0;}
@@ -104,7 +106,7 @@
   <p>This Agreement is entered into between <strong>Hermia</strong> ("Provider", ABN 75 434 177 026 ) and the Client identified during sign-up. By proceeding, the Client agrees to receive Hermia's AI intake and lead qualification software on a month-to-month subscription basis.</p>
 
   <h2><span class="clause-no">2</span> Hermia AI Intake &amp; Qualification Software</h2>
-  <p>The Provider delivers AI-powered intake and qualification software designed to engage with the Client's existing inbound enquiries. When a prospective customer submits an enquiry through the Client's connected channel — Facebook, Instagram, Gmail, or an outlook-configured source — Hermia may automatically collect and organise relevant information — including contact details, service requirements, urgency, supporting media, availability, and other qualification data.</p>
+  <p>The Provider delivers AI-powered intake and qualification software designed to engage with the Client's existing inbound enquiries. When a prospective customer submits an enquiry through the Client's connected inbox — Gmail or Outlook — Hermia may automatically collect and organise relevant information — including contact details, service requirements, urgency, supporting media, availability, and other qualification data.</p>
   <p>This information is then structured and routed into the Client's connected CRM or business system to reduce manual administration and improve response times.</p>
 
   <h2><span class="clause-no">3</span> Pricing</h2>
@@ -116,14 +118,15 @@
     <hr class="price-divider" id="setupFeeDivider" style="display:none;">
     <div class="price-row">
       <span id="planLabel">Monthly Software Access</span>
-      <strong id="displayPrice">$260 AUD / month</strong>
+      <strong id="displayPrice">$1,700 AUD / month</strong>
     </div>
+    <p class="price-note">Your first monthly charge occurs after your <strong>7-day free trial</strong> ends. You may cancel any time before the trial ends to avoid being charged.</p>
   </div>
 
   <h2><span class="clause-no">4</span> How to Cancel</h2>
   <p>This is a month-to-month service with no long-term lock-in. To cancel, the Client must simply:</p>
   <ul>
-    <li>Send a gmail to <strong>capital@hermia.au</strong> with the subject line "Cancel Subscription"; or</li>
+    <li>Send an email to <strong>capital@hermia.au</strong> with the subject line "Cancel Subscription"; or</li>
     <li>Manage and cancel the subscription directly via the <strong>Stripe Billing Portal</strong> link provided in your monthly invoice.</li>
   </ul>
   <p>Cancellations must be made at least <strong>48 hours before</strong> the next billing date to avoid further charges.</p>
@@ -164,8 +167,8 @@
           <span class="pay-dropdown-icon" id="dropdownIcon">▼</span>
         </div>
         <div class="pay-dropdown-content" id="dropdownContent">
-          <p>By clicking the button below, you will be redirected to our secure Stripe payment portal to complete your subscription.</p>
-          <button class="pay-btn btn-gold" id="paymentBtn" onclick="handlePayment()">Complete Payment</button>
+          <p>By clicking the button below, you will be redirected to our secure Stripe payment portal to start your 7-day free trial. No charge today — your card is only charged after the trial ends, unless you cancel first.</p>
+          <button class="pay-btn btn-gold" id="paymentBtn" onclick="handlePayment()">Start Free Trial</button>
         </div>
       </div>
     </div>
@@ -188,43 +191,46 @@
   const WEBHOOK_URL = 'https://hook.eu1.make.com/55y5lsql5rmr8ju9cmlt9o5115q784ay';
 
   // ============================================================
-  // PLAN CONFIG — single source of truth for every tier.
-  // Keys MUST match the ?plan= value used on the pricing section
-  // and passed through apply.html (gmail, facebook, instagram, outlook).
+  // PLAN CONFIG — single source of truth for pricing on this page.
+  // Hermia now runs ONE price for every Client: $1,700 AUD/month
+  // (first charge after the 7-day free trial) + $900 AUD one-off
+  // setup fee. Gmail and Outlook are the only two channels sold —
+  // Facebook/Instagram tiers have been removed site-wide, so their
+  // entries are removed here too.
   //
-  // To add, remove, or reprice a tier, edit ONLY this object —
-  // nothing else in this file needs to change.
+  // Keys MUST match the ?plan= value passed through from apply.html
+  // ('gmail' / 'outlook' — same keys used for the inbox choice, now
+  // doing double duty as the routing key here since price no longer
+  // differs between them).
+  //
+  // ⚠️ IMPORTANT: updating the numbers below only changes what's
+  // DISPLAYED on this page. The actual amount charged is whatever
+  // each Stripe Payment Link below is configured for on Stripe's
+  // side. If you change the price here, you MUST also update (or
+  // replace) the corresponding Stripe Payment Link so the charged
+  // amount matches — otherwise customers will see one price and be
+  // charged another. The links below are unchanged from before this
+  // edit and have NOT been verified against the new $1,700/$900
+  // pricing.
   // ============================================================
   const PLAN_CONFIG = {
     gmail: {
       name:     'Gmail',
-      price:    '$260 AUD / month',
-      setupFee: null,
-      link:     'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00'
-    },
-    facebook: {
-      name:     'Facebook',
-      price:    '$170 AUD / month',
-      setupFee: null,
-      link:     'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04'
-    },
-    instagram: {
-      name:     'Instagram',
-      price:    '$170 AUD / month',
-      setupFee: null,
-      link:     'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04'
+      price:    '$1,700 AUD / month',
+      setupFee: '$900 AUD',
+      link:     'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00' // ⚠️ verify this is priced at $1,700/mo + $900 setup on Stripe
     },
     outlook: {
       name:     'Outlook',
-      price:    '$660 AUD / month',
-      setupFee: null,
-      link:     'https://buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02'
+      price:    '$1,700 AUD / month',
+      setupFee: '$900 AUD',
+      link:     'https://buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02' // ⚠️ verify this is priced at $1,700/mo + $900 setup on Stripe
     }
   };
   const DEFAULT_PLAN = 'gmail';
   const PLACEHOLDER_MARKER = 'REPLACE_WITH_OUTLOOK_LINK';
 
-  // Detect plan from URL (e.g. contract.html?plan=facebook ),
+  // Detect plan from URL (e.g. contract.html?plan=outlook),
   // falling back to whatever apply.html stored in sessionStorage,
   // and finally to the default plan if neither is a known key.
   const urlParams = new URLSearchParams(window.location.search);
@@ -314,11 +320,11 @@
       return;
     }
 
-    // Hard stop: never send a real customer to the unconfigured
-    // outlook-plan link. Remove this block only after PLAN_CONFIG.outlook.link
-    // is replaced with the live Stripe Payment Link.
+    // Hard stop: never send a real customer to an unconfigured
+    // plan link. Remove this block only after every PLAN_CONFIG
+    // link is confirmed live and correctly priced on Stripe.
     if (planConfig.link.indexOf(PLACEHOLDER_MARKER) !== -1) {
-      warning.textContent = "Outlook plan checkout isn't set up yet — contact capital@hermia.au to complete this manually.";
+      warning.textContent = "This plan's checkout isn't set up yet — contact capital@hermia.au to complete this manually.";
       warning.style.display = 'block';
       return;
     }
@@ -352,4 +358,3 @@
 </script>
 </body>
 </html>
-
