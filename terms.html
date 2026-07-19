@@ -172,6 +172,7 @@
     }
     .section p:last-child { margin-bottom:0; }
     .section strong { color:#ddd; font-weight:500; }
+    .section a, .section a:link, .section a:visited { color:var(--gold); text-decoration:underline; text-underline-offset:2px; }
 
     .doc-list {
       list-style:none; padding:0;
@@ -206,36 +207,7 @@
       line-height:1.8; font-weight:300; margin-bottom:0;
     }
     .notice-box p strong { color:var(--cream); font-weight:500; }
-
-    .fee-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-      margin-top: 16px;
-    }
-    .fee-card {
-      background:var(--card); border:1px solid var(--border);
-      border-radius:12px; padding:28px;
-      transition:border-color 0.25s;
-    }
-    .fee-card:hover { border-color:var(--border-strong); }
-    .fee-zone {
-      font-size:9px; font-weight:700; letter-spacing:2px;
-      text-transform:uppercase; color:var(--gold); margin-bottom:10px;
-    }
-    .fee-amount {
-      font-family:'Cormorant Garamond', serif;
-      font-size:36px; font-weight:700; color:#fff;
-      line-height:1; margin-bottom:6px;
-    }
-    .fee-period {
-      font-size:11px; color:var(--muted); font-weight:300; margin-bottom:10px;
-    }
-    .fee-waiver {
-      font-size:11px; color:var(--gold-light); font-weight:500;
-      background:var(--gold-dim); border:1px solid var(--border);
-      border-radius:6px; padding:4px 10px; display:inline-block;
-    }
+    .notice-box a, .notice-box a:link, .notice-box a:visited { color:var(--gold); text-decoration:underline; text-underline-offset:2px; }
 
     .section-divider {
       display:flex; align-items:center; gap:12px; margin:56px 0 0;
@@ -366,64 +338,40 @@
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
-  <div class="notice-box" style="margin-top:28px;">
-  <div class="notice-label">Pricing & Refund Policy</div>
-    
- <!-- 03 -->
-  <p style="margin-bottom:16px;">
-    <strong>Pricing Notice:</strong> All prices displayed on this website are indicative only and are
-    subject to change at any time without prior notice. Hermia reserves the right to amend setup fees,
-    subscription fees, promotional pricing, and service charges. Any pricing changes will not affect
-    subscriptions that have already been paid for until the next billing period unless otherwise required by law.
-  </p>
+  <!-- 03 -->
+  <div class="section" style="animation-delay:0.13s; margin-top:56px;">
+    <div class="section-num-row"><span class="section-num">03</span><div class="section-rule"></div></div>
+    <h2>Pricing <em>&amp; Refund Policy</em></h2>
+    <div class="notice-box">
+      <div class="notice-label">Pricing Notice</div>
+      <p>
+        Current pricing for all plans and channels is published on our <a href="index.html#pricing">pricing page</a> and is
+        indicative only, subject to change at any time without prior notice. Hermia reserves the right to amend setup fees,
+        subscription fees, promotional pricing, and service charges. Any pricing changes will not affect
+        subscriptions that have already been paid for until the next billing period unless otherwise required by law.
+      </p>
+    </div>
+    <div class="notice-box">
+      <div class="notice-label">Setup Fee Refund Guarantee</div>
+      <p>
+        If you are not satisfied with Hermia after your initial
+        setup, you may request a full refund of your setup fee within <strong>2 calendar days (48 hours)</strong>
+        of your setup being completed. Refund requests made within this period will receive a full refund of
+        the setup fee, provided the request is made in writing to Hermia. This guarantee applies only to the
+        initial setup fee and does not include subscription charges, third-party fees, or services already
+        consumed unless required under the Australian Consumer Law.
+      </p>
+    </div>
+  </div>
 
-  <p>
-    <strong>Setup Fee Refund Guarantee:</strong> If you are not satisfied with Hermia after your initial
-    setup, you may request a full refund of your setup fee within <strong>2 calendar days (48 hours)</strong>
-    of your setup being completed. Refund requests made within this period will receive a full refund of
-    the setup fee, provided the request is made in writing to Hermia. This guarantee applies only to the
-    initial setup fee and does not include subscription charges, third-party fees, or services already
-    consumed unless required under the Australian Consumer Law.
-  </p>
-</div>
+  <div class="section-divider"><div class="section-divider-diamond"></div></div>
 
   <!-- 04 -->
   <div class="section" style="animation-delay:0.16s; margin-top:56px;">
     <div class="section-num-row"><span class="section-num">04</span><div class="section-rule"></div></div>
     <h2>Infrastructure Fees <em>&amp; Settlement</em></h2>
-    <p>The following subscription plans apply to all Clients operating in Australia. All prices are in AUD.</p>
-    
-    <div class="fee-grid">
-      <div class="fee-card">
-        <div class="fee-zone">Facebook</div>
-        <div class="fee-amount">$80</div>
-        <div class="fee-period">per month</div>
-        <span class="fee-waiver">$44 setup fee applies</span>
-      </div>
-      <div class="fee-card">
-        <div class="fee-zone">Instagram</div>
-        <div class="fee-amount">$80</div>
-        <div class="fee-period">per month</div>
-        <span class="fee-waiver">$44 setup fee applies</span>
-      </div>
-      <div class="fee-card">
-        <div class="fee-zone">Gmail</div>
-        <div class="fee-amount">$170</div>
-        <div class="fee-period">per month</div>
-        <span class="fee-waiver">$229 + 7-Day Free Trial Included</span>
-      </div>
-    </div>
-    
-    <div class="fee-card">
-        <div class="fee-zone">Outlook</div>
-        <div class="fee-amount">$170</div>
-        <div class="fee-period">per month</div>
-        <span class="fee-waiver">$229 + 7-Day Free Trial Included</span>
-      </div>
-    </div>
-
-
-    <p style="margin-top:20px;">All financial handling is routed through <strong>Stripe</strong>. Subscriptions are billed monthly in advance. Failed payments may result in immediate suspension of the intake processing layer.</p>
+    <p>Hermia's subscription plans cover the channels connected to your account &mdash; email intake (Gmail or Outlook) and, where enabled, Facebook and Instagram lead capture. Setup fees and monthly subscription fees vary by channel and plan. Current rates for all Clients operating in Australia are published on our <a href="index.html#pricing">pricing page</a> and quoted in AUD.</p>
+    <p>All financial handling is routed through <strong>Stripe</strong>. Subscriptions are billed monthly in advance. Failed payments may result in immediate suspension of the intake processing layer.</p>
   </div>
 
   <div class="section-divider"><div class="section-divider-diamond"></div></div>
