@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -25,7 +25,7 @@ body.cinematic{overflow:hidden}
 ::selection{background:rgba(212,175,55,0.2);color:#fff}
 a,a:link,a:visited,a:active{color:inherit;text-decoration:none}
 img{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none}
-
+ 
 nav{position:fixed;top:0;left:0;right:0;z-index:300;padding:0 48px;height:62px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,5,0.9);backdrop-filter:blur(22px);border-bottom:1px solid var(--border);opacity:0;pointer-events:none;transition:opacity .6s ease}
 nav.visible{opacity:1;pointer-events:auto}
 .nav-logo{display:flex;align-items:center;gap:10px}
@@ -36,7 +36,7 @@ nav.visible{opacity:1;pointer-events:auto}
 .nav-links a:hover{color:var(--cream)}
 .nav-cta{background:linear-gradient(135deg,var(--gl),var(--gold));color:#1a1008 !important;padding:9px 20px;border-radius:9px;font-weight:700;font-size:13px;box-shadow:0 6px 20px rgba(212,175,55,0.3);border:none;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all .2s}
 .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(212,175,55,0.45)}
-
+ 
 /* ── Cinematic intro ── */
 #cinematic-hero{position:relative;width:100%;height:100vh;background:#000;overflow:hidden}
 .scene{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;opacity:0;visibility:hidden;transition:opacity 1s cubic-bezier(0.4,0,0.2,1),visibility 1s ease;-webkit-user-select:none;user-select:none;pointer-events:none}
@@ -113,7 +113,7 @@ nav.visible{opacity:1;pointer-events:auto}
 @keyframes shine{to{background-position:200% center}}
 .final-tagline{font-family:"Inter",sans-serif;font-size:14px;letter-spacing:14px;text-transform:uppercase;color:var(--gl);font-weight:400;opacity:.75}
 @keyframes fadeInBlur{from{opacity:0;filter:blur(18px);transform:translateY(18px)}to{opacity:1;filter:blur(0);transform:translateY(0)}}
-
+ 
 /* ── Page content ── */
 #page-content{position:relative;z-index:1;background:var(--bg2)}
 .section{padding:96px 48px;width:100%}
@@ -126,7 +126,7 @@ nav.visible{opacity:1;pointer-events:auto}
 .tech-tag{display:inline-flex;align-items:center;gap:7px;background:var(--bluedim);border:1px solid rgba(37,99,235,.35);color:var(--bluel);font-size:9.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;border-radius:99px;font-family:"Inter",sans-serif}
 .tech-dot{width:5px;height:5px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:pulsedot 2s infinite}
 @keyframes pulsedot{0%,100%{opacity:1}50%{opacity:.3}}
-
+ 
 /* Deep explanation rows: alternating text blocks, no emoji cards */
 .deep-row{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;padding:56px 0;border-bottom:1px solid var(--border)}
 .deep-row:last-child{border-bottom:none}
@@ -147,7 +147,7 @@ nav.visible{opacity:1;pointer-events:auto}
 .dd-flow-step:last-child{border-bottom:none}
 .dd-flow-num{color:var(--gold);font-weight:700;font-family:"Inter",sans-serif;font-size:12px;padding-top:2px;flex-shrink:0}
 .dd-flow-step strong{color:var(--cream);font-weight:500}
-
+ 
 /* Comparison */
 .benefits{background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .bt-wrap{margin-top:48px;display:grid;grid-template-columns:1fr 1fr;border-radius:8px;overflow:hidden;border:1px solid var(--border);box-shadow:0 24px 60px rgba(0,0,0,0.5)}
@@ -162,7 +162,7 @@ nav.visible{opacity:1;pointer-events:auto}
 .left .bt-row{color:rgba(160,150,145,.75);background:rgba(6,4,3,.4)}
 .right .bt-row{color:var(--soft)}
 .right .bt-row span strong{color:var(--cream);font-weight:500}
-
+ 
 /* Pricing — single niche */
 .pricing-section{padding:110px 48px;text-align:center;background:linear-gradient(150deg,#0d0903,var(--bg3));border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .pricing-header{margin-bottom:70px;display:flex;flex-direction:column;align-items:center}
@@ -195,7 +195,7 @@ nav.visible{opacity:1;pointer-events:auto}
 .crm-chip.soon{background:rgba(255,255,255,0.04);border-color:var(--border);color:var(--muted)}
 .pricing-note{margin-top:34px;font-size:12.5px;color:var(--muted);line-height:1.7;max-width:680px;margin-left:auto;margin-right:auto}
 .pricing-note strong{color:var(--gl)}
-
+ 
 /* Contact / partner */
 .combo-section{padding:80px 48px;border-top:1px solid var(--border);background:var(--bg3)}
 .combo-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:stretch}
@@ -215,7 +215,7 @@ nav.visible{opacity:1;pointer-events:auto}
 .triage-h{font-family:var(--display);font-size:clamp(26px,3.4vw,38px);font-weight:600;color:#fff;line-height:1.12;margin-bottom:13px}
 .triage-h em{font-style:italic;color:var(--gl)}
 .triage-p{font-size:14.5px;color:var(--soft);line-height:1.65;max-width:440px;margin:0 auto}
-
+ 
 /* FAQ */
 .faq-section{border-top:1px solid var(--border);padding:88px 48px;background:var(--bg2)}
 .faq-inner{max-width:840px;margin:0 auto}
@@ -232,7 +232,7 @@ nav.visible{opacity:1;pointer-events:auto}
 .faq-a-text{color:var(--soft);font-size:14px;line-height:1.7;padding-top:8px;border-top:1px solid var(--border)}
 .faq-a-text strong{color:#fff;font-weight:600}
 .faq-a-text em{color:var(--gl);font-style:italic}
-
+ 
 footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)}
 .foot-left{display:flex;flex-direction:column;gap:11px;max-width:640px}
 .foot-logo{display:flex;align-items:center;gap:9px}
@@ -242,7 +242,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
 .foot-left-meta a:hover{color:var(--soft)}
 .foot-meta{font-size:12px;color:var(--muted)}
 .foot-meta a:hover{color:var(--soft)}
-
+ 
 @media(max-width:900px){
   nav{padding:0 20px}.nav-links{display:none}
   .section,.faq-section{padding:70px 22px}
@@ -259,7 +259,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
 </style>
 </head>
 <body class="cinematic">
-
+ 
 <nav id="main-nav">
   <a href="/" class="nav-logo">
     <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" onerror="this.style.display='none'">
@@ -275,7 +275,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
     <li><button type="button" class="nav-cta" id="nav-trial-btn">Start Free Trial</button></li>
   </ul>
 </nav>
-
+ 
 <!-- ═══════ CINEMATIC INTRO ═══════ -->
 <div id="cinematic-hero">
   <button id="skip-btn">Skip intro</button>
@@ -355,9 +355,9 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
     <div class="scroll-arrow"></div>
   </div>
 </div>
-
+ 
 <div id="page-content">
-
+ 
   <!-- ═══════ THESIS ═══════ -->
   <section class="section" style="background:var(--bg3);text-align:center">
     <div class="inner" style="max-width:840px">
@@ -368,14 +368,14 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
       <p class="sec-sub" style="margin:18px auto 0">And Hermia becomes <strong>an additional lead channel of its own</strong>. Once a lead has been through qualification, Hermia remembers them permanently &mdash; so the next time that same customer needs help, they don't message a competitor or run a Google search. They message Hermia, go through the same fast qualification, and the job lands back in <strong>your</strong> CRM. The lead stays completely yours.</p>
     </div>
   </section>
-
+ 
   <!-- ═══════ DEEP CAPABILITIES ═══════ -->
   <section class="section" id="capabilities" style="background:var(--bg2);border-top:1px solid var(--border)">
     <div class="inner">
       <div class="eyebrow">How It Works</div>
       <h2 class="sec-title">Not a chatbot. A full <em>intake system.</em></h2>
       <p class="sec-sub">Here's exactly what happens &mdash; and exactly how &mdash; between an enquiry landing and a booked job appearing on your calendar.</p>
-
+ 
       <!-- 1. Intake -->
       <div class="deep-row" style="margin-top:20px">
         <div>
@@ -394,7 +394,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
           </div>
         </div>
       </div>
-
+ 
       <!-- 2. Qualification -->
       <div class="deep-row">
         <div>
@@ -415,7 +415,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
           </ul>
         </div>
       </div>
-
+ 
       <!-- 3. Real scheduling -->
       <div class="deep-row">
         <div>
@@ -435,7 +435,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
           </div>
         </div>
       </div>
-
+ 
       <!-- 4. Pricing estimates -->
       <div class="deep-row">
         <div>
@@ -454,7 +454,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
           <p style="font-size:12.5px;color:var(--muted);margin-top:16px;line-height:1.6">Before anything is created, Hermia searches your CRM for the customer and the site. The duplicate-customer mess that plagues Simpro and AroFlo databases simply stops happening.</p>
         </div>
       </div>
-
+ 
       <!-- 5. Memory / trusted channel -->
       <div class="deep-row">
         <div>
@@ -476,17 +476,17 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
           </ul>
         </div>
       </div>
-
+ 
     </div>
   </section>
-
+ 
   <!-- ═══════ SIMPRO FIELD MAPPING ═══════ -->
   <section class="section" id="simpro-mapping" style="background:var(--bg3);border-top:1px solid var(--border)">
     <div class="inner">
       <div class="eyebrow">Inside Your CRM</div>
       <h2 class="sec-title">Exactly what lands in <em>Simpro</em> &mdash; and how it gets there.</h2>
       <p class="sec-sub">It starts with nothing more than an email and a photo. The moment a lead's first message and images come in, Hermia is already writing the record &mdash; fully synced to your live Simpro account, no CSV, no manual entry, no copy-paste. By the time you open the job, the Customer and the Lead are already built, in your naming conventions, in your custom fields.</p>
-
+ 
       <div class="deep-row" style="margin-top:20px">
         <div>
           <span class="deep-kicker">Customer Module</span>
@@ -506,7 +506,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
           </ul>
         </div>
       </div>
-
+ 
       <div class="deep-row">
         <div>
           <span class="deep-kicker">Lead &amp; Job Module</span>
@@ -525,7 +525,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
           </ul>
         </div>
       </div>
-
+ 
       <div class="deep-row">
         <div>
           <span class="deep-kicker">Safety &amp; Site Access</span>
@@ -543,7 +543,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
           </ul>
         </div>
       </div>
-
+ 
       <div class="deep-row">
         <div>
           <span class="deep-kicker">Site Address</span>
@@ -562,10 +562,10 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
           </ul>
         </div>
       </div>
-
+ 
     </div>
   </section>
-
+ 
   <!-- ═══════ WITH / WITHOUT ═══════ -->
   <section class="section benefits" id="benefits">
     <div class="inner">
@@ -594,7 +594,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
       </div>
     </div>
   </section>
-
+ 
   <!-- ═══════ PRICING ═══════ -->
   <section class="pricing-section" id="pricing">
     <div class="pricing-header">
@@ -602,9 +602,9 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
       <h2 class="pricing-h">One trade. One blueprint.<br><em>Ready on day one.</em></h2>
       <p class="pricing-sub">A complete qualification system &mdash; every question, safety check, follow-up and booking flow already built and tested for Fire &amp; ESM work. Every plan starts with a 7-day free trial before your monthly fee is charged.</p>
     </div>
-
+ 
     <div class="pricing-stack">
-
+ 
       <!-- FIRE & ESM -->
       <div class="plan-box">
         <div class="plan-box-left">
@@ -636,11 +636,11 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
           </ul>
         </div>
       </div>
-
+ 
     </div>
     <p class="pricing-note">Every plan runs on <strong>pre-approved, on-script templates only</strong> &mdash; your leads never see freeform AI output. Want to change what's asked? Email us &mdash; question set updates are live within 1&ndash;3 business days, no new onboarding call.</p>
   </section>
-
+ 
   <!-- ═══════ CONTACT / PARTNER ═══════ -->
   <section class="combo-section" id="contact">
     <div class="combo-grid">
@@ -663,7 +663,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
       </div>
     </div>
   </section>
-
+ 
   <!-- ═══════ FAQ ═══════ -->
   <section class="faq-section" id="faq">
     <div class="faq-inner">
@@ -682,7 +682,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
       </div>
     </div>
   </section>
-
+ 
   <footer>
     <div class="foot-left">
       <a href="/" class="foot-logo">
@@ -700,7 +700,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
     </div>
   </footer>
 </div>
-
+ 
 <script>
 var chatMessages=[
   {type:'hermia',text:"Hi, I'm Hermia, digital assistant for Sun Fire &amp; Electrical. We received your message about a fault on your fire system. Is this an <strong>Emergency</strong>, <strong>Critical</strong>, or <strong>Standard</strong> issue?"},
@@ -769,3 +769,4 @@ if(tb)tb.addEventListener("click",function(){document.getElementById("pricing").
 <script src="/hermia-widget.js"></script>
 </body>
 </html>
+ 
