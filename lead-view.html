@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Docket — Hermia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FAF7F0;
+    --ink: #1C1B19;
+    --steel: #3D4046;
+    --steel-light: #6B6E73;
+    --amber: #F2A900;
+    --rust: #C1440E;
+    --line: #D8D2C4;
+    --line-dark: #4A4D52;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--steel);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  .docket {
+    max-width: 640px;
+    margin: 0 auto;
+    background: var(--paper);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    position: relative;
+    opacity: 0;
+    animation: riseIn 0.5s ease-out forwards;
+  }
+
+  @keyframes riseIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Header */
+  .head {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 22px 24px 18px;
+    position: relative;
+  }
+
+  .head-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .mark {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+
+  .mark span {
+    color: var(--paper);
+    opacity: 0.55;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+  }
+
+  .docket-id {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--paper);
+    opacity: 0.5;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .head-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-top: 14px;
+    line-height: 1.15;
+  }
+
+  .head-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--paper);
+    opacity: 0.6;
+    margin-top: 6px;
+  }
+
+  /* Stamp */
+  .stamp {
+    position: absolute;
+    top: 18px;
+    right: -6px;
+    transform: rotate(8deg);
+    border: 2.5px solid var(--rust);
+    color: var(--rust);
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 3px;
+    background: rgba(193, 68, 14, 0.06);
+  }
+
+  .stamp.normal {
+    border-color: var(--amber);
+    color: #B4880A;
+    background: rgba(242, 169, 0, 0.08);
+  }
+
+  /* Body */
+  .body-wrap { padding: 4px 24px 8px; }
+
+  .section {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--steel-light);
+    margin-bottom: 8px;
+  }
+
+  .field-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 6px 0;
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+
+  .field-label {
+    color: var(--steel-light);
+    flex-shrink: 0;
+    min-width: 108px;
+  }
+
+  .field-value {
+    text-align: right;
+    font-weight: 500;
+  }
+
+  .field-value a { color: var(--ink); }
+
+  .prose {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 4px 9px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    color: var(--steel);
+    background: #F0EDE3;
+  }
+
+  .tag.warn {
+    border-color: var(--rust);
+    color: var(--rust);
+    background: rgba(193, 68, 14, 0.06);
+  }
+
+  /* Media */
+  .media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .media-item {
+    aspect-ratio: 1;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #EDE9DC;
+    border: 1px solid var(--line);
+  }
+
+  .media-item img,
+  .media-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .media-link {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--amber);
+    text-underline-offset: 3px;
+    padding: 8px 0;
+  }
+
+  /* Footer */
+  .foot {
+    background: #F0EDE3;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--steel-light);
+    letter-spacing: 0.04em;
+  }
+
+  .foot-mark { color: var(--amber); font-weight: 500; }
+
+  /* Empty / error state */
+  .empty-wrap {
+    max-width: 480px;
+    margin: 80px auto;
+    text-align: center;
+    color: var(--paper);
+    padding: 0 20px;
+  }
+
+  .empty-wrap .mark { justify-content: center; display: flex; margin-bottom: 20px; }
+
+  .empty-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .empty-body {
+    font-size: 14.5px;
+    opacity: 0.7;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 420px) {
+    .head-title { font-size: 23px; }
+    .field-row { flex-direction: column; gap: 2px; }
+    .field-value { text-align: left; }
+    .stamp { font-size: 11px; padding: 4px 9px; top: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script>
+(function () {
+  function decodePayload() {
+    const params = new URLSearchParams(window.location.search);
+    const d = params.get('d');
+    if (!d) return null;
+    try {
+      const b64 = d.replace(/-/g, '+').replace(/_/g, '/');
+      const padded = b64 + '==='.slice((b64.length + 3) % 4);
+      const binary = atob(padded);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      const json = new TextDecoder().decode(bytes);
+      return JSON.parse(json);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str == null ? '' : String(str);
+    return div.innerHTML;
+  }
+
+  function isUrl(str) {
+    if (!str) return false;
+    return /^https?:\/\//i.test(str.trim());
+  }
+
+  function splitUrls(str) {
+    if (!str) return [];
+    return str.split(/[\s,]+/).map(s => s.trim()).filter(isUrl);
+  }
+
+  function isVideoUrl(url) {
+    return /\.(mp4|mov|webm|m4v)(\?.*)?$/i.test(url);
+  }
+
+  function renderMedia(photosVideosStr) {
+    const urls = splitUrls(photosVideosStr);
+    if (!urls.length) return '';
+    const items = urls.map(function (url) {
+      if (isVideoUrl(url)) {
+        return '<div class="media-item"><video src="' + escapeHtml(url) + '" controls preload="metadata"></video></div>';
+      }
+      return '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener"><div class="media-item"><img src="' + escapeHtml(url) + '" alt="Job photo" loading="lazy"></div></a>';
+    }).join('');
+    return '<div class="media-grid">' + items + '</div>';
+  }
+
+  function fieldRow(label, value) {
+    if (!value) return '';
+    return '<div class="field-row"><span class="field-label">' + escapeHtml(label) + '</span><span class="field-value">' + escapeHtml(value) + '</span></div>';
+  }
+
+  function tag(text, warn) {
+    if (!text) return '';
+    return '<span class="tag' + (warn ? ' warn' : '') + '">' + escapeHtml(text) + '</span>';
+  }
+
+  function renderEmpty() {
+    document.getElementById('root').innerHTML =
+      '<div class="empty-wrap">' +
+        '<div class="mark">HERMIA</div>' +
+        '<div class="empty-title">This docket link isn\'t readable</div>' +
+        '<div class="empty-body">The link may be incomplete or was copied wrong. Go back to the client message in AroFlo and open the link again.</div>' +
+      '</div>';
+  }
+
+  function render(data) {
+    const name = data.fullName || [data.firstName, data.lastName].filter(Boolean).join(' ') || 'Customer';
+    const urgencyRaw = (data.urgency || data.priorityTag || '').toLowerCase();
+    const isUrgent = /urgent|asap|emergency|high/.test(urgencyRaw);
+
+    const stampHtml = (data.urgency || data.priorityTag)
+      ? '<div class="stamp' + (isUrgent ? '' : ' normal') + '">' + escapeHtml(data.urgency || data.priorityTag) + '</div>'
+      : '';
+
+    const contactSection =
+      fieldRow('Phone', data.phone) +
+      fieldRow('Email', data.email) +
+      fieldRow('Billing entity', data.billingEntity);
+
+    const jobSection =
+      fieldRow('Available', data.confirmationDate) +
+      fieldRow('Asset type', data.assetType) +
+      fieldRow('Building type', data.buildingType) +
+      fieldRow('Fault code', data.faultCode) +
+      fieldRow('Defect status', data.defectStatus);
+
+    const tagsHtml = [
+      tag(data.safety, true),
+      tag(data.isolations, true),
+      tag(data.hazards, true),
+      tag(data.billing, false)
+    ].join('');
+
+    const mediaHtml = renderMedia(data.photosVideos);
+
+    const html =
+      '<div class="docket">' +
+        '<div class="head">' +
+          stampHtml +
+          '<div class="head-top">' +
+            '<div class="mark">HERMIA <span>· job docket</span></div>' +
+            '<div class="docket-id">' + new Date().toISOString().slice(0, 10) + '</div>' +
+          '</div>' +
+          '<div class="head-title">' + escapeHtml(name) + '</div>' +
+          (data.siteConfirmation ? '<div class="head-sub">' + escapeHtml(data.siteConfirmation) + '</div>' : '') +
+        '</div>' +
+        '<div class="body-wrap">' +
+
+          (data.faultDescription ?
+            '<div class="section"><div class="eyebrow">Fault description</div><div class="prose">' + escapeHtml(data.faultDescription) + '</div></div>'
+            : '') +
+
+          (contactSection ?
+            '<div class="section"><div class="eyebrow">Contact</div>' + contactSection + '</div>'
+            : '') +
+
+          (jobSection ?
+            '<div class="section"><div class="eyebrow">Job details</div>' + jobSection + '</div>'
+            : '') +
+
+          (data.accessNotes ?
+            '<div class="section"><div class="eyebrow">Access notes</div><div class="prose">' + escapeHtml(data.accessNotes) + '</div></div>'
+            : '') +
+
+          (tagsHtml ?
+            '<div class="section"><div class="eyebrow">Safety &amp; hazards</div><div class="tag-row">' + tagsHtml + '</div></div>'
+            : '') +
+
+          (mediaHtml ?
+            '<div class="section"><div class="eyebrow">Photos &amp; video</div>' + mediaHtml + '</div>'
+            : '') +
+
+        '</div>' +
+        '<div class="foot">' +
+          '<span>Generated by <span class="foot-mark">Hermia</span></span>' +
+          '<span>Not stored · view only</span>' +
+        '</div>' +
+      '</div>';
+
+    document.getElementById('root').innerHTML = html;
+  }
+
+  const data = decodePayload();
+  if (!data) {
+    renderEmpty();
+  } else {
+    render(data);
+  }
+})();
+</script>
+
+</body>
+</html>
