@@ -102,52 +102,22 @@
     <h1>Connect AroFlo</h1>
     <p class="sub">This links Hermia to your AroFlo account so every qualified job enquiry is pushed straight in as a client, site, and task — no manual entry.</p>
     <div class="info-box">
-      Hermia creates and updates <strong>clients, sites, schedules, and tasks</strong> in your AroFlo account, using the access level granted to these API credentials. It never touches invoices, payroll, or financial data.
+      Hermia creates and updates <strong>clients, sites, schedules, and tasks</strong> in your AroFlo account, using the access level granted to this API token. It never touches invoices, payroll, or financial data.
     </div>
 
     <div class="field-group">
-      <label class="field-label" for="uEncoded">API username</label>
+      <label class="field-label" for="aroFloToken">AroFlo API token</label>
       <div class="text-input-row">
-        <input type="text" id="uEncoded" class="text-input" placeholder="Your AroFlo API username" autocomplete="off" autocapitalize="off" spellcheck="false" />
+        <input type="password" id="aroFloToken" class="text-input" placeholder="Paste your AroFlo API token" autocomplete="off" spellcheck="false" />
+        <button type="button" class="toggle-visibility" data-target="aroFloToken">Show</button>
       </div>
-      <p class="field-hint">Found under AroFlo &rsaquo; Setup &rsaquo; API Access.</p>
-    </div>
-
-    <div class="field-group">
-      <label class="field-label" for="pEncoded">API password</label>
-      <div class="text-input-row">
-        <input type="password" id="pEncoded" class="text-input" placeholder="Your AroFlo API password" autocomplete="off" spellcheck="false" />
-        <button type="button" class="toggle-visibility" data-target="pEncoded">Show</button>
-      </div>
-    </div>
-
-    <div class="field-group">
-      <label class="field-label" for="orgEncoded">Organisation ID</label>
-      <div class="text-input-row">
-        <input type="text" id="orgEncoded" class="text-input" placeholder="Your AroFlo organisation ID" autocomplete="off" autocapitalize="off" spellcheck="false" />
-      </div>
-    </div>
-
-    <div class="field-group">
-      <label class="field-label" for="secretKey">Secret key</label>
-      <div class="text-input-row">
-        <input type="password" id="secretKey" class="text-input" placeholder="Your AroFlo API secret key" autocomplete="off" spellcheck="false" />
-        <button type="button" class="toggle-visibility" data-target="secretKey">Show</button>
-      </div>
-      <p class="field-hint">Used only to sign requests server-side. Stored encrypted, never shown again after saving.</p>
-    </div>
-
-    <div class="field-group">
-      <label class="field-label" for="hostIp">Host IP<span class="optional-tag">Optional</span></label>
-      <div class="text-input-row">
-        <input type="text" id="hostIp" class="text-input" placeholder="Only if your AroFlo API access is IP-restricted" autocomplete="off" spellcheck="false" />
-      </div>
+      <p class="field-hint">Found under AroFlo &rsaquo; Settings &rsaquo; Integration &rsaquo; API Management &rsaquo; Personal Access Tokens.</p>
     </div>
 
     <button class="btn" id="connectBtn">Save & Connect AroFlo</button>
     <div class="error-banner" id="errorBanner"></div>
     <div class="success-banner" id="successBanner"></div>
-    <div class="powered">Secured connection &bull; AES-256 at rest</div>
+    <div class="powered">Secured by Hermia &bull; AES-256 at rest</div>
   </div>
 </div>
 
@@ -196,12 +166,6 @@
   const successBanner = document.getElementById('successBanner');
   const customerId = sessionStorage.getItem('hermia_outlooker_id');
 
-  const uEncodedInput = document.getElementById('uEncoded');
-  const pEncodedInput = document.getElementById('pEncoded');
-  const orgEncodedInput = document.getElementById('orgEncoded');
-  const secretKeyInput = document.getElementById('secretKey');
-  const hostIpInput = document.getElementById('hostIp');
-
   document.querySelectorAll('.toggle-visibility').forEach(btnEl => {
     btnEl.addEventListener('click', () => {
       const target = document.getElementById(btnEl.dataset.target);
@@ -225,32 +189,26 @@
     successBanner.classList.add('visible');
   }
 
-  // AroFlo has no OAuth flow — credentials are entered directly and
-  // sent to the Worker, which encrypts them at rest (AES-GCM, key
-  // derived from AROFLO_CRED_KEY) and stores them under
-  // aroflo_<customerId> in the AROFLO_TOKENS KV namespace. See
-  // saveAroFloCredentials / handleAroFloRoutes in the Worker.
+  // AroFlo has no OAuth flow — a single API token is entered directly
+  // and sent to the Worker, which encrypts it at rest (AES-GCM, key
+  // derived from AROFLO_CRED_KEY) and stores it under a fresh
+  // connectionId in the AROFLO_TOKENS KV namespace. See
+  // saveAroFloCredentials / callAroFlo in the Worker (now reading
+  // creds.token instead of the old uEncoded/pEncoded/orgEncoded/
+  // secretKey HMAC fields).
   btn.addEventListener('click', async () => {
     if (!customerId) { showError('Session expired. Please restart onboarding from the beginning.'); return; }
 
-    const uEncoded = uEncodedInput.value.trim();
-    const pEncoded = pEncodedInput.value.trim();
-    const orgEncoded = orgEncodedInput.value.trim();
-    const secretKey = secretKeyInput.value.trim();
-    const hostIp = hostIpInput.value.trim();
+    const aroFloToken = document.getElementById('aroFloToken').value.trim();
 
-    if (!uEncoded) { showError('Please enter your AroFlo API username.'); uEncodedInput.focus(); return; }
-    if (!pEncoded) { showError('Please enter your AroFlo API password.'); pEncodedInput.focus(); return; }
-    if (!orgEncoded) { showError('Please enter your AroFlo organisation ID.'); orgEncodedInput.focus(); return; }
-    if (!secretKey) { showError('Please enter your AroFlo secret key.'); secretKeyInput.focus(); return; }
+    if (!aroFloToken) { showError('Please enter your AroFlo API token.'); document.getElementById('aroFloToken').focus(); return; }
 
     errorBanner.classList.remove('visible');
     successBanner.classList.remove('visible');
     btn.disabled = true;
     btn.innerHTML = '<div class="spinner"></div> Connecting…';
 
-    const payload = { uEncoded, pEncoded, orgEncoded, secretKey };
-    if (hostIp) payload.hostIp = hostIp;
+    const payload = { token: aroFloToken };
 
     try {
       const saveUrl = new URL(WORKER + '/save-aroflo-credentials');
