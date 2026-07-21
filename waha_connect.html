@@ -534,7 +534,7 @@
     <div class="tier-preview card" id="tierPreview"></div>
     <div class="progress-wrap">
       <div class="progress-track"><div class="progress-fill"></div></div>
-      <span class="progress-label">Continuing setup</span>
+      <span class="progress-label" id="progressLabel">Continuing setup</span>
     </div>
   </div>
 
@@ -542,7 +542,65 @@
 
 <script>
   const HERMIANANGO_BASE = 'https://hermianango.capital-fbc.workers.dev';
-  const NEXT_STEP_URL = 'simpro_connect.html'; // ASSUMPTION: matches the redirect pattern used after waha_connect.html — confirm this is actually the next onboarding step before shipping
+
+  // ============================================================
+  // NEXT-STEP ROUTING — which CRM-connect page comes after pricing.
+  //
+  // NOT based on hermia_plan (that's the inbox provider — gmail /
+  // outlook — completely unrelated to which CRM the contractor uses).
+  // The CRM choice is a SEPARATE field: crm_provider_intent on the
+  // customers table, set during /create-customer via body.crmProvider
+  // ('simpro' | 'aroflo' — see VALID_CRM_INTENTS in the main worker).
+  //
+  // ⚠️ BACKEND DEPENDENCY: as of the worker code I've seen,
+  // /get-customer-state only selects and returns State, Country, and
+  // hermia_plan — it does NOT return crm_provider_intent. This function
+  // will silently fall through to the SIMPRO_CONNECT fallback below
+  // until that endpoint is extended (add crm_provider_intent to its
+  // Supabase select= and to its JSON response as e.g. `crmProviderIntent`).
+  // Until then, every contractor — including AroFlo ones — will be sent
+  // to simpro_connect.html. Fix the endpoint before relying on this.
+  //
+  // Order of resolution, most to least trustworthy:
+  //   1. sessionStorage 'hermia_crm_intent', if some earlier onboarding
+  //      step already set it client-side.
+  //   2. Fresh fetch of /get-customer-state (requires the backend fix
+  //      noted above to actually return crmProviderIntent).
+  //   3. Fallback to simpro_connect.html, logged loudly so it's obvious
+  //      in the console that the CRM intent wasn't found anywhere.
+  // ============================================================
+  const CRM_CONNECT_PAGES = {
+    simpro: 'simpro_connect.html',
+    aroflo: 'aroflo_connect.html'
+  };
+  const FALLBACK_CRM_PAGE = 'simpro_connect.html';
+
+  async function resolveNextIntegrationUrl() {
+    let crmIntent = null;
+    try { crmIntent = sessionStorage.getItem('hermia_crm_intent'); } catch (e) {}
+
+    if (!crmIntent && customerId) {
+      try {
+        const res = await fetch(HERMIANANGO_BASE + '/get-customer-state?customerId=' + encodeURIComponent(customerId));
+        const data = await res.json();
+        // crmProviderIntent is the field name this expects once
+        // /get-customer-state is extended to return it — see the
+        // backend-dependency note above.
+        if (data && data.ok && data.crmProviderIntent) {
+          crmIntent = data.crmProviderIntent;
+        }
+      } catch (e) {
+        console.warn('[resolveNextIntegrationUrl] /get-customer-state fetch failed: ' + e.message);
+      }
+    }
+
+    if (crmIntent && CRM_CONNECT_PAGES[crmIntent]) {
+      return CRM_CONNECT_PAGES[crmIntent];
+    }
+
+    console.warn('[resolveNextIntegrationUrl] could not determine CRM intent (got "' + crmIntent + '") — falling back to ' + FALLBACK_CRM_PAGE + '. Check /get-customer-state returns crmProviderIntent, or that hermia_crm_intent is set in sessionStorage earlier in onboarding.');
+    return FALLBACK_CRM_PAGE;
+  }
 
   const params = new URLSearchParams(window.location.search);
   let customerId = params.get('customerId') || sessionStorage.getItem('hermia_outlooker_id');
@@ -583,6 +641,7 @@
   const pricingText = document.getElementById('pricingText');
   const procErr = document.getElementById('procErr');
   const procSub = document.getElementById('procSub');
+  const progressLabel = document.getElementById('progressLabel');
 
   let selectedFile = null;
   let contactMethod = null;      // 'phone' | 'email'
@@ -772,7 +831,9 @@
 
   function showProcessing() { goToStage('processing'); }
 
-  function showSuccess(tiers) {
+  // Now async: resolves the correct CRM-connect page (AroFlo vs
+  // Simpro) before redirecting, instead of a hardcoded URL.
+  async function showSuccess(tiers) {
     goToStage('success');
     const preview = document.getElementById('tierPreview');
     if (tiers && tiers.length) {
@@ -782,7 +843,11 @@
     } else {
       preview.style.display = 'none';
     }
-    setTimeout(() => { window.location.href = NEXT_STEP_URL + (plan ? ('?plan=' + encodeURIComponent(plan)) : ''); }, 5000);
+
+    const nextUrl = await resolveNextIntegrationUrl();
+    setTimeout(() => {
+      window.location.href = nextUrl + (plan ? ('?plan=' + encodeURIComponent(plan)) : '');
+    }, 5000);
   }
 
   function showError(msg) {
@@ -831,7 +896,7 @@
       const saveData = await saveRes.json();
       if (!saveData.ok) throw new Error(saveData.error || 'Could not read pricing from your file');
 
-      showSuccess(saveData.pricing && saveData.pricing.tiers);
+      await showSuccess(saveData.pricing && saveData.pricing.tiers);
     } catch (e) {
       showError(e.message || 'Something went wrong saving your prices — try again.');
     }
@@ -848,7 +913,7 @@
       });
       const saveData = await saveRes.json();
       if (!saveData.ok) throw new Error(saveData.error || 'Could not read pricing from your text');
-      showSuccess(saveData.pricing && saveData.pricing.tiers);
+      await showSuccess(saveData.pricing && saveData.pricing.tiers);
     } catch (e) {
       showError(e.message || 'Something went wrong saving your prices — try again.');
     }
