@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hermia · Your Pricing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:#16140f;
+    --bg-card:rgba(201,163,91,0.035);
+    --gold:#C9A35B;
+    --gold-light:#e8c17a;
+    --cream:#f4f0e6;
+    --soft:#b6b1a6;
+    --border:rgba(201,163,91,0.16);
+    --border-strong:rgba(201,163,91,0.4);
+    --green:#7fb88a;
+    --red:#c97b6a;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  html{height:100%}
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    padding: 32px 20px 56px;
+  }
+  .shell {
+    margin: auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── Background ── */
+  .bg { position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden }
+  .bloom {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(900px 700px at 50% 42%, rgba(201,163,91,0.16) 0%, transparent 58%),
+      radial-gradient(560px 460px at 50% 42%, rgba(201,163,91,0.08) 0%, transparent 50%);
+  }
+  .gridfloor {
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(201,163,91,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,163,91,0.04) 1px, transparent 1px);
+    background-size:62px 62px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 0%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 0%, transparent 100%);
+  }
+  .grain {
+    position:absolute;inset:0;opacity:.035;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
+  }
+
+  /* ── Header: brand + step indicator ── */
+  .topbar {
+    width: 100%; max-width: 480px;
+    display: flex; flex-direction: column; align-items: center; gap: 22px;
+    margin-bottom: 34px;
+    opacity: 0; animation: fadeUp .6s ease 0s forwards;
+  }
+  .brandmark img { height: 30px; display: block; filter: drop-shadow(0 0 10px rgba(201,163,91,0.3)); }
+
+  .steps { display: flex; align-items: center; gap: 0; }
+  .step {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--soft); opacity: .45; transition: opacity .4s ease, color .4s ease;
+    white-space: nowrap;
+  }
+  .step .dot { width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--soft); transition: all .4s ease; }
+  .step.current { color: var(--gold-light); opacity: 1; }
+  .step.current .dot { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 8px rgba(201,163,91,0.6); }
+  .step.done { opacity: .8; color: var(--soft); }
+  .step.done .dot { background: var(--green); border-color: var(--green); }
+  .step-line { width: 26px; height: 1px; background: var(--border); margin: 0 10px; }
+
+  /* ── Stage shell ── */
+  .stage { display: none; flex-direction: column; align-items: center; text-align: center; max-width: 480px; width: 100%; }
+  .stage.show { display: flex; }
+
+  .eyebrow { font-size: 10.5px; letter-spacing: .32em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; opacity: 0; animation: fadeUp .6s ease .1s forwards; }
+  h1 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 500;
+    font-size: clamp(30px, 6.5vw, 42px); line-height: 1.1; letter-spacing: -.01em;
+    color: var(--cream); margin-bottom: 12px;
+    opacity: 0; animation: fadeUp .65s ease .2s forwards;
+  }
+  h1 em { font-style: italic; color: var(--gold-light); }
+  .sub { font-size: 14.5px; color: var(--soft); line-height: 1.6; max-width: 360px; margin-bottom: 30px; opacity: 0; animation: fadeUp .6s ease .3s forwards; }
+
+  /* ── Cards (shared) ── */
+  .card {
+    width: 100%; text-align: left;
+    border: 1px solid var(--border); border-radius: var(--radius);
+    background: linear-gradient(135deg, var(--bg-card), rgba(201,163,91,0.004));
+  }
+
+  /* ── Explain list ── */
+  .explain-list { width: 100%; display: flex; flex-direction: column; gap: 10px; opacity: 0; animation: fadeUp .6s ease .4s forwards; }
+  .explain-item { display: flex; gap: 15px; align-items: flex-start; padding: 16px 17px; }
+  .explain-item .icon { flex-shrink: 0; width: 34px; height: 34px; border-radius: 10px; background: rgba(201,163,91,0.1); display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+  .explain-item h4 { font-size: 13.5px; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
+  .explain-item p { font-size: 12.5px; color: var(--soft); line-height: 1.55; }
+  .explain-item .highlight { color: var(--gold-light); font-weight: 500; }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    margin-top: 28px; width: 100%; padding: 16px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    border: none; color: var(--bg);
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    border-radius: 99px; cursor: pointer;
+    transition: transform .3s cubic-bezier(.23,1,.32,1), box-shadow .3s ease, filter .3s ease;
+    box-shadow: 0 4px 15px rgba(201,163,91,0.18);
+    opacity: 0; animation: fadeUp .6s ease .55s forwards;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,163,91,0.35); filter: brightness(1.08); }
+  .btn-primary:disabled { opacity: .35 !important; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  .btn-ghost {
+    margin-top: 16px; background: none; border: none; color: var(--soft);
+    font-size: 12px; letter-spacing: .04em; cursor: pointer;
+    text-decoration: underline; text-underline-offset: 3px; opacity: .65;
+    transition: opacity .25s ease, color .25s ease;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-ghost:hover { opacity: 1; color: var(--cream); }
+
+  /* ── Negotiation contact stage ── */
+  .contact-note {
+    width: 100%; text-align: left; font-size: 12.5px; color: var(--soft); line-height: 1.6;
+    padding: 14px 16px; border: 1px solid var(--border-strong); background: rgba(201,163,91,0.06);
+    border-radius: 12px; margin-bottom: 20px;
+    opacity: 0; animation: fadeUp .6s ease .32s forwards;
+  }
+  .contact-note .warn { color: var(--gold-light); font-weight: 500; }
+
+  .phone-card, .email-card {
+    width: 100%; padding: 22px 20px 20px; text-align: left;
+    opacity: 0; animation: fadeUp .6s ease .4s forwards;
+  }
+  .phone-card label, .email-card label {
+    font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--gold); display: block; margin-bottom: 12px;
+  }
+
+  .phone-row { display: flex; gap: 10px; }
+  .country-select {
+    flex: 0 0 128px;
+    padding: 15px 10px;
+    background: rgba(22,20,15,0.5); border: 1px solid var(--border);
+    border-radius: 13px; color: var(--cream);
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    outline: none; transition: border-color .3s ease;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C9A35B' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 28px;
+  }
+  .country-select:focus { border-color: var(--gold); }
+  .country-select option { background: #16140f; color: var(--cream); }
+
+  .phone-input, .email-input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    padding: 15px 17px;
+    background: rgba(22,20,15,0.5); border: 1px solid var(--border);
+    border-radius: 13px; color: var(--cream);
+    font-family: 'DM Sans', sans-serif; font-size: 16px; letter-spacing: .02em;
+    outline: none; transition: border-color .3s ease;
+  }
+  .phone-input::placeholder, .email-input::placeholder { color: var(--soft); opacity: .4; }
+  .phone-input:focus, .email-input:focus { border-color: var(--gold); }
+  .phone-hint {
+    font-size: 12px; color: var(--soft); margin-top: 12px; line-height: 1.6;
+    padding-left: 12px; border-left: 2px solid var(--border-strong);
+  }
+  .phone-hint .warn { color: var(--gold-light); font-weight: 500; }
+  .phone-err { font-size: 12px; color: var(--red); margin-top: 12px; display: none; line-height: 1.5; }
+  .phone-err.show { display: block; }
+
+  .phone-confirm { display: none; width: 100%; margin-top: 14px; padding: 20px; text-align: left; border-color: var(--border-strong); }
+  .phone-confirm.show { display: block; animation: fadeUp .4s ease forwards; }
+  .phone-confirm .confirm-label { font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--soft); margin-bottom: 8px; }
+  .phone-confirm .number { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; color: var(--gold-light); letter-spacing: .01em; word-break: break-all; }
+  .phone-confirm .confirm-note { font-size: 12px; color: var(--soft); margin-top: 6px; line-height: 1.5; }
+  .phone-confirm-row { display: flex; gap: 10px; margin-top: 18px; }
+  .btn-edit, .btn-confirm {
+    flex: 1; padding: 13px; border-radius: 99px;
+    font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase; cursor: pointer;
+    transition: all .3s ease;
+  }
+  .btn-edit { background: transparent; border: 1px solid var(--border); color: var(--soft); }
+  .btn-edit:hover { border-color: var(--gold); color: var(--cream); }
+  .btn-confirm { background: linear-gradient(135deg, var(--gold), var(--gold-light)); border: none; color: var(--bg); }
+  .btn-confirm:hover { transform: translateY(-1px); filter: brightness(1.08); }
+  .btn-confirm:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+  /* ── Method choice (shared: contact method + pricing method) ── */
+  .method-row { display: flex; gap: 12px; width: 100%; opacity: 0; animation: fadeUp .6s ease .35s forwards; }
+  .method-card { flex: 1; padding: 24px 18px; cursor: pointer; text-align: left; transition: border-color .3s ease, transform .3s cubic-bezier(.23,1,.32,1), background .3s ease; }
+  .method-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .method-card.active { border-color: var(--gold); background: linear-gradient(135deg, rgba(201,163,91,0.1), rgba(201,163,91,0.015)); }
+  .method-card svg { margin-bottom: 12px; opacity: .85; }
+  .method-card h3 { font-size: 14px; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
+  .method-card p { font-size: 12px; color: var(--soft); line-height: 1.5; }
+
+  /* ── Upload / text zones (also reused for phone/email zones) ── */
+  .input-zone { width: 100%; margin-top: 20px; display: none; opacity: 0; }
+  .input-zone.show { display: block; animation: fadeUp .45s ease forwards; }
+
+  .dropzone {
+    border: 1.5px dashed var(--border); border-radius: var(--radius);
+    padding: 38px 20px; text-align: center; cursor: pointer;
+    transition: border-color .3s ease, background .3s ease;
+  }
+  .dropzone:hover, .dropzone.dragover { border-color: var(--gold); background: rgba(201,163,91,0.04); }
+  .dropzone p { font-size: 13px; color: var(--soft); }
+  .dropzone .file-hint { font-size: 11px; color: var(--soft); opacity: .6; margin-top: 6px; }
+  .dropzone.has-file { border-style: solid; border-color: var(--gold); }
+  .dropzone .file-name { color: var(--gold-light); font-weight: 500; font-size: 13px; }
+  #fileInput { display: none; }
+
+  textarea {
+    width: 100%; min-height: 160px;
+    background: rgba(22,20,15,0.5); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 17px;
+    color: var(--cream); font-family: 'DM Sans', sans-serif;
+    font-size: 14px; line-height: 1.6; resize: vertical; outline: none;
+    transition: border-color .3s ease;
+  }
+  textarea::placeholder { color: var(--soft); opacity: .45; }
+  textarea:focus { border-color: var(--gold); }
+
+  .btn-submit {
+    margin-top: 18px; width: 100%; padding: 16px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    border: none; color: var(--bg);
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    border-radius: 99px; cursor: pointer;
+    transition: transform .3s cubic-bezier(.23,1,.32,1), box-shadow .3s ease, filter .3s ease;
+    box-shadow: 0 4px 15px rgba(201,163,91,0.18);
+  }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,163,91,0.35); filter: brightness(1.08); }
+  .btn-submit:disabled { opacity: .4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* ── Processing / success ── */
+  .logo-outer { perspective: 700px; position: relative; margin-bottom: 30px; }
+  .logo-orb {
+    position: absolute; width: 210px; height: 210px; border-radius: 50%; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(201,163,91,0.36) 0%, rgba(201,163,91,0.1) 40%, transparent 72%);
+    filter: blur(18px); animation: orb-pulse 4s ease-in-out infinite; z-index: 0; pointer-events: none;
+  }
+  .logo-orb.connected { background: radial-gradient(circle, rgba(127,184,138,0.38) 0%, rgba(127,184,138,0.1) 40%, transparent 72%); }
+  @keyframes orb-pulse { 0%,100% { opacity:.7; transform:translate(-50%,-50%) scale(.88); } 50% { opacity:1; transform:translate(-50%,-50%) scale(1.08); } }
+
+  .spin-icon {
+    position: relative; z-index: 1; width: 70px; height: 70px; border-radius: 50%;
+    border: 1.5px solid rgba(201,163,91,0.2); border-top-color: var(--gold);
+    animation: spin .9s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .seal {
+    width: 88px; height: 88px; border-radius: 50%; position: relative; z-index: 1;
+    background: linear-gradient(135deg, rgba(127,184,138,0.16), rgba(127,184,138,0.03));
+    border: 1px solid rgba(127,184,138,0.4);
+    display: flex; align-items: center; justify-content: center;
+    filter: drop-shadow(0 0 24px rgba(127,184,138,0.5));
+    animation: sealIn .7s cubic-bezier(.22,1,.36,1) both;
+  }
+  @keyframes sealIn { from { opacity:0; transform: scale(.5); } to { opacity:1; } }
+  .seal svg path { stroke-dasharray: 26; stroke-dashoffset: 26; animation: draw .5s ease-out .35s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  .tier-preview { width: 100%; margin-top: 20px; overflow: hidden; text-align: left; }
+  .tier-row { display: flex; justify-content: space-between; align-items: baseline; padding: 13px 18px; font-size: 13px; border-bottom: 1px solid var(--border); }
+  .tier-row:last-child { border-bottom: none; }
+  .tier-row .name { color: var(--cream); }
+  .tier-row .price { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--gold-light); font-weight: 500; }
+
+  .progress-wrap { margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .progress-track { width: 180px; height: 1.5px; background: rgba(201,163,91,0.14); border-radius: 99px; overflow: hidden; }
+  .progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--gold-light), var(--gold));
+    border-radius: 99px; box-shadow: 0 0 10px rgba(201,163,91,0.7);
+    animation: fill-bar 5s linear forwards;
+  }
+  @keyframes fill-bar { from { width: 0%; } to { width: 100%; } }
+  .progress-label { font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--soft); opacity: .7; }
+
+  .err-line { margin-top: 20px; font-size: 12.5px; color: var(--red); max-width: 320px; line-height: 1.6; }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(12px) } to { opacity:1; transform:translateY(0) } }
+  @media(prefers-reduced-motion:reduce){ *{ animation-duration:.01ms !important; animation-delay:.01ms !important } }
+  @media(max-width:480px){
+    body { padding: 24px 16px 48px; }
+    .method-row { flex-direction: column; }
+    .step .lbl { display: none; }
+    .step-line { width: 18px; margin: 0 8px; }
+    .topbar { margin-bottom: 28px; gap: 18px; }
+    .country-select { flex-basis: 108px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg" aria-hidden="true">
+  <div class="bloom"></div>
+  <div class="gridfloor"></div>
+  <div class="grain"></div>
+</div>
+
+<div class="shell">
+
+  <div class="topbar">
+    <div class="brandmark">
+      <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" draggable="false" />
+    </div>
+    <div class="steps" id="stepsBar">
+      <div class="step current" data-step="1"><span class="dot"></span><span class="lbl">Overview</span></div>
+      <div class="step-line"></div>
+      <div class="step" data-step="2"><span class="dot"></span><span class="lbl">Contact</span></div>
+      <div class="step-line"></div>
+      <div class="step" data-step="3"><span class="dot"></span><span class="lbl">Prices</span></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ STAGE 1: EXPLAIN ═══════════════ -->
+  <div class="stage show" id="explainStage">
+    <div class="eyebrow">Your prices</div>
+    <h1>How pricing<br><em>works.</em></h1>
+    <p class="sub">Quick overview before you set anything up.</p>
+
+    <div class="explain-list">
+      <div class="explain-item card">
+        <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <div>
+          <h4>One list, every quote</h4>
+          <p>Give us your prices once. Hermia uses that same list to quote every lead who messages in — no manual work per lead.</p>
+        </div>
+      </div>
+      <div class="explain-item card">
+        <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3.5v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9v-5L12 3z" stroke="#C9A35B" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div>
+          <h4>How the number gets picked</h4>
+          <p>When a lead describes their situation, Hermia matches it against your price list and works out the closest fit — always an <span class="highlight">estimate</span>, never a final price.</p>
+        </div>
+      </div>
+      <div class="explain-item card">
+        <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 20l4-1 11-11-3-3L5 16l-1 4z" stroke="#C9A35B" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <div>
+          <h4>Format it clearly</h4>
+          <p>List each service with its price, e.g. <span class="highlight">"Callout fee — $120."</span> The clearer your list, the more accurate the match.</p>
+        </div>
+      </div>
+      <div class="explain-item card">
+        <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 15a4 4 0 01-4 4H8l-5 3V7a4 4 0 014-4h10a4 4 0 014 4v8z" stroke="#C9A35B" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <div>
+          <h4>If they want to negotiate</h4>
+          <p>Leads can accept the estimate or ask to negotiate — if they do, Hermia passes them the contact detail you set on the next step.</p>
+        </div>
+      </div>
+      <div class="explain-item card">
+        <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0114-5.3M20 4v5h-5" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 12a8 8 0 01-14 5.3M4 20v-5h5" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div>
+          <h4>Update anytime</h4>
+          <p>Change your prices or contact detail whenever you like — new quotes always use your latest version.</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="goToStage('phone')">Continue</button>
+  </div>
+
+  <!-- ═══════════════ STAGE 2: NEGOTIATION CONTACT (phone OR email) ═══════════════ -->
+  <div class="stage" id="phoneStage">
+    <div class="eyebrow">Negotiation contact</div>
+    <h1>Where should leads<br><em>reach you?</em></h1>
+    <p class="sub">If a lead isn't happy with the estimate, this is how Hermia lets them reach you to negotiate directly.</p>
+
+    <p class="contact-note">
+      <span class="warn">Heads up:</span> whichever you choose, Hermia hands this detail directly to leads as their way of contacting you —
+      so only give a number or inbox you actually want clients reaching out to. Don't want to share your phone? Use email instead.
+      Don't want email? Use your phone.
+    </p>
+
+    <div class="method-row">
+      <div class="method-card card" id="cardContactPhone" onclick="chooseContactMethod('phone')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Phone Number</h3>
+        <p>Leads message or call you directly</p>
+      </div>
+      <div class="method-card card" id="cardContactEmail" onclick="chooseContactMethod('email')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="#C9A35B" stroke-width="1.6"/><path d="M22 6l-10 7L2 6" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Email Address</h3>
+        <p>Leads email you directly instead</p>
+      </div>
+    </div>
+
+    <div class="input-zone" id="phoneInputZone">
+      <div class="phone-card card">
+        <label for="negotiationPhoneInput">Contact number</label>
+        <div class="phone-row">
+          <select id="countryCodeSelect" class="country-select" aria-label="Country code">
+            <option value="61" data-country="Australia" selected>🇦🇺 +61</option>
+            <option value="1" data-country="Canada">🇨🇦 +1</option>
+            <option value="64" data-country="New Zealand">🇳🇿 +64</option>
+            <option value="44" data-country="United Kingdom">🇬🇧 +44</option>
+            <option value="353" data-country="Ireland">🇮🇪 +353</option>
+            <option value="1" data-country="United States">🇺🇸 +1</option>
+          </select>
+          <input type="tel" id="negotiationPhoneInput" class="phone-input"
+            placeholder="e.g. 4XX XXX XXX" autocomplete="tel" inputmode="numeric" />
+        </div>
+        <p class="phone-hint">
+          <span class="warn">Use your business number.</span> Not a personal mobile unless that's genuinely who you want clients calling.
+          Enter it without the leading 0 (we'll add your country code automatically).
+        </p>
+      </div>
+    </div>
+
+    <div class="input-zone" id="emailInputZone">
+      <div class="email-card card">
+        <label for="negotiationEmailInput">Contact email</label>
+        <input type="email" id="negotiationEmailInput" class="email-input"
+          placeholder="e.g. jobs@yourbusiness.com" autocomplete="email" />
+        <p class="phone-hint">
+          <span class="warn">Use your business inbox.</span> Not a personal address unless that's genuinely who you want clients emailing.
+        </p>
+      </div>
+    </div>
+
+    <p class="phone-err" id="phoneErr">That doesn't look like a valid contact detail — check it and try again.</p>
+
+    <div class="phone-confirm card" id="phoneConfirmBox">
+      <div class="confirm-label" id="confirmLabel">Leads will be given</div>
+      <div class="number" id="phoneConfirmNumber"></div>
+      <p class="confirm-note">Double-check it — a typo here means missed negotiation enquiries.</p>
+      <div class="phone-confirm-row">
+        <button class="btn-edit" onclick="editContact()">Edit</button>
+        <button class="btn-confirm" id="btnConfirmPhone" onclick="submitNegotiationContact()">Confirm &amp; continue</button>
+      </div>
+    </div>
+
+    <button class="btn-primary" id="btnReviewPhone" onclick="reviewContact()">Review contact detail</button>
+    <button class="btn-ghost" onclick="goToStage('explain')">Back</button>
+  </div>
+
+  <!-- ═══════════════ STAGE 3: METHOD CHOICE ═══════════════ -->
+  <div class="stage" id="chooseStage">
+    <div class="eyebrow">Share your prices</div>
+    <h1>Pick a<br><em>way.</em></h1>
+    <p class="sub">Whichever's easiest — we'll read either one.</p>
+
+    <div class="method-row">
+      <div class="method-card card" id="cardFile" onclick="chooseMethod('file')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z" stroke="#C9A35B" stroke-width="1.5"/><path d="M13 2v7h7" stroke="#C9A35B" stroke-width="1.5"/></svg>
+        <h3>Upload a file</h3>
+        <p>PDF, photo, or screenshot of your price list</p>
+      </div>
+      <div class="method-card card" id="cardText" onclick="chooseMethod('text')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="#C9A35B" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <h3>Type it out</h3>
+        <p>List your services and prices directly</p>
+      </div>
+    </div>
+
+    <div class="input-zone" id="fileZone">
+      <div class="dropzone" id="dropzone" onclick="document.getElementById('fileInput').click()">
+        <p id="dropzoneText">Drop your file here, or tap to browse</p>
+        <p class="file-hint">PDF, PNG, or JPG · up to 20MB</p>
+        <input type="file" id="fileInput" accept="application/pdf,image/png,image/jpeg" />
+      </div>
+      <button class="btn-submit" id="btnSubmitFile" disabled onclick="submitFile()">Save my prices</button>
+      <button class="btn-ghost" onclick="backToChoose()">Choose a different way</button>
+    </div>
+
+    <div class="input-zone" id="textZone">
+      <textarea id="pricingText" placeholder="e.g.&#10;Small job — $150&#10;Medium job — $400&#10;Large job — $900&#10;Emergency callout — $250 flat + parts"></textarea>
+      <button class="btn-submit" id="btnSubmitText" disabled onclick="submitText()">Save my prices</button>
+      <button class="btn-ghost" onclick="backToChoose()">Choose a different way</button>
+    </div>
+
+    <button class="btn-ghost" onclick="goToStage('phone')">Back</button>
+  </div>
+
+  <!-- ═══════════════ STAGE 4: PROCESSING ═══════════════ -->
+  <div class="stage" id="processingStage">
+    <div class="logo-outer">
+      <div class="logo-orb"></div>
+      <div class="spin-icon"></div>
+    </div>
+    <div class="eyebrow">One moment</div>
+    <h1>Reading your<br><em>prices.</em></h1>
+    <p class="sub" id="procSub">This usually takes a few seconds.</p>
+    <div class="err-line" id="procErr" style="display:none;"></div>
+  </div>
+
+  <!-- ═══════════════ STAGE 5: SUCCESS ═══════════════ -->
+  <div class="stage" id="successStage">
+    <div class="logo-outer">
+      <div class="logo-orb connected"></div>
+      <div class="seal"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 12.5L9.5 18L20 6" stroke="#7fb88a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="eyebrow">Saved</div>
+    <h1>Prices are<br><em>set.</em></h1>
+    <p class="sub">Hermia will quote leads using this list from now on. You can update it anytime.</p>
+    <div class="tier-preview card" id="tierPreview"></div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill"></div></div>
+      <span class="progress-label" id="progressLabel">Continuing setup</span>
+    </div>
+  </div>
+
+</div><!-- /shell -->
+
+<script>
+  const HERMIANANGO_BASE = 'https://hermianango.capital-fbc.workers.dev';
+
+  // ============================================================
+  // NEXT-STEP ROUTING — which CRM-connect page comes after pricing.
+  //
+  // NOT based on hermia_plan (that's the inbox provider — gmail /
+  // outlook — completely unrelated to which CRM the contractor uses).
+  // The CRM choice is a SEPARATE field: crm_provider_intent on the
+  // customers table, set during /create-customer via body.crmProvider
+  // ('simpro' | 'aroflo' — see VALID_CRM_INTENTS in the main worker).
+  //
+  // ⚠️ BACKEND DEPENDENCY: as of the worker code I've seen,
+  // /get-customer-state only selects and returns State, Country, and
+  // hermia_plan — it does NOT return crm_provider_intent. This function
+  // will silently fall through to the SIMPRO_CONNECT fallback below
+  // until that endpoint is extended (add crm_provider_intent to its
+  // Supabase select= and to its JSON response as e.g. `crmProviderIntent`).
+  // Until then, every contractor — including AroFlo ones — will be sent
+  // to simpro_connect.html. Fix the endpoint before relying on this.
+  //
+  // Order of resolution, most to least trustworthy:
+  //   1. sessionStorage 'hermia_crm_intent', if some earlier onboarding
+  //      step already set it client-side.
+  //   2. Fresh fetch of /get-customer-state (requires the backend fix
+  //      noted above to actually return crmProviderIntent).
+  //   3. Fallback to simpro_connect.html, logged loudly so it's obvious
+  //      in the console that the CRM intent wasn't found anywhere.
+  // ============================================================
+  const CRM_CONNECT_PAGES = {
+    simpro: 'simpro_connect.html',
+    aroflo: 'aroflo_connect.html'
+  };
+  const FALLBACK_CRM_PAGE = 'simpro_connect.html';
+
+  async function resolveNextIntegrationUrl() {
+    let crmIntent = null;
+    try { crmIntent = sessionStorage.getItem('hermia_crm_intent'); } catch (e) {}
+
+    if (!crmIntent && customerId) {
+      try {
+        const res = await fetch(HERMIANANGO_BASE + '/get-customer-state?customerId=' + encodeURIComponent(customerId));
+        const data = await res.json();
+        // crmProviderIntent is the field name this expects once
+        // /get-customer-state is extended to return it — see the
+        // backend-dependency note above.
+        if (data && data.ok && data.crmProviderIntent) {
+          crmIntent = data.crmProviderIntent;
+        }
+      } catch (e) {
+        console.warn('[resolveNextIntegrationUrl] /get-customer-state fetch failed: ' + e.message);
+      }
+    }
+
+    if (crmIntent && CRM_CONNECT_PAGES[crmIntent]) {
+      return CRM_CONNECT_PAGES[crmIntent];
+    }
+
+    console.warn('[resolveNextIntegrationUrl] could not determine CRM intent (got "' + crmIntent + '") — falling back to ' + FALLBACK_CRM_PAGE + '. Check /get-customer-state returns crmProviderIntent, or that hermia_crm_intent is set in sessionStorage earlier in onboarding.');
+    return FALLBACK_CRM_PAGE;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  let customerId = params.get('customerId') || sessionStorage.getItem('hermia_outlooker_id');
+  let plan = params.get('plan') || sessionStorage.getItem('hermia_plan');
+
+  const stages = {
+    explain: document.getElementById('explainStage'),
+    phone: document.getElementById('phoneStage'),
+    choose: document.getElementById('chooseStage'),
+    processing: document.getElementById('processingStage'),
+    success: document.getElementById('successStage')
+  };
+  const stageToStep = { explain: 1, phone: 2, choose: 3, processing: 3, success: 3 };
+
+  const negotiationPhoneInput = document.getElementById('negotiationPhoneInput');
+  const negotiationEmailInput = document.getElementById('negotiationEmailInput');
+  const countryCodeSelect = document.getElementById('countryCodeSelect');
+  const phoneErr = document.getElementById('phoneErr');
+  const phoneConfirmBox = document.getElementById('phoneConfirmBox');
+  const confirmLabel = document.getElementById('confirmLabel');
+  const phoneConfirmNumber = document.getElementById('phoneConfirmNumber');
+  const btnReviewPhone = document.getElementById('btnReviewPhone');
+  const btnConfirmPhone = document.getElementById('btnConfirmPhone');
+  const cardContactPhone = document.getElementById('cardContactPhone');
+  const cardContactEmail = document.getElementById('cardContactEmail');
+  const phoneInputZone = document.getElementById('phoneInputZone');
+  const emailInputZone = document.getElementById('emailInputZone');
+
+  const fileZone = document.getElementById('fileZone');
+  const textZone = document.getElementById('textZone');
+  const cardFile = document.getElementById('cardFile');
+  const cardText = document.getElementById('cardText');
+  const dropzone = document.getElementById('dropzone');
+  const dropzoneText = document.getElementById('dropzoneText');
+  const fileInput = document.getElementById('fileInput');
+  const btnSubmitFile = document.getElementById('btnSubmitFile');
+  const btnSubmitText = document.getElementById('btnSubmitText');
+  const pricingText = document.getElementById('pricingText');
+  const procErr = document.getElementById('procErr');
+  const procSub = document.getElementById('procSub');
+  const progressLabel = document.getElementById('progressLabel');
+
+  let selectedFile = null;
+  let contactMethod = null;      // 'phone' | 'email'
+  let normalizedPhone = null;    // set by reviewContact(), sent as-is on confirm
+  let normalizedEmail = null;    // set by reviewContact(), sent as-is on confirm
+
+  // ── Stage + step-indicator navigation ─────────────────────────────
+  function goToStage(name) {
+    Object.values(stages).forEach(s => s.classList.remove('show'));
+    stages[name].classList.add('show');
+    window.scrollTo({ top: 0 });
+
+    const current = stageToStep[name];
+    document.querySelectorAll('.step').forEach(el => {
+      const n = Number(el.dataset.step);
+      el.classList.toggle('current', n === current);
+      el.classList.toggle('done', n < current);
+    });
+  }
+
+  // ── Negotiation contact: phone/email method choice ─────────────────
+  function digitsOnly(v) { return (v || '').replace(/[^0-9]/g, ''); }
+
+  function chooseContactMethod(kind) {
+    contactMethod = kind;
+    cardContactPhone.classList.toggle('active', kind === 'phone');
+    cardContactEmail.classList.toggle('active', kind === 'email');
+    phoneInputZone.classList.toggle('show', kind === 'phone');
+    emailInputZone.classList.toggle('show', kind === 'email');
+    phoneErr.classList.remove('show');
+  }
+
+  // Pre-fill the country-code dropdown from whatever country the
+  // customer already gave us during signup, if we have it.
+  (async function prefillCountryFromCustomer() {
+    if (!customerId) return;
+    try {
+      const res = await fetch(HERMIANANGO_BASE + '/get-customer-state?customerId=' + encodeURIComponent(customerId));
+      const data = await res.json();
+      if (data && data.ok && data.country) {
+        const opt = Array.from(countryCodeSelect.options).find(o => o.dataset.country === data.country);
+        if (opt) countryCodeSelect.value = opt.value, opt.selected = true;
+      }
+    } catch (e) {
+      // non-fatal — dropdown just stays on its default (Australia)
+    }
+  })();
+
+  function buildE164() {
+    const selectedOption = countryCodeSelect.options[countryCodeSelect.selectedIndex];
+    const dialCode = selectedOption.value;
+    let local = digitsOnly(negotiationPhoneInput.value);
+    local = local.replace(/^0+/, '');
+    return { e164: '+' + dialCode + local, country: selectedOption.dataset.country, localDigits: local };
+  }
+
+  function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  function reviewContact() {
+    if (!contactMethod) {
+      phoneErr.textContent = 'Pick how leads should reach you — phone or email.';
+      phoneErr.classList.add('show');
+      return;
+    }
+    if (contactMethod === 'phone') {
+      const { e164, localDigits } = buildE164();
+      if (localDigits.length < 6) {
+        phoneErr.textContent = "That doesn't look like a valid phone number — check the digits and try again.";
+        phoneErr.classList.add('show');
+        return;
+      }
+      phoneErr.classList.remove('show');
+      normalizedPhone = e164;
+      normalizedEmail = null;
+      confirmLabel.textContent = 'Leads will be given';
+      phoneConfirmNumber.textContent = e164;
+    } else {
+      const email = negotiationEmailInput.value.trim();
+      if (!isValidEmail(email)) {
+        phoneErr.textContent = "That doesn't look like a valid email address — check it and try again.";
+        phoneErr.classList.add('show');
+        return;
+      }
+      phoneErr.classList.remove('show');
+      normalizedEmail = email;
+      normalizedPhone = null;
+      confirmLabel.textContent = 'Leads will email you at';
+      phoneConfirmNumber.textContent = email;
+    }
+    phoneConfirmBox.classList.add('show');
+    btnReviewPhone.style.display = 'none';
+  }
+
+  function editContact() {
+    phoneConfirmBox.classList.remove('show');
+    btnReviewPhone.style.display = 'block';
+    if (contactMethod === 'phone') negotiationPhoneInput.focus();
+    else negotiationEmailInput.focus();
+  }
+
+  async function submitNegotiationContact() {
+    if (!customerId) {
+      phoneErr.textContent = 'Missing your account details — reopen this link from your onboarding email.';
+      phoneErr.classList.add('show');
+      return;
+    }
+    btnConfirmPhone.disabled = true;
+    btnConfirmPhone.textContent = 'Saving...';
+    try {
+      // ASSUMPTION: renamed endpoint from /save-negotiation-phone to
+      // /save-negotiation-contact since it now handles either a phone
+      // OR an email. Update your hermianango worker route to match —
+      // payload is { customerId, method: 'phone'|'email',
+      // negotiationPhone, negotiationEmail, country }. Only one of
+      // negotiationPhone/negotiationEmail will be non-null depending
+      // on `method`. See the accompanying Supabase SQL for the new
+      // columns this expects to write to.
+      const res = await fetch(HERMIANANGO_BASE + '/save-negotiation-contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customerId,
+          method: contactMethod,
+          negotiationPhone: normalizedPhone,
+          negotiationEmail: normalizedEmail,
+          country: contactMethod === 'phone' ? countryCodeSelect.options[countryCodeSelect.selectedIndex].dataset.country : null
+        })
+      });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error || 'Could not save that contact detail');
+      goToStage('choose');
+    } catch (e) {
+      phoneErr.textContent = e.message || 'Something went wrong saving that — try again.';
+      phoneErr.classList.add('show');
+      phoneConfirmBox.classList.remove('show');
+      btnReviewPhone.style.display = 'block';
+    } finally {
+      btnConfirmPhone.disabled = false;
+      btnConfirmPhone.textContent = 'Confirm & continue';
+    }
+  }
+
+  // ── Pricing method choice ─────────────────────────────────────────
+  function chooseMethod(kind) {
+    cardFile.classList.toggle('active', kind === 'file');
+    cardText.classList.toggle('active', kind === 'text');
+    fileZone.classList.toggle('show', kind === 'file');
+    textZone.classList.toggle('show', kind === 'text');
+  }
+
+  function backToChoose() {
+    cardFile.classList.remove('active');
+    cardText.classList.remove('active');
+    fileZone.classList.remove('show');
+    textZone.classList.remove('show');
+  }
+
+  fileInput.addEventListener('change', (e) => {
+    if (e.target.files.length) handleFile(e.target.files[0]);
+  });
+  dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault(); dropzone.classList.remove('dragover');
+    if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+  });
+
+  function handleFile(file) {
+    const allowed = ['application/pdf', 'image/png', 'image/jpeg'];
+    if (!allowed.includes(file.type)) {
+      dropzoneText.textContent = 'That file type isn\'t supported — use a PDF, PNG, or JPG.';
+      return;
+    }
+    if (file.size > 20 * 1024 * 1024) {
+      dropzoneText.textContent = 'That file is over 20MB — try a smaller one.';
+      return;
+    }
+    selectedFile = file;
+    dropzone.classList.add('has-file');
+    dropzoneText.innerHTML = 'Selected: <span class="file-name">' + file.name + '</span>';
+    btnSubmitFile.disabled = false;
+  }
+
+  pricingText.addEventListener('input', () => {
+    btnSubmitText.disabled = pricingText.value.trim().length < 5;
+  });
+
+  function showProcessing() { goToStage('processing'); }
+
+  // Now async: resolves the correct CRM-connect page (AroFlo vs
+  // Simpro) before redirecting, instead of a hardcoded URL.
+  async function showSuccess(tiers) {
+    goToStage('success');
+    const preview = document.getElementById('tierPreview');
+    if (tiers && tiers.length) {
+      preview.innerHTML = tiers.slice(0, 5).map(t =>
+        '<div class="tier-row"><span class="name">' + escapeHtml(t.name) + '</span><span class="price">$' + Number(t.price).toLocaleString() + '</span></div>'
+      ).join('');
+    } else {
+      preview.style.display = 'none';
+    }
+
+    const nextUrl = await resolveNextIntegrationUrl();
+    setTimeout(() => {
+      window.location.href = nextUrl + (plan ? ('?plan=' + encodeURIComponent(plan)) : '');
+    }, 5000);
+  }
+
+  function showError(msg) {
+    goToStage('processing');
+    document.querySelector('#processingStage .spin-icon').style.display = 'none';
+    procSub.style.display = 'none';
+    procErr.style.display = 'block';
+    procErr.textContent = msg;
+  }
+
+  function escapeHtml(str) {
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  async function submitFile() {
+    if (!customerId) { showError('Missing your account details — reopen this link from your onboarding email.'); return; }
+    showProcessing();
+    try {
+      const contentType = selectedFile.type === 'application/pdf' ? 'pdf' : 'image';
+
+      // Step 1: get a signed upload URL
+      const signRes = await fetch(HERMIANANGO_BASE + '/pricing/create-upload-url', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ customerId, fileName: selectedFile.name })
+      });
+      const signData = await signRes.json();
+      if (!signData.ok) throw new Error(signData.error || 'Could not prepare upload');
+
+      // Step 2: upload the file directly to Supabase Storage
+      const uploadRes = await fetch(signData.uploadUrl, {
+        method: 'PUT',
+        headers: { 'Content-Type': selectedFile.type },
+        body: selectedFile
+      });
+      if (!uploadRes.ok) throw new Error('File upload failed — try again');
+
+      // Step 3: tell the worker to extract pricing from the uploaded file
+      const saveRes = await fetch(HERMIANANGO_BASE + '/save-pricing', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ customerId, contentType, storagePath: signData.storagePath, mimeType: selectedFile.type })
+      });
+      const saveData = await saveRes.json();
+      if (!saveData.ok) throw new Error(saveData.error || 'Could not read pricing from your file');
+
+      await showSuccess(saveData.pricing && saveData.pricing.tiers);
+    } catch (e) {
+      showError(e.message || 'Something went wrong saving your prices — try again.');
+    }
+  }
+
+  async function submitText() {
+    if (!customerId) { showError('Missing your account details — reopen this link from your onboarding email.'); return; }
+    showProcessing();
+    try {
+      const saveRes = await fetch(HERMIANANGO_BASE + '/save-pricing', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ customerId, contentType: 'text', textContent: pricingText.value.trim() })
+      });
+      const saveData = await saveRes.json();
+      if (!saveData.ok) throw new Error(saveData.error || 'Could not read pricing from your text');
+      await showSuccess(saveData.pricing && saveData.pricing.tiers);
+    } catch (e) {
+      showError(e.message || 'Something went wrong saving your prices — try again.');
+    }
+  }
+</script>
+</body>
+</html>
