@@ -1,154 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hermia | Go Live</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
-    <style>
-        :root {
-            --bg: #080705;
-            --bg-card: rgba(10, 9, 7, 0.9);
-            --gold: #D4AF37;
-            --gold-bright: #FFD700;
-            --gold-light: #F9E2AF;
-            --gold-muted: rgba(212, 175, 55, 0.12);
-            --cream: #f4f0e6;
-            --soft: #a19d94;
-            --border: rgba(212, 175, 55, 0.2);
-            --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
-        html, body { height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
-        .quit-link { position: fixed; top: 24px; right: 24px; z-index: 500; display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-light) !important; text-decoration: none !important; padding: 10px 18px; border: 1px solid var(--border); background: rgba(212, 175, 55, 0.05); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: all 0.3s var(--ease-cinematic); }
-        .quit-link:hover { color: #000 !important; background: var(--gold) !important; border-color: var(--gold); }
-        .bg-layers { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-        .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,1) 100%); z-index: 5; }
-        .light-bloom { position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 55%); animation: light-drift 40s infinite alternate ease-in-out; will-change: transform; }
-        @keyframes light-drift { 0% { transform: translate(-2%, -2%) scale(1); } 100% { transform: translate(2%, 2%) scale(1.05); } }
-        .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 140px 140px; -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%); mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 90%); opacity: 0.1; }
-        .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-        .wrap { position: relative; z-index: 10; width: 100%; max-width: 1200px; margin: 0 auto; padding: 60px 40px 100px; display: flex; flex-direction: column; align-items: center; }
-        .logo-wrap { margin-bottom: 40px; }
-        .logo { height: 48px; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4)); }
-        .steps { display: flex; justify-content: space-between; width: 100%; max-width: 700px; margin-bottom: 60px; position: relative; }
-        .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.08); }
-        .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: var(--gold); box-shadow: 0 0 12px var(--gold); transition: width 1.2s var(--ease-cinematic); }
-        .step { display: flex; flex-direction: column; align-items: center; gap: 12px; flex: 1; position: relative; z-index: 1; }
-        .dot { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; background: var(--bg); border: 1px solid var(--border); color: var(--soft); transition: all 0.6s var(--ease-cinematic); }
-        .step.active .dot { border-color: var(--gold); color: var(--gold-bright); box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
-        .step.done .dot { background: var(--gold); border-color: var(--gold); color: #000; }
-        .label { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--soft); opacity: 0.5; }
-        .step.active .label { color: var(--gold-light); opacity: 1; }
-        .card { width: 100%; background: var(--bg-card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); padding: 80px; position: relative; box-shadow: 0 60px 150px rgba(0,0,0,0.9); display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
-        .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 24px; }
-        h1 { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; line-height: 1.0; margin-bottom: 20px; letter-spacing: -0.02em; }
-        .sub { font-size: 17px; color: var(--soft); margin-bottom: 50px; line-height: 1.7; font-weight: 300; max-width: 700px; }
-        .action-area { width: 100%; max-width: 600px; }
-        .btn { width: 100%; padding: 24px; border: none; background: linear-gradient(135deg, #E8C17A, #C9A35B); color: #000; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; }
-        .btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.25); }
-        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-        .status-msg { margin-top: 30px; padding: 20px; font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; }
-        .status-msg.wait { border: 1px solid var(--border); color: var(--soft); }
-        .status-msg.err { border: 1px solid #ff7e75; color: #ff7e75; background: rgba(255,126,117,0.05); }
-        .powered { margin-top: 60px; text-align: center; color: var(--soft); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.4; }
-        @media (max-width: 900px) { .card { padding: 60px 30px; } h1 { font-size: 38px; } .sub { font-size: 15px; } }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hermia | Go Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg:#050505;--gold:#c4963c;--gold-light:#d9aa52;--cream:#f4f0e6;--soft:#b0ada5;--muted:#7a7470;--border:rgba(196,150,60,0.14);--display:"Cormorant Garamond",serif;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:54px 20px 90px;position:relative;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+  .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .bloom{position:absolute;inset:0;background:radial-gradient(1000px 600px at 50% -10%,rgba(196,150,60,0.12),transparent 70%),radial-gradient(800px 800px at 90% 90%,rgba(196,150,60,0.05),transparent 70%)}
+  .gridfloor{position:absolute;inset:0;background-image:linear-gradient(rgba(196,150,60,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(196,150,60,0.03) 1px,transparent 1px);background-size:50px 50px;-webkit-mask-image:radial-gradient(circle at 50% 20%,#000 0%,transparent 80%);mask-image:radial-gradient(circle at 50% 20%,#000 0%,transparent 80%)}
+  .grain{position:absolute;inset:0;opacity:.03;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .vignette{position:absolute;inset:0;background:radial-gradient(circle at center,transparent 40%,rgba(0,0,0,0.4) 100%)}
+  .wrap{position:relative;z-index:2;width:100%;max-width:600px;display:flex;flex-direction:column;align-items:center}
+  .logo-wrap{position:relative;margin-bottom:24px;display:grid;place-items:center}
+  .logo{height:48px;filter:drop-shadow(0 8px 20px rgba(196,150,60,0.3));animation:levitate 5s ease-in-out infinite}
+  @keyframes levitate{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .provider-logo-box{margin-bottom:44px;display:grid;place-items:center;height:32px}
+  .provider-logo{height:26px;width:auto;opacity:.95;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3))}
+  .plan-badge{display:inline-flex;align-items:center;gap:9px;padding:9px 18px;border:1px solid var(--border);background:rgba(196,150,60,0.06);border-radius:100px;font-size:12px;color:var(--cream);margin-bottom:36px}
+  .plan-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--gold-light);box-shadow:0 0 8px var(--gold-light)}
+  .plan-badge b{color:var(--gold-light);font-weight:600}
+  .steps{display:flex;align-items:flex-start;justify-content:space-between;width:100%;max-width:620px;margin-bottom:56px;position:relative}
+  .steps::before{content:'';position:absolute;top:15px;left:15px;right:15px;height:1px;background:var(--border)}
+  .progressline{position:absolute;top:15px;left:15px;height:1px;background:linear-gradient(90deg,var(--gold),var(--gold-light));box-shadow:0 0 10px rgba(196,150,60,0.4);z-index:0}
+  .step{display:flex;flex-direction:column;align-items:center;gap:10px;flex:1;position:relative;z-index:1}
+  .dot{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:500;background:#0a0a0a;border:1px solid var(--border);color:var(--muted);transition:all .4s cubic-bezier(0.4,0,0.2,1)}
+  .dot svg{width:14px;height:14px}
+  .step.done .dot{background:var(--gold);border-color:transparent;color:#000;box-shadow:0 0 20px rgba(196,150,60,0.3)}
+  .step.active .dot{border-color:var(--gold-light);color:var(--gold-light);background:#111;box-shadow:0 0 0 4px rgba(196,150,60,0.1),0 0 25px rgba(196,150,60,0.2)}
+  .step .label{font-size:9px;letter-spacing:.15em;color:var(--muted);text-align:center;text-transform:uppercase;font-weight:500}
+  .step.active .label{color:var(--cream)}
+  .step.done .label{color:var(--gold)}
+  .card{position:relative;width:100%;border-radius:4px;padding:52px 48px;background:rgba(10,10,10,0.8);backdrop-filter:blur(24px);border:1px solid var(--border);box-shadow:0 40px 100px rgba(0,0,0,0.6),inset 0 0 40px rgba(196,150,60,0.02);text-align:center}
+  .card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.4}
+  .eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:600}
+  h1{font-family:var(--display);font-weight:600;font-size:40px;line-height:1.08;margin-bottom:16px;color:#fff}
+  .sub{color:var(--soft);font-size:16px;line-height:1.6;margin-bottom:36px;font-weight:300;max-width:440px;margin-left:auto;margin-right:auto}
+  .info-box{border:1px solid rgba(196,150,60,0.1);border-radius:2px;padding:22px;background:rgba(196,150,60,0.03);font-size:14px;line-height:1.6;color:var(--soft);margin-bottom:40px;position:relative;text-align:left}
+  .info-box::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold)}
+  .info-box strong{color:var(--cream);font-weight:500}
+
+  .btn{position:relative;overflow:hidden;width:100%;padding:20px;border:none;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#000;background:linear-gradient(135deg,var(--gold-light),var(--gold));transition:all .3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 15px 35px rgba(196,150,60,0.25);display:flex;align-items:center;justify-content:center;gap:12px;margin-top:8px}
+  .btn:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 20px 50px rgba(196,150,60,0.4)}
+  .btn:disabled{opacity:.6;cursor:not-allowed}
+  .spinner{width:20px;height:20px;border:2px solid rgba(0,0,0,0.2);border-top-color:#000;border-radius:50%;animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .powered{margin-top:28px;display:flex;align-items:center;justify-content:center;gap:10px;color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+  .error-banner{display:none;margin-top:20px;padding:14px 20px;border-radius:2px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.2);color:#ef4444;font-size:13px;line-height:1.5;text-align:center}
+  .error-banner.visible{display:block}
+  .success-banner{display:none;margin-top:20px;padding:14px 20px;border-radius:2px;background:rgba(74,222,128,0.05);border:1px solid rgba(74,222,128,0.2);color:#4ade80;font-size:13px;line-height:1.5;text-align:center}
+  .success-banner.visible{display:block}
+  @media(max-width:480px){.card{padding:40px 24px}h1{font-size:32px}.steps{max-width:100%}.step .label{display:none}}
+</style>
 </head>
 <body>
-<div class="bg-layers"><div class="light-bloom"></div><div class="grid"></div><div class="vignette"></div><div class="grain"></div></div>
-<a href="https://hermia.au" class="quit-link">Exit Onboarding</a>
-
+<div class="bg" aria-hidden="true">
+  <div class="bloom"></div>
+  <div class="gridfloor"></div>
+  <div class="vignette"></div>
+  <div class="grain"></div>
+</div>
 <div class="wrap">
-    <div class="logo-wrap"><img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" /></div>
+  <div class="logo-wrap">
+    <img class="logo" src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" />
+  </div>
 
-    <div class="steps">
-        <div class="progressline" id="progressLine"></div>
-        <div class="step" id="step1"><div class="dot">1</div><div class="label">Payment</div></div>
-        <div class="step" id="step2"><div class="dot">2</div><div class="label">Business</div></div>
-        <div class="step" id="step3"><div class="dot">3</div><div class="label">Details</div></div>
-        <div class="step" id="step4"><div class="dot">4</div><div class="label">Simpro</div></div>
-        <div class="step" id="step5"><div class="dot">5</div><div class="label">Connect</div></div>
-        <div class="step" id="step6"><div class="dot">6</div><div class="label">Setup</div></div>
+  <div class="plan-badge" id="planBadge" style="display:none;">
+    <span class="dot"></span>
+    <span>Setting up <b id="planBadgeName">your plan</b></span>
+  </div>
+
+  <div class="steps" id="stepTracker">
+    <div class="progressline" id="progressline"></div>
+  </div>
+
+  <div class="card">
+    <div class="eyebrow">Phase 05 &bull; Integration</div>
+    <h1 id="pageHeading">Connect your inbox to Hermia</h1>
+    <p class="sub" id="pageSub">Securely connect your inbox so Hermia can start qualifying your leads automatically.</p>
+    <div class="info-box">
+      Hermia only reads and extracts job enquiries from this inbox — it never sends anything on your behalf, and it never touches anything outside your inbox.
     </div>
 
-    <div class="card">
-        <div class="eyebrow">Final Step</div>
-        <h1>Connect your Gmail to Hermia</h1>
-        <p class="sub">Securely connect your Gmail account so Hermia can start qualifying your leads automatically. This takes less than a minute.</p>
-
-        <div class="action-area">
-            <div id="statusArea"></div>
-            <button class="btn" id="connectBtn" onclick="startUnipileConnect()">
-                Connect Gmail
-            </button>
-        </div>
-
-        <div class="powered">Secured by Hermia &amp; Unipile</div>
-    </div>
+    <button class="btn" id="connectBtn">Connect</button>
+    <div class="error-banner" id="errorBanner"></div>
+    <div class="success-banner" id="successBanner"></div>
+    <div class="powered">Secured by Hermia &amp; Unipile</div>
+  </div>
 </div>
 
 <script>
-    const WORKER = 'https://hermianango.capital-fbc.workers.dev';
-    const ACTIVE_IDX = 6;
+  const ALL_STEPS = ['Payment','Business','Details','AroFlo','Connect','Setup'];
+  const ACTIVE_INDEX = 4;
+  const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  (function buildSteps(){
+    const track = document.getElementById('stepTracker');
+    ALL_STEPS.forEach((label,i)=>{
+      const div = document.createElement('div');
+      const state = i < ACTIVE_INDEX ? 'done' : (i===ACTIVE_INDEX ? 'active' : '');
+      div.className = 'step ' + state;
+      div.innerHTML = `<div class="dot">${state==='done'?CHECK_SVG:(i+1)}</div><div class="label">${label}</div>`;
+      track.appendChild(div);
+    });
+    document.getElementById('progressline').style.width = `calc((100% - 30px) * ${ACTIVE_INDEX/(ALL_STEPS.length-1)})`;
+  })();
 
-    function getCustomerId() {
-        return sessionStorage.getItem('hermia_customer_id');
+  // ============================================================
+  // PLAN-AWARE WORDING — same carry-through pattern as
+  // aroflo_connect.html. Reads the plan set earlier in onboarding,
+  // maps it to a display name, and swaps every provider-specific
+  // string on the page. Falls back to generic "inbox" wording if
+  // the plan is missing/unrecognized, so the page never shows
+  // wrong or blank provider text.
+  // ============================================================
+  const PLAN_NAMES = {
+      gmail:   'Gmail',
+      outlook: 'Outlook'
+  };
+  const pageParams = new URLSearchParams(window.location.search);
+  let plan = pageParams.get('plan');
+  if (!plan) {
+      try { plan = sessionStorage.getItem('hermia_plan') || ''; } catch(e) { plan = ''; }
+  }
+  if (plan === 'email') plan = 'gmail';
+  if (plan === 'custom') plan = 'outlook';
+  try { if (plan) sessionStorage.setItem('hermia_plan', plan); } catch(e) {}
+
+  const providerName = PLAN_NAMES[plan] || null;
+
+  if (providerName) {
+      document.getElementById('planBadgeName').textContent = providerName;
+      document.getElementById('planBadge').style.display = 'inline-flex';
+      document.getElementById('pageHeading').textContent = 'Connect your ' + providerName + ' to Hermia';
+      document.getElementById('pageSub').textContent =
+        'Securely connect your ' + providerName + ' account so Hermia can start qualifying your leads automatically.';
+      document.getElementById('connectBtn').textContent = 'Connect ' + providerName;
+  } else {
+      // Unknown/missing plan: keep the generic "inbox" wording already
+      // in the HTML above rather than guessing a provider.
+      document.getElementById('connectBtn').textContent = 'Connect Inbox';
+  }
+
+  // Error state coming back from Unipile's failure_redirect_url
+  // (?customerId=...&error=unipile_failed), configured server-side in
+  // /unipile/connect-link.
+  if (pageParams.get('error') === 'unipile_failed') {
+    const banner = document.getElementById('errorBanner');
+    banner.textContent = 'We couldn\u2019t complete the connection. Please try again.';
+    banner.classList.add('visible');
+  }
+
+  const WORKER = 'https://hermianango.capital-fbc.workers.dev';
+  const btn = document.getElementById('connectBtn');
+  const errorBanner = document.getElementById('errorBanner');
+  const successBanner = document.getElementById('successBanner');
+
+  // FIX (2026-07-21): was reading sessionStorage.getItem('hermia_outlooker_id'),
+  // a legacy key name from before the switch to Unipile. The key actually
+  // written earlier in onboarding (same pattern used in aroflo_connect.html
+  // and the original gmail.html) is 'hermia_customer_id'. This page never
+  // needs a Unipile account ID directly — that's extracted later on
+  // hermia_setup.html after Unipile's success redirect hands back
+  // ?customerId=... — this page only ever needs the Hermia customerId.
+  const customerId =
+    pageParams.get('customerId') ||
+    (function () { try { return sessionStorage.getItem('hermia_customer_id'); } catch(e) { return null; } })();
+
+  function showError(msg) {
+    successBanner.classList.remove('visible');
+    errorBanner.textContent = msg;
+    errorBanner.classList.add('visible');
+    btn.disabled = false;
+    btn.textContent = providerName ? ('Connect ' + providerName) : 'Connect Inbox';
+  }
+
+  // ------------------------------------------------------------------
+  // Clicking Connect fetches a Unipile hosted-auth link from the
+  // Worker, then hands the browser off to it. There is no in-page
+  // "success" state here — the actual OAuth happens on Unipile's
+  // hosted page, and Unipile itself redirects the browser afterward:
+  //   success -> https://onboarding.hermia.au/hermia_setup.html?customerId=...
+  //   failure -> back to this page with ?error=unipile_failed
+  // (both configured server-side in handleCreateUnipileConnectLink,
+  // see /unipile/connect-link in the Worker). This page only needs to
+  // request the link and redirect to it.
+  // ------------------------------------------------------------------
+  btn.addEventListener('click', async () => {
+    if (!customerId) { showError('Session expired. Please restart onboarding from the beginning.'); return; }
+
+    errorBanner.classList.remove('visible');
+    successBanner.classList.remove('visible');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner"></div> Connecting…';
+
+    try {
+      const res = await fetch(WORKER + '/unipile/connect-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ customerId })
+      });
+      const data = await res.json();
+      if (!res.ok || data.ok === false || !data.url) {
+        throw new Error(data.error || 'Something went wrong starting the connection.');
+      }
+      successBanner.textContent = 'Redirecting you to sign in…';
+      successBanner.classList.add('visible');
+      window.location.href = data.url;
+    } catch (e) {
+      showError(e.message || 'Could not start the connection. Please try again.');
     }
-
-    function updateSteps() {
-        [1,2,3,4,5,6].forEach(num => {
-            const el = document.getElementById('step' + num);
-            if (num < ACTIVE_IDX) el.classList.add('done');
-            if (num === ACTIVE_IDX) el.classList.add('active');
-        });
-        document.getElementById('progressLine').style.width =
-            ((ACTIVE_IDX - 1) / 5 * 100) + '%';
-    }
-
-    function startUnipileConnect() {
-        const id = getCustomerId();
-        const statusArea = document.getElementById('statusArea');
-        const btn = document.getElementById('connectBtn');
-
-        if (!id) {
-            statusArea.innerHTML = '<div class="status-msg err">Session expired — please restart onboarding.</div>';
-            return;
-        }
-
-        btn.disabled = true;
-        btn.textContent = 'Connecting...';
-        statusArea.innerHTML = '';
-
-        fetch(WORKER + '/unipile/connect-link', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ customerId: id })
-        })
-        .then(r => r.json())
-        .then(data => {
-            if (data.ok && data.url) {
-                window.location.href = data.url;
-            } else {
-                statusArea.innerHTML = '<div class="status-msg err">Could not start connection &mdash; refresh and try again.</div>';
-                console.error('[gmail.html] unipile/connect-link error:', data);
-                btn.disabled = false;
-                btn.textContent = 'Connect Gmail';
-            }
-        })
-        .catch(err => {
-            statusArea.innerHTML = '<div class="status-msg err">Could not start connection &mdash; refresh and try again.</div>';
-            console.error('[gmail.html] unipile/connect-link request failed:', err);
-            btn.disabled = false;
-            btn.textContent = 'Connect Gmail';
-        });
-    }
-
-    updateSteps();
+  });
 </script>
 </body>
 </html>
+
 
