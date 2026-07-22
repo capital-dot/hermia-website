@@ -20,6 +20,9 @@
             --red: #ff3b30;
             --red-bg: rgba(255, 59, 48, 0.08);
             --red-border: rgba(255, 59, 48, 0.5);
+            --green: #4ade80;
+            --green-bg: rgba(74, 222, 128, 0.08);
+            --green-border: rgba(74, 222, 128, 0.5);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
@@ -57,12 +60,44 @@
         .module-sub { font-size: 12.5px; color: var(--soft); margin-bottom: 18px; font-weight: 300; }
         .sub { font-size: 16px; color: var(--soft); margin-bottom: 30px; line-height: 1.7; font-weight: 300; }
 
+        /* ── CRM SELECTOR ── */
+        .selector-caption { font-size: 10px; text-transform: uppercase; letter-spacing: 0.35em; color: var(--gold); margin-bottom: 18px; font-weight: 400; text-align: center; }
+        .selector { display: flex; gap: 16px; width: 100%; margin-bottom: 4px; }
+        .crm-box {
+            flex: 1;
+            background: rgba(212,175,55,0.02);
+            border: 1px solid var(--border);
+            padding: 28px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color .2s, background .2s, transform .15s;
+            position: relative;
+        }
+        .crm-box:hover { border-color: var(--gold); background: var(--gold-muted); transform: translateY(-2px); box-shadow: 0 0 30px rgba(212,175,55,0.12); }
+        .crm-box:hover .crm-name { color: var(--gold-light); }
+        .crm-box .crm-name { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
+        .crm-box .crm-tag { font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); }
+
+        .back-link {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--soft); text-decoration: none; margin-bottom: 32px;
+            transition: color .2s;
+        }
+        .back-link:hover { color: var(--gold-light); }
+
         /* SCARY WARNING */
         .warning-box { width: 100%; background: var(--red-bg); border: 2px solid var(--red-border); padding: 30px; margin-bottom: 44px; text-align: center; box-shadow: 0 0 40px rgba(255,59,48,0.15); }
         .warning-title { color: var(--red); font-size: 15px; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700; margin-bottom: 16px; }
         .warning-text { color: var(--cream); font-size: 14.5px; line-height: 1.75; margin-bottom: 16px; }
         .warning-text b { color: var(--red); }
         .warning-screenshot { display: inline-block; padding: 10px 22px; border: 1px solid var(--red-border); color: var(--red); font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
+
+        /* ALL-CLEAR (AroFlo) */
+        .allclear-box { width: 100%; background: var(--green-bg); border: 2px solid var(--green-border); padding: 40px 30px; text-align: center; box-shadow: 0 0 40px rgba(74,222,128,0.12); }
+        .allclear-title { color: var(--green); font-size: 15px; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700; margin-bottom: 16px; }
+        .allclear-text { color: var(--cream); font-size: 15.5px; line-height: 1.75; }
+        .allclear-text b { color: var(--green); }
 
         .module-block { margin-bottom: 34px; }
         .module-block:last-child { margin-bottom: 0; }
@@ -76,6 +111,10 @@
 
         .aroflo-note { width: 100%; border: 1px dashed var(--border); padding: 22px; color: var(--soft); font-size: 13.5px; line-height: 1.7; text-align: center; margin-top: 10px; }
         .aroflo-note b { color: var(--gold-light); }
+
+        /* CRM panels */
+        .crm-panel { display: none; }
+        .crm-panel.active { display: block; }
 
         /* EMAIL REMINDER CARD */
         .email-card { width: 100%; background: var(--bg-card); border: 1px solid var(--border); padding: 44px 50px; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
@@ -92,7 +131,7 @@
         .email-status.ok { color: #4ade80; }
         .email-status.err { color: var(--red); }
 
-        @media (max-width: 600px) { .card, .email-card { padding: 36px 24px; } h1 { font-size: 36px; } .email-row { flex-direction: column; } }
+        @media (max-width: 600px) { .card, .email-card { padding: 36px 24px; } h1 { font-size: 36px; } .email-row { flex-direction: column; } .selector { flex-direction: column; } }
     </style>
 </head>
 <body>
@@ -118,11 +157,28 @@
             <div class="step active"><div class="dot">7</div><div class="label">Setup</div></div>
         </div>
 
-        <div class="card">
+        <div class="card" id="selector-card">
             <div class="eyebrow">Final Configuration</div>
             <h1>Welcome</h1>
             <div class="setup-complete">Setup complete</div>
 
+            <div class="selector-caption">Your CRM</div>
+            <div class="selector">
+                <div class="crm-box" id="box-simpro" data-crm="simpro">
+                    <div class="crm-name">Simpro</div>
+                    <div class="crm-tag">Custom fields required</div>
+                </div>
+                <div class="crm-box" id="box-aroflo" data-crm="aroflo">
+                    <div class="crm-name">AroFlo</div>
+                    <div class="crm-tag">No setup required</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════ SIMPRO PANEL ═══════════ -->
+        <div class="card crm-panel" id="panel-simpro">
+            <a href="#" class="back-link" id="back-from-simpro">&larr; Change CRM</a>
             <div class="warning-box">
                 <div class="warning-title">Create these fields</div>
                 <p class="warning-text">
@@ -173,16 +229,22 @@
                     <div class="field-row"><div class="field-name">Building type</div><div class="field-type custom">Custom — create</div></div>
                 </div>
             </div>
+        </div>
 
-            <div class="module-block">
-                <h2>AroFlo</h2>
-                <div class="aroflo-note">
-                    AroFlo setup isn't live yet. Once it is, this section will mirror the <b>exact same fields</b> as the Simpro breakdown above.
-                </div>
+        <!-- ═══════════ AROFLO PANEL ═══════════ -->
+        <div class="card crm-panel" id="panel-aroflo">
+            <a href="#" class="back-link" id="back-from-aroflo">&larr; Change CRM</a>
+            <div class="allclear-box">
+                <div class="allclear-title">Setup complete</div>
+                <p class="allclear-text">
+                    <b>No further steps required.</b><br />
+                    Your AroFlo connection is fully configured on our end — there are no custom fields for you to create. Leads will start flowing through automatically.
+                </p>
             </div>
         </div>
 
-        <div class="email-card">
+        <!-- ═══════════ EMAIL REMINDER (Simpro only) ═══════════ -->
+        <div class="email-card crm-panel" id="panel-simpro-email">
             <h2>Get these fields by email</h2>
             <p class="sub" style="margin-bottom:0;">Enter your email and we'll send you this exact list of fields to create, so you have it on hand while you're setting up each module.</p>
             <div class="email-row">
@@ -202,6 +264,51 @@
             try { customerId = sessionStorage.getItem('hermia_outlooker_id') || null; } catch (e) { customerId = null; }
         }
 
+        // ── CRM selector: a one-way "enter" into a dedicated view, not a
+        // toggle between two visible panels. Entering one CRM hides the
+        // selector AND the other CRM's panel entirely — only "Change CRM"
+        // brings the selector back. ──
+        const boxSimpro = document.getElementById('box-simpro');
+        const boxAroflo = document.getElementById('box-aroflo');
+        const selectorCard = document.getElementById('selector-card');
+        const panelSimpro = document.getElementById('panel-simpro');
+        const panelAroflo = document.getElementById('panel-aroflo');
+        const panelSimproEmail = document.getElementById('panel-simpro-email');
+        const backFromSimpro = document.getElementById('back-from-simpro');
+        const backFromAroflo = document.getElementById('back-from-aroflo');
+
+        function enterCrm(crm) {
+            const isSimpro = crm === 'simpro';
+            selectorCard.style.display = 'none';
+            panelSimpro.classList.toggle('active', isSimpro);
+            panelSimproEmail.classList.toggle('active', isSimpro);
+            panelAroflo.classList.toggle('active', !isSimpro);
+            try { sessionStorage.setItem('hermia_crm_choice', crm); } catch (e) {}
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showSelector() {
+            panelSimpro.classList.remove('active');
+            panelSimproEmail.classList.remove('active');
+            panelAroflo.classList.remove('active');
+            selectorCard.style.display = '';
+            try { sessionStorage.removeItem('hermia_crm_choice'); } catch (e) {}
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        boxSimpro.addEventListener('click', () => enterCrm('simpro'));
+        boxAroflo.addEventListener('click', () => enterCrm('aroflo'));
+        backFromSimpro.addEventListener('click', (e) => { e.preventDefault(); showSelector(); });
+        backFromAroflo.addEventListener('click', (e) => { e.preventDefault(); showSelector(); });
+
+        // Deep link (?crm=simpro / ?crm=aroflo) enters directly; otherwise
+        // the selector is shown and nothing is revealed until a choice is made.
+        const crmParam = params.get('crm');
+        if (crmParam === 'simpro' || crmParam === 'aroflo') {
+            enterCrm(crmParam);
+        }
+
+        // ── Email reminder (Simpro fields only) ──
         const btn = document.getElementById('saveBtn');
         const input = document.getElementById('reminderEmail');
         const status = document.getElementById('emailStatus');
