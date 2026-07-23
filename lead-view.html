@@ -6,290 +6,244 @@
 <title>Job Docket — Hermia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #FAF7F0;
-    --ink: #1C1B19;
-    --steel: #3D4046;
-    --steel-light: #6B6E73;
-    --amber: #F2A900;
-    --rust: #C1440E;
-    --line: #D8D2C4;
-    --line-dark: #4A4D52;
+    --bg:#0d0b07;
+    --card:rgba(201,163,91,0.035);
+    --card-hi:rgba(201,163,91,0.06);
+    --gold:#C9A35B;
+    --gold-light:#e8c17a;
+    --cream:#f4f0e6;
+    --soft:#b0ada5;
+    --muted:#7a7470;
+    --border:rgba(201,163,91,0.16);
+    --border-strong:rgba(201,163,91,0.4);
+    --red:#c9776a;
+    --radius:16px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
+  html { height: 100%; }
   body {
-    background: var(--steel);
-    color: var(--ink);
-    font-family: 'IBM Plex Sans', sans-serif;
-    min-height: 100vh;
-    padding: 24px 16px 60px;
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100%;
+    -webkit-font-smoothing: antialiased;
+    padding: 32px 18px 56px;
+    position: relative;
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  /* ── Background, matches onboarding/site pages ── */
+  .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .bloom {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(900px 700px at 50% 0%, rgba(201,163,91,0.12) 0%, transparent 58%),
+      radial-gradient(560px 460px at 50% 0%, rgba(201,163,91,0.06) 0%, transparent 50%);
+  }
+  .grain {
+    position: absolute; inset: 0; opacity: .035; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    * { animation: none !important; transition: none !important; }
-  }
+  .wrap { max-width: 620px; margin: 0 auto; position: relative; z-index: 1; }
 
   .docket {
-    max-width: 640px;
-    margin: 0 auto;
-    background: var(--paper);
-    border-radius: 4px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-    position: relative;
     opacity: 0;
-    animation: riseIn 0.5s ease-out forwards;
+    animation: riseIn .55s ease-out forwards;
   }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes riseIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Header */
+  /* ── Header ── */
   .head {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 22px 24px 18px;
-    position: relative;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    background: linear-gradient(150deg, rgba(201,163,91,0.09), rgba(201,163,91,0.015));
+    padding: 26px 26px 24px;
+    margin-bottom: 22px;
   }
+  .head-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .brand { display: flex; align-items: center; gap: 9px; }
+  .brand img { height: 22px; display: block; filter: drop-shadow(0 0 8px rgba(201,163,91,0.3)); }
+  .brand-text { font-size: 10.5px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); }
+  .brand-text span { color: var(--soft); font-weight: 400; letter-spacing: .12em; text-transform: none; }
+  .docket-id { font-size: 11px; color: var(--muted); letter-spacing: .04em; white-space: nowrap; }
 
-  .head-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 12px;
-  }
+  .head-client-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-top: 22px; }
+  .head-client-label { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); opacity: .85; margin-bottom: 8px; }
+  .head-title { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: clamp(28px, 6vw, 36px); line-height: 1.08; letter-spacing: -.01em; color: #fff; }
+  .head-sub { font-size: 12.5px; color: var(--soft); margin-top: 8px; line-height: 1.6; }
 
-  .mark {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--amber);
-  }
-
-  .mark span {
-    color: var(--paper);
-    opacity: 0.55;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-  }
-
-  .docket-id {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--paper);
-    opacity: 0.5;
-    text-align: right;
-    white-space: nowrap;
-  }
-
-  .head-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    margin-top: 14px;
-    line-height: 1.15;
-  }
-
-  .head-sub {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12.5px;
-    color: var(--paper);
-    opacity: 0.6;
-    margin-top: 6px;
-  }
-
-  /* Stamp */
   .stamp {
-    position: absolute;
-    top: 18px;
-    right: -6px;
-    transform: rotate(8deg);
-    border: 2.5px solid var(--rust);
-    color: var(--rust);
-    font-family: 'Oswald', sans-serif;
-    font-weight: 700;
-    font-size: 13px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 5px 12px;
-    border-radius: 3px;
-    background: rgba(193, 68, 14, 0.06);
+    flex-shrink: 0;
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px solid var(--border-strong);
+    color: var(--gold-light);
+    background: var(--card-hi);
+    font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+    padding: 7px 14px; border-radius: 99px; white-space: nowrap;
   }
+  .stamp.urgent { border-color: rgba(201,119,106,0.55); color: var(--red); background: rgba(201,119,106,0.08); }
+  .stamp .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; box-shadow: 0 0 6px currentColor; }
 
-  .stamp.normal {
-    border-color: var(--amber);
-    color: #B4880A;
-    background: rgba(242, 169, 0, 0.08);
-  }
-
-  /* Body */
-  .body-wrap { padding: 4px 24px 8px; }
+  /* ── Sections ── */
+  .sections { display: flex; flex-direction: column; gap: 20px; }
 
   .section {
-    padding: 18px 0;
-    border-bottom: 1px solid var(--line);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, var(--card), rgba(201,163,91,0.004));
+    box-shadow: 0 14px 34px rgba(0,0,0,0.28);
+    padding: 26px 26px 28px;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 0 18px;
+    transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
   }
+  .section:hover { border-color: var(--border-strong); transform: translateY(-2px); box-shadow: 0 18px 40px rgba(0,0,0,0.34); }
+  .section.warn { border-color: rgba(201,119,106,0.28); }
+  .section.warn:hover { border-color: rgba(201,119,106,0.5); }
 
-  .section:last-child { border-bottom: none; }
-
-  .eyebrow {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--steel-light);
-    margin-bottom: 8px;
+  .sec-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: rgba(201,163,91,0.1);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
   }
+  .sec-icon svg { width: 17px; height: 17px; stroke: var(--gold-light); }
+  .section.warn .sec-icon { background: rgba(201,119,106,0.12); }
+  .section.warn .sec-icon svg { stroke: var(--red); }
+
+  .sec-body { min-width: 0; }
+  .eyebrow { font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; padding-top: 6px; }
 
   .field-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 6px 0;
-    font-size: 14.5px;
-    line-height: 1.5;
+    display: flex; justify-content: space-between; gap: 16px;
+    padding: 8px 0; font-size: 14px; line-height: 1.5;
+    border-bottom: 1px solid var(--border);
   }
+  .field-row:last-child { border-bottom: none; }
+  .field-label { color: var(--soft); flex-shrink: 0; min-width: 108px; }
+  .field-value { text-align: right; font-weight: 500; color: var(--cream); word-break: break-word; }
+  .field-value a { text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 2px; }
 
-  .field-label {
-    color: var(--steel-light);
-    flex-shrink: 0;
-    min-width: 108px;
-  }
+  .prose { font-size: 14.5px; line-height: 1.7; color: var(--cream); font-weight: 300; white-space: pre-wrap; }
 
-  .field-value {
-    text-align: right;
-    font-weight: 500;
-  }
-
-  .field-value a { color: var(--ink); }
-
-  .prose {
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--ink);
-  }
-
-  .tag-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 4px;
-  }
-
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
   .tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    padding: 4px 9px;
-    border: 1px solid var(--line);
-    border-radius: 3px;
-    color: var(--steel);
-    background: #F0EDE3;
+    font-size: 12px; padding: 7px 13px; border-radius: 99px;
+    border: 1px solid var(--border-strong); color: var(--gold-light);
+    background: var(--card-hi);
   }
-
-  .tag.warn {
-    border-color: var(--rust);
-    color: var(--rust);
-    background: rgba(193, 68, 14, 0.06);
-  }
+  .tag.hazard { border-color: rgba(201,119,106,0.45); color: var(--red); background: rgba(201,119,106,0.08); font-weight: 500; }
+  .tag-empty { font-size: 12.5px; color: var(--muted); font-style: italic; }
 
   /* Media */
-  .media-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 8px;
-    margin-top: 4px;
-  }
-
+  .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
   .media-item {
-    aspect-ratio: 1;
-    border-radius: 3px;
-    overflow: hidden;
-    background: #EDE9DC;
-    border: 1px solid var(--line);
+    aspect-ratio: 1; border-radius: 10px; overflow: hidden;
+    background: rgba(201,163,91,0.06); border: 1px solid var(--border);
+    cursor: pointer; position: relative; padding: 0; display: block; width: 100%;
+    transition: border-color .2s ease;
   }
+  .media-item:hover { border-color: var(--gold); }
+  .media-item img, .media-item video { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+  .media-item .play-badge { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(13,11,7,0.28); }
+  .media-item .play-badge svg { width: 20px; height: 20px; fill: var(--cream); filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5)); }
 
-  .media-item img,
-  .media-item video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .media-link {
-    display: inline-block;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
-    color: var(--ink);
-    text-decoration: underline;
-    text-decoration-color: var(--amber);
-    text-underline-offset: 3px;
-    padding: 8px 0;
-  }
-
-  /* Footer */
+  /* ── Footer ── */
   .foot {
-    background: #F0EDE3;
-    padding: 14px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10.5px;
-    color: var(--steel-light);
-    letter-spacing: 0.04em;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 6px 4px; font-size: 11px; color: var(--muted); letter-spacing: .04em; gap: 12px;
   }
+  .foot-mark { color: var(--gold); font-weight: 600; }
 
-  .foot-mark { color: var(--amber); font-weight: 500; }
+  /* ── Lightbox ── */
+  .lightbox { position: fixed; inset: 0; z-index: 500; background: #060504; display: none; flex-direction: column; }
+  .lightbox.show { display: flex; animation: fadeIn .2s ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-  /* Empty / error state */
-  .empty-wrap {
-    max-width: 480px;
-    margin: 80px auto;
-    text-align: center;
-    color: var(--paper);
-    padding: 0 20px;
+  .lb-bar { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  .lb-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--gold-light); text-decoration: none;
+    font-size: 12px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase;
+    border: 1px solid rgba(201,163,91,0.35); padding: 8px 16px 8px 12px; border-radius: 8px;
+    background: rgba(201,163,91,0.05); cursor: pointer;
+    transition: all .25s ease;
   }
+  .lb-back:hover { color: #fff; border-color: var(--gold); background: rgba(201,163,91,0.12); }
+  .lb-back svg { width: 15px; height: 15px; stroke: currentColor; }
 
-  .empty-wrap .mark { justify-content: center; display: flex; margin-bottom: 20px; }
+  .lb-brand { display: flex; align-items: center; gap: 7px; opacity: .9; }
+  .lb-brand img { height: 16px; filter: drop-shadow(0 0 6px rgba(201,163,91,0.4)); }
+  .lb-brand span { font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
 
-  .empty-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 10px;
+  .lb-counter { font-size: 11.5px; color: var(--muted); }
+
+  .lb-stage { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 14px 16px 24px; position: relative; }
+  .lb-stage img, .lb-stage video { max-width: 100%; max-height: 100%; border-radius: 8px; box-shadow: 0 24px 70px rgba(0,0,0,0.55); }
+
+  .lb-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 42px; height: 42px; border-radius: 50%;
+    background: rgba(201,163,91,0.07); border: 1px solid var(--border-strong);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: var(--gold-light);
+    transition: background .2s ease, border-color .2s ease;
   }
+  .lb-nav:hover { background: rgba(201,163,91,0.18); border-color: var(--gold); }
+  .lb-nav.prev { left: 12px; }
+  .lb-nav.next { right: 12px; }
+  .lb-nav svg { width: 18px; height: 18px; stroke: currentColor; }
 
-  .empty-body {
-    font-size: 14.5px;
-    opacity: 0.7;
-    line-height: 1.6;
-  }
+  /* ── Empty / error state ── */
+  .empty-wrap { max-width: 440px; margin: 110px auto; text-align: center; padding: 0 20px; position: relative; z-index: 1; }
+  .empty-wrap .brand { justify-content: center; margin-bottom: 28px; }
+  .empty-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; color: #fff; margin-bottom: 10px; }
+  .empty-body { font-size: 14px; color: var(--soft); line-height: 1.7; }
 
   @media (max-width: 420px) {
-    .head-title { font-size: 23px; }
-    .field-row { flex-direction: column; gap: 2px; }
+    .head { padding: 22px 20px 20px; margin-bottom: 18px; }
+    .head-client-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .sections { gap: 16px; }
+    .section { grid-template-columns: 30px 1fr; gap: 0 12px; padding: 20px 18px 22px; }
+    .sec-icon { width: 28px; height: 28px; }
+    .sec-icon svg { width: 14px; height: 14px; }
+    .field-row { flex-direction: column; gap: 3px; }
     .field-value { text-align: left; }
-    .stamp { font-size: 11px; padding: 4px 9px; top: 16px; }
+    .lb-nav { width: 36px; height: 36px; }
   }
 </style>
 </head>
 <body>
 
+<div class="bg" aria-hidden="true"><div class="bloom"></div><div class="grain"></div></div>
+
 <div id="root"></div>
 
 <script>
 (function () {
+  const LOGO_URL = 'https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png';
+
+  const ICONS = {
+    contact: '<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="7" r="4" stroke-width="1.6"/>',
+    job: '<circle cx="12" cy="12" r="9" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>',
+    fault: '<path d="M12 9v4M12 17h.01" stroke-width="1.8" stroke-linecap="round"/><path d="M10.3 3.9L2.5 17.5A1.5 1.5 0 003.8 20h16.4a1.5 1.5 0 001.3-2.5L13.7 3.9a1.5 1.5 0 00-3.4 0z" stroke-width="1.6" stroke-linejoin="round"/>',
+    access: '<path d="M12 21s7-6.1 7-11.5A7 7 0 105 9.5C5 14.9 12 21 12 21z" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.4" stroke-width="1.6"/>',
+    hazard: '<path d="M12 9v4M12 17h.01" stroke-width="1.9" stroke-linecap="round"/><path d="M10.3 3.9L2.5 17.5A1.5 1.5 0 003.8 20h16.4a1.5 1.5 0 001.3-2.5L13.7 3.9a1.5 1.5 0 00-3.4 0z" stroke-width="1.7" stroke-linejoin="round"/>',
+    media: '<rect x="3" y="7" width="18" height="13" rx="2" stroke-width="1.6"/><path d="M8 7l1.6-2.5A1.5 1.5 0 0110.85 4h2.3a1.5 1.5 0 011.25.75L15.6 7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.2" stroke-width="1.6"/>'
+  };
+
+  function iconHtml(name) {
+    return '<div class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round">' + (ICONS[name] || '') + '</svg></div>';
+  }
+
   function decodePayload() {
     const params = new URLSearchParams(window.location.search);
     const d = params.get('d');
@@ -313,127 +267,206 @@
     return div.innerHTML;
   }
 
-  function isUrl(str) {
-    if (!str) return false;
-    return /^https?:\/\//i.test(str.trim());
-  }
-
-  function splitUrls(str) {
-    if (!str) return [];
-    return str.split(/[\s,]+/).map(s => s.trim()).filter(isUrl);
-  }
-
-  function isVideoUrl(url) {
-    return /\.(mp4|mov|webm|m4v)(\?.*)?$/i.test(url);
-  }
-
-  function renderMedia(photosVideosStr) {
-    const urls = splitUrls(photosVideosStr);
-    if (!urls.length) return '';
-    const items = urls.map(function (url) {
-      if (isVideoUrl(url)) {
-        return '<div class="media-item"><video src="' + escapeHtml(url) + '" controls preload="metadata"></video></div>';
+  // Pull a value trying several likely key spellings, since the upstream
+  // scenario may send slightly different casing than the payload spec.
+  function pick(data, keys) {
+    for (const k of keys) {
+      if (data[k] !== undefined && data[k] !== null && String(data[k]).trim() !== '') {
+        return String(data[k]).trim();
       }
-      return '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener"><div class="media-item"><img src="' + escapeHtml(url) + '" alt="Job photo" loading="lazy"></div></a>';
-    }).join('');
-    return '<div class="media-grid">' + items + '</div>';
+    }
+    return '';
   }
+
+  function isUrl(str) { return !!str && /^https?:\/\//i.test(str.trim()); }
+  function splitUrls(str) { return str ? str.split(/[\s,]+/).map(s => s.trim()).filter(isUrl) : []; }
+  function isVideoUrl(url) { return /\.(mp4|mov|webm|m4v)(\?.*)?$/i.test(url); }
 
   function fieldRow(label, value) {
     if (!value) return '';
     return '<div class="field-row"><span class="field-label">' + escapeHtml(label) + '</span><span class="field-value">' + escapeHtml(value) + '</span></div>';
   }
 
-  function tag(text, warn) {
+  function tag(text, hazard) {
     if (!text) return '';
-    return '<span class="tag' + (warn ? ' warn' : '') + '">' + escapeHtml(text) + '</span>';
+    return '<span class="tag' + (hazard ? ' hazard' : '') + '">' + escapeHtml(text) + '</span>';
   }
 
   function renderEmpty() {
     document.getElementById('root').innerHTML =
       '<div class="empty-wrap">' +
-        '<div class="mark">HERMIA</div>' +
+        '<div class="brand"><img src="' + LOGO_URL + '" alt="Hermia"><span class="brand-text">HERMIA</span></div>' +
         '<div class="empty-title">This docket link isn\'t readable</div>' +
-        '<div class="empty-body">The link may be incomplete or was copied wrong. Go back to the client message in AroFlo and open the link again.</div>' +
+        '<div class="empty-body">The link may be incomplete or was copied wrong. Go back to the client message and open the link again.</div>' +
       '</div>';
   }
 
-  function render(data) {
-    const name = data.fullName || [data.firstName, data.lastName].filter(Boolean).join(' ') || 'Customer';
-    const urgencyRaw = (data.urgency || data.priorityTag || '').toLowerCase();
-    const isUrgent = /urgent|asap|emergency|high/.test(urgencyRaw);
+  let mediaItems = [];
+  let lbIndex = 0;
 
-    const stampHtml = (data.urgency || data.priorityTag)
-      ? '<div class="stamp' + (isUrgent ? '' : ' normal') + '">' + escapeHtml(data.urgency || data.priorityTag) + '</div>'
+  function openLightbox(index) {
+    lbIndex = index;
+    renderLightboxFrame();
+    document.getElementById('lightbox').classList.add('show');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('show');
+    document.getElementById('lbStage').innerHTML = '';
+  }
+  function stepLightbox(delta) {
+    lbIndex = (lbIndex + delta + mediaItems.length) % mediaItems.length;
+    renderLightboxFrame();
+  }
+  function renderLightboxFrame() {
+    const item = mediaItems[lbIndex];
+    const stage = document.getElementById('lbStage');
+    if (!item) { stage.innerHTML = ''; return; }
+    stage.innerHTML = item.isVideo
+      ? '<video src="' + escapeHtml(item.url) + '" controls autoplay></video>'
+      : '<img src="' + escapeHtml(item.url) + '" alt="Job photo">';
+    document.getElementById('lbCounter').textContent = (lbIndex + 1) + ' / ' + mediaItems.length;
+    const showNav = mediaItems.length > 1;
+    document.getElementById('lbPrev').style.display = showNav ? 'flex' : 'none';
+    document.getElementById('lbNext').style.display = showNav ? 'flex' : 'none';
+  }
+
+  function renderMediaSection(photosVideosStr) {
+    const urls = splitUrls(photosVideosStr);
+    if (!urls.length) return '';
+    mediaItems = urls.map(u => ({ url: u, isVideo: isVideoUrl(u) }));
+    const items = mediaItems.map(function (item, i) {
+      const inner = item.isVideo
+        ? '<video src="' + escapeHtml(item.url) + '" preload="metadata"></video><div class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>'
+        : '<img src="' + escapeHtml(item.url) + '" alt="Job photo" loading="lazy">';
+      return '<button type="button" class="media-item" onclick="__docket.openLightbox(' + i + ')" aria-label="View photo ' + (i + 1) + '">' + inner + '</button>';
+    }).join('');
+    return '<div class="media-grid">' + items + '</div>';
+  }
+
+  function render(data) {
+    const firstName = pick(data, ['firstName', 'first_name', 'givenNames', 'given_names', 'fullName', 'full_name', 'name']);
+    const lastName = pick(data, ['lastName', 'last_name', 'surname']);
+    const displayName = [firstName, lastName].filter(Boolean).join(' ') || 'New enquiry';
+
+    const urgencyVal = pick(data, ['urgency', 'priorityTag', 'priority_tag', 'priority']);
+    const isUrgent = /urgent|asap|emergency|high/i.test(urgencyVal);
+    const stampHtml = urgencyVal
+      ? '<div class="stamp' + (isUrgent ? ' urgent' : '') + '"><span class="dot"></span>' + escapeHtml(urgencyVal) + '</div>'
       : '';
 
-    const contactSection =
-      fieldRow('Phone', data.phone) +
-      fieldRow('Email', data.email) +
-      fieldRow('Billing entity', data.billingEntity);
+    const siteConfirmation = pick(data, ['siteConfirmation', 'site_confirmation', 'siteAddress']);
 
-    const jobSection =
-      fieldRow('Available', data.confirmationDate) +
-      fieldRow('Asset type', data.assetType) +
-      fieldRow('Building type', data.buildingType) +
-      fieldRow('Fault code', data.faultCode) +
-      fieldRow('Defect status', data.defectStatus);
+    const phone = pick(data, ['phone', 'contactPhone']);
+    const email = pick(data, ['email', 'contactEmail']);
+    const billingEntity = pick(data, ['billingEntity', 'billing_entity']);
+    const contactRows = fieldRow('Phone', phone) + fieldRow('Email', email) + fieldRow('Billing entity', billingEntity);
 
-    const tagsHtml = [
-      tag(data.safety, true),
-      tag(data.isolations, true),
-      tag(data.hazards, true),
-      tag(data.billing, false)
-    ].join('');
+    const confirmationDate = pick(data, ['confirmationDate', 'confirmation_date', 'available']);
+    const assetType = pick(data, ['assetType', 'asset_type']);
+    const buildingType = pick(data, ['buildingType', 'building_type']);
+    const faultCode = pick(data, ['faultCode', 'fault_code']);
+    const defectStatus = pick(data, ['defectStatus', 'defect_status']);
+    const billing = pick(data, ['billing']);
+    const jobRows =
+      fieldRow('Available', confirmationDate) +
+      fieldRow('Asset type', assetType) +
+      fieldRow('Building type', buildingType) +
+      fieldRow('Fault code', faultCode) +
+      fieldRow('Defect status', defectStatus) +
+      fieldRow('Billing', billing);
 
-    const mediaHtml = renderMedia(data.photosVideos);
+    const faultDescription = pick(data, ['faultDescription', 'fault_description']);
+    const accessNotes = pick(data, ['accessNotes', 'access_notes']);
+
+    // We no longer collect a separate "safety" field — hazards is the
+    // single source of truth here, alongside any isolations required.
+    const isolations = pick(data, ['isolations']);
+    const hazards = pick(data, ['hazards']);
+    const tagsHtml = [tag(hazards, true), tag(isolations, true)].filter(Boolean).join('');
+
+    const photosVideos = pick(data, ['photosVideos', 'photos_videos']);
+    const mediaHtml = renderMediaSection(photosVideos);
+
+    const sections = [];
+
+    sections.push(
+      '<div class="section">' + iconHtml('fault') + '<div class="sec-body">' +
+      '<div class="eyebrow">Fault description</div>' +
+      (faultDescription ? '<div class="prose">' + escapeHtml(faultDescription) + '</div>' : '<div class="tag-empty">Not provided</div>') +
+      '</div></div>'
+    );
+
+    if (contactRows) {
+      sections.push('<div class="section">' + iconHtml('contact') + '<div class="sec-body"><div class="eyebrow">Contact</div>' + contactRows + '</div></div>');
+    }
+
+    if (jobRows) {
+      sections.push('<div class="section">' + iconHtml('job') + '<div class="sec-body"><div class="eyebrow">Job details</div>' + jobRows + '</div></div>');
+    }
+
+    if (accessNotes) {
+      sections.push('<div class="section">' + iconHtml('access') + '<div class="sec-body"><div class="eyebrow">Access notes</div><div class="prose">' + escapeHtml(accessNotes) + '</div></div></div>');
+    }
+
+    // Always shown, even when empty, so a tech can trust the absence of
+    // a hazard rather than wondering if it just wasn't captured.
+    sections.push(
+      '<div class="section warn">' + iconHtml('hazard') + '<div class="sec-body"><div class="eyebrow">Hazards</div>' +
+      (tagsHtml ? '<div class="tag-row">' + tagsHtml + '</div>' : '<div class="tag-empty">No hazards flagged</div>') +
+      '</div></div>'
+    );
+
+    if (mediaHtml) {
+      sections.push('<div class="section">' + iconHtml('media') + '<div class="sec-body"><div class="eyebrow">Photos &amp; video</div>' + mediaHtml + '</div></div>');
+    }
 
     const html =
-      '<div class="docket">' +
+      '<div class="wrap"><div class="docket">' +
         '<div class="head">' +
-          stampHtml +
           '<div class="head-top">' +
-            '<div class="mark">HERMIA <span>· job docket</span></div>' +
+            '<div class="brand"><img src="' + LOGO_URL + '" alt="Hermia"><span class="brand-text">Hermia <span>· job docket</span></span></div>' +
             '<div class="docket-id">' + new Date().toISOString().slice(0, 10) + '</div>' +
           '</div>' +
-          '<div class="head-title">' + escapeHtml(name) + '</div>' +
-          (data.siteConfirmation ? '<div class="head-sub">' + escapeHtml(data.siteConfirmation) + '</div>' : '') +
+          '<div class="head-client-row">' +
+            '<div>' +
+              '<div class="head-client-label">Client</div>' +
+              '<div class="head-title">' + escapeHtml(displayName) + '</div>' +
+              (siteConfirmation ? '<div class="head-sub">' + escapeHtml(siteConfirmation) + '</div>' : '') +
+            '</div>' +
+            stampHtml +
+          '</div>' +
         '</div>' +
-        '<div class="body-wrap">' +
-
-          (data.faultDescription ?
-            '<div class="section"><div class="eyebrow">Fault description</div><div class="prose">' + escapeHtml(data.faultDescription) + '</div></div>'
-            : '') +
-
-          (contactSection ?
-            '<div class="section"><div class="eyebrow">Contact</div>' + contactSection + '</div>'
-            : '') +
-
-          (jobSection ?
-            '<div class="section"><div class="eyebrow">Job details</div>' + jobSection + '</div>'
-            : '') +
-
-          (data.accessNotes ?
-            '<div class="section"><div class="eyebrow">Access notes</div><div class="prose">' + escapeHtml(data.accessNotes) + '</div></div>'
-            : '') +
-
-          (tagsHtml ?
-            '<div class="section"><div class="eyebrow">Safety &amp; hazards</div><div class="tag-row">' + tagsHtml + '</div></div>'
-            : '') +
-
-          (mediaHtml ?
-            '<div class="section"><div class="eyebrow">Photos &amp; video</div>' + mediaHtml + '</div>'
-            : '') +
-
-        '</div>' +
+        '<div class="sections">' + sections.join('') + '</div>' +
         '<div class="foot">' +
           '<span>Generated by <span class="foot-mark">Hermia</span></span>' +
           '<span>Not stored · view only</span>' +
         '</div>' +
+      '</div></div>' +
+      '<div class="lightbox" id="lightbox">' +
+        '<div class="lb-bar">' +
+          '<button type="button" class="lb-back" onclick="__docket.closeLightbox()">' +
+            '<svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg> Back' +
+          '</button>' +
+          '<div class="lb-brand"><img src="' + LOGO_URL + '" alt="Hermia"><span>Hermia</span></div>' +
+          '<span class="lb-counter" id="lbCounter"></span>' +
+        '</div>' +
+        '<div class="lb-stage" id="lbStage">' +
+          '<div class="lb-nav prev" id="lbPrev" onclick="__docket.stepLightbox(-1)"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
+          '<div class="lb-nav next" id="lbNext" onclick="__docket.stepLightbox(1)"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
+        '</div>' +
       '</div>';
 
     document.getElementById('root').innerHTML = html;
+
+    document.addEventListener('keydown', function (e) {
+      if (!document.getElementById('lightbox').classList.contains('show')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') stepLightbox(-1);
+      if (e.key === 'ArrowRight') stepLightbox(1);
+    });
   }
+
+  window.__docket = { openLightbox, closeLightbox, stepLightbox };
 
   const data = decodePayload();
   if (!data) {
