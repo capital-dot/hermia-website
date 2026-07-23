@@ -1,347 +1,439 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hermia | Setup Complete</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
-    <style>
-        :root {
-            --bg: #080705;
-            --bg-card: rgba(10, 9, 7, 0.85);
-            --gold: #D4AF37;
-            --gold-light: #F9E2AF;
-            --gold-muted: rgba(212, 175, 55, 0.12);
-            --cream: #f4f0e6;
-            --soft: #a19d94;
-            --border: rgba(212, 175, 55, 0.2);
-            --red: #ff3b30;
-            --red-bg: rgba(255, 59, 48, 0.08);
-            --red-border: rgba(255, 59, 48, 0.5);
-            --green: #4ade80;
-            --green-bg: rgba(74, 222, 128, 0.08);
-            --green-border: rgba(74, 222, 128, 0.5);
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hermia | Setup Complete</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+<style>
+  /* ── Tokens: lifted straight from the pricing page, plus red/green
+     tints derived from the same --red/--green base for the warning /
+     all-clear boxes this page needs. ── */
+  :root {
+    --bg:#16140f;
+    --bg-card:rgba(201,163,91,0.035);
+    --gold:#C9A35B;
+    --gold-light:#e8c17a;
+    --cream:#f4f0e6;
+    --soft:#b6b1a6;
+    --border:rgba(201,163,91,0.16);
+    --border-strong:rgba(201,163,91,0.4);
+    --green:#7fb88a;
+    --red:#c97b6a;
+    --red-bg:rgba(201,123,106,0.08);
+    --red-border:rgba(201,123,106,0.45);
+    --green-bg:rgba(127,184,138,0.08);
+    --green-border:rgba(127,184,138,0.45);
+    --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
 
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
-        html { height: 100%; }
-        body { min-height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-y: auto; overflow-x: hidden; }
+  html{height:100%}
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    padding: 32px 20px 56px;
+  }
+  .shell {
+    margin: auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
 
-        .bg-layers { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-        .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,1) 100%); z-index: 5; }
-        .light-bloom { position: absolute; width: 100%; height: 100%; background: radial-gradient(circle at 50% 30%, rgba(212,175,55,0.05) 0%, transparent 65%); pointer-events: none; }
-        .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 120px 120px; -webkit-mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); opacity: 0.15; }
-        .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  /* ── Background: identical recipe to the pricing page ── */
+  .bg { position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden }
+  .bloom {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(900px 700px at 50% 30%, rgba(201,163,91,0.16) 0%, transparent 58%),
+      radial-gradient(560px 460px at 50% 30%, rgba(201,163,91,0.08) 0%, transparent 50%);
+  }
+  .gridfloor {
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(201,163,91,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,163,91,0.04) 1px, transparent 1px);
+    background-size:62px 62px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 32%, #000 0%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 55% at 50% 32%, #000 0%, transparent 100%);
+  }
+  .grain {
+    position:absolute;inset:0;opacity:.035;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
+  }
 
-        .topbar { position: relative; z-index: 10; width: 100%; max-width: 600px; margin: 0 auto; padding: 32px 24px 0; }
-        .home-link { display: inline-flex; align-items: center; }
-        .home-link img { height: 40px; filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.35)); transition: opacity .2s; }
-        .home-link:hover img { opacity: 0.8; }
+  /* ── Header: brand + step indicator (same component as pricing) ── */
+  .topbar {
+    width: 100%; max-width: 480px;
+    display: flex; flex-direction: column; align-items: center; gap: 22px;
+    margin-bottom: 34px;
+    opacity: 0; animation: fadeUp .6s ease 0s forwards;
+  }
+  .brandmark img { height: 30px; display: block; filter: drop-shadow(0 0 10px rgba(201,163,91,0.3)); }
 
-        .wrap { position: relative; z-index: 10; width: 100%; max-width: 600px; margin: 0 auto; padding: 40px 24px 120px; display: flex; flex-direction: column; align-items: center; }
+  .steps { display: flex; align-items: center; gap: 0; }
+  .step {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--soft); opacity: .45; transition: opacity .4s ease, color .4s ease;
+    white-space: nowrap;
+  }
+  .step .dot {
+    width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--soft);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 600; color: var(--soft);
+    transition: all .4s ease;
+  }
+  .step .dot svg { width: 9px; height: 9px; stroke-width: 3; }
+  .step.current { color: var(--gold-light); opacity: 1; }
+  .step.current .dot { background: var(--gold); border-color: var(--gold); color: var(--bg); box-shadow: 0 0 8px rgba(201,163,91,0.6); }
+  .step.done { opacity: .85; color: var(--soft); }
+  .step.done .dot { background: var(--green); border-color: var(--green); color: var(--bg); }
+  .step-line { width: 26px; height: 1px; background: var(--border); margin: 0 10px; }
 
-        .steps { display: flex; justify-content: space-between; width: 100%; margin-bottom: 60px; position: relative; }
-        .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.08); }
-        .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: linear-gradient(90deg, var(--gold-muted), var(--gold), var(--gold-muted)); box-shadow: 0 0 12px var(--gold); width: 100%; }
-        .step { display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; position: relative; z-index: 1; }
-        .dot { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 300; background: var(--gold); border: 1px solid var(--gold); color: #000; }
-        .dot svg { width: 14px; height: 14px; stroke-width: 2; }
-        .label { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-light); font-weight: 400; }
+  /* ── Cards (shared, same recipe as pricing) ── */
+  .card {
+    width: 100%; text-align: left;
+    border: 1px solid var(--border); border-radius: var(--radius);
+    background: linear-gradient(135deg, var(--bg-card), rgba(201,163,91,0.004));
+  }
 
-        .card { width: 100%; background: var(--bg-card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border); padding: 60px 50px; position: relative; box-shadow: 0 30px 80px rgba(0,0,0,0.6); margin-bottom: 30px; }
-        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.6; }
+  .shellcol { max-width: 480px; width: 100%; display: flex; flex-direction: column; align-items: center; }
 
-        .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 24px; font-weight: 400; }
-        h1 { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; line-height: 1.0; margin-bottom: 16px; letter-spacing: -0.02em; }
-        .setup-complete { font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 40px; font-weight: 400; }
-        h2 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300; margin-bottom: 6px; color: var(--gold-light); }
-        .module-sub { font-size: 12.5px; color: var(--soft); margin-bottom: 18px; font-weight: 300; }
-        .sub { font-size: 16px; color: var(--soft); margin-bottom: 30px; line-height: 1.7; font-weight: 300; }
+  /* ── Welcome / selector card ── */
+  .welcome-card { padding: 40px 34px 34px; text-align: center; margin-bottom: 24px; position: relative; overflow: hidden; opacity: 0; animation: fadeUp .6s ease .1s forwards; }
+  .welcome-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: .7; }
+  .eyebrow { font-size: 10.5px; letter-spacing: .32em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  h1 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 500;
+    font-size: clamp(30px, 6.5vw, 42px); line-height: 1.1; letter-spacing: -.01em;
+    color: var(--cream); margin-bottom: 12px;
+  }
+  h1 em { font-style: italic; color: var(--gold-light); }
+  .setup-complete-tag { font-size: 11.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-light); font-weight: 500; margin-bottom: 28px; }
+  .selector-caption { font-size: 10.5px; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
 
-        /* ── CRM SELECTOR ── */
-        .selector-caption { font-size: 10px; text-transform: uppercase; letter-spacing: 0.35em; color: var(--gold); margin-bottom: 18px; font-weight: 400; text-align: center; }
-        .selector { display: flex; gap: 16px; width: 100%; margin-bottom: 4px; }
-        .crm-box {
-            flex: 1;
-            background: rgba(212,175,55,0.02);
-            border: 1px solid var(--border);
-            padding: 28px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: border-color .2s, background .2s, transform .15s;
-            position: relative;
-        }
-        .crm-box:hover { border-color: var(--gold); background: var(--gold-muted); transform: translateY(-2px); box-shadow: 0 0 30px rgba(212,175,55,0.12); }
-        .crm-box:hover .crm-name { color: var(--gold-light); }
-        .crm-box .crm-name { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
-        .crm-box .crm-tag { font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); }
+  .sub { font-size: 14.5px; color: var(--soft); line-height: 1.6; }
 
-        .back-link {
-            display: inline-flex; align-items: center; gap: 6px;
-            font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-            color: var(--soft); text-decoration: none; margin-bottom: 32px;
-            transition: color .2s;
-        }
-        .back-link:hover { color: var(--gold-light); }
+  /* ── Method choice (CRM selector — same component as pricing's
+     phone/pricing method cards) ── */
+  .method-row { display: flex; gap: 12px; width: 100%; }
+  .method-card { flex: 1; padding: 22px 18px; cursor: pointer; text-align: center; transition: border-color .3s ease, transform .3s cubic-bezier(.23,1,.32,1), background .3s ease; }
+  .method-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .method-card.active { border-color: var(--gold); background: linear-gradient(135deg, rgba(201,163,91,0.1), rgba(201,163,91,0.015)); }
+  .method-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
+  .method-card p { font-size: 11.5px; letter-spacing: .04em; color: var(--soft); }
 
-        /* SCARY WARNING */
-        .warning-box { width: 100%; background: var(--red-bg); border: 2px solid var(--red-border); padding: 30px; margin-bottom: 44px; text-align: center; box-shadow: 0 0 40px rgba(255,59,48,0.15); }
-        .warning-title { color: var(--red); font-size: 15px; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700; margin-bottom: 16px; }
-        .warning-text { color: var(--cream); font-size: 14.5px; line-height: 1.75; margin-bottom: 16px; }
-        .warning-text b { color: var(--red); }
-        .warning-screenshot { display: inline-block; padding: 10px 22px; border: 1px solid var(--red-border); color: var(--red); font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--soft); text-decoration: none; margin-bottom: 24px;
+    transition: color .25s ease;
+  }
+  .back-link:hover { color: var(--gold-light); }
 
-        /* ALL-CLEAR (AroFlo) */
-        .allclear-box { width: 100%; background: var(--green-bg); border: 2px solid var(--green-border); padding: 40px 30px; text-align: center; box-shadow: 0 0 40px rgba(74,222,128,0.12); }
-        .allclear-title { color: var(--green); font-size: 15px; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700; margin-bottom: 16px; }
-        .allclear-text { color: var(--cream); font-size: 15.5px; line-height: 1.75; }
-        .allclear-text b { color: var(--green); }
+  /* ── Warning / all-clear boxes ── */
+  .warning-box, .allclear-box { width: 100%; padding: 26px 24px; text-align: center; margin-bottom: 30px; }
+  .warning-box { border-color: var(--red-border); background: linear-gradient(135deg, var(--red-bg), rgba(201,123,106,0.01)); }
+  .allclear-box { border-color: var(--green-border); background: linear-gradient(135deg, var(--green-bg), rgba(127,184,138,0.01)); }
+  .warning-title, .allclear-title { font-size: 12.5px; text-transform: uppercase; letter-spacing: .18em; font-weight: 600; margin-bottom: 12px; }
+  .warning-title { color: var(--red); }
+  .allclear-title { color: var(--green); }
+  .warning-text, .allclear-text { color: var(--cream); font-size: 13.5px; line-height: 1.65; opacity: .9; }
+  .warning-text + .warning-text { margin-top: 12px; }
+  .warning-text b { color: var(--red); font-weight: 600; }
+  .allclear-text b { color: var(--green); font-weight: 600; }
 
-        .module-block { margin-bottom: 34px; }
-        .module-block:last-child { margin-bottom: 0; }
-        .field-list { display: flex; flex-direction: column; gap: 1px; border: 1px solid var(--border); overflow: hidden; }
-        .field-row { display: flex; align-items: center; gap: 14px; padding: 14px 20px; background: rgba(212,175,55,0.02); }
-        .field-row + .field-row { border-top: 1px solid var(--border); }
-        .field-name { font-size: 14px; color: var(--cream); font-weight: 400; }
-        .field-type { margin-left: auto; flex-shrink: 0; font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; border-radius: 999px; padding: 4px 10px; }
-        .field-type.normal { color: var(--soft); border: 1px solid var(--border); }
-        .field-type.custom { color: #000; background: var(--gold); font-weight: 600; border: 1px solid var(--gold); }
+  /* ── Module blocks / field lists ── */
+  .module-block { width: 100%; margin-bottom: 26px; opacity: 0; animation: fadeUp .5s ease forwards; }
+  .module-block:last-child { margin-bottom: 0; }
+  .module-block h2 { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 500; color: var(--gold-light); margin-bottom: 4px; }
+  .module-sub { font-size: 12px; color: var(--soft); margin-bottom: 14px; }
+  .field-list { overflow: hidden; }
+  .field-row { display: flex; align-items: center; gap: 14px; padding: 13px 18px; }
+  .field-row + .field-row { border-top: 1px solid var(--border); }
+  .field-name { font-size: 13.5px; color: var(--cream); }
+  .field-type { margin-left: auto; flex-shrink: 0; font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; border-radius: 999px; padding: 4px 11px; }
+  .field-type.normal { color: var(--soft); border: 1px solid var(--border); }
+  .field-type.custom { color: var(--bg); background: linear-gradient(135deg, var(--gold), var(--gold-light)); font-weight: 600; }
 
-        .aroflo-note { width: 100%; border: 1px dashed var(--border); padding: 22px; color: var(--soft); font-size: 13.5px; line-height: 1.7; text-align: center; margin-top: 10px; }
-        .aroflo-note b { color: var(--gold-light); }
+  /* ── Buttons ── */
+  .btn-submit {
+    margin-top: 4px; width: 100%; padding: 16px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    border: none; color: var(--bg);
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    border-radius: 99px; cursor: pointer;
+    transition: transform .3s cubic-bezier(.23,1,.32,1), box-shadow .3s ease, filter .3s ease;
+    box-shadow: 0 4px 15px rgba(201,163,91,0.18);
+  }
+  .btn-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,163,91,0.35); filter: brightness(1.08); }
+  .btn-submit:disabled { opacity: .5; cursor: not-allowed; transform: none; box-shadow: none; }
 
-        /* CRM panels */
-        .crm-panel { display: none; }
-        .crm-panel.active { display: block; }
+  /* ── Email reminder card ── */
+  .email-card { padding: 30px 30px 26px; opacity: 0; animation: fadeUp .6s ease .1s forwards; }
+  .email-card h2 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--cream); margin-bottom: 8px; }
+  .email-card .sub { margin-bottom: 18px; max-width: none; }
+  .email-input-row { display: flex; gap: 10px; }
+  .email-input {
+    flex: 1; min-width: 0;
+    padding: 15px 17px;
+    background: rgba(22,20,15,0.5); border: 1px solid var(--border);
+    border-radius: 13px; color: var(--cream);
+    font-family: 'DM Sans', sans-serif; font-size: 15px; letter-spacing: .02em;
+    outline: none; transition: border-color .3s ease;
+  }
+  .email-input::placeholder { color: var(--soft); opacity: .4; }
+  .email-input:focus { border-color: var(--gold); }
+  .save-btn { flex-shrink: 0; width: auto; padding: 15px 26px; margin-top: 0; }
+  .email-status { margin-top: 14px; font-size: 12.5px; display: none; line-height: 1.5; }
+  .email-status.visible { display: block; }
+  .email-status.ok { color: var(--green); }
+  .email-status.err { color: var(--red); }
 
-        /* EMAIL REMINDER CARD */
-        .email-card { width: 100%; background: var(--bg-card); border: 1px solid var(--border); padding: 44px 50px; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
-        .email-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.6; }
-        .email-row { display: flex; gap: 12px; margin-top: 22px; }
-        .email-input { flex: 1; min-width: 0; background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 15px; padding: 15px 16px; outline: none; }
-        .email-input:focus { border-color: var(--gold); }
-        .email-input::placeholder { color: var(--soft); }
-        .save-btn { flex-shrink: 0; padding: 15px 30px; background: var(--gold); border: none; color: #000; font-weight: 600; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: filter .2s, transform .2s; }
-        .save-btn:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-2px); }
-        .save-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-        .email-status { margin-top: 16px; font-size: 13px; display: none; }
-        .email-status.visible { display: block; }
-        .email-status.ok { color: #4ade80; }
-        .email-status.err { color: var(--red); }
+  /* ── CRM panels (toggled by JS) ── */
+  .crm-panel { display: none; width: 100%; margin-top: 24px; }
+  .crm-panel.active { display: block; }
 
-        @media (max-width: 600px) { .card, .email-card { padding: 36px 24px; } h1 { font-size: 36px; } .email-row { flex-direction: column; } .selector { flex-direction: column; } }
-    </style>
+  @keyframes fadeUp { from { opacity:0; transform:translateY(12px) } to { opacity:1; transform:translateY(0) } }
+  @media(prefers-reduced-motion:reduce){ *{ animation-duration:.01ms !important; animation-delay:.01ms !important } }
+  @media(max-width:480px){
+    body { padding: 24px 16px 48px; }
+    .method-row { flex-direction: column; }
+    .step .lbl { display: none; }
+    .step-line { width: 18px; margin: 0 8px; }
+    .topbar { margin-bottom: 28px; gap: 18px; }
+    .welcome-card { padding: 32px 24px 28px; }
+    .email-input-row { flex-direction: column; }
+    .save-btn { width: 100%; }
+  }
+</style>
 </head>
 <body>
 
-    <div class="bg-layers">
-        <div class="light-bloom"></div>
-        <div class="grid"></div>
-        <div class="vignette"></div>
-        <div class="grain"></div>
+<div class="bg" aria-hidden="true">
+  <div class="bloom"></div>
+  <div class="gridfloor"></div>
+  <div class="grain"></div>
+</div>
+
+<div class="shell">
+
+  <div class="topbar">
+    <a href="index.html" class="brandmark">
+      <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" draggable="false" />
+    </a>
+    <div class="steps">
+      <div class="step done"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">Connect</span></div>
+      <div class="step-line"></div>
+      <div class="step current"><span class="dot">7</span><span class="lbl">Setup</span></div>
+    </div>
+  </div>
+
+  <div class="shellcol">
+
+    <!-- ═══════════════ WELCOME / CRM SELECTOR ═══════════════ -->
+    <div class="welcome-card card" id="selector-card">
+      <div class="eyebrow">Final Configuration</div>
+      <h1>Welcome</h1>
+      <div class="setup-complete-tag">Setup complete</div>
+      <div class="selector-caption">Your CRM</div>
+      <div class="method-row">
+        <div class="method-card card" id="box-simpro" data-crm="simpro">
+          <h3>Simpro</h3>
+          <p>Custom fields required</p>
+        </div>
+        <div class="method-card card" id="box-aroflo" data-crm="aroflo">
+          <h3>AroFlo</h3>
+          <p>No setup required</p>
+        </div>
+      </div>
     </div>
 
-    <div class="topbar">
-        <a href="index.html" class="home-link">
-            <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia — back to home" />
-        </a>
+    <!-- ═══════════ SIMPRO PANEL ═══════════ -->
+    <div class="crm-panel" id="panel-simpro">
+      <a href="#" class="back-link" id="back-from-simpro">&larr; Change CRM</a>
+
+      <div class="warning-box card">
+        <div class="warning-title">Create these fields</div>
+        <p class="warning-text">
+          If these custom fields are <b>not created exactly as listed below</b>, Hermia cannot pass full lead details into your CRM — your leads will arrive blank or missing critical information, with no way to recover it after the fact.
+        </p>
+        <p class="warning-text">
+          <b>Take a screenshot of this page right now</b> and keep it somewhere you won't lose it. You will need it when setting up each module.
+        </p>
+      </div>
+
+      <div class="module-block" style="animation-delay:.05s">
+        <h2>Simpro · Leads module</h2>
+        <p class="module-sub">Go to Leads → Modify Table View</p>
+        <div class="field-list card">
+          <div class="field-row"><div class="field-name">Description</div><div class="field-type normal">Normal field</div></div>
+          <div class="field-row"><div class="field-name">Notes</div><div class="field-type normal">Normal field</div></div>
+          <div class="field-row"><div class="field-name">Email</div><div class="field-type normal">Normal field</div></div>
+          <div class="field-row"><div class="field-name">Customer Phone</div><div class="field-type normal">Normal field</div></div>
+          <div class="field-row"><div class="field-name">Customer</div><div class="field-type normal">Normal field</div></div>
+          <div class="field-row"><div class="field-name">Asset type</div><div class="field-type custom">Custom — create</div></div>
+          <div class="field-row"><div class="field-name">Fault code</div><div class="field-type custom">Custom — create</div></div>
+          <div class="field-row"><div class="field-name">Defect Flag</div><div class="field-type custom">Custom — create</div></div>
+          <div class="field-row"><div class="field-name">Billing entity</div><div class="field-type custom">Custom — create</div></div>
+          <div class="field-row"><div class="field-name">Estimate amount</div><div class="field-type custom">Custom — create</div></div>
+        </div>
+      </div>
+
+      <div class="module-block" style="animation-delay:.1s">
+        <h2>Simpro · Customers module</h2>
+        <p class="module-sub">No custom fields needed here — just confirm these are visible</p>
+        <div class="field-list card">
+          <div class="field-row"><div class="field-name">First name</div><div class="field-type normal">Normal field</div></div>
+          <div class="field-row"><div class="field-name">Last name</div><div class="field-type normal">Normal field</div></div>
+          <div class="field-row"><div class="field-name">Phone</div><div class="field-type normal">Normal field</div></div>
+          <div class="field-row"><div class="field-name">Email</div><div class="field-type normal">Normal field</div></div>
+        </div>
+      </div>
+
+      <div class="module-block" style="animation-delay:.15s">
+        <h2>Simpro · Sites module</h2>
+        <p class="module-sub">Go to Sites → Modify Table View</p>
+        <div class="field-list card">
+          <div class="field-row"><div class="field-name">Site</div><div class="field-type normal">Normal field</div></div>
+          <div class="field-row"><div class="field-name">Site address</div><div class="field-type normal">Normal field</div></div>
+          <div class="field-row"><div class="field-name">Site suburb</div><div class="field-type normal">Normal field</div></div>
+          <div class="field-row"><div class="field-name">State</div><div class="field-type normal">Normal field</div></div>
+          <div class="field-row"><div class="field-name">Access notes</div><div class="field-type custom">Custom — create</div></div>
+          <div class="field-row"><div class="field-name">Building type</div><div class="field-type custom">Custom — create</div></div>
+        </div>
+      </div>
     </div>
 
-    <div class="wrap">
-
-        <div class="steps">
-            <div class="progressline"></div>
-            <div class="step done"><div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="label">Connect</div></div>
-            <div class="step active"><div class="dot">7</div><div class="label">Setup</div></div>
-        </div>
-
-        <div class="card" id="selector-card">
-            <div class="eyebrow">Final Configuration</div>
-            <h1>Welcome</h1>
-            <div class="setup-complete">Setup complete</div>
-
-            <div class="selector-caption">Your CRM</div>
-            <div class="selector">
-                <div class="crm-box" id="box-simpro" data-crm="simpro">
-                    <div class="crm-name">Simpro</div>
-                    <div class="crm-tag">Custom fields required</div>
-                </div>
-                <div class="crm-box" id="box-aroflo" data-crm="aroflo">
-                    <div class="crm-name">AroFlo</div>
-                    <div class="crm-tag">No setup required</div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- ═══════════ SIMPRO PANEL ═══════════ -->
-        <div class="card crm-panel" id="panel-simpro">
-            <a href="#" class="back-link" id="back-from-simpro">&larr; Change CRM</a>
-            <div class="warning-box">
-                <div class="warning-title">Create these fields</div>
-                <p class="warning-text">
-                    If these custom fields are <b>not created exactly as listed below</b>, Hermia cannot pass full lead details into your CRM — your leads will arrive blank or missing critical information, with no way to recover it after the fact.
-                </p>
-                <p class="warning-text">
-                    <b>Take a screenshot of this page right now</b> and keep it somewhere you won't lose it. You will need it when setting up each module.
-                </p>
-            </div>
-
-            <div class="module-block">
-                <h2>Simpro · Leads module</h2>
-                <p class="module-sub">Go to Leads → Modify Table View</p>
-                <div class="field-list">
-                    <div class="field-row"><div class="field-name">Description</div><div class="field-type normal">Normal field</div></div>
-                    <div class="field-row"><div class="field-name">Notes</div><div class="field-type normal">Normal field</div></div>
-                    <div class="field-row"><div class="field-name">Email</div><div class="field-type normal">Normal field</div></div>
-                    <div class="field-row"><div class="field-name">Customer Phone</div><div class="field-type normal">Normal field</div></div>
-                    <div class="field-row"><div class="field-name">Customer</div><div class="field-type normal">Normal field</div></div>
-                    <div class="field-row"><div class="field-name">Asset type</div><div class="field-type custom">Custom — create</div></div>
-                    <div class="field-row"><div class="field-name">Fault code</div><div class="field-type custom">Custom — create</div></div>
-                    <div class="field-row"><div class="field-name">Defect Flag</div><div class="field-type custom">Custom — create</div></div>
-                    <div class="field-row"><div class="field-name">Billing entity</div><div class="field-type custom">Custom — create</div></div>
-                    <div class="field-row"><div class="field-name">Estimate amount</div><div class="field-type custom">Custom — create</div></div>
-                </div>
-            </div>
-
-            <div class="module-block">
-                <h2>Simpro · Customers module</h2>
-                <p class="module-sub">No custom fields needed here — just confirm these are visible</p>
-                <div class="field-list">
-                    <div class="field-row"><div class="field-name">First name</div><div class="field-type normal">Normal field</div></div>
-                    <div class="field-row"><div class="field-name">Last name</div><div class="field-type normal">Normal field</div></div>
-                    <div class="field-row"><div class="field-name">Phone</div><div class="field-type normal">Normal field</div></div>
-                    <div class="field-row"><div class="field-name">Email</div><div class="field-type normal">Normal field</div></div>
-                </div>
-            </div>
-
-            <div class="module-block">
-                <h2>Simpro · Sites module</h2>
-                <p class="module-sub">Go to Sites → Modify Table View</p>
-                <div class="field-list">
-                    <div class="field-row"><div class="field-name">Site</div><div class="field-type normal">Normal field</div></div>
-                    <div class="field-row"><div class="field-name">Site address</div><div class="field-type normal">Normal field</div></div>
-                    <div class="field-row"><div class="field-name">Site suburb</div><div class="field-type normal">Normal field</div></div>
-                    <div class="field-row"><div class="field-name">State</div><div class="field-type normal">Normal field</div></div>
-                    <div class="field-row"><div class="field-name">Access notes</div><div class="field-type custom">Custom — create</div></div>
-                    <div class="field-row"><div class="field-name">Building type</div><div class="field-type custom">Custom — create</div></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ═══════════ AROFLO PANEL ═══════════ -->
-        <div class="card crm-panel" id="panel-aroflo">
-            <a href="#" class="back-link" id="back-from-aroflo">&larr; Change CRM</a>
-            <div class="allclear-box">
-                <div class="allclear-title">Setup complete</div>
-                <p class="allclear-text">
-                    <b>No further steps required.</b><br />
-                    Your AroFlo connection is fully configured on our end — there are no custom fields for you to create. Leads will start flowing through automatically.
-                </p>
-            </div>
-        </div>
-
-        <!-- ═══════════ EMAIL REMINDER (Simpro only) ═══════════ -->
-        <div class="email-card crm-panel" id="panel-simpro-email">
-            <h2>Get these fields by email</h2>
-            <p class="sub" style="margin-bottom:0;">Enter your email and we'll send you this exact list of fields to create, so you have it on hand while you're setting up each module.</p>
-            <div class="email-row">
-                <input type="email" id="reminderEmail" class="email-input" placeholder="you@business.com" autocomplete="email" />
-                <button class="save-btn" id="saveBtn">Save</button>
-            </div>
-            <div class="email-status" id="emailStatus"></div>
-        </div>
-
+    <!-- ═══════════ AROFLO PANEL ═══════════ -->
+    <div class="crm-panel" id="panel-aroflo">
+      <a href="#" class="back-link" id="back-from-aroflo">&larr; Change CRM</a>
+      <div class="allclear-box card">
+        <div class="allclear-title">Setup complete</div>
+        <p class="allclear-text">
+          <b>No further steps required.</b><br />
+          Your AroFlo connection is fully configured on our end — there are no custom fields for you to create. Leads will start flowing through automatically.
+        </p>
+      </div>
     </div>
 
-    <script>
-        const WEBHOOK_URL = 'https://hook.eu1.make.com/8aeiq4rnr6x7ft9994q7hqowuscdr3j4';
-        const params = new URLSearchParams(window.location.search);
-        let customerId = params.get('customerId');
-        if (!customerId) {
-            try { customerId = sessionStorage.getItem('hermia_outlooker_id') || null; } catch (e) { customerId = null; }
-        }
+    <!-- ═══════════ EMAIL REMINDER (Simpro only) ═══════════ -->
+    <div class="email-card card crm-panel" id="panel-simpro-email">
+      <h2>Get these fields by email</h2>
+      <p class="sub">Enter your email and we'll send you this exact list of fields to create, so you have it on hand while you're setting up each module.</p>
+      <div class="email-input-row">
+        <input type="email" id="reminderEmail" class="email-input" placeholder="you@business.com" autocomplete="email" />
+        <button class="btn-submit save-btn" id="saveBtn">Save</button>
+      </div>
+      <div class="email-status" id="emailStatus"></div>
+    </div>
 
-        // ── CRM selector: a one-way "enter" into a dedicated view, not a
-        // toggle between two visible panels. Entering one CRM hides the
-        // selector AND the other CRM's panel entirely — only "Change CRM"
-        // brings the selector back. ──
-        const boxSimpro = document.getElementById('box-simpro');
-        const boxAroflo = document.getElementById('box-aroflo');
-        const selectorCard = document.getElementById('selector-card');
-        const panelSimpro = document.getElementById('panel-simpro');
-        const panelAroflo = document.getElementById('panel-aroflo');
-        const panelSimproEmail = document.getElementById('panel-simpro-email');
-        const backFromSimpro = document.getElementById('back-from-simpro');
-        const backFromAroflo = document.getElementById('back-from-aroflo');
+  </div><!-- /shellcol -->
 
-        function enterCrm(crm) {
-            const isSimpro = crm === 'simpro';
-            selectorCard.style.display = 'none';
-            panelSimpro.classList.toggle('active', isSimpro);
-            panelSimproEmail.classList.toggle('active', isSimpro);
-            panelAroflo.classList.toggle('active', !isSimpro);
-            try { sessionStorage.setItem('hermia_crm_choice', crm); } catch (e) {}
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+</div><!-- /shell -->
 
-        function showSelector() {
-            panelSimpro.classList.remove('active');
-            panelSimproEmail.classList.remove('active');
-            panelAroflo.classList.remove('active');
-            selectorCard.style.display = '';
-            try { sessionStorage.removeItem('hermia_crm_choice'); } catch (e) {}
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+<script>
+  const WEBHOOK_URL = 'https://hook.eu1.make.com/8aeiq4rnr6x7ft9994q7hqowuscdr3j4';
+  const params = new URLSearchParams(window.location.search);
+  let customerId = params.get('customerId');
+  if (!customerId) {
+    try { customerId = sessionStorage.getItem('hermia_outlooker_id') || null; } catch (e) { customerId = null; }
+  }
 
-        boxSimpro.addEventListener('click', () => enterCrm('simpro'));
-        boxAroflo.addEventListener('click', () => enterCrm('aroflo'));
-        backFromSimpro.addEventListener('click', (e) => { e.preventDefault(); showSelector(); });
-        backFromAroflo.addEventListener('click', (e) => { e.preventDefault(); showSelector(); });
+  // ── CRM selector: a one-way "enter" into a dedicated view, not a
+  // toggle between two visible panels. Entering one CRM hides the
+  // selector AND the other CRM's panel entirely — only "Change CRM"
+  // brings the selector back. ──
+  const boxSimpro = document.getElementById('box-simpro');
+  const boxAroflo = document.getElementById('box-aroflo');
+  const selectorCard = document.getElementById('selector-card');
+  const panelSimpro = document.getElementById('panel-simpro');
+  const panelAroflo = document.getElementById('panel-aroflo');
+  const panelSimproEmail = document.getElementById('panel-simpro-email');
+  const backFromSimpro = document.getElementById('back-from-simpro');
+  const backFromAroflo = document.getElementById('back-from-aroflo');
 
-        // Deep link (?crm=simpro / ?crm=aroflo) enters directly; otherwise
-        // the selector is shown and nothing is revealed until a choice is made.
-        const crmParam = params.get('crm');
-        if (crmParam === 'simpro' || crmParam === 'aroflo') {
-            enterCrm(crmParam);
-        }
+  function enterCrm(crm) {
+    const isSimpro = crm === 'simpro';
+    selectorCard.style.display = 'none';
+    panelSimpro.classList.toggle('active', isSimpro);
+    panelSimproEmail.classList.toggle('active', isSimpro);
+    panelAroflo.classList.toggle('active', !isSimpro);
+    try { sessionStorage.setItem('hermia_crm_choice', crm); } catch (e) {}
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-        // ── Email reminder (Simpro fields only) ──
-        const btn = document.getElementById('saveBtn');
-        const input = document.getElementById('reminderEmail');
-        const status = document.getElementById('emailStatus');
+  function showSelector() {
+    panelSimpro.classList.remove('active');
+    panelSimproEmail.classList.remove('active');
+    panelAroflo.classList.remove('active');
+    selectorCard.style.display = '';
+    try { sessionStorage.removeItem('hermia_crm_choice'); } catch (e) {}
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-        function showStatus(msg, ok) {
-            status.textContent = msg;
-            status.className = 'email-status visible ' + (ok ? 'ok' : 'err');
-        }
+  boxSimpro.addEventListener('click', () => enterCrm('simpro'));
+  boxAroflo.addEventListener('click', () => enterCrm('aroflo'));
+  backFromSimpro.addEventListener('click', (e) => { e.preventDefault(); showSelector(); });
+  backFromAroflo.addEventListener('click', (e) => { e.preventDefault(); showSelector(); });
 
-        btn.addEventListener('click', async () => {
-            const email = input.value.trim();
-            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                showStatus('Enter a valid email address.', false);
-                input.focus();
-                return;
-            }
-            btn.disabled = true;
-            btn.textContent = 'Saving…';
-            try {
-                const res = await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, customerId, source: 'simpro_fields_reminder' })
-                });
-                if (!res.ok) throw new Error('Webhook returned ' + res.status);
-                showStatus('Saved — the field list is on its way to your inbox.', true);
-                btn.textContent = 'Saved';
-            } catch (e) {
-                showStatus('Could not save right now. Please try again.', false);
-                btn.disabled = false;
-                btn.textContent = 'Save';
-            }
-        });
-    </script>
+  // Deep link (?crm=simpro / ?crm=aroflo) enters directly; otherwise
+  // the selector is shown and nothing is revealed until a choice is made.
+  const crmParam = params.get('crm');
+  if (crmParam === 'simpro' || crmParam === 'aroflo') {
+    enterCrm(crmParam);
+  }
+
+  // ── Email reminder (Simpro fields only) ──
+  const btn = document.getElementById('saveBtn');
+  const input = document.getElementById('reminderEmail');
+  const status = document.getElementById('emailStatus');
+
+  function showStatus(msg, ok) {
+    status.textContent = msg;
+    status.className = 'email-status visible ' + (ok ? 'ok' : 'err');
+  }
+
+  btn.addEventListener('click', async () => {
+    const email = input.value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showStatus('Enter a valid email address.', false);
+      input.focus();
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+    try {
+      const res = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, customerId, source: 'simpro_fields_reminder' })
+      });
+      if (!res.ok) throw new Error('Webhook returned ' + res.status);
+      showStatus('Saved — the field list is on its way to your inbox.', true);
+      btn.textContent = 'Saved';
+    } catch (e) {
+      showStatus('Could not save right now. Please try again.', false);
+      btn.disabled = false;
+      btn.textContent = 'Save';
+    }
+  });
+</script>
 </body>
 </html>
