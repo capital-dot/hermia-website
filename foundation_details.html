@@ -6,116 +6,212 @@
     <title>Hermia | Business Configuration</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
     <style>
+        /* ── Tokens: same as pricing / setup-complete ── */
         :root {
-            --bg: #080705;
-            --bg-card: rgba(10, 9, 7, 0.85);
-            --gold: #D4AF37;
-            --gold-bright: #FFD700;
-            --gold-light: #F9E2AF;
-            --gold-muted: rgba(212, 175, 55, 0.12);
-            --cream: #f4f0e6;
-            --soft: #a19d94;
-            --border: rgba(212, 175, 55, 0.2);
-            --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
+            --bg:#16140f;
+            --bg-card:rgba(201,163,91,0.035);
+            --gold:#C9A35B;
+            --gold-light:#e8c17a;
+            --cream:#f4f0e6;
+            --soft:#b6b1a6;
+            --border:rgba(201,163,91,0.16);
+            --border-strong:rgba(201,163,91,0.4);
+            --green:#7fb88a;
+            --red:#c97b6a;
+            --radius:16px;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
-        html, body { height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
-
-        /* ------------------------------------------------------------
-           DRAG-PREVENTION FIX
-           Browsers make <img> draggable by default — on trackpad or
-           touch, a stray click-drag near the logo (or any image added
-           later) picks it up as a ghost-image drag instead of just
-           registering a click/tap. This is a browser default, not
-           anything this page's JS was doing. Apply this same block to
-           any other Hermia HTML file that shows the same behavior.
-        ------------------------------------------------------------ */
-        img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; }
-        .logo-wrap, .logo-aura, .bg-layers, .light-bloom, .grid, .grain, .vignette {
-            -webkit-user-select: none; user-select: none;
+        html, body { height: 100%; }
+        body {
+            background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; font-weight: 300;
+            min-height: 100%; display: flex; flex-direction: column; align-items: center;
+            position: relative; overflow-x: hidden; padding: 32px 20px 56px;
         }
 
-        .bg-layers { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-        .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,1) 100%); z-index: 5; }
-        .light-bloom { position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 55%); animation: light-drift 35s infinite alternate ease-in-out; will-change: transform; }
-        @keyframes light-drift { 0% { transform: translate(-2%, -2%) scale(1); } 100% { transform: translate(2%, 2%) scale(1.05); } }
-        .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 120px 120px; -webkit-mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); opacity: 0.15; }
-        .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-        .wrap { position: relative; z-index: 10; width: 100%; max-width: 600px; margin: 0 auto; padding: 80px 24px 120px; display: flex; flex-direction: column; align-items: center; }
-        .logo-wrap { margin-bottom: 44px; position: relative; animation: fade-in-down 1.2s var(--ease-cinematic) forwards; }
-        .logo-aura { position: absolute; inset: -40px; background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%); filter: blur(25px); animation: aura-pulse 8s infinite ease-in-out; }
-        @keyframes aura-pulse { 0%, 100% { opacity: 0.3; transform: scale(0.9); } 50% { opacity: 0.6; transform: scale(1.05); } }
-        .logo { height: 58px; position: relative; z-index: 2; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
-        .plan-badge { display: inline-flex; align-items: center; gap: 9px; padding: 10px 20px; border: 1px solid var(--border); background: var(--gold-muted); border-radius: 100px; font-size: 12.5px; color: var(--cream); margin-bottom: 40px; opacity: 0; animation: fade-in-down 1s var(--ease-cinematic) 0.2s forwards; }
-        .plan-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-bright); box-shadow: 0 0 8px var(--gold-bright); }
+        /* Drag-prevention: browsers make <img> draggable by default —
+           on trackpad/touch a stray click-drag near the logo picks it
+           up as a ghost-image drag instead of registering a click/tap. */
+        img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; }
+        .bg, .brandmark { -webkit-user-select: none; user-select: none; }
+
+        .shell { margin: auto 0; display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; z-index: 2; }
+
+        /* ── Background: same recipe as pricing / setup-complete ── */
+        .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .bloom {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(900px 700px at 50% 28%, rgba(201,163,91,0.16) 0%, transparent 58%),
+                radial-gradient(560px 460px at 50% 28%, rgba(201,163,91,0.08) 0%, transparent 50%);
+        }
+        .gridfloor {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(201,163,91,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201,163,91,0.04) 1px, transparent 1px);
+            background-size: 62px 62px;
+            -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 30%, #000 0%, transparent 100%);
+            mask-image: radial-gradient(ellipse 70% 55% at 50% 30%, #000 0%, transparent 100%);
+        }
+        .grain {
+            position: absolute; inset: 0; opacity: .035; mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* ── Header: brand + plan badge + step tracker ── */
+        .topbar { width: 100%; max-width: 480px; display: flex; flex-direction: column; align-items: center; gap: 22px; margin-bottom: 34px; }
+        .brandmark { opacity: 0; animation: fadeUp .6s ease 0s forwards; }
+        .brandmark img { height: 32px; display: block; filter: drop-shadow(0 0 10px rgba(201,163,91,0.3)); }
+
+        .plan-badge {
+            display: inline-flex; align-items: center; gap: 9px; padding: 9px 18px;
+            border: 1px solid var(--border-strong); background: rgba(201,163,91,0.08);
+            border-radius: 100px; font-size: 12px; color: var(--cream);
+            opacity: 0; animation: fadeUp .6s ease .1s forwards;
+        }
+        .plan-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px var(--gold); }
         .plan-badge b { color: var(--gold-light); font-weight: 500; }
-        .steps { display: flex; justify-content: space-between; width: 100%; margin-bottom: 60px; position: relative; opacity: 0; animation: fade-in-up 1s var(--ease-cinematic) 0.4s forwards; }
-        .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.08); }
-        .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: linear-gradient(90deg, var(--gold-muted), var(--gold), var(--gold-muted)); box-shadow: 0 0 12px var(--gold); transition: width 1.2s var(--ease-cinematic); }
-        .step { display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; position: relative; z-index: 1; }
-        .dot { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 300; background: var(--bg); border: 1px solid var(--border); color: var(--soft); transition: all 0.6s var(--ease-cinematic); }
-        .step.active .dot { border-color: var(--gold); color: var(--gold-bright); box-shadow: 0 0 25px rgba(212, 175, 55, 0.25); transform: scale(1.05); }
-        .step.done .dot { background: var(--gold); border-color: var(--gold); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
-        .dot svg { width: 14px; height: 14px; stroke-width: 2; }
-        .label { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--soft); opacity: 0.5; font-weight: 400; }
+
+        /* ── Step tracker: built by JS, same class names/behavior —
+           dot kept at 34px since the progress-line width calc below
+           has that value baked in. ── */
+        .steps {
+            display: flex; justify-content: space-between; width: 100%; position: relative;
+            opacity: 0; animation: fadeUp .6s ease .2s forwards;
+        }
+        .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: var(--border); }
+        .progressline {
+            position: absolute; top: 16px; left: 10px; height: 1px;
+            background: linear-gradient(90deg, rgba(201,163,91,0.2), var(--gold), rgba(201,163,91,0.2));
+            box-shadow: 0 0 12px rgba(201,163,91,0.6);
+            transition: width 1s cubic-bezier(.23,1,.32,1);
+            width: 0;
+        }
+        .step { display: flex; flex-direction: column; align-items: center; gap: 12px; flex: 1; position: relative; z-index: 1; }
+        .dot {
+            width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+            font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
+            background: var(--bg); border: 1px solid var(--border); color: var(--soft);
+            transition: all .5s ease;
+        }
+        .step.active .dot { border-color: var(--gold); color: var(--gold-light); box-shadow: 0 0 16px rgba(201,163,91,0.35); transform: scale(1.05); }
+        .step.done .dot { background: var(--gold); border-color: var(--gold); color: var(--bg); }
+        .dot svg { width: 14px; height: 14px; stroke-width: 2.5; }
+        .label { font-size: 8.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--soft); opacity: .55; }
         .step.active .label { color: var(--gold-light); opacity: 1; }
-        .card { width: 100%; background: var(--bg-card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: 0; padding: 60px 50px; position: relative; opacity: 0; animation: fade-in-up 1.2s var(--ease-cinematic) 0.6s forwards; box-shadow: 0 50px 120px rgba(0,0,0,0.8); }
-        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.6; }
-        .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 24px; font-weight: 400; }
-        h1 { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; line-height: 1.0; margin-bottom: 20px; letter-spacing: -0.02em; }
-        .sub { font-size: 16px; color: var(--soft); margin-bottom: 50px; line-height: 1.7; font-weight: 300; max-width: 90%; }
-        .field { margin-bottom: 32px; }
-        label { display: block; font-size: 12px; color: var(--cream); margin-bottom: 12px; letter-spacing: 0.05em; text-transform: uppercase; opacity: 0.8; }
-        input, select { width: 100%; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(212, 175, 55, 0.1); border-radius: 0; padding: 18px 20px; color: var(--cream); font-family: inherit; font-size: 15px; font-weight: 200; transition: all 0.4s ease; outline: none; letter-spacing: 0.02em; }
-        input:focus, select:focus { background: rgba(212, 175, 55, 0.04); border-color: var(--gold); box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.05); }
-        select { cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23D4AF37' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 20px center; }
-        select option { background: #1a1612; color: var(--cream); }
-        .tel { display: flex; align-items: center; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(212, 175, 55, 0.1); transition: all 0.4s ease; }
-        .tel:focus-within { border-color: var(--gold); background: rgba(212, 175, 55, 0.04); }
-        .cc-fixed { padding-left: 20px; color: var(--gold-light); font-weight: 400; font-size: 15px; min-width: 48px; }
-        .tel input { background: transparent; border: none; padding-left: 10px; }
-        .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .btn { width: 100%; margin-top: 30px; padding: 22px; border: none; background: linear-gradient(135deg, #E8C17A, #C9A35B); color: #000; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); position: relative; overflow: hidden; }
-        .btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2); filter: brightness(1.05); }
-        .btn:disabled { opacity: 0.5; cursor: wait; }
-        .btn-sweep { position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent); transform: skewX(-30deg); animation: btn-sweep 5s infinite ease-in-out; }
-        @keyframes btn-sweep { 0% { left: -100%; } 15% { left: 150%; } 100% { left: 150%; } }
-        .secure { margin-top: 45px; text-align: center; color: var(--soft); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.4; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .secure svg { width: 14px; height: 14px; stroke-width: 1; }
-        @keyframes fade-in-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fade-in-down { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-        .err-msg { color: #ff7e75; font-size: 10px; margin-top: 10px; display: none; text-transform: uppercase; letter-spacing: 0.1em; }
+        .step.done .label { color: var(--soft); opacity: .8; }
+
+        /* ── Card (form) — same recipe as pricing's card ── */
+        .card {
+            width: 100%; max-width: 480px; text-align: left;
+            border: 1px solid var(--border); border-radius: var(--radius);
+            background: linear-gradient(135deg, var(--bg-card), rgba(201,163,91,0.004));
+            padding: 44px 38px 40px; position: relative;
+            opacity: 0; animation: fadeUp .6s ease .3s forwards;
+        }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: .7; border-radius: var(--radius) var(--radius) 0 0; }
+
+        .eyebrow { font-size: 10.5px; letter-spacing: .32em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+        h1 {
+            font-family: 'Cormorant Garamond', serif; font-weight: 500;
+            font-size: clamp(28px, 6vw, 38px); line-height: 1.1; letter-spacing: -.01em;
+            color: var(--cream); margin-bottom: 12px;
+        }
+        .sub { font-size: 14px; color: var(--soft); line-height: 1.6; margin-bottom: 34px; max-width: 92%; }
+
+        .field { margin-bottom: 24px; }
+        label {
+            display: block; font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 10px;
+        }
+        input, select {
+            width: 100%; background: rgba(22,20,15,0.5); border: 1px solid var(--border);
+            border-radius: 13px; padding: 15px 17px; color: var(--cream);
+            font-family: 'DM Sans', sans-serif; font-size: 15px; letter-spacing: .02em; font-weight: 300;
+            outline: none; transition: border-color .3s ease, background .3s ease;
+        }
+        input::placeholder { color: var(--soft); opacity: .4; }
+        input:focus, select:focus { border-color: var(--gold); background: rgba(201,163,91,0.05); }
+        select {
+            cursor: pointer; appearance: none; -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C9A35B' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 16px center; padding-right: 34px;
+        }
+        select option { background: #16140f; color: var(--cream); }
+
+        .tel {
+            display: flex; align-items: center;
+            background: rgba(22,20,15,0.5); border: 1px solid var(--border); border-radius: 13px;
+            transition: border-color .3s ease, background .3s ease;
+        }
+        .tel:focus-within { border-color: var(--gold); background: rgba(201,163,91,0.05); }
+        .cc-fixed { padding-left: 17px; color: var(--gold-light); font-weight: 500; font-size: 15px; min-width: 44px; }
+        .tel input { background: transparent; border: none; padding-left: 8px; }
+
+        .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+        .btn-submit {
+            width: 100%; margin-top: 8px; padding: 16px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            border: none; color: var(--bg);
+            font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
+            letter-spacing: .18em; text-transform: uppercase;
+            border-radius: 99px; cursor: pointer;
+            transition: transform .3s cubic-bezier(.23,1,.32,1), box-shadow .3s ease, filter .3s ease;
+            box-shadow: 0 4px 15px rgba(201,163,91,0.18);
+        }
+        .btn-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,163,91,0.35); filter: brightness(1.08); }
+        .btn-submit:disabled { opacity: .5; cursor: wait; transform: none; box-shadow: none; }
+
+        .secure {
+            margin-top: 30px; text-align: center; color: var(--soft); font-size: 10px;
+            letter-spacing: .15em; text-transform: uppercase; opacity: .55;
+            display: flex; align-items: center; justify-content: center; gap: 9px;
+        }
+        .secure svg { width: 13px; height: 13px; stroke-width: 1.3; }
+
+        .err-msg { color: var(--red); font-size: 10px; margin-top: 9px; display: none; text-transform: uppercase; letter-spacing: .1em; }
         .err-msg.show { display: block; }
-        .formerr { color: #ff7e75; font-size: 12px; margin-top: 26px; text-align: center; line-height: 1.6; letter-spacing: 0.03em; display: none; word-break: break-word; }
+        .formerr { color: var(--red); font-size: 12.5px; margin-top: 24px; text-align: center; line-height: 1.6; letter-spacing: .02em; display: none; word-break: break-word; }
         .formerr.show { display: block; }
-        input.err, select.err, .tel.err { border-color: #ff7e75; background: rgba(255, 126, 117, 0.02); }
-        @media (max-width: 600px) { .card { padding: 50px 30px; } h1 { font-size: 38px; } .label { display: none; } .steps { margin-bottom: 40px; } .row-2 { grid-template-columns: 1fr; gap: 32px; } }
+        input.err, select.err, .tel.err { border-color: var(--red); background: rgba(201,123,106,0.05); }
+
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-delay: .01ms !important; } }
+
+        @media (max-width: 480px) {
+            body { padding: 24px 16px 48px; }
+            .card { padding: 34px 24px 30px; }
+            .label { display: none; }
+            .row-2 { grid-template-columns: 1fr; gap: 24px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="bg-layers">
-        <div class="light-bloom"></div>
-        <div class="grid"></div>
-        <div class="vignette"></div>
+    <div class="bg" aria-hidden="true">
+        <div class="bloom"></div>
+        <div class="gridfloor"></div>
         <div class="grain"></div>
     </div>
 
-    <div class="wrap">
-        <div class="logo-wrap">
-            <div class="logo-aura"></div>
-            <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" draggable="false" />
-        </div>
+    <div class="shell">
 
-        <div class="plan-badge" id="planBadge" style="display:none;">
-            <span class="dot"></span>
-            <span>Setting up <b id="planBadgeName">your plan</b></span>
-        </div>
+        <div class="topbar">
+            <div class="brandmark">
+                <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" draggable="false" />
+            </div>
 
-        <div class="steps" id="stepTracker">
-            <div class="progressline" id="progressline"></div>
+            <div class="plan-badge" id="planBadge" style="display:none;">
+                <span class="dot"></span>
+                <span>Setting up <b id="planBadgeName">your plan</b></span>
+            </div>
+
+            <div class="steps" id="stepTracker">
+                <div class="progressline" id="progressline"></div>
+            </div>
         </div>
 
         <div class="card">
@@ -173,9 +269,8 @@
                 <div class="err-msg" id="err-phone">Valid Number Required</div>
             </div>
 
-            <button class="btn" id="submitBtn">
+            <button class="btn-submit" id="submitBtn">
                 <span class="btn-text">Establish Workspace</span>
-                <div class="btn-sweep"></div>
             </button>
 
             <div class="formerr" id="formError"></div>
