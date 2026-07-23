@@ -100,15 +100,35 @@
   .stamp.urgent { border-color: rgba(201,119,106,0.55); color: var(--red); background: rgba(201,119,106,0.1); }
   .stamp .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; box-shadow: 0 0 6px currentColor; }
 
-  /* ── Tile grid: job details, spread left-to-right ── */
-  .tiles-grid { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 22px; }
+  /* ── Hero row: Asset type + Building type — large, wide tiles ── */
+  .hero-tiles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+  .tile-hero {
+    border: 1px solid var(--border-strong); border-radius: 14px;
+    background: linear-gradient(135deg, var(--card-hi), rgba(201,163,91,0.02));
+    box-shadow: 0 10px 26px rgba(0,0,0,0.26);
+    padding: 22px 22px 20px;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .tile-hero:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .tile-hero .tile-icon { width: 32px; height: 32px; margin-bottom: 14px; }
+  .tile-hero .tile-icon svg { width: 16px; height: 16px; }
+  .tile-hero .tile-label { font-size: 10.5px; margin-bottom: 8px; }
+  .tile-hero .tile-value { font-size: 19px; font-weight: 600; }
+
+  /* ── Tile grid: remaining job details ── */
+  .tiles-grid { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 22px; }
 
   .tile {
-    flex: 1 1 148px; min-width: 140px;
+    flex: 1 1 170px; min-width: 160px;
     border: 1px solid var(--border); border-radius: 14px;
     background: linear-gradient(135deg, var(--card), rgba(201,163,91,0.006));
     box-shadow: 0 10px 26px rgba(0,0,0,0.26);
-    padding: 16px 16px 15px;
+    padding: 18px 18px 17px;
     transition: border-color .2s ease, transform .2s ease;
   }
   .tile:hover { border-color: var(--border-strong); transform: translateY(-2px); }
@@ -116,16 +136,16 @@
   .tile-icon {
     width: 28px; height: 28px; border-radius: 8px;
     background: rgba(201,163,91,0.12);
-    display: flex; align-items: center; justify-content: center; margin-bottom: 11px;
+    display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
   }
   .tile-icon svg { width: 14px; height: 14px; stroke: var(--gold-light); fill: none; }
 
-  .tile-label { font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .tile-label { font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 7px; }
   .tile-value { font-size: 14.5px; font-weight: 500; color: var(--cream); line-height: 1.4; word-break: break-word; }
   .tile-value a { text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 2px; }
 
   .tile-photo {
-    position: relative; flex: 1 1 148px; min-width: 140px; height: 132px;
+    position: relative; flex: 1 1 170px; min-width: 160px; height: 140px;
     border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
     cursor: pointer; padding: 0; background: rgba(201,163,91,0.08) center/cover no-repeat;
     box-shadow: 0 10px 26px rgba(0,0,0,0.26);
@@ -222,8 +242,10 @@
   @media (max-width: 420px) {
     .head { padding: 22px 20px 20px; margin-bottom: 18px; }
     .head-client-row { flex-direction: column; align-items: flex-start; gap: 12px; }
-    .tiles-grid { gap: 10px; margin-bottom: 18px; }
-    .tile, .tile-photo { flex-basis: calc(50% - 5px); min-width: 0; }
+    .hero-tiles { grid-template-columns: 1fr; gap: 12px; margin-bottom: 14px; }
+    .tile-hero { padding: 18px 18px 16px; }
+    .tiles-grid { gap: 12px; margin-bottom: 18px; }
+    .tile, .tile-photo { flex-basis: calc(50% - 6px); min-width: 0; }
     .sections { gap: 16px; }
     .section { grid-template-columns: 30px 1fr; gap: 0 12px; padding: 20px 18px 22px; }
     .sec-icon { width: 28px; height: 28px; }
@@ -305,9 +327,9 @@
   function splitUrls(str) { return str ? str.split(/[\s,]+/).map(s => s.trim()).filter(isUrl) : []; }
   function isVideoUrl(url) { return /\.(mp4|mov|webm|m4v)(\?.*)?$/i.test(url); }
 
-  function tile(iconName, label, value) {
+  function tile(iconName, label, value, extraClass) {
     if (!value) return '';
-    return '<div class="tile">' + iconHtml(iconName) + '<div class="tile-label">' + escapeHtml(label) + '</div><div class="tile-value">' + escapeHtml(value) + '</div></div>';
+    return '<div class="tile' + (extraClass ? ' ' + extraClass : '') + '">' + iconHtml(iconName) + '<div class="tile-label">' + escapeHtml(label) + '</div><div class="tile-value">' + escapeHtml(value) + '</div></div>';
   }
 
   function tag(text, hazard) {
@@ -395,16 +417,24 @@
     const amountEstimate = pick(data, ['billing']);
     const photosVideos = pick(data, ['photosVideos', 'photos_videos']);
 
+    // Hero row: Asset type + Building type — large, wide tiles up top so
+    // the two most important job-identifying fields aren't squashed in
+    // with everything else.
+    const heroTiles = [
+      tile('asset', 'Asset type', assetType, 'tile-hero'),
+      tile('building', 'Building type', buildingType, 'tile-hero')
+    ].filter(Boolean).join('');
+
+    // Remaining detail tiles, spaced out with more breathing room.
+    // Photos sits next to Defect status per request.
     const tiles = [
-      tile('phone', 'Phone', phone),
-      tile('email', 'Email', email),
-      tile('asset', 'Asset type', assetType),
-      tile('building', 'Building type', buildingType),
       tile('code', 'Fault code', faultCode),
       tile('status', 'Defect status', defectStatus),
+      renderPhotoTile(photosVideos),
       tile('money', 'Amount estimate', amountEstimate),
       tile('entity', 'Billing entity', billingEntity),
-      renderPhotoTile(photosVideos)
+      tile('phone', 'Phone', phone),
+      tile('email', 'Email', email)
     ].filter(Boolean).join('');
 
     const faultDescription = pick(data, ['faultDescription', 'fault_description']);
@@ -448,6 +478,7 @@
             stampHtml +
           '</div>' +
         '</div>' +
+        (heroTiles ? '<div class="hero-tiles">' + heroTiles + '</div>' : '') +
         (tiles ? '<div class="tiles-grid">' + tiles + '</div>' : '') +
         '<div class="sections">' + sections.join('') + '</div>' +
         '<div class="foot">' +
