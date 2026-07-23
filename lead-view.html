@@ -100,53 +100,31 @@
   .stamp.urgent { border-color: rgba(201,119,106,0.55); color: var(--red); background: rgba(201,119,106,0.1); }
   .stamp .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; box-shadow: 0 0 6px currentColor; }
 
-  /* ── Hero row: Asset type + Building type — large, wide tiles ── */
-  .hero-tiles {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-    margin-bottom: 18px;
+  /* ── Fact row: every short job field as an equal large box, wrapping left-to-right ── */
+  .fact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 22px;
   }
   .tile-hero {
+    flex: 1 1 200px; min-width: 190px;
     border: 1px solid var(--border-strong); border-radius: 14px;
     background: linear-gradient(135deg, var(--card-hi), rgba(201,163,91,0.02));
     box-shadow: 0 10px 26px rgba(0,0,0,0.26);
-    padding: 22px 22px 20px;
+    padding: 20px 20px 18px;
     transition: border-color .2s ease, transform .2s ease;
   }
   .tile-hero:hover { border-color: var(--gold); transform: translateY(-2px); }
-  .tile-hero .tile-icon { width: 32px; height: 32px; margin-bottom: 14px; }
-  .tile-hero .tile-icon svg { width: 16px; height: 16px; }
-  .tile-hero .tile-label { font-size: 10.5px; margin-bottom: 8px; }
-  .tile-hero .tile-value { font-size: 19px; font-weight: 600; }
-
-  /* ── Tile grid: remaining job details ── */
-  .tiles-grid { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 22px; }
-
-  .tile {
-    flex: 1 1 170px; min-width: 160px;
-    border: 1px solid var(--border); border-radius: 14px;
-    background: linear-gradient(135deg, var(--card), rgba(201,163,91,0.006));
-    box-shadow: 0 10px 26px rgba(0,0,0,0.26);
-    padding: 18px 18px 17px;
-    transition: border-color .2s ease, transform .2s ease;
-  }
-  .tile:hover { border-color: var(--border-strong); transform: translateY(-2px); }
-
-  .tile-icon {
-    width: 28px; height: 28px; border-radius: 8px;
-    background: rgba(201,163,91,0.12);
-    display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
-  }
-  .tile-icon svg { width: 14px; height: 14px; stroke: var(--gold-light); fill: none; }
-
-  .tile-label { font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 7px; }
-  .tile-value { font-size: 14.5px; font-weight: 500; color: var(--cream); line-height: 1.4; word-break: break-word; }
-  .tile-value a { text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 2px; }
+  .tile-hero .tile-icon { width: 30px; height: 30px; margin-bottom: 13px; border-radius: 8px; background: rgba(201,163,91,0.14); display: flex; align-items: center; justify-content: center; }
+  .tile-hero .tile-icon svg { width: 15px; height: 15px; stroke: var(--gold-light); fill: none; }
+  .tile-hero .tile-label { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .tile-hero .tile-value { font-size: 17px; font-weight: 600; color: var(--cream); line-height: 1.35; word-break: break-word; }
+  .tile-hero .tile-value a { text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 2px; }
 
   .tile-photo {
-    position: relative; flex: 1 1 170px; min-width: 160px; height: 140px;
-    border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+    position: relative; flex: 1 1 200px; min-width: 190px; height: 168px;
+    border: 1px solid var(--border-strong); border-radius: 14px; overflow: hidden;
     cursor: pointer; padding: 0; background: rgba(201,163,91,0.08) center/cover no-repeat;
     box-shadow: 0 10px 26px rgba(0,0,0,0.26);
     transition: border-color .2s ease, transform .2s ease;
@@ -154,12 +132,13 @@
   .tile-photo:hover { border-color: var(--gold); transform: translateY(-2px); }
   .tile-photo-overlay {
     position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 12px 14px; text-align: left;
+    padding: 14px 16px; text-align: left;
     background: linear-gradient(180deg, rgba(17,13,7,0) 42%, rgba(17,13,7,0.88) 100%);
   }
-  .tile-photo .tile-icon { background: rgba(201,163,91,0.22); margin-bottom: 8px; }
-  .tile-photo .tile-label { color: var(--gold-light); }
-  .tile-photo .tile-value { font-size: 13px; color: var(--cream); }
+  .tile-photo .tile-icon { width: 30px; height: 30px; border-radius: 8px; background: rgba(201,163,91,0.22); display: flex; align-items: center; justify-content: center; margin-bottom: 9px; }
+  .tile-photo .tile-icon svg { width: 15px; height: 15px; stroke: var(--gold-light); fill: none; }
+  .tile-photo .tile-label { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 4px; }
+  .tile-photo .tile-value { font-size: 15px; font-weight: 600; color: var(--cream); }
 
   /* ── Full-width sections: descriptions, hazards ── */
   .sections { display: flex; flex-direction: column; gap: 20px; }
@@ -242,10 +221,9 @@
   @media (max-width: 420px) {
     .head { padding: 22px 20px 20px; margin-bottom: 18px; }
     .head-client-row { flex-direction: column; align-items: flex-start; gap: 12px; }
-    .hero-tiles { grid-template-columns: 1fr; gap: 12px; margin-bottom: 14px; }
-    .tile-hero { padding: 18px 18px 16px; }
-    .tiles-grid { gap: 12px; margin-bottom: 18px; }
-    .tile, .tile-photo { flex-basis: calc(50% - 6px); min-width: 0; }
+    .fact-row { gap: 12px; margin-bottom: 18px; }
+    .tile-hero { flex-basis: calc(50% - 6px); min-width: 0; padding: 16px 16px 14px; }
+    .tile-photo { flex-basis: calc(50% - 6px); min-width: 0; height: 140px; }
     .sections { gap: 16px; }
     .section { grid-template-columns: 30px 1fr; gap: 0 12px; padding: 20px 18px 22px; }
     .sec-icon { width: 28px; height: 28px; }
@@ -327,9 +305,9 @@
   function splitUrls(str) { return str ? str.split(/[\s,]+/).map(s => s.trim()).filter(isUrl) : []; }
   function isVideoUrl(url) { return /\.(mp4|mov|webm|m4v)(\?.*)?$/i.test(url); }
 
-  function tile(iconName, label, value, extraClass) {
+  function tile(iconName, label, value) {
     if (!value) return '';
-    return '<div class="tile' + (extraClass ? ' ' + extraClass : '') + '">' + iconHtml(iconName) + '<div class="tile-label">' + escapeHtml(label) + '</div><div class="tile-value">' + escapeHtml(value) + '</div></div>';
+    return '<div class="tile-hero">' + iconHtml(iconName) + '<div class="tile-label">' + escapeHtml(label) + '</div><div class="tile-value">' + escapeHtml(value) + '</div></div>';
   }
 
   function tag(text, hazard) {
@@ -417,24 +395,19 @@
     const amountEstimate = pick(data, ['billing']);
     const photosVideos = pick(data, ['photosVideos', 'photos_videos']);
 
-    // Hero row: Asset type + Building type — large, wide tiles up top so
-    // the two most important job-identifying fields aren't squashed in
-    // with everything else.
-    const heroTiles = [
-      tile('asset', 'Asset type', assetType, 'tile-hero'),
-      tile('building', 'Building type', buildingType, 'tile-hero')
-    ].filter(Boolean).join('');
-
-    // Remaining detail tiles, spaced out with more breathing room.
-    // Photos sits next to Defect status per request.
-    const tiles = [
+    // Single row of equal, large fact boxes — every short job field (asset
+    // type, building type, billing entity, etc.) gets the same treatment,
+    // left-to-right, wrapping as needed. No small cramped tiles.
+    const factRow = [
+      tile('asset', 'Asset type', assetType),
+      tile('building', 'Building type', buildingType),
+      tile('entity', 'Billing entity', billingEntity),
       tile('code', 'Fault code', faultCode),
       tile('status', 'Defect status', defectStatus),
-      renderPhotoTile(photosVideos),
       tile('money', 'Amount estimate', amountEstimate),
-      tile('entity', 'Billing entity', billingEntity),
       tile('phone', 'Phone', phone),
-      tile('email', 'Email', email)
+      tile('email', 'Email', email),
+      renderPhotoTile(photosVideos)
     ].filter(Boolean).join('');
 
     const faultDescription = pick(data, ['faultDescription', 'fault_description']);
@@ -478,8 +451,7 @@
             stampHtml +
           '</div>' +
         '</div>' +
-        (heroTiles ? '<div class="hero-tiles">' + heroTiles + '</div>' : '') +
-        (tiles ? '<div class="tiles-grid">' + tiles + '</div>' : '') +
+        (factRow ? '<div class="fact-row">' + factRow + '</div>' : '') +
         '<div class="sections">' + sections.join('') + '</div>' +
         '<div class="foot">' +
           '<span>Generated by <span class="foot-mark">Hermia</span></span>' +
