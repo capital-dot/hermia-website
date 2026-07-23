@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hermia &mdash; Know the Job Before You Roll a Truck</title>
-<meta name="description" content="Hermia qualifies every enquiry for plumbing contractors — collecting the full brief, booking against your real technician availability, and landing a duplicate-free job in Simpro or AroFlo. Automatically, 24/7.">
+<meta name="description" content="Hermia qualifies every enquiry for plumbing contractors — collecting the full brief, booking against your real technician availability, and landing a duplicate-free job in Simpro or AroFlo. Automatically, 24/7. Available in Australia, Canada, New Zealand, the UK, Ireland and the United States.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -25,6 +25,7 @@ body.cinematic{overflow:hidden}
 ::selection{background:rgba(212,175,55,0.2);color:#fff}
 a,a:link,a:visited,a:active{color:inherit;text-decoration:none}
 img{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none}
+[id]{scroll-margin-top:88px}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:300;padding:0 48px;height:62px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,5,0.9);backdrop-filter:blur(22px);border-bottom:1px solid var(--border);opacity:0;pointer-events:none;transition:opacity .6s ease}
 nav.visible{opacity:1;pointer-events:auto}
@@ -36,6 +37,14 @@ nav.visible{opacity:1;pointer-events:auto}
 .nav-links a:hover{color:var(--cream)}
 .nav-cta{background:linear-gradient(135deg,var(--gl),var(--gold));color:#1a1008 !important;padding:9px 20px;border-radius:9px;font-weight:700;font-size:13px;box-shadow:0 6px 20px rgba(212,175,55,0.3);border:none;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all .2s}
 .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(212,175,55,0.45)}
+.trial-dropdown-wrap{position:relative}
+.trial-dropdown{position:absolute;top:calc(100% + 10px);right:0;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:8px;display:none;flex-direction:column;gap:4px;min-width:200px;box-shadow:0 24px 60px rgba(0,0,0,.55);z-index:50}
+.trial-dropdown.show{display:flex}
+.trial-dropdown-cap{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:"Inter",sans-serif;font-weight:700;padding:8px 12px 4px}
+.trial-dropdown-item{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:11px 12px;border-radius:8px;font-size:12.5px;color:var(--soft);transition:background .2s;font-family:"DM Sans",sans-serif}
+.trial-dropdown-item:hover{background:rgba(212,175,55,.08);color:#fff}
+.trial-dropdown-item strong{color:#fff;font-weight:600;font-size:13.5px}
+.trial-dropdown-item span{color:var(--gl);font-size:11px;font-weight:600;white-space:nowrap}
 
 /* ── Cinematic intro ── */
 #cinematic-hero{position:relative;width:100%;height:100vh;background:#000;overflow:hidden}
@@ -148,6 +157,19 @@ nav.visible{opacity:1;pointer-events:auto}
 .dd-flow-num{color:var(--gold);font-weight:700;font-family:"Inter",sans-serif;font-size:12px;padding-top:2px;flex-shrink:0}
 .dd-flow-step strong{color:var(--cream);font-weight:500}
 
+/* Emergency response tiers */
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+.tier-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px;text-align:center}
+.tier-card.emergency{border-color:rgba(239,68,68,.35)}
+.tier-card.urgent{border-color:var(--bgold)}
+.tier-card.standard{border-color:rgba(91,141,239,.35)}
+.tier-name{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;font-family:"Inter",sans-serif;margin-bottom:14px}
+.tier-card.emergency .tier-name{color:#f87171}
+.tier-card.urgent .tier-name{color:var(--gl)}
+.tier-card.standard .tier-name{color:var(--bluel)}
+.tier-window{font-family:var(--display);font-size:36px;font-weight:600;color:#fff;margin-bottom:14px;line-height:1}
+.tier-desc{font-size:13px;color:var(--soft);line-height:1.6}
+
 /* Comparison */
 .benefits{background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .bt-wrap{margin-top:48px;display:grid;grid-template-columns:1fr 1fr;border-radius:8px;overflow:hidden;border:1px solid var(--border);box-shadow:0 24px 60px rgba(0,0,0,0.5)}
@@ -163,15 +185,15 @@ nav.visible{opacity:1;pointer-events:auto}
 .right .bt-row{color:var(--soft)}
 .right .bt-row span strong{color:var(--cream);font-weight:500}
 
-/* Pricing — single niche */
+/* Pricing — two plans side by side */
 .pricing-section{padding:110px 48px;text-align:center;background:linear-gradient(150deg,#0d0903,var(--bg3));border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .pricing-header{margin-bottom:70px;display:flex;flex-direction:column;align-items:center}
 .pricing-h{font-family:var(--display);font-size:clamp(36px,4.5vw,56px);font-weight:600;color:#fff;letter-spacing:-.4px;margin-bottom:22px;line-height:1.1}
 .pricing-h em{font-style:italic;color:var(--gl)}
 .pricing-sub{color:var(--soft);font-size:16px;max-width:640px;margin:0 auto;line-height:1.7;font-weight:300}
-.pricing-stack{display:flex;flex-direction:column;gap:22px;max-width:1080px;margin:0 auto;text-align:left}
-.plan-box{background:var(--card);border:1px solid var(--bgold);border-radius:18px;display:grid;grid-template-columns:320px 1fr;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.4)}
-.plan-box-left{padding:36px 32px;border-right:1px solid var(--border);background:linear-gradient(150deg,rgba(212,175,55,.05),transparent);display:flex;flex-direction:column}
+.pricing-stack{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:1160px;margin:0 auto;text-align:left;align-items:stretch}
+.plan-box{background:var(--card);border:1px solid var(--bgold);border-radius:18px;display:grid;grid-template-columns:1fr;grid-template-rows:auto 1fr;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.plan-box-left{padding:36px 32px;border-bottom:1px solid var(--border);background:linear-gradient(150deg,rgba(212,175,55,.05),transparent);display:flex;flex-direction:column}
 .plan-box-name{font-family:var(--display);font-size:27px;font-weight:600;color:#fff;margin-bottom:6px;line-height:1.1}
 .plan-box-tag{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:14px;font-family:"Inter",sans-serif}
 .plan-box-trial{display:inline-block;width:fit-content;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gl);background:var(--gdim);border:1px solid var(--bgold);padding:4px 10px;border-radius:20px;margin-bottom:16px;font-family:"Inter",sans-serif}
@@ -185,9 +207,9 @@ nav.visible{opacity:1;pointer-events:auto}
 .plan-box-cta{display:block;margin-top:16px;padding-top:0}
 .plan-box-cta a{display:block;padding:13px 18px;border-radius:10px;font-size:11.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;font-family:"DM Sans",sans-serif;transition:all .2s;text-align:center;background:linear-gradient(135deg,var(--gl),var(--gold));color:#1a1008!important;border:none;box-shadow:0 8px 22px rgba(212,175,55,.25)}
 .plan-box-cta a:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(212,175,55,.35)}
-.plan-box-right{padding:36px 38px}
+.plan-box-right{padding:32px 34px}
 .plan-box-right-title{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:16px;font-family:"Inter",sans-serif}
-.plan-box-feats{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 26px}
+.plan-box-feats{list-style:none;display:flex;flex-direction:column;gap:12px}
 .plan-box-feats li{position:relative;padding-left:22px;font-size:13px;color:var(--soft);line-height:1.6}
 .plan-box-feats li::before{content:"✓";color:var(--green);font-weight:800;position:absolute;left:0;top:0}
 .plan-box-feats li strong{color:#fff;font-weight:600}
@@ -195,6 +217,16 @@ nav.visible{opacity:1;pointer-events:auto}
 .crm-chip.soon{background:rgba(255,255,255,0.04);border-color:var(--border);color:var(--muted)}
 .pricing-note{margin-top:34px;font-size:12.5px;color:var(--muted);line-height:1.7;max-width:680px;margin-left:auto;margin-right:auto}
 .pricing-note strong{color:var(--gl)}
+
+/* Refunds */
+.refund-section{padding:80px 48px;border-top:1px solid var(--border);background:var(--bg3);text-align:center}
+.refund-box{max-width:760px;margin:0 auto;background:var(--card);border:1px solid var(--bgold);border-radius:18px;padding:44px 40px}
+.refund-box p{font-size:14.5px;color:var(--soft);line-height:1.8;margin-top:14px}
+.refund-box p strong{color:var(--cream);font-weight:500}
+.refund-figures{display:flex;justify-content:center;gap:16px;margin-top:26px;flex-wrap:wrap}
+.refund-figure{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:10px;padding:14px 22px;text-align:left}
+.refund-figure .rf-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:"Inter",sans-serif;font-weight:700;margin-bottom:4px}
+.refund-figure .rf-value{font-family:var(--display);font-size:20px;color:#fff;font-weight:600}
 
 /* Contact / partner */
 .combo-section{padding:80px 48px;border-top:1px solid var(--border);background:var(--bg3)}
@@ -249,11 +281,13 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
   .deep-row{grid-template-columns:1fr;gap:26px;padding:44px 0}
   .bt-wrap{grid-template-columns:1fr}.bt-col.left{border-right:none;border-bottom:1px solid var(--border)}
   .crm-grid{grid-template-columns:1fr}.phone{width:320px;height:660px}
-  .plan-box{grid-template-columns:1fr}.plan-box-left{border-right:none;border-bottom:1px solid var(--border)}
+  .tier-grid{grid-template-columns:1fr}
+  .pricing-stack{grid-template-columns:1fr}
   .plan-box-feats{grid-template-columns:1fr}
   .combo-section{padding:56px 22px}.combo-grid{grid-template-columns:1fr}
   footer{padding:30px 22px}
   .pricing-section{padding:70px 18px}
+  .refund-section{padding:56px 18px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -272,7 +306,14 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
     <li><a href="about us.html">About Us</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><button type="button" class="nav-cta" id="nav-trial-btn">Start Free Trial</button></li>
+    <li class="trial-dropdown-wrap">
+      <button type="button" class="nav-cta" id="nav-trial-btn">Start Free Trial</button>
+      <div class="trial-dropdown" id="trial-dropdown">
+        <div class="trial-dropdown-cap">Choose your CRM</div>
+        <a href="#pricing-simpro" class="trial-dropdown-item"><strong>Simpro</strong><span>$1,200 setup</span></a>
+        <a href="#pricing-aroflo" class="trial-dropdown-item"><strong>AroFlo</strong><span>$900 setup</span></a>
+      </div>
+    </li>
   </ul>
 </nav>
 
@@ -363,8 +404,9 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
     <div class="inner" style="max-width:840px">
       <div class="eyebrow">Built For Plumbing Contractors</div>
       <h2 class="sec-title">It was never about getting leads.<br>It's about <em>knowing the job</em> before you go to site.</h2>
-      <p class="sec-sub" style="margin:22px auto 0">Hermia is built specifically for <strong>plumbing contractors</strong> &mdash; Australian businesses running Simpro or AroFlo, drowning in high volumes of enquiries that all need qualifying before anyone can act.</p>
-      <p class="sec-sub" style="margin:18px auto 0">Every enquiry is put through your question set: what's wrong, where, how bad, since when &mdash; with photos and video to prove it. Vague answers get pushed back on. Tire kickers filter themselves out. <strong>You get the full picture before you go on a job</strong> &mdash; not after you've rolled a truck &mdash; and it lands in your CRM booked against a real technician's real availability, before your office has picked up the phone.</p>
+      <p class="sec-sub" style="margin:22px auto 0">Hermia is built specifically for <strong>plumbing contractors</strong> &mdash; businesses across Australia, Canada, New Zealand, the UK, Ireland and the United States running Simpro or AroFlo, drowning in high volumes of enquiries that all need qualifying before anyone can act.</p>
+      <p class="sec-sub" style="margin:18px auto 0">Every enquiry is run through your question set &mdash; what's wrong, where it is, how bad it is, and since when &mdash; with photos and video to back it up. Vague answers get pushed back on until they're specific enough to act on, so tire kickers filter themselves out before they ever reach you.</p>
+      <p class="sec-sub" style="margin:18px auto 0">By the time you see the job, you already have the full picture &mdash; not a guess you make after rolling a truck. And it's not just sitting in an inbox: it's already booked in your CRM, against a real technician's real availability, before your office has even picked up the phone.</p>
       <p class="sec-sub" style="margin:18px auto 0">And Hermia becomes <strong>an additional lead channel of its own</strong>. Once a lead has been through qualification, Hermia remembers them permanently &mdash; so the next time that same customer needs help, they don't message a competitor or run a Google search. They message Hermia, go through the same fast qualification, and the job lands back in <strong>your</strong> CRM. The lead stays completely yours.</p>
     </div>
   </section>
@@ -420,10 +462,10 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
       <!-- 3. Real scheduling -->
       <div class="deep-row">
         <div>
-          <span class="deep-kicker">03 &mdash; Real Scheduling</span>
+          <span class="deep-kicker">03 &mdash; Real Scheduling (Simpro)</span>
           <h3>Booked against your <em>actual calendar</em> &mdash; not "we'll call you back."</h3>
-          <p>This is where Hermia goes further than any intake bot. When the lead names their availability &mdash; "Tuesday morning" &mdash; Hermia pulls <strong>your actual staff list and your actual schedule from your CRM</strong>, scans the next 20 days, and works out which of your technicians is genuinely free at the time the customer asked for. Then it books the closest available match.</p>
-          <p>The job is created, the technician is assigned, and the appointment lands on your CRM calendar as a <strong>real scheduled activity</strong> &mdash; exactly as if your best office admin had checked the whiteboard and pencilled it in. Your customer gets a confirmed time and the technician's name before the conversation ends. Your tech gets a booked job. Nobody plays phone tag.</p>
+          <p>This is where Hermia goes further than any intake bot. With Simpro, when the lead names their availability &mdash; "Tuesday morning" &mdash; Hermia pulls <strong>your actual staff list and your actual schedule from your CRM</strong>, scans the next 20 days, and works out which of your technicians is genuinely free at the time the customer asked for. Then it books the closest available match.</p>
+          <p>The job is created, the technician is assigned, and the appointment lands on your CRM calendar as a <strong>real scheduled activity</strong> &mdash; exactly as if your best office admin had checked the whiteboard and pencilled it in. Your customer gets a confirmed time and the technician's name before the conversation ends. Your tech gets a booked job. Nobody plays phone tag. <strong>Simply put: with Simpro, we book the lead for you.</strong></p>
         </div>
         <div class="deep-detail">
           <div class="dd-title">The booking, step by step</div>
@@ -452,17 +494,18 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
             <div class="dd-flow-step"><span class="dd-flow-num">B</span><span><strong>Existing customer, new address</strong> &rarr; only the site is created; customer ID reused</span></div>
             <div class="dd-flow-step"><span class="dd-flow-num">C</span><span><strong>Completely new</strong> &rarr; customer and site created once, correctly, fully populated</span></div>
           </div>
-          <p style="font-size:12.5px;color:var(--muted);margin-top:16px;line-height:1.6">Before anything is created, Hermia searches your CRM for the customer and the site. The duplicate-customer mess that plagues Simpro and AroFlo databases simply stops happening.</p>
+          <p style="font-size:12.5px;color:var(--muted);margin-top:16px;line-height:1.6">Before anything is created, Hermia searches your CRM for the customer and the site. The duplicate-customer mess that plagues Simpro and AroFlo databases simply stops happening. See "How Hermia keeps your CRM clean" below for the full picture.</p>
         </div>
       </div>
 
-      <!-- 5. Memory / trusted channel -->
+      <!-- 5. Hermia Lead Generator -->
       <div class="deep-row">
         <div>
-          <span class="deep-kicker">05 &mdash; Permanent Memory</span>
-          <h3>An additional lead channel, <em>built on trust.</em></h3>
-          <p>Every lead keeps their Customer ID forever. Once they've been through qualification once, Hermia remembers exactly who they are, which of your customers they belong to, and what they needed last time. <strong>No re-qualifying, no re-typing, no duplicate record.</strong> "Hi again &mdash; another issue at the same site?"</p>
-          <p>That memory is what turns Hermia into <strong>an additional lead channel of its own</strong>. A property manager or past customer who trusted the experience once doesn't message a competitor or run a Google search next time &mdash; they message Hermia, go through the exact same qualification, and the new job lands straight back in your CRM against the same customer, fully briefed. <strong>Repeat business and referrals flow in with zero admin</strong> &mdash; and the lead stays completely yours: they talk to <em>your</em> assistant, under <em>your</em> name. Hermia stays invisible.</p>
+          <span class="deep-kicker">05 &mdash; Hermia Lead Generator</span>
+          <h3>Once they're yours, <em>they stay yours.</em></h3>
+          <p>Every lead keeps their Customer ID forever. The moment someone's been through qualification once, Hermia remembers exactly who they are &mdash; which of your customers they belong to, and what they needed last time. <strong>No re-qualifying, no re-typing, no duplicate record.</strong></p>
+          <p>Picture this: six months after her hot water system was fixed, Jessica's kitchen tap starts leaking. She doesn't run a Google search. She doesn't message a competitor. She messages Hermia &mdash; the same number, the same assistant she trusted last time. Hermia recognises her instantly, pulls up her history, and within minutes sends the job straight back to you: <em>"Jessica's lead is back."</em> No admin, no chasing, no lost opportunity. That's Hermia acting as your own lead generator &mdash; quietly working in the background to keep every past customer coming back to you, and only you.</p>
+          <p>That's why Hermia isn't just an intake tool &mdash; it's an additional channel of leads that gets stronger every month it runs. <strong>Repeat business and referrals flow in with zero admin</strong>, and the lead stays completely yours: they talk to <em>your</em> assistant, under <em>your</em> name. Hermia stays invisible.</p>
         </div>
         <div class="deep-detail">
           <div class="dd-title">What lands on the job card</div>
@@ -546,9 +589,11 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
   <!-- ═══════ SIMPRO FIELD MAPPING ═══════ -->
   <section class="section" id="simpro-mapping" style="background:var(--bg3);border-top:1px solid var(--border)">
     <div class="inner">
-      <div class="eyebrow">Inside Your CRM</div>
+      <div class="eyebrow">Inside Your CRM &mdash; Simpro</div>
       <h2 class="sec-title">Exactly what lands in <em>Simpro</em> &mdash; and how it gets there.</h2>
       <p class="sec-sub">It starts with nothing more than an email and a photo. The moment a lead's first message and images come in, Hermia is already writing the record &mdash; fully synced to your live Simpro account, no CSV, no manual entry, no copy-paste. By the time you open the job, the Customer and the Lead are already built, in your naming conventions, in your custom fields.</p>
+      <p class="sec-sub" style="margin-top:14px"><strong>With Simpro, Hermia books the lead for you.</strong> The moment a customer names a day that works, Hermia checks who on your team is actually free &mdash; using your live staff list and schedule &mdash; and locks in the closest available technician as a real, booked calendar activity. No back-and-forth, no double-checking, no manual entry.</p>
+      <p class="sec-sub" style="margin-top:14px">And it all lands <strong>inside your CRM</strong> &mdash; the customer's contact details, the job's urgency, and the photos they sent are written straight onto the record. The full set of qualification answers lives in your <strong>Open Leads</strong>, ready for whoever's dispatching &mdash; not sitting in a separate inbox waiting to be re-keyed.</p>
 
       <div class="deep-row" style="margin-top:20px">
         <div>
@@ -572,13 +617,13 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
           <span class="deep-kicker">Lead &amp; Job Module</span>
           <h3>What's wrong, how urgent, <em>and what it costs.</em></h3>
           <p>Contact phone and email travel with the job as well as the customer, so whoever's dispatching never has to jump back to the customer card. <strong>Asset Type</strong> tells the technician what they're dealing with before they leave the office &mdash; a hot water system, a pipe, a fixture, an appliance &mdash; so the right tools and parts go on the truck.</p>
-          <p><strong>Urgency</strong> &mdash; <strong>Emergency</strong>, <strong>Critical</strong>, or <strong>Standard</strong> &mdash; and <strong>Estimate Amount</strong> are both written to the Lead, per job, so you can triage at a glance and see exactly what was quoted or agreed without it being overwritten by whatever the customer's next job turns out to be. <strong>Billing Entity</strong> confirms who's accountable for that specific job's invoice. <strong>Fault Code</strong> is a standardised code for the specific fault type, written to its own field so faults can be tracked and reported on across your whole customer base over time. <strong>Defect Status</strong> records where the issue currently sits &mdash; active, intermittent, or resolved pending confirmation.</p>
+          <p><strong>Urgency</strong> &mdash; <strong>Emergency</strong>, <strong>Urgent</strong>, or <strong>Standard</strong> &mdash; and <strong>Estimate Amount</strong> are both written to the Lead, per job, so you can triage at a glance and see exactly what was quoted or agreed without it being overwritten by whatever the customer's next job turns out to be. <strong>Billing Entity</strong> confirms who's accountable for that specific job's invoice. <strong>Fault Code</strong> is a standardised code for the specific fault type, written to its own field so faults can be tracked and reported on across your whole customer base over time. <strong>Defect Status</strong> records where the issue currently sits &mdash; active, intermittent, or resolved pending confirmation.</p>
         </div>
         <div class="deep-detail">
           <div class="dd-title">Lead / Job fields</div>
           <ul class="dd-list">
             <li><strong>Contact Phone / Email</strong> &mdash; travels with the job</li>
-            <li><strong>Urgency</strong> &mdash; Emergency / Critical / Standard</li>
+            <li><strong>Urgency</strong> &mdash; Emergency / Urgent / Standard</li>
             <li><strong>Estimate Amount</strong> &mdash; quoted or agreed price</li>
             <li><strong>Billing Entity</strong> &mdash; who's accountable for this job's invoice</li>
             <li><strong>Asset Type</strong> &mdash; hot water system, pipe, fixture, or appliance</li>
@@ -629,6 +674,146 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
     </div>
   </section>
 
+  <!-- ═══════ AROFLO FIELD MAPPING ═══════ -->
+  <section class="section" id="aroflo-mapping" style="background:var(--bg2);border-top:1px solid var(--border)">
+    <div class="inner">
+      <div class="eyebrow">Inside Your CRM &mdash; AroFlo</div>
+      <h2 class="sec-title">Exactly what lands in <em>AroFlo</em> &mdash; and how it gets there.</h2>
+      <p class="sec-sub">AroFlo works differently to Simpro. Hermia doesn't book a schedule for you &mdash; instead, it fills in your AroFlo client and location records automatically, then sends a WhatsApp alert the moment a lead finishes qualifying, telling you exactly how hot the lead is before you even open the app.</p>
+
+      <div class="deep-row" style="margin-top:20px">
+        <div>
+          <span class="deep-kicker">Client Section</span>
+          <h3>Contact details, <em>filled in for you.</em></h3>
+          <p>The moment a lead qualifies, Hermia writes their details straight into your AroFlo Client/Supplier record &mdash; name, address, suburb, state and postcode, plus a primary contact with phone, mobile and email. There's no retyping from a WhatsApp thread into a form, and no copy-paste between the two.</p>
+          <p>Matching works the same way it does in Simpro: phone and email are used to recognise a returning customer, so Hermia never creates a second Client record for someone already on file.</p>
+        </div>
+        <div class="deep-detail">
+          <div class="dd-title">Client / Supplier fields</div>
+          <ul class="dd-list">
+            <li><strong>Client / Supplier Name</strong></li>
+            <li><strong>Address, Suburb, State, Postcode</strong></li>
+            <li><strong>Primary Contact</strong></li>
+            <li><strong>Phone, Mobile, Fax, Email</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deep-row">
+        <div>
+          <span class="deep-kicker">Location Section</span>
+          <h3>The job site, <em>mapped straight in.</em></h3>
+          <p>Alongside the Client record, Hermia writes the job site into your AroFlo Location model &mdash; linked to the right Client/Supplier, with suburb, state, postcode, an on-site contact, phone and email all filled in. Your team opens the job already knowing exactly where they're going and who to call when they arrive.</p>
+        </div>
+        <div class="deep-detail">
+          <div class="dd-title">Location fields</div>
+          <ul class="dd-list">
+            <li><strong>Client / Supplier</strong> &mdash; linked record</li>
+            <li><strong>Location, Suburb, State, Postcode</strong></li>
+            <li><strong>Contact, Phone, Email</strong></li>
+            <li><strong>Building Type</strong> &mdash; residential or commercial</li>
+            <li><strong>Access Notes</strong> &mdash; keys, codes, on-site contact</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deep-row">
+        <div>
+          <span class="deep-kicker">How AroFlo Differs From Simpro</span>
+          <h3>No scheduling. <em>Qualification instead.</em></h3>
+          <p>AroFlo doesn't currently support the same live scheduling integration Simpro does, so Hermia doesn't book a technician or touch your calendar for AroFlo accounts. Instead, everything is focused on making sure the lead that reaches you is worth your time &mdash; every enquiry is fully qualified before you ever see it, and you decide when to book it in yourself.</p>
+          <p>The answers from qualification don't get written into AroFlo's own fields the way they do in Simpro &mdash; instead, the full set of answers is delivered straight to you as a WhatsApp message, alongside the client and location records already filled in.</p>
+          <p>Put simply: with <strong>Simpro</strong>, the qualification lands inside your CRM. With <strong>AroFlo</strong>, we hand you the warm and hot leads directly &mdash; the client and site details filled in, the qualification in your pocket, and the decision on when to book left to you.</p>
+        </div>
+        <div class="deep-detail">
+          <div class="dd-title">What you get instead of a booking</div>
+          <ul class="dd-list">
+            <li>A <strong>"New Qualification"</strong> WhatsApp message the moment a lead finishes</li>
+            <li>An instant <strong>Hot or Warm</strong> rating on every single lead</li>
+            <li>A link to the full lead detail &mdash; asset type, access notes, defect status, hazards</li>
+            <li><strong>Cold enquiries are filtered out before they reach your phone</strong> &mdash; see the guarantee below</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════ AROFLO GUARANTEE ═══════ -->
+  <section class="section" id="aroflo-guarantee" style="background:var(--bg3);border-top:1px solid var(--border);text-align:center">
+    <div class="inner" style="max-width:820px;margin:0 auto;text-align:center">
+      <div class="eyebrow">The AroFlo Guarantee</div>
+      <h2 class="sec-title">Qualified enquiries only. <em>Not inbox noise.</em></h2>
+      <p class="sec-sub" style="margin:18px auto 0">This is the part contractors don't believe until they see it: with AroFlo, cold enquiries don't reach your team. Every enquiry goes through Hermia's qualification process before you receive it &mdash; the same structured process every time, with no shortcuts.</p>
+      <p class="sec-sub" style="margin:18px auto 0">A cold enquiry is removed when a customer doesn't complete the qualification process, can't provide enough information about the job, doesn't confirm a genuine plumbing issue, or shows no intention of proceeding. Hermia filters these out before they reach your WhatsApp.</p>
+      <p class="sec-sub" style="margin:18px auto 0">The only enquiries your team receives are <strong>warm leads</strong> &mdash; customers who've confirmed a genuine issue, provided job details, and want to discuss the next step or pricing &mdash; and <strong>hot leads</strong>, who've completed qualification, accepted the estimated service range, and are ready to move forward. When an enquiry reaches your WhatsApp, it has already passed Hermia's qualification process.</p>
+      <p class="sec-sub" style="margin:22px auto 0"><strong>Hermia's guarantee: your team receives qualified enquiries &mdash; not unfiltered inbox noise.</strong></p>
+    </div>
+
+    <div class="deep-detail" style="max-width:640px;margin:44px auto 0;text-align:left">
+      <div class="dd-title">What the WhatsApp alert tells you</div>
+      <ul class="dd-list">
+        <li><strong>Rating</strong> &mdash; Hot or Warm, right in the message</li>
+        <li><strong>Asset Type</strong> &mdash; what's affected</li>
+        <li><strong>Defect Status</strong> &mdash; active, intermittent, or resolved-pending</li>
+        <li><strong>Hazards</strong> &mdash; building type, site access, water or gas isolation, billing contact</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════ THREE-TIER CRM MATCHING ═══════ -->
+  <section class="section" id="matching-tiers" style="background:var(--bg2);border-top:1px solid var(--border)">
+    <div class="inner">
+      <div class="eyebrow">Behind The Scenes</div>
+      <h2 class="sec-title">How Hermia keeps your CRM <em>clean, every time.</em></h2>
+      <p class="sec-sub">Before Hermia creates anything, it checks what you already have &mdash; matching every lead against your existing customers and sites by phone and email, so nothing is ever duplicated. Every lead falls into one of three tiers.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:40px" class="matching-grid">
+        <div class="deep-detail">
+          <div class="dd-title">Tier 1 &mdash; Match Found</div>
+          <p style="font-size:13.5px;color:var(--soft);line-height:1.7">The lead matches an existing customer at a site you already have on file. Hermia doesn't touch the customer or site record at all &mdash; it simply adds the new job with everything the lead just told it.</p>
+        </div>
+        <div class="deep-detail">
+          <div class="dd-title">Tier 2 &mdash; New Site</div>
+          <p style="font-size:13.5px;color:var(--soft);line-height:1.7">The customer's on file, but this is a new address. Hermia leaves the customer record exactly as it is and creates only the new site &mdash; called <strong>"Creating Your Site"</strong> in AroFlo, or <strong>"Creating New Location"</strong> in Simpro &mdash; so your existing customer history is never touched.</p>
+        </div>
+        <div class="deep-detail">
+          <div class="dd-title">Tier 3 &mdash; Brand New</div>
+          <p style="font-size:13.5px;color:var(--soft);line-height:1.7">No match at all. Hermia creates a brand-new customer record and a brand-new site together, fully populated from the qualification &mdash; so the very first job for a new customer is ready to go, start to finish.</p>
+        </div>
+      </div>
+
+      <p class="sec-sub" style="margin-top:32px;max-width:820px">In <strong>Simpro</strong>, every answer from the qualification writes straight into your CRM's own fields. In <strong>AroFlo</strong>, the client and location details are filled in automatically, and the full qualification &mdash; every answer, every detail &mdash; is delivered to you as a WhatsApp message instead.</p>
+    </div>
+  </section>
+
+  <!-- ═══════ EMERGENCY RESPONSE TIERS ═══════ -->
+  <section class="section" id="response-tiers" style="background:var(--bg3);border-top:1px solid var(--border)">
+    <div class="inner">
+      <div class="eyebrow">Response Times</div>
+      <h2 class="sec-title">Three tiers. <em>Easy to remember.</em></h2>
+      <p class="sec-sub">Every job Hermia qualifies is sorted into one of three response tiers, so you always know how fast a job needs to move &mdash; at a glance, without reading the whole brief.</p>
+
+      <div class="tier-grid">
+        <div class="tier-card emergency">
+          <div class="tier-name">Emergency</div>
+          <div class="tier-window">Today</div>
+          <div class="tier-desc">Active leaks, flooding, gas smells, or no water at all &mdash; anything unsafe or actively getting worse.</div>
+        </div>
+        <div class="tier-card urgent">
+          <div class="tier-name">Urgent</div>
+          <div class="tier-window">2&ndash;4 Days</div>
+          <div class="tier-desc">A real problem that needs fixing soon, but isn't actively damaging the property right now.</div>
+        </div>
+        <div class="tier-card standard">
+          <div class="tier-name">Standard</div>
+          <div class="tier-window">Next Week</div>
+          <div class="tier-desc">Planned work, routine maintenance, and non-urgent repairs.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══════ WITH / WITHOUT ═══════ -->
   <section class="section benefits" id="benefits">
     <div class="inner">
@@ -662,46 +847,93 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
   <section class="pricing-section" id="pricing">
     <div class="pricing-header">
       <div class="eyebrow">Pricing</div>
-      <h2 class="pricing-h">One trade. One blueprint.<br><em>Ready on day one.</em></h2>
+      <h2 class="pricing-h">One trade. Two CRMs.<br><em>Ready on day one.</em></h2>
       <p class="pricing-sub">A complete qualification system &mdash; every question, safety check, follow-up and booking flow already built and tested for plumbing work. Every plan starts with a 7-day free trial before your monthly fee is charged.</p>
     </div>
 
     <div class="pricing-stack">
 
-      <!-- PLUMBING -->
-      <div class="plan-box">
+      <!-- SIMPRO -->
+      <div class="plan-box" id="pricing-simpro">
         <div class="plan-box-left">
-          <div class="plan-box-name">Plumbing<br>Contractors</div>
-          <div class="plan-box-tag">Pre-Built Blueprint &middot; Australia</div>
+          <div class="plan-box-name">Simpro<br>Contractors</div>
+          <div class="plan-box-tag">Full Booking &amp; Scheduling &middot; AU &middot; CA &middot; NZ &middot; UK &middot; IE &middot; US</div>
           <span class="plan-box-trial">7-Day Free Trial</span>
           <div class="plan-box-setup">
             <strong style="display:block;font-size:24px;margin-bottom:2px">$1,700 AUD / month</strong>
             <span style="display:block;margin-bottom:14px;color:var(--soft)">First charge after your 7-day free trial</span>
-            <strong style="display:block;font-size:24px;margin-bottom:2px">$900 AUD one-off</strong>
-            <span style="display:block;color:var(--soft)">Implementation &amp; connection fee<span class="refund">Refundable within 2 days of setup if you're not happy &mdash; no questions asked</span></span>
+            <strong style="display:block;font-size:24px;margin-bottom:2px">$1,200 AUD one-off</strong>
+            <span style="display:block;color:var(--soft)">Implementation &amp; connection fee<span class="refund">Refundable within 48 hours of setup if you're not happy &mdash; no questions asked</span></span>
           </div>
-          <div class="plan-box-cta"><a href="apply.html?plan=plumbing">Get Started</a></div>
+          <div class="plan-box-cta"><a href="apply.html?plan=simpro">Get Started</a></div>
         </div>
         <div class="plan-box-right">
-          <span class="crm-chip">Simpro &middot; Live</span><span class="crm-chip soon">AroFlo &middot; Coming Soon</span>
-          <div class="plan-box-right-title">What Hermia does for your plumbing business</div>
+          <span class="crm-chip">Simpro &middot; Live</span>
+          <div class="plan-box-right-title">What Hermia does for your Simpro business</div>
           <ul class="plan-box-feats">
+            <li><strong>We book the lead for you</strong> &mdash; your live staff list &amp; schedule checked, closest free technician assigned, real calendar activity created</li>
             <li><strong>Full qualification, on your terms</strong> &mdash; asset, urgency, defect status &amp; site details captured from the first message</li>
             <li><strong>Site access sorted before dispatch</strong> &mdash; keys, gate codes, access constraints &amp; on-site contact asked upfront</li>
             <li><strong>Billing entity locked in</strong> &mdash; who's accountable for the bill, confirmed before the job is booked</li>
-            <li><strong>Photo &amp; video evidence</strong> &mdash; leaks, blockages &amp; site conditions collected into one gallery on the job, so you know before you go</li>
-            <li><strong>Real technician booking</strong> &mdash; your staff list &amp; live schedule scanned up to 20 days ahead, tech assigned, calendar activity created</li>
+            <li><strong>Photo &amp; video evidence</strong> &mdash; leaks, blockages &amp; site conditions collected into one gallery on the job</li>
             <li><strong>Zero-duplicate matching</strong> &mdash; customers &amp; sites searched before anything is created</li>
-            <li><strong>Emergency triage</strong> &mdash; burst pipes and active leaks cut through the queue, marked urgent</li>
-            <li><strong>Permanent customer memory</strong> &mdash; property managers who message again are recognised instantly; repeat work flows in with zero admin</li>
+            <li><strong>Emergency / Urgent / Standard triage</strong> &mdash; every job sorted by response time on arrival</li>
+            <li><strong>Hermia Lead Generator</strong> &mdash; returning customers recognised instantly; repeat work flows in with zero admin</li>
             <li>Your Simpro custom fields mapped &mdash; your naming, untouched</li>
             <li>Weekly business summary report, every Monday</li>
           </ul>
         </div>
       </div>
 
+      <!-- AROFLO -->
+      <div class="plan-box" id="pricing-aroflo">
+        <div class="plan-box-left">
+          <div class="plan-box-name">AroFlo<br>Contractors</div>
+          <div class="plan-box-tag">Qualified Warm &amp; Hot Leads &middot; AU &middot; CA &middot; NZ &middot; UK &middot; IE &middot; US</div>
+          <span class="plan-box-trial">7-Day Free Trial</span>
+          <div class="plan-box-setup">
+            <strong style="display:block;font-size:24px;margin-bottom:2px">$1,700 AUD / month</strong>
+            <span style="display:block;margin-bottom:14px;color:var(--soft)">First charge after your 7-day free trial</span>
+            <strong style="display:block;font-size:24px;margin-bottom:2px">$900 AUD one-off</strong>
+            <span style="display:block;color:var(--soft)">Implementation &amp; connection fee<span class="refund">Refundable within 48 hours of setup if you're not happy &mdash; no questions asked</span></span>
+          </div>
+          <div class="plan-box-cta"><a href="apply.html?plan=aroflo">Get Started</a></div>
+        </div>
+        <div class="plan-box-right">
+          <span class="crm-chip">AroFlo &middot; Live (No Scheduling)</span>
+          <div class="plan-box-right-title">What Hermia does for your AroFlo business</div>
+          <ul class="plan-box-feats">
+            <li><strong>Qualified warm or hot leads only</strong> &mdash; cold enquiries and tyre kickers are filtered out before they reach you</li>
+            <li><strong>Instant WhatsApp alert</strong> &mdash; a "New Qualification" message with a Hot/Warm rating the moment a lead finishes</li>
+            <li><strong>Client &amp; Location auto-fill</strong> &mdash; name, address, contact, phone &amp; email written into AroFlo automatically</li>
+            <li><strong>Full lead detail on tap</strong> &mdash; asset type, access notes, defect status &amp; hazards, one link away</li>
+            <li><strong>Photo &amp; video evidence</strong> &mdash; leaks, blockages &amp; site conditions collected into one gallery on the job</li>
+            <li><strong>Zero-duplicate matching</strong> &mdash; clients &amp; locations searched before anything is created</li>
+            <li><strong>Emergency / Urgent / Standard triage</strong> &mdash; every job sorted by response time on arrival</li>
+            <li><strong>Hermia Lead Generator</strong> &mdash; returning customers recognised instantly; repeat work flows in with zero admin</li>
+            <li>Weekly business summary report, every Monday</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
-    <p class="pricing-note">Every plan runs on <strong>pre-approved, on-script templates only</strong> &mdash; your leads never see freeform AI output. Want to change what's asked? Email us &mdash; question set updates are live within 1&ndash;3 business days, no new onboarding call.</p>
+    <p class="pricing-note">Every plan runs on <strong>pre-approved, on-script templates only</strong> &mdash; your leads never see freeform AI output. Setup fees (<strong>$1,200</strong> for Simpro, <strong>$900</strong> for AroFlo) are fully refundable within 48 hours if you're not satisfied. Want to change what's asked? Email us &mdash; question set updates are live within 1&ndash;3 business days, no new onboarding call.</p>
+  </section>
+
+  <!-- ═══════ REFUNDS ═══════ -->
+  <section class="refund-section" id="refunds">
+    <div class="eyebrow">Refunds</div>
+    <h2 class="sec-title" style="text-align:center">A clear, no-questions-asked window.</h2>
+    <div class="refund-box">
+      <p>Every plan includes a <strong>7-day free trial</strong> before your monthly fee is ever charged, so you can see Hermia running on real enquiries before paying anything.</p>
+      <p>If, after paying your one-off implementation &amp; connection fee, you decide Hermia isn't right for your business, tell us <strong>within 48 hours of setup</strong> and we'll refund the full setup fee &mdash; no questions asked.</p>
+      <p>After that 48-hour window has passed, the setup fee is no longer refundable, as onboarding work on your account is already complete.</p>
+      <div class="refund-figures">
+        <div class="refund-figure"><div class="rf-label">Simpro Setup Fee</div><div class="rf-value">$1,200 AUD</div></div>
+        <div class="refund-figure"><div class="rf-label">AroFlo Setup Fee</div><div class="rf-value">$900 AUD</div></div>
+        <div class="refund-figure"><div class="rf-label">Refund Window</div><div class="rf-value">48 Hours</div></div>
+      </div>
+    </div>
   </section>
 
   <!-- ═══════ CONTACT / PARTNER ═══════ -->
@@ -715,6 +947,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
           <div class="contact-info-item"><span class="contact-info-label">Email</span><span class="contact-info-value"><a href="mailto:capital@hermia.au">capital@hermia.au</a></span></div>
           <div class="contact-info-item"><span class="contact-info-label">Phone</span><span class="contact-info-value"><a href="tel:+61494719401">+61 494 719 401</a></span></div>
           <div class="contact-info-item"><span class="contact-info-label">Location</span><span class="contact-info-value">Victoria, Australia</span></div>
+          <div class="contact-info-item"><span class="contact-info-label">Coverage</span><span class="contact-info-value">Australia, Canada, New Zealand, UK, Ireland &amp; the US</span></div>
           <div class="contact-info-item"><span class="contact-info-label">ABN</span><span class="contact-info-value">75 434 177 026</span></div>
         </div>
       </div>
@@ -735,13 +968,14 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
         <div class="sec-title" style="text-align:center">Questions <em>before you start</em></div>
       </div>
       <div class="faq-list">
-        <div class="faq-item"><button class="faq-q"><span>How does the booking actually work &mdash; does someone still confirm it?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No manual step.</strong> Hermia pulls your staff list and live schedule from your CRM, scans up to 20 days ahead, assigns a genuinely free technician, and creates the appointment as a real calendar activity. <em>The lead is told the tech and time in the conversation.</em></div></div></div>
-        <div class="faq-item"><button class="faq-q"><span>How does Hermia connect with Simpro?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Full integration:</strong> customer &amp; site search and dedupe, custom field mapping, staff availability search, technician assignment, calendar booking, and job creation &mdash; set up during onboarding. <em>AroFlo integration is coming soon.</em></div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>What's the difference between the Simpro and AroFlo plans?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Simpro includes full booking &amp; scheduling</strong> &mdash; Hermia checks your staff availability and books the job straight onto your calendar. <strong>AroFlo doesn't currently support that same scheduling integration</strong>, so instead Hermia focuses entirely on qualification: cold enquiries are filtered out before they reach you, so the only leads you receive are warm or hot, and you're alerted by WhatsApp the moment one's ready, with your AroFlo client and location details already filled in.</div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>How does the booking actually work &mdash; does someone still confirm it?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No manual step, on Simpro.</strong> Hermia pulls your staff list and live schedule from your CRM, scans up to 20 days ahead, assigns a genuinely free technician, and creates the appointment as a real calendar activity. <em>The lead is told the tech and time in the conversation.</em></div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>How fast will Hermia flag a job to me?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text">Every qualified job is sorted into one of three tiers: <strong>Emergency</strong> (today), <strong>Urgent</strong> (2&ndash;4 days), or <strong>Standard</strong> (next week) &mdash; so you always know how quickly it needs to move, at a glance.</div></div></div>
         <div class="faq-item"><button class="faq-q"><span>What does it do with photos and voice notes?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Photos &amp; videos:</strong> collected in bursts, stored permanently on our infrastructure, attached to the job as one branded gallery link &mdash; links never expire. <strong>Voice notes:</strong> fully transcribed and treated like typed answers. <em>All before a human looks at anything.</em></div></div></div>
         <div class="faq-item"><button class="faq-q"><span>Do my customers know they're talking to software?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>They talk to your digital assistant, under your name.</strong> Hermia stays invisible &mdash; we're not a marketplace skimming your jobs or an app your customers download. <em>The customer belongs to you, not to us.</em> Consent is asked before any channel move, in line with the Privacy Act 1988 (Cth).</div></div></div>
         <div class="faq-item"><button class="faq-q"><span>Does Hermia make things up or go off-script?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No &mdash; every message comes from pre-approved templates.</strong> No freeform AI generation, no hallucinations, no invented answers. What your customers read is always accurate and on-brand.</div></div></div>
         <div class="faq-item"><button class="faq-q"><span>What if a lead wants to negotiate the price?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>They're handed straight to the negotiation contact you set at onboarding</strong> &mdash; your phone or email &mdash; and you're told they're reaching out before they contact you. <em>The job still lands in your CRM either way.</em></div></div></div>
-        <div class="faq-item"><button class="faq-q"><span>Is there a free trial, and is the setup fee refundable?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Yes.</strong> Every plan starts with a <em>7-day free trial</em> &mdash; the $1,700/month fee begins only when it ends. <strong>The $900 implementation &amp; connection fee is refundable within 2 days</strong> of setup if you're not happy, no questions asked.</div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>Is there a free trial, and is the setup fee refundable?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Yes.</strong> Every plan starts with a <em>7-day free trial</em> &mdash; your $1,700/month fee only begins once it ends. Your one-off implementation &amp; connection fee (<strong>$1,200 for Simpro, $900 for AroFlo</strong>) is fully refundable <strong>within 48 hours</strong> of setup if you're not happy, no questions asked.</div></div></div>
       </div>
     </div>
   </section>
@@ -753,7 +987,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
         <span>Hermia</span>
       </a>
       <div class="foot-left-meta">
-        <span>Victoria, Australia</span>
+        <span>HQ Victoria, Australia &middot; Serving AU, CA, NZ, UK, IE &amp; US</span>
         <a href="#capabilities">How It Works</a>
         <a href="about us.html">About Us</a>
         <a href="#pricing">Pricing</a>
@@ -825,9 +1059,23 @@ document.querySelectorAll(".faq-q").forEach(function(btn){
   });
 });
 var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.style.opacity="1";e.target.style.transform="translateY(0)"}})},{threshold:.07});
-document.querySelectorAll(".deep-row,.bt-row,.plan-box").forEach(function(el){el.style.opacity="0";el.style.transform="translateY(14px)";el.style.transition="opacity .5s ease,transform .5s ease";obs.observe(el)});
+document.querySelectorAll(".deep-row,.bt-row,.plan-box,.tier-card").forEach(function(el){el.style.opacity="0";el.style.transform="translateY(14px)";el.style.transition="opacity .5s ease,transform .5s ease";obs.observe(el)});
+
+// ── Mini pricing dropdown under "Start Free Trial" ──
 var tb=document.getElementById("nav-trial-btn");
-if(tb)tb.addEventListener("click",function(){document.getElementById("pricing").scrollIntoView({behavior:"smooth"})});
+var dd=document.getElementById("trial-dropdown");
+if(tb&&dd){
+  tb.addEventListener("click",function(e){
+    e.stopPropagation();
+    dd.classList.toggle("show");
+  });
+  dd.querySelectorAll("a").forEach(function(a){
+    a.addEventListener("click",function(){dd.classList.remove("show");});
+  });
+  document.addEventListener("click",function(e){
+    if(!dd.contains(e.target)&&e.target!==tb){dd.classList.remove("show");}
+  });
+}
 </script>
 <script src="/hermia-widget.js"></script>
 </body>
