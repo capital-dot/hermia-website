@@ -465,13 +465,13 @@
           <div class="prose">${escapeHtml(accessNotes)}</div>
         </div>
       </div>` : '',
-      `<div class="section warn">
+      hazards ? `<div class="section warn">
         <div class="sec-icon">${iconSvg('hazard')}</div>
         <div class="sec-body">
           <div class="eyebrow">Hazards</div>
-          <div class="prose">${escapeHtml(hazards || 'No hazards flagged')}</div>
+          <div class="prose">${escapeHtml(hazards)}</div>
         </div>
-      </div>`,
+      </div>` : '',
       isolations ? `<div class="section warn">
         <div class="sec-icon">${iconSvg('hazard')}</div>
         <div class="sec-body">
