@@ -40,7 +40,7 @@
   :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
   button { font-family: inherit; }
 
-  /* ── Background — warmer gold ambience ── */
+  /* ── Background ambience ── */
   .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
   .bloom {
     position: absolute; inset: 0;
@@ -55,26 +55,27 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* ── Decorative plumbing tools — 8 icons, gentle ambient 3D drift, wide viewports only ── */
-  .tool-field { position: fixed; inset: 0; z-index: 0; pointer-events: none; perspective: 1200px; overflow: hidden; }
+  /* ── 3D Floating plumbing tools background ── */
+  .tool-field { position: fixed; inset: 0; z-index: 0; pointer-events: none; perspective: 1400px; overflow: hidden; }
   .tool-icon {
-    position: absolute; will-change: transform; opacity: .16;
-    filter: drop-shadow(0 0 18px rgba(201,163,91,0.4));
+    position: absolute; will-change: transform; opacity: .13;
+    filter: drop-shadow(0 0 22px rgba(201,163,91,0.5));
     animation-name: float3d; animation-timing-function: ease-in-out; animation-iteration-count: infinite;
     transform-style: preserve-3d;
   }
-  .tool-icon svg { display: block; stroke: var(--gold-light); fill: none; }
+  .tool-icon svg { display: block; stroke: var(--gold-light); fill: none; stroke-linecap: round; stroke-linejoin: round; }
   @keyframes float3d {
-    0%   { transform: translate3d(0,0,0)      rotateX(0deg)  rotateY(0deg)   rotateZ(0deg); }
-    25%  { transform: translate3d(5px,-12px,18px)  rotateX(7deg)  rotateY(9deg)   rotateZ(3deg); }
-    50%  { transform: translate3d(-6px,-18px,-4px) rotateX(-5deg) rotateY(-7deg)  rotateZ(-2deg); }
-    75%  { transform: translate3d(-8px,-4px,-16px) rotateX(4deg)  rotateY(-5deg)  rotateZ(2deg); }
-    100% { transform: translate3d(0,0,0)      rotateX(0deg)  rotateY(0deg)   rotateZ(0deg); }
+    0%   { transform: translate3d(0,0,0)         rotateX(0deg)   rotateY(0deg)   rotateZ(0deg); }
+    20%  { transform: translate3d(6px,-14px,22px)  rotateX(9deg)   rotateY(12deg)  rotateZ(4deg); }
+    40%  { transform: translate3d(-8px,-20px,-6px) rotateX(-6deg)  rotateY(-9deg)  rotateZ(-3deg); }
+    60%  { transform: translate3d(4px,-8px,14px)   rotateX(5deg)   rotateY(6deg)   rotateZ(2deg); }
+    80%  { transform: translate3d(-10px,-4px,-18px)rotateX(-4deg)  rotateY(-6deg)  rotateZ(3deg); }
+    100% { transform: translate3d(0,0,0)         rotateX(0deg)   rotateY(0deg)   rotateZ(0deg); }
   }
   @media (max-width: 1180px) { .tool-field { display: none; } }
 
-  .wrap { max-width: 660px; margin: 0 auto; position: relative; z-index: 1; }
-
+  /* ── Layout ── */
+  .wrap { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
   .docket { opacity: 0; animation: riseIn .55s ease-out forwards; }
   @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -109,49 +110,84 @@
   .stamp.urgent { border-color: rgba(201,119,106,0.55); color: var(--red); background: rgba(201,119,106,0.1); }
   .stamp .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; box-shadow: 0 0 6px currentColor; }
 
-  /* ── Fact row: every short job field as an equal large box, wrapping left-to-right ── */
-  .fact-row {
-    display: flex;
-    flex-wrap: wrap;
+  /* ── Top row: asset card (medium) + photo card side by side ── */
+  .top-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 16px;
-    margin-bottom: 22px;
+    margin-bottom: 16px;
   }
-  .tile-hero {
-    flex: 1 1 200px; min-width: 190px;
+
+  /* Asset card — medium, taller than a small tile */
+  .asset-card {
     border: 1px solid var(--border-strong); border-radius: 14px;
     background: linear-gradient(135deg, var(--card-hi), rgba(201,163,91,0.02));
     box-shadow: 0 10px 26px rgba(0,0,0,0.26);
-    padding: 20px 20px 18px;
+    padding: 22px 22px 20px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 160px;
     transition: border-color .2s ease, transform .2s ease;
   }
-  .tile-hero:hover { border-color: var(--gold); transform: translateY(-2px); }
-  .tile-hero .tile-icon { width: 30px; height: 30px; margin-bottom: 13px; border-radius: 8px; background: rgba(201,163,91,0.14); display: flex; align-items: center; justify-content: center; }
-  .tile-hero .tile-icon svg { width: 15px; height: 15px; stroke: var(--gold-light); fill: none; }
-  .tile-hero .tile-label { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-  .tile-hero .tile-value { font-size: 17px; font-weight: 600; color: var(--cream); line-height: 1.35; word-break: break-word; }
-  .tile-hero .tile-value a { text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 2px; }
+  .asset-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .asset-card .ac-icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: rgba(201,163,91,0.15);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .asset-card .ac-icon svg { width: 20px; height: 20px; stroke: var(--gold-light); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .asset-card .ac-label { font-size: 10px; letter-spacing: .20em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .asset-card .ac-value { font-size: 20px; font-weight: 600; color: var(--cream); line-height: 1.3; word-break: break-word; }
+  .asset-card .ac-sub { font-size: 12px; color: var(--soft); margin-top: 6px; }
 
+  /* Photo card */
   .tile-photo {
-    position: relative; flex: 1 1 200px; min-width: 190px; height: 168px;
+    position: relative; height: 160px;
     border: 1px solid var(--border-strong); border-radius: 14px; overflow: hidden;
     cursor: pointer; padding: 0; background: rgba(201,163,91,0.08) center/cover no-repeat;
     box-shadow: 0 10px 26px rgba(0,0,0,0.26);
     transition: border-color .2s ease, transform .2s ease;
+    display: block; width: 100%;
   }
   .tile-photo:hover { border-color: var(--gold); transform: translateY(-2px); }
   .tile-photo-overlay {
     position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end;
     padding: 14px 16px; text-align: left;
-    background: linear-gradient(180deg, rgba(17,13,7,0) 42%, rgba(17,13,7,0.88) 100%);
+    background: linear-gradient(180deg, rgba(17,13,7,0) 38%, rgba(17,13,7,0.90) 100%);
   }
-  .tile-photo .tile-icon { width: 30px; height: 30px; border-radius: 8px; background: rgba(201,163,91,0.22); display: flex; align-items: center; justify-content: center; margin-bottom: 9px; }
-  .tile-photo .tile-icon svg { width: 15px; height: 15px; stroke: var(--gold-light); fill: none; }
-  .tile-photo .tile-label { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 4px; }
-  .tile-photo .tile-value { font-size: 15px; font-weight: 600; color: var(--cream); }
+  .tile-photo .tp-icon { width: 30px; height: 30px; border-radius: 8px; background: rgba(201,163,91,0.22); display: flex; align-items: center; justify-content: center; margin-bottom: 9px; }
+  .tile-photo .tp-icon svg { width: 15px; height: 15px; stroke: var(--gold-light); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .tile-photo .tp-label { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 4px; }
+  .tile-photo .tp-value { font-size: 15px; font-weight: 600; color: var(--cream); }
+
+  /* ── Field cards grid — Building type, fault code, etc. ── */
+  .fields-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .field-card {
+    border: 1px solid var(--border-strong); border-radius: 13px;
+    background: linear-gradient(135deg, var(--card-hi), rgba(201,163,91,0.02));
+    box-shadow: 0 8px 20px rgba(0,0,0,0.22);
+    padding: 18px 18px 16px;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .field-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .field-card .fc-icon {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: rgba(201,163,91,0.13);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 12px;
+  }
+  .field-card .fc-icon svg { width: 15px; height: 15px; stroke: var(--gold-light); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .field-card .fc-label { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 7px; }
+  .field-card .fc-value { font-size: 15px; font-weight: 600; color: var(--cream); line-height: 1.35; word-break: break-word; }
+  .field-card .fc-value a { text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 2px; }
 
   /* ── Full-width sections: descriptions, hazards ── */
   .sections { display: flex; flex-direction: column; gap: 20px; }
-
   .section {
     border: 1px solid var(--border); border-radius: var(--radius);
     background: linear-gradient(135deg, var(--card), rgba(201,163,91,0.004));
@@ -169,13 +205,12 @@
     background: rgba(201,163,91,0.12);
     display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
   }
-  .sec-icon svg { width: 17px; height: 17px; stroke: var(--gold-light); fill: none; }
+  .sec-icon svg { width: 17px; height: 17px; stroke: var(--gold-light); fill: none; stroke-linecap: round; stroke-linejoin: round; }
   .section.warn .sec-icon { background: rgba(201,119,106,0.14); }
   .section.warn .sec-icon svg { stroke: var(--red); }
 
   .sec-body { min-width: 0; }
   .eyebrow { font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; padding-top: 6px; }
-
   .prose { font-size: 14.5px; line-height: 1.7; color: var(--cream); font-weight: 300; white-space: pre-wrap; }
 
   .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -261,56 +296,200 @@
   .empty-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; color: #fff; margin-bottom: 10px; }
   .empty-body { font-size: 14px; color: var(--soft); line-height: 1.7; }
 
-  @media (max-width: 420px) {
+  /* ── Responsive ── */
+  @media (max-width: 520px) {
+    .top-row { grid-template-columns: 1fr; }
+    .tile-photo { height: 150px; }
+    .asset-card { min-height: 130px; }
+    .fields-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
     .head { padding: 22px 20px 20px; margin-bottom: 18px; }
-    .head-client-row { flex-direction: column; align-items: flex-start; gap: 12px; }
-    .fact-row { gap: 12px; margin-bottom: 18px; }
-    .tile-hero { flex-basis: calc(50% - 6px); min-width: 0; padding: 16px 16px 14px; }
-    .tile-photo { flex-basis: calc(50% - 6px); min-width: 0; height: 140px; }
+    .head-client-row { flex-direction: column; align-items: flex-start; }
     .sections { gap: 16px; }
     .section { grid-template-columns: 30px 1fr; gap: 0 12px; padding: 20px 18px 22px; }
     .sec-icon { width: 28px; height: 28px; }
     .sec-icon svg { width: 14px; height: 14px; }
-    .lb-nav { width: 36px; height: 36px; }
+  }
+  @media (max-width: 360px) {
+    .fields-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
 <div class="bg" aria-hidden="true"><div class="bloom"></div><div class="grain"></div></div>
+
+<!-- 3D Floating plumbing tools — real plumbing SVGs -->
 <div class="tool-field" aria-hidden="true">
-  <!-- 1. Pipe wrench — upper left -->
-  <div class="tool-icon" style="top:8%; left:4%; animation-duration:19s; animation-delay:-2s;">
-    <svg viewBox="0 0 24 24" width="70" height="70" stroke-width="1.3"><path d="M14.7 6.3a4 4 0 10-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 005.4-5.4l-2.1 2.1a1.5 1.5 0 01-2.1-2.1l2.1-2.1z" stroke-linejoin="round"/></svg>
+
+  <!-- 1. Pipe Wrench — upper left -->
+  <div class="tool-icon" style="top:7%; left:3%; animation-duration:20s; animation-delay:-2s;">
+    <svg viewBox="0 0 64 64" width="80" height="80" stroke-width="1.8">
+      <!-- Pipe wrench body -->
+      <path d="M10 54 L38 26"/>
+      <path d="M38 26 C38 26 42 14 52 12 C58 11 62 15 60 21 C58 27 48 28 48 28 L38 26Z"/>
+      <path d="M48 28 L50 32 C50 32 44 36 38 30"/>
+      <path d="M52 12 L56 16"/>
+      <path d="M10 54 L14 58 L18 54 L14 50Z"/>
+      <line x1="14" y1="50" x2="38" y2="26"/>
+      <line x1="14" y1="58" x2="10" y2="54"/>
+    </svg>
   </div>
-  <!-- 2. Valve wheel — upper right -->
-  <div class="tool-icon" style="top:12%; right:5%; animation-duration:23s; animation-delay:-9s;">
-    <svg viewBox="0 0 24 24" width="64" height="64" stroke-width="1.3"><circle cx="12" cy="12" r="5"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg>
+
+  <!-- 2. Plunger — upper right -->
+  <div class="tool-icon" style="top:10%; right:4%; animation-duration:24s; animation-delay:-8s;">
+    <svg viewBox="0 0 64 64" width="72" height="72" stroke-width="1.8">
+      <!-- Handle -->
+      <line x1="32" y1="6" x2="32" y2="36"/>
+      <!-- Cup dome -->
+      <path d="M14 44 Q14 36 32 36 Q50 36 50 44"/>
+      <!-- Cup base rim -->
+      <ellipse cx="32" cy="44" rx="18" ry="5"/>
+      <!-- Suction lines -->
+      <path d="M18 42 Q20 38 32 38 Q44 38 46 42" stroke-opacity="0.6"/>
+    </svg>
   </div>
-  <!-- 3. Adjustable wrench — mid left -->
-  <div class="tool-icon" style="top:40%; left:2%; animation-duration:21s; animation-delay:-5s;">
-    <svg viewBox="0 0 24 24" width="60" height="60" stroke-width="1.3"><path d="M8 4h4v4a2 2 0 01-2 2h0a2 2 0 01-2-2V4" stroke-linejoin="round"/><path d="M10 10v10M7 20h6" stroke-linecap="round"/></svg>
+
+  <!-- 3. Adjustable Spanner — mid left -->
+  <div class="tool-icon" style="top:38%; left:2%; animation-duration:22s; animation-delay:-5s;">
+    <svg viewBox="0 0 64 64" width="72" height="72" stroke-width="1.8">
+      <!-- Handle -->
+      <rect x="28" y="30" width="8" height="28" rx="4"/>
+      <!-- Head -->
+      <path d="M20 16 L20 30 L44 30 L44 16"/>
+      <!-- Jaw opening -->
+      <path d="M20 16 L20 10 L30 10"/>
+      <path d="M44 16 L44 10 L34 10"/>
+      <!-- Adjustment worm -->
+      <line x1="20" y1="22" x2="44" y2="22"/>
+      <circle cx="44" cy="22" r="3"/>
+    </svg>
   </div>
-  <!-- 4. Channel-lock pliers — mid right -->
-  <div class="tool-icon" style="top:36%; right:3%; animation-duration:25s; animation-delay:-14s;">
-    <svg viewBox="0 0 24 24" width="66" height="66" stroke-width="1.3"><path d="M7 3l6 6M17 3l-6 6M9 9l-6 12 3 1 5-11M15 9l6 12-3 1-5-11" stroke-linejoin="round" stroke-linecap="round"/></svg>
+
+  <!-- 4. Pipe Cutter — mid right -->
+  <div class="tool-icon" style="top:34%; right:3%; animation-duration:26s; animation-delay:-13s;">
+    <svg viewBox="0 0 64 64" width="74" height="74" stroke-width="1.8">
+      <!-- Pipe being cut -->
+      <ellipse cx="32" cy="32" rx="16" ry="8" stroke-dasharray="4 3"/>
+      <!-- Cutter wheel -->
+      <circle cx="32" cy="24" r="5"/>
+      <!-- Frame arm top -->
+      <path d="M16 24 L27 24"/>
+      <path d="M37 24 L48 24"/>
+      <!-- Frame arm bottom -->
+      <path d="M16 40 L48 40"/>
+      <!-- Frame sides -->
+      <line x1="16" y1="24" x2="16" y2="40"/>
+      <line x1="48" y1="24" x2="48" y2="40"/>
+      <!-- Tightening knob -->
+      <circle cx="32" cy="44" r="4"/>
+      <line x1="32" y1="40" x2="32" y2="44"/>
+    </svg>
   </div>
-  <!-- 5. Pipe cutter — lower left -->
-  <div class="tool-icon" style="bottom:14%; left:6%; animation-duration:20s; animation-delay:-7s;">
-    <svg viewBox="0 0 24 24" width="58" height="58" stroke-width="1.3"><path d="M12 3a9 9 0 100 18" stroke-linecap="round"/><path d="M12 3v4M12 3l3 2M12 21v-4M16 12h4" stroke-linecap="round"/></svg>
+
+  <!-- 5. Soldering / Blow Torch — lower left -->
+  <div class="tool-icon" style="bottom:16%; left:5%; animation-duration:21s; animation-delay:-7s;">
+    <svg viewBox="0 0 64 64" width="68" height="68" stroke-width="1.8">
+      <!-- Tank body -->
+      <rect x="22" y="28" width="20" height="28" rx="6"/>
+      <!-- Tank top dome -->
+      <path d="M22 28 Q22 20 32 20 Q42 20 42 28"/>
+      <!-- Valve on top -->
+      <rect x="28" y="14" width="8" height="6" rx="2"/>
+      <line x1="24" y1="17" x2="40" y2="17"/>
+      <!-- Nozzle tube -->
+      <path d="M42 36 L54 30 L58 32"/>
+      <!-- Flame -->
+      <path d="M56 28 Q60 24 58 18 Q62 22 60 28 Q58 32 56 28Z" stroke-width="1.4"/>
+      <path d="M58 26 Q61 23 60 20" stroke-width="1.2" stroke-opacity="0.7"/>
+    </svg>
   </div>
-  <!-- 6. Plunger — lower right -->
-  <div class="tool-icon" style="bottom:10%; right:6%; animation-duration:22s; animation-delay:-11s;">
-    <svg viewBox="0 0 24 24" width="60" height="60" stroke-width="1.3"><path d="M12 3v10" stroke-linecap="round"/><path d="M7 13a5 5 0 0010 0z" stroke-linejoin="round"/><path d="M9 21h6M12 21v-4" stroke-linecap="round"/></svg>
+
+  <!-- 6. Basin Wrench — lower right -->
+  <div class="tool-icon" style="bottom:9%; right:5%; animation-duration:23s; animation-delay:-10s;">
+    <svg viewBox="0 0 64 64" width="68" height="68" stroke-width="1.8">
+      <!-- Long handle -->
+      <line x1="32" y1="56" x2="32" y2="20"/>
+      <!-- T-bar at bottom -->
+      <line x1="22" y1="52" x2="42" y2="52"/>
+      <!-- Jaw head at top -->
+      <path d="M24 20 L24 12 Q24 8 32 8 Q40 8 40 12 L40 20"/>
+      <!-- Jaw teeth -->
+      <path d="M24 16 L20 14 L24 12"/>
+      <path d="M40 16 L44 14 L40 12"/>
+      <!-- Pivot pin -->
+      <circle cx="32" cy="20" r="3"/>
+    </svg>
   </div>
-  <!-- 7. Blow torch — top center -->
-  <div class="tool-icon" style="top:3%; left:44%; animation-duration:24s; animation-delay:-4s;">
-    <svg viewBox="0 0 24 24" width="52" height="52" stroke-width="1.3"><path d="M9 3h4v5l3 3v7a2 2 0 01-2 2h-6a2 2 0 01-2-2v-7l3-3z" stroke-linejoin="round"/></svg>
+
+  <!-- 7. Teflon Tape Roll — top center -->
+  <div class="tool-icon" style="top:4%; left:43%; animation-duration:25s; animation-delay:-4s;">
+    <svg viewBox="0 0 64 64" width="60" height="60" stroke-width="1.8">
+      <!-- Outer roll -->
+      <circle cx="32" cy="32" r="22"/>
+      <!-- Inner core -->
+      <circle cx="32" cy="32" r="10"/>
+      <!-- Tape strip coming off -->
+      <path d="M54 32 Q58 28 56 20 Q54 14 50 12"/>
+      <!-- Roll side thickness lines -->
+      <path d="M10 32 Q10 26 12 22" stroke-opacity="0.5"/>
+      <path d="M54 32 Q54 38 52 42" stroke-opacity="0.5"/>
+    </svg>
   </div>
-  <!-- 8. Screwdriver — bottom center -->
-  <div class="tool-icon" style="bottom:4%; left:46%; animation-duration:18s; animation-delay:-16s;">
-    <svg viewBox="0 0 24 24" width="54" height="54" stroke-width="1.3"><path d="M4 20l7-7M14 6l4-4 2 2-4 4M11 9l4 4-1 1-4-4z" stroke-linejoin="round" stroke-linecap="round"/></svg>
+
+  <!-- 8. Pipe / Tube — bottom center -->
+  <div class="tool-icon" style="bottom:5%; left:45%; animation-duration:19s; animation-delay:-15s;">
+    <svg viewBox="0 0 64 64" width="66" height="66" stroke-width="1.8">
+      <!-- Pipe body -->
+      <rect x="8" y="26" width="48" height="12" rx="6"/>
+      <!-- Left end cap -->
+      <ellipse cx="8" cy="32" rx="4" ry="6"/>
+      <!-- Right end cap -->
+      <ellipse cx="56" cy="32" rx="4" ry="6"/>
+      <!-- Pipe joint ring left -->
+      <line x1="18" y1="26" x2="18" y2="38"/>
+      <!-- Pipe joint ring right -->
+      <line x1="46" y1="26" x2="46" y2="38"/>
+      <!-- Flow arrow inside -->
+      <path d="M26 32 L38 32 M34 28 L38 32 L34 36" stroke-opacity="0.5"/>
+    </svg>
   </div>
+
+  <!-- 9. Drain Snake / Auger — far left mid-low -->
+  <div class="tool-icon" style="top:62%; left:1%; animation-duration:28s; animation-delay:-18s;">
+    <svg viewBox="0 0 64 64" width="64" height="64" stroke-width="1.8">
+      <!-- Handle drum -->
+      <circle cx="20" cy="20" r="12"/>
+      <circle cx="20" cy="20" r="6"/>
+      <!-- Crank handle -->
+      <line x1="32" y1="20" x2="40" y2="20"/>
+      <line x1="40" y1="16" x2="40" y2="24"/>
+      <!-- Snake cable -->
+      <path d="M20 32 Q20 40 28 42 Q36 44 36 52 Q36 58 30 60"/>
+      <!-- Tip auger -->
+      <path d="M28 58 Q30 54 26 52 Q22 50 24 56"/>
+    </svg>
+  </div>
+
+  <!-- 10. Pressure Gauge — far right mid-low -->
+  <div class="tool-icon" style="top:58%; right:2%; animation-duration:27s; animation-delay:-20s;">
+    <svg viewBox="0 0 64 64" width="64" height="64" stroke-width="1.8">
+      <!-- Gauge face -->
+      <circle cx="32" cy="28" r="20"/>
+      <!-- Tick marks -->
+      <line x1="32" y1="10" x2="32" y2="14"/>
+      <line x1="14" y1="28" x2="18" y2="28"/>
+      <line x1="50" y1="28" x2="46" y2="28"/>
+      <line x1="18.3" y1="14.3" x2="21.1" y2="17.1"/>
+      <line x1="45.7" y1="14.3" x2="42.9" y2="17.1"/>
+      <!-- Needle -->
+      <line x1="32" y1="28" x2="42" y2="16" stroke-width="2"/>
+      <circle cx="32" cy="28" r="3"/>
+      <!-- Fitting stem -->
+      <rect x="28" y="46" width="8" height="12" rx="3"/>
+      <line x1="24" y1="52" x2="40" y2="52"/>
+    </svg>
+  </div>
+
 </div>
 
 <div id="root"></div>
@@ -327,23 +506,76 @@
 (function () {
   const LOGO_URL = 'https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png';
 
+  /* ── Plumbing-specific SVG icon paths ── */
   const ICONS = {
-    fault: '<path d="M12 9v4M12 17h.01" stroke-width="1.8" stroke-linecap="round"/><path d="M10.3 3.9L2.5 17.5A1.5 1.5 0 003.8 20h16.4a1.5 1.5 0 001.3-2.5L13.7 3.9a1.5 1.5 0 00-3.4 0z" stroke-width="1.6" stroke-linejoin="round"/>',
-    access: '<path d="M12 21s7-6.1 7-11.5A7 7 0 105 9.5C5 14.9 12 21 12 21z" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.4" stroke-width="1.6"/>',
-    hazard: '<path d="M12 9v4M12 17h.01" stroke-width="1.9" stroke-linecap="round"/><path d="M10.3 3.9L2.5 17.5A1.5 1.5 0 003.8 20h16.4a1.5 1.5 0 001.3-2.5L13.7 3.9a1.5 1.5 0 00-3.4 0z" stroke-width="1.7" stroke-linejoin="round"/>',
-    phone: '<path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>',
-    email: '<path d="M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z" stroke-width="1.6"/><path d="M22 6l-10 7L2 6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>',
-    asset: '<path d="M14.7 6.3a4 4 0 10-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 005.4-5.4l-2.1 2.1a1.5 1.5 0 01-2.1-2.1l2.1-2.1z" stroke-width="1.6" stroke-linejoin="round"/>',
-    building: '<rect x="4" y="3" width="10" height="18" rx="1" stroke-width="1.6"/><path d="M14 8h6v13h-6" stroke-width="1.6"/><path d="M7 7h1M7 11h1M7 15h1M11 7h1M11 11h1M11 15h1" stroke-width="1.6" stroke-linecap="round"/>',
-    code: '<path d="M9 6l-6 6 6 6M15 6l6 6-6 6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>',
-    status: '<circle cx="12" cy="12" r="9" stroke-width="1.6"/><path d="M12 8v5M12 16h.01" stroke-width="1.8" stroke-linecap="round"/>',
-    money: '<path d="M12 2v20" stroke-width="1.6" stroke-linecap="round"/><path d="M17 6.5c0-1.9-2.2-3.5-5-3.5s-5 1.4-5 3.2c0 3.8 10 2 10 6.4 0 1.8-2.2 3.4-5 3.4s-5-1.6-5-3.5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>',
-    entity: '<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="7" r="4" stroke-width="1.6"/>',
-    camera: '<rect x="3" y="7" width="18" height="13" rx="2" stroke-width="1.6"/><path d="M8 7l1.6-2.5A1.5 1.5 0 0110.85 4h2.3a1.5 1.5 0 011.25.75L15.6 7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.2" stroke-width="1.6"/>'
+    /* Pipe wrench — used for asset type */
+    asset: `<path d="M4 20 L14 10"/>
+            <path d="M14 10 C14 10 16 5 20 4 C23 3.5 25 6 24 8.5 C23 11 18.5 11.5 18.5 11.5 L14 10Z"/>
+            <path d="M18.5 11.5 L19.5 13 C19.5 13 17 14.5 14 12"/>
+            <line x1="4" y1="20" x2="6" y2="22"/>`,
+
+    /* Building — office/house outline */
+    building: `<rect x="3" y="4" width="10" height="17" rx="1"/>
+               <path d="M13 8h7v13h-7"/>
+               <line x1="6" y1="8" x2="7" y2="8"/>
+               <line x1="6" y1="12" x2="7" y2="12"/>
+               <line x1="6" y1="16" x2="7" y2="16"/>
+               <line x1="10" y1="8" x2="11" y2="8"/>
+               <line x1="10" y1="12" x2="11" y2="12"/>`,
+
+    /* Pressure gauge — fault code */
+    fault: `<circle cx="12" cy="10" r="7"/>
+            <line x1="12" y1="4" x2="12" y2="6"/>
+            <line x1="5" y1="10" x2="7" y2="10"/>
+            <line x1="17" y1="10" x2="19" y2="10"/>
+            <line x1="12" y1="10" x2="16" y2="6"/>
+            <circle cx="12" cy="10" r="1.5"/>
+            <rect x="10" y="17" width="4" height="5" rx="1.5"/>`,
+
+    /* Drain snake / auger — access notes */
+    access: `<circle cx="9" cy="9" r="5"/>
+             <circle cx="9" cy="9" r="2.5"/>
+             <line x1="14" y1="9" x2="18" y2="9"/>
+             <line x1="18" y1="7" x2="18" y2="11"/>
+             <path d="M9 14 Q9 18 13 19 Q17 20 17 23"/>
+             <path d="M15 22 Q17 20 14 19"/>`,
+
+    /* Warning triangle with pipe — hazard */
+    hazard: `<path d="M10.3 3.9L2.5 17.5A1.5 1.5 0 003.8 20h16.4a1.5 1.5 0 001.3-2.5L13.7 3.9a1.5 1.5 0 00-3.4 0z"/>
+             <line x1="12" y1="9" x2="12" y2="13"/>
+             <circle cx="12" cy="16.5" r="0.8" fill="currentColor"/>`,
+
+    /* Phone handset */
+    phone: `<path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>`,
+
+    /* Email envelope */
+    email: `<path d="M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z"/>
+            <path d="M22 6l-10 7L2 6"/>`,
+
+    /* Dollar / billing */
+    money: `<path d="M12 2v20"/>
+            <path d="M17 6.5c0-1.9-2.2-3.5-5-3.5s-5 1.4-5 3.2c0 3.8 10 2 10 6.4 0 1.8-2.2 3.4-5 3.4s-5-1.6-5-3.5"/>`,
+
+    /* Person — billing entity */
+    entity: `<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+             <circle cx="12" cy="7" r="4"/>`,
+
+    /* Fault code — wrench + code brackets */
+    code: `<path d="M14.7 6.3a4 4 0 10-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 005.4-5.4l-2.1 2.1a1.5 1.5 0 01-2.1-2.1l2.1-2.1z"/>`,
+
+    /* Defect status — info circle */
+    status: `<circle cx="12" cy="12" r="9"/>
+             <line x1="12" y1="8" x2="12" y2="12"/>
+             <circle cx="12" cy="16" r="0.8" fill="currentColor"/>`,
+
+    /* Camera — photos */
+    camera: `<rect x="3" y="7" width="18" height="13" rx="2"/>
+             <path d="M8 7l1.6-2.5A1.5 1.5 0 0110.85 4h2.3a1.5 1.5 0 011.25.75L15.6 7"/>
+             <circle cx="12" cy="13.5" r="3.2"/>`
   };
 
-  function iconHtml(name, cls) {
-    return '<div class="' + (cls || 'tile-icon') + '"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round">' + (ICONS[name] || '') + '</svg></div>';
+  function iconSvg(name) {
+    return `<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">${ICONS[name] || ''}</svg>`;
   }
 
   function decodePayload() {
@@ -369,12 +601,13 @@
     return div.innerHTML;
   }
 
-  // Pull a value trying several likely key spellings, since the upstream
-  // scenario may send slightly different casing than the payload spec.
   function pick(data, keys) {
     for (const k of keys) {
-      if (data[k] !== undefined && data[k] !== null && String(data[k]).trim() !== '') {
-        return String(data[k]).trim();
+      const v = data[k];
+      if (v !== undefined && v !== null) {
+        const s = String(v).trim();
+        /* Skip blank values AND any "none" / "n/a" / "-" placeholders */
+        if (s !== '' && !/^(none|n\/a|na|-)$/i.test(s)) return s;
       }
     }
     return '';
@@ -384,25 +617,19 @@
   function splitUrls(str) { return str ? str.split(/[\s,]+/).map(s => s.trim()).filter(isUrl) : []; }
   function isVideoUrl(url) { return /\.(mp4|mov|webm|m4v)(\?.*)?$/i.test(url); }
 
-  function tile(iconName, label, value) {
-    if (!value) return '';
-    return '<div class="tile-hero">' + iconHtml(iconName) + '<div class="tile-label">' + escapeHtml(label) + '</div><div class="tile-value">' + escapeHtml(value) + '</div></div>';
+  /* ── Asset card (medium, left of photo) ── */
+  function renderAssetCard(assetType) {
+    if (!assetType) return '';
+    return `<div class="asset-card">
+      <div>
+        <div class="ac-icon">${iconSvg('asset')}</div>
+        <div class="ac-label">Asset type</div>
+        <div class="ac-value">${escapeHtml(assetType)}</div>
+      </div>
+    </div>`;
   }
 
-  function tag(text, hazard) {
-    if (!text) return '';
-    return '<span class="tag' + (hazard ? ' hazard' : '') + '">' + escapeHtml(text) + '</span>';
-  }
-
-  function renderEmpty() {
-    document.getElementById('root').innerHTML =
-      '<div class="empty-wrap">' +
-        '<div class="brand"><img src="' + LOGO_URL + '" alt="Hermia"><span class="brand-text">HERMIA</span></div>' +
-        '<div class="empty-title">This docket link isn\'t readable</div>' +
-        '<div class="empty-body">The link may be incomplete or was copied wrong. Go back to the client message and open the link again.</div>' +
-      '</div>';
-  }
-
+  /* ── Photo card ── */
   let mediaItems = [];
   let lbIndex = 0;
 
@@ -424,132 +651,182 @@
     const stage = document.getElementById('lbStage');
     if (!item) { stage.innerHTML = ''; return; }
     stage.innerHTML = item.isVideo
-      ? '<video src="' + escapeHtml(item.url) + '" controls autoplay></video>'
-      : '<img src="' + escapeHtml(item.url) + '" alt="Job photo">';
+      ? `<video src="${escapeHtml(item.url)}" controls autoplay></video>`
+      : `<img src="${escapeHtml(item.url)}" alt="Job photo">`;
     document.getElementById('lbCounter').textContent = (lbIndex + 1) + ' / ' + mediaItems.length;
     const showNav = mediaItems.length > 1;
     document.getElementById('lbPrev').style.display = showNav ? 'flex' : 'none';
     document.getElementById('lbNext').style.display = showNav ? 'flex' : 'none';
   }
 
-  function renderPhotoTile(photosVideosStr) {
+  function renderPhotoCard(photosVideosStr) {
     const urls = splitUrls(photosVideosStr);
-    if (!urls.length) return '';
+    if (!urls.length) {
+      return `<div class="tile-photo" style="cursor:default; background: rgba(201,163,91,0.04);">
+        <div class="tile-photo-overlay">
+          <div class="tp-icon" style="opacity:0.4;">${iconSvg('camera')}</div>
+          <div class="tp-label">Photos of damage</div>
+          <div class="tp-value" style="color:var(--muted);">No image</div>
+        </div>
+      </div>`;
+    }
     mediaItems = urls.map(u => ({ url: u, isVideo: isVideoUrl(u) }));
     const firstImage = mediaItems.find(m => !m.isVideo);
-    const bg = firstImage ? ' style="background-image:url(\'' + firstImage.url.replace(/'/g, "%27") + '\')"' : '';
+    const bg = firstImage ? ` style="background-image:url('${firstImage.url.replace(/'/g, "%27")}')"` : '';
     const count = mediaItems.length + (mediaItems.length === 1 ? ' file' : ' files');
-    return (
-      '<button type="button" class="tile-photo"' + bg + ' onclick="__docket.openLightbox(0)" aria-label="View photos and video">' +
-        '<div class="tile-photo-overlay">' +
-          iconHtml('camera') +
-          '<div class="tile-label">Photos of damage</div>' +
-          '<div class="tile-value">' + escapeHtml(count) + '</div>' +
-        '</div>' +
-      '</button>'
-    );
+    return `<button type="button" class="tile-photo"${bg} onclick="__docket.openLightbox(0)" aria-label="View photos and video">
+      <div class="tile-photo-overlay">
+        <div class="tp-icon">${iconSvg('camera')}</div>
+        <div class="tp-label">Photos of damage</div>
+        <div class="tp-value">${escapeHtml(count)}</div>
+      </div>
+    </button>`;
+  }
+
+  /* ── Individual field card ── */
+  function fieldCard(iconName, label, value, isLink) {
+    if (!value) return '';
+    const valHtml = isLink
+      ? `<a href="${isLink}" target="_blank" rel="noopener">${escapeHtml(value)}</a>`
+      : escapeHtml(value);
+    return `<div class="field-card">
+      <div class="fc-icon">${iconSvg(iconName)}</div>
+      <div class="fc-label">${escapeHtml(label)}</div>
+      <div class="fc-value">${valHtml}</div>
+    </div>`;
   }
 
   function render(data) {
-    const firstName = pick(data, ['firstName', 'first_name', 'givenNames', 'given_names', 'fullName', 'full_name', 'name', 'contactName', 'clientName', 'leadName', 'customerName']);
-    const lastName = pick(data, ['lastName', 'last_name', 'surname']);
-    const rawName = [firstName, lastName].filter(Boolean).join(' ');
+    const firstName = pick(data, ['firstName','first_name','givenNames','given_names','fullName','full_name','name','contactName','clientName','leadName','customerName']);
+    const lastName  = pick(data, ['lastName','last_name','surname']);
+    const rawName   = [firstName, lastName].filter(Boolean).join(' ');
     const displayName = rawName || 'Name pending';
 
-    const urgencyVal = pick(data, ['urgency', 'priorityTag', 'priority_tag', 'priority']);
-    const isUrgent = /urgent|asap|emergency|high/i.test(urgencyVal);
-    const stampHtml = urgencyVal
-      ? '<div class="stamp' + (isUrgent ? ' urgent' : '') + '"><span class="dot"></span>' + escapeHtml(urgencyVal) + '</div>'
+    const urgencyVal = pick(data, ['urgency','priorityTag','priority_tag','priority']);
+    const isUrgent   = /urgent|asap|emergency|high/i.test(urgencyVal);
+    const stampHtml  = urgencyVal
+      ? `<div class="stamp${isUrgent ? ' urgent' : ''}"><span class="dot"></span>${escapeHtml(urgencyVal)}</div>`
       : '';
 
-    const siteConfirmation = pick(data, ['siteConfirmation', 'site_confirmation', 'siteAddress']);
-
-    const phone = pick(data, ['phone', 'contactPhone']);
-    const email = pick(data, ['email', 'contactEmail']);
-    const billingEntity = pick(data, ['billingEntity', 'billing_entity']);
-    const assetType = pick(data, ['assetType', 'asset_type']);
-    const buildingType = pick(data, ['buildingType', 'building_type']);
-    const faultCode = pick(data, ['faultCode', 'fault_code']);
-    const defectStatus = pick(data, ['defectStatus', 'defect_status']);
+    const siteConfirmation = pick(data, ['siteConfirmation','site_confirmation','siteAddress']);
+    const phone        = pick(data, ['phone','contactPhone']);
+    const email        = pick(data, ['email','contactEmail']);
+    const billingEntity= pick(data, ['billingEntity','billing_entity']);
+    const assetType    = pick(data, ['assetType','asset_type']);
+    const buildingType = pick(data, ['buildingType','building_type']);
+    const faultCode    = pick(data, ['faultCode','fault_code']);
+    const defectStatus = pick(data, ['defectStatus','defect_status']);
     const amountEstimate = pick(data, ['billing']);
-    const photosVideos = pick(data, ['photosVideos', 'photos_videos']);
+    const photosVideos = pick(data, ['photosVideos','photos_videos']);
 
-    // Single row of equal, large fact boxes — every short job field (asset
-    // type, building type, billing entity, etc.) gets the same treatment,
-    // left-to-right, wrapping as needed. No small cramped tiles.
-    const factRow = [
-      tile('asset', 'Asset type', assetType),
-      tile('building', 'Building type', buildingType),
-      tile('entity', 'Billing entity', billingEntity),
-      tile('code', 'Fault code', faultCode),
-      tile('status', 'Defect status', defectStatus),
-      tile('money', 'Amount estimate', amountEstimate),
-      tile('phone', 'Phone', phone),
-      tile('email', 'Email', email),
-      renderPhotoTile(photosVideos)
+    /* Top row: asset card + photo card (Photo card always shows) */
+    const assetCardHtml = renderAssetCard(assetType);
+    const photoCardHtml = renderPhotoCard(photosVideos);
+    const topRowHtml = `<div class="top-row">${assetCardHtml}${photoCardHtml}</div>`;
+
+    /* Field cards grid — building type first, then the rest */
+    const fieldsHtml = [
+      fieldCard('building', 'Building type',    buildingType),
+      fieldCard('entity',   'Billing entity',   billingEntity),
+      fieldCard('code',     'Fault code',       faultCode),
+      fieldCard('status',   'Defect status',    defectStatus),
+      fieldCard('money',    'Amount estimate',  amountEstimate),
+      fieldCard('phone',    'Phone',            phone, phone ? `tel:${phone}` : null),
+      fieldCard('email',    'Email',            email, email ? `mailto:${email}` : null),
     ].filter(Boolean).join('');
 
-    const faultDescription = pick(data, ['faultDescription', 'fault_description']);
-    const accessNotes = pick(data, ['accessNotes', 'access_notes']);
-    const isolations = pick(data, ['isolations']);
-    const hazards = pick(data, ['hazards']);
-    const tagsHtml = [tag(hazards, true), tag(isolations, true)].filter(Boolean).join('');
+    const fieldsGridHtml = fieldsHtml
+      ? `<div class="fields-grid">${fieldsHtml}</div>`
+      : '';
+
+    /* Long-text sections at the bottom */
+    const faultDescription = pick(data, ['faultDescription','fault_description']);
+    const accessNotes      = pick(data, ['accessNotes','access_notes']);
+    const isolations       = pick(data, ['isolations']);
+    const hazards          = pick(data, ['hazards']);
+    const tagsHtml = [
+      hazards    ? `<span class="tag hazard">${escapeHtml(hazards)}</span>`    : '',
+      isolations ? `<span class="tag hazard">${escapeHtml(isolations)}</span>` : ''
+    ].filter(Boolean).join('');
 
     const sections = [];
 
     sections.push(
-      '<div class="section">' + iconHtml('fault', 'sec-icon') + '<div class="sec-body">' +
-      '<div class="eyebrow">Fault description</div>' +
-      (faultDescription ? '<div class="prose">' + escapeHtml(faultDescription) + '</div>' : '<div class="tag-empty">Not provided</div>') +
-      '</div></div>'
+      `<div class="section">
+        <div class="sec-icon">${iconSvg('fault')}</div>
+        <div class="sec-body">
+          <div class="eyebrow">Fault description</div>
+          ${faultDescription
+            ? `<div class="prose">${escapeHtml(faultDescription)}</div>`
+            : `<div class="tag-empty">Not provided</div>`}
+        </div>
+      </div>`
     );
 
     if (accessNotes) {
-      sections.push('<div class="section">' + iconHtml('access', 'sec-icon') + '<div class="sec-body"><div class="eyebrow">Access notes</div><div class="prose">' + escapeHtml(accessNotes) + '</div></div></div>');
+      sections.push(
+        `<div class="section">
+          <div class="sec-icon">${iconSvg('access')}</div>
+          <div class="sec-body">
+            <div class="eyebrow">Access notes</div>
+            <div class="prose">${escapeHtml(accessNotes)}</div>
+          </div>
+        </div>`
+      );
     }
 
     sections.push(
-      '<div class="section warn">' + iconHtml('hazard', 'sec-icon') + '<div class="sec-body"><div class="eyebrow">Hazards</div>' +
-      (tagsHtml ? '<div class="tag-row">' + tagsHtml + '</div>' : '<div class="tag-empty">No hazards flagged</div>') +
-      '</div></div>'
+      `<div class="section warn">
+        <div class="sec-icon">${iconSvg('hazard')}</div>
+        <div class="sec-body">
+          <div class="eyebrow">Hazards</div>
+          ${tagsHtml
+            ? `<div class="tag-row">${tagsHtml}</div>`
+            : `<div class="tag-empty">No hazards flagged</div>`}
+        </div>
+      </div>`
     );
 
     const html =
-      '<div class="wrap"><div class="docket">' +
-        '<div class="head">' +
-          '<div class="head-top">' +
-            '<div class="brand"><img src="' + LOGO_URL + '" alt="Hermia"><span class="brand-text">Hermia <span>· job docket</span></span></div>' +
-            '<div class="docket-id">' + new Date().toISOString().slice(0, 10) + '</div>' +
-          '</div>' +
-          '<div class="head-client-row">' +
-            '<div>' +
-              '<div class="head-client-label">Client</div>' +
-              '<div class="head-title' + (rawName ? '' : ' pending') + '">' + escapeHtml(displayName) + '</div>' +
-              (siteConfirmation ? '<div class="head-sub">' + escapeHtml(siteConfirmation) + '</div>' : '') +
-            '</div>' +
-            stampHtml +
-          '</div>' +
-        '</div>' +
-        (factRow ? '<div class="fact-row">' + factRow + '</div>' : '') +
-        '<div class="sections">' + sections.join('') + '</div>' +
-        '<div class="foot">' +
-          '<span>Generated by <span class="foot-mark">Hermia</span></span>' +
-          '<span>Not stored · view only</span>' +
-        '</div>' +
-      '</div></div>' +
-      '<div class="lightbox" id="lightbox">' +
-        '<div class="lb-bar">' +
-          '<button type="button" class="lb-back" onclick="__docket.closeLightbox()">' +
-            '<svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg> Back' +
-          '</button>' +
-          '<div class="lb-brand"><img src="' + LOGO_URL + '" alt="Hermia"><span>Hermia</span></div>' +
-          '<span class="lb-counter" id="lbCounter"></span>' +
-        '</div>' +
-        '<div class="lb-stage" id="lbStage">' +
-          '<div class="lb-nav prev" id="lbPrev" onclick="__docket.stepLightbox(-1)"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
-          '<div class="lb-nav next" id="lbNext" onclick="__docket.stepLightbox(1)"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
-        '</div>' +
-      '</div>';
+      `<div class="wrap"><div class="docket">
+        <div class="head">
+          <div class="head-top">
+            <div class="brand"><img src="${LOGO_URL}" alt="Hermia"><span class="brand-text">Hermia <span>· job docket</span></span></div>
+            <div class="docket-id">${new Date().toISOString().slice(0, 10)}</div>
+          </div>
+          <div class="head-client-row">
+            <div>
+              <div class="head-client-label">Client</div>
+              <div class="head-title${rawName ? '' : ' pending'}">${escapeHtml(displayName)}</div>
+              ${siteConfirmation ? `<div class="head-sub">${escapeHtml(siteConfirmation)}</div>` : ''}
+            </div>
+            ${stampHtml}
+          </div>
+        </div>
+
+        ${topRowHtml}
+        ${fieldsGridHtml}
+        <div class="sections">${sections.join('')}</div>
+
+        <div class="foot">
+          <span>Generated by <span class="foot-mark">Hermia</span></span>
+          <span>Not stored · view only</span>
+        </div>
+      </div></div>
+
+      <div class="lightbox" id="lightbox">
+        <div class="lb-bar">
+          <button type="button" class="lb-back" onclick="__docket.closeLightbox()">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg> Back
+          </button>
+          <div class="lb-brand"><img src="${LOGO_URL}" alt="Hermia"><span>Hermia</span></div>
+          <span class="lb-counter" id="lbCounter"></span>
+        </div>
+        <div class="lb-stage" id="lbStage">
+          <div class="lb-nav prev" id="lbPrev" onclick="__docket.stepLightbox(-1)"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="lb-nav next" id="lbNext" onclick="__docket.stepLightbox(1)"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>`;
 
     document.getElementById('root').innerHTML = html;
 
@@ -559,6 +836,15 @@
       if (e.key === 'ArrowLeft') stepLightbox(-1);
       if (e.key === 'ArrowRight') stepLightbox(1);
     });
+  }
+
+  function renderEmpty() {
+    document.getElementById('root').innerHTML =
+      `<div class="empty-wrap">
+        <div class="brand"><img src="${LOGO_URL}" alt="Hermia"><span class="brand-text">HERMIA</span></div>
+        <div class="empty-title">This docket link isn't readable</div>
+        <div class="empty-body">The link may be incomplete or was copied wrong. Go back to the client message and open the link again.</div>
+      </div>`;
   }
 
   window.__docket = { openLightbox, closeLightbox, stepLightbox };
@@ -574,43 +860,25 @@
 
 <script>
 // ── Testimonial popup ────────────────────────────────────────────────────
-// Local suppression is instant (works offline, no backend dependency).
-// The server check (via the Worker's /testimonial-status, backed by the
-// "Testimonals" Senja API key) catches the case where someone left a
-// testimonial from a *different* device/browser than the one that showed
-// this popup — best-effort, since Senja itself doesn't push a "submitted"
-// event back to this page.
 (function () {
   var WORKER_BASE = 'https://hermianango.capital-fbc.workers.dev';
   var RESPONDED_KEY = 'hermia_testimonial_responded';
   var SNOOZE_KEY = 'hermia_testimonial_snoozed_until';
-  var SNOOZE_MS = 1000 * 60 * 60 * 24 * 14; // 2 weeks
+  var SNOOZE_MS = 1000 * 60 * 60 * 24 * 14;
 
   function alreadyHandled() {
     try {
       if (localStorage.getItem(RESPONDED_KEY) === '1') return true;
       var snoozeUntil = Number(localStorage.getItem(SNOOZE_KEY) || 0);
       if (snoozeUntil && Date.now() < snoozeUntil) return true;
-    } catch (e) { /* localStorage unavailable — fail open, just show it */ }
+    } catch (e) {}
     return false;
   }
 
-  function showPopup() {
-    var el = document.getElementById('testiPopup');
-    if (el) el.classList.add('show');
-  }
-  function hidePopup() {
-    var el = document.getElementById('testiPopup');
-    if (el) el.classList.remove('show');
-  }
-  function markResponded() {
-    try { localStorage.setItem(RESPONDED_KEY, '1'); } catch (e) {}
-    hidePopup();
-  }
-  function snoozePopup() {
-    try { localStorage.setItem(SNOOZE_KEY, String(Date.now() + SNOOZE_MS)); } catch (e) {}
-    hidePopup();
-  }
+  function showPopup() { var el = document.getElementById('testiPopup'); if (el) el.classList.add('show'); }
+  function hidePopup() { var el = document.getElementById('testiPopup'); if (el) el.classList.remove('show'); }
+  function markResponded() { try { localStorage.setItem(RESPONDED_KEY, '1'); } catch (e) {} hidePopup(); }
+  function snoozePopup() { try { localStorage.setItem(SNOOZE_KEY, String(Date.now() + SNOOZE_MS)); } catch (e) {} hidePopup(); }
 
   function decodeEmailFromUrl() {
     try {
@@ -631,11 +899,11 @@
     fetch(WORKER_BASE + '/testimonial-status?email=' + encodeURIComponent(email))
       .then(function (r) { return r.json(); })
       .then(function (d) { cb(Boolean(d && d.given)); })
-      .catch(function () { cb(false); }); // network hiccup — don't block the popup on it
+      .catch(function () { cb(false); });
   }
 
   function init() {
-    if (!new URLSearchParams(window.location.search).get('d')) return; // nothing to show on the broken-link state
+    if (!new URLSearchParams(window.location.search).get('d')) return;
     if (alreadyHandled()) return;
     var email = decodeEmailFromUrl();
     checkServerStatus(email, function (given) {
@@ -647,10 +915,10 @@
   document.addEventListener('DOMContentLoaded', function () {
     var closeBtn = document.getElementById('testiClose');
     var laterBtn = document.getElementById('testiLater');
-    var ctaBtn = document.getElementById('testiCta');
+    var ctaBtn   = document.getElementById('testiCta');
     if (closeBtn) closeBtn.addEventListener('click', snoozePopup);
     if (laterBtn) laterBtn.addEventListener('click', snoozePopup);
-    if (ctaBtn) ctaBtn.addEventListener('click', markResponded); // clicking through counts as "asked"
+    if (ctaBtn)   ctaBtn.addEventListener('click', markResponded);
     init();
   });
 })();
@@ -658,3 +926,4 @@
 
 </body>
 </html>
+
