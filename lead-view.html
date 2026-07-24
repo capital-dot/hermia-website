@@ -55,14 +55,23 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* ── Decorative plumbing tools, wide viewports only ── */
-  .side-deco { position: fixed; top: 0; bottom: 0; width: 220px; z-index: 0; pointer-events: none; opacity: .3; }
-  .side-deco.l { left: -30px; }
-  .side-deco.r { right: -30px; }
-  .side-deco svg { position: absolute; top: 50%; transform: translateY(-50%); stroke: var(--gold-light); fill: none; filter: drop-shadow(0 0 22px rgba(201,163,91,0.55)); }
-  .side-deco.l svg { left: 10px; width: 150px; height: 150px; transform: translateY(-62%) rotate(-18deg); }
-  .side-deco.r svg { right: 10px; width: 168px; height: 168px; transform: translateY(-38%) rotate(14deg); }
-  @media (max-width: 1180px) { .side-deco { display: none; } }
+  /* ── Decorative plumbing tools — 8 icons, gentle ambient 3D drift, wide viewports only ── */
+  .tool-field { position: fixed; inset: 0; z-index: 0; pointer-events: none; perspective: 1200px; overflow: hidden; }
+  .tool-icon {
+    position: absolute; will-change: transform; opacity: .16;
+    filter: drop-shadow(0 0 18px rgba(201,163,91,0.4));
+    animation-name: float3d; animation-timing-function: ease-in-out; animation-iteration-count: infinite;
+    transform-style: preserve-3d;
+  }
+  .tool-icon svg { display: block; stroke: var(--gold-light); fill: none; }
+  @keyframes float3d {
+    0%   { transform: translate3d(0,0,0)      rotateX(0deg)  rotateY(0deg)   rotateZ(0deg); }
+    25%  { transform: translate3d(5px,-12px,18px)  rotateX(7deg)  rotateY(9deg)   rotateZ(3deg); }
+    50%  { transform: translate3d(-6px,-18px,-4px) rotateX(-5deg) rotateY(-7deg)  rotateZ(-2deg); }
+    75%  { transform: translate3d(-8px,-4px,-16px) rotateX(4deg)  rotateY(-5deg)  rotateZ(2deg); }
+    100% { transform: translate3d(0,0,0)      rotateX(0deg)  rotateY(0deg)   rotateZ(0deg); }
+  }
+  @media (max-width: 1180px) { .tool-field { display: none; } }
 
   .wrap { max-width: 660px; margin: 0 auto; position: relative; z-index: 1; }
 
@@ -212,6 +221,40 @@
   .lb-nav.next { right: 12px; }
   .lb-nav svg { width: 18px; height: 18px; stroke: currentColor; }
 
+  /* ── Testimonial popup ── */
+  .testi-popup {
+    position: fixed; right: 20px; bottom: 20px; z-index: 400;
+    width: 300px; max-width: calc(100% - 40px);
+    border: 1px solid var(--border-strong); border-radius: 14px;
+    background: linear-gradient(150deg, rgba(20,16,9,0.98), rgba(17,13,7,0.99));
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    padding: 18px 18px 16px;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity .4s ease, transform .4s ease;
+    pointer-events: none;
+  }
+  .testi-popup.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .testi-popup .tp-close {
+    position: absolute; top: 10px; right: 12px; background: none; border: none;
+    color: var(--muted); font-size: 17px; line-height: 1; cursor: pointer;
+  }
+  .testi-popup .tp-close:hover { color: var(--cream); }
+  .testi-popup .tp-title { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 17px; color: #fff; margin-bottom: 6px; padding-right: 18px; }
+  .testi-popup .tp-body { font-size: 12.5px; color: var(--soft); line-height: 1.55; margin-bottom: 14px; }
+  .testi-popup .tp-cta {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700;
+    letter-spacing: .06em; text-transform: uppercase; color: #1a1409;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    border: none; padding: 10px 16px; border-radius: 9px; cursor: pointer; text-decoration: none;
+  }
+  .testi-popup .tp-cta:hover { filter: brightness(1.08); }
+  .testi-popup .tp-later {
+    display: block; margin-top: 10px; font-size: 11px; color: var(--muted);
+    background: none; border: none; cursor: pointer; text-decoration: underline; text-underline-offset: 2px;
+  }
+  .testi-popup .tp-later:hover { color: var(--soft); }
+  @media (max-width: 420px) { .testi-popup { right: 12px; left: 12px; bottom: 12px; width: auto; max-width: none; } }
+
   /* ── Empty / error state ── */
   .empty-wrap { max-width: 440px; margin: 110px auto; text-align: center; padding: 0 20px; position: relative; z-index: 1; }
   .empty-wrap .brand { justify-content: center; margin-bottom: 28px; }
@@ -235,14 +278,50 @@
 <body>
 
 <div class="bg" aria-hidden="true"><div class="bloom"></div><div class="grain"></div></div>
-<div class="side-deco l" aria-hidden="true">
-  <svg viewBox="0 0 24 24" stroke-width="0.9"><path d="M14.7 6.3a4 4 0 10-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 005.4-5.4l-2.1 2.1a1.5 1.5 0 01-2.1-2.1l2.1-2.1z" stroke-linejoin="round"/></svg>
-</div>
-<div class="side-deco r" aria-hidden="true">
-  <svg viewBox="0 0 100 100" stroke-width="2.4"><path d="M6 50h28" stroke-linecap="round"/><circle cx="54" cy="50" r="19"/><path d="M54 31v-9M54 69v9M35 50h-4M77 50h4M41.5 37.5l-4-4M70.5 62.5l4 4M70.5 37.5l4-4M41.5 62.5l-4 4" stroke-linecap="round"/><path d="M73 50h21" stroke-linecap="round"/></svg>
+<div class="tool-field" aria-hidden="true">
+  <!-- 1. Pipe wrench — upper left -->
+  <div class="tool-icon" style="top:8%; left:4%; animation-duration:19s; animation-delay:-2s;">
+    <svg viewBox="0 0 24 24" width="70" height="70" stroke-width="1.3"><path d="M14.7 6.3a4 4 0 10-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 005.4-5.4l-2.1 2.1a1.5 1.5 0 01-2.1-2.1l2.1-2.1z" stroke-linejoin="round"/></svg>
+  </div>
+  <!-- 2. Valve wheel — upper right -->
+  <div class="tool-icon" style="top:12%; right:5%; animation-duration:23s; animation-delay:-9s;">
+    <svg viewBox="0 0 24 24" width="64" height="64" stroke-width="1.3"><circle cx="12" cy="12" r="5"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg>
+  </div>
+  <!-- 3. Adjustable wrench — mid left -->
+  <div class="tool-icon" style="top:40%; left:2%; animation-duration:21s; animation-delay:-5s;">
+    <svg viewBox="0 0 24 24" width="60" height="60" stroke-width="1.3"><path d="M8 4h4v4a2 2 0 01-2 2h0a2 2 0 01-2-2V4" stroke-linejoin="round"/><path d="M10 10v10M7 20h6" stroke-linecap="round"/></svg>
+  </div>
+  <!-- 4. Channel-lock pliers — mid right -->
+  <div class="tool-icon" style="top:36%; right:3%; animation-duration:25s; animation-delay:-14s;">
+    <svg viewBox="0 0 24 24" width="66" height="66" stroke-width="1.3"><path d="M7 3l6 6M17 3l-6 6M9 9l-6 12 3 1 5-11M15 9l6 12-3 1-5-11" stroke-linejoin="round" stroke-linecap="round"/></svg>
+  </div>
+  <!-- 5. Pipe cutter — lower left -->
+  <div class="tool-icon" style="bottom:14%; left:6%; animation-duration:20s; animation-delay:-7s;">
+    <svg viewBox="0 0 24 24" width="58" height="58" stroke-width="1.3"><path d="M12 3a9 9 0 100 18" stroke-linecap="round"/><path d="M12 3v4M12 3l3 2M12 21v-4M16 12h4" stroke-linecap="round"/></svg>
+  </div>
+  <!-- 6. Plunger — lower right -->
+  <div class="tool-icon" style="bottom:10%; right:6%; animation-duration:22s; animation-delay:-11s;">
+    <svg viewBox="0 0 24 24" width="60" height="60" stroke-width="1.3"><path d="M12 3v10" stroke-linecap="round"/><path d="M7 13a5 5 0 0010 0z" stroke-linejoin="round"/><path d="M9 21h6M12 21v-4" stroke-linecap="round"/></svg>
+  </div>
+  <!-- 7. Blow torch — top center -->
+  <div class="tool-icon" style="top:3%; left:44%; animation-duration:24s; animation-delay:-4s;">
+    <svg viewBox="0 0 24 24" width="52" height="52" stroke-width="1.3"><path d="M9 3h4v5l3 3v7a2 2 0 01-2 2h-6a2 2 0 01-2-2v-7l3-3z" stroke-linejoin="round"/></svg>
+  </div>
+  <!-- 8. Screwdriver — bottom center -->
+  <div class="tool-icon" style="bottom:4%; left:46%; animation-duration:18s; animation-delay:-16s;">
+    <svg viewBox="0 0 24 24" width="54" height="54" stroke-width="1.3"><path d="M4 20l7-7M14 6l4-4 2 2-4 4M11 9l4 4-1 1-4-4z" stroke-linejoin="round" stroke-linecap="round"/></svg>
+  </div>
 </div>
 
 <div id="root"></div>
+
+<div class="testi-popup" id="testiPopup" role="dialog" aria-label="Leave a testimonial">
+  <button type="button" class="tp-close" id="testiClose" aria-label="Close">&times;</button>
+  <div class="tp-title">Loving Hermia so far?</div>
+  <div class="tp-body">A quick testimonial helps other tradies find us — takes less than a minute.</div>
+  <a class="tp-cta" id="testiCta" href="https://senja.io/p/hermia/r/HPZkL8" target="_blank" rel="noopener">Leave a testimonial</a>
+  <button type="button" class="tp-later" id="testiLater">Maybe later</button>
+</div>
 
 <script>
 (function () {
@@ -490,6 +569,90 @@
   } else {
     render(data);
   }
+})();
+</script>
+
+<script>
+// ── Testimonial popup ────────────────────────────────────────────────────
+// Local suppression is instant (works offline, no backend dependency).
+// The server check (via the Worker's /testimonial-status, backed by the
+// "Testimonals" Senja API key) catches the case where someone left a
+// testimonial from a *different* device/browser than the one that showed
+// this popup — best-effort, since Senja itself doesn't push a "submitted"
+// event back to this page.
+(function () {
+  var WORKER_BASE = 'https://hermianango.capital-fbc.workers.dev';
+  var RESPONDED_KEY = 'hermia_testimonial_responded';
+  var SNOOZE_KEY = 'hermia_testimonial_snoozed_until';
+  var SNOOZE_MS = 1000 * 60 * 60 * 24 * 14; // 2 weeks
+
+  function alreadyHandled() {
+    try {
+      if (localStorage.getItem(RESPONDED_KEY) === '1') return true;
+      var snoozeUntil = Number(localStorage.getItem(SNOOZE_KEY) || 0);
+      if (snoozeUntil && Date.now() < snoozeUntil) return true;
+    } catch (e) { /* localStorage unavailable — fail open, just show it */ }
+    return false;
+  }
+
+  function showPopup() {
+    var el = document.getElementById('testiPopup');
+    if (el) el.classList.add('show');
+  }
+  function hidePopup() {
+    var el = document.getElementById('testiPopup');
+    if (el) el.classList.remove('show');
+  }
+  function markResponded() {
+    try { localStorage.setItem(RESPONDED_KEY, '1'); } catch (e) {}
+    hidePopup();
+  }
+  function snoozePopup() {
+    try { localStorage.setItem(SNOOZE_KEY, String(Date.now() + SNOOZE_MS)); } catch (e) {}
+    hidePopup();
+  }
+
+  function decodeEmailFromUrl() {
+    try {
+      var d = new URLSearchParams(window.location.search).get('d');
+      if (!d) return '';
+      var b64 = d.replace(/-/g, '+').replace(/_/g, '/');
+      var padded = b64 + '==='.slice((b64.length + 3) % 4);
+      var binary = atob(padded);
+      var bytes = new Uint8Array(binary.length);
+      for (var i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      var data = JSON.parse(new TextDecoder().decode(bytes));
+      return (data.email || data.contactEmail || '').trim();
+    } catch (e) { return ''; }
+  }
+
+  function checkServerStatus(email, cb) {
+    if (!email) { cb(false); return; }
+    fetch(WORKER_BASE + '/testimonial-status?email=' + encodeURIComponent(email))
+      .then(function (r) { return r.json(); })
+      .then(function (d) { cb(Boolean(d && d.given)); })
+      .catch(function () { cb(false); }); // network hiccup — don't block the popup on it
+  }
+
+  function init() {
+    if (!new URLSearchParams(window.location.search).get('d')) return; // nothing to show on the broken-link state
+    if (alreadyHandled()) return;
+    var email = decodeEmailFromUrl();
+    checkServerStatus(email, function (given) {
+      if (given) { markResponded(); return; }
+      setTimeout(showPopup, 4000);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var closeBtn = document.getElementById('testiClose');
+    var laterBtn = document.getElementById('testiLater');
+    var ctaBtn = document.getElementById('testiCta');
+    if (closeBtn) closeBtn.addEventListener('click', snoozePopup);
+    if (laterBtn) laterBtn.addEventListener('click', snoozePopup);
+    if (ctaBtn) ctaBtn.addEventListener('click', markResponded); // clicking through counts as "asked"
+    init();
+  });
 })();
 </script>
 
