@@ -468,6 +468,8 @@
     const isEmergency = /emergency|urgent|high|asap/i.test(urgencyVal);
 
     const siteConfirmation = pick(data, ['siteConfirmation','siteAddress']);
+    // Availability / confirmed booking time — shown right under the address.
+    const confirmationDate = pick(data, ['confirmationDate','confirmation_date','availability','Availability','confirmedDate','confirmed_date']);
     const assetType    = pick(data, ['assetType','asset_type']);
     const buildingType = pick(data, ['buildingType','building_type']);
     const faultCode    = pick(data, ['faultCode','fault_code']);
@@ -534,6 +536,7 @@
               <div class="head-client-label">Client</div>
               <div class="head-title">${escapeHtml(displayName)}</div>
               ${siteConfirmation ? `<div class="head-sub">${escapeHtml(siteConfirmation)}</div>` : ''}
+              ${confirmationDate ? `<div class="head-sub">Confirmed availability: ${escapeHtml(confirmationDate)}</div>` : ''}
             </div>
             <div class="docket-id">${new Date().toISOString().slice(0, 10)}</div>
           </div>
@@ -664,4 +667,4 @@
 </script>
 
 </body>
-</html> 
+</html>
