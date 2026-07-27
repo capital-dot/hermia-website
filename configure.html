@@ -43,16 +43,19 @@
   h1 em { font-style:italic; color:var(--gold-light); }
   .sub { font-size:14px; color:var(--soft); line-height:1.65; max-width:420px; margin-bottom:26px; }
   .sub strong { color:var(--cream); font-weight:500; }
+  .reassure { font-size:11.5px; color:var(--muted); margin-bottom:22px; max-width:420px; line-height:1.6; }
 
   .banner { width:100%; padding:14px 18px; border:1px solid var(--border-strong); background:rgba(201,163,91,0.06); border-radius:12px; font-size:12.5px; color:var(--soft); margin-bottom:22px; text-align:left; line-height:1.6; }
   .banner a { color:var(--gold-light); }
 
-  /* Templates & custom fields (shared row style) */
+  /* Templates & custom fields & pricing tiers (shared row style) */
   .template-list { display:flex; flex-direction:column; gap:11px; margin-bottom:14px; width:100%; }
   .template-row { display:flex; align-items:center; gap:10px; background:rgba(201,163,91,0.04); border:1px solid rgba(201,163,91,0.25); border-radius:10px; padding:9px 10px 9px 14px; text-align:left; }
   .template-row .tr-num { color:var(--gold); font-weight:700; font-size:11px; flex-shrink:0; width:18px; }
   .template-row input { flex:1; background:rgba(22,20,15,0.6); border:1px solid rgba(201,163,91,0.2); border-radius:7px; padding:10px 12px; color:#fff; font-family:'DM Sans',sans-serif; font-size:13px; outline:none; }
   .template-row input:focus { border-color:var(--gold); }
+  .template-row select.tr-dept { flex:0 0 126px; background:rgba(22,20,15,0.6); border:1px solid rgba(201,163,91,0.2); border-radius:7px; padding:10px 8px; color:#fff; font-family:'DM Sans',sans-serif; font-size:12px; outline:none; }
+  .template-row select.tr-dept:focus { border-color:var(--gold); }
   .template-row .tr-price { color:var(--gold-light); font-weight:700; font-size:12px; white-space:nowrap; background:rgba(201,163,91,0.1); padding:5px 10px; border-radius:20px; flex-shrink:0; }
   .template-row .tr-remove { cursor:pointer; color:var(--muted); font-size:15px; transition:color .2s; flex-shrink:0; padding:0 3px; }
   .template-row .tr-remove:hover { color:var(--error); }
@@ -70,19 +73,35 @@
   .selection-card-label::before { content:''; width:18px; height:18px; border:2px solid rgba(201,163,91,0.4); border-radius:4px; margin-bottom:8px; }
   .selection-card input:checked + .selection-card-label::before { background:var(--gold); border-color:var(--gold); }
   .selection-card-text { font-size:12px; font-weight:500; color:var(--cream); text-align:center; }
+  .selection-card input[type="radio"] + .selection-card-label::before { border-radius:50%; }
 
   textarea { width:100%; min-height:80px; background:rgba(22,20,15,0.5); border:1px solid var(--border); border-radius:12px; padding:15px 17px; color:var(--cream); font-family:'DM Sans',sans-serif; font-size:13.5px; line-height:1.6; resize:vertical; outline:none; }
   textarea:focus { border-color:var(--gold); }
 
+  input[type="text"].std-input, input[type="email"].std-input, input[type="tel"].std-input {
+    width:100%; background:rgba(22,20,15,0.5); border:1px solid var(--border); border-radius:12px; padding:14px 16px;
+    color:var(--cream); font-family:'DM Sans',sans-serif; font-size:13.5px; outline:none; transition:border-color .2s;
+  }
+  input.std-input:focus { border-color:var(--gold); }
+
   .field { margin-bottom:0; text-align:left; width:100%; }
+  .field + .field { margin-top:16px; }
   .field label { display:block; font-size:10.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:9px; }
+  .field .hint { font-size:11px; color:var(--muted); margin-top:6px; line-height:1.5; }
+  .field-stack { width:100%; display:flex; flex-direction:column; gap:16px; margin-bottom:8px; }
 
   .consent-row { display:flex; align-items:flex-start; gap:11px; text-align:left; width:100%; margin-top:22px; }
   .consent-row input { width:17px; height:17px; min-width:17px; margin-top:2px; accent-color:var(--gold); cursor:pointer; }
   .consent-row label { font-size:11px; color:var(--soft); line-height:1.55; cursor:pointer; }
   .consent-row label a { color:var(--gold); }
 
-  /* Pricing summary + review */
+  /* Recap + pricing summary + review */
+  .recap-card { width:100%; background:rgba(201,163,91,0.04); border:1px solid var(--border); border-radius:16px; padding:20px 22px; margin-bottom:18px; text-align:left; }
+  .recap-title { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); font-weight:700; margin-bottom:14px; }
+  .recap-row { display:flex; justify-content:space-between; gap:14px; padding:7px 0; border-bottom:1px solid rgba(201,163,91,0.08); font-size:12.5px; color:var(--soft); }
+  .recap-row:last-child { border-bottom:none; }
+  .recap-row span:last-child { color:var(--cream); font-weight:500; text-align:right; }
+
   .price-summary { width:100%; background:linear-gradient(150deg,rgba(201,163,91,0.08),rgba(255,255,255,0.01)); border:1.5px solid var(--gold); border-radius:16px; padding:22px 22px; margin-bottom:26px; text-align:left; }
   .price-row { display:flex; align-items:center; justify-content:space-between; padding:8px 0; font-size:13px; color:var(--soft); border-bottom:1px solid rgba(201,163,91,0.1); }
   .price-row:last-child { border-bottom:none; }
@@ -123,41 +142,108 @@
 <div class="shell">
   <div class="topbar">
     <div class="brandmark"><img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" draggable="false"></div>
-    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
-    <span class="progress-label" id="progressLabel">Step 1 of 4</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:17%"></div></div>
+    <span class="progress-label" id="progressLabel">Step 1 of 6</span>
   </div>
 
   <div class="banner" id="missingBanner" style="display:none;">
-    Looks like we don't have your business details yet — <a href="discovery.html">head back and tell us about your business first</a>. You can still configure below, but we'll need that info before we can build anything.
+    No problem if you're starting fresh here — just fill in your business details below and we'll take it from there. If you've already spoken with us elsewhere, some of this may already be filled in for you.
   </div>
 
-  <!-- STAGE 1: QUESTION TEMPLATES -->
-  <div class="stage show" data-stage="templates">
+  <!-- STAGE 1: BUSINESS DETAILS -->
+  <div class="stage show" data-stage="business">
+    <div class="eyebrow">Your Business</div>
+    <h1>Let's start with<br><em>who you are.</em></h1>
+    <p class="sub">This is how Hermia introduces itself to your leads, and where it's allowed to operate. Takes about a minute.</p>
+
+    <div class="field-stack">
+      <div class="field">
+        <label>Business / trading name</label>
+        <input type="text" class="std-input" id="biz-name" placeholder="e.g. Bourke Street Plumbing" />
+      </div>
+      <div class="field">
+        <label>Departments / trades</label>
+        <div class="template-list" id="department-list"></div>
+        <button type="button" class="btn-add" onclick="addDepartment()">+ Add Another Department</button>
+        <div class="hint">Add one row per trade you run — e.g. Remedial, Electrical, Roofing. Most contractors only need one.</div>
+      </div>
+      <div class="field">
+        <label>CRM / job management software</label>
+        <div class="selection-cards" style="margin-bottom:0;">
+          <div class="selection-card"><input type="radio" name="crm-choice" id="crm-simpro" value="Simpro"><label for="crm-simpro" class="selection-card-label"><div class="selection-card-text">Simpro</div></label></div>
+          <div class="selection-card"><input type="radio" name="crm-choice" id="crm-aroflo" value="AroFlo"><label for="crm-aroflo" class="selection-card-label"><div class="selection-card-text">AroFlo</div></label></div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Countries / states you service</label>
+        <input type="text" class="std-input" id="biz-region" placeholder="e.g. Victoria & NSW, Australia" />
+        <div class="hint">Hermia uses this to check every job address is actually somewhere you can reach.</div>
+      </div>
+    </div>
+
+    <div class="actions-row" style="margin-top:22px;"><button class="btn-primary" style="flex:1;" onclick="nextStage()">Continue</button></div>
+  </div>
+
+  <!-- STAGE 2: CONTACTS -->
+  <div class="stage" data-stage="contacts">
+    <div class="eyebrow">Contacts</div>
+    <h1>Who should we<br><em>reach — and who do your customers reach?</em></h1>
+    <p class="sub">Your business phone is the fallback number a customer gets handed if a technician doesn't have one on file. Your negotiation contact is who a price-sensitive lead is handed to.</p>
+
+    <div class="field-stack">
+      <div class="field">
+        <label>Primary contact name</label>
+        <input type="text" class="std-input" id="contact-name" placeholder="Who are we speaking with?" />
+      </div>
+      <div class="field">
+        <label>Email for updates</label>
+        <input type="email" class="std-input" id="contact-email" placeholder="you@yourbusiness.com" />
+      </div>
+      <div class="field">
+        <label>Phone for updates</label>
+        <input type="tel" class="std-input" id="contact-phone" placeholder="Best number to reach you" />
+      </div>
+      <div class="field">
+        <label>Business fallback line (optional)</label>
+        <input type="tel" class="std-input" id="fallback-phone" placeholder="Number customers can call if no technician number is available" />
+      </div>
+      <div class="field">
+        <label>Pricing negotiation contact (optional)</label>
+        <input type="text" class="std-input" id="negotiation-contact" placeholder="Name and phone/email a customer is handed to if they want to negotiate" />
+      </div>
+    </div>
+
+    <div class="actions-row" style="margin-top:22px;"><button class="btn-back" onclick="prevStage()">Back</button><button class="btn-primary" onclick="nextStage()">Continue</button></div>
+  </div>
+
+  <!-- STAGE 3: QUESTION TEMPLATES -->
+  <div class="stage" data-stage="templates">
     <div class="eyebrow">Question Templates</div>
     <h1>What should<br><em>Hermia ask?</em></h1>
-    <p class="sub sec-note">Hermia only ever asks leads questions from <strong>pre-approved templates</strong> — never freeform AI generation. Each template is one specific question, priced at <strong>$1,000</strong>. Short-form is fine — we word it properly using your business details.</p>
+    <p class="sub sec-note">This is the main thing you control. Hermia only ever asks leads questions from <strong>pre-approved templates</strong> — never freeform AI generation — and every CRM field on the other end is already built in on our side, so this is where your build actually gets shaped. Each template is one specific question, priced at <strong>$1,000</strong>. Short-form is fine — we word it properly using your business details.</p>
     <div class="template-list" id="template-list"></div>
     <button type="button" class="btn-add" onclick="addTemplate()">+ Add Another Question Template ($1,000)</button>
     <div class="note">Every template added updates your setup fee in real time.</div>
-    <div class="actions-row"><button class="btn-primary" style="flex:1;" onclick="nextStage()">Continue</button></div>
-  </div>
-
-  <!-- STAGE 2: CUSTOM FIELDS -->
-  <div class="stage" data-stage="fields">
-    <div class="eyebrow">Custom Fields</div>
-    <h1>Your Simpro<br><em>custom fields.</em></h1>
-    <p class="sub sec-note">Priced at <strong>$70 per field</strong>. Don't just give us the label — tell us what it's for. <strong>Example:</strong> not just "Property Address" — "Property Address — handles the client's site address." If we don't know what a field holds, Hermia can map the wrong data into it.</p>
-    <div class="template-list" id="custom-field-list"></div>
-    <button type="button" class="btn-add" onclick="addCustomField()">+ Add Another Custom Field ($70)</button>
-    <div class="note">Optional — only add fields you actually use.</div>
     <div class="actions-row"><button class="btn-back" onclick="prevStage()">Back</button><button class="btn-primary" onclick="nextStage()">Continue</button></div>
   </div>
 
-  <!-- STAGE 3: ADDITIONAL -->
+  <!-- STAGE 4: PRICING TIERS -->
+  <div class="stage" data-stage="pricing">
+    <div class="eyebrow">Pricing Tiers</div>
+    <h1>What should<br><em>Hermia quote?</em></h1>
+    <p class="sub sec-note">When a lead describes their issue, Hermia matches it against these tiers and gives a real price <strong>before the job is booked</strong> — worked out from your own rates, not guessed. <strong>No cost to add these.</strong> If you leave this empty, every price question is handed straight to your negotiation contact instead.</p>
+    <div class="template-list" id="pricing-tier-list"></div>
+    <button type="button" class="btn-add" onclick="addPricingTier()">+ Add Another Pricing Tier</button>
+    <div class="note">Example: "Burst pipe repair" — $600. Add as many or as few as you like.</div>
+    <div class="actions-row"><button class="btn-back" onclick="prevStage()">Back</button><button class="btn-primary" onclick="nextStage()">Continue</button></div>
+  </div>
+
+  <!-- STAGE 5: ADDITIONAL -->
   <div class="stage" data-stage="additional">
     <div class="eyebrow">Additional</div>
     <h1>Anything else<br><em>you need?</em></h1>
     <p class="sub">Optional — leave blank if not needed.</p>
+    <div class="banner" style="margin-bottom:22px;">CRM field mapping is handled entirely by Hermia's own built-in fields — that part isn't something you configure. The only thing you set is what Hermia actually asks on WhatsApp, back in the Question Templates step. These fields cover Asset Type, Fault Description, Fault Code, Defect Status, Billing Entity, Hazards, Isolations, and Access Notes — every job maps into these automatically, regardless of department. You only customize the WhatsApp question wording, not the fields underneath them.</div>
     <div class="selection-cards">
       <div class="selection-card"><input type="checkbox" id="feature-support" value="24/7 Support"><label for="feature-support" class="selection-card-label"><div class="selection-card-text">24/7 Support</div></label></div>
       <div class="selection-card"><input type="checkbox" id="feature-custom" value="Custom Branding, Workflows or Messages"><label for="feature-custom" class="selection-card-label"><div class="selection-card-text">Custom Branding / Workflows</div></label></div>
@@ -174,15 +260,20 @@
     <div class="actions-row"><button class="btn-back" onclick="prevStage()">Back</button><button class="btn-primary" onclick="nextStage()">Review My Build →</button></div>
   </div>
 
-  <!-- STAGE 4: REVIEW & ACCEPT -->
+  <!-- STAGE 6: REVIEW & ACCEPT -->
   <div class="stage" data-stage="review">
     <div class="eyebrow">Thank You</div>
     <h1>Here's your<br><em>build.</em></h1>
     <p class="review-copy">We'll review your configuration and get back to you in <strong>1&ndash;3 business days</strong> with a private Loom video walkthrough of your completed system. You decide from there whether you want to move forward.</p>
 
+    <div class="recap-card">
+      <div class="recap-title">Your Details</div>
+      <div id="review-recap"></div>
+    </div>
+
     <div class="price-summary">
       <div class="price-row"><div class="pr-label">Question templates <span id="review-template-count">(0)</span></div><div class="pr-val" id="review-template-total">$0</div></div>
-      <div class="price-row"><div class="pr-label">Custom fields <span id="review-field-count">(0)</span></div><div class="pr-val" id="review-field-total">$0</div></div>
+      <div class="price-row"><div class="pr-label">Pricing tiers configured</div><div class="pr-val" id="review-pricing-count">0</div></div>
       <div class="price-row"><div class="pr-label">Monthly subscription <strong>(fixed)</strong></div><div class="pr-val">$1,700 AUD / mo</div></div>
       <div class="price-row total"><div class="pr-label">Setup fee due today</div><div class="pr-val" id="review-setup-total">$0</div></div>
     </div>
@@ -207,17 +298,23 @@
 </div><!-- /shell -->
 
 <script>
-  const WEBHOOK_URL = 'https://hook.eu1.make.com/6mqionc1gf80ciojg5xrr3qouyeg9yxw';
+  const WEBHOOK_URL = 'https://hook.eu1.make.com/dn6h5jumnhk5o2mls82k3xk9kdlg23vv';
   const MONTHLY_FEE = 1700;
   const TEMPLATE_PRICE = 1000;
-  const CUSTOM_FIELD_PRICE = 70;
 
-  // ─── Load discovery data from page 1 ───────────────────────────────
+  // ─── Escape helper (prevents contractor-entered text from breaking out of innerHTML) ───
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str == null ? '' : String(str);
+    return div.innerHTML;
+  }
+
+  // ─── Load discovery data from an earlier step, if any ─────────────
   let discovery = null;
   try { discovery = JSON.parse(sessionStorage.getItem('hermia_discovery') || 'null'); } catch (e) { discovery = null; }
   if (!discovery) { document.getElementById('missingBanner').style.display = 'block'; }
 
-  const stageOrder = ['templates','fields','additional','review'];
+  const stageOrder = ['business','contacts','templates','pricing','additional','review'];
   let currentStageIndex = 0;
 
   function renderProgress() {
@@ -236,7 +333,7 @@
     if (!validateStage(stageOrder[currentStageIndex])) return;
     if (currentStageIndex < stageOrder.length - 1) {
       currentStageIndex++;
-      if (stageOrder[currentStageIndex] === 'review') updatePricing();
+      if (stageOrder[currentStageIndex] === 'review') { updatePricing(); renderReviewRecap(); }
       showStage(stageOrder[currentStageIndex]);
     }
   }
@@ -247,9 +344,54 @@
     }
   }
   function validateStage(name) {
-    if (name === 'templates' && getTemplateRows().length === 0) {
-      alert('Add at least one question template.');
-      return false;
+    if (name === 'business') {
+      const bizName = document.getElementById('biz-name').value.trim();
+      const depts = getDepartments();
+      const deptsLower = depts.map(d => d.toLowerCase());
+      const hasDupes = new Set(deptsLower).size !== deptsLower.length;
+      const crmChosen = document.querySelector('input[name="crm-choice"]:checked');
+      const bizRegion = document.getElementById('biz-region').value.trim();
+      if (!bizName || depts.length === 0 || !crmChosen || !bizRegion) {
+        alert('Please add your business name, at least one department, your CRM, and service area before continuing.');
+        return false;
+      }
+      if (hasDupes) {
+        alert('Department names must be unique — two rows have the same name.');
+        return false;
+      }
+    }
+    if (name === 'contacts') {
+      const cn = document.getElementById('contact-name').value.trim();
+      const ce = document.getElementById('contact-email').value.trim();
+      const cp = document.getElementById('contact-phone').value.trim();
+      if (!cn || !ce || !cp) {
+        alert('Please add a contact name, email and phone so we can reach you.');
+        return false;
+      }
+    }
+    if (name === 'templates') {
+      const rows = getTemplateRows();
+      if (rows.length === 0) {
+        alert('Add at least one question template.');
+        return false;
+      }
+      if (getDepartments().length > 1) {
+        const missing = rows.some(r => !r.querySelector('.tr-dept').value);
+        if (missing) {
+          alert('Select a department for every question template.');
+          return false;
+        }
+      }
+    }
+    if (name === 'pricing') {
+      const rows = getPricingTierRows();
+      if (getDepartments().length > 1) {
+        const missing = rows.some(r => !r.querySelector('.tr-dept').value);
+        if (missing) {
+          alert('Select a department for every pricing tier.');
+          return false;
+        }
+      }
     }
     if (name === 'additional' && !document.getElementById('consent-check').checked) {
       document.getElementById('consent-check').style.outline = '2px solid var(--error)';
@@ -257,6 +399,55 @@
       return false;
     }
     return true;
+  }
+
+  // ─── Departments (Stage 1) ───────────────────────────────────────────
+  let departmentCount = 0;
+  const departmentListEl = document.getElementById('department-list');
+  function addDepartment() {
+    departmentCount++;
+    const row = document.createElement('div');
+    row.className = 'template-row';
+    row.innerHTML = `
+      <span class="tr-num">${String(departmentCount).padStart(2,'0')}</span>
+      <input type="text" class="department-name" placeholder="e.g. Electrical" />
+      <span class="tr-remove">✕</span>
+    `;
+    departmentListEl.appendChild(row);
+    row.querySelector('.tr-remove').addEventListener('click', function () {
+      row.remove();
+      renumber(departmentListEl);
+      syncDepartmentDropdowns();
+    });
+    row.querySelector('.department-name').addEventListener('input', syncDepartmentDropdowns);
+    renumber(departmentListEl);
+    syncDepartmentDropdowns();
+  }
+  function getDepartmentRows() { return Array.from(departmentListEl.querySelectorAll('.template-row')); }
+  function getDepartments() {
+    return getDepartmentRows()
+      .map(r => r.querySelector('.department-name').value.trim())
+      .filter(Boolean);
+  }
+
+  // Keep every department <select> (in templates + pricing tiers) in sync with Stage 1.
+  // If a department is renamed or removed, any row pointing at the old name is reset to
+  // unassigned rather than silently keeping a stale value — validation then forces reselection.
+  function syncDepartmentDropdowns() {
+    const depts = getDepartments();
+    const multi = depts.length > 1;
+    document.querySelectorAll('#template-list .tr-dept, #pricing-tier-list .tr-dept').forEach(sel => {
+      const prev = sel.value;
+      sel.innerHTML = '<option value="">Select department</option>' +
+        depts.map(d => `<option value="${escapeHtml(d)}">${escapeHtml(d)}</option>`).join('');
+      if (!multi) {
+        sel.style.display = 'none';
+        sel.value = depts[0] || '';
+      } else {
+        sel.style.display = '';
+        sel.value = depts.includes(prev) ? prev : '';
+      }
+    });
   }
 
   // ─── Question templates ─────────────────────────────────────────────
@@ -269,12 +460,14 @@
     row.innerHTML = `
       <span class="tr-num">${String(templateCount).padStart(2,'0')}</span>
       <input type="text" class="template-question" placeholder="e.g. Ask about budget" />
+      <select class="tr-dept"></select>
       <span class="tr-price">$1,000</span>
       <span class="tr-remove">✕</span>
     `;
     templateListEl.appendChild(row);
     row.querySelector('.tr-remove').addEventListener('click', function () { row.remove(); renumber(templateListEl); });
     renumber(templateListEl);
+    syncDepartmentDropdowns();
   }
   function renumber(listEl) {
     listEl.querySelectorAll('.template-row').forEach((row, i) => {
@@ -282,40 +475,74 @@
     });
   }
   function getTemplateRows() { return Array.from(templateListEl.querySelectorAll('.template-row')); }
-  addTemplate();
 
-  // ─── Custom fields ───────────────────────────────────────────────────
-  let customFieldCount = 0;
-  const customFieldListEl = document.getElementById('custom-field-list');
-  function addCustomField() {
-    customFieldCount++;
+  // ─── Pricing tiers ───────────────────────────────────────────────────
+  let pricingTierCount = 0;
+  const pricingTierListEl = document.getElementById('pricing-tier-list');
+  function addPricingTier() {
+    pricingTierCount++;
     const row = document.createElement('div');
     row.className = 'template-row';
     row.innerHTML = `
-      <span class="tr-num">${String(customFieldCount).padStart(2,'0')}</span>
-      <input type="text" class="custom-field-name" placeholder="Field, e.g. Property Address" style="flex:1;" />
-      <input type="text" class="custom-field-purpose" placeholder="What it handles" style="flex:1.2;" />
-      <span class="tr-price">$70</span>
+      <span class="tr-num">${String(pricingTierCount).padStart(2,'0')}</span>
+      <input type="text" class="pricing-service" placeholder="e.g. Burst pipe repair" style="flex:1.5;" />
+      <input type="text" class="pricing-price" placeholder="$ price" style="flex:0.7;max-width:110px;" />
+      <select class="tr-dept"></select>
       <span class="tr-remove">✕</span>
     `;
-    customFieldListEl.appendChild(row);
-    row.querySelector('.tr-remove').addEventListener('click', function () { row.remove(); renumber(customFieldListEl); });
-    renumber(customFieldListEl);
+    pricingTierListEl.appendChild(row);
+    row.querySelector('.tr-remove').addEventListener('click', function () { row.remove(); renumber(pricingTierListEl); });
+    renumber(pricingTierListEl);
+    syncDepartmentDropdowns();
   }
-  function getCustomFieldRows() { return Array.from(customFieldListEl.querySelectorAll('.template-row')); }
+  function getPricingTierRows() { return Array.from(pricingTierListEl.querySelectorAll('.template-row')); }
+
+  // Seed one row each, then sync dropdowns
+  addDepartment();
+  addTemplate();
+  addPricingTier();
 
   // ─── Pricing summary ─────────────────────────────────────────────────
   function updatePricing() {
     const tCount = getTemplateRows().length;
-    const fCount = getCustomFieldRows().length;
+    const pCount = getPricingTierRows().length;
     const templateTotal = tCount * TEMPLATE_PRICE;
-    const fieldTotal = fCount * CUSTOM_FIELD_PRICE;
-    const setupTotal = templateTotal + fieldTotal;
+    const setupTotal = templateTotal;
     document.getElementById('review-template-count').textContent = `(${tCount})`;
     document.getElementById('review-template-total').textContent = `$${templateTotal.toLocaleString()}`;
-    document.getElementById('review-field-count').textContent = `(${fCount})`;
-    document.getElementById('review-field-total').textContent = `$${fieldTotal.toLocaleString()}`;
+    document.getElementById('review-pricing-count').textContent = `${pCount}`;
     document.getElementById('review-setup-total').textContent = `$${setupTotal.toLocaleString()} AUD`;
+  }
+
+  // ─── Review recap ────────────────────────────────────────────────────
+  function renderReviewRecap() {
+    const crmChecked = document.querySelector('input[name="crm-choice"]:checked');
+    const crmValue = crmChecked ? crmChecked.value : '—';
+    const rows = [
+      ['Business name', document.getElementById('biz-name').value.trim()],
+      ['Departments', getDepartments().join(', ')],
+      ['CRM', crmValue],
+      ['Service area', document.getElementById('biz-region').value.trim()],
+      ['Contact', document.getElementById('contact-name').value.trim()],
+      ['Email', document.getElementById('contact-email').value.trim()],
+      ['Phone', document.getElementById('contact-phone').value.trim()],
+      ['Fallback line', document.getElementById('fallback-phone').value.trim()],
+      ['Negotiation contact', document.getElementById('negotiation-contact').value.trim()]
+    ];
+    const wrap = document.getElementById('review-recap');
+    wrap.innerHTML = rows.map(([label, val]) =>
+      `<div class="recap-row"><span>${escapeHtml(label)}</span><span>${escapeHtml(val || '—')}</span></div>`
+    ).join('');
+  }
+
+  // ─── Prefill from an earlier discovery step, if available ─────────────
+  if (discovery) {
+    const setIfEmpty = (id, val) => { const el = document.getElementById(id); if (el && !el.value && val) el.value = val; };
+    setIfEmpty('biz-name', discovery.business_name || discovery.company_name);
+    setIfEmpty('biz-region', discovery.region || discovery.service_area);
+    setIfEmpty('contact-name', discovery.contact_name || discovery.name);
+    setIfEmpty('contact-email', discovery.email);
+    setIfEmpty('contact-phone', discovery.phone);
   }
 
   // ─── Accept & submit ─────────────────────────────────────────────────
@@ -325,18 +552,43 @@
     btn.disabled = true;
 
     const templateRows = getTemplateRows();
-    const customFieldRows = getCustomFieldRows();
+    const pricingTierRows = getPricingTierRows();
+    const crmChecked = document.querySelector('input[name="crm-choice"]:checked');
+    const departments = getDepartments();
+    const singleDept = departments.length <= 1;
+
+    const departmentsPayload = departments.map(dep => ({
+      name: dep,
+      questions: templateRows
+        .filter(r => singleDept || r.querySelector('.tr-dept').value === dep)
+        .map(r => r.querySelector('.template-question').value.trim() || '(unspecified)'),
+      pricing_tiers: pricingTierRows
+        .filter(r => singleDept || r.querySelector('.tr-dept').value === dep)
+        .map(r => ({
+          service: r.querySelector('.pricing-service').value.trim() || '(unspecified)',
+          price: r.querySelector('.pricing-price').value.trim() || '(unspecified)'
+        }))
+    }));
 
     const payload = Object.assign({}, discovery || {}, {
-      question_templates: templateRows.map(r => r.querySelector('.template-question').value.trim() || '(unspecified)'),
+      business_name: document.getElementById('biz-name').value.trim(),
+      trade: departments.join(', '), // kept for backward compatibility with anything downstream still reading a flat trade string
+      crm: crmChecked ? crmChecked.value : '',
+      service_region: document.getElementById('biz-region').value.trim(),
+
+      contact_name: document.getElementById('contact-name').value.trim(),
+      contact_email: document.getElementById('contact-email').value.trim(),
+      contact_phone: document.getElementById('contact-phone').value.trim(),
+      fallback_phone: document.getElementById('fallback-phone').value.trim(),
+      negotiation_contact: document.getElementById('negotiation-contact').value.trim(),
+
+      departments: departmentsPayload,
       template_count: templateRows.length,
-      custom_fields: customFieldRows.map(r => ({
-        field: r.querySelector('.custom-field-name').value.trim() || '(unspecified)',
-        handles: r.querySelector('.custom-field-purpose').value.trim() || '(unspecified)'
-      })),
-      custom_field_count: customFieldRows.length,
-      setup_fee_aud: (templateRows.length * TEMPLATE_PRICE) + (customFieldRows.length * CUSTOM_FIELD_PRICE),
+      pricing_tier_count: pricingTierRows.length,
+
+      setup_fee_aud: (templateRows.length * TEMPLATE_PRICE),
       monthly_fee_aud: MONTHLY_FEE,
+
       additional_features: [
         document.getElementById('feature-support').checked ? '24/7 Support' : null,
         document.getElementById('feature-custom').checked ? 'Custom Branding, Workflows or Messages' : null,
