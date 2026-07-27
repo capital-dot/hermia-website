@@ -92,10 +92,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 <div class="page">
   <div class="page-tag">Deploy Your Blueprint</div>
   <h1 class="page-title">Get Hermia<br><em>qualifying your leads.</em></h1>
-  <p class="page-sub">Tell us about your plumbing business. Once live, every enquiry through your Gmail or Outlook inbox is qualified and booked straight into Simpro &mdash; no chasing, no manual entry.</p>
+  <p class="page-sub" id="pageSub">Tell us about your plumbing business. Once live, every enquiry through your Gmail or Outlook inbox is qualified and routed straight into your CRM &mdash; no chasing, no manual entry.</p>
 
   <div class="plan-badge" id="planBadge">
-    <span id="planBadgeText">Hermia — <b>$1,700 AUD/month</b> (first charge after your 7-day free trial) + <b>$900 AUD</b> one-off setup</span>
+    <span id="planBadgeText">Loading your plan…</span>
   </div>
 
   <div class="flow-steps">
@@ -184,49 +184,55 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 
 <script>
 // ============================================================
-// PRICING — Hermia now runs ONE price for every Client, regardless
-// of inbox (Gmail or Outlook). There is no plan-tier decision to
-// make and nothing to "confirm" against a menu of prices, so the
-// old plan-picker modal (which asked "which plan did you pay for?"
-// as if Gmail/Outlook were priced differently) has been removed
-// entirely. Update PRICE in exactly one place if the rate changes.
+// CRM PLAN — drives the price shown on this page and gets carried
+// forward to contract.html. This is set by the ?plan= param that
+// index.html's pricing buttons already send:
+//   apply.html?plan=simpro   (Simpro — full booking & scheduling)
+//   apply.html?plan=aroflo   (AroFlo — qualified leads, no booking)
+//
+// Keys MUST match contract.html's PLAN_CONFIG ('simpro' / 'aroflo').
+// If the rate changes, update it here AND in contract.html.
 // ============================================================
-const PRICE = '$1,700 AUD/month (first charge after your 7-day free trial) + $900 AUD one-off setup';
+const PLAN_CONFIG = {
+  simpro: {
+    name: 'Simpro',
+    price: '$660 AUD/month',
+    setupFee: '$900 AUD',
+    subCopy: 'Once live, every enquiry through your Gmail or Outlook inbox is qualified and booked straight into Simpro &mdash; no chasing, no manual entry.'
+  },
+  aroflo: {
+    name: 'AroFlo',
+    price: '$497 AUD/month',
+    setupFee: '$900 AUD',
+    subCopy: 'Once live, every enquiry through your Gmail or Outlook inbox is qualified and delivered to you as a warm or hot lead, with your AroFlo client and location details filled in automatically.'
+  }
+};
+const DEFAULT_PLAN = 'simpro';
+
+const urlParams = new URLSearchParams(window.location.search);
+const requestedPlan = urlParams.get('plan');
+const planKey = PLAN_CONFIG[requestedPlan] ? requestedPlan : DEFAULT_PLAN;
+const planConfig = PLAN_CONFIG[planKey];
+
+if (!PLAN_CONFIG[requestedPlan] && requestedPlan) {
+  console.error('[apply.html] unrecognized ?plan=' + requestedPlan + ' — falling back to ' + DEFAULT_PLAN + '.');
+}
+
+document.getElementById('planBadgeText').innerHTML =
+  'Hermia ' + planConfig.name + ' — <b>' + planConfig.price + '</b> (first charge after your 7-day free trial) + <b>' + planConfig.setupFee + '</b> one-off setup';
+document.getElementById('pageSub').innerHTML = planConfig.subCopy;
+
+sessionStorage.setItem('hermia_plan', planKey);
 
 // ============================================================
-// PROVIDER MAP — this is a routing key, not a pricing tier. It only
-// exists so contract.html / hermianango.js know whether to connect
-// a Gmail or an Outlook inbox. Keys MUST match contract.html's
-// PLAN_CONFIG and hermianango.js's VALID_PLANS ('gmail' / 'outlook').
-// ⚠️ Not verified against those files in this session — please
-// confirm both recognize 'gmail' and 'outlook' before this ships.
+// EMAIL INBOX — this is a routing key for which inbox Hermia
+// connects to (Gmail or Outlook), completely separate from the
+// CRM plan above. It has no effect on price.
 // ============================================================
 const PROVIDER_MAP = {
   gmail:   { name: 'Gmail' },
   outlook: { name: 'Outlook' }
 };
-const DEFAULT_PROVIDER = 'gmail';
-
-const urlParams = new URLSearchParams(window.location.search);
-const requestedProvider = urlParams.get('plan'); // param name kept as 'plan' for compatibility with contract.html links
-let provider = PROVIDER_MAP[requestedProvider] ? requestedProvider : DEFAULT_PROVIDER;
-
-if (!PROVIDER_MAP[requestedProvider] && requestedProvider) {
-  console.error('[apply.html] unrecognized ?plan=' + requestedProvider + ' — falling back to ' + DEFAULT_PROVIDER + '.');
-}
-
-// Pre-select the inbox dropdown if it arrived via the URL (e.g. a
-// site button already told us which inbox this visitor uses).
-const providerSelectEl = document.getElementById('provider');
-if (requestedProvider && PROVIDER_MAP[requestedProvider]) {
-  providerSelectEl.value = requestedProvider;
-}
-
-// Badge text is already set correctly in the HTML above — no need to
-// overwrite it here (doing so previously collapsed the nicely formatted
-// price/trial copy into one plain bold string).
-
-sessionStorage.setItem('hermia_plan', provider);
 
 const WEBHOOK_URL = 'https://hook.eu1.make.com/3hq3jwbtjc6afnfem9rhshxwqlyx838j';
 
@@ -234,7 +240,7 @@ function advance(id, delay) {
   setTimeout(() => document.getElementById(id).classList.add('done'), delay);
 }
 
-// ---- Validate, then submit directly — no plan/price modal needed ----
+// ---- Validate, then submit directly — no separate plan/price modal needed ----
 async function handleApplyClick() {
   const name         = document.getElementById('name').value.trim();
   const trade        = document.getElementById('trade').value;
@@ -248,31 +254,28 @@ async function handleApplyClick() {
   if (!providerVal)  { document.getElementById('provider').focus();     return; }
   if (!capacity)     { document.getElementById('capacity').focus();     return; }
 
-  provider = providerVal;
-  sessionStorage.setItem('hermia_plan', provider);
-  const newUrl = new URL(window.location.href);
-  newUrl.searchParams.set('plan', provider);
-  window.history.replaceState({}, '', newUrl);
-
   document.getElementById('submitBtn').disabled = true;
 
   const applicant = {
-    market:       'Australia',
+    market:        'Australia',
     name,
     trade,
     company_size,
     capacity,
-    provider,
-    provider_name: PROVIDER_MAP[provider].name,
-    price:        PRICE,
-    submitted_at: new Date().toISOString(),
-    source:       'hermia-apply'
+    plan:          planKey,
+    plan_name:     planConfig.name,
+    provider:      providerVal,
+    provider_name: PROVIDER_MAP[providerVal].name,
+    price:         planConfig.price + ' + ' + planConfig.setupFee + ' one-off setup',
+    submitted_at:  new Date().toISOString(),
+    source:        'hermia-apply'
   };
 
   try {
     sessionStorage.setItem('hermia_applicant', JSON.stringify(applicant));
     sessionStorage.setItem('hermia_name',   name);
     sessionStorage.setItem('hermia_market', 'Australia');
+    sessionStorage.setItem('hermia_plan',   planKey);
   } catch(e) {}
 
   try {
@@ -291,9 +294,8 @@ async function handleApplyClick() {
   advance('vs1', 550);
   advance('vs2', 1200);
   advance('vs3', 1850);
-  setTimeout(() => { window.location.href = 'contract.html?plan=' + provider; }, 2500);
+  setTimeout(() => { window.location.href = 'contract.html?plan=' + planKey; }, 2500);
 }
 </script>
 </body>
 </html>
-
