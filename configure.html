@@ -93,6 +93,15 @@
   .phone-err { font-size:12px; color:var(--error); margin-top:10px; margin-bottom:0; display:none; line-height:1.5; text-align:left; width:100%; }
   .phone-err.show { display:block; }
 
+  /* ── Dropzone (pricing file upload) ── */
+  .dropzone { border:1.5px dashed var(--border); border-radius:16px; padding:34px 20px; text-align:center; cursor:pointer; transition:border-color .3s ease, background .3s ease; width:100%; }
+  .dropzone:hover, .dropzone.dragover { border-color:var(--gold); background:rgba(201,163,91,0.04); }
+  .dropzone p { font-size:13px; color:var(--soft); }
+  .dropzone .file-hint { font-size:11px; color:var(--soft); opacity:.6; margin-top:6px; }
+  .dropzone.has-file { border-style:solid; border-color:var(--gold); }
+  .dropzone .file-name { color:var(--gold-light); font-weight:500; font-size:13px; }
+  #pricingFileInput { display:none; }
+
   /* ── Pricing tier cards (Stage 4) — stacked labeled fields instead of a cramped row ── */
   #pricing-tier-list.template-list { gap:14px; }
   #pricing-tier-list .template-row {
