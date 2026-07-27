@@ -321,9 +321,9 @@
   <div class="stage" data-stage="templates">
     <div class="eyebrow">Question Templates</div>
     <h1>What should<br><em>Hermia ask?</em></h1>
-    <p class="sub sec-note">This is the main thing you control. Hermia only ever asks leads questions from <strong>pre-approved templates</strong> — never freeform AI generation — and every CRM field on the other end is already built in on our side, so this is where your build actually gets shaped. Each template is one specific question, priced at <strong>$1,000</strong>. Short-form is fine — we word it properly using your business details.</p>
+    <p class="sub sec-note">This is the main thing you control. Hermia only ever asks leads questions from <strong>pre-approved templates</strong> — never freeform AI generation — and every CRM field on the other end is already built in on our side, so this is where your build actually gets shaped. Each template is one specific question, priced at <strong>$330</strong>. Short-form is fine — we word it properly using your business details.</p>
     <div class="template-list" id="template-list"></div>
-    <button type="button" class="btn-add" onclick="addTemplate()">+ Add Another Question Template ($1,000)</button>
+    <button type="button" class="btn-add" onclick="addTemplate()">+ Add Another Question Template ($330)</button>
     <div class="note">Every template added updates your setup fee in real time.</div>
     <div class="actions-row"><button class="btn-back" onclick="prevStage()">Back</button><button class="btn-primary" onclick="nextStage()">Continue</button></div>
   </div>
@@ -336,6 +336,18 @@
     <div class="template-list" id="pricing-tier-list"></div>
     <button type="button" class="btn-add" onclick="addPricingTier()">+ Add Another Pricing Tier</button>
     <div class="note">Example: "Burst pipe repair" — $600. Add as many or as few as you like.</div>
+
+    <div class="field" style="margin-top:26px;">
+      <label>Or upload your price list (PDF)</label>
+      <div class="hint" style="margin:0 0 12px;">Already have a rate card? Upload it as a PDF instead of typing each tier out by hand — our system reads it and breaks it down into Hermia's pricing structure automatically. Upload as many PDFs as you need — <strong style="color:var(--cream);">there's no limit.</strong></div>
+      <div class="dropzone" id="pricingDropzone" onclick="document.getElementById('pricingFileInput').click()">
+        <p id="dropzoneText">Click to upload, or drag and drop</p>
+        <div class="file-hint">PDF files only &middot; unlimited uploads</div>
+      </div>
+      <input type="file" id="pricingFileInput" accept="application/pdf,.pdf" multiple />
+      <div id="pricingFileList" style="margin-top:10px;"></div>
+    </div>
+
     <div class="actions-row"><button class="btn-back" onclick="prevStage()">Back</button><button class="btn-primary" onclick="nextStage()">Continue</button></div>
   </div>
 
@@ -374,6 +386,7 @@
     <div class="price-summary">
       <div class="price-row"><div class="pr-label">Question templates <span id="review-template-count">(0)</span></div><div class="pr-val" id="review-template-total">$0</div></div>
       <div class="price-row"><div class="pr-label">Pricing tiers configured</div><div class="pr-val" id="review-pricing-count">0</div></div>
+      <div class="price-row"><div class="pr-label">Price list PDFs uploaded</div><div class="pr-val" id="review-pdf-count">0</div></div>
       <div class="price-row"><div class="pr-label">Monthly subscription <strong>(fixed)</strong></div><div class="pr-val">$1,700 AUD / mo</div></div>
       <div class="price-row total"><div class="pr-label">Setup fee due today</div><div class="pr-val" id="review-setup-total">$0</div></div>
     </div>
@@ -400,7 +413,7 @@
 <script>
   const WEBHOOK_URL = 'https://hook.eu1.make.com/dn6h5jumnhk5o2mls82k3xk9kdlg23vv';
   const MONTHLY_FEE = 1700;
-  const TEMPLATE_PRICE = 1000;
+  const TEMPLATE_PRICE = 330;
 
   // ─── Escape helper (prevents contractor-entered text from breaking out of innerHTML) ───
   function escapeHtml(str) {
@@ -599,7 +612,7 @@
       <span class="tr-num">${String(templateCount).padStart(2,'0')}</span>
       <input type="text" class="template-question" placeholder="e.g. Ask about budget" />
       <select class="tr-dept"></select>
-      <span class="tr-price">$1,000</span>
+      <span class="tr-price">$330</span>
       <span class="tr-remove">✕</span>
     `;
     templateListEl.appendChild(row);
@@ -645,6 +658,59 @@
   }
   function getPricingTierRows() { return Array.from(pricingTierListEl.querySelectorAll('.template-row')); }
 
+  // ─── Pricing PDF uploads (Stage 4) — unlimited, parsed server-side ────
+  // The Client can upload as many PDF price lists as they want instead of
+  // (or alongside) typing pricing tiers by hand. These are sent to the
+  // webhook as real files; our backend is responsible for breaking each
+  // PDF down and parsing it into Hermia's JSON pricing structure.
+  let pricingFiles = []; // File[]
+  const pricingDropzoneEl = document.getElementById('pricingDropzone');
+  const pricingFileInputEl = document.getElementById('pricingFileInput');
+  const pricingFileListEl = document.getElementById('pricingFileList');
+  const dropzoneTextEl = document.getElementById('dropzoneText');
+
+  pricingFileInputEl.addEventListener('change', function (e) {
+    addPricingFiles(e.target.files);
+    pricingFileInputEl.value = ''; // allow re-selecting the same file later
+  });
+  ['dragover', 'dragenter'].forEach(evt => pricingDropzoneEl.addEventListener(evt, function (e) {
+    e.preventDefault();
+    pricingDropzoneEl.classList.add('dragover');
+  }));
+  ['dragleave', 'dragend'].forEach(evt => pricingDropzoneEl.addEventListener(evt, function () {
+    pricingDropzoneEl.classList.remove('dragover');
+  }));
+  pricingDropzoneEl.addEventListener('drop', function (e) {
+    e.preventDefault();
+    pricingDropzoneEl.classList.remove('dragover');
+    addPricingFiles(e.dataTransfer.files);
+  });
+
+  function addPricingFiles(fileList) {
+    Array.from(fileList).forEach(f => {
+      const isPdf = f.type === 'application/pdf' || /\.pdf$/i.test(f.name);
+      if (isPdf) pricingFiles.push(f); // no cap — unlimited uploads
+    });
+    renderPricingFiles();
+  }
+  function removePricingFile(idx) {
+    pricingFiles.splice(idx, 1);
+    renderPricingFiles();
+  }
+  function renderPricingFiles() {
+    pricingDropzoneEl.classList.toggle('has-file', pricingFiles.length > 0);
+    dropzoneTextEl.innerHTML = pricingFiles.length
+      ? `<span class="file-name">${pricingFiles.length} PDF${pricingFiles.length > 1 ? 's' : ''} selected</span> — click to add more`
+      : 'Click to upload, or drag and drop';
+    pricingFileListEl.innerHTML = pricingFiles.map((f, i) => `
+      <div class="template-row" style="padding:9px 10px 9px 14px;">
+        <span class="tr-num">📄</span>
+        <span style="flex:1;color:var(--cream);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(f.name)}</span>
+        <span class="tr-remove" onclick="removePricingFile(${i})">✕</span>
+      </div>
+    `).join('');
+  }
+
   // Seed one row each, then sync dropdowns
   addDepartment();
   addTemplate();
@@ -659,6 +725,7 @@
     document.getElementById('review-template-count').textContent = `(${tCount})`;
     document.getElementById('review-template-total').textContent = `$${templateTotal.toLocaleString()}`;
     document.getElementById('review-pricing-count').textContent = `${pCount}`;
+    document.getElementById('review-pdf-count').textContent = `${pricingFiles.length}`;
     document.getElementById('review-setup-total').textContent = `$${setupTotal.toLocaleString()} AUD`;
   }
 
@@ -677,7 +744,8 @@
       ['Email', document.getElementById('contact-email').value.trim()],
       ['Phone', document.getElementById('contact-phone').value.trim()],
       ['Fallback line', document.getElementById('fallback-phone').value.trim()],
-      ['Negotiation contact', negoDisplay]
+      ['Negotiation contact', negoDisplay],
+      ['Price list PDFs', pricingFiles.length ? `${pricingFiles.length} uploaded` : 'None uploaded']
     ];
     const wrap = document.getElementById('review-recap');
     wrap.innerHTML = rows.map(([label, val]) =>
@@ -739,6 +807,7 @@
     push('PRICING SUMMARY');
     push('Question Templates: ' + d.templateCount + ' ($' + d.templateTotal.toLocaleString() + ')');
     push('Pricing Tiers Configured: ' + d.pricingTierCount);
+    push('Price List PDFs Uploaded: ' + d.pdfCount + (d.pdfNames.length ? ' (' + d.pdfNames.join(', ') + ')' : '') + ' — attached separately, to be parsed into Hermia\'s pricing JSON');
     push('Monthly Subscription: $' + MONTHLY_FEE.toLocaleString() + ' AUD / mo');
     push('Setup Fee Due Today: $' + d.setupTotal.toLocaleString() + ' AUD');
     push('');
@@ -797,6 +866,8 @@
       templateCount: templateRows.length,
       templateTotal: templateTotal,
       pricingTierCount: pricingTierRows.length,
+      pdfCount: pricingFiles.length,
+      pdfNames: pricingFiles.map(f => f.name),
       setupTotal: templateTotal,
       features: [
         document.getElementById('feature-support').checked ? '24/7 Support' : null,
@@ -813,6 +884,21 @@
         body: doc
       });
     } catch (err) { console.log('Webhook error:', err); }
+
+    // Send the actual PDF price-list files as a separate multipart request
+    // so the backend can break each one down and parse it into Hermia's
+    // pricing JSON structure. Sent as its own request since the text
+    // submission above is posted as plain text, not multipart/form-data.
+    if (pricingFiles.length) {
+      try {
+        const fd = new FormData();
+        fd.append('type', 'hermia-pricing-pdf-upload');
+        fd.append('customer_id', (discovery && discovery.customerId) || '');
+        fd.append('business_name', document.getElementById('biz-name').value.trim());
+        pricingFiles.forEach((f) => fd.append('pricing_pdfs[]', f, f.name));
+        await fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', body: fd });
+      } catch (err) { console.log('PDF upload webhook error:', err); }
+    }
 
     try { sessionStorage.removeItem('hermia_discovery'); } catch (e) {}
 
