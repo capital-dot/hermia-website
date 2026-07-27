@@ -59,6 +59,58 @@
   .template-row .tr-price { color:var(--gold-light); font-weight:700; font-size:12px; white-space:nowrap; background:rgba(201,163,91,0.1); padding:5px 10px; border-radius:20px; flex-shrink:0; }
   .template-row .tr-remove { cursor:pointer; color:var(--muted); font-size:15px; transition:color .2s; flex-shrink:0; padding:0 3px; }
   .template-row .tr-remove:hover { color:var(--error); }
+
+  /* ── Shared card + method-choice + phone/email widget (negotiation contact) ── */
+  .card { border:1px solid var(--border); border-radius:16px; background:linear-gradient(135deg, var(--card), rgba(201,163,91,0.004)); }
+  .method-row { display:flex; gap:12px; width:100%; margin-bottom:6px; }
+  .method-card { flex:1; padding:18px 16px; cursor:pointer; text-align:left; transition:border-color .3s ease, transform .3s cubic-bezier(.23,1,.32,1), background .3s ease; }
+  .method-card:hover { border-color:var(--border-strong); transform:translateY(-2px); }
+  .method-card.active { border-color:var(--gold); background:linear-gradient(135deg, rgba(201,163,91,0.1), rgba(201,163,91,0.015)); box-shadow:0 0 18px rgba(201,163,91,0.14); }
+  .method-card svg { margin-bottom:9px; opacity:.85; }
+  .method-card h3 { font-size:13px; font-weight:500; color:var(--cream); margin-bottom:3px; }
+  .method-card p { font-size:11.5px; color:var(--soft); line-height:1.5; }
+
+  .input-zone { width:100%; margin-top:14px; display:none; }
+  .input-zone.show { display:block; animation:fadeUp .4s ease both; }
+
+  .phone-card, .email-card { width:100%; padding:18px 18px 16px; text-align:left; }
+  .phone-card label, .email-card label { font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:10px; }
+  .phone-row { display:flex; gap:10px; }
+  .country-select {
+    flex:0 0 108px; padding:14px 24px 14px 12px;
+    background:rgba(22,20,15,0.6); border:1px solid var(--border); border-radius:12px; color:var(--cream);
+    font-family:'DM Sans',sans-serif; font-size:13px; outline:none; transition:border-color .2s;
+    appearance:none; -webkit-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C9A35B' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 10px center;
+  }
+  .country-select:focus { border-color:var(--gold); }
+  .country-select option { background:#16140f; color:var(--cream); }
+  .phone-input, .email-input { flex:1; min-width:0; width:100%; padding:14px 16px; background:rgba(22,20,15,0.5); border:1px solid var(--border); border-radius:12px; color:var(--cream); font-family:'DM Sans',sans-serif; font-size:14px; outline:none; transition:border-color .2s; }
+  .phone-input:focus, .email-input:focus { border-color:var(--gold); }
+  .phone-hint { font-size:11.5px; color:var(--muted); margin-top:11px; line-height:1.55; padding-left:11px; border-left:2px solid var(--border-strong); }
+  .phone-hint .warn { color:var(--gold-light); font-weight:500; }
+  .phone-err { font-size:12px; color:var(--error); margin-top:10px; margin-bottom:0; display:none; line-height:1.5; text-align:left; width:100%; }
+  .phone-err.show { display:block; }
+
+  /* ── Pricing tier cards (Stage 4) — stacked labeled fields instead of a cramped row ── */
+  #pricing-tier-list.template-list { gap:14px; }
+  #pricing-tier-list .template-row {
+    flex-direction:column; align-items:stretch; gap:12px;
+    padding:16px 16px 14px; background:linear-gradient(135deg, var(--card), rgba(201,163,91,0.004));
+    border:1px solid var(--border);
+  }
+  .tier-card-head { display:flex; align-items:center; gap:10px; }
+  .tier-card-head .tr-num { color:var(--gold); font-weight:700; font-size:11px; flex-shrink:0; }
+  .tier-card-head select.tr-dept { flex:1; margin:0; }
+  .tier-card-head .tr-remove { cursor:pointer; color:var(--muted); font-size:15px; transition:color .2s; flex-shrink:0; padding:0 3px; }
+  .tier-card-head .tr-remove:hover { color:var(--error); }
+  .tier-fields { display:flex; gap:12px; }
+  .tier-field { flex:1; text-align:left; }
+  .tier-field.tier-field-price { flex:0 0 120px; }
+  .tier-field label { display:block; font-size:9.5px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+  .tier-field input { width:100%; }
+
   .btn-add { display:flex; align-items:center; justify-content:center; gap:8px; background:transparent; border:1.5px dashed rgba(201,163,91,0.4); color:var(--gold-light); padding:13px 20px; border-radius:10px; font-size:12.5px; font-weight:600; cursor:pointer; transition:all .2s; width:100%; }
   .btn-add:hover { border-color:var(--gold); background:rgba(201,163,91,0.06); border-style:solid; }
   .note { font-size:11px; color:var(--muted); margin-top:10px; line-height:1.6; text-align:left; width:100%; }
@@ -209,7 +261,47 @@
       </div>
       <div class="field">
         <label>Pricing negotiation contact (optional)</label>
-        <input type="text" class="std-input" id="negotiation-contact" placeholder="Name and phone/email a customer is handed to if they want to negotiate" />
+        <div class="hint" style="margin:0 0 12px;">If a lead isn't happy with a quoted price, this is who Hermia hands them to. Leave unselected to skip.</div>
+        <div class="method-row">
+          <div class="method-card card" id="cardNegoPhone" onclick="chooseNegoMethod('phone')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3>Phone number</h3>
+            <p>Leads call or message directly</p>
+          </div>
+          <div class="method-card card" id="cardNegoEmail" onclick="chooseNegoMethod('email')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="#C9A35B" stroke-width="1.6"/><path d="M22 6l-10 7L2 6" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3>Email address</h3>
+            <p>Leads email you directly instead</p>
+          </div>
+        </div>
+
+        <div class="input-zone" id="negoPhoneZone">
+          <div class="phone-card card">
+            <label for="negotiation-phone">Contact number</label>
+            <div class="phone-row">
+              <select id="negoCountryCode" class="country-select" aria-label="Country code">
+                <option value="61" data-country="Australia" selected>🇦🇺 +61</option>
+                <option value="1" data-country="Canada">🇨🇦 +1</option>
+                <option value="64" data-country="New Zealand">🇳🇿 +64</option>
+                <option value="44" data-country="United Kingdom">🇬🇧 +44</option>
+                <option value="353" data-country="Ireland">🇮🇪 +353</option>
+                <option value="1" data-country="United States">🇺🇸 +1</option>
+              </select>
+              <input type="tel" id="negotiation-phone" class="phone-input" placeholder="e.g. 4XX XXX XXX" autocomplete="tel" inputmode="numeric" />
+            </div>
+            <p class="phone-hint"><span class="warn">Use your business number.</span> Enter it without the leading 0 — we add the country code automatically.</p>
+          </div>
+        </div>
+
+        <div class="input-zone" id="negoEmailZone">
+          <div class="email-card card">
+            <label for="negotiation-email">Contact email</label>
+            <input type="email" id="negotiation-email" class="email-input" placeholder="e.g. jobs@yourbusiness.com" autocomplete="email" />
+            <p class="phone-hint"><span class="warn">Use your business inbox.</span> Not a personal address unless that's genuinely who you want clients emailing.</p>
+          </div>
+        </div>
+
+        <p class="phone-err" id="negoErr"></p>
       </div>
     </div>
 
@@ -246,7 +338,6 @@
     <div class="banner" style="margin-bottom:22px;">CRM field mapping is handled entirely by Hermia's own built-in fields — that part isn't something you configure. The only thing you set is what Hermia actually asks on WhatsApp, back in the Question Templates step. These fields cover Asset Type, Fault Description, Fault Code, Defect Status, Billing Entity, Hazards, Isolations, and Access Notes — every job maps into these automatically, regardless of department. You only customize the WhatsApp question wording, not the fields underneath them.</div>
     <div class="selection-cards">
       <div class="selection-card"><input type="checkbox" id="feature-support" value="24/7 Support"><label for="feature-support" class="selection-card-label"><div class="selection-card-text">24/7 Support</div></label></div>
-      <div class="selection-card"><input type="checkbox" id="feature-custom" value="Custom Branding, Workflows or Messages"><label for="feature-custom" class="selection-card-label"><div class="selection-card-text">Custom Branding / Workflows</div></label></div>
       <div class="selection-card"><input type="checkbox" id="feature-summaries" value="Custom Business Summaries"><label for="feature-summaries" class="selection-card-label"><div class="selection-card-text">Custom Business Summaries</div></label></div>
     </div>
     <div class="field">
@@ -309,6 +400,37 @@
     return div.innerHTML;
   }
 
+  // ─── Negotiation contact (Stage 2): phone OR email, optional ─────────
+  let negoMethod = null; // 'phone' | 'email' | null (null = skipped)
+  function chooseNegoMethod(kind) {
+    negoMethod = (negoMethod === kind) ? null : kind; // clicking the active card again deselects it
+    document.getElementById('cardNegoPhone').classList.toggle('active', negoMethod === 'phone');
+    document.getElementById('cardNegoEmail').classList.toggle('active', negoMethod === 'email');
+    document.getElementById('negoPhoneZone').classList.toggle('show', negoMethod === 'phone');
+    document.getElementById('negoEmailZone').classList.toggle('show', negoMethod === 'email');
+    document.getElementById('negoErr').classList.remove('show');
+  }
+  function digitsOnly(v) { return (v || '').replace(/[^0-9]/g, ''); }
+  function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  function buildNegoE164() {
+    const sel = document.getElementById('negoCountryCode');
+    const opt = sel.options[sel.selectedIndex];
+    const local = digitsOnly(document.getElementById('negotiation-phone').value).replace(/^0+/, '');
+    return { e164: '+' + opt.value + local, localDigits: local };
+  }
+  // Returns { method: null, value: null } if skipped, { error } if invalid, or { method, value } once valid.
+  function getNegotiationContact() {
+    if (!negoMethod) return { method: null, value: null };
+    if (negoMethod === 'phone') {
+      const { e164, localDigits } = buildNegoE164();
+      if (localDigits.length < 6) return { error: "That doesn't look like a valid phone number — check the digits and try again." };
+      return { method: 'phone', value: e164 };
+    }
+    const email = document.getElementById('negotiation-email').value.trim();
+    if (!isValidEmail(email)) return { error: "That doesn't look like a valid email address — check it and try again." };
+    return { method: 'email', value: email };
+  }
+
   // ─── Load discovery data from an earlier step, if any ─────────────
   let discovery = null;
   try { discovery = JSON.parse(sessionStorage.getItem('hermia_discovery') || 'null'); } catch (e) { discovery = null; }
@@ -366,6 +488,13 @@
       const cp = document.getElementById('contact-phone').value.trim();
       if (!cn || !ce || !cp) {
         alert('Please add a contact name, email and phone so we can reach you.');
+        return false;
+      }
+      const nego = getNegotiationContact();
+      if (nego.error) {
+        const negoErrEl = document.getElementById('negoErr');
+        negoErrEl.textContent = nego.error;
+        negoErrEl.classList.add('show');
         return false;
       }
     }
@@ -484,11 +613,21 @@
     const row = document.createElement('div');
     row.className = 'template-row';
     row.innerHTML = `
-      <span class="tr-num">${String(pricingTierCount).padStart(2,'0')}</span>
-      <input type="text" class="pricing-service" placeholder="e.g. Burst pipe repair" style="flex:1.5;" />
-      <input type="text" class="pricing-price" placeholder="$ price" style="flex:0.7;max-width:110px;" />
-      <select class="tr-dept"></select>
-      <span class="tr-remove">✕</span>
+      <div class="tier-card-head">
+        <span class="tr-num">${String(pricingTierCount).padStart(2,'0')}</span>
+        <select class="tr-dept"></select>
+        <span class="tr-remove">✕</span>
+      </div>
+      <div class="tier-fields">
+        <div class="tier-field">
+          <label>Service</label>
+          <input type="text" class="pricing-service" placeholder="e.g. Burst pipe repair" />
+        </div>
+        <div class="tier-field tier-field-price">
+          <label>Price</label>
+          <input type="text" class="pricing-price" placeholder="$ price" />
+        </div>
+      </div>
     `;
     pricingTierListEl.appendChild(row);
     row.querySelector('.tr-remove').addEventListener('click', function () { row.remove(); renumber(pricingTierListEl); });
@@ -518,6 +657,8 @@
   function renderReviewRecap() {
     const crmChecked = document.querySelector('input[name="crm-choice"]:checked');
     const crmValue = crmChecked ? crmChecked.value : '—';
+    const nego = getNegotiationContact();
+    const negoDisplay = nego.method ? `${nego.value} (${nego.method})` : 'Not set';
     const rows = [
       ['Business name', document.getElementById('biz-name').value.trim()],
       ['Departments', getDepartments().join(', ')],
@@ -527,7 +668,7 @@
       ['Email', document.getElementById('contact-email').value.trim()],
       ['Phone', document.getElementById('contact-phone').value.trim()],
       ['Fallback line', document.getElementById('fallback-phone').value.trim()],
-      ['Negotiation contact', document.getElementById('negotiation-contact').value.trim()]
+      ['Negotiation contact', negoDisplay]
     ];
     const wrap = document.getElementById('review-recap');
     wrap.innerHTML = rows.map(([label, val]) =>
@@ -545,6 +686,62 @@
     setIfEmpty('contact-phone', discovery.phone);
   }
 
+  // ─── Build the submission as a neat, ordered plain-text document ─────
+  // (Make.com scenario reads this as raw text, not JSON — see WEBHOOK_URL below.)
+  function buildSubmissionDocument(d) {
+    const lines = [];
+    const push = (s) => lines.push(s);
+
+    push('HERMIA CUSTOM BUILD SUBMISSION');
+    push('Submitted: ' + d.submittedAt);
+    push('Customer ID: ' + (d.customerId || '—'));
+    push('Plan: ' + (d.plan || '—'));
+    push('');
+    push('BUSINESS');
+    push('Business Name: ' + (d.businessName || '—'));
+    push('Departments: ' + (d.departments.join(', ') || '—'));
+    push('CRM: ' + (d.crm || '—'));
+    push('Service Region: ' + (d.serviceRegion || '—'));
+    push('');
+    push('CONTACTS');
+    push('Primary Contact: ' + (d.contactName || '—'));
+    push('Update Email: ' + (d.contactEmail || '—'));
+    push('Update Phone: ' + (d.contactPhone || '—'));
+    push('Fallback Line: ' + (d.fallbackPhone || '—'));
+    push('Negotiation Contact: ' + (d.negoMethod ? `${d.negoValue} (${d.negoMethod})` : 'Not set'));
+    push('');
+    push('DEPARTMENTS & BUILD');
+    d.departmentsData.forEach((dep) => {
+      push('[' + dep.name + ']');
+      push('Questions:');
+      if (dep.questions.length) {
+        dep.questions.forEach((q, i) => push('  ' + (i + 1) + '. ' + q));
+      } else {
+        push('  (none)');
+      }
+      push('Pricing Tiers:');
+      if (dep.pricing_tiers.length) {
+        dep.pricing_tiers.forEach((t) => push('  - ' + t.service + ' — ' + t.price));
+      } else {
+        push('  (none)');
+      }
+      push('');
+    });
+    push('PRICING SUMMARY');
+    push('Question Templates: ' + d.templateCount + ' ($' + d.templateTotal.toLocaleString() + ')');
+    push('Pricing Tiers Configured: ' + d.pricingTierCount);
+    push('Monthly Subscription: $' + MONTHLY_FEE.toLocaleString() + ' AUD / mo');
+    push('Setup Fee Due Today: $' + d.setupTotal.toLocaleString() + ' AUD');
+    push('');
+    push('ADDITIONAL');
+    push('Features: ' + (d.features.length ? d.features.join(', ') : 'None selected'));
+    push('Notes: ' + (d.notes || '—'));
+    push('Consent Given: ' + (d.consent ? 'Yes' : 'No'));
+    push('');
+    push('Source: hermia-custom-build-configurator');
+    return lines.join('\n');
+  }
+
   // ─── Accept & submit ─────────────────────────────────────────────────
   async function acceptAndSubmit() {
     const btn = document.getElementById('acceptBtn');
@@ -556,6 +753,7 @@
     const crmChecked = document.querySelector('input[name="crm-choice"]:checked');
     const departments = getDepartments();
     const singleDept = departments.length <= 1;
+    const nego = getNegotiationContact();
 
     const departmentsPayload = departments.map(dep => ({
       name: dep,
@@ -570,41 +768,40 @@
         }))
     }));
 
-    const payload = Object.assign({}, discovery || {}, {
-      business_name: document.getElementById('biz-name').value.trim(),
-      trade: departments.join(', '), // kept for backward compatibility with anything downstream still reading a flat trade string
+    const templateTotal = templateRows.length * TEMPLATE_PRICE;
+
+    const doc = buildSubmissionDocument({
+      submittedAt: new Date().toISOString(),
+      customerId: discovery && discovery.customerId,
+      plan: discovery && discovery.plan,
+      businessName: document.getElementById('biz-name').value.trim(),
+      departments,
       crm: crmChecked ? crmChecked.value : '',
-      service_region: document.getElementById('biz-region').value.trim(),
-
-      contact_name: document.getElementById('contact-name').value.trim(),
-      contact_email: document.getElementById('contact-email').value.trim(),
-      contact_phone: document.getElementById('contact-phone').value.trim(),
-      fallback_phone: document.getElementById('fallback-phone').value.trim(),
-      negotiation_contact: document.getElementById('negotiation-contact').value.trim(),
-
-      departments: departmentsPayload,
-      template_count: templateRows.length,
-      pricing_tier_count: pricingTierRows.length,
-
-      setup_fee_aud: (templateRows.length * TEMPLATE_PRICE),
-      monthly_fee_aud: MONTHLY_FEE,
-
-      additional_features: [
+      serviceRegion: document.getElementById('biz-region').value.trim(),
+      contactName: document.getElementById('contact-name').value.trim(),
+      contactEmail: document.getElementById('contact-email').value.trim(),
+      contactPhone: document.getElementById('contact-phone').value.trim(),
+      fallbackPhone: document.getElementById('fallback-phone').value.trim(),
+      negoMethod: nego.method,
+      negoValue: nego.value,
+      departmentsData: departmentsPayload,
+      templateCount: templateRows.length,
+      templateTotal: templateTotal,
+      pricingTierCount: pricingTierRows.length,
+      setupTotal: templateTotal,
+      features: [
         document.getElementById('feature-support').checked ? '24/7 Support' : null,
-        document.getElementById('feature-custom').checked ? 'Custom Branding, Workflows or Messages' : null,
         document.getElementById('feature-summaries').checked ? 'Custom Business Summaries' : null
       ].filter(Boolean),
-      additional_notes: document.getElementById('additional-notes').value.trim(),
-      consent: document.getElementById('consent-check').checked,
-      submitted_at: new Date().toISOString(),
-      source: 'hermia-custom-build-configurator'
+      notes: document.getElementById('additional-notes').value.trim(),
+      consent: document.getElementById('consent-check').checked
     });
 
     try {
       await fetch(WEBHOOK_URL, {
         method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        headers: { 'Content-Type': 'text/plain' },
+        body: doc
       });
     } catch (err) { console.log('Webhook error:', err); }
 
