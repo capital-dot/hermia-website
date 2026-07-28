@@ -118,10 +118,26 @@
   .info-box {
       border: 1px solid var(--border); border-radius: 13px; padding: 18px 20px;
       background: rgba(201,163,91,0.04); font-size: 13px; line-height: 1.6; color: var(--soft);
-      margin-bottom: 30px; position: relative; text-align: left;
+      margin-bottom: 16px; position: relative; text-align: left;
   }
   .info-box::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; border-radius: 13px 0 0 13px; background: var(--gold); }
   .info-box strong { color: var(--cream); font-weight: 500; }
+
+  /* Full-access callout: sits right above the button so it's the
+     last thing read before clicking, and repeated in the redirect
+     message so it's the last thing seen before the hand-off. */
+  .access-note {
+      display: flex; align-items: flex-start; gap: 10px;
+      border: 1px solid var(--border-strong); border-radius: 13px; padding: 14px 16px;
+      background: rgba(201,163,91,0.07); font-size: 12.5px; line-height: 1.55; color: var(--cream);
+      margin-bottom: 26px; text-align: left;
+  }
+  .access-note .ico {
+      flex: 0 0 18px; width: 18px; height: 18px; margin-top: 1px;
+      border-radius: 50%; background: var(--gold); color: var(--bg);
+      display: grid; place-items: center; font-size: 11px; font-weight: 700;
+  }
+  .access-note b { color: var(--gold-light); font-weight: 600; }
 
   .btn {
       position: relative; overflow: hidden; width: 100%; padding: 16px;
@@ -188,6 +204,11 @@
     <p class="sub" id="pageSub">Securely connect your inbox so Hermia can start qualifying your leads automatically.</p>
     <div class="info-box">
       Hermia only reads and extracts job enquiries from this inbox — it never sends anything on your behalf, and it never touches anything outside your inbox.
+    </div>
+
+    <div class="access-note">
+      <span class="ico">!</span>
+      <span>On the next screen, make sure to select <b>"Full Access"</b> (not limited access) when prompted — Hermia needs this to read and qualify your enquiries correctly.</span>
     </div>
 
     <button class="btn" id="connectBtn">Connect</button>
@@ -313,7 +334,10 @@
       if (!res.ok || data.ok === false || !data.url) {
         throw new Error(data.error || 'Something went wrong starting the connection.');
       }
-      successBanner.textContent = 'Redirecting you to sign in…';
+      // Reminder repeated right before hand-off, since this is the
+      // last thing the user reads before landing on the provider's
+      // consent screen.
+      successBanner.textContent = 'Redirecting you to sign in… remember to select "Full Access" on the next screen.';
       successBanner.classList.add('visible');
       window.location.href = data.url;
     } catch (e) {
