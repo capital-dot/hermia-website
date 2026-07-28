@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose Your Tier — Hermia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#07070a; --card:#0f0f12; --border:rgba(201,163,91,0.15); --border-hi:rgba(201,163,91,0.40);
+  --gold:#C9A35B; --gold-light:#e8c17a; --gold-dim:rgba(201,163,91,0.08);
+  --cream:#f4f0e6; --muted:#7a7672; --soft:#b0ada5; --green:#10b981;
+  --display:'Cormorant Garamond',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--black);color:var(--cream);min-height:100vh;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+.bg-glow{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:1100px;height:700px;background:radial-gradient(ellipse at 50% 10%,rgba(201,163,91,0.16) 0%,transparent 62%);pointer-events:none;filter:blur(50px);z-index:0;}
+.wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:90px 24px 80px;text-align:center;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+h1{font-family:var(--display);font-size:clamp(38px,6vw,58px);font-weight:600;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:10px;}
+h1 em{font-style:italic;color:var(--gold);}
+.sub{font-size:15.5px;color:var(--soft);margin-bottom:12px;}
+.crm-badge{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border:1px solid var(--border-hi);background:var(--gold-dim);border-radius:100px;font-size:12.5px;color:var(--cream);margin-bottom:48px;}
+.crm-badge b{color:var(--gold-light);font-weight:600;}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:26px;text-align:left;}
+@media(max-width:720px){.cards{grid-template-columns:1fr;}}
+.card{position:relative;background:linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.005)),var(--card);border:1px solid var(--border);border-radius:20px;padding:34px 30px;cursor:pointer;transition:all .25s;}
+.card:hover{border-color:var(--gold);box-shadow:0 20px 50px rgba(0,0,0,0.4);transform:translateY(-3px);}
+.card.featured{border-color:var(--gold);}
+.card.featured::before{content:'Most Popular';position:absolute;top:-12px;left:30px;background:var(--gold);color:#1a1408;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:100px;}
+.tier-name{font-family:var(--display);font-size:26px;font-weight:600;color:#fff;margin-bottom:6px;}
+.tier-price{font-size:15px;color:var(--gold-light);font-weight:500;margin-bottom:4px;}
+.tier-setup{font-size:12.5px;color:var(--muted);margin-bottom:22px;}
+.tier-list{list-style:none;margin-bottom:26px;}
+.tier-list li{font-size:13.5px;color:var(--soft);padding:7px 0;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:10px;}
+.tier-list li:first-child{border-top:none;}
+.tier-list li b{color:var(--cream);font-weight:600;text-align:right;}
+.select-btn{width:100%;padding:15px;border-radius:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:12.5px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .25s;}
+.select-btn.gold{background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#1a1408;}
+.select-btn.gold:hover{filter:brightness(1.08);}
+.select-btn.outline{background:transparent;border:1px solid var(--border-hi);color:var(--cream);}
+.select-btn.outline:hover{background:var(--gold-dim);border-color:var(--gold);}
+.errbox{display:none;max-width:600px;margin:24px auto 0;padding:14px 18px;border:1px solid rgba(224,112,112,0.35);background:rgba(224,112,112,0.08);border-radius:10px;color:#e07070;font-size:13px;}
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="wrap">
+  <div class="eyebrow">Deploy Your Blueprint</div>
+  <h1>Hermia<br><em>Text to Job. Automatically.</em></h1>
+  <p class="sub">Choose the level of coverage that fits your call volume.</p>
+  <div class="crm-badge" id="crmBadge">Loading CRM…</div>
+
+  <div class="cards" id="cardWrap"></div>
+  <div class="errbox" id="errBox"></div>
+</div>
+
+<script>
+// ============================================================
+// TIER CONFIG — 4 real combos (CRM × tier). Each key maps to a
+// specific Stripe Payment Link. Prices shown are DISPLAY ONLY —
+// the amount actually charged is whatever that Payment Link is
+// configured for on Stripe's side.
+//
+// ⚠️ MISSING LINKS: simpro.limited and aroflo.limited do not have
+// confirmed Stripe Payment Links yet — only the two Unlimited
+// links/products were provided. Fill these in (and replace the
+// placeholder string below) before this page goes live, or the
+// button will refuse to proceed — see PLACEHOLDER_MARKER check.
+//
+// ⚠️ ALSO FLAGGED: the AroFlo monthly product (prod_Uy8yA4K8g9qxEg)
+// and AroFlo setup-fee product were given as the SAME id. That's
+// almost certainly a copy-paste error on the Stripe side — the
+// buy.stripe.com link below is what actually determines the charge,
+// but worth double-checking in the Stripe dashboard before trusting
+// the AroFlo Unlimited checkout charges both amounts correctly.
+// ============================================================
+const TIER_CONFIG = {
+  simpro: {
+    crmName: 'Simpro',
+    limited:   { name: 'Limited',   price: '$660 AUD / month',   setupFee: '$900 AUD',   cap: '15 photos / videos / voice notes / hot+warm leads per month', link: 'REPLACE_WITH_SIMPRO_LIMITED_LINK' },
+    unlimited: { name: 'Unlimited', price: '$1,100 AUD / month', setupFee: '$1,700 AUD', cap: 'No caps — unlimited photos, videos, voice notes, hot+warm leads', link: 'https://buy.stripe.com/9B68wR4Zjfn668i2fW9EI01' }
+  },
+  aroflo: {
+    crmName: 'AroFlo',
+    limited:   { name: 'Limited',   price: '$497 AUD / month',   setupFee: '$900 AUD',   cap: '15 photos / videos / voice notes / hot+warm leads per month', link: 'REPLACE_WITH_AROFLO_LIMITED_LINK' },
+    unlimited: { name: 'Unlimited', price: '$1,100 AUD / month', setupFee: '$1,700 AUD', cap: 'No caps — unlimited photos, videos, voice notes, hot+warm leads', link: 'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04' }
+  }
+};
+const PLACEHOLDER_MARKER = 'REPLACE_WITH_';
+const DEFAULT_CRM = 'simpro';
+
+const urlParams = new URLSearchParams(window.location.search);
+const requestedCrm = urlParams.get('plan');
+const storedCrm = sessionStorage.getItem('hermia_plan');
+const crmKey = TIER_CONFIG[requestedCrm] ? requestedCrm : (TIER_CONFIG[storedCrm] ? storedCrm : DEFAULT_CRM);
+const crm = TIER_CONFIG[crmKey];
+try { sessionStorage.setItem('hermia_plan', crmKey); } catch(e) {}
+
+document.getElementById('crmBadge').innerHTML = 'CRM selected: <b>' + crm.crmName + '</b>';
+
+function renderCard(tierKey, tier, featured) {
+  return `
+  <div class="card ${featured ? 'featured' : ''}" onclick="selectTier('${tierKey}')">
+    <div class="tier-name">${tier.name}</div>
+    <div class="tier-price">${tier.price}</div>
+    <div class="tier-setup">+ ${tier.setupFee} one-off setup</div>
+    <ul class="tier-list">
+      <li><span>Usage</span> <b>${tier.cap}</b></li>
+    </ul>
+    <button class="select-btn ${featured ? 'gold' : 'outline'}">Choose ${tier.name}</button>
+  </div>`;
+}
+
+document.getElementById('cardWrap').innerHTML =
+  renderCard('limited', crm.limited, false) +
+  renderCard('unlimited', crm.unlimited, true);
+
+function selectTier(tierKey) {
+  const tier = crm[tierKey];
+  const errBox = document.getElementById('errBox');
+  if (tier.link.indexOf(PLACEHOLDER_MARKER) !== -1) {
+    errBox.textContent = "This tier's checkout isn't configured yet — contact capital@hermia.au to complete this manually.";
+    errBox.style.display = 'block';
+    return;
+  }
+  try {
+    sessionStorage.setItem('hermia_tier', tierKey);
+    sessionStorage.setItem('hermia_plan', crmKey);
+  } catch(e) {}
+  window.location.href = 'contract.html?plan=' + encodeURIComponent(crmKey) + '&tier=' + encodeURIComponent(tierKey);
+}
+</script>
+</body>
+</html>
