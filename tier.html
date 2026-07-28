@@ -64,29 +64,36 @@ h1 em{font-style:italic;color:var(--gold);}
 // the amount actually charged is whatever that Payment Link is
 // configured for on Stripe's side.
 //
-// ⚠️ MISSING LINKS: simpro.limited and aroflo.limited do not have
-// confirmed Stripe Payment Links yet — only the two Unlimited
-// links/products were provided. Fill these in (and replace the
-// placeholder string below) before this page goes live, or the
-// button will refuse to proceed — see PLACEHOLDER_MARKER check.
+// UPDATED (29 Jul 2026) — both Limited links are now real,
+// PLACEHOLDER_MARKER removed for simpro.limited / aroflo.limited:
+//   Simpro Limited  → prod_UxfpUKnTyPP5D0 (setup $900) /
+//                     prod_UxfqpiLK4AtGId (monthly $660) /
+//                     https://buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02
+//   AroFlo Limited  → prod_UxfnkW1mc27Djz (setup $900) /
+//                     prod_Uxfo2HVWTCjkW6 (monthly $497) /
+//                     https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00
 //
-// ⚠️ ALSO FLAGGED: the AroFlo monthly product (prod_Uy8yA4K8g9qxEg)
-// and AroFlo setup-fee product were given as the SAME id. That's
-// almost certainly a copy-paste error on the Stripe side — the
-// buy.stripe.com link below is what actually determines the charge,
-// but worth double-checking in the Stripe dashboard before trusting
-// the AroFlo Unlimited checkout charges both amounts correctly.
+// ⚠️ FLAGGED: these two links are reversed vs. what the PREVIOUS
+// session had confirmed ("Kevin confirmed" the opposite pairing).
+// This update trusts the pairing given alongside each product ID in
+// the latest message. Confirm against the Stripe dashboard before
+// trusting in production — if wrong, swap the two `link` values.
+//
+// CONFIRMED (29 Jul 2026): AroFlo Unlimited and Simpro Unlimited
+// share the exact same product IDs and Stripe link — Unlimited is
+// one shared price/product regardless of which CRM the contractor
+// picked. The old separate AroFlo Unlimited product/link is retired.
 // ============================================================
 const TIER_CONFIG = {
   simpro: {
     crmName: 'Simpro',
-    limited:   { name: 'Limited',   price: '$660 AUD / month',   setupFee: '$900 AUD',   cap: '15 photos / videos / voice notes / hot+warm leads per month', link: 'REPLACE_WITH_SIMPRO_LIMITED_LINK' },
+    limited:   { name: 'Limited',   price: '$660 AUD / month',   setupFee: '$900 AUD',   cap: '15 photos / videos / voice notes / hot+warm leads per month', link: 'https://buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02' },
     unlimited: { name: 'Unlimited', price: '$1,100 AUD / month', setupFee: '$1,700 AUD', cap: 'No caps — unlimited photos, videos, voice notes, hot+warm leads', link: 'https://buy.stripe.com/9B68wR4Zjfn668i2fW9EI01' }
   },
   aroflo: {
     crmName: 'AroFlo',
-    limited:   { name: 'Limited',   price: '$497 AUD / month',   setupFee: '$900 AUD',   cap: '15 photos / videos / voice notes / hot+warm leads per month', link: 'REPLACE_WITH_AROFLO_LIMITED_LINK' },
-    unlimited: { name: 'Unlimited', price: '$1,100 AUD / month', setupFee: '$1,700 AUD', cap: 'No caps — unlimited photos, videos, voice notes, hot+warm leads', link: 'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04' }
+    limited:   { name: 'Limited',   price: '$497 AUD / month',   setupFee: '$900 AUD',   cap: '15 photos / videos / voice notes / hot+warm leads per month', link: 'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00' },
+    unlimited: { name: 'Unlimited', price: '$1,100 AUD / month', setupFee: '$1,700 AUD', cap: 'No caps — unlimited photos, videos, voice notes, hot+warm leads', link: 'https://buy.stripe.com/9B68wR4Zjfn668i2fW9EI01' } // CONFIRMED same link as simpro.unlimited — one shared Unlimited price/product
   }
 };
 const PLACEHOLDER_MARKER = 'REPLACE_WITH_';
@@ -135,3 +142,4 @@ function selectTier(tierKey) {
 </script>
 </body>
 </html>
+
