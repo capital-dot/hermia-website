@@ -120,6 +120,10 @@
       <span id="planLabel">Monthly Software Access</span>
       <strong id="displayPrice">$1,700 AUD / month</strong>
     </div>
+    <div class="price-row" id="capRow" style="display:none;">
+      <span>Usage</span>
+      <strong id="capText"></strong>
+    </div>
     <p class="price-note">Your first monthly charge occurs after your <strong>7-day free trial</strong> ends. You may cancel any time before the trial ends to avoid being charged.</p>
   </div>
 
@@ -191,60 +195,78 @@
   const WEBHOOK_URL = 'https://hook.eu1.make.com/55y5lsql5rmr8ju9cmlt9o5115q784ay';
 
   // ============================================================
-  // PLAN CONFIG — single source of truth for pricing on this page.
-  // Hermia now runs ONE price for every Client: $1,700 AUD/month
-  // (first charge after the 7-day free trial) + $900 AUD one-off
-  // setup fee. Gmail and Outlook are the only two channels sold —
-  // Facebook/Instagram tiers have been removed site-wide, so their
-  // entries are removed here too.
+  // PLAN CONFIG — 4 real combos: CRM (simpro/aroflo) × TIER
+  // (limited/unlimited). Keys are built as "<crm>_<tier>" and MUST
+  // match what tier.html sends via ?plan=<crm>&tier=<tier>.
   //
-  // Keys MUST match the ?plan= value passed through from apply.html
-  // ('gmail' / 'outlook' — same keys used for the inbox choice, now
-  // doing double duty as the routing key here since price no longer
-  // differs between them).
+  // ⚠️ MISSING LINKS: simpro_limited and aroflo_limited do not have
+  // confirmed Stripe Payment Links yet. Only the two Unlimited combos
+  // were given real links/products this session:
+  //   Simpro Unlimited  → prod_Uy8tSmIBp769KI (monthly) / prod_Uy8rn5Xvmsf9UW (setup)
+  //   AroFlo Unlimited  → prod_Uy8yA4K8g9qxEg (monthly) / SAME id given for setup — verify in Stripe, likely a paste error
   //
   // ⚠️ IMPORTANT: updating the numbers below only changes what's
   // DISPLAYED on this page. The actual amount charged is whatever
-  // each Stripe Payment Link below is configured for on Stripe's
-  // side. If you change the price here, you MUST also update (or
-  // replace) the corresponding Stripe Payment Link so the charged
-  // amount matches — otherwise customers will see one price and be
-  // charged another. The links below are unchanged from before this
-  // edit and have NOT been verified against the new $1,700/$900
-  // pricing.
+  // each Stripe Payment Link is configured for on Stripe's side. If
+  // you change a price here, you MUST also update the corresponding
+  // Stripe Payment Link so the charged amount matches.
   // ============================================================
   const PLAN_CONFIG = {
-    gmail: {
-      name:     'Gmail',
-      price:    '$1,700 AUD / month',
+    simpro_limited: {
+      name:     'Simpro — Limited',
+      price:    '$660 AUD / month',
       setupFee: '$900 AUD',
-      link:     'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00' // ⚠️ verify this is priced at $1,700/mo + $900 setup on Stripe
+      cap:      '15 photos / videos / voice notes / hot+warm leads per month',
+      link:     'REPLACE_WITH_SIMPRO_LIMITED_LINK'
     },
-    outlook: {
-      name:     'Outlook',
-      price:    '$1,700 AUD / month',
+    simpro_unlimited: {
+      name:     'Simpro — Unlimited',
+      price:    '$1,100 AUD / month',
+      setupFee: '$1,700 AUD',
+      cap:      'No caps',
+      link:     'https://buy.stripe.com/9B68wR4Zjfn668i2fW9EI01'
+    },
+    aroflo_limited: {
+      name:     'AroFlo — Limited',
+      price:    '$497 AUD / month',
       setupFee: '$900 AUD',
-      link:     'https://buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02' // ⚠️ verify this is priced at $1,700/mo + $900 setup on Stripe
+      cap:      '15 photos / videos / voice notes / hot+warm leads per month',
+      link:     'REPLACE_WITH_AROFLO_LIMITED_LINK'
+    },
+    aroflo_unlimited: {
+      name:     'AroFlo — Unlimited',
+      price:    '$1,100 AUD / month',
+      setupFee: '$1,700 AUD',
+      cap:      'No caps',
+      link:     'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04'
     }
   };
-  const DEFAULT_PLAN = 'gmail';
-  const PLACEHOLDER_MARKER = 'REPLACE_WITH_OUTLOOK_LINK';
+  const DEFAULT_PLAN = 'simpro_limited';
+  const PLACEHOLDER_MARKER = 'REPLACE_WITH_';
 
-  // Detect plan from URL (e.g. contract.html?plan=outlook),
-  // falling back to whatever apply.html stored in sessionStorage,
-  // and finally to the default plan if neither is a known key.
+  // Build the combo key from ?plan= (crm) + ?tier= (limited/unlimited),
+  // set by tier.html. Falls back to sessionStorage, then a safe default.
   const urlParams = new URLSearchParams(window.location.search);
-  const requestedPlanKey = urlParams.get('plan');
-  const storedPlanKey = sessionStorage.getItem('hermia_plan');
-  const selectedPlanKey = PLAN_CONFIG[requestedPlanKey]
-    ? requestedPlanKey
-    : (PLAN_CONFIG[storedPlanKey] ? storedPlanKey : DEFAULT_PLAN);
+  const crmFromUrl  = urlParams.get('plan');
+  const tierFromUrl = urlParams.get('tier');
+  const crmStored  = sessionStorage.getItem('hermia_plan');
+  const tierStored = sessionStorage.getItem('hermia_tier');
+
+  let comboKey = (crmFromUrl && tierFromUrl) ? (crmFromUrl + '_' + tierFromUrl) : null;
+  if (!PLAN_CONFIG[comboKey] && crmStored && tierStored) comboKey = crmStored + '_' + tierStored;
+  const selectedPlanKey = PLAN_CONFIG[comboKey] ? comboKey : DEFAULT_PLAN;
   const planConfig = PLAN_CONFIG[selectedPlanKey];
 
-  // Persist the plan choice locally too (best-effort only — the
-  // authoritative copy is now the Stripe client_reference_id set
-  // in handlePayment below).
-  try { sessionStorage.setItem('hermia_plan', selectedPlanKey); } catch(e) {}
+  if (!PLAN_CONFIG[comboKey]) {
+    console.error('[contract.html] could not resolve a valid plan+tier combo (plan=' + crmFromUrl + ', tier=' + tierFromUrl + ') — falling back to ' + DEFAULT_PLAN + '.');
+  }
+
+  // Persist locally too (best-effort — authoritative copy is the
+  // Stripe client_reference_id set in handlePayment below).
+  try {
+    sessionStorage.setItem('hermia_plan', selectedPlanKey.split('_')[0]);
+    sessionStorage.setItem('hermia_tier', selectedPlanKey.split('_').slice(1).join('_'));
+  } catch(e) {}
 
   // Update Display
   document.getElementById('displayPrice').textContent = planConfig.price;
@@ -254,6 +276,10 @@
     document.getElementById('setupFeePrice').textContent = planConfig.setupFee;
     document.getElementById('setupFeeRow').style.display = 'flex';
     document.getElementById('setupFeeDivider').style.display = 'block';
+  }
+  if (planConfig.cap) {
+    document.getElementById('capText').textContent = planConfig.cap;
+    document.getElementById('capRow').style.display = 'flex';
   }
 
   const planBadge = document.getElementById('planBadge');
@@ -343,6 +369,7 @@
           plan_name: planConfig.name,
           price: planConfig.price,
           setup_fee: planConfig.setupFee,
+          cap: planConfig.cap,
           name: A_NAME,
           email: A_GMAIL,
           phone: A_PHONE,
@@ -351,10 +378,15 @@
       });
     } catch(e) { console.error(e); }
 
-    // Redirect to Stripe, carrying the plan as client_reference_id.
+    // Redirect to Stripe, carrying the full plan+tier combo as
+    // client_reference_id. This is what Hermianango's
+    // /create-customer reads to set customers.hermia_plan — the
+    // usage-limit worker logic (still TODO) should key off this same
+    // combo key to know whether a contractor is Limited or Unlimited.
     const finalUrl = appendParam(planConfig.link, 'client_reference_id', selectedPlanKey);
     window.location.href = finalUrl;
   }
 </script>
 </body>
 </html>
+
