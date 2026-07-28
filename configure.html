@@ -47,8 +47,12 @@
 
   .banner { width:100%; padding:14px 18px; border:1px solid var(--border-strong); background:rgba(201,163,91,0.06); border-radius:12px; font-size:12.5px; color:var(--soft); margin-bottom:22px; text-align:left; line-height:1.6; }
   .banner a { color:var(--gold-light); }
+  .field-map-ref { display:flex; flex-direction:column; gap:7px; font-size:12.5px; }
+  .field-map-ref .fm-row { display:flex; align-items:baseline; justify-content:space-between; gap:14px; }
+  .field-map-ref .fm-row span:first-child { color:var(--cream); font-weight:500; }
+  .field-map-ref .fm-row span:last-child { color:var(--gold-light); font-family:monospace; font-size:12px; white-space:nowrap; }
 
-  /* Templates & custom fields & pricing tiers (shared row style) */
+  /* Templates & custom fields (shared row style) */
   .template-list { display:flex; flex-direction:column; gap:11px; margin-bottom:14px; width:100%; }
   .template-row { display:flex; align-items:center; gap:10px; background:rgba(201,163,91,0.04); border:1px solid rgba(201,163,91,0.25); border-radius:10px; padding:9px 10px 9px 14px; text-align:left; }
   .template-row .tr-num { color:var(--gold); font-weight:700; font-size:11px; flex-shrink:0; width:18px; }
@@ -60,51 +64,9 @@
   .template-row .tr-remove { cursor:pointer; color:var(--muted); font-size:15px; transition:color .2s; flex-shrink:0; padding:0 3px; }
   .template-row .tr-remove:hover { color:var(--error); }
 
-  /* ── Shared card + method-choice + phone/email widget (negotiation contact) ── */
-  .card { border:1px solid var(--border); border-radius:16px; background:linear-gradient(135deg, var(--card), rgba(201,163,91,0.004)); }
-  .method-row { display:flex; gap:12px; width:100%; margin-bottom:6px; }
-  .method-card { flex:1; padding:18px 16px; cursor:pointer; text-align:left; transition:border-color .3s ease, transform .3s cubic-bezier(.23,1,.32,1), background .3s ease; }
-  .method-card:hover { border-color:var(--border-strong); transform:translateY(-2px); }
-  .method-card.active { border-color:var(--gold); background:linear-gradient(135deg, rgba(201,163,91,0.1), rgba(201,163,91,0.015)); box-shadow:0 0 18px rgba(201,163,91,0.14); }
-  .method-card svg { margin-bottom:9px; opacity:.85; }
-  .method-card h3 { font-size:13px; font-weight:500; color:var(--cream); margin-bottom:3px; }
-  .method-card p { font-size:11.5px; color:var(--soft); line-height:1.5; }
-
-  .input-zone { width:100%; margin-top:14px; display:none; }
-  .input-zone.show { display:block; animation:fadeUp .4s ease both; }
-
-  .phone-card, .email-card { width:100%; padding:18px 18px 16px; text-align:left; }
-  .phone-card label, .email-card label { font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:10px; }
-  .phone-row { display:flex; gap:10px; }
-  .country-select {
-    flex:0 0 108px; padding:14px 24px 14px 12px;
-    background:rgba(22,20,15,0.6); border:1px solid var(--border); border-radius:12px; color:var(--cream);
-    font-family:'DM Sans',sans-serif; font-size:13px; outline:none; transition:border-color .2s;
-    appearance:none; -webkit-appearance:none;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C9A35B' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat:no-repeat; background-position:right 10px center;
-  }
-  .country-select:focus { border-color:var(--gold); }
-  .country-select option { background:#16140f; color:var(--cream); }
-  .phone-input, .email-input { flex:1; min-width:0; width:100%; padding:14px 16px; background:rgba(22,20,15,0.5); border:1px solid var(--border); border-radius:12px; color:var(--cream); font-family:'DM Sans',sans-serif; font-size:14px; outline:none; transition:border-color .2s; }
-  .phone-input:focus, .email-input:focus { border-color:var(--gold); }
-  .phone-hint { font-size:11.5px; color:var(--muted); margin-top:11px; line-height:1.55; padding-left:11px; border-left:2px solid var(--border-strong); }
-  .phone-hint .warn { color:var(--gold-light); font-weight:500; }
-  .phone-err { font-size:12px; color:var(--error); margin-top:10px; margin-bottom:0; display:none; line-height:1.5; text-align:left; width:100%; }
-  .phone-err.show { display:block; }
-
-  /* ── Dropzone (pricing file upload) ── */
-  .dropzone { border:1.5px dashed var(--border); border-radius:16px; padding:34px 20px; text-align:center; cursor:pointer; transition:border-color .3s ease, background .3s ease; width:100%; }
-  .dropzone:hover, .dropzone.dragover { border-color:var(--gold); background:rgba(201,163,91,0.04); }
-  .dropzone p { font-size:13px; color:var(--soft); }
-  .dropzone .file-hint { font-size:11px; color:var(--soft); opacity:.6; margin-top:6px; }
-  .dropzone.has-file { border-style:solid; border-color:var(--gold); }
-  .dropzone .file-name { color:var(--gold-light); font-weight:500; font-size:13px; }
-  #pricingFileInput { display:none; }
-
-  /* ── Pricing tier cards (Stage 4) — stacked labeled fields instead of a cramped row ── */
-  #pricing-tier-list.template-list { gap:14px; }
-  #pricing-tier-list .template-row {
+  /* ── Custom field cards (Stage 4) — stacked labeled fields instead of a cramped row ── */
+  #custom-field-list.template-list { gap:14px; }
+  #custom-field-list .template-row {
     flex-direction:column; align-items:stretch; gap:12px;
     padding:16px 16px 14px; background:linear-gradient(135deg, var(--card), rgba(201,163,91,0.004));
     border:1px solid var(--border);
@@ -112,13 +74,15 @@
   .tier-card-head { display:flex; align-items:center; gap:10px; }
   .tier-card-head .tr-num { color:var(--gold); font-weight:700; font-size:11px; flex-shrink:0; }
   .tier-card-head select.tr-dept { flex:1; margin:0; }
+  .tier-card-head .tr-price { margin-left:auto; }
   .tier-card-head .tr-remove { cursor:pointer; color:var(--muted); font-size:15px; transition:color .2s; flex-shrink:0; padding:0 3px; }
   .tier-card-head .tr-remove:hover { color:var(--error); }
-  .tier-fields { display:flex; gap:12px; }
+  .tier-fields { display:flex; flex-direction:column; gap:12px; }
   .tier-field { flex:1; text-align:left; }
-  .tier-field.tier-field-price { flex:0 0 120px; }
   .tier-field label { display:block; font-size:9.5px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
-  .tier-field input { width:100%; }
+  .tier-field input, .tier-field select { width:100%; }
+  .tier-field select { background:rgba(22,20,15,0.6); border:1px solid rgba(201,163,91,0.2); border-radius:7px; padding:10px 12px; color:#fff; font-family:'DM Sans',sans-serif; font-size:13px; outline:none; }
+  .tier-field select:focus { border-color:var(--gold); }
 
   .btn-add { display:flex; align-items:center; justify-content:center; gap:8px; background:transparent; border:1.5px dashed rgba(201,163,91,0.4); color:var(--gold-light); padding:13px 20px; border-radius:10px; font-size:12.5px; font-weight:600; cursor:pointer; transition:all .2s; width:100%; }
   .btn-add:hover { border-color:var(--gold); background:rgba(201,163,91,0.06); border-style:solid; }
@@ -248,8 +212,8 @@
   <!-- STAGE 2: CONTACTS -->
   <div class="stage" data-stage="contacts">
     <div class="eyebrow">Contacts</div>
-    <h1>Who should we<br><em>reach — and who do your customers reach?</em></h1>
-    <p class="sub">Your business phone is the fallback number a customer gets handed if a technician doesn't have one on file. Your negotiation contact is who a price-sensitive lead is handed to.</p>
+    <h1>Who should<br><em>we reach?</em></h1>
+    <p class="sub">Just the basics — who this build is for, and how to reach you with updates.</p>
 
     <div class="field-stack">
       <div class="field">
@@ -259,58 +223,6 @@
       <div class="field">
         <label>Email for updates</label>
         <input type="email" class="std-input" id="contact-email" placeholder="you@yourbusiness.com" />
-      </div>
-      <div class="field">
-        <label>Phone for updates</label>
-        <input type="tel" class="std-input" id="contact-phone" placeholder="Best number to reach you" />
-      </div>
-      <div class="field">
-        <label>Business fallback line (optional)</label>
-        <input type="tel" class="std-input" id="fallback-phone" placeholder="Number customers can call if no technician number is available" />
-      </div>
-      <div class="field">
-        <label>Pricing negotiation contact (optional)</label>
-        <div class="hint" style="margin:0 0 12px;">If a lead isn't happy with a quoted price, this is who Hermia hands them to. Leave unselected to skip.</div>
-        <div class="method-row">
-          <div class="method-card card" id="cardNegoPhone" onclick="chooseNegoMethod('phone')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <h3>Phone number</h3>
-            <p>Leads call or message directly</p>
-          </div>
-          <div class="method-card card" id="cardNegoEmail" onclick="chooseNegoMethod('email')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="#C9A35B" stroke-width="1.6"/><path d="M22 6l-10 7L2 6" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <h3>Email address</h3>
-            <p>Leads email you directly instead</p>
-          </div>
-        </div>
-
-        <div class="input-zone" id="negoPhoneZone">
-          <div class="phone-card card">
-            <label for="negotiation-phone">Contact number</label>
-            <div class="phone-row">
-              <select id="negoCountryCode" class="country-select" aria-label="Country code">
-                <option value="61" data-country="Australia" selected>🇦🇺 +61</option>
-                <option value="1" data-country="Canada">🇨🇦 +1</option>
-                <option value="64" data-country="New Zealand">🇳🇿 +64</option>
-                <option value="44" data-country="United Kingdom">🇬🇧 +44</option>
-                <option value="353" data-country="Ireland">🇮🇪 +353</option>
-                <option value="1" data-country="United States">🇺🇸 +1</option>
-              </select>
-              <input type="tel" id="negotiation-phone" class="phone-input" placeholder="e.g. 4XX XXX XXX" autocomplete="tel" inputmode="numeric" />
-            </div>
-            <p class="phone-hint"><span class="warn">Use your business number.</span> Enter it without the leading 0 — we add the country code automatically.</p>
-          </div>
-        </div>
-
-        <div class="input-zone" id="negoEmailZone">
-          <div class="email-card card">
-            <label for="negotiation-email">Contact email</label>
-            <input type="email" id="negotiation-email" class="email-input" placeholder="e.g. jobs@yourbusiness.com" autocomplete="email" />
-            <p class="phone-hint"><span class="warn">Use your business inbox.</span> Not a personal address unless that's genuinely who you want clients emailing.</p>
-          </div>
-        </div>
-
-        <p class="phone-err" id="negoErr"></p>
       </div>
     </div>
 
@@ -328,25 +240,34 @@
     <div class="actions-row"><button class="btn-back" onclick="prevStage()">Back</button><button class="btn-primary" onclick="nextStage()">Continue</button></div>
   </div>
 
-  <!-- STAGE 4: PRICING TIERS -->
-  <div class="stage" data-stage="pricing">
-    <div class="eyebrow">Pricing Tiers</div>
-    <h1>What should<br><em>Hermia quote?</em></h1>
-    <p class="sub sec-note">When a lead describes their issue, Hermia matches it against these tiers and gives a real price <strong>before the job is booked</strong> — worked out from your own rates, not guessed. <strong>No cost to add these.</strong> If you leave this empty, every price question is handed straight to your negotiation contact instead.</p>
-    <div class="template-list" id="pricing-tier-list"></div>
-    <button type="button" class="btn-add" onclick="addPricingTier()">+ Add Another Pricing Tier</button>
-    <div class="note">Example: "Burst pipe repair" — $600. Add as many or as few as you like.</div>
+  <!-- STAGE 4: CUSTOM FIELDS -->
+  <div class="stage" data-stage="customfields">
+    <div class="eyebrow">Custom Fields</div>
+    <h1>Already built in —<br><em>need something more?</em></h1>
+    <p class="sub sec-note">Hermia already captures data straight into these fields automatically, <strong>at no extra cost</strong> — most question templates you add map to one of these:</p>
 
-    <div class="field" style="margin-top:26px;">
-      <label>Or upload your price list (PDF)</label>
-      <div class="hint" style="margin:0 0 12px;">Already have a rate card? Upload it as a PDF instead of typing each tier out by hand — our system reads it and breaks it down into Hermia's pricing structure automatically. Upload as many PDFs as you need — <strong style="color:var(--cream);">there's no limit.</strong></div>
-      <div class="dropzone" id="pricingDropzone" onclick="document.getElementById('pricingFileInput').click()">
-        <p id="dropzoneText">Click to upload, or drag and drop</p>
-        <div class="file-hint">PDF files only &middot; unlimited uploads</div>
+    <div class="banner">
+      <div class="field-map-ref">
+        <div class="fm-row"><span>Fixture/system question</span><span>asset_type</span></div>
+        <div class="fm-row"><span>Fault/problem question</span><span>fault_description</span></div>
+        <div class="fm-row"><span>Address question</span><span>address</span></div>
+        <div class="fm-row"><span>Hazards question</span><span>hazards</span></div>
+        <div class="fm-row"><span>Water/gas isolation question</span><span>water_gas</span></div>
+        <div class="fm-row"><span>Name question</span><span>name</span></div>
+        <div class="fm-row"><span>Confirm-name question</span><span>confirm_name</span></div>
+        <div class="fm-row"><span>Access/entry question</span><span>access_notes</span></div>
+        <div class="fm-row"><span>Billing contact question</span><span>billing_contact</span></div>
+        <div class="fm-row"><span>Availability question</span><span>availability</span></div>
+        <div class="fm-row"><span>Property type question</span><span>property_type</span></div>
+        <div class="fm-row"><span>Building type question</span><span>building_type</span></div>
+        <div class="fm-row"><span>Estimate/yes-no question</span><span>left unmapped, on purpose</span></div>
       </div>
-      <input type="file" id="pricingFileInput" accept="application/pdf,.pdf" multiple />
-      <div id="pricingFileList" style="margin-top:10px;"></div>
     </div>
+
+    <p class="sub sec-note">Need something beyond this list? Add a genuinely custom field below — each one is <strong>$330</strong>, same as a question template.</p>
+    <div class="template-list" id="custom-field-list"></div>
+    <button type="button" class="btn-add" onclick="addCustomField()">+ Add Another Custom Field ($330)</button>
+    <div class="note">Every custom field added updates your setup fee in real time.</div>
 
     <div class="actions-row"><button class="btn-back" onclick="prevStage()">Back</button><button class="btn-primary" onclick="nextStage()">Continue</button></div>
   </div>
@@ -356,7 +277,7 @@
     <div class="eyebrow">Additional</div>
     <h1>Anything else<br><em>you need?</em></h1>
     <p class="sub">Optional — leave blank if not needed.</p>
-    <div class="banner" style="margin-bottom:22px;">CRM field mapping is handled entirely by Hermia's own built-in fields — that part isn't something you configure. The only thing you set is what Hermia actually asks on WhatsApp, back in the Question Templates step. These fields cover Asset Type, Fault Description, Fault Code, Defect Status, Billing Entity, Hazards, Isolations, and Access Notes — every job maps into these automatically, regardless of department. You only customize the WhatsApp question wording, not the fields underneath them.</div>
+    <div class="banner" style="margin-bottom:22px;">CRM field mapping is handled entirely by Hermia's own built-in fields — that part isn't something you configure. The only thing you set is what Hermia actually asks on WhatsApp, back in the Question Templates and Custom Fields steps. You only customize the WhatsApp question wording, not the fields underneath them.</div>
     <div class="selection-cards">
       <div class="selection-card"><input type="checkbox" id="feature-support" value="24/7 Support"><label for="feature-support" class="selection-card-label"><div class="selection-card-text">24/7 Support</div></label></div>
       <div class="selection-card"><input type="checkbox" id="feature-summaries" value="Custom Business Summaries"><label for="feature-summaries" class="selection-card-label"><div class="selection-card-text">Custom Business Summaries</div></label></div>
@@ -385,8 +306,7 @@
 
     <div class="price-summary">
       <div class="price-row"><div class="pr-label">Question templates <span id="review-template-count">(0)</span></div><div class="pr-val" id="review-template-total">$0</div></div>
-      <div class="price-row"><div class="pr-label">Pricing tiers configured</div><div class="pr-val" id="review-pricing-count">0</div></div>
-      <div class="price-row"><div class="pr-label">Price list PDFs uploaded</div><div class="pr-val" id="review-pdf-count">0</div></div>
+      <div class="price-row"><div class="pr-label">Custom fields <span id="review-customfield-count">(0)</span></div><div class="pr-val" id="review-customfield-total">$0</div></div>
       <div class="price-row"><div class="pr-label">Monthly subscription <strong>(fixed)</strong></div><div class="pr-val">$1,700 AUD / mo</div></div>
       <div class="price-row total"><div class="pr-label">Setup fee due today</div><div class="pr-val" id="review-setup-total">$0</div></div>
     </div>
@@ -414,6 +334,32 @@
   const WEBHOOK_URL = 'https://hook.eu1.make.com/dn6h5jumnhk5o2mls82k3xk9kdlg23vv';
   const MONTHLY_FEE = 1700;
   const TEMPLATE_PRICE = 330;
+  const CUSTOM_FIELD_PRICE = 330;
+
+  // ─── Field mapping reference — the built-in CRM fields Hermia already
+  // writes into. Used to populate the "maps to" dropdown on each custom
+  // field row. The last option is intentionally left unmapped (value ''),
+  // matching the Estimate/yes-no question type which has no backing field.
+  // ────────────────────────────────────────────────────────────────────
+  const FIELD_MAP_OPTIONS = [
+    { label: 'Fixture/system question → asset_type', value: 'asset_type' },
+    { label: 'Fault/problem question → fault_description', value: 'fault_description' },
+    { label: 'Address question → address', value: 'address' },
+    { label: 'Hazards question → hazards', value: 'hazards' },
+    { label: 'Water/gas isolation question → water_gas', value: 'water_gas' },
+    { label: 'Name question → name', value: 'name' },
+    { label: 'Confirm-name question → confirm_name', value: 'confirm_name' },
+    { label: 'Access/entry question → access_notes', value: 'access_notes' },
+    { label: 'Billing contact question → billing_contact', value: 'billing_contact' },
+    { label: 'Availability question → availability', value: 'availability' },
+    { label: 'Property type question → property_type', value: 'property_type' },
+    { label: 'Building type question → building_type', value: 'building_type' },
+    { label: 'Estimate/yes-no question (unmapped)', value: '__unmapped__' }
+  ];
+  function fieldMapOptionsHtml() {
+    return '<option value="" disabled selected>What does this map to?</option>' +
+      FIELD_MAP_OPTIONS.map(o => `<option value="${o.value}">${escapeHtml(o.label)}</option>`).join('');
+  }
 
   // ─── Escape helper (prevents contractor-entered text from breaking out of innerHTML) ───
   function escapeHtml(str) {
@@ -422,43 +368,12 @@
     return div.innerHTML;
   }
 
-  // ─── Negotiation contact (Stage 2): phone OR email, optional ─────────
-  let negoMethod = null; // 'phone' | 'email' | null (null = skipped)
-  function chooseNegoMethod(kind) {
-    negoMethod = (negoMethod === kind) ? null : kind; // clicking the active card again deselects it
-    document.getElementById('cardNegoPhone').classList.toggle('active', negoMethod === 'phone');
-    document.getElementById('cardNegoEmail').classList.toggle('active', negoMethod === 'email');
-    document.getElementById('negoPhoneZone').classList.toggle('show', negoMethod === 'phone');
-    document.getElementById('negoEmailZone').classList.toggle('show', negoMethod === 'email');
-    document.getElementById('negoErr').classList.remove('show');
-  }
-  function digitsOnly(v) { return (v || '').replace(/[^0-9]/g, ''); }
-  function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-  function buildNegoE164() {
-    const sel = document.getElementById('negoCountryCode');
-    const opt = sel.options[sel.selectedIndex];
-    const local = digitsOnly(document.getElementById('negotiation-phone').value).replace(/^0+/, '');
-    return { e164: '+' + opt.value + local, localDigits: local };
-  }
-  // Returns { method: null, value: null } if skipped, { error } if invalid, or { method, value } once valid.
-  function getNegotiationContact() {
-    if (!negoMethod) return { method: null, value: null };
-    if (negoMethod === 'phone') {
-      const { e164, localDigits } = buildNegoE164();
-      if (localDigits.length < 6) return { error: "That doesn't look like a valid phone number — check the digits and try again." };
-      return { method: 'phone', value: e164 };
-    }
-    const email = document.getElementById('negotiation-email').value.trim();
-    if (!isValidEmail(email)) return { error: "That doesn't look like a valid email address — check it and try again." };
-    return { method: 'email', value: email };
-  }
-
   // ─── Load discovery data from an earlier step, if any ─────────────
   let discovery = null;
   try { discovery = JSON.parse(sessionStorage.getItem('hermia_discovery') || 'null'); } catch (e) { discovery = null; }
   if (!discovery) { document.getElementById('missingBanner').style.display = 'block'; }
 
-  const stageOrder = ['business','contacts','templates','pricing','additional','review'];
+  const stageOrder = ['business','contacts','templates','customfields','additional','review'];
   let currentStageIndex = 0;
 
   function renderProgress() {
@@ -507,16 +422,8 @@
     if (name === 'contacts') {
       const cn = document.getElementById('contact-name').value.trim();
       const ce = document.getElementById('contact-email').value.trim();
-      const cp = document.getElementById('contact-phone').value.trim();
-      if (!cn || !ce || !cp) {
-        alert('Please add a contact name, email and phone so we can reach you.');
-        return false;
-      }
-      const nego = getNegotiationContact();
-      if (nego.error) {
-        const negoErrEl = document.getElementById('negoErr');
-        negoErrEl.textContent = nego.error;
-        negoErrEl.classList.add('show');
+      if (!cn || !ce) {
+        alert('Please add a contact name and email so we can reach you.');
         return false;
       }
     }
@@ -534,12 +441,17 @@
         }
       }
     }
-    if (name === 'pricing') {
-      const rows = getPricingTierRows();
+    if (name === 'customfields') {
+      const rows = getCustomFieldRows();
+      const missingMap = rows.some(r => !r.querySelector('.custom-field-map').value);
+      if (missingMap) {
+        alert('Select what each custom field maps to before continuing.');
+        return false;
+      }
       if (getDepartments().length > 1) {
-        const missing = rows.some(r => !r.querySelector('.tr-dept').value);
-        if (missing) {
-          alert('Select a department for every pricing tier.');
+        const missingDept = rows.some(r => !r.querySelector('.tr-dept').value);
+        if (missingDept) {
+          alert('Select a department for every custom field.');
           return false;
         }
       }
@@ -581,13 +493,13 @@
       .filter(Boolean);
   }
 
-  // Keep every department <select> (in templates + pricing tiers) in sync with Stage 1.
+  // Keep every department <select> (in templates + custom fields) in sync with Stage 1.
   // If a department is renamed or removed, any row pointing at the old name is reset to
   // unassigned rather than silently keeping a stale value — validation then forces reselection.
   function syncDepartmentDropdowns() {
     const depts = getDepartments();
     const multi = depts.length > 1;
-    document.querySelectorAll('#template-list .tr-dept, #pricing-tier-list .tr-dept').forEach(sel => {
+    document.querySelectorAll('#template-list .tr-dept, #custom-field-list .tr-dept').forEach(sel => {
       const prev = sel.value;
       sel.innerHTML = '<option value="">Select department</option>' +
         depts.map(d => `<option value="${escapeHtml(d)}">${escapeHtml(d)}</option>`).join('');
@@ -627,105 +539,58 @@
   }
   function getTemplateRows() { return Array.from(templateListEl.querySelectorAll('.template-row')); }
 
-  // ─── Pricing tiers ───────────────────────────────────────────────────
-  let pricingTierCount = 0;
-  const pricingTierListEl = document.getElementById('pricing-tier-list');
-  function addPricingTier() {
-    pricingTierCount++;
+  // ─── Custom fields (Stage 4) ──────────────────────────────────────────
+  // Each row is a genuinely custom field beyond the built-in list shown
+  // above it — priced the same as a question template ($330). Every row
+  // must say what backend field it maps to, so Hermia's system knows
+  // where the answer belongs.
+  let customFieldCount = 0;
+  const customFieldListEl = document.getElementById('custom-field-list');
+  function addCustomField() {
+    customFieldCount++;
     const row = document.createElement('div');
     row.className = 'template-row';
     row.innerHTML = `
       <div class="tier-card-head">
-        <span class="tr-num">${String(pricingTierCount).padStart(2,'0')}</span>
+        <span class="tr-num">${String(customFieldCount).padStart(2,'0')}</span>
         <select class="tr-dept"></select>
+        <span class="tr-price">$330</span>
         <span class="tr-remove">✕</span>
       </div>
       <div class="tier-fields">
         <div class="tier-field">
-          <label>Service</label>
-          <input type="text" class="pricing-service" placeholder="e.g. Burst pipe repair" />
+          <label>Field / question</label>
+          <input type="text" class="custom-field-question" placeholder="e.g. Ask if there's a pet on site" />
         </div>
-        <div class="tier-field tier-field-price">
-          <label>Price</label>
-          <input type="text" class="pricing-price" placeholder="$ price" />
+        <div class="tier-field">
+          <label>Maps to</label>
+          <select class="custom-field-map">${fieldMapOptionsHtml()}</select>
         </div>
       </div>
     `;
-    pricingTierListEl.appendChild(row);
-    row.querySelector('.tr-remove').addEventListener('click', function () { row.remove(); renumber(pricingTierListEl); });
-    renumber(pricingTierListEl);
+    customFieldListEl.appendChild(row);
+    row.querySelector('.tr-remove').addEventListener('click', function () { row.remove(); renumber(customFieldListEl); });
+    renumber(customFieldListEl);
     syncDepartmentDropdowns();
   }
-  function getPricingTierRows() { return Array.from(pricingTierListEl.querySelectorAll('.template-row')); }
-
-  // ─── Pricing PDF uploads (Stage 4) — unlimited, parsed server-side ────
-  // The Client can upload as many PDF price lists as they want instead of
-  // (or alongside) typing pricing tiers by hand. These are sent to the
-  // webhook as real files; our backend is responsible for breaking each
-  // PDF down and parsing it into Hermia's JSON pricing structure.
-  let pricingFiles = []; // File[]
-  const pricingDropzoneEl = document.getElementById('pricingDropzone');
-  const pricingFileInputEl = document.getElementById('pricingFileInput');
-  const pricingFileListEl = document.getElementById('pricingFileList');
-  const dropzoneTextEl = document.getElementById('dropzoneText');
-
-  pricingFileInputEl.addEventListener('change', function (e) {
-    addPricingFiles(e.target.files);
-    pricingFileInputEl.value = ''; // allow re-selecting the same file later
-  });
-  ['dragover', 'dragenter'].forEach(evt => pricingDropzoneEl.addEventListener(evt, function (e) {
-    e.preventDefault();
-    pricingDropzoneEl.classList.add('dragover');
-  }));
-  ['dragleave', 'dragend'].forEach(evt => pricingDropzoneEl.addEventListener(evt, function () {
-    pricingDropzoneEl.classList.remove('dragover');
-  }));
-  pricingDropzoneEl.addEventListener('drop', function (e) {
-    e.preventDefault();
-    pricingDropzoneEl.classList.remove('dragover');
-    addPricingFiles(e.dataTransfer.files);
-  });
-
-  function addPricingFiles(fileList) {
-    Array.from(fileList).forEach(f => {
-      const isPdf = f.type === 'application/pdf' || /\.pdf$/i.test(f.name);
-      if (isPdf) pricingFiles.push(f); // no cap — unlimited uploads
-    });
-    renderPricingFiles();
-  }
-  function removePricingFile(idx) {
-    pricingFiles.splice(idx, 1);
-    renderPricingFiles();
-  }
-  function renderPricingFiles() {
-    pricingDropzoneEl.classList.toggle('has-file', pricingFiles.length > 0);
-    dropzoneTextEl.innerHTML = pricingFiles.length
-      ? `<span class="file-name">${pricingFiles.length} PDF${pricingFiles.length > 1 ? 's' : ''} selected</span> — click to add more`
-      : 'Click to upload, or drag and drop';
-    pricingFileListEl.innerHTML = pricingFiles.map((f, i) => `
-      <div class="template-row" style="padding:9px 10px 9px 14px;">
-        <span class="tr-num">📄</span>
-        <span style="flex:1;color:var(--cream);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(f.name)}</span>
-        <span class="tr-remove" onclick="removePricingFile(${i})">✕</span>
-      </div>
-    `).join('');
-  }
+  function getCustomFieldRows() { return Array.from(customFieldListEl.querySelectorAll('.template-row')); }
 
   // Seed one row each, then sync dropdowns
   addDepartment();
   addTemplate();
-  addPricingTier();
+  addCustomField();
 
   // ─── Pricing summary ─────────────────────────────────────────────────
   function updatePricing() {
     const tCount = getTemplateRows().length;
-    const pCount = getPricingTierRows().length;
+    const cCount = getCustomFieldRows().length;
     const templateTotal = tCount * TEMPLATE_PRICE;
-    const setupTotal = templateTotal;
+    const customFieldTotal = cCount * CUSTOM_FIELD_PRICE;
+    const setupTotal = templateTotal + customFieldTotal;
     document.getElementById('review-template-count').textContent = `(${tCount})`;
     document.getElementById('review-template-total').textContent = `$${templateTotal.toLocaleString()}`;
-    document.getElementById('review-pricing-count').textContent = `${pCount}`;
-    document.getElementById('review-pdf-count').textContent = `${pricingFiles.length}`;
+    document.getElementById('review-customfield-count').textContent = `(${cCount})`;
+    document.getElementById('review-customfield-total').textContent = `$${customFieldTotal.toLocaleString()}`;
     document.getElementById('review-setup-total').textContent = `$${setupTotal.toLocaleString()} AUD`;
   }
 
@@ -733,8 +598,6 @@
   function renderReviewRecap() {
     const crmChecked = document.querySelector('input[name="crm-choice"]:checked');
     const crmValue = crmChecked ? crmChecked.value : '—';
-    const nego = getNegotiationContact();
-    const negoDisplay = nego.method ? `${nego.value} (${nego.method})` : 'Not set';
     const rows = [
       ['Business name', document.getElementById('biz-name').value.trim()],
       ['Departments', getDepartments().join(', ')],
@@ -742,10 +605,7 @@
       ['Service area', document.getElementById('biz-region').value.trim()],
       ['Contact', document.getElementById('contact-name').value.trim()],
       ['Email', document.getElementById('contact-email').value.trim()],
-      ['Phone', document.getElementById('contact-phone').value.trim()],
-      ['Fallback line', document.getElementById('fallback-phone').value.trim()],
-      ['Negotiation contact', negoDisplay],
-      ['Price list PDFs', pricingFiles.length ? `${pricingFiles.length} uploaded` : 'None uploaded']
+      ['Custom fields', `${getCustomFieldRows().length} added`]
     ];
     const wrap = document.getElementById('review-recap');
     wrap.innerHTML = rows.map(([label, val]) =>
@@ -760,7 +620,6 @@
     setIfEmpty('biz-region', discovery.region || discovery.service_area);
     setIfEmpty('contact-name', discovery.contact_name || discovery.name);
     setIfEmpty('contact-email', discovery.email);
-    setIfEmpty('contact-phone', discovery.phone);
   }
 
   // ─── Build the submission as a neat, ordered plain-text document ─────
@@ -783,9 +642,6 @@
     push('CONTACTS');
     push('Primary Contact: ' + (d.contactName || '—'));
     push('Update Email: ' + (d.contactEmail || '—'));
-    push('Update Phone: ' + (d.contactPhone || '—'));
-    push('Fallback Line: ' + (d.fallbackPhone || '—'));
-    push('Negotiation Contact: ' + (d.negoMethod ? `${d.negoValue} (${d.negoMethod})` : 'Not set'));
     push('');
     push('DEPARTMENTS & BUILD');
     d.departmentsData.forEach((dep) => {
@@ -796,9 +652,9 @@
       } else {
         push('  (none)');
       }
-      push('Pricing Tiers:');
-      if (dep.pricing_tiers.length) {
-        dep.pricing_tiers.forEach((t) => push('  - ' + t.service + ' — ' + t.price));
+      push('Custom Fields:');
+      if (dep.custom_fields.length) {
+        dep.custom_fields.forEach((f) => push('  - ' + f.question + ' → ' + f.field));
       } else {
         push('  (none)');
       }
@@ -806,8 +662,7 @@
     });
     push('PRICING SUMMARY');
     push('Question Templates: ' + d.templateCount + ' ($' + d.templateTotal.toLocaleString() + ')');
-    push('Pricing Tiers Configured: ' + d.pricingTierCount);
-    push('Price List PDFs Uploaded: ' + d.pdfCount + (d.pdfNames.length ? ' (' + d.pdfNames.join(', ') + ')' : '') + ' — attached separately, to be parsed into Hermia\'s pricing JSON');
+    push('Custom Fields: ' + d.customFieldCount + ' ($' + d.customFieldTotal.toLocaleString() + ')');
     push('Monthly Subscription: $' + MONTHLY_FEE.toLocaleString() + ' AUD / mo');
     push('Setup Fee Due Today: $' + d.setupTotal.toLocaleString() + ' AUD');
     push('');
@@ -827,26 +682,31 @@
     btn.disabled = true;
 
     const templateRows = getTemplateRows();
-    const pricingTierRows = getPricingTierRows();
+    const customFieldRows = getCustomFieldRows();
     const crmChecked = document.querySelector('input[name="crm-choice"]:checked');
     const departments = getDepartments();
     const singleDept = departments.length <= 1;
-    const nego = getNegotiationContact();
 
     const departmentsPayload = departments.map(dep => ({
       name: dep,
       questions: templateRows
         .filter(r => singleDept || r.querySelector('.tr-dept').value === dep)
         .map(r => r.querySelector('.template-question').value.trim() || '(unspecified)'),
-      pricing_tiers: pricingTierRows
+      custom_fields: customFieldRows
         .filter(r => singleDept || r.querySelector('.tr-dept').value === dep)
-        .map(r => ({
-          service: r.querySelector('.pricing-service').value.trim() || '(unspecified)',
-          price: r.querySelector('.pricing-price').value.trim() || '(unspecified)'
-        }))
+        .map(r => {
+          const mapSel = r.querySelector('.custom-field-map');
+          const mapVal = mapSel.value;
+          const fieldLabel = mapVal === '__unmapped__' ? '(intentionally unmapped)' : (mapVal || '(unspecified)');
+          return {
+            question: r.querySelector('.custom-field-question').value.trim() || '(unspecified)',
+            field: fieldLabel
+          };
+        })
     }));
 
     const templateTotal = templateRows.length * TEMPLATE_PRICE;
+    const customFieldTotal = customFieldRows.length * CUSTOM_FIELD_PRICE;
 
     const doc = buildSubmissionDocument({
       submittedAt: new Date().toISOString(),
@@ -858,17 +718,12 @@
       serviceRegion: document.getElementById('biz-region').value.trim(),
       contactName: document.getElementById('contact-name').value.trim(),
       contactEmail: document.getElementById('contact-email').value.trim(),
-      contactPhone: document.getElementById('contact-phone').value.trim(),
-      fallbackPhone: document.getElementById('fallback-phone').value.trim(),
-      negoMethod: nego.method,
-      negoValue: nego.value,
       departmentsData: departmentsPayload,
       templateCount: templateRows.length,
       templateTotal: templateTotal,
-      pricingTierCount: pricingTierRows.length,
-      pdfCount: pricingFiles.length,
-      pdfNames: pricingFiles.map(f => f.name),
-      setupTotal: templateTotal,
+      customFieldCount: customFieldRows.length,
+      customFieldTotal: customFieldTotal,
+      setupTotal: templateTotal + customFieldTotal,
       features: [
         document.getElementById('feature-support').checked ? '24/7 Support' : null,
         document.getElementById('feature-summaries').checked ? 'Custom Business Summaries' : null
@@ -884,21 +739,6 @@
         body: doc
       });
     } catch (err) { console.log('Webhook error:', err); }
-
-    // Send the actual PDF price-list files as a separate multipart request
-    // so the backend can break each one down and parse it into Hermia's
-    // pricing JSON structure. Sent as its own request since the text
-    // submission above is posted as plain text, not multipart/form-data.
-    if (pricingFiles.length) {
-      try {
-        const fd = new FormData();
-        fd.append('type', 'hermia-pricing-pdf-upload');
-        fd.append('customer_id', (discovery && discovery.customerId) || '');
-        fd.append('business_name', document.getElementById('biz-name').value.trim());
-        pricingFiles.forEach((f) => fd.append('pricing_pdfs[]', f, f.name));
-        await fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', body: fd });
-      } catch (err) { console.log('PDF upload webhook error:', err); }
-    }
 
     try { sessionStorage.removeItem('hermia_discovery'); } catch (e) {}
 
