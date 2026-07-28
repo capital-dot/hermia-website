@@ -199,18 +199,30 @@
   // (limited/unlimited). Keys are built as "<crm>_<tier>" and MUST
   // match what tier.html sends via ?plan=<crm>&tier=<tier>.
   //
-  // All 4 combos now have real Stripe Payment Links:
-  //   Simpro Limited    → carried over from the old contract.html (was labeled "gmail")
-  //   AroFlo Limited     → carried over from the old contract.html (was labeled "outlook")
-  //   Simpro Unlimited  → prod_Uy8tSmIBp769KI (monthly) / prod_Uy8rn5Xvmsf9UW (setup)
-  //   AroFlo Unlimited  → prod_Uy8yA4K8g9qxEg (monthly) / SAME id given for setup — worth confirming in Stripe, likely a paste error
+  // UPDATED (29 Jul 2026) — Kevin supplied fresh product IDs + links
+  // for all 4 combos, tied directly to price per combo:
+  //   AroFlo Limited    → prod_UxfnkW1mc27Djz (setup, $900) /
+  //                       prod_Uxfo2HVWTCjkW6 (monthly, $497)
+  //   Simpro Limited    → prod_UxfpUKnTyPP5D0 (setup, $900) /
+  //                       prod_UxfqpiLK4AtGId (monthly, $660)
+  //   Simpro Unlimited  → prod_Uy8rn5Xvmsf9UW (setup, $1,700) /
+  //                       prod_Uy8tSmIBp769KI (monthly, $1,100)
+  //   AroFlo Unlimited  → CONFIRMED (29 Jul 2026) to be the exact
+  //                       same product IDs and Stripe link as
+  //                       Simpro Unlimited above — Unlimited is one
+  //                       shared price/product regardless of CRM.
+  //                       The old prod_Uy8yA4K8g9qxEg / separate
+  //                       AroFlo Unlimited link is no longer used.
   //
-  // Note: the OLD contract.html displayed $1,700/mo next to the
-  // Simpro/AroFlo Limited links even though Stripe was presumably
-  // still charging the Limited rate ($660/$497) — the price TEXT on
-  // this page was wrong, not the link. Worth a quick Stripe dashboard
-  // check to confirm those two links are actually priced at $660 and
-  // $497 respectively, since that mismatch existed before this edit.
+  // ⚠️ FLAGGED: the two Stripe LINKS below (fZu7sN...EI00 and
+  // 5kQ6oJ...EI02) are now assigned OPPOSITE to how the previous
+  // session had them ("confirmed by Kevin" at the time). This update
+  // ties each link to the price/product ID given alongside it in the
+  // latest message:
+  //   fZu7sN2Rbgra54eaMs9EI00 → paired with $497/mo (prod_Uxfo2HVWTCjkW6) → AroFlo Limited
+  //   5kQ6oJ3VfdeYcwG7Ag9EI02 → paired with $660/mo (prod_UxfqpiLK4AtGId) → Simpro Limited
+  // CONFIRM IN STRIPE DASHBOARD before this goes live — if these two
+  // links are actually reversed, swap the `link` values below back.
   //
   // ⚠️ IMPORTANT: updating the numbers below only changes what's
   // DISPLAYED on this page. The actual amount charged is whatever
@@ -224,7 +236,7 @@
       price:    '$660 AUD / month',
       setupFee: '$900 AUD',
       cap:      '15 photos / videos / voice notes / hot+warm leads per month',
-      link:     'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00' // was labeled "gmail" in the old contract.html — confirmed by Kevin as the Simpro Limited link
+      link:     'https://buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02' // paired with $660/mo product prod_UxfqpiLK4AtGId per 29 Jul message
     },
     simpro_unlimited: {
       name:     'Simpro — Unlimited',
@@ -238,14 +250,14 @@
       price:    '$497 AUD / month',
       setupFee: '$900 AUD',
       cap:      '15 photos / videos / voice notes / hot+warm leads per month',
-      link:     'https://buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02' // was labeled "outlook" in the old contract.html — confirmed by Kevin as the AroFlo Limited link
+      link:     'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00' // paired with $497/mo product prod_Uxfo2HVWTCjkW6 per 29 Jul message
     },
     aroflo_unlimited: {
       name:     'AroFlo — Unlimited',
       price:    '$1,100 AUD / month',
       setupFee: '$1,700 AUD',
       cap:      'No caps',
-      link:     'https://buy.stripe.com/5kQbJ30J32AkfIS8Ek9EI04'
+      link:     'https://buy.stripe.com/9B68wR4Zjfn668i2fW9EI01' // CONFIRMED same link as simpro_unlimited — Unlimited is one shared price/product regardless of CRM (prod_Uy8rn5Xvmsf9UW setup / prod_Uy8tSmIBp769KI monthly)
     }
   };
   const DEFAULT_PLAN = 'simpro_limited';
@@ -388,11 +400,12 @@
     // Redirect to Stripe, carrying the full plan+tier combo as
     // client_reference_id. This is what Hermianango's
     // /create-customer reads to set customers.hermia_plan — the
-    // usage-limit worker logic (still TODO) should key off this same
-    // combo key to know whether a contractor is Limited or Unlimited.
+    // usage-limit worker logic keys off this same combo key to know
+    // whether a contractor is Limited or Unlimited.
     const finalUrl = appendParam(planConfig.link, 'client_reference_id', selectedPlanKey);
     window.location.href = finalUrl;
   }
 </script>
 </body>
 </html>
+
