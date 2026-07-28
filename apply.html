@@ -101,9 +101,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
   <div class="flow-steps">
     <div class="flow-step active"><span class="n">1</span> Apply</div>
     <div class="flow-line"></div>
-    <div class="flow-step"><span class="n">2</span> Agreement</div>
+    <div class="flow-step"><span class="n">2</span> Choose Tier</div>
     <div class="flow-line"></div>
-    <div class="flow-step"><span class="n">3</span> Go live</div>
+    <div class="flow-step"><span class="n">3</span> Agreement</div>
+    <div class="flow-line"></div>
+    <div class="flow-step"><span class="n">4</span> Go live</div>
   </div>
 
   <div class="form-card">
@@ -161,7 +163,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
       </div>
 
       <button class="submit-btn" type="button" id="submitBtn" onclick="handleApplyClick()">Apply to Join →</button>
-      <p class="form-note">No email back-and-forth — you go straight to the agreement.</p>
+      <p class="form-note">No email back-and-forth — you go straight to choosing a tier.</p>
     </div>
 
     <div class="verify" id="verify-view">
@@ -171,7 +173,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
       <ul class="v-steps">
         <li id="vs1"><span class="vdot"></span> Validating your details</li>
         <li id="vs2"><span class="vdot"></span> Checking channel availability</li>
-        <li id="vs3"><span class="vdot"></span> Preparing your agreement</li>
+        <li id="vs3"><span class="vdot"></span> Preparing your tier options</li>
       </ul>
     </div>
   </div>
@@ -184,26 +186,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 
 <script>
 // ============================================================
-// CRM PLAN — drives the price shown on this page and gets carried
-// forward to contract.html. This is set by the ?plan= param that
-// index.html's pricing buttons already send:
-//   apply.html?plan=simpro   (Simpro — full booking & scheduling)
-//   apply.html?plan=aroflo   (AroFlo — qualified leads, no booking)
+// CRM PLAN — which CRM this contractor is going to (Simpro or
+// AroFlo). This ONLY determines routing keys / integration; it no
+// longer determines price on this page — pricing (Limited vs
+// Unlimited) is chosen on the NEXT page, tier.html.
 //
-// Keys MUST match contract.html's PLAN_CONFIG ('simpro' / 'aroflo').
-// If the rate changes, update it here AND in contract.html.
+// apply.html?plan=simpro   (Simpro — full booking & scheduling)
+// apply.html?plan=aroflo   (AroFlo — qualified leads, no booking)
 // ============================================================
 const PLAN_CONFIG = {
   simpro: {
     name: 'Simpro',
-    price: '$660 AUD/month',
-    setupFee: '$900 AUD',
     subCopy: 'Once live, every enquiry through your Gmail or Outlook inbox is qualified and booked straight into Simpro &mdash; no chasing, no manual entry.'
   },
   aroflo: {
     name: 'AroFlo',
-    price: '$497 AUD/month',
-    setupFee: '$900 AUD',
     subCopy: 'Once live, every enquiry through your Gmail or Outlook inbox is qualified and delivered to you as a warm or hot lead, with your AroFlo client and location details filled in automatically.'
   }
 };
@@ -219,7 +216,7 @@ if (!PLAN_CONFIG[requestedPlan] && requestedPlan) {
 }
 
 document.getElementById('planBadgeText').innerHTML =
-  'Hermia ' + planConfig.name + ' — <b>' + planConfig.price + '</b> (first charge after your 7-day free trial) + <b>' + planConfig.setupFee + '</b> one-off setup';
+  'CRM: <b>' + planConfig.name + '</b> — pricing tier is chosen on the next step';
 document.getElementById('pageSub').innerHTML = planConfig.subCopy;
 
 sessionStorage.setItem('hermia_plan', planKey);
@@ -266,7 +263,6 @@ async function handleApplyClick() {
     plan_name:     planConfig.name,
     provider:      providerVal,
     provider_name: PROVIDER_MAP[providerVal].name,
-    price:         planConfig.price + ' + ' + planConfig.setupFee + ' one-off setup',
     submitted_at:  new Date().toISOString(),
     source:        'hermia-apply'
   };
@@ -294,7 +290,9 @@ async function handleApplyClick() {
   advance('vs1', 550);
   advance('vs2', 1200);
   advance('vs3', 1850);
-  setTimeout(() => { window.location.href = 'contract.html?plan=' + planKey; }, 2500);
+  // Was: contract.html?plan=' + planKey
+  // Now: tier.html picks Limited vs Unlimited, THEN forwards to contract.html
+  setTimeout(() => { window.location.href = 'tier.html?plan=' + planKey; }, 2500);
 }
 </script>
 </body>
