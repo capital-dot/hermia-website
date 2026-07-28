@@ -199,11 +199,18 @@
   // (limited/unlimited). Keys are built as "<crm>_<tier>" and MUST
   // match what tier.html sends via ?plan=<crm>&tier=<tier>.
   //
-  // ⚠️ MISSING LINKS: simpro_limited and aroflo_limited do not have
-  // confirmed Stripe Payment Links yet. Only the two Unlimited combos
-  // were given real links/products this session:
+  // All 4 combos now have real Stripe Payment Links:
+  //   Simpro Limited    → carried over from the old contract.html (was labeled "gmail")
+  //   AroFlo Limited     → carried over from the old contract.html (was labeled "outlook")
   //   Simpro Unlimited  → prod_Uy8tSmIBp769KI (monthly) / prod_Uy8rn5Xvmsf9UW (setup)
-  //   AroFlo Unlimited  → prod_Uy8yA4K8g9qxEg (monthly) / SAME id given for setup — verify in Stripe, likely a paste error
+  //   AroFlo Unlimited  → prod_Uy8yA4K8g9qxEg (monthly) / SAME id given for setup — worth confirming in Stripe, likely a paste error
+  //
+  // Note: the OLD contract.html displayed $1,700/mo next to the
+  // Simpro/AroFlo Limited links even though Stripe was presumably
+  // still charging the Limited rate ($660/$497) — the price TEXT on
+  // this page was wrong, not the link. Worth a quick Stripe dashboard
+  // check to confirm those two links are actually priced at $660 and
+  // $497 respectively, since that mismatch existed before this edit.
   //
   // ⚠️ IMPORTANT: updating the numbers below only changes what's
   // DISPLAYED on this page. The actual amount charged is whatever
@@ -217,7 +224,7 @@
       price:    '$660 AUD / month',
       setupFee: '$900 AUD',
       cap:      '15 photos / videos / voice notes / hot+warm leads per month',
-      link:     'REPLACE_WITH_SIMPRO_LIMITED_LINK'
+      link:     'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00' // was labeled "gmail" in the old contract.html — confirmed by Kevin as the Simpro Limited link
     },
     simpro_unlimited: {
       name:     'Simpro — Unlimited',
@@ -231,7 +238,7 @@
       price:    '$497 AUD / month',
       setupFee: '$900 AUD',
       cap:      '15 photos / videos / voice notes / hot+warm leads per month',
-      link:     'REPLACE_WITH_AROFLO_LIMITED_LINK'
+      link:     'https://buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02' // was labeled "outlook" in the old contract.html — confirmed by Kevin as the AroFlo Limited link
     },
     aroflo_unlimited: {
       name:     'AroFlo — Unlimited',
@@ -389,4 +396,3 @@
 </script>
 </body>
 </html>
-
