@@ -353,13 +353,13 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
 
 /* ── Trade-engine (per-trade system) cards ── */
 .engine-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gdim);border:1px solid var(--bgold);color:var(--gl);font-size:9.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border-radius:99px;font-family:"Inter",sans-serif;margin-bottom:18px}
-.engine-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:40px}
+.engine-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:40px}
 .engine-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px 24px;transition:border-color .2s}
 .engine-card:hover{border-color:var(--bgold)}
 .engine-card-name{font-family:var(--display);font-size:22px;font-weight:600;color:#fff;margin-bottom:14px}
-.engine-row{display:flex;gap:9px;padding:9px 0;border-top:1px solid rgba(255,255,255,.05);font-size:12.5px;color:var(--soft);line-height:1.55}
+.engine-row{display:flex;flex-direction:column;gap:5px;padding:12px 0;border-top:1px solid rgba(255,255,255,.05);font-size:12.5px;color:var(--soft);line-height:1.6}
 .engine-row:first-of-type{border-top:none;padding-top:0}
-.engine-row-label{flex-shrink:0;color:var(--gold);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;font-family:"Inter",sans-serif;width:64px;padding-top:1px}
+.engine-row-label{color:var(--gold);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;font-family:"Inter",sans-serif;width:auto}
 .support247-strip{display:flex;align-items:center;gap:20px;background:linear-gradient(150deg,rgba(212,175,55,.08),var(--card));border:1px solid var(--bgold);border-radius:16px;padding:24px 28px;margin-top:40px}
 .support247-num{font-family:var(--display);font-size:40px;font-weight:700;color:#fff;line-height:1;white-space:nowrap}
 .support247-text{font-size:13.5px;color:var(--soft);line-height:1.6}
@@ -386,6 +386,9 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
   .tier-split{grid-template-columns:1fr}
   .tier-split-col:first-child{border-right:none;border-bottom:1px solid var(--border)}
   .support247-strip{flex-direction:column;text-align:center}
+}
+@media(max-width:560px){
+  .engine-grid{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
