@@ -351,6 +351,20 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
 .tier-split-cap{font-size:10.5px;color:var(--muted);line-height:1.5;margin-top:9px}
 .tier-split-foot{text-align:center;font-size:10.5px;color:var(--muted);margin-top:10px;line-height:1.5}
 
+/* ── Trade-engine (per-trade system) cards ── */
+.engine-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gdim);border:1px solid var(--bgold);color:var(--gl);font-size:9.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border-radius:99px;font-family:"Inter",sans-serif;margin-bottom:18px}
+.engine-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+.engine-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px 24px;transition:border-color .2s}
+.engine-card:hover{border-color:var(--bgold)}
+.engine-card-name{font-family:var(--display);font-size:22px;font-weight:600;color:#fff;margin-bottom:14px}
+.engine-row{display:flex;gap:9px;padding:9px 0;border-top:1px solid rgba(255,255,255,.05);font-size:12.5px;color:var(--soft);line-height:1.55}
+.engine-row:first-of-type{border-top:none;padding-top:0}
+.engine-row-label{flex-shrink:0;color:var(--gold);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;font-family:"Inter",sans-serif;width:64px;padding-top:1px}
+.support247-strip{display:flex;align-items:center;gap:20px;background:linear-gradient(150deg,rgba(212,175,55,.08),var(--card));border:1px solid var(--bgold);border-radius:16px;padding:24px 28px;margin-top:40px}
+.support247-num{font-family:var(--display);font-size:40px;font-weight:700;color:#fff;line-height:1;white-space:nowrap}
+.support247-text{font-size:13.5px;color:var(--soft);line-height:1.6}
+.support247-text strong{color:var(--cream);font-weight:500}
+
 @media(max-width:900px){
   nav{padding:0 20px}.nav-links{display:none}
   .section,.faq-section{padding:70px 22px}
@@ -359,6 +373,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
   .crm-grid{grid-template-columns:1fr}.phone{width:320px;height:660px}
   .tier-grid{grid-template-columns:1fr}
   .trades-grid{grid-template-columns:1fr 1fr}
+  .engine-grid{grid-template-columns:1fr 1fr}
   .pricing-stack{grid-template-columns:1fr}
   .plan-box-feats{grid-template-columns:1fr}
   .combo-section{padding:56px 22px}.combo-grid{grid-template-columns:1fr}
@@ -370,6 +385,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
   .speed-value{text-align:left}
   .tier-split{grid-template-columns:1fr}
   .tier-split-col:first-child{border-right:none;border-bottom:1px solid var(--border)}
+  .support247-strip{flex-direction:column;text-align:center}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -386,6 +402,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
   <ul class="nav-links">
     <li><a href="#capabilities">How It Works</a></li>
     <li><a href="#trades">Trades</a></li>
+    <li><a href="#trade-engine">Trade Engine</a></li>
     <li><a href="#response-speed">Response Speed</a></li>
     <li><a href="#how-it-decides">Why It's Different</a></li>
     <li><a href="#simpro-mapping">In Your CRM</a></li>
@@ -417,7 +434,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
   <div class="scene" id="scene-narrative-1">
     <div class="narrative-box">
       <h2 class="narrative-title">Know the job <em>before you roll a truck</em>.</h2>
-      <p class="narrative-sub">Hermia Qualifies Every Enquiry &mdash; Automatically</p>
+      <p class="narrative-sub">Hermia Qualifies Every Enquiry &mdash; Automatically, 24/7</p>
     </div>
   </div>
   <div class="scene" id="scene-narrative-2">
@@ -516,6 +533,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
       <p class="sec-sub" style="margin:18px auto 0">Every enquiry is run through your question set &mdash; what's wrong, where it is, how bad it is, and since when &mdash; with photos and video to back it up. Vague answers get pushed back on until they're specific enough to act on, so tire kickers filter themselves out before they ever reach you.</p>
       <p class="sec-sub" style="margin:18px auto 0">By the time you see the job, you already have the full picture &mdash; not a guess you make after rolling a truck. And it's not just sitting in an inbox: it's already booked in your CRM, against a real technician's real availability, before your office has even picked up the phone.</p>
       <p class="sec-sub" style="margin:18px auto 0">And Hermia becomes <strong>an additional lead channel of its own</strong>. Once a lead has been through qualification, Hermia remembers them permanently &mdash; so the next time that same customer needs help, they don't message a competitor or run a Google search. They message Hermia, go through the same fast qualification, and the job lands back in <strong>your</strong> CRM. The lead stays completely yours.</p>
+      <p class="sec-sub" style="margin:18px auto 0">And every part of it runs <strong>24 hours a day, 7 days a week</strong> &mdash; nights, weekends, public holidays included &mdash; so a genuine enquiry is never sitting unread until Monday morning.</p>
     </div>
   </section>
 
@@ -546,6 +564,49 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
       </div>
 
       <p class="sec-sub" style="margin-top:32px;max-width:820px">Every enquiry is automatically routed to the right trade's question set and CRM fields &mdash; a plumbing lead never gets asked switchboard questions, and an electrical lead never gets asked about water isolation. If your business runs more than one trade, Hermia keeps them completely separate under the one account.</p>
+    </div>
+  </section>
+
+  <!-- ═══════ TRADE ENGINE (per-trade qualification system) ═══════ -->
+  <section class="section" id="trade-engine" style="background:var(--bg3);border-top:1px solid var(--border)">
+    <div class="inner">
+      <span class="engine-badge"><span class="tech-dot"></span>Purpose-Built Per Trade</span>
+      <h2 class="sec-title">One engine underneath.<br><em>A genuinely different conversation for each trade.</em></h2>
+      <p class="sec-sub">This is the part that's easy to underestimate: Hermia doesn't run one generic script across every trade with a few words swapped. Every trade gets its own fixture list, its own fault vocabulary, and its own safety/isolation check &mdash; built and validated specifically for how that trade's jobs actually work, then checked line by line so nothing borrowed from another trade slips through.</p>
+
+      <div class="engine-grid">
+        <div class="engine-card">
+          <div class="engine-card-name">Plumbing</div>
+          <div class="engine-row"><span class="engine-row-label">Asks</span><span>Hot water unit, toilet, tap, drain, pipe, sewer line &mdash; the actual fixture affected</span></div>
+          <div class="engine-row"><span class="engine-row-label">Detects</span><span>Leaks, blockages, burst pipes, no hot water, sewer faults</span></div>
+          <div class="engine-row"><span class="engine-row-label">Safety</span><span>Whether water or gas is already shut off at the mains</span></div>
+        </div>
+        <div class="engine-card">
+          <div class="engine-card-name">Electrical</div>
+          <div class="engine-row"><span class="engine-row-label">Asks</span><span>Switchboard, powerpoint, lighting, or a specific appliance</span></div>
+          <div class="engine-row"><span class="engine-row-label">Detects</span><span>No power, tripping, sparking, burning smell, flickering, shocks</span></div>
+          <div class="engine-row"><span class="engine-row-label">Safety</span><span>Whether power is already isolated at the switchboard, or needs isolating on arrival</span></div>
+        </div>
+        <div class="engine-card">
+          <div class="engine-card-name">Roofing</div>
+          <div class="engine-row"><span class="engine-row-label">Asks</span><span>Tiled, metal/colorbond, guttering, or flat/membrane roof</span></div>
+          <div class="engine-row"><span class="engine-row-label">Detects</span><span>Leaks, missing or cracked tiles, storm/hail damage, overflowing gutters</span></div>
+          <div class="engine-row"><span class="engine-row-label">Safety</span><span>Whether the roof area is safely accessible right now, or needs a ladder/scaffold arranged</span></div>
+        </div>
+        <div class="engine-card">
+          <div class="engine-card-name">Remedial</div>
+          <div class="engine-row"><span class="engine-row-label">Asks</span><span>Water ingress, facade/cladding issue, or a structural crack</span></div>
+          <div class="engine-row"><span class="engine-row-label">Detects</span><span>Cracking, delamination, staining, efflorescence, spalling, seal failure</span></div>
+          <div class="engine-row"><span class="engine-row-label">Safety</span><span>Whether any isolation or restricted-access arrangement is needed before work starts</span></div>
+        </div>
+      </div>
+
+      <p class="sec-sub" style="margin-top:32px;max-width:820px">A vague answer never slides through just because it technically answered the question. If a customer says "the tap" for plumbing or "the power" for electrical, Hermia pushes back with the specific options for that exact trade until the answer is something your crew can genuinely act on &mdash; and a plumbing customer is never asked a switchboard question, just as an electrical customer is never asked about water isolation.</p>
+
+      <div class="support247-strip">
+        <div class="support247-num">24/7</div>
+        <div class="support247-text"><strong>Support that never clocks off.</strong> Every trade's qualification engine runs around the clock &mdash; nights, weekends and public holidays &mdash; so an enquiry at 2am gets the same careful, trade-specific questioning as one at 2pm. No after-hours voicemail, no "we'll call you back Monday."</div>
+      </div>
     </div>
   </section>
 
@@ -1019,11 +1080,11 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
     <div class="inner">
       <div class="eyebrow">Response Speed</div>
       <h2 class="sec-title">Fast enough to win the job.<br><em>Not so fast it feels like a machine.</em></h2>
-      <p class="sec-sub">Property managers blast the same job to five contractors at once. The first clear, complete response wins it &mdash; so Hermia answers while the others are still listening to voicemail. Here's exactly how fast, at every stage.</p>
+      <p class="sec-sub">Property managers blast the same job to five contractors at once. The first clear, complete response wins it &mdash; so Hermia answers while the others are still listening to voicemail. Here's exactly how fast, at every stage &mdash; day or night, 24/7.</p>
 
       <div class="speed-highlight">
         <div class="speed-highlight-num">~60<span>sec</span></div>
-        <div class="speed-highlight-text"><strong>First reply to a brand-new enquiry</strong> &mdash; day or night. An email that lands at 9:41pm gets a branded reply before 9:42pm, not the next business morning.</div>
+        <div class="speed-highlight-text"><strong>First reply to a brand-new enquiry</strong> &mdash; day or night, 24 hours a day. An email that lands at 9:41pm gets a branded reply before 9:42pm, not the next business morning.</div>
       </div>
 
       <div class="speed-panel">
@@ -1170,7 +1231,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
           <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span><strong>You get the information before you go on a job</strong> &mdash; photos, video and full context, every time</span></div>
           <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span><strong>Emergency / urgent / standard triaged instantly</strong></span></div>
           <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span><strong>Zero duplicates + technician booked on your live calendar</strong></span></div>
-          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span><strong>24/7</strong> &mdash; jobs sit booked and briefed in your CRM by sunrise</span></div>
+          <div class="bt-row"><span class="bt-ic" style="color:var(--green)">&#10003;</span><span><strong>24/7 support</strong> &mdash; jobs sit booked and briefed in your CRM by sunrise</span></div>
         </div>
       </div>
     </div>
@@ -1211,7 +1272,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
     <div class="pricing-header">
       <div class="eyebrow">Pricing</div>
       <h2 class="pricing-h">One system. Four trades.<br><em>Ready on day one.</em></h2>
-      <p class="pricing-sub">A complete qualification system &mdash; every question, safety check, follow-up and booking flow already built and tested for plumbing, electrical, roofing and remedial work. Every plan starts with a 7-day free trial before your monthly fee is charged.</p>
+      <p class="pricing-sub">A complete qualification system &mdash; every question, safety check, follow-up and booking flow already built and tested for plumbing, electrical, roofing and remedial work. Every plan starts with a 2-day free trial before your monthly fee is charged, and runs with 24/7 support around it.</p>
     </div>
 
     <div class="pricing-stack">
@@ -1221,7 +1282,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
         <div class="plan-box-left">
           <div class="plan-box-name">Simpro<br>Contractors</div>
           <div class="plan-box-tag">Full Booking &amp; Scheduling &middot; AU &middot; CA &middot; NZ &middot; UK &middot; IE &middot; US</div>
-          <span class="plan-box-trial">7-Day Free Trial</span>
+          <span class="plan-box-trial">2-Day Free Trial</span>
           <div class="tier-split">
             <div class="tier-split-col">
               <div class="tier-split-label">Limited</div>
@@ -1231,12 +1292,12 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
             </div>
             <div class="tier-split-col featured">
               <div class="tier-split-label">Unlimited <span class="tier-split-badge">Popular</span></div>
-              <div class="tier-split-price">$1,100<span> /mo</span></div>
-              <div class="tier-split-setup">+ $1,700 AUD one-off setup</div>
-              <div class="tier-split-cap">No caps &mdash; unlimited photos, videos, voice notes &amp; hot+warm leads</div>
+              <div class="tier-split-price">$997<span> /mo</span></div>
+              <div class="tier-split-setup">+ $1,300 AUD one-off setup</div>
+              <div class="tier-split-cap">No caps &mdash; unlimited photos, videos, voice notes &amp; hot+warm leads, per connected inbox</div>
             </div>
           </div>
-          <div class="tier-split-foot">All AUD. First month charged after your 7-day free trial. Setup fee refundable within 48 hours &mdash; no questions asked.</div>
+          <div class="tier-split-foot">Priced per connected inbox. All AUD. First month charged after your 2-day free trial. Setup fee refundable within 48 hours &mdash; no questions asked.</div>
           <div class="plan-box-cta"><a href="apply.html?plan=simpro">Get Started</a></div>
         </div>
         <div class="plan-box-right">
@@ -1252,6 +1313,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
             <li><strong>Zero-duplicate matching</strong> &mdash; customers &amp; sites searched before anything is created</li>
             <li><strong>Emergency / Urgent / Standard triage</strong> &mdash; every job sorted by response time on arrival, and an emergency reopens a closed chat automatically</li>
             <li><strong>Hermia Lead Generator</strong> &mdash; returning customers recognised instantly; repeat work flows in with zero admin</li>
+            <li><strong>24/7 operation</strong> &mdash; nights, weekends and public holidays, no gaps</li>
             <li>Your Simpro custom fields mapped &mdash; your naming, untouched</li>
           </ul>
         </div>
@@ -1262,7 +1324,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
         <div class="plan-box-left">
           <div class="plan-box-name">AroFlo<br>Contractors</div>
           <div class="plan-box-tag">Qualified Warm &amp; Hot Leads &middot; AU &middot; CA &middot; NZ &middot; UK &middot; IE &middot; US</div>
-          <span class="plan-box-trial">7-Day Free Trial</span>
+          <span class="plan-box-trial">2-Day Free Trial</span>
           <div class="tier-split">
             <div class="tier-split-col">
               <div class="tier-split-label">Limited</div>
@@ -1272,12 +1334,12 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
             </div>
             <div class="tier-split-col featured">
               <div class="tier-split-label">Unlimited <span class="tier-split-badge">Popular</span></div>
-              <div class="tier-split-price">$1,100<span> /mo</span></div>
-              <div class="tier-split-setup">+ $1,700 AUD one-off setup</div>
-              <div class="tier-split-cap">No caps &mdash; unlimited photos, videos, voice notes &amp; hot+warm leads</div>
+              <div class="tier-split-price">$997<span> /mo</span></div>
+              <div class="tier-split-setup">+ $1,300 AUD one-off setup</div>
+              <div class="tier-split-cap">No caps &mdash; unlimited photos, videos, voice notes &amp; hot+warm leads, per connected inbox</div>
             </div>
           </div>
-          <div class="tier-split-foot">All AUD. First month charged after your 7-day free trial. Setup fee refundable within 48 hours &mdash; no questions asked.</div>
+          <div class="tier-split-foot">Priced per connected inbox. All AUD. First month charged after your 2-day free trial. Setup fee refundable within 48 hours &mdash; no questions asked.</div>
           <div class="plan-box-cta"><a href="apply.html?plan=aroflo">Get Started</a></div>
         </div>
         <div class="plan-box-right">
@@ -1292,11 +1354,18 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
             <li><strong>Zero-duplicate matching</strong> &mdash; clients &amp; locations searched before anything is created</li>
             <li><strong>Emergency / Urgent / Standard triage</strong> &mdash; every job sorted by response time on arrival, and an emergency reopens a closed chat automatically</li>
             <li><strong>Hermia Lead Generator</strong> &mdash; returning customers recognised instantly; repeat work flows in with zero admin</li>
+            <li><strong>24/7 operation</strong> &mdash; nights, weekends and public holidays, no gaps</li>
           </ul>
         </div>
       </div>
 
     </div>
+
+    <div style="max-width:900px;margin:36px auto 0;background:var(--card);border:1px solid var(--bgold);border-radius:16px;padding:26px 30px;text-align:left">
+      <div style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:700;font-family:'Inter',sans-serif;margin-bottom:12px">Running more than one inbox?</div>
+      <p style="font-size:13.5px;color:var(--soft);line-height:1.75">Each connected inbox is its own connection in our system, so <strong style="color:var(--cream)">Unlimited pricing scales per inbox</strong> &mdash; you're only charged for the inboxes you actually connect. For example, three inboxes on the Unlimited tier comes to <strong style="color:var(--cream)">$3,900 AUD setup</strong> ($1,300 &times; 3) and <strong style="color:var(--cream)">$2,991 AUD/mo</strong> ($997 &times; 3). Need a custom multi-inbox quote? Email us at <a href="mailto:capital@hermia.au" style="color:var(--gl);text-decoration:underline">capital@hermia.au</a> and we'll put one together.</p>
+    </div>
+
     <p class="pricing-note">Every plan runs on <strong>pre-approved, on-script templates only</strong> &mdash; your leads never see freeform AI output. Setup fees are fully refundable within 48 hours if you're not satisfied. Want to change what's asked? Email us &mdash; question set updates are live within 1&ndash;3 business days, no new onboarding call.</p>
   </section>
 
@@ -1305,12 +1374,12 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
     <div class="eyebrow">Refunds</div>
     <h2 class="sec-title" style="text-align:center">A clear, no-questions-asked window.</h2>
     <div class="refund-box">
-      <p>Every plan includes a <strong>7-day free trial</strong> before your monthly fee is ever charged, so you can see Hermia running on real enquiries before paying anything.</p>
+      <p>Every plan includes a <strong>2-day free trial</strong> before your monthly fee is ever charged, so you can see Hermia running on real enquiries before paying anything.</p>
       <p>If, after paying your one-off implementation &amp; connection fee, you decide Hermia isn't right for your business, tell us <strong>within 48 hours of setup</strong> and we'll refund the full setup fee &mdash; no questions asked.</p>
       <p>After that 48-hour window has passed, the setup fee is no longer refundable, as onboarding work on your account is already complete.</p>
       <div class="refund-figures">
         <div class="refund-figure"><div class="rf-label">Limited Setup Fee</div><div class="rf-value">$900 AUD</div></div>
-        <div class="refund-figure"><div class="rf-label">Unlimited Setup Fee</div><div class="rf-value">$1,700 AUD</div></div>
+        <div class="refund-figure"><div class="rf-label">Unlimited Setup Fee</div><div class="rf-value">$1,300 AUD / inbox</div></div>
         <div class="refund-figure"><div class="rf-label">Refund Window</div><div class="rf-value">48 Hours</div></div>
       </div>
     </div>
@@ -1328,6 +1397,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
           <div class="contact-info-item"><span class="contact-info-label">Phone</span><span class="contact-info-value"><a href="tel:+61494719401">+61 494 719 401</a></span></div>
           <div class="contact-info-item"><span class="contact-info-label">Location</span><span class="contact-info-value">Victoria, Australia</span></div>
           <div class="contact-info-item"><span class="contact-info-label">Coverage</span><span class="contact-info-value">Australia, Canada, New Zealand, UK, Ireland &amp; the US</span></div>
+          <div class="contact-info-item"><span class="contact-info-label">Support</span><span class="contact-info-value">Available 24/7 &mdash; Hermia never clocks off</span></div>
           <div class="contact-info-item"><span class="contact-info-label">ABN</span><span class="contact-info-value">75 434 177 026</span></div>
         </div>
       </div>
@@ -1335,7 +1405,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
         <img class="partner-badge-img" src="https://raw.githubusercontent.com/capital-dot/hermia-website/main/Partner_Logo_Badge_Registered-1.png" alt="Simpro Registered Partner">
         <span class="tech-tag" style="margin-bottom:14px"><span class="tech-dot"></span>Registered Technology Partner</span>
         <h2 class="triage-h">Built like infrastructure,<br><em>not a chatbot.</em></h2>
-        <p class="triage-p">Official Meta-verified WhatsApp Business API &mdash; not a grey-market bot. Every message, photo and voice note confirmed-delivered; failures retry automatically. Media stored permanently on our infrastructure &mdash; links never expire. Your data stays yours: encrypted, never sold, never shared.</p>
+        <p class="triage-p">Official Meta-verified WhatsApp Business API &mdash; not a grey-market bot. Every message, photo and voice note confirmed-delivered; failures retry automatically. Media stored permanently on our infrastructure &mdash; links never expire. Your data stays yours: encrypted, never sold, never shared. Support runs 24/7, every day of the year.</p>
       </div>
     </div>
   </section>
@@ -1349,6 +1419,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
       </div>
       <div class="faq-list">
         <div class="faq-item"><button class="faq-q"><span>Do you only work with plumbers?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No &mdash; Hermia now covers four trades:</strong> plumbing, electrical, roofing and remedial. Each trade has its own fixture vocabulary, fault-detection logic, and safety/isolation questions built in, and every enquiry is automatically routed to the right trade's question set and CRM fields.</div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>Does Hermia actually ask different questions for each trade?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Yes &mdash; genuinely different, not just relabelled.</strong> Each trade has its own fixture list (e.g. switchboard and powerpoints for electrical vs. tiled roof and guttering for roofing), its own fault vocabulary, and its own safety/isolation question (mains shut-off for plumbing, switchboard isolation for electrical, safe roof access for roofing, restricted-access arrangements for remedial). See the <a href="#trade-engine" style="color:var(--gl);text-decoration:underline">Trade Engine</a> section above for the full breakdown per trade.</div></div></div>
         <div class="faq-item"><button class="faq-q"><span>What's the difference between Limited and Unlimited?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Limited</strong> covers up to 15 photos, videos, voice notes and hot+warm leads each month &mdash; plenty for lower-volume contractors. <strong>Unlimited</strong> removes every cap, for businesses running a high volume of enquiries. Both tiers run the exact same qualification system &mdash; the only difference is the monthly usage cap.</div></div></div>
         <div class="faq-item"><button class="faq-q"><span>What's the difference between the Simpro and AroFlo plans?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Simpro includes full booking &amp; scheduling</strong> &mdash; Hermia checks your staff availability and books the job straight onto your calendar. <strong>AroFlo doesn't currently support that same scheduling integration</strong>, so instead Hermia focuses entirely on qualification: cold enquiries are filtered out before they reach you, so the only leads you receive are warm or hot, and you're alerted by WhatsApp the moment one's ready, with your AroFlo client and location details already filled in.</div></div></div>
         <div class="faq-item"><button class="faq-q"><span>How does the booking actually work &mdash; does someone still confirm it?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No manual step, on Simpro.</strong> Hermia pulls your staff list and live schedule from your CRM, scans up to 20 days ahead in your technician's own timezone, assigns a genuinely free technician, and creates the appointment as a real calendar activity. <em>The lead is told the tech and time in the conversation.</em></div></div></div>
@@ -1356,10 +1427,12 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
         <div class="faq-item"><button class="faq-q"><span>What does it do with photos and voice notes?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Photos &amp; videos:</strong> collected in bursts, stored permanently on our infrastructure, attached to the job as one branded gallery link &mdash; links never expire. <strong>Voice notes:</strong> fully transcribed and treated like typed answers. <em>All before a human looks at anything.</em></div></div></div>
         <div class="faq-item"><button class="faq-q"><span>Do my customers know they're talking to software?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>They talk to your digital assistant, under your name.</strong> Hermia stays invisible &mdash; we're not a marketplace skimming your jobs or an app your customers download. <em>The customer belongs to you, not to us.</em> Consent is asked before any channel move, in line with the Privacy Act 1988 (Cth).</div></div></div>
         <div class="faq-item"><button class="faq-q"><span>Does Hermia make things up or go off-script?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No &mdash; and it's built so it structurally can't.</strong> Every decision that matters (whether an answer is good enough, and what a job costs) is made by our own system in code, not by AI. The AI only puts that decision into words, on pre-approved templates. <em>It never chooses a price and never decides whether a lead passes.</em></div></div></div>
-        <div class="faq-item"><button class="faq-q"><span>How quickly does Hermia actually reply?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text">See the full second-by-second breakdown in the <a href="#response-speed" style="color:var(--gl);text-decoration:underline">Response Speed</a> section above. The short version: about a minute for the very first reply, then as little as <strong>0.4 seconds</strong> for a quick confirmation and up to roughly <strong>4.8 seconds</strong> while a full batch of photos comes in.</div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>How quickly does Hermia actually reply?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text">See the full second-by-second breakdown in the <a href="#response-speed" style="color:var(--gl);text-decoration:underline">Response Speed</a> section above. The short version: about a minute for the very first reply, then as little as <strong>0.4 seconds</strong> for a quick confirmation and up to roughly <strong>4.8 seconds</strong> while a full batch of photos comes in &mdash; any hour of the day, any day of the week.</div></div></div>
         <div class="faq-item"><button class="faq-q"><span>Can it quote a price that's different to my actual rates?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>No.</strong> Estimates are matched against the rate card you set at onboarding &mdash; worked out once, by code, then reused everywhere. The figure your customer is quoted and the figure on your job docket are <em>the same value</em>, not two separate calculations. If a job can't be confidently matched to one of your tiers, it's flagged rather than guessed at.</div></div></div>
         <div class="faq-item"><button class="faq-q"><span>What if a lead wants to negotiate the price?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>They're handed straight to the negotiation contact you set at onboarding</strong> &mdash; your phone or email &mdash; and you're told they're reaching out before they contact you. <em>The job still lands in your CRM either way.</em></div></div></div>
-        <div class="faq-item"><button class="faq-q"><span>Is there a free trial, and is the setup fee refundable?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Yes.</strong> Every plan starts with a <em>7-day free trial</em> &mdash; your monthly fee only begins once it ends. Your one-off implementation &amp; connection fee (<strong>$900 for Limited, $1,700 for Unlimited</strong>) is fully refundable <strong>within 48 hours</strong> of setup if you're not happy, no questions asked.</div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>Is there a free trial, and is the setup fee refundable?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Yes.</strong> Every plan starts with a <em>2-day free trial</em> &mdash; your monthly fee only begins once it ends. Your one-off implementation &amp; connection fee (<strong>$900 for Limited, $1,300 for Unlimited per inbox</strong>) is fully refundable <strong>within 48 hours</strong> of setup if you're not happy, no questions asked.</div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>I run more than one inbox &mdash; how does pricing work?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text">Each inbox is its own connection, so <strong>Unlimited pricing scales per inbox</strong>. Three inboxes, for example, works out to <strong>$3,900 AUD setup</strong> and <strong>$2,991 AUD/mo</strong> (3 &times; $1,300 setup, 3 &times; $997/mo). Email <a href="mailto:capital@hermia.au" style="color:var(--gl);text-decoration:underline">capital@hermia.au</a> for a tailored multi-inbox quote.</div></div></div>
+        <div class="faq-item"><button class="faq-q"><span>Is support really available around the clock?</span><span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-text"><strong>Yes &mdash; 24 hours a day, 7 days a week,</strong> including nights, weekends and public holidays. Enquiry intake, WhatsApp qualification and scheduling all run continuously with no downtime window, and we're reachable at <a href="mailto:capital@hermia.au" style="color:var(--gl);text-decoration:underline">capital@hermia.au</a> or <a href="tel:+61494719401" style="color:var(--gl);text-decoration:underline">+61 494 719 401</a> for anything that needs a person.</div></div></div>
       </div>
     </div>
   </section>
@@ -1371,8 +1444,9 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
         <span>Hermia</span>
       </a>
       <div class="foot-left-meta">
-        <span>HQ Victoria, Australia &middot; Serving AU, CA, NZ, UK, IE &amp; US</span>
+        <span>HQ Victoria, Australia &middot; Serving AU, CA, NZ, UK, IE &amp; US &middot; 24/7 Support</span>
         <a href="#capabilities">How It Works</a>
+        <a href="#trade-engine">Trade Engine</a>
         <a href="about us.html">About Us</a>
         <a href="#pricing">Pricing</a>
         <a href="#contact">Contact</a>
