@@ -30,15 +30,11 @@
             position: relative; overflow-x: hidden; padding: 32px 20px 56px;
         }
 
-        /* Drag-prevention: browsers make <img> draggable by default —
-           on trackpad/touch a stray click-drag near the logo picks it
-           up as a ghost-image drag instead of registering a click/tap. */
         img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; }
         .bg, .brandmark { -webkit-user-select: none; user-select: none; }
 
         .shell { margin: auto 0; display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; z-index: 2; }
 
-        /* ── Background: same recipe as pricing / setup-complete ── */
         .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
         .bloom {
             position: absolute; inset: 0;
@@ -60,7 +56,6 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        /* ── Header: brand + plan badge + step tracker ── */
         .topbar { width: 100%; max-width: 480px; display: flex; flex-direction: column; align-items: center; gap: 22px; margin-bottom: 34px; }
         .brandmark { opacity: 0; animation: fadeUp .6s ease 0s forwards; }
         .brandmark img { height: 32px; display: block; filter: drop-shadow(0 0 10px rgba(201,163,91,0.3)); }
@@ -74,9 +69,6 @@
         .plan-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px var(--gold); }
         .plan-badge b { color: var(--gold-light); font-weight: 500; }
 
-        /* ── Step tracker: built by JS, same class names/behavior —
-           dot kept at 34px since the progress-line width calc below
-           has that value baked in. ── */
         .steps {
             display: flex; justify-content: space-between; width: 100%; position: relative;
             opacity: 0; animation: fadeUp .6s ease .2s forwards;
@@ -103,7 +95,6 @@
         .step.active .label { color: var(--gold-light); opacity: 1; }
         .step.done .label { color: var(--soft); opacity: .8; }
 
-        /* ── Card (form) — same recipe as pricing's card ── */
         .card {
             width: 100%; max-width: 480px; text-align: left;
             border: 1px solid var(--border); border-radius: var(--radius);
@@ -152,6 +143,39 @@
 
         .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
+        /* ── Trade multi-select — chip/checkbox grid, same token language
+           as everything else on this card. A business can do more than
+           one trade, so this is multi-select, not a dropdown. ── */
+        .trade-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        }
+        .trade-chip {
+            display: flex; align-items: center; gap: 10px;
+            background: rgba(22,20,15,0.5); border: 1px solid var(--border); border-radius: 13px;
+            padding: 13px 14px; cursor: pointer; user-select: none;
+            transition: border-color .25s ease, background .25s ease;
+        }
+        .trade-chip:hover { border-color: var(--border-strong); }
+        .trade-chip.selected {
+            border-color: var(--gold); background: rgba(201,163,91,0.08);
+            box-shadow: 0 0 0 1px rgba(201,163,91,0.25) inset;
+        }
+        .trade-chip input[type="checkbox"] {
+            appearance: none; -webkit-appearance: none; width: 17px; height: 17px; flex: 0 0 17px;
+            border: 1px solid var(--border-strong); border-radius: 5px; background: transparent;
+            display: grid; place-items: center; cursor: pointer; margin: 0; padding: 0;
+        }
+        .trade-chip input[type="checkbox"]:checked {
+            background: var(--gold); border-color: var(--gold);
+        }
+        .trade-chip input[type="checkbox"]:checked::after {
+            content: ''; width: 9px; height: 6px;
+            border-left: 2px solid var(--bg); border-bottom: 2px solid var(--bg);
+            transform: rotate(-45deg) translateY(-1px);
+        }
+        .trade-chip span { font-size: 14px; color: var(--cream); letter-spacing: .01em; }
+        .trade-hint { font-size: 11.5px; color: var(--soft); opacity: .65; margin-top: 10px; line-height: 1.5; }
+
         .btn-submit {
             width: 100%; margin-top: 8px; padding: 16px;
             background: linear-gradient(135deg, var(--gold), var(--gold-light));
@@ -177,6 +201,7 @@
         .formerr { color: var(--red); font-size: 12.5px; margin-top: 24px; text-align: center; line-height: 1.6; letter-spacing: .02em; display: none; word-break: break-word; }
         .formerr.show { display: block; }
         input.err, select.err, .tel.err { border-color: var(--red); background: rgba(201,123,106,0.05); }
+        .trade-grid.err .trade-chip { border-color: var(--red); background: rgba(201,123,106,0.05); }
 
         @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
         @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-delay: .01ms !important; } }
@@ -186,6 +211,7 @@
             .card { padding: 34px 24px 30px; }
             .label { display: none; }
             .row-2 { grid-template-columns: 1fr; gap: 24px; }
+            .trade-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -229,6 +255,30 @@
                 <label for="company">Entity Name</label>
                 <input id="company" type="text" autocomplete="organization" placeholder="Mitchell Foundation Repair" />
                 <div class="err-msg" id="err-company">Entry Required</div>
+            </div>
+
+            <div class="field">
+                <label>Trade(s) You Handle</label>
+                <div class="trade-grid" id="tradeGrid">
+                    <label class="trade-chip" data-trade="Plumbing">
+                        <input type="checkbox" value="Plumbing" />
+                        <span>Plumbing</span>
+                    </label>
+                    <label class="trade-chip" data-trade="Electrical">
+                        <input type="checkbox" value="Electrical" />
+                        <span>Electrical</span>
+                    </label>
+                    <label class="trade-chip" data-trade="Roofing">
+                        <input type="checkbox" value="Roofing" />
+                        <span>Roofing</span>
+                    </label>
+                    <label class="trade-chip" data-trade="Remedial">
+                        <input type="checkbox" value="Remedial" />
+                        <span>Remedial</span>
+                    </label>
+                </div>
+                <div class="err-msg" id="err-trades">Select at least one trade</div>
+                <div class="trade-hint">This inbox will only be connected to one Gmail/Outlook account. If this business handles trades that aren't in the same email inbox, set up a separate onboarding + inbox for those.</div>
             </div>
 
             <div class="field">
@@ -285,11 +335,19 @@
     <script>
         // AroFlo-specific variant of the business-details step, now on
         // the shared minimal gold/cream design (matches the Simpro
-        // variant's look). Logic unchanged:
+        // variant's look). Logic:
         //  1. always tags crmProvider = 'aroflo' when creating the outlooker
         //  2. always redirects to wa.html afterward (NOT the WAHA/WhatsApp
         //     get-link flow the Simpro version uses — AroFlo customers go
         //     straight to their CRM connect step next)
+        //
+        // v2 (2026-07-29): added trade multi-select, same as the Simpro
+        // variant. Hermia is multi-trade — each onboarding = one inbox =
+        // one customers row, but that one row can carry MULTIPLE trades
+        // (customers.allowed_trades is a jsonb array already). If a
+        // business runs separate inboxes per trade, they onboard
+        // separately per inbox instead of splitting trades within one
+        // signup.
         const ALL_STEPS = ['Payment','Business','Details','AroFlo','Connect','Setup'];
         const ACTIVE_INDEX = 2;
         const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -444,6 +502,25 @@
         populateRegionsForCountry($('country').value); // initialize for the default selection
 
         // ============================================================
+        // TRADE MULTI-SELECT
+        // ============================================================
+        function getSelectedTrades() {
+            return Array.from(document.querySelectorAll('#tradeGrid input[type="checkbox"]:checked')).map(cb => cb.value);
+        }
+        document.querySelectorAll('.trade-chip').forEach(chip => {
+            const cb = chip.querySelector('input[type="checkbox"]');
+            const sync = () => chip.classList.toggle('selected', cb.checked);
+            cb.addEventListener('change', () => {
+                sync();
+                if (getSelectedTrades().length) {
+                    $('tradeGrid').classList.remove('err');
+                    $('err-trades').classList.remove('show');
+                }
+            });
+            sync();
+        });
+
+        // ============================================================
         // STRIPE SESSION ID — same URL-first, sessionStorage-fallback
         // pattern as `plan` above. See the Simpro variant's comment for
         // the full explanation of why the fallback is needed; identical
@@ -458,7 +535,7 @@
         try { if (stripeSessionId) sessionStorage.setItem('hermia_stripe_session_id', stripeSessionId); } catch(e) {}
 
         function showErr(id, on) {
-            const t = id === 'phone' ? $('telWrap') : $(id);
+            const t = id === 'phone' ? $('telWrap') : (id === 'trades' ? $('tradeGrid') : $(id));
             if (t) t.classList.toggle('err', on);
             const e = $('err-' + id);
             if (e) e.classList.toggle('show', on);
@@ -478,9 +555,11 @@
             const country = $('country').value.trim();
             const state = $('state').value.trim();
             const local = $('phone').value.replace(/[^\d]/g, '');
+            const allowedTrades = getSelectedTrades();
 
             if (!name) { showErr('fullName', true); ok = false; }
             if (!company) { showErr('company', true); ok = false; }
+            if (!allowedTrades.length) { showErr('trades', true); ok = false; }
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(gmail)) { showErr('gmail', true); ok = false; }
             if (!country) { showErr('country', true); ok = false; }
             if (!state) { showErr('state', true); ok = false; }
@@ -515,7 +594,13 @@
                         // page can just look it up instead of trusting a
                         // URL param that could be stripped, shared, or
                         // opened in a new tab.
-                        plan: plan || null
+                        plan: plan || null,
+                        // Which trade(s) this business handles. Array
+                        // because one customer/inbox can legitimately cover
+                        // more than one trade (e.g. Remedial + Roofing).
+                        // hermianango's /create-customer needs to write this
+                        // straight into customers.allowed_trades (jsonb).
+                        allowedTrades: allowedTrades
                     })
                 });
                 const data = await res.json();
@@ -531,6 +616,7 @@
                 sessionStorage.setItem('hermia_crm_provider', 'aroflo');
                 sessionStorage.setItem('hermia_state', state);
                 sessionStorage.setItem('hermia_country', country);
+                sessionStorage.setItem('hermia_allowed_trades', JSON.stringify(allowedTrades));
                 if (plan) sessionStorage.setItem('hermia_plan', plan);
 
                 document.body.style.transition = 'opacity 1s ease';
