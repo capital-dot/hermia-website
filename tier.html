@@ -43,6 +43,7 @@ h1 em{font-style:italic;color:var(--gold);}
 .select-btn.outline{background:transparent;border:1px solid var(--border-hi);color:var(--cream);}
 .select-btn.outline:hover{background:var(--gold-dim);border-color:var(--gold);}
 .errbox{display:none;max-width:600px;margin:24px auto 0;padding:14px 18px;border:1px solid rgba(224,112,112,0.35);background:rgba(224,112,112,0.08);border-radius:10px;color:#e07070;font-size:13px;}
+.skel{opacity:0.5;}
 </style>
 </head>
 <body>
@@ -53,31 +54,36 @@ h1 em{font-style:italic;color:var(--gold);}
   <p class="sub">Choose the level of coverage that fits your call volume.</p>
   <div class="crm-badge" id="crmBadge">Loading CRM…</div>
 
-  <div class="cards" id="cardWrap"></div>
+  <div class="cards skel" id="cardWrap"></div>
   <div class="errbox" id="errBox"></div>
 </div>
 
 <script>
 // ============================================================
-// TIER CONFIG — 4 real combos (CRM × tier). Each key maps to a
-// specific Stripe Payment Link. Prices shown are DISPLAY ONLY —
-// the amount actually charged is whatever that Payment Link is
-// configured for on Stripe's side.
+// PRICING SOURCE OF TRUTH
+// ------------------------------------------------------------
+// Pricing now lives in the Supabase `payment_plans` table (see migration
+// 001_payment_plans_and_plan_split.sql) and is served by the Worker at
+//   GET https://hermianango.capital-fbc.workers.dev/payment-plans?crm=<simpro|aroflo>
+// This means a price/cap change only ever needs to happen in ONE place
+// (the table), not here too.
 //
-// Display pricing updated 29 Jul 2026 to match the site-wide
-// Unlimited price change: $1,100/mo + $1,700 setup -> $997/mo +
-// $1,300 setup. Limited pricing is unchanged.
+// FALLBACK_TIER_CONFIG below is kept ONLY as a safety net in case that
+// fetch fails (Worker down, Supabase hiccup, offline dev, etc) — the page
+// should never hard-fail just because pricing couldn't be fetched live.
+// If you see the fallback pricing on a real customer's screen, treat that
+// as a live-site alert: check /payment-plans and the Worker logs.
 //
-// NOTE: the `link` values below are UNCHANGED from what was
-// supplied — none of the four Stripe Payment Links have been
-// modified or reordered. Before going live, verify directly in
-// the Stripe dashboard that each link/product ID actually matches
-// the tier it's assigned to here, and that each link's configured
-// charge amount matches the display price next to it (especially
-// the Unlimited links, which need to be repointed to $997/$1,300
-// if they still charge $1,100/$1,700 on Stripe's side).
+// NOTE: the `link` values below are UNCHANGED from what was originally
+// supplied — none of the four Stripe Payment Links have been modified or
+// reordered. Before going live, verify directly in the Stripe dashboard
+// that each link/product ID actually matches the tier it's assigned to
+// here, and that each link's configured charge amount matches the display
+// price next to it.
 // ============================================================
-const TIER_CONFIG = {
+const WORKER_BASE_URL = 'https://hermianango.capital-fbc.workers.dev';
+
+const FALLBACK_TIER_CONFIG = {
   simpro: {
     crmName: 'Simpro',
     limited:   { name: 'Limited',   price: '$660 AUD / month',   setupFee: '$900 AUD',   cap: '15 photos / videos / voice notes / hot+warm leads per month', link: 'https://buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02' },
@@ -91,15 +97,15 @@ const TIER_CONFIG = {
 };
 const PLACEHOLDER_MARKER = 'REPLACE_WITH_';
 const DEFAULT_CRM = 'simpro';
+const CRM_DISPLAY_NAME = { simpro: 'Simpro', aroflo: 'AroFlo' };
 
 const urlParams = new URLSearchParams(window.location.search);
 const requestedCrm = urlParams.get('plan');
 const storedCrm = sessionStorage.getItem('hermia_plan');
-const crmKey = TIER_CONFIG[requestedCrm] ? requestedCrm : (TIER_CONFIG[storedCrm] ? storedCrm : DEFAULT_CRM);
-const crm = TIER_CONFIG[crmKey];
+const crmKey = FALLBACK_TIER_CONFIG[requestedCrm] ? requestedCrm : (FALLBACK_TIER_CONFIG[storedCrm] ? storedCrm : DEFAULT_CRM);
 try { sessionStorage.setItem('hermia_plan', crmKey); } catch(e) {}
 
-document.getElementById('crmBadge').innerHTML = 'CRM selected: <b>' + crm.crmName + '</b>';
+let crm = FALLBACK_TIER_CONFIG[crmKey];
 
 function renderCard(tierKey, tier, featured) {
   return `
@@ -114,9 +120,52 @@ function renderCard(tierKey, tier, featured) {
   </div>`;
 }
 
-document.getElementById('cardWrap').innerHTML =
-  renderCard('limited', crm.limited, false) +
-  renderCard('unlimited', crm.unlimited, true);
+function render() {
+  document.getElementById('crmBadge').innerHTML = 'CRM selected: <b>' + crm.crmName + '</b>';
+  const cardWrap = document.getElementById('cardWrap');
+  cardWrap.classList.remove('skel');
+  cardWrap.innerHTML =
+    renderCard('limited', crm.limited, false) +
+    renderCard('unlimited', crm.unlimited, true);
+}
+
+// Convert a payment_plans row (see migration 001) into the same shape as
+// FALLBACK_TIER_CONFIG[crm][tier], so renderCard()/selectTier() don't care
+// which source the data came from.
+function rowToTier(row) {
+  return {
+    name: row.display_name,
+    price: row.price_display,
+    setupFee: row.setup_fee_display,
+    cap: row.usage_cap_display,
+    link: row.stripe_payment_link
+  };
+}
+
+async function loadPlans() {
+  try {
+    const res = await fetch(WORKER_BASE_URL + '/payment-plans?crm=' + encodeURIComponent(crmKey), {
+      signal: AbortSignal.timeout(6000)
+    });
+    if (!res.ok) throw new Error('payment-plans returned ' + res.status);
+    const data = await res.json();
+    const rows = (data && data.plans) || [];
+    const limitedRow = rows.find(r => r.tier === 'limited');
+    const unlimitedRow = rows.find(r => r.tier === 'unlimited');
+    if (!limitedRow || !unlimitedRow) throw new Error('payment-plans missing a tier for crm=' + crmKey);
+    crm = {
+      crmName: CRM_DISPLAY_NAME[crmKey] || crmKey,
+      limited: rowToTier(limitedRow),
+      unlimited: rowToTier(unlimitedRow)
+    };
+  } catch (e) {
+    console.error('[tier-select] live pricing fetch failed, using fallback pricing:', e);
+    crm = FALLBACK_TIER_CONFIG[crmKey];
+  }
+  render();
+}
+
+loadPlans();
 
 function selectTier(tierKey) {
   const tier = crm[tierKey];
