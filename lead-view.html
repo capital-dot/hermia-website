@@ -41,7 +41,6 @@
   :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
   button { font-family: inherit; }
 
-  /* ── Intro Splash Screen ── */
   #splash {
     position: fixed; inset: 0; z-index: 1000;
     background: var(--bg);
@@ -87,7 +86,6 @@
     text-transform: uppercase; opacity: 0.9; font-weight: 500;
   }
 
-  /* ── Background ambience ── */
   .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
   .bloom {
     position: absolute; inset: 0;
@@ -102,7 +100,6 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* ── 3D Floating Pro Tools Background ── */
   .tool-field { position: fixed; inset: 0; z-index: 0; pointer-events: none; perspective: 1600px; overflow: hidden; }
   .tool-icon {
     position: absolute; will-change: transform; opacity: .18;
@@ -121,12 +118,10 @@
   }
   @media (max-width: 1180px) { .tool-field { display: none; } }
 
-  /* ── Layout ── */
   .wrap { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; padding: 32px 18px 56px; }
   .docket { opacity: 0; transform: translateY(14px); }
   .docket.show { opacity: 1; transform: translateY(0); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
 
-  /* ── Header ── */
   .head {
     border: 1px solid var(--border-strong);
     border-radius: var(--radius);
@@ -146,13 +141,11 @@
   .head-client-label { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); opacity: .9; margin-bottom: 8px; }
   .head-title { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: clamp(26px, 6vw, 36px); line-height: 1.08; letter-spacing: -.01em; color: #fff; }
 
-  /* ── Urgency (Plain text, Top Right) ── */
   .urgency-text { font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-light); }
   .urgency-text.emergency { color: var(--red); filter: drop-shadow(0 0 8px var(--red)); }
 
   .head-sub { font-size: 12.5px; color: var(--soft); margin-top: 8px; line-height: 1.6; }
 
-  /* ── Top row ── */
   .top-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
 
   .asset-card {
@@ -194,7 +187,6 @@
   .tile-photo .tp-label { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 4px; }
   .tile-photo .tp-value { font-size: 15px; font-weight: 600; color: var(--cream); }
 
-  /* ── Field cards grid ── */
   .fields-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin-bottom: 22px; }
   .field-card {
     border: 1px solid var(--border-strong); border-radius: 13px;
@@ -216,7 +208,6 @@
   .field-card .fc-value a { color: var(--gold-light); text-decoration: none; }
   .field-card .fc-value a:hover { text-decoration: underline; }
 
-  /* ── Full-width sections ── */
   .sections { display: flex; flex-direction: column; gap: 20px; }
   .section {
     border: 1px solid var(--border); border-radius: var(--radius);
@@ -233,7 +224,6 @@
   .eyebrow { font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; padding-top: 6px; }
   .prose { font-size: 14.5px; line-height: 1.7; color: var(--cream); font-weight: 300; white-space: pre-wrap; }
 
-  /* ── Photo/Media Overlay (in-page, no navigation) ── */
   .photo-overlay {
     position: fixed; inset: 0; z-index: 500;
     background: var(--bg);
@@ -256,7 +246,6 @@
   .photo-back:hover { border-color: var(--gold); color: var(--gold-light); }
   .photo-frame { flex: 1; width: 100%; border: none; background: var(--bg); }
 
-  /* ── Testimonial popup ── */
   .testi-popup {
     position: fixed; right: 20px; bottom: 20px; z-index: 400;
     width: 300px; max-width: calc(100% - 40px);
@@ -287,11 +276,9 @@
     background: none; border: none; cursor: pointer; text-decoration: underline; text-underline-offset: 2px;
   }
 
-  /* ── Footer ── */
   .foot { display: flex; justify-content: space-between; align-items: center; padding: 20px 6px 4px; font-size: 11px; color: var(--muted); letter-spacing: .04em; gap: 12px; }
   .foot-mark { color: var(--gold); font-weight: 600; }
 
-  /* ── Responsive ── */
   @media (max-width: 520px) {
     .top-row { grid-template-columns: 1fr; }
     .fields-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -303,7 +290,6 @@
 </head>
 <body>
 
-<!-- High-flex Intro Splash -->
 <div id="splash">
   <div class="splash-bloom"></div>
   <div class="splash-content">
@@ -315,9 +301,7 @@
 
 <div class="bg" aria-hidden="true"><div class="bloom"></div><div class="grain"></div></div>
 
-<!-- Background: ONLY the 3 High-Detail Tools from the Screenshot -->
 <div class="tool-field" aria-hidden="true">
-  <!-- 1. Adjustable Pump Pliers -->
   <div class="tool-icon" style="top:15%; left:6%; animation-duration:24s;">
     <svg viewBox="0 0 100 100" width="120" height="120" stroke-width="1.8">
       <path d="M45 45 L20 90" stroke-width="3.5"/><path d="M25 80 L20 90 L15 85" stroke="var(--gold)" stroke-width="4.5" opacity="0.7"/>
@@ -325,14 +309,12 @@
       <path d="M50 40 L35 25 L45 15 L60 25 Z"/><path d="M45 15 L55 5 L70 15 L60 25"/><rect x="42" y="35" width="16" height="10" rx="5" stroke-width="1.2"/><circle cx="50" cy="40" r="3" fill="currentColor"/>
     </svg>
   </div>
-  <!-- 2. Adjustable Shifter -->
   <div class="tool-icon" style="top:25%; right:8%; animation-duration:26s; animation-delay:-4s;">
     <svg viewBox="0 0 100 100" width="110" height="110" stroke-width="1.8">
       <rect x="42" y="40" width="16" height="50" rx="8"/><circle cx="50" cy="82" r="4" fill="none" stroke-width="1.5"/>
       <path d="M30 40 L30 15 L70 15 L70 40 Z"/><path d="M30 15 L30 5 L50 5"/><path d="M70 15 L70 5 L55 5"/><rect x="42" y="25" width="16" height="8" rx="2" stroke-width="1.2"/><path d="M42 28 H58 M42 30 H58" stroke-width="0.8" opacity="0.5"/>
     </svg>
   </div>
-  <!-- 3. 12 Inch Red Pipe Wrench -->
   <div class="tool-icon" style="bottom:18%; left:8%; animation-duration:28s; animation-delay:-8s;">
     <svg viewBox="0 0 100 100" width="130" height="130" stroke-width="1.8">
       <path d="M35 85 L35 30" stroke="var(--red)" stroke-width="9" stroke-linecap="butt"/><path d="M35 30 L65 30 L65 45 L35 45 Z" fill="rgba(255,77,77,0.15)" stroke="var(--red)"/>
@@ -343,7 +325,6 @@
 
 <div id="root"></div>
 
-<!-- Photo/Media Overlay -->
 <div class="photo-overlay" id="photoOverlay">
   <button type="button" class="photo-back" id="photoBackBtn" aria-label="Back to job docket">
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -352,7 +333,6 @@
   <iframe id="photoFrame" class="photo-frame" src="" title="Job media"></iframe>
 </div>
 
-<!-- Testimonial Popup -->
 <div class="testi-popup" id="testiPopup" role="dialog" aria-label="Leave a testimonial">
   <button type="button" class="tp-close" id="testiClose" aria-label="Close">&times;</button>
   <div class="tp-title">Loving Hermia so far?</div>
@@ -415,11 +395,31 @@
     return '';
   }
 
+  // Safety-net formatter: the Worker (formatAvailabilityDate in
+  // hermianango) already converts a clean ISO date like "2026-08-03" into
+  // "3 August 2026" before it ever reaches this page. This mirrors that
+  // same logic client-side, so if a raw ISO date ever slips through
+  // (an older link, a future caller that bypasses the Worker's formatter,
+  // etc.) the docket still renders it as a readable date instead of the
+  // raw ISO string. Anything that isn't a clean YYYY-MM-DD (e.g. "ASAP",
+  // "next Tuesday") passes straight through untouched.
+  function formatBookedDate(raw) {
+    if (!raw) return '';
+    const s = String(raw).trim();
+    const m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!m) return s;
+    const year = Number(m[1]);
+    const month = Number(m[2]);
+    const day = Number(m[3]);
+    const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    if (month < 1 || month > 12 || day < 1 || day > 31) return s;
+    return day + ' ' + MONTHS[month - 1] + ' ' + year; // "3 August 2026"
+  }
+
   function isUrl(str) { return !!str && /^https?:\/\//i.test(str.trim()); }
   function splitUrls(str) { return str ? str.split(/[\s,]+/).map(s => s.trim()).filter(isUrl) : []; }
   function isVideoUrl(url) { return /\.(mp4|mov|webm|m4v)(\?.*)?$/i.test(url); }
 
-  // ── Photo overlay controls (in-page, no browser navigation involved) ──
   window.__docket = {
     openPhotos: function (url) {
       const frame = document.getElementById('photoFrame');
@@ -468,16 +468,16 @@
     const isEmergency = /emergency|urgent|high|asap/i.test(urgencyVal);
 
     const siteConfirmation = pick(data, ['siteConfirmation','siteAddress']);
-    // Availability / confirmed booking time — shown right under the address.
-    const confirmationDate = pick(data, ['confirmationDate','confirmation_date','availability','Availability','confirmedDate','confirmed_date']);
+    // Availability / booked date — shown right under the address.
+    // Run through formatBookedDate() as a safety net in case a raw ISO
+    // string ever arrives instead of the Worker's pre-formatted text.
+    const confirmationDateRaw = pick(data, ['confirmationDate','confirmation_date','availability','Availability','confirmedDate','confirmed_date']);
+    const confirmationDate = formatBookedDate(confirmationDateRaw);
     const assetType    = pick(data, ['assetType','asset_type']);
     const buildingType = pick(data, ['buildingType','building_type']);
     const faultCode    = pick(data, ['faultCode','fault_code']);
     const defectStatus = pick(data, ['defectStatus','defect_status']);
     const amountEstimate = pick(data, ['billing','estimateAmount','estimate_amount']);
-    // Lead's contact number — shown on the docket right next to Estimate Amount.
-    // Accepts every spelling the upstream caller might send (Make labels it
-    // "Lead Number" and maps it to normalizedPhone), so it can't be silently dropped.
     const leadPhone = pick(data, ['phone','leadPhone','contactPhone','clientPhone','normalizedPhone','normalised_phone','leadNumber','lead_number','contactNumber','mobile']);
     const photosVideos = pick(data, ['photosVideos','photos_videos']);
     const faultDescription = pick(data, ['faultDescription','fault_description']);
@@ -536,7 +536,7 @@
               <div class="head-client-label">Client</div>
               <div class="head-title">${escapeHtml(displayName)}</div>
               ${siteConfirmation ? `<div class="head-sub">${escapeHtml(siteConfirmation)}</div>` : ''}
-              ${confirmationDate ? `<div class="head-sub">Confirmed availability: ${escapeHtml(confirmationDate)}</div>` : ''}
+              ${confirmationDate ? `<div class="head-sub">Booked date: ${escapeHtml(confirmationDate)}</div>` : ''}
             </div>
             <div class="docket-id">${new Date().toISOString().slice(0, 10)}</div>
           </div>
@@ -602,7 +602,6 @@
 </script>
 
 <script>
-// ── Testimonial Popup Logic ────────────────────────────────────────────────────
 (function () {
   var WORKER_BASE = 'https://hermianango.capital-fbc.workers.dev';
   var RESPONDED_KEY = 'hermia_testimonial_responded';
