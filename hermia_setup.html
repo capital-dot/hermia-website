@@ -8,14 +8,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
 <style>
-  /* ── Tokens: lifted straight from the pricing page, plus red/green
-     tints derived from the same --red/--green base for the warning /
-     all-clear boxes this page needs. ── */
   :root {
     --bg:#16140f;
     --bg-card:rgba(201,163,91,0.035);
     --gold:#C9A35B;
     --gold-light:#e8c17a;
+    --gold-soft:rgba(201,163,91,0.55);
     --cream:#f4f0e6;
     --soft:#b6b1a6;
     --border:rgba(201,163,91,0.16);
@@ -54,19 +52,24 @@
     z-index: 2;
   }
 
-  /* ── Background: identical recipe to the pricing page ── */
+  /* ── Background ── */
   .bg { position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden }
   .bloom {
     position: absolute; inset: 0;
     background:
-      radial-gradient(900px 700px at 50% 30%, rgba(201,163,91,0.16) 0%, transparent 58%),
-      radial-gradient(560px 460px at 50% 30%, rgba(201,163,91,0.08) 0%, transparent 50%);
+      radial-gradient(900px 700px at 50% 30%, rgba(201,163,91,0.20) 0%, transparent 58%),
+      radial-gradient(560px 460px at 50% 30%, rgba(201,163,91,0.10) 0%, transparent 50%);
+    animation: bloomPulse 8s ease-in-out infinite;
+  }
+  @keyframes bloomPulse {
+    0%,100% { opacity: .85; }
+    50% { opacity: 1; }
   }
   .gridfloor {
     position:absolute;inset:0;
     background-image:
-      linear-gradient(rgba(201,163,91,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(201,163,91,0.04) 1px, transparent 1px);
+      linear-gradient(rgba(201,163,91,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,163,91,0.045) 1px, transparent 1px);
     background-size:62px 62px;
     -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 32%, #000 0%, transparent 100%);
     mask-image: radial-gradient(ellipse 70% 55% at 50% 32%, #000 0%, transparent 100%);
@@ -76,7 +79,7 @@
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
   }
 
-  /* ── Header: brand + step indicator (same component as pricing) ── */
+  /* ── Header ── */
   .topbar {
     width: 100%; max-width: 480px;
     display: flex; flex-direction: column; align-items: center; gap: 22px;
@@ -105,71 +108,121 @@
   .step.done .dot { background: var(--green); border-color: var(--green); color: var(--bg); }
   .step-line { width: 26px; height: 1px; background: var(--border); margin: 0 10px; }
 
-  /* ── Cards (shared, same recipe as pricing) ── */
+  /* ── Cards ── */
   .card {
     width: 100%; text-align: left;
     border: 1px solid var(--border); border-radius: var(--radius);
     background: linear-gradient(135deg, var(--bg-card), rgba(201,163,91,0.004));
+    position: relative;
+  }
+  /* thin secondary gold hairline just inside the card edge, for a
+     "double border / gilded frame" feel */
+  .card.ornate { border-color: var(--border-strong); }
+  .card.ornate::after {
+    content: '';
+    position: absolute; inset: 5px;
+    border: 1px solid rgba(201,163,91,0.14);
+    border-radius: calc(var(--radius) - 5px);
+    pointer-events: none;
+  }
+  .glow {
+    animation: goldPulse 6s ease-in-out infinite;
+  }
+  @keyframes goldPulse {
+    0%,100% { box-shadow: 0 0 18px rgba(201,163,91,0.12), inset 0 0 26px rgba(201,163,91,0.03); }
+    50%     { box-shadow: 0 0 38px rgba(201,163,91,0.30), inset 0 0 36px rgba(201,163,91,0.07); }
   }
 
   .shellcol { max-width: 480px; width: 100%; display: flex; flex-direction: column; align-items: center; }
 
+  /* ── ornamental divider used throughout ── */
+  .ornament {
+    display: flex; align-items: center; gap: 12px;
+    width: 100%; margin: 6px 0 22px;
+  }
+  .ornament::before, .ornament::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+  }
+  .ornament span {
+    font-size: 11px; color: var(--gold-light);
+    text-shadow: 0 0 10px rgba(201,163,91,0.65);
+    letter-spacing: .3em;
+  }
+
   /* ── Welcome / selector card ── */
-  .welcome-card { padding: 40px 34px 34px; text-align: center; margin-bottom: 24px; position: relative; overflow: hidden; opacity: 0; animation: fadeUp .6s ease .1s forwards; }
-  .welcome-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: .7; }
-  .eyebrow { font-size: 10.5px; letter-spacing: .32em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  .welcome-card { padding: 42px 34px 36px; text-align: center; margin-bottom: 26px; position: relative; overflow: hidden; opacity: 0; animation: fadeUp .6s ease .1s forwards; }
+  .welcome-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: .85; box-shadow: 0 0 12px rgba(201,163,91,0.6); }
+  .eyebrow { font-size: 10.5px; letter-spacing: .34em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; text-shadow: 0 0 8px rgba(201,163,91,0.35); }
   h1 {
     font-family: 'Cormorant Garamond', serif; font-weight: 500;
-    font-size: clamp(30px, 6.5vw, 42px); line-height: 1.1; letter-spacing: -.01em;
+    font-size: clamp(30px, 6.5vw, 44px); line-height: 1.1; letter-spacing: -.01em;
     color: var(--cream); margin-bottom: 12px;
+    text-shadow: 0 0 22px rgba(201,163,91,0.18);
   }
-  h1 em { font-style: italic; color: var(--gold-light); }
-  .setup-complete-tag { font-size: 11.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-light); font-weight: 500; margin-bottom: 28px; }
-  .selector-caption { font-size: 10.5px; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  h1 em { font-style: italic; color: var(--gold-light); text-shadow: 0 0 16px rgba(201,163,91,0.55); }
+  .setup-complete-tag { font-size: 11.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-light); font-weight: 500; margin-bottom: 30px; text-shadow: 0 0 10px rgba(201,163,91,0.45); }
+  .selector-caption { font-size: 10.5px; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
 
   .sub { font-size: 14.5px; color: var(--soft); line-height: 1.6; }
 
-  /* ── Method choice (CRM selector — same component as pricing's
-     phone/pricing method cards) ── */
+  /* ── Method choice ── */
   .method-row { display: flex; gap: 12px; width: 100%; }
-  .method-card { flex: 1; padding: 22px 18px; cursor: pointer; text-align: center; transition: border-color .3s ease, transform .3s cubic-bezier(.23,1,.32,1), background .3s ease; }
-  .method-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .method-card { flex: 1; padding: 24px 18px; cursor: pointer; text-align: center; transition: border-color .3s ease, transform .3s cubic-bezier(.23,1,.32,1), background .3s ease, box-shadow .3s ease; }
+  .method-card:hover { border-color: var(--border-strong); transform: translateY(-2px); box-shadow: 0 0 22px rgba(201,163,91,0.18); }
   .method-card.active { border-color: var(--gold); background: linear-gradient(135deg, rgba(201,163,91,0.1), rgba(201,163,91,0.015)); }
-  .method-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
+  .method-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 23px; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
   .method-card p { font-size: 11.5px; letter-spacing: .04em; color: var(--soft); }
 
   .back-link {
     display: inline-flex; align-items: center; gap: 6px;
     font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
-    color: var(--soft); text-decoration: none; margin-bottom: 24px;
+    color: var(--soft); text-decoration: none; margin-bottom: 26px;
     transition: color .25s ease;
   }
   .back-link:hover { color: var(--gold-light); }
 
   /* ── Warning / all-clear boxes ── */
-  .warning-box, .allclear-box { width: 100%; padding: 26px 24px; text-align: center; margin-bottom: 30px; }
+  .warning-box, .allclear-box { width: 100%; padding: 28px 26px; text-align: center; margin-bottom: 32px; }
   .warning-box { border-color: var(--red-border); background: linear-gradient(135deg, var(--red-bg), rgba(201,123,106,0.01)); }
   .allclear-box { border-color: var(--green-border); background: linear-gradient(135deg, var(--green-bg), rgba(127,184,138,0.01)); }
-  .warning-title, .allclear-title { font-size: 12.5px; text-transform: uppercase; letter-spacing: .18em; font-weight: 600; margin-bottom: 12px; }
+  .warning-title, .allclear-title { font-size: 12.5px; text-transform: uppercase; letter-spacing: .2em; font-weight: 600; margin-bottom: 14px; }
   .warning-title { color: var(--red); }
   .allclear-title { color: var(--green); }
-  .warning-text, .allclear-text { color: var(--cream); font-size: 13.5px; line-height: 1.65; opacity: .9; }
+  .warning-text, .allclear-text { color: var(--cream); font-size: 13.5px; line-height: 1.65; opacity: .92; }
   .warning-text + .warning-text { margin-top: 12px; }
   .warning-text b { color: var(--red); font-weight: 600; }
   .allclear-text b { color: var(--green); font-weight: 600; }
 
-  /* ── Module blocks / field lists ── */
-  .module-block { width: 100%; margin-bottom: 26px; opacity: 0; animation: fadeUp .5s ease forwards; }
+  /* ── Module blocks / plain-text field lists ── */
+  .module-block { width: 100%; margin-bottom: 30px; opacity: 0; animation: fadeUp .5s ease forwards; }
   .module-block:last-child { margin-bottom: 0; }
-  .module-block h2 { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 500; color: var(--gold-light); margin-bottom: 4px; }
-  .module-sub { font-size: 12px; color: var(--soft); margin-bottom: 14px; }
-  .field-list { overflow: hidden; }
-  .field-row { display: flex; align-items: center; gap: 14px; padding: 13px 18px; }
-  .field-row + .field-row { border-top: 1px solid var(--border); }
-  .field-name { font-size: 13.5px; color: var(--cream); }
-  .field-type { margin-left: auto; flex-shrink: 0; font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; border-radius: 999px; padding: 4px 11px; }
-  .field-type.normal { color: var(--soft); border: 1px solid var(--border); }
-  .field-type.custom { color: var(--bg); background: linear-gradient(135deg, var(--gold), var(--gold-light)); font-weight: 600; }
+  .module-block h2 {
+    font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500;
+    color: var(--gold-light); margin-bottom: 4px; letter-spacing: .01em;
+    text-shadow: 0 0 14px rgba(201,163,91,0.35);
+  }
+  .module-sub { font-size: 12px; color: var(--soft); margin-bottom: 16px; }
+
+  /* Field lists are now plain, selectable text — no pills, no links,
+     nothing clickable. Just a clean gilded ledger you can screenshot
+     or read straight off the page. */
+  .field-list { padding: 6px 0; }
+  .field-row {
+    display: flex; align-items: baseline; flex-wrap: wrap;
+    gap: 0 8px; padding: 11px 20px;
+    font-size: 14px;
+  }
+  .field-row + .field-row { border-top: 1px solid rgba(201,163,91,0.1); }
+  .field-name { color: var(--cream); font-weight: 400; }
+  .field-tag { font-style: italic; font-size: 12px; }
+  .field-tag.normal { color: var(--soft); }
+  .field-tag.custom { color: var(--gold-light); text-shadow: 0 0 8px rgba(201,163,91,0.45); }
+
+  .module-count {
+    font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--gold); opacity: .8; margin-bottom: 10px;
+  }
 
   /* ── Buttons ── */
   .btn-submit {
@@ -182,12 +235,12 @@
     transition: transform .3s cubic-bezier(.23,1,.32,1), box-shadow .3s ease, filter .3s ease;
     box-shadow: 0 4px 15px rgba(201,163,91,0.18);
   }
-  .btn-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,163,91,0.35); filter: brightness(1.08); }
+  .btn-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,163,91,0.4); filter: brightness(1.08); }
   .btn-submit:disabled { opacity: .5; cursor: not-allowed; transform: none; box-shadow: none; }
 
   /* ── Email reminder card ── */
-  .email-card { padding: 30px 30px 26px; opacity: 0; animation: fadeUp .6s ease .1s forwards; }
-  .email-card h2 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--cream); margin-bottom: 8px; }
+  .email-card { padding: 32px 30px 28px; opacity: 0; animation: fadeUp .6s ease .1s forwards; }
+  .email-card h2 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--cream); margin-bottom: 8px; text-shadow: 0 0 14px rgba(201,163,91,0.25); }
   .email-card .sub { margin-bottom: 18px; max-width: none; }
   .email-input-row { display: flex; gap: 10px; }
   .email-input {
@@ -196,17 +249,17 @@
     background: rgba(22,20,15,0.5); border: 1px solid var(--border);
     border-radius: 13px; color: var(--cream);
     font-family: 'DM Sans', sans-serif; font-size: 15px; letter-spacing: .02em;
-    outline: none; transition: border-color .3s ease;
+    outline: none; transition: border-color .3s ease, box-shadow .3s ease;
   }
   .email-input::placeholder { color: var(--soft); opacity: .4; }
-  .email-input:focus { border-color: var(--gold); }
+  .email-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,163,91,0.12); }
   .save-btn { flex-shrink: 0; width: auto; padding: 15px 26px; margin-top: 0; }
   .email-status { margin-top: 14px; font-size: 12.5px; display: none; line-height: 1.5; }
   .email-status.visible { display: block; }
   .email-status.ok { color: var(--green); }
   .email-status.err { color: var(--red); }
 
-  /* ── CRM panels (toggled by JS) ── */
+  /* ── CRM panels ── */
   .crm-panel { display: none; width: 100%; margin-top: 24px; }
   .crm-panel.active { display: block; }
 
@@ -218,9 +271,10 @@
     .step .lbl { display: none; }
     .step-line { width: 18px; margin: 0 8px; }
     .topbar { margin-bottom: 28px; gap: 18px; }
-    .welcome-card { padding: 32px 24px 28px; }
+    .welcome-card { padding: 34px 24px 30px; }
     .email-input-row { flex-direction: column; }
     .save-btn { width: 100%; }
+    .field-row { padding: 11px 16px; }
   }
 </style>
 </head>
@@ -248,7 +302,7 @@
   <div class="shellcol">
 
     <!-- ═══════════════ WELCOME / CRM SELECTOR ═══════════════ -->
-    <div class="welcome-card card" id="selector-card">
+    <div class="welcome-card card ornate glow" id="selector-card">
       <div class="eyebrow">Final Configuration</div>
       <h1>Welcome</h1>
       <div class="setup-complete-tag">Setup complete</div>
@@ -269,7 +323,7 @@
     <div class="crm-panel" id="panel-simpro">
       <a href="#" class="back-link" id="back-from-simpro">&larr; Change CRM</a>
 
-      <div class="warning-box card">
+      <div class="warning-box card ornate glow">
         <div class="warning-title">Create these fields</div>
         <p class="warning-text">
           If these custom fields are <b>not created exactly as listed below</b>, Hermia cannot pass full lead details into your CRM — your leads will arrive blank or missing critical information, with no way to recover it after the fact.
@@ -280,43 +334,48 @@
       </div>
 
       <div class="module-block" style="animation-delay:.05s">
-        <h2>Simpro · Leads module</h2>
-        <p class="module-sub">Go to Leads → Modify Table View</p>
-        <div class="field-list card">
-          <div class="field-row"><div class="field-name">Description</div><div class="field-type normal">Normal field</div></div>
-          <div class="field-row"><div class="field-name">Notes</div><div class="field-type normal">Normal field</div></div>
-          <div class="field-row"><div class="field-name">Email</div><div class="field-type normal">Normal field</div></div>
-          <div class="field-row"><div class="field-name">Customer Phone</div><div class="field-type normal">Normal field</div></div>
-          <div class="field-row"><div class="field-name">Customer</div><div class="field-type normal">Normal field</div></div>
-          <div class="field-row"><div class="field-name">Asset type</div><div class="field-type custom">Custom — create</div></div>
-          <div class="field-row"><div class="field-name">Fault code</div><div class="field-type custom">Custom — create</div></div>
-          <div class="field-row"><div class="field-name">Defect Flag</div><div class="field-type custom">Custom — create</div></div>
-          <div class="field-row"><div class="field-name">Billing entity</div><div class="field-type custom">Custom — create</div></div>
-          <div class="field-row"><div class="field-name">Estimate amount</div><div class="field-type custom">Custom — create</div></div>
+        <h2>Simpro &middot; Leads module</h2>
+        <p class="module-sub">Go to Leads &rarr; Modify Table View</p>
+        <div class="ornament"><span>&#10022;</span></div>
+        <div class="field-list card ornate">
+          <div class="field-row"><span class="field-name">Description</span><span class="field-tag normal">— normal field</span></div>
+          <div class="field-row"><span class="field-name">Notes</span><span class="field-tag normal">— normal field</span></div>
+          <div class="field-row"><span class="field-name">Email</span><span class="field-tag normal">— normal field</span></div>
+          <div class="field-row"><span class="field-name">Customer Phone</span><span class="field-tag normal">— normal field</span></div>
+          <div class="field-row"><span class="field-name">Customer</span><span class="field-tag normal">— normal field</span></div>
+          <div class="field-row"><span class="field-name">Fault_Code</span><span class="field-tag custom">— custom field, create this</span></div>
+          <div class="field-row"><span class="field-name">Defect_Flag</span><span class="field-tag custom">— custom field, create this</span></div>
         </div>
       </div>
 
       <div class="module-block" style="animation-delay:.1s">
-        <h2>Simpro · Customers module</h2>
-        <p class="module-sub">No custom fields needed here — just confirm these are visible</p>
-        <div class="field-list card">
-          <div class="field-row"><div class="field-name">First name</div><div class="field-type normal">Normal field</div></div>
-          <div class="field-row"><div class="field-name">Last name</div><div class="field-type normal">Normal field</div></div>
-          <div class="field-row"><div class="field-name">Phone</div><div class="field-type normal">Normal field</div></div>
-          <div class="field-row"><div class="field-name">Email</div><div class="field-type normal">Normal field</div></div>
+        <h2>Simpro &middot; Customers module</h2>
+        <p class="module-sub">Go to Customers &rarr; Modify Table View</p>
+        <div class="ornament"><span>&#10022;</span></div>
+        <div class="field-list card ornate">
+          <div class="field-row"><span class="field-name">Customer</span><span class="field-tag normal">— normal field</span></div>
+          <div class="field-row"><span class="field-name">First Name</span><span class="field-tag normal">— normal field</span></div>
+          <div class="field-row"><span class="field-name">Last Name</span><span class="field-tag normal">— normal field</span></div>
+          <div class="field-row"><span class="field-name">Phone</span><span class="field-tag normal">— normal field</span></div>
+          <div class="field-row"><span class="field-name">Email</span><span class="field-tag normal">— normal field</span></div>
+          <div class="field-row"><span class="field-name">Urgency</span><span class="field-tag custom">— custom field, create this</span></div>
+          <div class="field-row"><span class="field-name">Billing_Entity</span><span class="field-tag custom">— custom field, create this</span></div>
+          <div class="field-row"><span class="field-name">Estimate Amount</span><span class="field-tag custom">— custom field, create this</span></div>
         </div>
       </div>
 
       <div class="module-block" style="animation-delay:.15s">
-        <h2>Simpro · Sites module</h2>
-        <p class="module-sub">Go to Sites → Modify Table View</p>
-        <div class="field-list card">
-          <div class="field-row"><div class="field-name">Site</div><div class="field-type normal">Normal field</div></div>
-          <div class="field-row"><div class="field-name">Site address</div><div class="field-type normal">Normal field</div></div>
-          <div class="field-row"><div class="field-name">Site suburb</div><div class="field-type normal">Normal field</div></div>
-          <div class="field-row"><div class="field-name">State</div><div class="field-type normal">Normal field</div></div>
-          <div class="field-row"><div class="field-name">Access notes</div><div class="field-type custom">Custom — create</div></div>
-          <div class="field-row"><div class="field-name">Building type</div><div class="field-type custom">Custom — create</div></div>
+        <h2>Simpro &middot; Sites module</h2>
+        <p class="module-sub">Go to Sites &rarr; Modify Table View</p>
+        <div class="ornament"><span>&#10022;</span></div>
+        <div class="field-list card ornate">
+          <div class="field-row"><span class="field-name">Site</span><span class="field-tag normal">— normal field</span></div>
+          <div class="field-row"><span class="field-name">Site Address</span><span class="field-tag normal">— normal field</span></div>
+          <div class="field-row"><span class="field-name">Site Suburb</span><span class="field-tag normal">— normal field</span></div>
+          <div class="field-row"><span class="field-name">Site State</span><span class="field-tag normal">— normal field</span></div>
+          <div class="field-row"><span class="field-name">Site Postcode</span><span class="field-tag normal">— normal field</span></div>
+          <div class="field-row"><span class="field-name">Access_Notes</span><span class="field-tag custom">— custom field, create this</span></div>
+          <div class="field-row"><span class="field-name">Building Type</span><span class="field-tag custom">— custom field, create this</span></div>
         </div>
       </div>
     </div>
@@ -324,7 +383,7 @@
     <!-- ═══════════ AROFLO PANEL ═══════════ -->
     <div class="crm-panel" id="panel-aroflo">
       <a href="#" class="back-link" id="back-from-aroflo">&larr; Change CRM</a>
-      <div class="allclear-box card">
+      <div class="allclear-box card ornate glow">
         <div class="allclear-title">Setup complete</div>
         <p class="allclear-text">
           <b>No further steps required.</b><br />
@@ -334,7 +393,7 @@
     </div>
 
     <!-- ═══════════ EMAIL REMINDER (Simpro only) ═══════════ -->
-    <div class="email-card card crm-panel" id="panel-simpro-email">
+    <div class="email-card card ornate crm-panel" id="panel-simpro-email">
       <h2>Get these fields by email</h2>
       <p class="sub">Enter your email and we'll send you this exact list of fields to create, so you have it on hand while you're setting up each module.</p>
       <div class="email-input-row">
@@ -356,10 +415,6 @@
     try { customerId = sessionStorage.getItem('hermia_outlooker_id') || null; } catch (e) { customerId = null; }
   }
 
-  // ── CRM selector: a one-way "enter" into a dedicated view, not a
-  // toggle between two visible panels. Entering one CRM hides the
-  // selector AND the other CRM's panel entirely — only "Change CRM"
-  // brings the selector back. ──
   const boxSimpro = document.getElementById('box-simpro');
   const boxAroflo = document.getElementById('box-aroflo');
   const selectorCard = document.getElementById('selector-card');
@@ -393,14 +448,11 @@
   backFromSimpro.addEventListener('click', (e) => { e.preventDefault(); showSelector(); });
   backFromAroflo.addEventListener('click', (e) => { e.preventDefault(); showSelector(); });
 
-  // Deep link (?crm=simpro / ?crm=aroflo) enters directly; otherwise
-  // the selector is shown and nothing is revealed until a choice is made.
   const crmParam = params.get('crm');
   if (crmParam === 'simpro' || crmParam === 'aroflo') {
     enterCrm(crmParam);
   }
 
-  // ── Email reminder (Simpro fields only) ──
   const btn = document.getElementById('saveBtn');
   const input = document.getElementById('reminderEmail');
   const status = document.getElementById('emailStatus');
