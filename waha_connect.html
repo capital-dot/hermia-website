@@ -72,8 +72,8 @@
   /* ── Header: brand + step indicator ── */
   .topbar {
     width: 100%; max-width: 480px;
-    display: flex; flex-direction: column; align-items: center; gap: 22px;
-    margin-bottom: 34px;
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+    margin-bottom: 30px;
     opacity: 0; animation: fadeUp .6s ease 0s forwards;
   }
   .brandmark img { height: 30px; display: block; filter: drop-shadow(0 0 10px rgba(201,163,91,0.3)); }
@@ -104,7 +104,7 @@
     opacity: 0; animation: fadeUp .65s ease .2s forwards;
   }
   h1 em { font-style: italic; color: var(--gold-light); }
-  .sub { font-size: 14.5px; color: var(--soft); line-height: 1.6; max-width: 360px; margin-bottom: 30px; opacity: 0; animation: fadeUp .6s ease .3s forwards; }
+  .sub { font-size: 14.5px; color: var(--soft); line-height: 1.6; max-width: 360px; margin-bottom: 28px; opacity: 0; animation: fadeUp .6s ease .3s forwards; }
 
   /* ── Cards (shared) ── */
   .card {
@@ -113,13 +113,18 @@
     background: linear-gradient(135deg, var(--bg-card), rgba(201,163,91,0.004));
   }
 
-  /* ── Explain list ── */
-  .explain-list { width: 100%; display: flex; flex-direction: column; gap: 10px; opacity: 0; animation: fadeUp .6s ease .4s forwards; }
-  .explain-item { display: flex; gap: 15px; align-items: flex-start; padding: 16px 17px; }
-  .explain-item .icon { flex-shrink: 0; width: 34px; height: 34px; border-radius: 10px; background: rgba(201,163,91,0.1); display: flex; align-items: center; justify-content: center; margin-top: 1px; }
-  .explain-item h4 { font-size: 13.5px; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
-  .explain-item p { font-size: 12.5px; color: var(--soft); line-height: 1.55; }
-  .explain-item .highlight { color: var(--gold-light); font-weight: 500; }
+  /* ── Explain list — a single ledger card, rows divided like a receipt ── */
+  .explain-list { width: 100%; opacity: 0; animation: fadeUp .6s ease .4s forwards; }
+  .explain-row { display: flex; gap: 17px; align-items: flex-start; padding: 19px 20px; border-bottom: 1px solid var(--border); }
+  .explain-row:last-child { border-bottom: none; }
+  .explain-row .num {
+    flex-shrink: 0; width: 24px; padding-top: 1px;
+    font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;
+    font-size: 21px; line-height: 1; color: var(--gold);
+  }
+  .explain-row h4 { font-size: 13.5px; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
+  .explain-row p { font-size: 12.5px; color: var(--soft); line-height: 1.55; }
+  .explain-row .highlight { color: var(--gold-light); font-weight: 500; }
 
   /* ── Buttons ── */
   .btn-primary {
@@ -135,6 +140,9 @@
   }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,163,91,0.35); filter: brightness(1.08); }
   .btn-primary:disabled { opacity: .35 !important; cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-primary:focus-visible, .btn-submit:focus-visible, .method-card:focus-visible, .dropzone:focus-visible {
+    outline: 2px solid var(--gold-light); outline-offset: 2px;
+  }
 
   .btn-ghost {
     margin-top: 16px; background: none; border: none; color: var(--soft);
@@ -145,89 +153,16 @@
   }
   .btn-ghost:hover { opacity: 1; color: var(--cream); }
 
-  /* ── Negotiation contact stage ── */
-  .contact-note {
-    width: 100%; text-align: left; font-size: 12.5px; color: var(--soft); line-height: 1.6;
-    padding: 14px 16px; border: 1px solid var(--border-strong); background: rgba(201,163,91,0.06);
-    border-radius: 12px; margin-bottom: 20px;
-    opacity: 0; animation: fadeUp .6s ease .32s forwards;
-  }
-  .contact-note .warn { color: var(--gold-light); font-weight: 500; }
-
-  .phone-card, .email-card {
-    width: 100%; padding: 22px 20px 20px; text-align: left;
-    opacity: 0; animation: fadeUp .6s ease .4s forwards;
-  }
-  .phone-card label, .email-card label {
-    font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase;
-    color: var(--gold); display: block; margin-bottom: 12px;
-  }
-
-  .phone-row { display: flex; gap: 10px; }
-  .country-select {
-    flex: 0 0 128px;
-    padding: 15px 10px;
-    background: rgba(22,20,15,0.5); border: 1px solid var(--border);
-    border-radius: 13px; color: var(--cream);
-    font-family: 'DM Sans', sans-serif; font-size: 14px;
-    outline: none; transition: border-color .3s ease;
-    appearance: none; -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C9A35B' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 28px;
-  }
-  .country-select:focus { border-color: var(--gold); }
-  .country-select option { background: #16140f; color: var(--cream); }
-
-  .phone-input, .email-input {
-    flex: 1;
-    min-width: 0;
-    width: 100%;
-    padding: 15px 17px;
-    background: rgba(22,20,15,0.5); border: 1px solid var(--border);
-    border-radius: 13px; color: var(--cream);
-    font-family: 'DM Sans', sans-serif; font-size: 16px; letter-spacing: .02em;
-    outline: none; transition: border-color .3s ease;
-  }
-  .phone-input::placeholder, .email-input::placeholder { color: var(--soft); opacity: .4; }
-  .phone-input:focus, .email-input:focus { border-color: var(--gold); }
-  .phone-hint {
-    font-size: 12px; color: var(--soft); margin-top: 12px; line-height: 1.6;
-    padding-left: 12px; border-left: 2px solid var(--border-strong);
-  }
-  .phone-hint .warn { color: var(--gold-light); font-weight: 500; }
-  .phone-err { font-size: 12px; color: var(--red); margin-top: 12px; display: none; line-height: 1.5; }
-  .phone-err.show { display: block; }
-
-  .phone-confirm { display: none; width: 100%; margin-top: 14px; padding: 20px; text-align: left; border-color: var(--border-strong); }
-  .phone-confirm.show { display: block; animation: fadeUp .4s ease forwards; }
-  .phone-confirm .confirm-label { font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--soft); margin-bottom: 8px; }
-  .phone-confirm .number { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; color: var(--gold-light); letter-spacing: .01em; word-break: break-all; }
-  .phone-confirm .confirm-note { font-size: 12px; color: var(--soft); margin-top: 6px; line-height: 1.5; }
-  .phone-confirm-row { display: flex; gap: 10px; margin-top: 18px; }
-  .btn-edit, .btn-confirm {
-    flex: 1; padding: 13px; border-radius: 99px;
-    font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600;
-    letter-spacing: .14em; text-transform: uppercase; cursor: pointer;
-    transition: all .3s ease;
-  }
-  .btn-edit { background: transparent; border: 1px solid var(--border); color: var(--soft); }
-  .btn-edit:hover { border-color: var(--gold); color: var(--cream); }
-  .btn-confirm { background: linear-gradient(135deg, var(--gold), var(--gold-light)); border: none; color: var(--bg); }
-  .btn-confirm:hover { transform: translateY(-1px); filter: brightness(1.08); }
-  .btn-confirm:disabled { opacity: .4; cursor: not-allowed; transform: none; }
-
-  /* ── Method choice (shared: contact method + pricing method) ── */
+  /* ── Method choice (pricing method: file vs text) ── */
   .method-row { display: flex; gap: 12px; width: 100%; opacity: 0; animation: fadeUp .6s ease .35s forwards; }
-  .method-card { flex: 1; padding: 24px 18px; cursor: pointer; text-align: left; transition: border-color .3s ease, transform .3s cubic-bezier(.23,1,.32,1), background .3s ease; }
+  .method-card { flex: 1; padding: 22px 18px; cursor: pointer; text-align: left; transition: border-color .3s ease, transform .3s cubic-bezier(.23,1,.32,1), background .3s ease; }
   .method-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
   .method-card.active { border-color: var(--gold); background: linear-gradient(135deg, rgba(201,163,91,0.1), rgba(201,163,91,0.015)); }
-  .method-card svg { margin-bottom: 12px; opacity: .85; }
+  .method-card svg { margin-bottom: 12px; opacity: .85; display: block; }
   .method-card h3 { font-size: 14px; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
   .method-card p { font-size: 12px; color: var(--soft); line-height: 1.5; }
 
-  /* ── Upload / text zones (also reused for phone/email zones) ── */
+  /* ── Upload / text zones ── */
   .input-zone { width: 100%; margin-top: 20px; display: none; opacity: 0; }
   .input-zone.show { display: block; animation: fadeUp .45s ease forwards; }
 
@@ -268,25 +203,25 @@
   .btn-submit:disabled { opacity: .4; cursor: not-allowed; transform: none; box-shadow: none; }
 
   /* ── Processing / success ── */
-  .logo-outer { perspective: 700px; position: relative; margin-bottom: 30px; }
+  .logo-outer { position: relative; margin-bottom: 30px; width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; }
   .logo-orb {
-    position: absolute; width: 210px; height: 210px; border-radius: 50%; top: 50%; left: 50%;
+    position: absolute; width: 150px; height: 150px; border-radius: 50%; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(201,163,91,0.36) 0%, rgba(201,163,91,0.1) 40%, transparent 72%);
-    filter: blur(18px); animation: orb-pulse 4s ease-in-out infinite; z-index: 0; pointer-events: none;
+    background: radial-gradient(circle, rgba(201,163,91,0.32) 0%, rgba(201,163,91,0.08) 42%, transparent 72%);
+    filter: blur(16px); animation: orb-pulse 4s ease-in-out infinite; z-index: 0; pointer-events: none;
   }
-  .logo-orb.connected { background: radial-gradient(circle, rgba(127,184,138,0.38) 0%, rgba(127,184,138,0.1) 40%, transparent 72%); }
-  @keyframes orb-pulse { 0%,100% { opacity:.7; transform:translate(-50%,-50%) scale(.88); } 50% { opacity:1; transform:translate(-50%,-50%) scale(1.08); } }
+  .logo-orb.connected { background: radial-gradient(circle, rgba(127,184,138,0.34) 0%, rgba(127,184,138,0.08) 42%, transparent 72%); }
+  @keyframes orb-pulse { 0%,100% { opacity:.7; transform:translate(-50%,-50%) scale(.9); } 50% { opacity:1; transform:translate(-50%,-50%) scale(1.05); } }
 
   .spin-icon {
-    position: relative; z-index: 1; width: 70px; height: 70px; border-radius: 50%;
+    position: relative; z-index: 1; width: 56px; height: 56px; border-radius: 50%;
     border: 1.5px solid rgba(201,163,91,0.2); border-top-color: var(--gold);
     animation: spin .9s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   .seal {
-    width: 88px; height: 88px; border-radius: 50%; position: relative; z-index: 1;
+    width: 74px; height: 74px; border-radius: 50%; position: relative; z-index: 1;
     background: linear-gradient(135deg, rgba(127,184,138,0.16), rgba(127,184,138,0.03));
     border: 1px solid rgba(127,184,138,0.4);
     display: flex; align-items: center; justify-content: center;
@@ -323,8 +258,7 @@
     .method-row { flex-direction: column; }
     .step .lbl { display: none; }
     .step-line { width: 18px; margin: 0 8px; }
-    .topbar { margin-bottom: 28px; gap: 18px; }
-    .country-select { flex-basis: 108px; }
+    .topbar { margin-bottom: 26px; gap: 16px; }
   }
 </style>
 </head>
@@ -345,9 +279,7 @@
     <div class="steps" id="stepsBar">
       <div class="step current" data-step="1"><span class="dot"></span><span class="lbl">Overview</span></div>
       <div class="step-line"></div>
-      <div class="step" data-step="2"><span class="dot"></span><span class="lbl">Contact</span></div>
-      <div class="step-line"></div>
-      <div class="step" data-step="3"><span class="dot"></span><span class="lbl">Prices</span></div>
+      <div class="step" data-step="2"><span class="dot"></span><span class="lbl">Prices</span></div>
     </div>
   </div>
 
@@ -355,124 +287,43 @@
   <div class="stage show" id="explainStage">
     <div class="eyebrow">Your prices</div>
     <h1>How pricing<br><em>works.</em></h1>
-    <p class="sub">Quick overview before you set anything up.</p>
+    <p class="sub">A quick overview before you set anything up.</p>
 
-    <div class="explain-list">
-      <div class="explain-item card">
-        <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+    <div class="explain-list card">
+      <div class="explain-row">
+        <span class="num">I.</span>
         <div>
           <h4>One list, every quote</h4>
           <p>Give us your prices once. Hermia uses that same list to quote every lead who messages in — no manual work per lead.</p>
         </div>
       </div>
-      <div class="explain-item card">
-        <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3.5v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9v-5L12 3z" stroke="#C9A35B" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="explain-row">
+        <span class="num">II.</span>
         <div>
           <h4>How the number gets picked</h4>
           <p>When a lead describes their situation, Hermia matches it against your price list and works out the closest fit — always an <span class="highlight">estimate</span>, never a final price.</p>
         </div>
       </div>
-      <div class="explain-item card">
-        <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 20l4-1 11-11-3-3L5 16l-1 4z" stroke="#C9A35B" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+      <div class="explain-row">
+        <span class="num">III.</span>
         <div>
           <h4>Format it clearly</h4>
-          <p>List each service with its price, e.g. <span class="highlight">"Callout fee — $120."</span> The clearer your list, the more accurate the match.</p>
+          <p>List each service with its price — for example, <span class="highlight">"Callout fee — $120."</span> The clearer your list, the more accurate the match.</p>
         </div>
       </div>
-      <div class="explain-item card">
-        <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 15a4 4 0 01-4 4H8l-5 3V7a4 4 0 014-4h10a4 4 0 014 4v8z" stroke="#C9A35B" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-        <div>
-          <h4>If they want to negotiate</h4>
-          <p>Leads can accept the estimate or ask to negotiate — if they do, Hermia passes them the contact detail you set on the next step.</p>
-        </div>
-      </div>
-      <div class="explain-item card">
-        <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0114-5.3M20 4v5h-5" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 12a8 8 0 01-14 5.3M4 20v-5h5" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="explain-row">
+        <span class="num">IV.</span>
         <div>
           <h4>Update anytime</h4>
-          <p>Change your prices or contact detail whenever you like — new quotes always use your latest version.</p>
+          <p>Change your prices whenever you like — new quotes always use your latest version.</p>
         </div>
       </div>
     </div>
 
-    <button class="btn-primary" onclick="goToStage('phone')">Continue</button>
+    <button class="btn-primary" onclick="goToStage('choose')">Continue</button>
   </div>
 
-  <!-- ═══════════════ STAGE 2: NEGOTIATION CONTACT (phone OR email) ═══════════════ -->
-  <div class="stage" id="phoneStage">
-    <div class="eyebrow">Negotiation contact</div>
-    <h1>Where should leads<br><em>reach you?</em></h1>
-    <p class="sub">If a lead isn't happy with the estimate, this is how Hermia lets them reach you to negotiate directly.</p>
-
-    <p class="contact-note">
-      <span class="warn">Heads up:</span> whichever you choose, Hermia hands this detail directly to leads as their way of contacting you —
-      so only give a number or inbox you actually want clients reaching out to. Don't want to share your phone? Use email instead.
-      Don't want email? Use your phone.
-    </p>
-
-    <div class="method-row">
-      <div class="method-card card" id="cardContactPhone" onclick="chooseContactMethod('phone')">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <h3>Phone Number</h3>
-        <p>Leads message or call you directly</p>
-      </div>
-      <div class="method-card card" id="cardContactEmail" onclick="chooseContactMethod('email')">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="#C9A35B" stroke-width="1.6"/><path d="M22 6l-10 7L2 6" stroke="#C9A35B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <h3>Email Address</h3>
-        <p>Leads email you directly instead</p>
-      </div>
-    </div>
-
-    <div class="input-zone" id="phoneInputZone">
-      <div class="phone-card card">
-        <label for="negotiationPhoneInput">Contact number</label>
-        <div class="phone-row">
-          <select id="countryCodeSelect" class="country-select" aria-label="Country code">
-            <option value="61" data-country="Australia" selected>🇦🇺 +61</option>
-            <option value="1" data-country="Canada">🇨🇦 +1</option>
-            <option value="64" data-country="New Zealand">🇳🇿 +64</option>
-            <option value="44" data-country="United Kingdom">🇬🇧 +44</option>
-            <option value="353" data-country="Ireland">🇮🇪 +353</option>
-            <option value="1" data-country="United States">🇺🇸 +1</option>
-          </select>
-          <input type="tel" id="negotiationPhoneInput" class="phone-input"
-            placeholder="e.g. 4XX XXX XXX" autocomplete="tel" inputmode="numeric" />
-        </div>
-        <p class="phone-hint">
-          <span class="warn">Use your business number.</span> Not a personal mobile unless that's genuinely who you want clients calling.
-          Enter it without the leading 0 (we'll add your country code automatically).
-        </p>
-      </div>
-    </div>
-
-    <div class="input-zone" id="emailInputZone">
-      <div class="email-card card">
-        <label for="negotiationEmailInput">Contact email</label>
-        <input type="email" id="negotiationEmailInput" class="email-input"
-          placeholder="e.g. jobs@yourbusiness.com" autocomplete="email" />
-        <p class="phone-hint">
-          <span class="warn">Use your business inbox.</span> Not a personal address unless that's genuinely who you want clients emailing.
-        </p>
-      </div>
-    </div>
-
-    <p class="phone-err" id="phoneErr">That doesn't look like a valid contact detail — check it and try again.</p>
-
-    <div class="phone-confirm card" id="phoneConfirmBox">
-      <div class="confirm-label" id="confirmLabel">Leads will be given</div>
-      <div class="number" id="phoneConfirmNumber"></div>
-      <p class="confirm-note">Double-check it — a typo here means missed negotiation enquiries.</p>
-      <div class="phone-confirm-row">
-        <button class="btn-edit" onclick="editContact()">Edit</button>
-        <button class="btn-confirm" id="btnConfirmPhone" onclick="submitNegotiationContact()">Confirm &amp; continue</button>
-      </div>
-    </div>
-
-    <button class="btn-primary" id="btnReviewPhone" onclick="reviewContact()">Review contact detail</button>
-    <button class="btn-ghost" onclick="goToStage('explain')">Back</button>
-  </div>
-
-  <!-- ═══════════════ STAGE 3: METHOD CHOICE ═══════════════ -->
+  <!-- ═══════════════ STAGE 2: METHOD CHOICE ═══════════════ -->
   <div class="stage" id="chooseStage">
     <div class="eyebrow">Share your prices</div>
     <h1>Pick a<br><em>way.</em></h1>
@@ -481,8 +332,8 @@
     <div class="method-row">
       <div class="method-card card" id="cardFile" onclick="chooseMethod('file')">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z" stroke="#C9A35B" stroke-width="1.5"/><path d="M13 2v7h7" stroke="#C9A35B" stroke-width="1.5"/></svg>
-        <h3>Upload a file</h3>
-        <p>PDF, photo, or screenshot of your price list</p>
+        <h3>Upload a PDF</h3>
+        <p>Your price list as a PDF document</p>
       </div>
       <div class="method-card card" id="cardText" onclick="chooseMethod('text')">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="#C9A35B" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -492,10 +343,10 @@
     </div>
 
     <div class="input-zone" id="fileZone">
-      <div class="dropzone" id="dropzone" onclick="document.getElementById('fileInput').click()">
-        <p id="dropzoneText">Drop your file here, or tap to browse</p>
-        <p class="file-hint">PDF, PNG, or JPG · up to 20MB</p>
-        <input type="file" id="fileInput" accept="application/pdf,image/png,image/jpeg" />
+      <div class="dropzone" id="dropzone" tabindex="0" onclick="document.getElementById('fileInput').click()">
+        <p id="dropzoneText">Drop your PDF here, or tap to browse</p>
+        <p class="file-hint">PDF only · up to 20MB</p>
+        <input type="file" id="fileInput" accept="application/pdf" />
       </div>
       <button class="btn-submit" id="btnSubmitFile" disabled onclick="submitFile()">Save my prices</button>
       <button class="btn-ghost" onclick="backToChoose()">Choose a different way</button>
@@ -507,10 +358,10 @@
       <button class="btn-ghost" onclick="backToChoose()">Choose a different way</button>
     </div>
 
-    <button class="btn-ghost" onclick="goToStage('phone')">Back</button>
+    <button class="btn-ghost" onclick="goToStage('explain')">Back</button>
   </div>
 
-  <!-- ═══════════════ STAGE 4: PROCESSING ═══════════════ -->
+  <!-- ═══════════════ STAGE 3: PROCESSING ═══════════════ -->
   <div class="stage" id="processingStage">
     <div class="logo-outer">
       <div class="logo-orb"></div>
@@ -522,11 +373,11 @@
     <div class="err-line" id="procErr" style="display:none;"></div>
   </div>
 
-  <!-- ═══════════════ STAGE 5: SUCCESS ═══════════════ -->
+  <!-- ═══════════════ STAGE 4: SUCCESS ═══════════════ -->
   <div class="stage" id="successStage">
     <div class="logo-outer">
       <div class="logo-orb connected"></div>
-      <div class="seal"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 12.5L9.5 18L20 6" stroke="#7fb88a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="seal"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 12.5L9.5 18L20 6" stroke="#7fb88a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     </div>
     <div class="eyebrow">Saved</div>
     <h1>Prices are<br><em>set.</em></h1>
@@ -607,26 +458,11 @@
 
   const stages = {
     explain: document.getElementById('explainStage'),
-    phone: document.getElementById('phoneStage'),
     choose: document.getElementById('chooseStage'),
     processing: document.getElementById('processingStage'),
     success: document.getElementById('successStage')
   };
-  const stageToStep = { explain: 1, phone: 2, choose: 3, processing: 3, success: 3 };
-
-  const negotiationPhoneInput = document.getElementById('negotiationPhoneInput');
-  const negotiationEmailInput = document.getElementById('negotiationEmailInput');
-  const countryCodeSelect = document.getElementById('countryCodeSelect');
-  const phoneErr = document.getElementById('phoneErr');
-  const phoneConfirmBox = document.getElementById('phoneConfirmBox');
-  const confirmLabel = document.getElementById('confirmLabel');
-  const phoneConfirmNumber = document.getElementById('phoneConfirmNumber');
-  const btnReviewPhone = document.getElementById('btnReviewPhone');
-  const btnConfirmPhone = document.getElementById('btnConfirmPhone');
-  const cardContactPhone = document.getElementById('cardContactPhone');
-  const cardContactEmail = document.getElementById('cardContactEmail');
-  const phoneInputZone = document.getElementById('phoneInputZone');
-  const emailInputZone = document.getElementById('emailInputZone');
+  const stageToStep = { explain: 1, choose: 2, processing: 2, success: 2 };
 
   const fileZone = document.getElementById('fileZone');
   const textZone = document.getElementById('textZone');
@@ -643,9 +479,6 @@
   const progressLabel = document.getElementById('progressLabel');
 
   let selectedFile = null;
-  let contactMethod = null;      // 'phone' | 'email'
-  let normalizedPhone = null;    // set by reviewContact(), sent as-is on confirm
-  let normalizedEmail = null;    // set by reviewContact(), sent as-is on confirm
 
   // ── Stage + step-indicator navigation ─────────────────────────────
   function goToStage(name) {
@@ -659,128 +492,6 @@
       el.classList.toggle('current', n === current);
       el.classList.toggle('done', n < current);
     });
-  }
-
-  // ── Negotiation contact: phone/email method choice ─────────────────
-  function digitsOnly(v) { return (v || '').replace(/[^0-9]/g, ''); }
-
-  function chooseContactMethod(kind) {
-    contactMethod = kind;
-    cardContactPhone.classList.toggle('active', kind === 'phone');
-    cardContactEmail.classList.toggle('active', kind === 'email');
-    phoneInputZone.classList.toggle('show', kind === 'phone');
-    emailInputZone.classList.toggle('show', kind === 'email');
-    phoneErr.classList.remove('show');
-  }
-
-  // Pre-fill the country-code dropdown from whatever country the
-  // customer already gave us during signup, if we have it.
-  (async function prefillCountryFromCustomer() {
-    if (!customerId) return;
-    try {
-      const res = await fetch(HERMIANANGO_BASE + '/get-customer-state?customerId=' + encodeURIComponent(customerId));
-      const data = await res.json();
-      if (data && data.ok && data.country) {
-        const opt = Array.from(countryCodeSelect.options).find(o => o.dataset.country === data.country);
-        if (opt) countryCodeSelect.value = opt.value, opt.selected = true;
-      }
-    } catch (e) {
-      // non-fatal — dropdown just stays on its default (Australia)
-    }
-  })();
-
-  function buildE164() {
-    const selectedOption = countryCodeSelect.options[countryCodeSelect.selectedIndex];
-    const dialCode = selectedOption.value;
-    let local = digitsOnly(negotiationPhoneInput.value);
-    local = local.replace(/^0+/, '');
-    return { e164: '+' + dialCode + local, country: selectedOption.dataset.country, localDigits: local };
-  }
-
-  function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-
-  function reviewContact() {
-    if (!contactMethod) {
-      phoneErr.textContent = 'Pick how leads should reach you — phone or email.';
-      phoneErr.classList.add('show');
-      return;
-    }
-    if (contactMethod === 'phone') {
-      const { e164, localDigits } = buildE164();
-      if (localDigits.length < 6) {
-        phoneErr.textContent = "That doesn't look like a valid phone number — check the digits and try again.";
-        phoneErr.classList.add('show');
-        return;
-      }
-      phoneErr.classList.remove('show');
-      normalizedPhone = e164;
-      normalizedEmail = null;
-      confirmLabel.textContent = 'Leads will be given';
-      phoneConfirmNumber.textContent = e164;
-    } else {
-      const email = negotiationEmailInput.value.trim();
-      if (!isValidEmail(email)) {
-        phoneErr.textContent = "That doesn't look like a valid email address — check it and try again.";
-        phoneErr.classList.add('show');
-        return;
-      }
-      phoneErr.classList.remove('show');
-      normalizedEmail = email;
-      normalizedPhone = null;
-      confirmLabel.textContent = 'Leads will email you at';
-      phoneConfirmNumber.textContent = email;
-    }
-    phoneConfirmBox.classList.add('show');
-    btnReviewPhone.style.display = 'none';
-  }
-
-  function editContact() {
-    phoneConfirmBox.classList.remove('show');
-    btnReviewPhone.style.display = 'block';
-    if (contactMethod === 'phone') negotiationPhoneInput.focus();
-    else negotiationEmailInput.focus();
-  }
-
-  async function submitNegotiationContact() {
-    if (!customerId) {
-      phoneErr.textContent = 'Missing your account details — reopen this link from your onboarding email.';
-      phoneErr.classList.add('show');
-      return;
-    }
-    btnConfirmPhone.disabled = true;
-    btnConfirmPhone.textContent = 'Saving...';
-    try {
-      // ASSUMPTION: renamed endpoint from /save-negotiation-phone to
-      // /save-negotiation-contact since it now handles either a phone
-      // OR an email. Update your hermianango worker route to match —
-      // payload is { customerId, method: 'phone'|'email',
-      // negotiationPhone, negotiationEmail, country }. Only one of
-      // negotiationPhone/negotiationEmail will be non-null depending
-      // on `method`. See the accompanying Supabase SQL for the new
-      // columns this expects to write to.
-      const res = await fetch(HERMIANANGO_BASE + '/save-negotiation-contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          customerId,
-          method: contactMethod,
-          negotiationPhone: normalizedPhone,
-          negotiationEmail: normalizedEmail,
-          country: contactMethod === 'phone' ? countryCodeSelect.options[countryCodeSelect.selectedIndex].dataset.country : null
-        })
-      });
-      const data = await res.json();
-      if (!data.ok) throw new Error(data.error || 'Could not save that contact detail');
-      goToStage('choose');
-    } catch (e) {
-      phoneErr.textContent = e.message || 'Something went wrong saving that — try again.';
-      phoneErr.classList.add('show');
-      phoneConfirmBox.classList.remove('show');
-      btnReviewPhone.style.display = 'block';
-    } finally {
-      btnConfirmPhone.disabled = false;
-      btnConfirmPhone.textContent = 'Confirm & continue';
-    }
   }
 
   // ── Pricing method choice ─────────────────────────────────────────
@@ -809,9 +520,8 @@
   });
 
   function handleFile(file) {
-    const allowed = ['application/pdf', 'image/png', 'image/jpeg'];
-    if (!allowed.includes(file.type)) {
-      dropzoneText.textContent = 'That file type isn\'t supported — use a PDF, PNG, or JPG.';
+    if (file.type !== 'application/pdf') {
+      dropzoneText.textContent = "That file type isn't supported — please upload a PDF.";
       return;
     }
     if (file.size > 20 * 1024 * 1024) {
@@ -820,7 +530,7 @@
     }
     selectedFile = file;
     dropzone.classList.add('has-file');
-    dropzoneText.innerHTML = 'Selected: <span class="file-name">' + file.name + '</span>';
+    dropzoneText.innerHTML = 'Selected: <span class="file-name">' + escapeHtml(file.name) + '</span>';
     btnSubmitFile.disabled = false;
   }
 
@@ -830,8 +540,8 @@
 
   function showProcessing() { goToStage('processing'); }
 
-  // Now async: resolves the correct CRM-connect page (AroFlo vs
-  // Simpro) before redirecting, instead of a hardcoded URL.
+  // Resolves the correct CRM-connect page (AroFlo vs Simpro) before
+  // redirecting, instead of a hardcoded URL.
   async function showSuccess(tiers) {
     goToStage('success');
     const preview = document.getElementById('tierPreview');
@@ -867,8 +577,6 @@
     if (!customerId) { showError('Missing your account details — reopen this link from your onboarding email.'); return; }
     showProcessing();
     try {
-      const contentType = selectedFile.type === 'application/pdf' ? 'pdf' : 'image';
-
       // Step 1: get a signed upload URL
       const signRes = await fetch(HERMIANANGO_BASE + '/pricing/create-upload-url', {
         method: 'POST',
@@ -876,7 +584,7 @@
         body: JSON.stringify({ customerId, fileName: selectedFile.name })
       });
       const signData = await signRes.json();
-      if (!signData.ok) throw new Error(signData.error || 'Could not prepare upload');
+      if (!signData.ok) throw new Error(signData.error || 'Could not prepare the upload');
 
       // Step 2: upload the file directly to Supabase Storage
       const uploadRes = await fetch(signData.uploadUrl, {
@@ -884,20 +592,20 @@
         headers: { 'Content-Type': selectedFile.type },
         body: selectedFile
       });
-      if (!uploadRes.ok) throw new Error('File upload failed — try again');
+      if (!uploadRes.ok) throw new Error('File upload failed — please try again.');
 
-      // Step 3: tell the worker to extract pricing from the uploaded file
+      // Step 3: tell the worker to extract pricing from the uploaded PDF
       const saveRes = await fetch(HERMIANANGO_BASE + '/save-pricing', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ customerId, contentType, storagePath: signData.storagePath, mimeType: selectedFile.type })
+        body: JSON.stringify({ customerId, contentType: 'pdf', storagePath: signData.storagePath, mimeType: selectedFile.type })
       });
       const saveData = await saveRes.json();
-      if (!saveData.ok) throw new Error(saveData.error || 'Could not read pricing from your file');
+      if (!saveData.ok) throw new Error(saveData.error || 'Could not read pricing from your file.');
 
       await showSuccess(saveData.pricing && saveData.pricing.tiers);
     } catch (e) {
-      showError(e.message || 'Something went wrong saving your prices — try again.');
+      showError(e.message || 'Something went wrong saving your prices — please try again.');
     }
   }
 
@@ -911,10 +619,10 @@
         body: JSON.stringify({ customerId, contentType: 'text', textContent: pricingText.value.trim() })
       });
       const saveData = await saveRes.json();
-      if (!saveData.ok) throw new Error(saveData.error || 'Could not read pricing from your text');
+      if (!saveData.ok) throw new Error(saveData.error || 'Could not read pricing from your text.');
       await showSuccess(saveData.pricing && saveData.pricing.tiers);
     } catch (e) {
-      showError(e.message || 'Something went wrong saving your prices — try again.');
+      showError(e.message || 'Something went wrong saving your prices — please try again.');
     }
   }
 </script>
