@@ -246,6 +246,83 @@
     to   { opacity:1; transform:translateY(0) }
   }
 
+  /* ── Majestic sovereign overlay: visual only, existing copy and redirect retained ── */
+  body {
+    background:
+      radial-gradient(ellipse 92% 60% at 50% -10%, rgba(232,193,122,.16) 0%, rgba(58,43,23,.42) 34%, transparent 67%),
+      linear-gradient(145deg, #100e0a 0%, var(--bg) 48%, #0d0c09 100%);
+  }
+  .bloom {
+    background:
+      radial-gradient(920px 720px at 50% 48%, rgba(232,193,122,.18) 0%, rgba(201,163,91,.09) 35%, transparent 64%),
+      radial-gradient(560px 470px at 50% 48%, rgba(201,163,91,.11) 0%, transparent 54%),
+      radial-gradient(390px 760px at 15% 92%, rgba(201,163,91,.07), transparent 66%),
+      radial-gradient(420px 620px at 85% 8%, rgba(127,184,138,.04), transparent 64%);
+    animation:royalBreathe 12s ease-in-out infinite alternate;
+  }
+  .bg::before {
+    content:''; position:absolute; inset:0; opacity:.58;
+    background:
+      radial-gradient(circle at 8% 16%, rgba(232,193,122,.7) 0 1px, transparent 1.7px),
+      radial-gradient(circle at 88% 23%, rgba(232,193,122,.58) 0 1px, transparent 1.7px),
+      radial-gradient(circle at 18% 79%, rgba(201,163,91,.54) 0 1px, transparent 1.7px),
+      radial-gradient(circle at 79% 84%, rgba(232,193,122,.42) 0 1px, transparent 1.6px),
+      radial-gradient(circle at 51% 11%, rgba(232,193,122,.45) 0 1px, transparent 1.6px);
+    background-size:186px 184px,211px 197px,237px 226px,256px 242px,172px 164px;
+    animation:starDrift 28s linear infinite;
+  }
+  .bg::after {
+    content:''; position:absolute; width:120vw; height:72vw; min-width:720px; min-height:460px;
+    left:50%; top:-25vw; transform:translateX(-50%); opacity:.4; filter:blur(2px);
+    background:conic-gradient(from 180deg at 50% 100%, transparent 0deg, rgba(232,193,122,.12) 30deg, transparent 68deg, rgba(201,163,91,.055) 115deg, transparent 180deg);
+    animation:royalCanopy 20s ease-in-out infinite alternate;
+  }
+  .gridfloor {
+    -webkit-mask-image:radial-gradient(ellipse 78% 68% at 50% 50%, #000 0%, rgba(0,0,0,.62) 54%, transparent 100%);
+    mask-image:radial-gradient(ellipse 78% 68% at 50% 50%, #000 0%, rgba(0,0,0,.62) 54%, transparent 100%);
+  }
+  .float {
+    border-color:rgba(232,193,122,.17); border-radius:50%;
+    background:radial-gradient(circle at 38% 33%, rgba(232,193,122,.07), rgba(201,163,91,.012) 60%, transparent 72%);
+    box-shadow:inset 0 1px 0 rgba(255,244,214,.04),0 0 34px rgba(201,163,91,.035); opacity:.72;
+  }
+  .f1{width:185px;height:185px;top:10%;left:-72px}
+  .f2{width:112px;height:112px;bottom:14%;left:5%}
+  .f3{width:218px;height:218px;top:5%;right:-90px}
+  .f4{width:142px;height:142px;bottom:7%;right:5%}
+  .stage { padding:0 36px; }
+  .stage::before,.stage::after { content:''; position:absolute; z-index:-1; pointer-events:none; opacity:.68; }
+  .stage::before {
+    width:min(660px,90vw); height:min(660px,90vw); border-radius:50%; border:1px solid rgba(232,193,122,.16);
+    box-shadow:0 0 0 38px rgba(201,163,91,.018),0 0 0 78px rgba(201,163,91,.012),inset 0 0 55px rgba(201,163,91,.035);
+    top:50%; left:50%; transform:translate(-50%,-50%); animation:sovereignOrbit 30s linear infinite;
+  }
+  .stage::after {
+    width:min(520px,78vw); height:min(690px,104vw); border-top:1px solid rgba(232,193,122,.19); border-bottom:1px solid rgba(232,193,122,.15);
+    top:50%; left:50%; transform:translate(-50%,-50%); box-shadow:0 -8px 26px rgba(201,163,91,.03),0 8px 26px rgba(201,163,91,.025);
+  }
+  .logo-outer { margin-bottom:58px; }
+  .logo-outer::before,.logo-outer::after { content:''; position:absolute; left:50%; top:50%; border:1px solid rgba(232,193,122,.34); border-radius:50%; pointer-events:none; }
+  .logo-outer::before { width:252px; height:92px; margin:-46px 0 0 -126px; transform:rotateX(70deg); animation:ringTurn 10s linear infinite; }
+  .logo-outer::after { width:216px; height:78px; margin:-39px 0 0 -108px; border-color:rgba(127,184,138,.26); transform:rotateX(-68deg) rotateZ(26deg); animation:ringTurnReverse 8s linear infinite; }
+  .logo-orb { width:330px; height:330px; background:radial-gradient(circle, rgba(232,193,122,.34) 0%, rgba(201,163,91,.12) 42%, transparent 72%); filter:blur(21px); }
+  .logo-sheen-wrap { border-radius:13px; padding:9px 12px; border:1px solid rgba(232,193,122,.15); background:linear-gradient(135deg, rgba(255,244,214,.045), rgba(201,163,91,.01)); box-shadow:inset 0 1px 0 rgba(255,244,214,.07),0 0 0 7px rgba(201,163,91,.025); }
+  .logo { height:124px; filter:drop-shadow(0 0 34px rgba(232,193,122,.82)) drop-shadow(0 18px 48px rgba(201,163,91,.38)); }
+  .eyebrow { display:inline-flex; align-items:center; gap:12px; color:var(--gold-light); }
+  .eyebrow::before,.eyebrow::after { content:''; width:28px; height:1px; background:linear-gradient(90deg, transparent, currentColor); box-shadow:0 0 8px currentColor; }
+  .eyebrow::after { transform:scaleX(-1); }
+  h1 { font-size:clamp(56px,10.8vw,88px); line-height:.94; letter-spacing:-.025em; margin-bottom:20px; text-shadow:0 0 34px rgba(201,163,91,.14); }
+  h1 em { text-shadow:0 0 22px rgba(232,193,122,.38); }
+  .progress-wrap { margin-top:60px; gap:14px; }
+  .progress-track { width:208px; height:5px; padding:1px; background:rgba(201,163,91,.12); border:1px solid rgba(232,193,122,.22); box-shadow:inset 0 1px 0 rgba(255,244,214,.04),0 0 18px rgba(201,163,91,.08); }
+  .progress-fill { background:linear-gradient(90deg, var(--gold), var(--gold-light), #f3d99a); }
+  @keyframes royalBreathe { from { transform:scale(1) translateY(0); opacity:.82; } to { transform:scale(1.1) translateY(-1.5%); opacity:1; } }
+  @keyframes royalCanopy { from { transform:translateX(-50%) rotate(-3deg) scale(1); } to { transform:translateX(-50%) rotate(3deg) scale(1.08); } }
+  @keyframes starDrift { to { background-position:186px -184px,-211px 197px,237px 226px,-256px -242px,172px -164px; } }
+  @keyframes sovereignOrbit { to { transform:translate(-50%,-50%) rotate(360deg); } }
+  @keyframes ringTurn { to { transform:rotateX(70deg) rotateZ(360deg); } }
+  @keyframes ringTurnReverse { to { transform:rotateX(-68deg) rotateZ(-334deg); } }
+
   @media(prefers-reduced-motion:reduce){ *{ animation-duration:.01ms !important; animation-delay:.01ms !important } }
   @media(max-width:480px){ h1{font-size:52px}.logo{height:90px}.float{display:none} }
 </style>
