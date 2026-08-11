@@ -99,11 +99,22 @@ const PLACEHOLDER_MARKER = 'REPLACE_WITH_';
 const DEFAULT_CRM = 'simpro';
 const CRM_DISPLAY_NAME = { simpro: 'Simpro', aroflo: 'AroFlo' };
 
+// ============================================================
+// FIX: CRM value is read/written under sessionStorage key
+// 'hermia_crm' — NOT 'hermia_plan'. 'hermia_plan' is reserved
+// exclusively for the email provider (gmail/outlook) that
+// company.html reads later in the funnel. This page used to write
+// the CRM key ("simpro"/"aroflo") into 'hermia_plan', which
+// silently broke the connect step downstream. The URL param name
+// stays "plan" (unchanged) since that's just a query string label,
+// not the colliding storage key — only the sessionStorage key
+// needed to change.
+// ============================================================
 const urlParams = new URLSearchParams(window.location.search);
 const requestedCrm = urlParams.get('plan');
-const storedCrm = sessionStorage.getItem('hermia_plan');
+const storedCrm = sessionStorage.getItem('hermia_crm');
 const crmKey = FALLBACK_TIER_CONFIG[requestedCrm] ? requestedCrm : (FALLBACK_TIER_CONFIG[storedCrm] ? storedCrm : DEFAULT_CRM);
-try { sessionStorage.setItem('hermia_plan', crmKey); } catch(e) {}
+try { sessionStorage.setItem('hermia_crm', crmKey); } catch(e) {}
 
 let crm = FALLBACK_TIER_CONFIG[crmKey];
 
@@ -177,7 +188,10 @@ function selectTier(tierKey) {
   }
   try {
     sessionStorage.setItem('hermia_tier', tierKey);
-    sessionStorage.setItem('hermia_plan', crmKey);
+    // FIX: was sessionStorage.setItem('hermia_plan', crmKey) — that
+    // clobbered the email-provider key a second time, right after
+    // apply.html's version of the same bug. Now writes to hermia_crm.
+    sessionStorage.setItem('hermia_crm', crmKey);
   } catch(e) {}
   window.location.href = 'contract.html?plan=' + encodeURIComponent(crmKey) + '&tier=' + encodeURIComponent(tierKey);
 }
