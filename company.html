@@ -6,65 +6,117 @@
     <title>Hermia | Select Your Simpro Company</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
     <style>
+        /* ── Tokens: same recipe as pricing / connect (gmail.html) pages ── */
         :root {
-            --bg: #080705; --bg-card: rgba(10, 9, 7, 0.85);
-            --gold: #D4AF37; --gold-bright: #FFD700; --gold-light: #F9E2AF; --gold-muted: rgba(212, 175, 55, 0.12);
-            --cream: #f4f0e6; --soft: #a19d94; --border: rgba(212, 175, 55, 0.2);
+            --bg:#16140f;
+            --bg-card:rgba(201,163,91,0.035);
+            --gold:#C9A35B;
+            --gold-light:#e8c17a;
+            --cream:#f4f0e6;
+            --soft:#b6b1a6;
+            --border:rgba(201,163,91,0.16);
+            --border-strong:rgba(201,163,91,0.4);
+            --red:#c97b6a;
+            --radius:16px;
             --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
-        html, body { height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
-        .bg-layers { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-        .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,1) 100%); z-index: 5; }
-        .light-bloom { position: absolute; width: 140vw; height: 140vh; top: -20vh; left: -20vw; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.04) 0%, transparent 60%); filter: blur(140px); animation: light-drift 35s infinite alternate ease-in-out; }
-        @keyframes light-drift { 0% { transform: translate(-5%, -5%) scale(1); } 100% { transform: translate(5%, 5%) scale(1.1); } }
-        .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 120px 120px; -webkit-mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); opacity: 0.15; }
-        .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+        html, body { height: 100%; }
+        body {
+            background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; font-weight: 300;
+            min-height: 100%; display: flex; flex-direction: column; align-items: center;
+            position: relative; overflow-x: hidden; padding: 32px 20px 56px;
+        }
 
-        .wrap { position: relative; z-index: 10; width: 100%; max-width: 600px; margin: 0 auto; padding: 80px 24px 120px; display: flex; flex-direction: column; align-items: center; }
-        .logo-wrap { margin-bottom: 50px; }
-        .logo { height: 52px; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
+        /* ── Background: bloom + gridfloor + grain, same as connect page ── */
+        .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .bloom {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(900px 700px at 50% 28%, rgba(201,163,91,0.16) 0%, transparent 58%),
+                radial-gradient(560px 460px at 50% 28%, rgba(201,163,91,0.08) 0%, transparent 50%);
+        }
+        .gridfloor {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(201,163,91,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201,163,91,0.04) 1px, transparent 1px);
+            background-size: 62px 62px;
+            -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 30%, #000 0%, transparent 100%);
+            mask-image: radial-gradient(ellipse 70% 55% at 50% 30%, #000 0%, transparent 100%);
+        }
+        .grain {
+            position: absolute; inset: 0; opacity: .035; mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
 
-        .card { width: 100%; background: var(--bg-card); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid var(--border); padding: 60px 50px; position: relative; box-shadow: 0 50px 120px rgba(0,0,0,0.8); }
-        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.6; }
-        .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 24px; font-weight: 400; }
-        h1 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; line-height: 1.1; margin-bottom: 18px; letter-spacing: -0.02em; }
-        .sub { font-size: 16px; color: var(--soft); margin-bottom: 36px; line-height: 1.7; font-weight: 300; }
+        .wrap { position: relative; z-index: 10; width: 100%; max-width: 560px; margin: 0 auto; padding: 40px 4px 60px; display: flex; flex-direction: column; align-items: center; }
+        .logo-wrap { margin-bottom: 34px; opacity: 0; animation: fadeUp .6s ease 0s forwards; }
+        .logo { height: 40px; filter: drop-shadow(0 0 14px rgba(201,163,91,0.35)); }
 
-        .company-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+        .card {
+            width: 100%; text-align: center;
+            border: 1px solid var(--border); border-radius: var(--radius);
+            background: linear-gradient(135deg, var(--bg-card), rgba(201,163,91,0.004));
+            padding: 48px 42px 44px; position: relative;
+            opacity: 0; animation: fadeUp .6s ease .15s forwards;
+        }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: .7; border-radius: var(--radius) var(--radius) 0 0; }
+
+        .eyebrow { font-size: 10.5px; letter-spacing: .32em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+        h1 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(28px, 6vw, 36px); line-height: 1.15; letter-spacing: -.01em; color: var(--cream); margin-bottom: 14px; }
+        .sub { font-size: 14.5px; color: var(--soft); margin-bottom: 30px; line-height: 1.65; }
+
+        .company-list { display: flex; flex-direction: column; gap: 11px; margin-bottom: 26px; text-align: left; }
         .company-option {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 20px 22px; border: 1px solid var(--border);
-            background: rgba(212, 175, 55, 0.02); cursor: pointer;
-            transition: all 0.3s var(--ease-cinematic); text-align: left;
+            padding: 18px 20px; border: 1px solid var(--border); border-radius: 12px;
+            background: rgba(201,163,91,0.03); cursor: pointer;
+            transition: all 0.25s var(--ease-cinematic);
             font-family: inherit; color: var(--cream); width: 100%;
         }
-        .company-option:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.06); }
-        .company-option.selected { border-color: var(--gold); background: rgba(212, 175, 55, 0.1); box-shadow: 0 0 24px rgba(212, 175, 55, 0.12); }
-        .company-name { font-size: 16px; font-weight: 400; }
-        .company-id { font-size: 11px; color: var(--soft); letter-spacing: 0.05em; margin-top: 4px; }
-        .radio-dot { width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--border); flex-shrink: 0; position: relative; }
+        .company-option:hover { border-color: var(--border-strong); background: rgba(201,163,91,0.07); }
+        .company-option.selected { border-color: var(--gold); background: rgba(201,163,91,0.1); box-shadow: 0 0 20px rgba(201,163,91,0.1); }
+        .company-name { font-size: 15px; font-weight: 400; color: var(--cream); }
+        .company-id { font-size: 11px; color: var(--soft); letter-spacing: 0.02em; margin-top: 4px; }
+        .radio-dot { width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--border-strong); flex-shrink: 0; position: relative; }
         .company-option.selected .radio-dot { border-color: var(--gold); }
-        .company-option.selected .radio-dot::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--gold); }
+        .company-option.selected .radio-dot::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 6px rgba(201,163,91,0.7); }
 
-        .btn { width: 100%; padding: 20px; border: none; background: linear-gradient(135deg, #E8C17A, #C9A35B); color: #000; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        .btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2); }
-        .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .btn {
+            width: 100%; padding: 17px; border: none; border-radius: 99px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--bg); font-family: inherit; font-weight: 600; font-size: 12px;
+            letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer;
+            transition: transform .3s var(--ease-cinematic), box-shadow .3s ease, filter .3s ease;
+            box-shadow: 0 4px 15px rgba(201,163,91,0.18);
+        }
+        .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,163,91,0.35); filter: brightness(1.08); }
+        .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
 
-        .status-msg { margin-top: 18px; padding: 14px 16px; font-size: 13px; text-align: center; }
-        .status-msg.wait { background: rgba(212,175,55,0.04); border: 1px solid var(--border); color: var(--soft); }
-        .status-msg.err { background: rgba(220,80,80,0.08); border: 1px solid rgba(220,80,80,0.25); color: #ff7e75; }
-        .spinner { width: 22px; height: 22px; border: 2px solid rgba(212,175,55,0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin .7s linear infinite; margin: 30px auto; }
+        .status-msg { margin-top: 18px; padding: 14px 16px; font-size: 13px; text-align: center; border-radius: 12px; line-height: 1.6; }
+        .status-msg.err { background: rgba(201,123,106,0.07); border: 1px solid rgba(201,123,106,0.3); color: var(--red); }
+        .status-msg .ref { display: block; margin-top: 8px; font-size: 11px; color: var(--soft); font-family: monospace; word-break: break-all; }
+
+        .spinner { width: 22px; height: 22px; border: 2px solid rgba(201,163,91,0.18); border-top-color: var(--gold); border-radius: 50%; animation: spin .8s linear infinite; margin: 34px auto; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .powered { margin-top: 30px; text-align: center; color: var(--soft); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.4; }
+        .powered { margin-top: 28px; text-align: center; color: var(--soft); font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; opacity: .55; }
 
-        @media (max-width: 600px) { .card { padding: 50px 28px; } h1 { font-size: 30px; } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-delay: .01ms !important; } }
+        @media (max-width: 600px) { .card { padding: 38px 26px; } h1 { font-size: 28px; } }
     </style>
 </head>
 <body>
-<div class="bg-layers"><div class="light-bloom"></div><div class="grid"></div><div class="vignette"></div><div class="grain"></div></div>
+
+<div class="bg" aria-hidden="true">
+  <div class="bloom"></div>
+  <div class="gridfloor"></div>
+  <div class="grain"></div>
+</div>
+
 <div class="wrap">
     <div class="logo-wrap"><img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia" class="logo" /></div>
     <div class="card" id="mainCard">
@@ -83,8 +135,9 @@ const WORKER = 'https://hermianango.capital-fbc.workers.dev';
 let selectedCompanyId = null;
 let companies = [];
 
-// RESTORE SESSION: The Worker's callback appends connectionId AND customerId 
-// as URL query params on this redirect specifically so we can restore them.
+// RESTORE SESSION: the Worker's callback appends connectionId AND
+// customerId as URL query params on this redirect specifically so we
+// can restore them even if sessionStorage was cleared by the OAuth hop.
 (function restoreSessionFromUrl() {
     const params = new URLSearchParams(window.location.search);
     const urlConnectionId = params.get('connectionId');
@@ -105,19 +158,19 @@ function getCustomerId() {
     return sessionStorage.getItem('hermia_customer_id');
 }
 
-// PLAN SOURCE OF TRUTH: this page is only ever reached after a full
-// round-trip through Simpro's OAuth consent screen. sessionStorage is
-// not guaranteed to survive that hop — some browsers (Safari in
-// particular) clear it across cross-origin redirects — so the plan the
-// customer picked at signup can be gone by the time they land here even
-// though nothing actually went wrong.
+// PLAN SOURCE OF TRUTH: hermia_plan (gmail/outlook) is fetched fresh
+// from Supabase by customerId rather than trusted from sessionStorage,
+// since some browsers clear sessionStorage across the Simpro OAuth
+// cross-origin redirect. sessionStorage is only a last-resort fallback
+// if Supabase itself is briefly unreachable.
 //
-// The durable copy of the plan lives in Supabase: it's written once at
-// signup (hermia_plan column, set in handleCreateCustomer) and never
-// changes after that. Fetch it fresh from there by customerId instead
-// of trusting whatever sessionStorage still has. sessionStorage is kept
-// only as a last-resort fallback for the (should-be-rare) case where
-// Supabase itself is unreachable.
+// FIX (Aug 2026): the /create-customer endpoint now REQUIRES an
+// explicit emailProvider field at signup and validates it strictly, so
+// hermia_plan should never legitimately be empty by the time a
+// customer reaches this page. If it still comes back empty, that's a
+// genuine data problem for this specific customer — the fallback below
+// now shows their reference ID so support can look them up immediately
+// instead of a silent dead end.
 async function fetchHermiaPlan(customerId) {
     try {
         const r = await fetch(WORKER + '/get-customer-state?customerId=' + encodeURIComponent(customerId));
@@ -125,17 +178,16 @@ async function fetchHermiaPlan(customerId) {
         if (data && data.ok && data.hermiaPlan) {
             return data.hermiaPlan;
         }
-        console.error('[simpro_connect] /get-customer-state returned no hermiaPlan for customerId=' + customerId, data);
+        console.error('[company.html] /get-customer-state returned no hermiaPlan for customerId=' + customerId, data);
     } catch (e) {
-        console.error('[simpro_connect] could not reach /get-customer-state:', e);
+        console.error('[company.html] could not reach /get-customer-state:', e);
     }
     return null;
 }
 
-// ROUTING: Determine the next page based on the given plan value.
-// Returns null if the plan should NOT be auto-routed (e.g. 'outlook',
-// or an unrecognized/missing value) — caller must handle null explicitly
-// rather than falling back to a default destination.
+// ROUTING: determine the next page based on the given plan value.
+// Returns null if the plan should NOT be auto-routed (unrecognized or
+// missing) — caller must handle null explicitly.
 function getNextPageForPlan(plan) {
     if (plan === 'gmail') {
         return 'https://onboarding.hermia.au/gmail.html';
@@ -149,16 +201,20 @@ function getNextPageForPlan(plan) {
     return null;
 }
 
-function renderError(msg) {
+function renderError(msg, showRef) {
+    const customerId = getCustomerId();
+    const refBlock = showRef && customerId
+        ? '<span class="ref">Reference: ' + customerId + '</span>'
+        : '';
     document.getElementById('content').innerHTML =
-        '<div class="status-msg err">' + msg + '</div>';
+        '<div class="status-msg err">' + msg + refBlock + '</div>';
 }
 
 function renderCompanies() {
     const content = document.getElementById('content');
 
     if (companies.length === 0) {
-        renderError('No Simpro companies were found on this Build. Please contact support.');
+        renderError('No Simpro companies were found on this Build. Please contact support.', true);
         return;
     }
 
@@ -191,7 +247,7 @@ function selectCompany(id) {
 function confirmCompany() {
     if (!selectedCompanyId) return;
     const customerId = getCustomerId();
-    if (!customerId) { renderError('Session expired. Please restart onboarding.'); return; }
+    if (!customerId) { renderError('Session expired. Please restart onboarding.', false); return; }
 
     const btn = document.getElementById('confirmBtn');
     btn.disabled = true;
@@ -205,8 +261,6 @@ function confirmCompany() {
     .then(function (r) { return r.json(); })
     .then(function (data) {
         if (data && data.ok) {
-            // Fetch the plan fresh from Supabase — do not trust
-            // sessionStorage here (see fetchHermiaPlan comment above).
             fetchHermiaPlan(customerId).then(function (plan) {
                 // sessionStorage is only a fallback for the rare case
                 // Supabase itself couldn't be reached just now.
@@ -215,17 +269,24 @@ function confirmCompany() {
                 if (nextPage) {
                     window.location.href = nextPage;
                 } else {
-                    renderError('Your company was saved, but we could not determine your next step automatically. Please contact support to continue setup.');
+                    // FIX (Aug 2026): show the customer's reference ID
+                    // so this is never a true dead end — support can
+                    // look them up instantly instead of guessing.
+                    renderError(
+                        'Your company was saved, but we could not determine your next step automatically. ' +
+                        'Please contact support with the reference below to continue setup.',
+                        true
+                    );
                 }
             });
         } else {
-            renderError('Could not save your selection. Please try again.');
+            renderError('Could not save your selection. Please try again.', false);
             btn.disabled = false;
             btn.textContent = 'Confirm Selection';
         }
     })
     .catch(function () {
-        renderError('Connection failed. Please try again.');
+        renderError('Connection failed. Please try again.', false);
         btn.disabled = false;
         btn.textContent = 'Confirm Selection';
     });
@@ -233,12 +294,12 @@ function confirmCompany() {
 
 function loadCompanies() {
     const connectionId = getConnectionId();
-    if (!connectionId) { renderError('Session expired. Please restart onboarding.'); return; }
+    if (!connectionId) { renderError('Session expired. Please restart onboarding.', false); return; }
 
-    // NOTE: Nango is fully retired — this only ever calls the real
-    // Simpro Direct endpoint now. No fallback endpoint exists in the
-    // Worker, so a failure here surfaces as a clear error rather than
-    // silently retrying a second URL that would also 404.
+    // Nango is fully retired — this only ever calls the real Simpro
+    // Direct endpoint now. No fallback endpoint exists in the Worker,
+    // so a failure here surfaces as a clear error rather than silently
+    // retrying a second URL that would also 404.
     fetch(WORKER + '/simpro-direct/list-companies?connectionId=' + encodeURIComponent(connectionId))
         .then(function (r) { return r.json(); })
         .then(function (data) {
@@ -246,11 +307,11 @@ function loadCompanies() {
                 companies = data.companies;
                 renderCompanies();
             } else {
-                renderError('Could not load your Simpro companies: ' + (data && data.error ? data.error : 'unknown error'));
+                renderError('Could not load your Simpro companies: ' + (data && data.error ? data.error : 'unknown error'), true);
             }
         })
         .catch(function () {
-            renderError('Could not reach Simpro. Please refresh and try again.');
+            renderError('Could not reach Simpro. Please refresh and try again.', false);
         });
 }
 
@@ -258,4 +319,3 @@ loadCompanies();
 </script>
 </body>
 </html>
-
