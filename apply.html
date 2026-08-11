@@ -228,6 +228,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 //
 // apply.html?plan=simpro   (Simpro — full booking & scheduling)
 // apply.html?plan=aroflo   (AroFlo — qualified leads, no booking)
+//
+// IMPORTANT: this value is stored under sessionStorage key
+// 'hermia_crm' — NOT 'hermia_plan'. 'hermia_plan' is reserved
+// exclusively for the email provider (gmail/outlook) that
+// company.html and gmail.html read further down the funnel.
+// Do not repurpose 'hermia_plan' here again — that was the bug.
 // ============================================================
 const PLAN_CONFIG = {
   simpro: {
@@ -254,12 +260,20 @@ document.getElementById('planBadgeText').innerHTML =
   'CRM: <b>' + planConfig.name + '</b> — pricing tier is chosen on the next step';
 document.getElementById('pageSub').innerHTML = planConfig.subCopy;
 
-sessionStorage.setItem('hermia_plan', planKey);
+// FIX: CRM choice now stored under its own key. hermia_plan is
+// deliberately left untouched here so the connect step can safely
+// set it to 'gmail' / 'outlook' later without anything colliding.
+sessionStorage.setItem('hermia_crm', planKey);
 
 // ============================================================
 // EMAIL INBOX — this is a routing key for which inbox Hermia
 // connects to (Gmail or Outlook), completely separate from the
 // CRM plan above. It has no effect on price.
+//
+// FIX: stored explicitly under 'hermia_email_provider' right here
+// at apply time (in addition to being set again on the connect
+// step) so the choice the customer already made isn't lost if they
+// drop off before reaching gmail.html / social_connect_outlook.html.
 // ============================================================
 const PROVIDER_MAP = {
   gmail:   { name: 'Gmail' },
@@ -310,8 +324,8 @@ async function handleApplyClick() {
     specialty,
     company_size,
     capacity,
-    plan:          planKey,
-    plan_name:     planConfig.name,
+    crm:           planKey,          // renamed from "plan" for clarity downstream
+    crm_name:      planConfig.name,
     provider:      providerVal,
     provider_name: PROVIDER_MAP[providerVal].name,
     submitted_at:  new Date().toISOString(),
@@ -320,9 +334,14 @@ async function handleApplyClick() {
 
   try {
     sessionStorage.setItem('hermia_applicant', JSON.stringify(applicant));
-    sessionStorage.setItem('hermia_name',   name);
+    sessionStorage.setItem('hermia_name', name);
     sessionStorage.setItem('hermia_market', 'Australia');
-    sessionStorage.setItem('hermia_plan',   planKey);
+    // FIX: hermia_crm (Simpro/AroFlo) — no longer written to hermia_plan.
+    sessionStorage.setItem('hermia_crm', planKey);
+    // FIX: capture the chosen inbox now under its own dedicated key,
+    // so it survives even if the connect step is reached later than
+    // expected or sessionStorage gets partially cleared en route.
+    sessionStorage.setItem('hermia_email_provider', providerVal);
   } catch(e) {}
 
   try {
@@ -341,9 +360,9 @@ async function handleApplyClick() {
   advance('vs1', 550);
   advance('vs2', 1200);
   advance('vs3', 1850);
-  // Was: contract.html?plan=' + planKey
-  // Now: tier.html picks Limited vs Unlimited, THEN forwards to contract.html
-  setTimeout(() => { window.location.href = 'tier.html?plan=' + planKey; }, 2500);
+  // FIX: param renamed from ?plan= to ?crm= so it can never again be
+  // confused with the email-provider "hermia_plan" value downstream.
+  setTimeout(() => { window.location.href = 'tier.html?crm=' + planKey; }, 2500);
 }
 </script>
 </body>
