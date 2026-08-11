@@ -143,9 +143,10 @@
 
         .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
-        /* ── Trade multi-select — chip/checkbox grid, same token language
-           as everything else on this card. A business can do more than
-           one trade, so this is multi-select, not a dropdown. ── */
+        /* ── Trade multi-select / provider single-select — chip/checkbox
+           grid, same token language as everything else on this card.
+           Reused for both: trade-grid = multi-select (checkboxes),
+           providerGrid = single-select (radios), same visual styling. ── */
         .trade-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
         }
@@ -160,12 +161,15 @@
             border-color: var(--gold); background: rgba(201,163,91,0.08);
             box-shadow: 0 0 0 1px rgba(201,163,91,0.25) inset;
         }
-        .trade-chip input[type="checkbox"] {
+        .trade-chip input[type="checkbox"],
+        .trade-chip input[type="radio"] {
             appearance: none; -webkit-appearance: none; width: 17px; height: 17px; flex: 0 0 17px;
             border: 1px solid var(--border-strong); border-radius: 5px; background: transparent;
             display: grid; place-items: center; cursor: pointer; margin: 0; padding: 0;
         }
-        .trade-chip input[type="checkbox"]:checked {
+        .trade-chip input[type="radio"] { border-radius: 50%; }
+        .trade-chip input[type="checkbox"]:checked,
+        .trade-chip input[type="radio"]:checked {
             background: var(--gold); border-color: var(--gold);
         }
         .trade-chip input[type="checkbox"]:checked::after {
@@ -173,8 +177,56 @@
             border-left: 2px solid var(--bg); border-bottom: 2px solid var(--bg);
             transform: rotate(-45deg) translateY(-1px);
         }
+        .trade-chip input[type="radio"]:checked::after {
+            content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--bg);
+        }
         .trade-chip span { font-size: 14px; color: var(--cream); letter-spacing: .01em; }
         .trade-hint { font-size: 11.5px; color: var(--soft); opacity: .65; margin-top: 10px; line-height: 1.5; }
+
+        /* ══════════════════════════════════════════════════════════
+           NEW — SENDING DOMAINS multi-entry field.
+           A contractor can receive leads across MORE than one domain
+           or address (a main website form, a separately-branded site,
+           a booking-widget notification address, etc.) — some run
+           5+ of these. This is a tag/chip-input: type a domain or
+           email, press Enter or tap "Add" to commit it as a pill,
+           tap the pill's × to remove it. Same visual language as the
+           trade-chip grid above, just inline-flow instead of a fixed
+           grid, since the count is open-ended.
+           ══════════════════════════════════════════════════════════ */
+        .domain-input-row { display: flex; gap: 10px; }
+        .domain-input-row input { flex: 1; }
+        .domain-add-btn {
+            flex: 0 0 auto; padding: 0 20px;
+            background: rgba(201,163,91,0.1); border: 1px solid var(--border-strong);
+            color: var(--gold-light); font-family: 'DM Sans', sans-serif; font-size: 12px;
+            font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+            border-radius: 13px; cursor: pointer; transition: background .25s ease, border-color .25s ease;
+        }
+        .domain-add-btn:hover { background: rgba(201,163,91,0.18); border-color: var(--gold); }
+        .domain-chips {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
+            min-height: 0;
+        }
+        .domain-chip {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(201,163,91,0.08); border: 1px solid var(--border-strong);
+            border-radius: 100px; padding: 7px 8px 7px 14px;
+            font-size: 12.5px; color: var(--cream); letter-spacing: .01em;
+            animation: chipIn .25s ease;
+        }
+        .domain-chip button {
+            all: unset; display: grid; place-items: center; width: 18px; height: 18px;
+            border-radius: 50%; cursor: pointer; color: var(--soft);
+            transition: background .2s ease, color .2s ease;
+        }
+        .domain-chip button:hover { background: rgba(201,123,106,0.2); color: var(--red); }
+        .domain-chip button svg { width: 10px; height: 10px; }
+        .domain-count {
+            margin-top: 10px; font-size: 11px; color: var(--soft); opacity: .6;
+            letter-spacing: .04em;
+        }
+        @keyframes chipIn { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: scale(1); } }
 
         .btn-submit {
             width: 100%; margin-top: 8px; padding: 16px;
@@ -202,6 +254,7 @@
         .formerr.show { display: block; }
         input.err, select.err, .tel.err { border-color: var(--red); background: rgba(201,123,106,0.05); }
         .trade-grid.err .trade-chip { border-color: var(--red); background: rgba(201,123,106,0.05); }
+        .domain-input-row.err input { border-color: var(--red); background: rgba(201,123,106,0.05); }
 
         @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
         @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-delay: .01ms !important; } }
@@ -285,10 +338,64 @@
                 <div class="trade-hint">This inbox will only be connected to one Gmail/Outlook account. If this business handles trades that aren't in the same email inbox, set up a separate onboarding + inbox for those.</div>
             </div>
 
+            <!-- ══════════════════════════════════════════════════════
+                 NEW (fix): explicit email-provider capture. Previously
+                 this page silently trusted whatever `plan` value had
+                 been carried through the URL/sessionStorage from an
+                 earlier step, and the email field below was hardcoded
+                 to "Professional Gmail" regardless. If that carried
+                 value was ever empty or wrong, hermia_plan never got
+                 written to Supabase, and company.html (step 5) had
+                 nothing to branch on. This page is now the source of
+                 truth for hermia_plan - it always asks, always sends
+                 whatever was picked here, no matter what came before.
+                 ══════════════════════════════════════════════════════ -->
             <div class="field">
-                <label for="gmail">Professional Gmail</label>
-                <input id="gmail" type="email" autocomplete="gmail" placeholder="john@yourcompany.com.au" />
-                <div class="err-msg" id="err-gmail">Valid Gmail Required</div>
+                <label>Email Provider</label>
+                <div class="trade-grid" id="providerGrid" style="grid-template-columns: 1fr 1fr;">
+                    <label class="trade-chip" data-provider="gmail">
+                        <input type="radio" name="emailProvider" value="gmail" />
+                        <span>Gmail</span>
+                    </label>
+                    <label class="trade-chip" data-provider="outlook">
+                        <input type="radio" name="emailProvider" value="outlook" />
+                        <span>Outlook</span>
+                    </label>
+                </div>
+                <div class="err-msg" id="err-provider">Select which inbox Hermia will connect to</div>
+            </div>
+
+            <div class="field">
+                <label for="gmail" id="emailLabel">Business Email</label>
+                <input id="gmail" type="email" autocomplete="email" placeholder="john@yourcompany.com.au" />
+                <div class="err-msg" id="err-gmail">Valid Email Required</div>
+            </div>
+
+            <!-- ══════════════════════════════════════════════════════
+                 NEW — SENDING DOMAINS.
+                 Contractors often receive leads across more than one
+                 domain/inbox path (main website form + a separately-
+                 branded site, a booking widget's notification
+                 address, etc.) - some run 5 or more of these. This
+                 lets them register every domain/address their OWN
+                 forms and notification systems send FROM, so
+                 gmailflitering.js's isOwnBusinessSender() can
+                 recognise all of them as "ours, not a lead" and go
+                 straight to reading the customer's details out of the
+                 message body instead. Stored as customers.sending_domains
+                 via POST /save-sending-domains.
+                 ══════════════════════════════════════════════════════ -->
+            <div class="field">
+                <label>Sending Domains / Notification Emails</label>
+                <div class="domain-input-row" id="domainInputRow">
+                    <input id="domainInput" type="text" inputmode="email" autocomplete="off"
+                           placeholder="yourwebsite.com or forms@yourwebsite.com" />
+                    <button type="button" class="domain-add-btn" id="domainAddBtn">Add</button>
+                </div>
+                <div class="err-msg" id="err-domains">Enter a valid domain (e.g. yourwebsite.com) or email address</div>
+                <div class="domain-chips" id="domainChips"></div>
+                <div class="domain-count" id="domainCount"></div>
+                <div class="trade-hint">Add every domain or address your own enquiry forms and notifications send FROM — your main website, any separately-branded sites, booking widgets, and so on. This helps Hermia tell your own notifications apart from a genuine customer lead. Optional, but the more you add the more accurate your lead routing will be. Press Enter or tap Add after each one.</div>
             </div>
 
             <div class="row-2">
@@ -348,6 +455,31 @@
         // array already). If a business runs separate inboxes per trade,
         // they onboard separately per inbox instead of trying to split
         // trades within one signup.
+        //
+        // v3 (2026-08-12): FIX - hermia_plan (gmail/outlook) was silently
+        // relying on a `plan` value carried through the URL/sessionStorage
+        // from an earlier step in the funnel. When that value was missing
+        // or wrong, /create-outlooker wrote hermia_plan=null to Supabase,
+        // which broke company.html's ability to route the customer to the
+        // right connect flow (the "could not determine your next step"
+        // error). This page now explicitly asks which inbox (Gmail or
+        // Outlook) Hermia should connect to, requires an answer, and that
+        // answer - not whatever was carried in - is what gets sent as
+        // `plan` to /create-outlooker and stored as hermia_plan.
+        //
+        // v4 (2026-08-12): NEW - SENDING DOMAINS collection. Contractors
+        // can receive leads across more than one domain/inbox path (a
+        // main website form + a separately-branded site, a booking-widget
+        // notification address, etc.) — some run 5+ of these. This step
+        // now collects every domain/address the contractor's OWN forms
+        // and notifications send FROM, as a simple tag/chip input (type,
+        // press Enter or tap Add, repeat). After /create-outlooker
+        // succeeds and returns the new customerId, this list is POSTed to
+        // /save-sending-domains so gmailflitering.js's
+        // isOwnBusinessSender() can use it as a deterministic backup
+        // signal. Entirely optional — skipping it just means that backup
+        // signal isn't available for this customer yet; nothing else on
+        // this page is blocked by it, and it can always be added later.
         const ALL_STEPS = ['Payment','Business','Details','Simpro','Connect','Setup'];
         const ACTIVE_INDEX = 2;
         const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -371,6 +503,11 @@
 
         // ============================================================
         // PLAN CARRY-THROUGH
+        // This `plan` value is only used now to PRE-SELECT the email
+        // provider chip below (best-effort convenience). It is NOT
+        // trusted as the final value sent to the backend anymore -
+        // see EMAIL PROVIDER SELECT section, which overwrites it with
+        // whatever the user actually picked before submit.
         // ============================================================
         const PLAN_NAMES = {
             gmail:     'Gmail',
@@ -384,12 +521,16 @@
         if (!plan) {
             try { plan = sessionStorage.getItem('hermia_plan') || ''; } catch(e) { plan = ''; }
         }
-        try { if (plan) sessionStorage.setItem('hermia_plan', plan); } catch(e) {}
 
-        if (plan && PLAN_NAMES[plan]) {
-            $('planBadgeName').textContent = PLAN_NAMES[plan];
-            $('planBadge').style.display = 'inline-flex';
+        function updatePlanBadge(providerValue) {
+            if (providerValue && PLAN_NAMES[providerValue]) {
+                $('planBadgeName').textContent = PLAN_NAMES[providerValue];
+                $('planBadge').style.display = 'inline-flex';
+            } else {
+                $('planBadge').style.display = 'none';
+            }
         }
+        updatePlanBadge(plan);
 
         const COUNTRY_DATA = {
             'Australia': {
@@ -493,7 +634,7 @@
         function getSelectedTrades() {
             return Array.from(document.querySelectorAll('#tradeGrid input[type="checkbox"]:checked')).map(cb => cb.value);
         }
-        document.querySelectorAll('.trade-chip').forEach(chip => {
+        document.querySelectorAll('#tradeGrid .trade-chip').forEach(chip => {
             const cb = chip.querySelector('input[type="checkbox"]');
             const sync = () => chip.classList.toggle('selected', cb.checked);
             cb.addEventListener('change', () => {
@@ -507,6 +648,147 @@
         });
 
         // ============================================================
+        // EMAIL PROVIDER SELECT (fix - required, drives hermia_plan)
+        // ============================================================
+        const EMAIL_PLACEHOLDERS = {
+            gmail: 'john@yourcompany.com.au',
+            outlook: 'john@yourcompany.com.au'
+        };
+        const EMAIL_LABELS = {
+            gmail: 'Gmail Address',
+            outlook: 'Outlook Address'
+        };
+
+        function getSelectedProvider() {
+            const checked = document.querySelector('#providerGrid input[type="radio"]:checked');
+            return checked ? checked.value : '';
+        }
+
+        function applyProviderUI(providerValue) {
+            $('emailLabel').textContent = EMAIL_LABELS[providerValue] || 'Business Email';
+            $('gmail').placeholder = EMAIL_PLACEHOLDERS[providerValue] || 'john@yourcompany.com.au';
+            $('gmail').autocomplete = providerValue === 'gmail' ? 'gmail' : (providerValue === 'outlook' ? 'outlook' : 'email');
+            updatePlanBadge(providerValue);
+        }
+
+        document.querySelectorAll('#providerGrid .trade-chip').forEach(chip => {
+            const radio = chip.querySelector('input[type="radio"]');
+            radio.addEventListener('change', () => {
+                document.querySelectorAll('#providerGrid .trade-chip').forEach(c => c.classList.remove('selected'));
+                chip.classList.add('selected');
+                $('providerGrid').classList.remove('err');
+                $('err-provider').classList.remove('show');
+                applyProviderUI(radio.value);
+            });
+        });
+
+        // Best-effort pre-select from whatever was carried in the URL/
+        // sessionStorage, but the user still has to have a checked value
+        // to submit - this never bypasses the requirement below.
+        if (plan === 'gmail' || plan === 'outlook') {
+            const preselect = document.querySelector('#providerGrid input[value="' + plan + '"]');
+            if (preselect) {
+                preselect.checked = true;
+                preselect.closest('.trade-chip').classList.add('selected');
+                applyProviderUI(plan);
+            }
+        }
+
+        // ============================================================
+        // SENDING DOMAINS — tag/chip input.
+        // Accepts either a bare domain ("yourwebsite.com") or a full
+        // address ("forms@yourwebsite.com"). Kept as a simple in-memory
+        // array (sendingDomains) until submit; normalized the same way
+        // hermianango's /save-sending-domains normalizes server-side
+        // (lowercased, trimmed, leading "@" stripped) so what the user
+        // sees here matches what ends up stored. De-duplicated on add.
+        // Optional field — an empty list is a valid submission.
+        // ============================================================
+        let sendingDomains = [];
+
+        // Loose but useful validation: either "word.word" (a domain) or
+        // "something@word.word" (an address). Not a full RFC check —
+        // just enough to catch obvious typos before they're saved.
+        const DOMAIN_RE = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/i;
+        const EMAIL_RE = /^[^\s@]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/i;
+
+        function normalizeDomainEntry(raw) {
+            let s = (raw || '').trim().toLowerCase();
+            if (!s) return '';
+            if (s.startsWith('@')) s = s.slice(1);
+            // strip a pasted protocol/path down to just the host
+            s = s.replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+            return s;
+        }
+
+        function isValidDomainEntry(s) {
+            if (!s) return false;
+            if (s.indexOf('@') !== -1) return EMAIL_RE.test(s);
+            return DOMAIN_RE.test(s);
+        }
+
+        function renderDomainChips() {
+            const wrap = $('domainChips');
+            wrap.innerHTML = '';
+            sendingDomains.forEach((entry, idx) => {
+                const chip = document.createElement('span');
+                chip.className = 'domain-chip';
+                const label = document.createElement('span');
+                label.textContent = entry;
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.setAttribute('aria-label', 'Remove ' + entry);
+                removeBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+                removeBtn.addEventListener('click', () => {
+                    sendingDomains.splice(idx, 1);
+                    renderDomainChips();
+                });
+                chip.appendChild(label);
+                chip.appendChild(removeBtn);
+                wrap.appendChild(chip);
+            });
+            const count = sendingDomains.length;
+            $('domainCount').textContent = count
+                ? count + ' sending domain' + (count === 1 ? '' : 's') + ' added'
+                : '';
+        }
+
+        function addDomainFromInput() {
+            const input = $('domainInput');
+            const normalized = normalizeDomainEntry(input.value);
+            if (!normalized) return; // empty entry, nothing to do, not an error
+            if (!isValidDomainEntry(normalized)) {
+                $('domainInputRow').classList.add('err');
+                $('err-domains').classList.add('show');
+                return;
+            }
+            $('domainInputRow').classList.remove('err');
+            $('err-domains').classList.remove('show');
+            if (!sendingDomains.includes(normalized)) {
+                sendingDomains.push(normalized);
+                renderDomainChips();
+            }
+            input.value = '';
+            input.focus();
+        }
+
+        $('domainAddBtn').addEventListener('click', addDomainFromInput);
+        $('domainInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ',') {
+                e.preventDefault();
+                addDomainFromInput();
+            }
+        });
+        $('domainInput').addEventListener('input', () => {
+            $('domainInputRow').classList.remove('err');
+            $('err-domains').classList.remove('show');
+        });
+        // A domain typed but not explicitly "Added" before submit is
+        // still picked up (see submit handler below) rather than
+        // silently dropped, since that's the single most likely user
+        // mistake with a tag-input like this.
+
+        // ============================================================
         // STRIPE SESSION ID
         // ============================================================
         let stripeSessionId = urlParams.get('session_id');
@@ -516,7 +798,7 @@
         try { if (stripeSessionId) sessionStorage.setItem('hermia_stripe_session_id', stripeSessionId); } catch(e) {}
 
         function showErr(id, on) {
-            const t = id === 'phone' ? $('telWrap') : (id === 'trades' ? $('tradeGrid') : $(id));
+            const t = id === 'phone' ? $('telWrap') : (id === 'trades' ? $('tradeGrid') : (id === 'provider' ? $('providerGrid') : $(id)));
             if (t) t.classList.toggle('err', on);
             const e = $('err-' + id);
             if (e) e.classList.toggle('show', on);
@@ -528,7 +810,34 @@
             if (el) el.addEventListener('change', () => showErr(id, false));
         });
 
+        // Best-effort, non-blocking: sends whatever sending domains were
+        // collected to hermianango. Optional field — if this fails, we
+        // log it and move on rather than blocking the onboarding flow,
+        // since the contractor can always add these later.
+        async function saveSendingDomains(customerId, domains) {
+            if (!domains || !domains.length) return;
+            try {
+                const res = await fetch(HERMIANANGO_URL + '/save-sending-domains', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ customerId: customerId, domains: domains })
+                });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok || !data.ok) {
+                    console.error('[business-details] save-sending-domains failed:', data);
+                } else {
+                    console.log('[business-details] saved sending domains:', data.sendingDomains);
+                }
+            } catch (e) {
+                console.error('[business-details] save-sending-domains threw:', e);
+            }
+        }
+
         $('submitBtn').addEventListener('click', async () => {
+            // Pick up anything still sitting in the domain input box that
+            // the user typed but never explicitly hit Enter/Add for.
+            addDomainFromInput();
+
             let ok = true;
             const name = $('fullName').value.trim();
             const company = $('company').value.trim();
@@ -537,15 +846,22 @@
             const state = $('state').value.trim();
             const local = $('phone').value.replace(/[^\d]/g, '');
             const allowedTrades = getSelectedTrades();
+            const provider = getSelectedProvider();
 
             if (!name) { showErr('fullName', true); ok = false; }
             if (!company) { showErr('company', true); ok = false; }
             if (!allowedTrades.length) { showErr('trades', true); ok = false; }
+            if (!provider) { showErr('provider', true); ok = false; }
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(gmail)) { showErr('gmail', true); ok = false; }
             if (!country) { showErr('country', true); ok = false; }
             if (!state) { showErr('state', true); ok = false; }
             if (local.length < 6 || local.length > 12) { showErr('phone', true); ok = false; }
             if (!ok) return;
+
+            // The explicitly-selected provider IS the plan from here on -
+            // it overrides whatever was carried in from earlier steps.
+            plan = provider;
+            try { sessionStorage.setItem('hermia_plan', plan); } catch(e) {}
 
             const btn = $('submitBtn');
             btn.disabled = true;
@@ -564,7 +880,7 @@
                         phone: $('ccPrefix').textContent + ' ' + local,
                         stripeSessionId: stripeSessionId || null,
                         crmProvider: 'simpro',
-                        plan: plan || null,
+                        plan: plan,
                         // NEW: which trade(s) this business handles. Array
                         // because one customer/inbox can legitimately cover
                         // more than one trade (e.g. Remedial + Roofing).
@@ -580,6 +896,12 @@
 
                 const id = data.outlookerId;
 
+                // NEW — persist the collected sending domains against the
+                // freshly-created customer row. Fire-and-forget-ish: we
+                // await it so logs are useful, but a failure here never
+                // blocks the rest of onboarding (see saveSendingDomains).
+                await saveSendingDomains(id, sendingDomains);
+
                 sessionStorage.setItem('hermia_outlooker_id', id);
                 sessionStorage.setItem('hermia_gmail', gmail);
                 sessionStorage.setItem('hermia_vertical', 'foundation_repair');
@@ -587,7 +909,8 @@
                 sessionStorage.setItem('hermia_state', state);
                 sessionStorage.setItem('hermia_country', country);
                 sessionStorage.setItem('hermia_allowed_trades', JSON.stringify(allowedTrades));
-                if (plan) sessionStorage.setItem('hermia_plan', plan);
+                sessionStorage.setItem('hermia_plan', plan);
+                sessionStorage.setItem('hermia_sending_domains', JSON.stringify(sendingDomains));
 
                 document.body.style.transition = 'opacity 1s ease';
                 document.body.style.opacity = '0';
