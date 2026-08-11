@@ -53,8 +53,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
 @media(max-width:520px){.field-row{grid-template-columns:1fr;}}
 
-/* ---- Trade selector: the signature element. Tradies pick a tool off
-   the wall, not an option off a dropdown. ---- */
+/* ---- Trade selector: the signature element. Tradies pick tools off
+   the wall, not an option off a dropdown. Multi-select. ---- */
 .trade-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(102px,1fr));gap:10px;}
 .trade-tile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;padding:18px 8px 15px;background:#0b0b0e;border:1px solid rgba(201,163,91,0.22);border-radius:13px;cursor:pointer;transition:all 0.2s;-webkit-tap-highlight-color:transparent;}
 .trade-tile:hover{border-color:var(--border-hi);transform:translateY(-1px);}
@@ -127,27 +127,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
   <div class="form-card">
     <div id="form-view">
 
-      <div class="field-row">
-        <div class="field">
-          <label>Full name</label>
-          <input type="text" id="name" placeholder="Jane Smith" required>
-        </div>
-        <div class="field">
-          <label>Company size</label>
-          <select id="company_size" required>
-            <option value="" disabled selected>How many in your team?</option>
-            <option value="Solo operator">Solo operator (just me)</option>
-            <option value="2–5 staff">Small team (2–5 staff)</option>
-            <option value="6–15 staff">Medium team (6–15 staff)</option>
-            <option value="16–30 staff">Growing company (16–30 staff)</option>
-            <option value="30+ staff">Large company (30+ staff)</option>
-          </select>
-        </div>
+      <div class="field">
+        <label>Full name</label>
+        <input type="text" id="name" placeholder="Jane Smith" required>
       </div>
 
       <div class="field">
-        <label>What trade is your business?</label>
-        <div class="trade-grid" id="tradeGrid" role="group" aria-label="Select your trade">
+        <label>What trades is your business? <span style="color:var(--muted);text-transform:none;font-weight:300;">(pick as many as apply)</span></label>
+        <div class="trade-grid" id="tradeGrid" role="group" aria-label="Select your trades">
           <div class="trade-tile" data-trade="Plumbing" tabindex="0" role="button" aria-pressed="false">
             <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3l4 4-2 2-4-4 2-2z"/><path d="M9 7L4 12l1.5 1.5"/><path d="M14 10l3-3 4 4-3 3"/><path d="M14 10L8 16v3h3l6-6"/></svg>
             <span>Plumbing</span>
@@ -160,21 +147,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
             <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12L12 4l9 8"/><path d="M5 11v9h14v-9"/><path d="M10 20v-6h4v6"/></svg>
             <span>Roofing</span>
           </div>
-          <div class="trade-tile" data-trade="Remedial / Building Repair" tabindex="0" role="button" aria-pressed="false">
+          <div class="trade-tile" data-trade="Remedial" tabindex="0" role="button" aria-pressed="false">
             <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="7" height="4"/><rect x="13" y="10" width="7" height="4"/><rect x="8.5" y="4" width="7" height="4"/><path d="M4 18h16"/></svg>
-            <span>Remedial / Building Repair</span>
+            <span>Remedial</span>
           </div>
-          <div class="trade-tile" data-trade="Other Trade" tabindex="0" role="button" aria-pressed="false">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 01-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 015.4-5.4l-2.6 2.6-2-2 2.6-2.6z"/></svg>
-            <span>Other Trade</span>
+          <div class="trade-tile" data-trade="Fire / ESM" tabindex="0" role="button" aria-pressed="false">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 3-2 4-2 7a3 3 0 006 0c1 2-.5 4-.5 4C18 12 19 9 17 6c.3 2-1 2.5-1 2.5C16 5 13 3 12 2z"/><path d="M9 15a3 3 0 106 0c0-2-1.5-3-3-6-1.5 3-3 4-3 6z"/></svg>
+            <span>Fire / ESM</span>
           </div>
         </div>
         <input type="hidden" id="trade" required>
-      </div>
-
-      <div class="field">
-        <label>Specialty <span style="color:var(--muted);text-transform:none;font-weight:300;">(optional)</span></label>
-        <input type="text" id="specialty" placeholder="e.g. gas fitting, 24/7 emergency, commercial only">
       </div>
 
       <div class="field">
@@ -215,7 +197,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 
   <div class="security-footer" id="security-notice">
     <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
-    <p><strong>Your details are safe:</strong> We use bank-grade encryption and never share your personal information with third parties. Only verified Hermia clients can see your profile.</p>
+    <p><strong>Your details are safe:</strong> We use bank-grade encryption and never share your personal information with third parties.</p>
   </div>
 </div>
 
@@ -288,32 +270,46 @@ function advance(id, delay) {
   setTimeout(() => document.getElementById(id).classList.add('done'), delay);
 }
 
-// ---- Trade tile selector: single-select, keyboard accessible ----
+// ---- Trade tile selector: MULTI-select, keyboard accessible ----
+// Selected trades are tracked in a Set and joined into the hidden
+// #trade input as a comma-separated string (e.g. "Plumbing, Roofing")
+// so downstream code reading document.getElementById('trade').value
+// keeps working without changes.
 const tradeGrid = document.getElementById('tradeGrid');
 const tradeInput = document.getElementById('trade');
+const selectedTrades = new Set();
+
+function syncTradeInput() {
+  tradeInput.value = Array.from(selectedTrades).join(', ');
+}
+
 tradeGrid.querySelectorAll('.trade-tile').forEach(tile => {
-  function selectTile() {
-    tradeGrid.querySelectorAll('.trade-tile').forEach(t => { t.classList.remove('selected'); t.setAttribute('aria-pressed','false'); });
-    tile.classList.add('selected');
-    tile.setAttribute('aria-pressed','true');
-    tradeInput.value = tile.dataset.trade;
+  function toggleTile() {
+    const trade = tile.dataset.trade;
+    if (selectedTrades.has(trade)) {
+      selectedTrades.delete(trade);
+      tile.classList.remove('selected');
+      tile.setAttribute('aria-pressed', 'false');
+    } else {
+      selectedTrades.add(trade);
+      tile.classList.add('selected');
+      tile.setAttribute('aria-pressed', 'true');
+    }
+    syncTradeInput();
   }
-  tile.addEventListener('click', selectTile);
-  tile.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectTile(); } });
+  tile.addEventListener('click', toggleTile);
+  tile.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleTile(); } });
 });
 
 // ---- Validate, then submit directly — no separate plan/price modal needed ----
 async function handleApplyClick() {
   const name         = document.getElementById('name').value.trim();
-  const trade        = document.getElementById('trade').value;
-  const specialty    = document.getElementById('specialty').value.trim();
-  const company_size = document.getElementById('company_size').value;
+  const trade        = document.getElementById('trade').value; // comma-separated list of selected trades
   const capacity     = document.getElementById('capacity').value;
   const providerVal  = document.getElementById('provider').value;
 
   if (!name)         { document.getElementById('name').focus();         return; }
-  if (!trade)        { tradeGrid.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
-  if (!company_size) { document.getElementById('company_size').focus(); return; }
+  if (selectedTrades.size === 0) { tradeGrid.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
   if (!providerVal)  { document.getElementById('provider').focus();     return; }
   if (!capacity)     { document.getElementById('capacity').focus();     return; }
 
@@ -322,9 +318,8 @@ async function handleApplyClick() {
   const applicant = {
     market:        'Australia',
     name,
-    trade,
-    specialty,
-    company_size,
+    trade,                          // comma-separated string, e.g. "Plumbing, Roofing"
+    trades:        Array.from(selectedTrades), // same data as an array, for consumers that want it structured
     capacity,
     crm:           planKey,          // renamed from "plan" for clarity downstream
     crm_name:      planConfig.name,
