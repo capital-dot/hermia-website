@@ -135,7 +135,8 @@
   .brand img { height: 22px; display: block; filter: drop-shadow(0 0 8px rgba(201,163,91,0.35)); }
   .brand-text { font-size: 10.5px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); }
   .brand-text span { color: var(--soft); font-weight: 400; letter-spacing: .12em; text-transform: none; }
-  .docket-id { font-size: 11px; color: var(--muted); letter-spacing: .04em; white-space: nowrap; }
+  .docket-id { font-size: 11px; color: var(--muted); letter-spacing: .04em; white-space: nowrap; text-align: right; }
+  .docket-id .di-label { display: block; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); opacity: .8; margin-bottom: 2px; }
 
   .head-client-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-top: 22px; }
   .head-client-label { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); opacity: .9; margin-bottom: 8px; }
@@ -145,6 +146,8 @@
   .urgency-text.emergency { color: var(--red); filter: drop-shadow(0 0 8px var(--red)); }
 
   .head-sub { font-size: 12.5px; color: var(--soft); margin-top: 8px; line-height: 1.6; }
+  .head-sub.booked-date { color: var(--gold-light); font-weight: 500; }
+  .head-sub.booked-date .bd-label { color: var(--gold); text-transform: uppercase; letter-spacing: .12em; font-size: 10.5px; font-weight: 600; margin-right: 6px; }
 
   .top-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
 
@@ -468,7 +471,10 @@
     const isEmergency = /emergency|urgent|high|asap/i.test(urgencyVal);
 
     const siteConfirmation = pick(data, ['siteConfirmation','siteAddress']);
-    // Availability / booked date — shown right under the address.
+    // Lead booked date — shown right under the address. This is the date
+    // the customer's job is booked/confirmed for, NOT the date this docket
+    // page was generated (that separate "Generated" timestamp sits in the
+    // top-right corner of the header, see docket-id below).
     // Run through formatBookedDate() as a safety net in case a raw ISO
     // string ever arrives instead of the Worker's pre-formatted text.
     const confirmationDateRaw = pick(data, ['confirmationDate','confirmation_date','availability','Availability','confirmedDate','confirmed_date']);
@@ -529,16 +535,18 @@
         <div class="head">
           <div class="head-top">
             <div class="brand"><img src="${LOGO_URL}" alt="Hermia"><span class="brand-text">Hermia <span>· job docket</span></span></div>
-            <div class="urgency-text ${isEmergency ? 'emergency' : ''}">${escapeHtml(urgencyVal || 'Standard')}</div>
+            <div style="display:flex; align-items:center; gap:14px;">
+              <div class="urgency-text ${isEmergency ? 'emergency' : ''}">${escapeHtml(urgencyVal || 'Standard')}</div>
+              <div class="docket-id"><span class="di-label">Generated</span>${new Date().toISOString().slice(0, 10)}</div>
+            </div>
           </div>
           <div class="head-client-row">
             <div>
               <div class="head-client-label">Client</div>
               <div class="head-title">${escapeHtml(displayName)}</div>
               ${siteConfirmation ? `<div class="head-sub">${escapeHtml(siteConfirmation)}</div>` : ''}
-              ${confirmationDate ? `<div class="head-sub">Booked date: ${escapeHtml(confirmationDate)}</div>` : ''}
+              ${confirmationDate ? `<div class="head-sub booked-date"><span class="bd-label">Lead booked date</span>${escapeHtml(confirmationDate)}</div>` : ''}
             </div>
-            <div class="docket-id">${new Date().toISOString().slice(0, 10)}</div>
           </div>
         </div>
 
