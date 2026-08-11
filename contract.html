@@ -253,12 +253,19 @@
   const DEFAULT_PLAN = 'simpro_limited';
   const PLACEHOLDER_MARKER = 'REPLACE_WITH_';
 
-  // Build the combo key from ?plan= (crm) + ?tier= (limited/unlimited),
-  // set by tier.html. Falls back to sessionStorage, then a safe default.
+  // ============================================================
+  // FIX: reads/writes the CRM half of state under 'hermia_crm', not
+  // 'hermia_plan'. This page used to do
+  //   sessionStorage.setItem('hermia_plan', selectedPlanKey.split('_')[0])
+  // which wrote "simpro"/"aroflo" into the SAME key company.html
+  // later expects to hold "gmail"/"outlook". Build the combo key
+  // from ?plan= (crm) + ?tier= (limited/unlimited), set by tier.html.
+  // Falls back to sessionStorage, then a safe default.
+  // ============================================================
   const urlParams = new URLSearchParams(window.location.search);
   const crmFromUrl  = urlParams.get('plan');
   const tierFromUrl = urlParams.get('tier');
-  const crmStored  = sessionStorage.getItem('hermia_plan');
+  const crmStored  = sessionStorage.getItem('hermia_crm');
   const tierStored = sessionStorage.getItem('hermia_tier');
 
   let comboKey = (crmFromUrl && tierFromUrl) ? (crmFromUrl + '_' + tierFromUrl) : null;
@@ -272,8 +279,10 @@
 
   // Persist locally too (best-effort — authoritative copy is the
   // Stripe client_reference_id set in handlePayment below).
+  // FIX: was sessionStorage.setItem('hermia_plan', ...) — now writes
+  // to hermia_crm so it never collides with the email-provider key.
   try {
-    sessionStorage.setItem('hermia_plan', selectedPlanKey.split('_')[0]);
+    sessionStorage.setItem('hermia_crm', selectedPlanKey.split('_')[0]);
     sessionStorage.setItem('hermia_tier', selectedPlanKey.split('_').slice(1).join('_'));
   } catch(e) {}
 
@@ -389,9 +398,15 @@
 
     // Redirect to Stripe, carrying the full plan+tier combo as
     // client_reference_id. This is what Hermianango's
-    // /create-customer reads to set customers.hermia_plan — the
+    // /create-customer reads to set customers.finance_plan — the
     // usage-limit worker logic keys off this same combo key to know
     // whether a contractor is Limited or Unlimited.
+    //
+    // ⚠️ THIS ONLY WORKS if the Worker's /create-customer handler
+    // was patched to treat this combo key as the finance/CRM plan
+    // and NOT write it into hermia_plan. Confirm that patch is live
+    // before trusting this flow end to end — it has not been
+    // re-verified in this conversation.
     const finalUrl = appendParam(planConfig.link, 'client_reference_id', selectedPlanKey);
     window.location.href = finalUrl;
   }
