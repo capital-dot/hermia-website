@@ -260,9 +260,11 @@ document.getElementById('planBadgeText').innerHTML =
   'CRM: <b>' + planConfig.name + '</b> — pricing tier is chosen on the next step';
 document.getElementById('pageSub').innerHTML = planConfig.subCopy;
 
-// FIX: CRM choice now stored under its own key. hermia_plan is
-// deliberately left untouched here so the connect step can safely
-// set it to 'gmail' / 'outlook' later without anything colliding.
+// FIX: CRM choice now stored under its own key ('hermia_crm', not
+// 'hermia_plan'). The URL param passed to tier.html is still named
+// "plan" (tier.html expects urlParams.get('plan')) — only the
+// sessionStorage key changed, since that's what was actually
+// colliding with the email provider value read by company.html.
 sessionStorage.setItem('hermia_crm', planKey);
 
 // ============================================================
@@ -360,9 +362,11 @@ async function handleApplyClick() {
   advance('vs1', 550);
   advance('vs2', 1200);
   advance('vs3', 1850);
-  // FIX: param renamed from ?plan= to ?crm= so it can never again be
-  // confused with the email-provider "hermia_plan" value downstream.
-  setTimeout(() => { window.location.href = 'tier.html?crm=' + planKey; }, 2500);
+  // NOTE: URL param stays "?plan=" (not renamed) because tier.html
+  // reads urlParams.get('plan') for the CRM key. The actual fix is
+  // the sessionStorage key above (hermia_crm, not hermia_plan) —
+  // that's what was colliding with the email provider value.
+  setTimeout(() => { window.location.href = 'tier.html?plan=' + planKey; }, 2500);
 }
 </script>
 </body>
