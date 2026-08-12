@@ -82,6 +82,40 @@ h1 em{font-style:italic;color:var(--gold);}
 	.select-btn.outline:hover{background:linear-gradient(135deg,rgba(232,193,122,.12),rgba(201,163,91,.045));border-color:var(--gold-light);}
 	@keyframes tierGlow{from{transform:translateX(-50%) scale(1);opacity:.78;}to{transform:translateX(-50%) scale(1.07);opacity:1;}}
 	@media(max-width:720px){.cards::before{display:none}.wrap{padding:78px 18px 58px}.card{min-height:0;padding:38px 28px 31px;}}
+
+	/* ── First-name modal (absorbed from apply.html) ── */
+	.modal-overlay{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(5,5,7,.72);backdrop-filter:blur(6px);}
+	.modal-overlay.show{display:flex;animation:overlayIn .25s ease both;}
+	@keyframes overlayIn{from{opacity:0}to{opacity:1}}
+	.modal-card{position:relative;overflow:hidden;width:100%;max-width:420px;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.006)),var(--card);border:1px solid var(--border-hi);border-radius:20px;padding:38px 34px;box-shadow:0 34px 90px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.06);text-align:left;animation:modalIn .35s ease both;}
+	@keyframes modalIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+	.modal-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent);}
+	.modal-close{position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:15px;line-height:1;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+	.modal-close:hover{color:var(--cream);border-color:var(--gold);background:var(--gold-dim);}
+	.modal-tag{font-size:11px;font-weight:600;letter-spacing:2.2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+	.modal-title{font-family:var(--display);font-size:29px;font-weight:600;color:#fff;margin-bottom:8px;line-height:1.1;}
+	.modal-title b{color:var(--gold-light);font-style:italic;font-weight:600;}
+	.modal-sub{font-size:13.5px;color:var(--soft);margin-bottom:26px;line-height:1.6;}
+	.modal-field label{display:block;font-size:12px;font-weight:500;color:var(--soft);letter-spacing:1.3px;margin-bottom:9px;text-transform:uppercase;}
+	.modal-field input{width:100%;padding:15px 16px;background:#0b0b0e;border:1px solid rgba(201,163,91,0.22);border-radius:11px;color:var(--cream);font-size:15px;transition:all 0.2s;font-family:'DM Sans',sans-serif;font-weight:300;}
+	.modal-field input:focus{outline:none;border-color:var(--gold);background:#141017;box-shadow:0 0 0 4px rgba(201,163,91,0.14);}
+	.modal-field input::placeholder{color:var(--muted);}
+	.modal-err{display:none;font-size:12.5px;color:#e07070;margin-top:9px;}
+	.modal-submit{width:100%;margin-top:22px;position:relative;overflow:hidden;padding:17px;background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#1a1408;font-size:12.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:11px;cursor:pointer;transition:all 0.3s;box-shadow:0 12px 32px rgba(201,163,91,0.28);font-family:'DM Sans',sans-serif;}
+	.modal-submit:hover{filter:brightness(1.07);transform:translateY(-2px);box-shadow:0 16px 42px rgba(201,163,91,0.42);}
+	.modal-submit:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+
+	.modal-loading{display:none;text-align:center;padding:14px 0 4px;}
+	.modal-loading.show{display:block;}
+	.m-spinner{width:46px;height:46px;margin:0 auto 22px;border:2.5px solid rgba(201,163,91,0.18);border-top-color:var(--gold);border-radius:50%;animation:spin .85s linear infinite;}
+	@keyframes spin{to{transform:rotate(360deg)}}
+	.modal-loading h3{font-family:var(--display);font-size:24px;font-weight:600;color:#fff;margin-bottom:20px;}
+	.m-steps{list-style:none;display:flex;flex-direction:column;gap:13px;}
+	.m-steps li{display:flex;align-items:center;gap:12px;font-size:13.5px;color:var(--muted);transition:color .3s;font-weight:300;}
+	.m-steps li .mdot{width:19px;height:19px;border-radius:50%;border:1.5px solid var(--border-hi);flex-shrink:0;position:relative;transition:all .3s;}
+	.m-steps li.done{color:var(--cream);}
+	.m-steps li.done .mdot{background:rgba(16,185,129,0.15);border-color:var(--green);}
+	.m-steps li.done .mdot::after{content:'';position:absolute;left:5.5px;top:2.5px;width:4px;height:8px;border:solid var(--green);border-width:0 2px 2px 0;transform:rotate(45deg);}
 </style>
 </head>
 <body>
@@ -96,28 +130,47 @@ h1 em{font-style:italic;color:var(--gold);}
   <div class="errbox" id="errBox"></div>
 </div>
 
+<!-- First-name modal — replaces apply.html entirely -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-card">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+
+    <div id="modalForm">
+      <div class="modal-tag">Deploy Your Blueprint</div>
+      <h2 class="modal-title">Just your <b>first name</b></h2>
+      <p class="modal-sub" id="modalSub">You're a moment away from your agreement — no forms, no back-and-forth.</p>
+      <div class="modal-field">
+        <label>First name</label>
+        <input type="text" id="firstName" placeholder="Jane" autocomplete="given-name">
+        <p class="modal-err" id="modalErr">Please enter your first name.</p>
+      </div>
+      <button class="modal-submit" id="modalSubmit" type="button">Continue →</button>
+    </div>
+
+    <div class="modal-loading" id="modalLoading">
+      <div class="m-spinner"></div>
+      <h3>Preparing your agreement</h3>
+      <ul class="m-steps">
+        <li id="ms1"><span class="mdot"></span> Saving your details</li>
+        <li id="ms2"><span class="mdot"></span> Locking in your tier</li>
+        <li id="ms3"><span class="mdot"></span> Loading your agreement</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 <script>
 // ============================================================
 // PRICING SOURCE OF TRUTH
 // ------------------------------------------------------------
-// Pricing now lives in the Supabase `payment_plans` table (see migration
+// Pricing lives in the Supabase `payment_plans` table (see migration
 // 001_payment_plans_and_plan_split.sql) and is served by the Worker at
 //   GET https://hermianango.capital-fbc.workers.dev/payment-plans?crm=<simpro|aroflo>
-// This means a price/cap change only ever needs to happen in ONE place
-// (the table), not here too.
+// A price/cap change only ever needs to happen in ONE place (the
+// table), not here too.
 //
 // FALLBACK_TIER_CONFIG below is kept ONLY as a safety net in case that
-// fetch fails (Worker down, Supabase hiccup, offline dev, etc) — the page
-// should never hard-fail just because pricing couldn't be fetched live.
-// If you see the fallback pricing on a real customer's screen, treat that
-// as a live-site alert: check /payment-plans and the Worker logs.
-//
-// NOTE: the `link` values below are UNCHANGED from what was originally
-// supplied — none of the four Stripe Payment Links have been modified or
-// reordered. Before going live, verify directly in the Stripe dashboard
-// that each link/product ID actually matches the tier it's assigned to
-// here, and that each link's configured charge amount matches the display
-// price next to it.
+// fetch fails (Worker down, Supabase hiccup, offline dev, etc).
 // ============================================================
 const WORKER_BASE_URL = 'https://hermianango.capital-fbc.workers.dev';
 
@@ -129,7 +182,7 @@ const FALLBACK_TIER_CONFIG = {
   },
   aroflo: {
     crmName: 'AroFlo',
-    limited:   { name: 'Limited',   price: '$497 AUD / month',   setupFee: '$900 AUD',   cap: '15 photos / videos / voice notes / hot+warm leads per month', link: 'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00' },
+    limited:   { name: 'Limited',   price: '$497 AUD / month',   setupFee: null,   cap: '15 photos / videos / voice notes / hot+warm leads per month', link: 'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00' },
     unlimited: { name: 'Unlimited', price: '$997 AUD / month', setupFee: '$1,300 AUD', cap: 'No caps — unlimited photos, videos, voice notes, hot+warm leads', link: 'https://buy.stripe.com/9B68wR4Zjfn668i2fW9EI01' } // same link as simpro.unlimited, unchanged from source
   }
 };
@@ -138,15 +191,15 @@ const DEFAULT_CRM = 'simpro';
 const CRM_DISPLAY_NAME = { simpro: 'Simpro', aroflo: 'AroFlo' };
 
 // ============================================================
-// FIX: CRM value is read/written under sessionStorage key
-// 'hermia_crm' — NOT 'hermia_plan'. 'hermia_plan' is reserved
-// exclusively for the email provider (gmail/outlook) that
-// company.html reads later in the funnel. This page used to write
-// the CRM key ("simpro"/"aroflo") into 'hermia_plan', which
-// silently broke the connect step downstream. The URL param name
-// stays "plan" (unchanged) since that's just a query string label,
-// not the colliding storage key — only the sessionStorage key
-// needed to change.
+// CRM value is read/written under sessionStorage key 'hermia_crm'
+// — NOT 'hermia_plan' ('hermia_plan' is reserved for the email
+// provider read later in the funnel). The URL param name stays
+// "plan" (e.g. tier.html?plan=aroflo), since that's just a query
+// string label, not the storage key.
+//
+// Since apply.html no longer exists, tier.html is now the funnel's
+// entry point for CRM selection too — it reads ?plan= off the URL
+// (e.g. a link from index.html/pricing.html) exactly as before.
 // ============================================================
 const urlParams = new URLSearchParams(window.location.search);
 const requestedCrm = urlParams.get('plan');
@@ -158,10 +211,10 @@ let crm = FALLBACK_TIER_CONFIG[crmKey];
 
 function renderCard(tierKey, tier, featured) {
   return `
-  <div class="card ${featured ? 'featured' : ''}" onclick="selectTier('${tierKey}')">
+  <div class="card ${featured ? 'featured' : ''}" onclick="openTierModal('${tierKey}')">
     <div class="tier-name">${tier.name}</div>
     <div class="tier-price">${tier.price}</div>
-    <div class="tier-setup">+ ${tier.setupFee} one-off setup</div>
+    <div class="tier-setup">${tier.setupFee ? '+ ' + tier.setupFee + ' one-off setup' : 'No setup fee'}</div>
     <ul class="tier-list">
       <li><span>Usage</span> <b>${tier.cap}</b></li>
     </ul>
@@ -179,8 +232,8 @@ function render() {
 }
 
 // Convert a payment_plans row (see migration 001) into the same shape as
-// FALLBACK_TIER_CONFIG[crm][tier], so renderCard()/selectTier() don't care
-// which source the data came from.
+// FALLBACK_TIER_CONFIG[crm][tier], so renderCard()/openTierModal() don't
+// care which source the data came from.
 function rowToTier(row) {
   return {
     name: row.display_name,
@@ -216,22 +269,122 @@ async function loadPlans() {
 
 loadPlans();
 
-function selectTier(tierKey) {
+// ============================================================
+// EVERYTHING BELOW THIS LINE IS ABSORBED FROM apply.html.
+// apply.html is retired — its job (capture a name, store the
+// applicant record, fire the webhook, hand off to the next step)
+// now happens inside this modal, triggered by picking a tier.
+// The trade/capacity/provider fields apply.html used to collect
+// are gone; business-details.html collects that properly later in
+// the funnel, so asking for it twice was redundant.
+// ============================================================
+const WEBHOOK_URL = 'https://hook.eu1.make.com/3hq3jwbtjc6afnfem9rhshxwqlyx838j';
+
+const modalOverlay  = document.getElementById('modalOverlay');
+const modalForm     = document.getElementById('modalForm');
+const modalLoading  = document.getElementById('modalLoading');
+const modalSub      = document.getElementById('modalSub');
+const firstNameInput= document.getElementById('firstName');
+const modalErr      = document.getElementById('modalErr');
+const modalSubmit   = document.getElementById('modalSubmit');
+const modalClose    = document.getElementById('modalClose');
+
+let pendingTierKey = null;
+
+function openTierModal(tierKey) {
   const tier = crm[tierKey];
-  const errBox = document.getElementById('errBox');
   if (tier.link.indexOf(PLACEHOLDER_MARKER) !== -1) {
+    const errBox = document.getElementById('errBox');
     errBox.textContent = "This tier's checkout isn't configured yet — contact capital@hermia.au to complete this manually.";
     errBox.style.display = 'block';
     return;
   }
+
+  pendingTierKey = tierKey;
+  modalSub.textContent = "You've picked " + crm.crmName + " — " + tier.name + ". Just your first name and you're through to the agreement.";
+  modalErr.style.display = 'none';
+  firstNameInput.value = '';
+  modalForm.style.display = 'block';
+  modalLoading.classList.remove('show');
+  ['ms1','ms2','ms3'].forEach(id => document.getElementById(id).classList.remove('done'));
+  modalSubmit.disabled = false;
+  modalOverlay.classList.add('show');
+  setTimeout(() => firstNameInput.focus(), 150);
+}
+
+function closeTierModal() {
+  modalOverlay.classList.remove('show');
+  pendingTierKey = null;
+}
+
+modalClose.addEventListener('click', closeTierModal);
+modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeTierModal(); });
+firstNameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitTierModal(); });
+modalSubmit.addEventListener('click', submitTierModal);
+
+function advance(id, delay) {
+  setTimeout(() => document.getElementById(id).classList.add('done'), delay);
+}
+
+async function submitTierModal() {
+  const name = firstNameInput.value.trim();
+  if (!name) {
+    modalErr.style.display = 'block';
+    firstNameInput.focus();
+    return;
+  }
+  modalErr.style.display = 'none';
+  modalSubmit.disabled = true;
+
+  const tierKey = pendingTierKey;
+  const tier = crm[tierKey];
+
+  // Same applicant shape apply.html used to build, minus the
+  // trade/capacity/provider fields that are now collected later in
+  // business-details.html instead of here.
+  const applicant = {
+    market:        'Australia',
+    name,
+    trade:         '',
+    trades:        [],
+    capacity:      '',
+    crm:           crmKey,
+    crm_name:      crm.crmName,
+    tier:          tierKey,
+    tier_name:     tier.name,
+    provider:      '',
+    provider_name: '',
+    submitted_at:  new Date().toISOString(),
+    source:        'hermia-tier'
+  };
+
   try {
-    sessionStorage.setItem('hermia_tier', tierKey);
-    // FIX: was sessionStorage.setItem('hermia_plan', crmKey) — that
-    // clobbered the email-provider key a second time, right after
-    // apply.html's version of the same bug. Now writes to hermia_crm.
+    sessionStorage.setItem('hermia_applicant', JSON.stringify(applicant));
+    sessionStorage.setItem('hermia_name', name);
+    sessionStorage.setItem('hermia_market', 'Australia');
     sessionStorage.setItem('hermia_crm', crmKey);
+    sessionStorage.setItem('hermia_tier', tierKey);
   } catch(e) {}
-  window.location.href = 'contract.html?plan=' + encodeURIComponent(crmKey) + '&tier=' + encodeURIComponent(tierKey);
+
+  // Same webhook apply.html used to fire, now triggered from here instead.
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'hermia-application', ...applicant })
+    });
+  } catch(e) {}
+
+  modalForm.style.display = 'none';
+  modalLoading.classList.add('show');
+
+  advance('ms1', 450);
+  advance('ms2', 1050);
+  advance('ms3', 1650);
+
+  setTimeout(() => {
+    window.location.href = 'contract.html?plan=' + encodeURIComponent(crmKey) + '&tier=' + encodeURIComponent(tierKey);
+  }, 2200);
 }
 </script>
 </body>
