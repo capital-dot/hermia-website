@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
     <style>
-        /* ── Tokens: same as pricing / setup-complete ── */
         :root {
             --bg:#16140f;
             --bg-card:rgba(201,163,91,0.035);
@@ -162,10 +161,6 @@
 
         .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
-        /* ── Trade multi-select / provider single-select — chip/checkbox
-           grid, same token language as everything else on this card.
-           Reused for both: trade-grid = multi-select (checkboxes),
-           providerGrid = single-select (radios), same visual styling. ── */
         .trade-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
         }
@@ -202,17 +197,6 @@
         .trade-chip span { font-size: 14px; color: var(--cream); letter-spacing: .01em; }
         .trade-hint { font-size: 11.5px; color: var(--soft); opacity: .65; margin-top: 10px; line-height: 1.5; }
 
-        /* ══════════════════════════════════════════════════════════
-           NEW — SENDING DOMAINS multi-entry field.
-           A contractor can receive leads across MORE than one domain
-           or address (a main website form, a separately-branded site,
-           a booking-widget notification address, etc.) — some run
-           5+ of these. This is a tag/chip-input: type a domain or
-           email, press Enter or tap "Add" to commit it as a pill,
-           tap the pill's × to remove it. Same visual language as the
-           trade-chip grid above, just inline-flow instead of a fixed
-           grid, since the count is open-ended.
-           ══════════════════════════════════════════════════════════ */
         .domain-input-row { display: flex; gap: 10px; }
         .domain-input-row input { flex: 1; }
         .domain-add-btn {
@@ -359,18 +343,6 @@
                 <div class="trade-hint">This inbox will only be connected to one Gmail/Outlook account. If this business handles trades that aren't in the same email inbox, set up a separate onboarding + inbox for those.</div>
             </div>
 
-            <!-- ══════════════════════════════════════════════════════
-                 NEW (fix): explicit email-provider capture. Previously
-                 this page silently trusted whatever `plan` value had
-                 been carried through the URL/sessionStorage from an
-                 earlier step, and the email field below was hardcoded
-                 to "Professional Gmail" regardless. If that carried
-                 value was ever empty or wrong, hermia_plan never got
-                 written to Supabase, and company.html (step 5) had
-                 nothing to branch on. This page is now the source of
-                 truth for hermia_plan - it always asks, always sends
-                 whatever was picked here, no matter what came before.
-                 ══════════════════════════════════════════════════════ -->
             <div class="field">
                 <label>Email Provider</label>
                 <div class="trade-grid" id="providerGrid" style="grid-template-columns: 1fr 1fr;">
@@ -392,20 +364,6 @@
                 <div class="err-msg" id="err-gmail">Valid Email Required</div>
             </div>
 
-            <!-- ══════════════════════════════════════════════════════
-                 NEW — SENDING DOMAINS.
-                 Contractors often receive leads across more than one
-                 domain/inbox path (main website form + a separately-
-                 branded site, a booking widget's notification
-                 address, etc.) - some run 5 or more of these. This
-                 lets them register every domain/address their OWN
-                 forms and notification systems send FROM, so
-                 gmailflitering.js's isOwnBusinessSender() can
-                 recognise all of them as "ours, not a lead" and go
-                 straight to reading the customer's details out of the
-                 message body instead. Stored as customers.sending_domains
-                 via POST /save-sending-domains.
-                 ══════════════════════════════════════════════════════ -->
             <div class="field">
                 <label>Sending Domains / Notification Emails</label>
                 <div class="domain-input-row" id="domainInputRow">
@@ -465,42 +423,6 @@
     </div>
 
     <script>
-        // Simpro-specific variant of the business-details step.
-        // Same UI/validation as the ServiceM8 version, but:
-        //  1. always tags crmProvider = 'simpro' when creating the outlooker
-        //  2. always redirects to simpro_connect.html afterward
-        //
-        // v2 (2026-07-29): added trade multi-select. Hermia is multi-trade —
-        // each onboarding = one inbox = one customers row, but that one row
-        // can carry MULTIPLE trades (customers.allowed_trades is a jsonb
-        // array already). If a business runs separate inboxes per trade,
-        // they onboard separately per inbox instead of trying to split
-        // trades within one signup.
-        //
-        // v3 (2026-08-12): FIX - hermia_plan (gmail/outlook) was silently
-        // relying on a `plan` value carried through the URL/sessionStorage
-        // from an earlier step in the funnel. When that value was missing
-        // or wrong, /create-outlooker wrote hermia_plan=null to Supabase,
-        // which broke company.html's ability to route the customer to the
-        // right connect flow (the "could not determine your next step"
-        // error). This page now explicitly asks which inbox (Gmail or
-        // Outlook) Hermia should connect to, requires an answer, and that
-        // answer - not whatever was carried in - is what gets sent as
-        // `plan` to /create-outlooker and stored as hermia_plan.
-        //
-        // v4 (2026-08-12): NEW - SENDING DOMAINS collection. Contractors
-        // can receive leads across more than one domain/inbox path (a
-        // main website form + a separately-branded site, a booking-widget
-        // notification address, etc.) — some run 5+ of these. This step
-        // now collects every domain/address the contractor's OWN forms
-        // and notifications send FROM, as a simple tag/chip input (type,
-        // press Enter or tap Add, repeat). After /create-outlooker
-        // succeeds and returns the new customerId, this list is POSTed to
-        // /save-sending-domains so gmailflitering.js's
-        // isOwnBusinessSender() can use it as a deterministic backup
-        // signal. Entirely optional — skipping it just means that backup
-        // signal isn't available for this customer yet; nothing else on
-        // this page is blocked by it, and it can always be added later.
         const ALL_STEPS = ['Payment','Business','Details','Simpro','Connect','Setup'];
         const ACTIVE_INDEX = 2;
         const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -522,14 +444,6 @@
         const HERMIANANGO_URL = 'https://hermianango.capital-fbc.workers.dev';
         const $ = id => document.getElementById(id);
 
-        // ============================================================
-        // PLAN CARRY-THROUGH
-        // This `plan` value is only used now to PRE-SELECT the email
-        // provider chip below (best-effort convenience). It is NOT
-        // trusted as the final value sent to the backend anymore -
-        // see EMAIL PROVIDER SELECT section, which overwrites it with
-        // whatever the user actually picked before submit.
-        // ============================================================
         const PLAN_NAMES = {
             gmail:     'Gmail',
             facebook:  'Facebook',
@@ -649,9 +563,6 @@
         $('country').addEventListener('change', (e) => populateRegionsForCountry(e.target.value));
         populateRegionsForCountry($('country').value);
 
-        // ============================================================
-        // TRADE MULTI-SELECT
-        // ============================================================
         function getSelectedTrades() {
             return Array.from(document.querySelectorAll('#tradeGrid input[type="checkbox"]:checked')).map(cb => cb.value);
         }
@@ -668,9 +579,6 @@
             sync();
         });
 
-        // ============================================================
-        // EMAIL PROVIDER SELECT (fix - required, drives hermia_plan)
-        // ============================================================
         const EMAIL_PLACEHOLDERS = {
             gmail: 'john@yourcompany.com.au',
             outlook: 'john@yourcompany.com.au'
@@ -703,9 +611,6 @@
             });
         });
 
-        // Best-effort pre-select from whatever was carried in the URL/
-        // sessionStorage, but the user still has to have a checked value
-        // to submit - this never bypasses the requirement below.
         if (plan === 'gmail' || plan === 'outlook') {
             const preselect = document.querySelector('#providerGrid input[value="' + plan + '"]');
             if (preselect) {
@@ -715,21 +620,8 @@
             }
         }
 
-        // ============================================================
-        // SENDING DOMAINS — tag/chip input.
-        // Accepts either a bare domain ("yourwebsite.com") or a full
-        // address ("forms@yourwebsite.com"). Kept as a simple in-memory
-        // array (sendingDomains) until submit; normalized the same way
-        // hermianango's /save-sending-domains normalizes server-side
-        // (lowercased, trimmed, leading "@" stripped) so what the user
-        // sees here matches what ends up stored. De-duplicated on add.
-        // Optional field — an empty list is a valid submission.
-        // ============================================================
         let sendingDomains = [];
 
-        // Loose but useful validation: either "word.word" (a domain) or
-        // "something@word.word" (an address). Not a full RFC check —
-        // just enough to catch obvious typos before they're saved.
         const DOMAIN_RE = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/i;
         const EMAIL_RE = /^[^\s@]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/i;
 
@@ -737,7 +629,6 @@
             let s = (raw || '').trim().toLowerCase();
             if (!s) return '';
             if (s.startsWith('@')) s = s.slice(1);
-            // strip a pasted protocol/path down to just the host
             s = s.replace(/^https?:\/\//, '').replace(/\/.*$/, '');
             return s;
         }
@@ -777,7 +668,7 @@
         function addDomainFromInput() {
             const input = $('domainInput');
             const normalized = normalizeDomainEntry(input.value);
-            if (!normalized) return; // empty entry, nothing to do, not an error
+            if (!normalized) return;
             if (!isValidDomainEntry(normalized)) {
                 $('domainInputRow').classList.add('err');
                 $('err-domains').classList.add('show');
@@ -804,14 +695,7 @@
             $('domainInputRow').classList.remove('err');
             $('err-domains').classList.remove('show');
         });
-        // A domain typed but not explicitly "Added" before submit is
-        // still picked up (see submit handler below) rather than
-        // silently dropped, since that's the single most likely user
-        // mistake with a tag-input like this.
 
-        // ============================================================
-        // STRIPE SESSION ID
-        // ============================================================
         let stripeSessionId = urlParams.get('session_id');
         if (!stripeSessionId) {
             try { stripeSessionId = sessionStorage.getItem('hermia_stripe_session_id') || ''; } catch(e) { stripeSessionId = ''; }
@@ -831,10 +715,6 @@
             if (el) el.addEventListener('change', () => showErr(id, false));
         });
 
-        // Best-effort, non-blocking: sends whatever sending domains were
-        // collected to hermianango. Optional field — if this fails, we
-        // log it and move on rather than blocking the onboarding flow,
-        // since the contractor can always add these later.
         async function saveSendingDomains(customerId, domains) {
             if (!domains || !domains.length) return;
             try {
@@ -854,9 +734,47 @@
             }
         }
 
+        // ============================================================
+        // NEW — SIGNED CONTRACT SNAPSHOT.
+        // contract.html stashes the fully-rendered, signed agreement
+        // (HTML) plus its key terms in sessionStorage the moment the
+        // person checks the box and clicks through to payment - see
+        // that page's captureSignedContractSnapshot(). No customer row
+        // existed at that point. Now that /create-outlooker above has
+        // returned a real id, pick the snapshot up and hand it to
+        // hermianango to upload into Supabase Storage and link to this
+        // customer. Best-effort and non-blocking, same as sending
+        // domains: a failure here never stops onboarding, and it's
+        // cleared from sessionStorage either way so it isn't re-sent
+        // on a later customer's signup in the same browser session.
+        // ============================================================
+        async function saveSignedContract(customerId) {
+            let raw;
+            try { raw = sessionStorage.getItem('hermia_signed_contract'); } catch(e) { raw = null; }
+            if (!raw) return;
+            let snapshot;
+            try { snapshot = JSON.parse(raw); } catch(e) { snapshot = null; }
+            if (!snapshot || !snapshot.html) return;
+            try {
+                const res = await fetch(HERMIANANGO_URL + '/save-signed-contract', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ customerId: customerId, html: snapshot.html, meta: snapshot.meta || {} })
+                });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok || !data.ok) {
+                    console.error('[business-details] save-signed-contract failed:', data);
+                } else {
+                    console.log('[business-details] saved signed contract:', data.storagePath);
+                }
+            } catch (e) {
+                console.error('[business-details] save-signed-contract threw:', e);
+            } finally {
+                try { sessionStorage.removeItem('hermia_signed_contract'); } catch(e) {}
+            }
+        }
+
         $('submitBtn').addEventListener('click', async () => {
-            // Pick up anything still sitting in the domain input box that
-            // the user typed but never explicitly hit Enter/Add for.
             addDomainFromInput();
 
             let ok = true;
@@ -879,8 +797,6 @@
             if (local.length < 6 || local.length > 12) { showErr('phone', true); ok = false; }
             if (!ok) return;
 
-            // The explicitly-selected provider IS the plan from here on -
-            // it overrides whatever was carried in from earlier steps.
             plan = provider;
             try { sessionStorage.setItem('hermia_plan', plan); } catch(e) {}
 
@@ -902,11 +818,6 @@
                         stripeSessionId: stripeSessionId || null,
                         crmProvider: 'simpro',
                         plan: plan,
-                        // NEW: which trade(s) this business handles. Array
-                        // because one customer/inbox can legitimately cover
-                        // more than one trade (e.g. Remedial + Roofing).
-                        // hermianango's /create-customer needs to write this
-                        // straight into customers.allowed_trades (jsonb).
                         allowedTrades: allowedTrades
                     })
                 });
@@ -917,11 +828,8 @@
 
                 const id = data.outlookerId;
 
-                // NEW — persist the collected sending domains against the
-                // freshly-created customer row. Fire-and-forget-ish: we
-                // await it so logs are useful, but a failure here never
-                // blocks the rest of onboarding (see saveSendingDomains).
                 await saveSendingDomains(id, sendingDomains);
+                await saveSignedContract(id);
 
                 sessionStorage.setItem('hermia_outlooker_id', id);
                 sessionStorage.setItem('hermia_gmail', gmail);
