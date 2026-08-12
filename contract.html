@@ -254,33 +254,8 @@
 
 <script>
   const WEBHOOK_URL = 'https://hook.eu1.make.com/55y5lsql5rmr8ju9cmlt9o5115q784ay';
+  const HERMIANANGO_URL = 'https://hermianango.capital-fbc.workers.dev';
 
-  // ============================================================
-  // PLAN CONFIG — 4 real combos: CRM (simpro/aroflo) × TIER
-  // (limited/unlimited). Keys are built as "<crm>_<tier>" and MUST
-  // match what tier.html sends via ?plan=<crm>&tier=<tier>.
-  //
-  // Display pricing updated 29 Jul 2026 to match the site-wide
-  // Unlimited price change: $1,100/mo + $1,700 setup -> $997/mo +
-  // $1,300 setup. Limited pricing is unchanged.
-  //
-  // NOTE ON THE LINK VALUES: none of the four `link` values below
-  // have been changed, reordered, or swapped from what was supplied.
-  // Before this page goes live, confirm directly in the Stripe
-  // dashboard (not from code comments) that:
-  //   1. Each link is attached to the correct CRM/tier combo
-  //      (Simpro Limited vs AroFlo Limited especially).
-  //   2. The Unlimited link is actually configured to charge
-  //      $997/mo + $1,300 setup, since only the on-page display
-  //      price was updated here — the Stripe-side amount is a
-  //      separate setting and was not touched.
-  //
-  // ⚠️ IMPORTANT: updating the numbers below only changes what's
-  // DISPLAYED on this page. The actual amount charged is whatever
-  // each Stripe Payment Link is configured for on Stripe's side. If
-  // you change a price here, you MUST also update the corresponding
-  // Stripe Payment Link so the charged amount matches.
-  // ============================================================
   const PLAN_CONFIG = {
     simpro_limited: {
       name:     'Simpro — Limited',
@@ -308,21 +283,12 @@
       price:    '$997 AUD / month',
       setupFee: '$1,300 AUD',
       cap:      'No caps',
-      link:     'https://buy.stripe.com/9B68wR4Zjfn668i2fW9EI01' // same link as simpro_unlimited, unchanged from source
+      link:     'https://buy.stripe.com/9B68wR4Zjfn668i2fW9EI01'
     }
   };
   const DEFAULT_PLAN = 'simpro_limited';
   const PLACEHOLDER_MARKER = 'REPLACE_WITH_';
 
-  // ============================================================
-  // FIX: reads/writes the CRM half of state under 'hermia_crm', not
-  // 'hermia_plan'. This page used to do
-  //   sessionStorage.setItem('hermia_plan', selectedPlanKey.split('_')[0])
-  // which wrote "simpro"/"aroflo" into the SAME key company.html
-  // later expects to hold "gmail"/"outlook". Build the combo key
-  // from ?plan= (crm) + ?tier= (limited/unlimited), set by tier.html.
-  // Falls back to sessionStorage, then a safe default.
-  // ============================================================
   const urlParams = new URLSearchParams(window.location.search);
   const crmFromUrl  = urlParams.get('plan');
   const tierFromUrl = urlParams.get('tier');
@@ -338,16 +304,11 @@
     console.error('[contract.html] could not resolve a valid plan+tier combo (plan=' + crmFromUrl + ', tier=' + tierFromUrl + ') — falling back to ' + DEFAULT_PLAN + '.');
   }
 
-  // Persist locally too (best-effort — authoritative copy is the
-  // Stripe client_reference_id set in handlePayment below).
-  // FIX: was sessionStorage.setItem('hermia_plan', ...) — now writes
-  // to hermia_crm so it never collides with the email-provider key.
   try {
     sessionStorage.setItem('hermia_crm', selectedPlanKey.split('_')[0]);
     sessionStorage.setItem('hermia_tier', selectedPlanKey.split('_').slice(1).join('_'));
   } catch(e) {}
 
-  // Update Display
   document.getElementById('displayPrice').textContent = planConfig.price;
   document.getElementById('planLabel').textContent = planConfig.name + ' — Monthly Software Access';
 
@@ -365,7 +326,6 @@
   document.getElementById('planBadgeText').innerHTML = 'You are subscribing to <b>' + planConfig.name + '</b>';
   planBadge.classList.add('show');
 
-  // Applicant Data
   let applicant = {};
   try { applicant = JSON.parse(sessionStorage.getItem('hermia_applicant') || '{}'); } catch(e){}
   const A_NAME  = applicant.name  || sessionStorage.getItem('hermia_name')  || '';
@@ -411,11 +371,52 @@
     icon.classList.remove('open');
   }
 
-  // Appends a query param to a Stripe Payment Link safely,
-  // regardless of whether the link already has params.
   function appendParam(url, key, value) {
     const separator = url.indexOf('?') === -1 ? '?' : '&';
     return url + separator + key + '=' + encodeURIComponent(value);
+  }
+
+  // ============================================================
+  // NEW — SIGNED CONTRACT SNAPSHOT.
+  // Captures the fully-rendered agreement (with the plan, price,
+  // name and dated signature line already filled in above) as a
+  // static HTML string at the exact moment of signing, plus the
+  // key terms as structured data. No customerId exists yet at this
+  // point in the funnel (that's created later in business-details.html
+  // after Stripe redirects back), so this is held in sessionStorage
+  // and picked up + uploaded to Supabase from there. Best-effort:
+  // if this fails for any reason, signing/payment still proceeds -
+  // it never blocks the funnel.
+  // ============================================================
+  function captureSignedContractSnapshot() {
+    try {
+      const clone = document.documentElement.cloneNode(true);
+      // strip scripts from the snapshot - it's a record of the signed
+      // terms, not a live page
+      clone.querySelectorAll('script').forEach(function (s) { s.remove(); });
+      const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+
+      const snapshot = {
+        html: html,
+        meta: {
+          plan: selectedPlanKey,
+          planName: planConfig.name,
+          price: planConfig.price,
+          setupFee: planConfig.setupFee || null,
+          cap: planConfig.cap || null,
+          name: A_NAME || null,
+          email: A_GMAIL || null,
+          phone: A_PHONE || null,
+          signedAt: new Date().toISOString(),
+          signedDateDisplay: todayFormatted
+        }
+      };
+      sessionStorage.setItem('hermia_signed_contract', JSON.stringify(snapshot));
+      return true;
+    } catch (e) {
+      console.error('[contract.html] failed to capture signed contract snapshot (non-fatal):', e);
+      return false;
+    }
   }
 
   async function handlePayment() {
@@ -425,19 +426,20 @@
       return;
     }
 
-    // Hard stop: never send a real customer to an unconfigured
-    // plan link. Remove this block only after every PLAN_CONFIG
-    // link is confirmed live and correctly priced on Stripe.
     if (planConfig.link.indexOf(PLACEHOLDER_MARKER) !== -1) {
       warning.textContent = "This plan's checkout isn't set up yet — contact capital@hermia.au to complete this manually.";
       warning.style.display = 'block';
       return;
     }
 
+    // Capture the signed snapshot before anything else - this is the
+    // moment of signing, and it must not depend on the webhook or
+    // Stripe redirect succeeding.
+    captureSignedContractSnapshot();
+
     sendingMsg.style.display = 'block';
     payBtnWrap.style.display = 'none';
 
-    // Log to Webhook
     try {
       await fetch(WEBHOOK_URL, {
         method: 'POST',
@@ -457,17 +459,6 @@
       });
     } catch(e) { console.error(e); }
 
-    // Redirect to Stripe, carrying the full plan+tier combo as
-    // client_reference_id. This is what Hermianango's
-    // /create-customer reads to set customers.finance_plan — the
-    // usage-limit worker logic keys off this same combo key to know
-    // whether a contractor is Limited or Unlimited.
-    //
-    // ⚠️ THIS ONLY WORKS if the Worker's /create-customer handler
-    // was patched to treat this combo key as the finance/CRM plan
-    // and NOT write it into hermia_plan. Confirm that patch is live
-    // before trusting this flow end to end — it has not been
-    // re-verified in this conversation.
     const finalUrl = appendParam(planConfig.link, 'client_reference_id', selectedPlanKey);
     window.location.href = finalUrl;
   }
