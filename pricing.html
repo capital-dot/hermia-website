@@ -329,19 +329,31 @@
     .allowance-copy { padding: clamp(36px, 5vw, 62px); }
     .allowance-copy h2 { max-width: 540px; margin: 0; color: #fff; font: 600 clamp(31px, 3.4vw, 43px)/1.08 var(--display); letter-spacing: -.05em; }
     .allowance-copy > p { max-width: 540px; margin: 20px 0 0; color: var(--paper-soft); font-size: 15px; line-height: 1.72; }
-    .unit-list { display: grid; grid-template-columns: 1fr; margin-top: 31px; border-top: 1px solid var(--line); }
-    .unit-item { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--line); color: var(--paper-soft); font-size: 13px; }
-    .unit-icon { display: grid; flex: none; width: 31px; height: 31px; place-items: center; border: 1px solid rgba(245,215,150,.28); border-radius: 8px; color: var(--gold-light); background: #242016; }
-    .unit-icon svg { width: 14px; height: 14px; }
-    .allowance-note { max-width: 540px; margin-top: 26px; padding: 15px 17px; border: 1px solid var(--line); border-radius: 10px; color: var(--muted); background: #15140f; font-size: 12px; line-height: 1.62; }
+    .channel-tier-list { display: grid; gap: 13px; margin-top: 31px; }
+    .channel-tier { position: relative; padding: 19px; border: 1px solid var(--line); background: rgba(0,0,0,.14); }
+    .channel-tier.unlimited { border-color: rgba(245,215,150,.42); background: linear-gradient(135deg,rgba(213,170,88,.14),rgba(0,0,0,.12)); }
+    .channel-tier-head { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; }
+    .channel-tier-label { color: #fff; font: 600 27px/.95 var(--display); letter-spacing: -.04em; }
+    .channel-tier-count { color: var(--gold-light); font: 500 9px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .channel-tier p { margin: 11px 0 0; color: var(--paper-soft); font-size: 12px; line-height: 1.64; }
+    .channel-badges { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 15px; }
+    .channel-badges span { padding: 6px 8px; border: 1px solid rgba(245,215,150,.23); background: rgba(245,215,150,.055); color: var(--paper); font: 9px/1 var(--mono); letter-spacing: .04em; }
+    .channel-tier.unlimited .channel-badges span { border-color: rgba(245,215,150,.43); color: var(--gold-light); }
+    .channel-outcome { margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .channel-outcome strong { color: var(--paper); font-weight: 600; }
+    .allowance-note { max-width: 540px; margin-top: 20px; padding: 15px 17px; border: 1px solid var(--line); border-radius: 10px; color: var(--muted); background: #15140f; font-size: 12px; line-height: 1.62; }
     .allowance-note strong { color: var(--paper); font-weight: 600; }
-    .allowance-visual { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-height: 410px; padding: clamp(36px, 5vw, 62px); border-left: 1px solid var(--line); background: #161511; }
+    .allowance-visual { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-height: 510px; padding: clamp(36px, 5vw, 62px); border-left: 1px solid var(--line); background: #161511; }
     .visual-kicker { color: var(--gold-light); font: 500 10px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
-    .pool-number { display: block; margin: 13px 0 3px; color: #fff; font: 600 clamp(94px, 11vw, 144px)/.76 var(--display); letter-spacing: -.08em; }
+    .pool-number { display: block; margin: 13px 0 3px; color: #fff; font: 600 clamp(82px, 9vw, 122px)/.76 var(--display); letter-spacing: -.08em; }
     .pool-label { color: var(--paper-soft); font: 500 14px/1.2 var(--sans); }
-    .visual-rule { width: 100%; height: 1px; margin: 35px 0 19px; background: var(--line); }
-    .visual-copy { max-width: 250px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.62; }
+    .visual-rule { width: 100%; height: 1px; margin: 30px 0 19px; background: var(--line); }
+    .visual-copy { max-width: 290px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.62; }
     .visual-copy strong { color: var(--gold-light); font-weight: 600; }
+    .coverage-steps { width: 100%; margin-top: 21px; border-top: 1px solid var(--line); }
+    .coverage-step { display: grid; grid-template-columns: 42px 1fr; gap: 10px; padding: 13px 0; border-bottom: 1px solid var(--line); }
+    .coverage-step b { color: var(--gold-light); font: 500 10px/1.2 var(--mono); letter-spacing: .08em; }
+    .coverage-step span { color: var(--paper-soft); font-size: 11px; line-height: 1.45; }
 
     .multi-section { padding: 0 0 120px; }
     .multi-panel { display: grid; grid-template-columns: .86fr 1.14fr; gap: clamp(34px, 6vw, 86px); padding: clamp(31px, 5vw, 60px); border-radius: 18px; color: #262219; background: var(--paper); }
@@ -437,7 +449,7 @@
       .allowance-visual { min-height: 336px; padding: 30px; }
       .unit-orbit { width: 250px; }
       .unit-dot { transform: translate(-50%, -50%) rotate(var(--a)) translateY(-124px) rotate(calc(-1 * var(--a))); }
-      .unit-list { grid-template-columns: 1fr; }
+      .channel-tier-list { grid-template-columns: 1fr; }
       .multi-panel { padding: 31px 24px; }
       .inbox-card { width: 62px; height: 68px; }
       .inbox-flow { gap: 3px; }
@@ -464,8 +476,8 @@
           <div class="hero-copy">
             <div class="status-pill"><span class="status-dot" aria-hidden="true"></span>Pricing last updated Tuesday, 11 August 2026</div>
             <p class="eyebrow" style="margin-top:28px">Hermia · Trade business pricing</p>
-            <h1 id="page-title">Built for trade businesses.<br><em>Priced per inbox.</em></h1>
-            <p>Hermia manages enquiries for plumbing, roofing, electrical, and field-service businesses. Connect each inbox on a plan that matches its real job volume — no bundles, no quiet line items, and no bespoke enterprise quote.</p>
+            <h1 id="page-title">Built for trade businesses.<br><em>Priced by channel.</em></h1>
+            <p>Hermia manages enquiries for plumbing, roofing, electrical, and field-service businesses. Choose the channel coverage that matches where your customers actually reach you — no charging by photo, video, voice note, or individual enquiry.</p>
             <div class="hero-meta" aria-label="Pricing principles">
               <span class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 1.8"/></svg>Live in 1 day</span>
               <span class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 6.8A9.1 9.1 0 0 0 12 3a9 9 0 1 0 8.2 12.7"/><path d="M20 4v5h-5"/></svg>2-day free trial included</span>
@@ -499,50 +511,50 @@
 
       <section class="plans-section" aria-labelledby="plans-title">
         <div class="section-heading">
-          <div><p class="eyebrow">Choose your plan</p><h2 class="section-title" id="plans-title">Capacity built around a trade-business inbox.</h2></div>
-          <p class="per-inbox-note"><strong>Every price is per connected trade inbox.</strong><br>Choose a plan separately for each inbox you connect.</p>
+          <div><p class="eyebrow">Choose your plan</p><h2 class="section-title" id="plans-title">Channel coverage built around your trade business.</h2></div>
+          <p class="per-inbox-note"><strong>Every plan is priced by channel coverage.</strong><br>Limited includes Email + WhatsApp. Unlimited unlocks the full channel suite.</p>
         </div>
 
         <div class="plan-grid">
 	          <article class="plan-card">
 	            <div class="plan-top"><span class="crm-label">Simpro</span><span class="tier-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4v16M4 12h16"/><circle cx="12" cy="12" r="8.5"/></svg></span></div>
-	            <h3>Limited</h3><p class="plan-identity">For a steady single trade inbox.</p>
+	            <h3>Limited</h3><p class="plan-identity">For essential two-channel coverage.</p>
 	            <div class="price-line"><span class="price">$660</span><span class="price-period">AUD / month</span></div>
 	            <div class="setup-line"><strong>$900 AUD setup</strong> · live in 1 day</div>
-	            <div class="plan-divider"></div><div class="capacity-label">Monthly allowance</div>
-            <div class="capacity"><span class="capacity-marker">15</span><span><strong>15 shared units</strong> across qualifying media and hot/warm leads.</span></div>
-            <div class="fit-line">Best for sole traders and small field teams</div>
+	            <div class="plan-divider"></div><div class="capacity-label">Included channels</div>
+            <div class="capacity"><span class="capacity-marker">2</span><span><strong>Email + WhatsApp</strong> in one qualification workflow.</span></div>
+            <div class="fit-line">Essential coverage for lean trade teams</div>
           </article>
 
 	          <article class="plan-card">
 	            <div class="plan-top"><span class="crm-label">Simpro</span><span class="tier-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17.5 3.5 21M17 17.5l3.5 3.5M12 3v18M3 12h18"/><circle cx="12" cy="12" r="5"/></svg></span></div>
-	            <h3>Unlimited</h3><p class="plan-identity">For busy trade teams and multiple inboxes.</p>
+	            <h3>Unlimited</h3><p class="plan-identity">For complete five-channel coverage.</p>
 	            <div class="price-line"><span class="price">$997</span><span class="price-period">AUD / month</span></div>
 	            <div class="setup-line"><strong>$1,300 AUD setup</strong> · live in 1 day</div>
-	            <div class="plan-divider"></div><div class="capacity-label">Monthly allowance</div>
-            <div class="capacity"><span class="capacity-marker">∞</span><span><strong>No caps</strong> on qualifying media or hot/warm leads.</span></div>
-            <div class="fit-line">Best for higher job-enquiry volume</div>
+	            <div class="plan-divider"></div><div class="capacity-label">Included channels</div>
+            <div class="capacity"><span class="capacity-marker">5</span><span><strong>Full suite:</strong> Email, WhatsApp, Instagram, Facebook and Google Business.</span></div>
+            <div class="fit-line">Complete coverage for busy trade operations</div>
           </article>
 
 	          <article class="plan-card featured">
 	            <span class="ribbon">Lowest monthly rate</span>
 	            <div class="plan-top"><span class="crm-label">AroFlo</span><span class="tier-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4v16M4 12h16"/><circle cx="12" cy="12" r="8.5"/></svg></span></div>
-	            <h3>Limited</h3><p class="plan-identity">For a steady single trade inbox.</p>
-	            <div class="price-line"><span class="price">$80</span><span class="price-period">AUD / month</span></div>
-	            <div class="setup-line"><strong>$100 AUD setup</strong> · live in 1 day</div>
-	            <div class="plan-divider"></div><div class="capacity-label">Monthly allowance</div>
-            <div class="capacity"><span class="capacity-marker">15</span><span><strong>15 shared units</strong> across qualifying media and hot/warm leads.</span></div>
-            <div class="fit-line">Best for sole traders and small field teams</div>
+	            <h3>Limited</h3><p class="plan-identity">For essential two-channel coverage.</p>
+	            <div class="price-line"><span class="price">$170</span><span class="price-period">AUD / month</span></div>
+	            <div class="setup-line"><strong>$350 AUD setup</strong> · live in 1 day</div>
+	            <div class="plan-divider"></div><div class="capacity-label">Included channels</div>
+            <div class="capacity"><span class="capacity-marker">2</span><span><strong>Email + WhatsApp</strong> in one qualification workflow.</span></div>
+            <div class="fit-line">Essential coverage for lean trade teams</div>
           </article>
 
 	          <article class="plan-card">
 	            <div class="plan-top"><span class="crm-label">AroFlo</span><span class="tier-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17.5 3.5 21M17 17.5l3.5 3.5M12 3v18M3 12h18"/><circle cx="12" cy="12" r="5"/></svg></span></div>
-	            <h3>Unlimited</h3><p class="plan-identity">For busy trade teams and multiple inboxes.</p>
-	            <div class="price-line"><span class="price">$170</span><span class="price-period">AUD / month</span></div>
-	            <div class="setup-line"><strong>$100 AUD setup</strong> · live in 1 day</div>
-	            <div class="plan-divider"></div><div class="capacity-label">Monthly allowance</div>
-            <div class="capacity"><span class="capacity-marker">∞</span><span><strong>No caps</strong> on qualifying media or hot/warm leads.</span></div>
-            <div class="fit-line">Best for higher job-enquiry volume</div>
+	            <h3>Unlimited</h3><p class="plan-identity">For complete five-channel coverage.</p>
+	            <div class="price-line"><span class="price">$260</span><span class="price-period">AUD / month</span></div>
+	            <div class="setup-line"><strong>$497 AUD setup</strong> · live in 1 day</div>
+	            <div class="plan-divider"></div><div class="capacity-label">Included channels</div>
+            <div class="capacity"><span class="capacity-marker">5</span><span><strong>Full suite:</strong> Email, WhatsApp, Instagram, Facebook and Google Business.</span></div>
+            <div class="fit-line">Complete coverage for busy trade operations</div>
           </article>
         </div>
       </section>
@@ -567,10 +579,10 @@
 
       <section class="tier-section" aria-labelledby="tier-title">
         <div class="tier-layout">
-          <div><p class="eyebrow">A quick decision guide</p><h2 class="section-title" id="tier-title">Choose the room your trade business needs.</h2><p class="section-intro">The difference between Limited and Unlimited is simple: whether a shared monthly allowance still fits the pace of your job enquiries.</p></div>
+          <div><p class="eyebrow">A quick decision guide</p><h2 class="section-title" id="tier-title">Choose the channel coverage your trade business needs.</h2><p class="section-intro">The difference between Limited and Unlimited is simple: the enquiry channels you want Hermia to handle for your operation.</p></div>
           <div class="tier-cards">
-            <article class="tier-choice"><div class="choice-head"><span class="choice-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></svg></span><div><div class="choice-title">Limited</div><p class="choice-tag">Right-sized for one inbox</p></div></div><p>Ideal for a single trade inbox with a steady flow of job enquiries. The 15-unit pool flexes between job-site photos, videos, voice notes, and qualified leads instead of locking capacity into unused categories.</p><span class="choice-foot">Steady, moderate job-enquiry volume</span></article>
-            <article class="tier-choice unlimited"><div class="choice-head"><span class="choice-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M8 8h8a4 4 0 1 1-4 4H8a4 4 0 1 0 4 4h4"/></svg></span><div><div class="choice-title">Unlimited</div><p class="choice-tag">Space for momentum</p></div></div><p>Choose Unlimited when a growing crew, busy office, or several connected inboxes mean a fixed ceiling would interrupt job qualification at exactly the wrong time. Every qualifying item is processed without a monthly cap.</p><span class="choice-foot">Growing crews and busy trade offices</span></article>
+            <article class="tier-choice"><div class="choice-head"><span class="choice-icon">02</span><div><div class="choice-title">Limited</div><p class="choice-tag">Email + WhatsApp</p></div></div><p>Choose Limited when Email and WhatsApp are the enquiry channels your trade business needs Hermia to qualify and prepare.</p><span class="choice-foot">Essential two-channel coverage</span></article>
+            <article class="tier-choice unlimited"><div class="choice-head"><span class="choice-icon">05</span><div><div class="choice-title">Unlimited</div><p class="choice-tag">Five enquiry channels</p></div></div><p>Choose Unlimited when your business also wants Hermia across Instagram, Facebook, and Google Business, alongside Email and WhatsApp.</p><span class="choice-foot">Complete five-channel coverage</span></article>
           </div>
         </div>
       </section>
@@ -578,35 +590,34 @@
       <section class="allowance-section" aria-labelledby="allowance-title">
         <div class="allowance-panel">
           <div class="allowance-copy">
-            <p class="eyebrow">For Limited plans</p>
-            <h2 id="allowance-title">Fifteen flexible items. One shared pool.</h2>
-            <p>Every Limited plan includes a monthly allowance of <strong>15 total units</strong> — not 15 of each kind. A unit is used only when a customer sends job-site media or Hermia qualifies a trade lead as hot or warm.</p>
-            <div class="unit-list" aria-label="Each event costs one unit">
-              <div class="unit-item"><span class="unit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="8.6" cy="9.3" r="1.4"/><path d="m5.5 17 4.2-4.1 3.1 2.6 2.3-2 3.2 3.6"/></svg></span>One job-site photo</div>
-              <div class="unit-item"><span class="unit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="m10 9 5 3-5 3V9Z"/></svg></span>One job-site video</div>
-              <div class="unit-item"><span class="unit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="4" width="6" height="11" rx="3"/><path d="M6.5 11.5a5.5 5.5 0 0 0 11 0M12 17v3M9 20h6"/></svg></span>One job-enquiry voice note</div>
-              <div class="unit-item"><span class="unit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 12h4l2.1-5 3.8 10 2.1-5H20"/></svg></span>One qualified trade lead</div>
+            <p class="eyebrow">Channel access</p>
+            <h2 id="allowance-title">The right channels. One clear monthly fee.</h2>
+            <p>Hermia pricing is based on <strong>the enquiry channels your business wants to cover</strong>, not on individual attachments, messages, or lead quality.</p>
+            <div class="channel-tier-list" aria-label="Channel access by plan">
+              <article class="channel-tier"><div class="channel-tier-head"><span class="channel-tier-label">Limited</span><span class="channel-tier-count">02 essential channels</span></div><p>For trade businesses whose genuine customer enquiries are mainly arriving through their inbox and WhatsApp. It gives you a calm, controlled front door without paying for channels you do not use.</p><div class="channel-badges"><span>Email</span><span>WhatsApp</span></div><div class="channel-outcome"><strong>What this means:</strong> every Email and WhatsApp enquiry is qualified against the same trade-specific standard and prepared into one useful job story.</div></article>
+              <article class="channel-tier unlimited"><div class="channel-tier-head"><span class="channel-tier-label">Unlimited</span><span class="channel-tier-count">05 full-coverage channels</span></div><p>For businesses that want Hermia present wherever a customer is most likely to reach out. No social message, local search enquiry, or direct chat becomes a separate manual process for the office to chase.</p><div class="channel-badges"><span>Email</span><span>WhatsApp</span><span>Instagram</span><span>Facebook</span><span>Google Business</span></div><div class="channel-outcome"><strong>What this means:</strong> all five enquiry channels follow the same qualification journey, so customers get a consistent response and your team works from one prepared picture.</div></article>
             </div>
-            <div class="allowance-note"><strong>What stays available:</strong> text messages and low-intent or cold trade enquiries do not draw from the shared pool. Hermia remains fully operational for everything else until the allowance reaches zero. You will be flagged when you are nearing it — nothing is silently dropped.</div>
+            <div class="allowance-note"><strong>Clear pricing:</strong> you pay for the channels you choose—not the number of photos, videos, attachments, messages, or individual enquiries a customer sends.</div>
           </div>
-          <div class="allowance-visual" aria-label="Fifteen flexible shared units on the Limited plan">
-            <span class="visual-kicker">Limited monthly allowance</span>
-            <span class="pool-number">15</span>
-            <span class="pool-label">flexible, shared units</span>
+          <div class="allowance-visual" aria-label="Channel access across Limited and Unlimited plans">
+            <span class="visual-kicker">Your coverage choice</span>
+            <span class="pool-number">2 → 5</span>
+            <span class="pool-label">channels active for your customers</span>
             <div class="visual-rule"></div>
-            <p class="visual-copy">The pool follows the jobs coming in. Use it for the mix of job-site media and qualified leads that actually arrives — <strong>never in a rigid category split.</strong></p>
+            <p class="visual-copy">Start with the essential two channels, or activate the complete five-channel presence when your customers reach your business from everywhere.</p>
+            <div class="coverage-steps"><div class="coverage-step"><b>LIMITED</b><span><strong>Email + WhatsApp</strong><br>One professional standard across your essential direct enquiries.</span></div><div class="coverage-step"><b>UNLIMITED</b><span><strong>All five channels</strong><br>Email, WhatsApp, Instagram, Facebook, and Google Business—one prepared job story.</span></div></div>
           </div>
         </div>
       </section>
 
       <section class="multi-section" aria-labelledby="multi-title">
         <div class="multi-panel">
-	          <div><p class="eyebrow">More than one inbox?</p><h2 id="multi-title">More inboxes simply mean more individual plans.</h2><p>Each inbox is a separate connection. Apply and register separately for each one; there is no bundle and no combined plan. You pay only for the inboxes you connect.</p><p><strong>Setup fees apply only where shown on the selected plan,</strong> and every connected inbox is live in <strong>1 day</strong>. For example, three Simpro inboxes on Unlimited are three independent sign-ups at the standard Simpro Unlimited rate.</p></div>
-          <div class="multi-visual" aria-label="Example: three Unlimited inboxes">
-            <div class="inbox-flow"><div class="inbox-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 6.5 8 6 8-6"/></svg><span>INBOX 01</span></div><div class="inbox-add">+</div><div class="inbox-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 6.5 8 6 8-6"/></svg><span>INBOX 02</span></div><div class="inbox-add">+</div><div class="inbox-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 6.5 8 6 8-6"/></svg><span>INBOX 03</span></div></div>
-	            <div class="equals">3 × Simpro Unlimited</div>
-            <div class="multi-total"><div class="total-cell"><span class="total-label">Go-live timeline</span><strong>1 day</strong></div><div class="total-cell"><span class="total-label">Monthly total</span><strong>$2,991</strong></div></div>
-	            <div class="multi-caption">Setup fees as shown per selected plan · $997 × 3 per month, all in AUD</div>
+          <div><p class="eyebrow">Channel coverage</p><h2 id="multi-title">Your plan follows the channels your customers use.</h2><p>Each plan connects Hermia to the channels included in its tier. Pricing does not change because an enquiry includes more detail or supporting material.</p><p><strong>Limited covers Email and WhatsApp.</strong> Unlimited adds Instagram, Facebook, and Google Business, so every selected channel follows the same qualification standard.</p></div>
+          <div class="multi-visual" aria-label="AroFlo Unlimited channel-based pricing example">
+            <div class="inbox-flow"><div class="inbox-card"><span>EMAIL</span></div><div class="inbox-add">+</div><div class="inbox-card"><span>WHATSAPP</span></div><div class="inbox-add">+</div><div class="inbox-card"><span>FULL SUITE</span></div></div>
+            <div class="equals">AroFlo Unlimited</div>
+            <div class="multi-total"><div class="total-cell"><span class="total-label">Setup fee</span><strong>$497</strong></div><div class="total-cell"><span class="total-label">Monthly fee</span><strong>$260</strong></div></div>
+            <div class="multi-caption">All five Unlimited channels included · pricing shown in AUD</div>
           </div>
         </div>
       </section>
@@ -636,7 +647,7 @@
     </main>
 
     <footer>
-      <div class="footer-row"><div>© 2026 Hermia · ABN 75 434 177 026</div><div class="footer-legal">Pricing shown in AUD. Each connected trade inbox is billed separately. <a href="mailto:capital@hermia.au">capital@hermia.au</a></div></div>
+      <div class="footer-row"><div>© 2026 Hermia · ABN 75 434 177 026</div><div class="footer-legal">Pricing shown in AUD. Plans are billed by the channel coverage selected. <a href="mailto:capital@hermia.au">capital@hermia.au</a></div></div>
     </footer>
   </div>
 </body>
