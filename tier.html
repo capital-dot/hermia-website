@@ -1,189 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Choose Your Tier — Hermia</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --black:#07070a; --card:#0f0f12; --border:rgba(201,163,91,0.15); --border-hi:rgba(201,163,91,0.40);
-  --gold:#C9A35B; --gold-light:#e8c17a; --gold-dim:rgba(201,163,91,0.08);
-  --cream:#f4f0e6; --muted:#7a7672; --soft:#b0ada5; --green:#10b981;
-  --display:'Cormorant Garamond',serif;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--black);color:var(--cream);min-height:100vh;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;}
-body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
-.bg-glow{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:1100px;height:700px;background:radial-gradient(ellipse at 50% 10%,rgba(201,163,91,0.16) 0%,transparent 62%);pointer-events:none;filter:blur(50px);z-index:0;}
-.wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:90px 24px 80px;text-align:center;}
-.eyebrow{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
-h1{font-family:var(--display);font-size:clamp(38px,6vw,58px);font-weight:600;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:10px;}
-h1 em{font-style:italic;color:var(--gold);}
-.sub{font-size:15.5px;color:var(--soft);margin-bottom:12px;}
-.crm-badge{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border:1px solid var(--border-hi);background:var(--gold-dim);border-radius:100px;font-size:12.5px;color:var(--cream);margin-bottom:48px;}
-.crm-badge b{color:var(--gold-light);font-weight:600;}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:26px;text-align:left;align-items:stretch;}
-@media(max-width:720px){.cards{grid-template-columns:1fr;}}
-.card{position:relative;display:flex;flex-direction:column;min-height:328px;background:linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.005)),var(--card);border:1px solid var(--border);border-radius:20px;padding:34px 30px;cursor:pointer;transition:all .25s;overflow:hidden;}
-.card:hover{border-color:var(--gold);box-shadow:0 20px 50px rgba(0,0,0,0.4);transform:translateY(-3px);}
-.card.featured{border-color:var(--gold);padding-top:62px;background:linear-gradient(180deg,rgba(201,163,91,0.11),rgba(255,255,255,0.01)),var(--card);box-shadow:0 24px 55px rgba(0,0,0,0.28);}
-.featured-ribbon{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;min-height:34px;padding:0 18px;background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#1a1408;}
-.featured-ribbon b{font-size:10px;font-weight:800;letter-spacing:1.45px;text-transform:uppercase;}
-.featured-ribbon span{font-size:9px;font-weight:700;letter-spacing:0.7px;text-transform:uppercase;opacity:0.78;}
-.tier-name{font-family:var(--display);font-size:26px;font-weight:600;color:#fff;margin-bottom:6px;}
-.tier-price{font-size:15px;color:var(--gold-light);font-weight:500;margin-bottom:4px;}
-.tier-setup{font-size:12.5px;color:var(--muted);margin-bottom:22px;}
-.tier-list{list-style:none;margin-bottom:26px;flex:1;}
-.tier-list li{font-size:13.5px;color:var(--soft);padding:7px 0;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:10px;}
-.tier-list li:first-child{border-top:none;}
-.tier-list li b{color:var(--cream);font-weight:600;text-align:right;}
-.select-btn{width:100%;padding:15px;border-radius:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:12.5px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .25s;}
-.select-btn.gold{background:linear-gradient(90deg,#8a6820,#e8c17a,#a07828);color:#1a1408;}
-.select-btn.gold:hover{filter:brightness(1.08);}
-.select-btn.outline{background:transparent;border:1px solid var(--border-hi);color:var(--cream);}
-.select-btn.outline:hover{background:var(--gold-dim);border-color:var(--gold);}
-.errbox{display:none;max-width:600px;margin:24px auto 0;padding:14px 18px;border:1px solid rgba(224,112,112,0.35);background:rgba(224,112,112,0.08);border-radius:10px;color:#e07070;font-size:13px;}
-.skel{opacity:0.5;}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Choose Hermia channel coverage for your trade business.">
+  <title>Choose Coverage — Hermia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* Hermia tier selection: deep charcoal, liquid-gold signal geometry, spacious editorial decision flow. */
+    :root{--void:#07070a;--surface:#0f0f12;--surface-2:#14130f;--ink:#f4f0e6;--soft:#b8b3a9;--muted:#817d74;--gold:#c9a35b;--gold-pale:#e8c17a;--line:rgba(201,163,91,.2);--line-hi:rgba(232,193,122,.52);--display:"Cormorant Garamond",serif;--sans:"DM Sans",sans-serif;--mono:"IBM Plex Mono",monospace;}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{min-width:320px;margin:0;background:var(--void);color:var(--ink);font-family:var(--sans);overflow-x:hidden}body:before{position:fixed;inset:0;z-index:-2;opacity:.31;background-image:linear-gradient(rgba(201,163,91,.033) 1px,transparent 1px),linear-gradient(90deg,rgba(201,163,91,.033) 1px,transparent 1px);background-size:54px 54px;content:""}body:after{position:fixed;z-index:-1;top:-25vh;left:50%;width:min(1000px,100vw);height:720px;background:radial-gradient(ellipse,rgba(201,163,91,.17),transparent 65%);filter:blur(28px);content:"";transform:translateX(-50%);pointer-events:none}.page{position:relative}.shell{width:min(1190px,calc(100% - 48px));margin:auto}.nav{display:flex;align-items:center;justify-content:space-between;padding:25px 0;border-bottom:1px solid var(--line)}.brand{display:inline-flex;align-items:center;gap:11px;color:var(--ink);font:600 25px/1 var(--display);letter-spacing:-.04em;text-decoration:none}.brandmark{display:grid;width:33px;height:33px;place-items:center;border:1px solid var(--gold-pale);border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(232,193,122,.36),rgba(201,163,91,.11) 60%,transparent);color:var(--gold-pale);font:500 19px/1 var(--display)}.back-link{display:inline-flex;align-items:center;gap:10px;padding:11px 14px;border:1px solid var(--line);color:var(--soft);font:500 10px/1 var(--mono);letter-spacing:.09em;text-decoration:none;text-transform:uppercase;transition:.2s ease}.back-link:hover{border-color:var(--gold-pale);color:var(--gold-pale);transform:translateY(-1px)}.hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(290px,.8fr);gap:74px;padding:100px 0 74px;align-items:end}.eyebrow{display:block;color:var(--gold-pale);font:500 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase}.hero h1{max-width:720px;margin:22px 0 20px;font:600 clamp(53px,7vw,91px)/.86 var(--display);letter-spacing:-.075em}.hero h1 em{color:var(--gold-pale);font-style:italic;font-weight:500}.lede{max-width:600px;margin:0;color:var(--soft);font-size:16px;line-height:1.83}.progress{display:grid;gap:1px;border:1px solid var(--line);background:var(--line)}.progress-step{display:grid;grid-template-columns:37px 1fr;gap:11px;padding:16px;background:rgba(12,12,11,.9)}.progress-step i{color:var(--gold-pale);font:500 10px/1.45 var(--mono);font-style:normal}.progress-step b{display:block;color:var(--ink);font-size:12px}.progress-step span{display:block;margin-top:4px;color:var(--muted);font-size:11px;line-height:1.5}.progress-step.active{background:linear-gradient(90deg,rgba(201,163,91,.13),rgba(12,12,11,.9))}.plan-context{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border:1px solid var(--line);background:rgba(201,163,91,.055)}.plan-context span{color:var(--muted);font:500 9px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase}.plan-context strong{color:var(--gold-pale);font:600 25px/.95 var(--display);letter-spacing:-.04em}.plans{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding-bottom:32px}.plan{position:relative;display:flex;min-height:530px;flex-direction:column;padding:33px;border:1px solid var(--line);background:linear-gradient(150deg,rgba(255,255,255,.025),rgba(255,255,255,.006));overflow:hidden}.plan:before{position:absolute;top:0;right:32px;left:32px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);content:""}.plan.unlimited{border-color:var(--line-hi);background:radial-gradient(circle at 85% 12%,rgba(201,163,91,.2),transparent 28%),linear-gradient(150deg,rgba(201,163,91,.13),rgba(255,255,255,.006))}.plan-kicker{color:var(--gold-pale);font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}.plan h2{margin:17px 0 5px;color:var(--ink);font:600 48px/.9 var(--display);letter-spacing:-.06em}.plan-tag{margin:0;color:var(--soft);font-size:13px}.price{display:flex;align-items:baseline;gap:7px;margin:25px 0 5px;color:var(--ink);font:600 44px/.86 var(--display);letter-spacing:-.06em}.price small{color:var(--muted);font:500 11px/1 var(--sans);letter-spacing:0}.setup{margin:0;color:var(--gold-pale);font-size:12px}.channels{display:flex;flex-wrap:wrap;gap:7px;margin:26px 0}.channels span{padding:7px 9px;border:1px solid var(--line);color:var(--soft);font:500 9px/1 var(--mono);letter-spacing:.045em}.unlimited .channels span{border-color:rgba(232,193,122,.43);color:var(--gold-pale)}.benefits{display:grid;gap:0;margin:0 0 28px;border-top:1px solid var(--line)}.benefits div{padding:12px 0;border-bottom:1px solid var(--line);color:var(--soft);font-size:12px;line-height:1.45}.benefits b{color:var(--ink);font-weight:600}.choose{display:inline-flex;align-items:center;justify-content:center;min-height:50px;margin-top:auto;border:1px solid var(--line-hi);background:transparent;color:var(--ink);font:600 10px/1 var(--mono);letter-spacing:.14em;text-decoration:none;text-transform:uppercase;transition:.22s ease}.choose:hover{border-color:var(--gold-pale);background:rgba(201,163,91,.12);transform:translateY(-2px)}.unlimited .choose{border:0;background:linear-gradient(90deg,#80601f,var(--gold-pale),#9c7628);color:#181206}.unlimited .choose:hover{filter:brightness(1.08)}.reassurance{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin:0 0 90px;border:1px solid var(--line);background:var(--line)}.reassurance div{padding:21px;background:#0d0d0d}.reassurance span{display:block;color:var(--gold-pale);font:500 9px/1 var(--mono);letter-spacing:.12em}.reassurance p{margin:9px 0 0;color:var(--soft);font-size:12px;line-height:1.58}.footer{display:flex;justify-content:space-between;gap:20px;padding:27px 0 35px;border-top:1px solid var(--line);color:var(--muted);font-size:11px}.footer a{color:var(--soft);text-decoration:none}.footer a:hover{color:var(--gold-pale)}@media(max-width:800px){.shell{width:min(100% - 34px,1190px)}.hero{grid-template-columns:1fr;gap:42px;padding:70px 0 52px}.plans{grid-template-columns:1fr}.plan{min-height:0}.reassurance{grid-template-columns:1fr}.footer{flex-direction:column}.back-link{padding:10px}.hero h1{font-size:clamp(50px,15vw,72px)}}@media(prefers-reduced-motion:no-preference){.plan{animation:rise .65s both}.plan.unlimited{animation-delay:.12s}@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}}
+  </style>
 </head>
 <body>
-<div class="bg-glow"></div>
-<div class="wrap">
-  <div class="eyebrow">Deploy Your Blueprint</div>
-  <h1>Hermia<br><em>Text to Job. Automatically.</em></h1>
-  <p class="sub">Choose the level of coverage that fits your call volume.</p>
-  <div class="crm-badge" id="crmBadge">Loading CRM…</div>
-
-  <div class="cards skel" id="cardWrap"></div>
-  <div class="errbox" id="errBox"></div>
-</div>
-
-<script>
-// ============================================================
-// PRICING SOURCE OF TRUTH
-// ------------------------------------------------------------
-// Pricing now lives in the Supabase `payment_plans` table (see migration
-// 001_payment_plans_and_plan_split.sql) and is served by the Worker at
-//   GET https://hermianango.capital-fbc.workers.dev/payment-plans?crm=<simpro|aroflo>
-// This means a price/cap change only ever needs to happen in ONE place
-// (the table), not here too.
-//
-// FALLBACK_TIER_CONFIG below is kept ONLY as a safety net in case that
-// fetch fails (Worker down, Supabase hiccup, offline dev, etc) — the page
-// should never hard-fail just because pricing couldn't be fetched live.
-// If you see the fallback pricing on a real customer's screen, treat that
-// as a live-site alert: check /payment-plans and the Worker logs.
-//
-// NOTE: the `link` values below are UNCHANGED from what was originally
-// supplied — none of the four Stripe Payment Links have been modified or
-// reordered. Before going live, verify directly in the Stripe dashboard
-// that each link/product ID actually matches the tier it's assigned to
-// here, and that each link's configured charge amount matches the display
-// price next to it.
-// ============================================================
-const WORKER_BASE_URL = 'https://hermianango.capital-fbc.workers.dev';
-
-const FALLBACK_TIER_CONFIG = {
-  simpro: {
-    crmName: 'Simpro',
-    limited:   { name: 'Limited',   price: '$660 AUD / month',   setupFee: '$900 AUD',   cap: '15 photos / videos / voice notes / hot+warm leads per month', link: 'https://buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02' },
-    unlimited: { name: 'Unlimited', price: '$997 AUD / month', setupFee: '$1,300 AUD', cap: 'No caps — unlimited photos, videos, voice notes, hot+warm leads', link: 'https://buy.stripe.com/9B68wR4Zjfn668i2fW9EI01' }
-  },
-  aroflo: {
-    crmName: 'AroFlo',
-    limited:   { name: 'Limited',   price: '$497 AUD / month',   setupFee: '$900 AUD',   cap: '15 photos / videos / voice notes / hot+warm leads per month', link: 'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00' },
-    unlimited: { name: 'Unlimited', price: '$997 AUD / month', setupFee: '$1,300 AUD', cap: 'No caps — unlimited photos, videos, voice notes, hot+warm leads', link: 'https://buy.stripe.com/9B68wR4Zjfn668i2fW9EI01' } // same link as simpro.unlimited, unchanged from source
-  }
-};
-const PLACEHOLDER_MARKER = 'REPLACE_WITH_';
-const DEFAULT_CRM = 'simpro';
-const CRM_DISPLAY_NAME = { simpro: 'Simpro', aroflo: 'AroFlo' };
-
-const urlParams = new URLSearchParams(window.location.search);
-const requestedCrm = urlParams.get('plan');
-const storedCrm = sessionStorage.getItem('hermia_plan');
-const crmKey = FALLBACK_TIER_CONFIG[requestedCrm] ? requestedCrm : (FALLBACK_TIER_CONFIG[storedCrm] ? storedCrm : DEFAULT_CRM);
-try { sessionStorage.setItem('hermia_plan', crmKey); } catch(e) {}
-
-let crm = FALLBACK_TIER_CONFIG[crmKey];
-
-function renderCard(tierKey, tier, featured) {
-  return `
-  <div class="card ${featured ? 'featured' : ''}" onclick="selectTier('${tierKey}')">
-    ${featured ? '<div class="featured-ribbon"><b>Most Popular</b><span>Unlimited Coverage</span></div>' : ''}
-    <div class="tier-name">${tier.name}</div>
-    <div class="tier-price">${tier.price}</div>
-    <div class="tier-setup">+ ${tier.setupFee} one-off setup</div>
-    <ul class="tier-list">
-      <li><span>Usage</span> <b>${tier.cap}</b></li>
-    </ul>
-    <button class="select-btn ${featured ? 'gold' : 'outline'}">Choose ${tier.name}</button>
-  </div>`;
-}
-
-function render() {
-  document.getElementById('crmBadge').innerHTML = 'CRM selected: <b>' + crm.crmName + '</b>';
-  const cardWrap = document.getElementById('cardWrap');
-  cardWrap.classList.remove('skel');
-  cardWrap.innerHTML =
-    renderCard('limited', crm.limited, false) +
-    renderCard('unlimited', crm.unlimited, true);
-}
-
-// Convert a payment_plans row (see migration 001) into the same shape as
-// FALLBACK_TIER_CONFIG[crm][tier], so renderCard()/selectTier() don't care
-// which source the data came from.
-function rowToTier(row) {
-  return {
-    name: row.display_name,
-    price: row.price_display,
-    setupFee: row.setup_fee_display,
-    cap: row.usage_cap_display,
-    link: row.stripe_payment_link
-  };
-}
-
-async function loadPlans() {
-  try {
-    const res = await fetch(WORKER_BASE_URL + '/payment-plans?crm=' + encodeURIComponent(crmKey), {
-      signal: AbortSignal.timeout(6000)
+  <main class="page">
+    <div class="shell">
+      <header class="nav"><a class="brand" href="index.html" aria-label="Hermia home"><span class="brandmark">H</span>Hermia</a><a class="back-link" id="backLink" href="index.html">← Back to Home</a></header>
+      <section class="hero" aria-labelledby="tier-title"><div><span class="eyebrow">Step 02 / Channel coverage</span><h1 id="tier-title">Choose the coverage<br><em>your customers use.</em></h1><p class="lede">Your plan is built around the customer channels Hermia will manage for your trade business. Select the coverage that gives your office one professional front door—without paying by photo, video, attachment, or individual enquiry.</p></div><aside class="progress" aria-label="Your Hermia path"><div class="progress-step"><i>01</i><div><b>Select your field-service system</b><span>Choose Simpro or AroFlo.</span></div></div><div class="progress-step active"><i>02</i><div><b>Choose channel coverage</b><span>Choose three essential channels or all five customer channels.</span></div></div><div class="progress-step"><i>03</i><div><b>Confirm your free trial</b><span>Continue to the service agreement.</span></div></div></aside></section>
+      <div class="plan-context"><span>Selected field-service system</span><strong id="crmName">Simpro</strong></div>
+      <section class="plans" aria-label="Select your Hermia coverage tier">
+        <article class="plan"><span class="plan-kicker">Essential coverage / 03 channels</span><h2>Limited</h2><p class="plan-tag">One controlled front door for Email, WhatsApp, and Instagram.</p><div class="price" id="limitedPrice">$660 <small>AUD / month</small></div><p class="setup" id="limitedSetup">$900 AUD one-off setup</p><div class="channels"><span>Email</span><span>WhatsApp</span><span>Instagram</span></div><div class="benefits"><div><b>Three essential channels.</b> Inbox, direct customer chat, and social enquiries stay under one standard.</div><div><b>One qualification standard.</b> Customer context is prepared before it reaches the office or field.</div><div><b>No media-based charges.</b> Photos, video, messages, and attachments stay part of the job story.</div></div><a class="choose" id="limitedLink" href="contract.html?plan=simpro&amp;tier=limited">Select Limited →</a></article>
+        <article class="plan unlimited"><span class="plan-kicker">Complete coverage / 05 channels</span><h2>Unlimited</h2><p class="plan-tag">Hermia is present everywhere your customer is likely to start.</p><div class="price" id="unlimitedPrice">$997 <small>AUD / month</small></div><p class="setup" id="unlimitedSetup">$1,300 AUD one-off setup</p><div class="channels"><span>Email</span><span>WhatsApp</span><span>Instagram</span><span>Facebook</span><span>Google Business</span></div><div class="benefits"><div><b>All five customer channels.</b> Direct, social, and local enquiry paths carry the same professional standard.</div><div><b>One customer story.</b> The office does not need to chase context across separate platforms.</div><div><b>Full operating picture.</b> Every prepared enquiry can move with the same clarity into the next step.</div></div><a class="choose" id="unlimitedLink" href="contract.html?plan=simpro&amp;tier=unlimited">Select Unlimited →</a></article>
+      </section>
+      <section class="reassurance" aria-label="Plan assurances"><div><span>PRICED BY CHANNEL</span><p>Choose the customer coverage your business needs—never a media or enquiry-item cap.</p></div><div><span>2-DAY FREE TRIAL</span><p>Use Hermia properly before your first monthly charge begins.</p></div><div><span>KEEP THE CONTROL</span><p>Your customer relationship, customer standards, and final operating decisions remain yours.</p></div></section>
+      <footer class="footer"><span>© 2026 Hermia · Multi-channel enquiry intelligence</span><a href="pricing_apply.html">Change field-service system</a></footer>
+    </div>
+  </main>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const plan = params.get('plan') === 'aroflo' ? 'aroflo' : 'simpro';
+    const fromPricing = params.get('from') === 'pricing';
+    const backLink = document.getElementById('backLink');
+    backLink.href = fromPricing ? 'pricing.html' : 'index.html';
+    backLink.textContent = fromPricing ? '← Back to Pricing' : '← Back to Home';
+    const pricing = { simpro:{name:'Simpro',limited:['$660','$900'],unlimited:['$997','$1,300']}, aroflo:{name:'AroFlo',limited:['$170','$350'],unlimited:['$260','$497']} }[plan];
+    document.getElementById('crmName').textContent = pricing.name;
+    document.getElementById('limitedPrice').innerHTML = `${pricing.limited[0]} <small>AUD / month</small>`;
+    document.getElementById('limitedSetup').textContent = `${pricing.limited[1]} AUD one-off setup`;
+    document.getElementById('unlimitedPrice').innerHTML = `${pricing.unlimited[0]} <small>AUD / month</small>`;
+    document.getElementById('unlimitedSetup').textContent = `${pricing.unlimited[1]} AUD one-off setup`;
+    document.getElementById('limitedLink').href = `contract.html?plan=${plan}&tier=limited`;
+    document.getElementById('unlimitedLink').href = `contract.html?plan=${plan}&tier=unlimited`;
+    document.querySelectorAll('.choose').forEach((link) => {
+      link.addEventListener('click', () => {
+        try {
+          sessionStorage.setItem('hermia_plan', plan);
+          sessionStorage.setItem('hermia_tier', link.id === 'limitedLink' ? 'limited' : 'unlimited');
+        } catch (error) {}
+      });
     });
-    if (!res.ok) throw new Error('payment-plans returned ' + res.status);
-    const data = await res.json();
-    const rows = (data && data.plans) || [];
-    const limitedRow = rows.find(r => r.tier === 'limited');
-    const unlimitedRow = rows.find(r => r.tier === 'unlimited');
-    if (!limitedRow || !unlimitedRow) throw new Error('payment-plans missing a tier for crm=' + crmKey);
-    crm = {
-      crmName: CRM_DISPLAY_NAME[crmKey] || crmKey,
-      limited: rowToTier(limitedRow),
-      unlimited: rowToTier(unlimitedRow)
-    };
-  } catch (e) {
-    console.error('[tier-select] live pricing fetch failed, using fallback pricing:', e);
-    crm = FALLBACK_TIER_CONFIG[crmKey];
-  }
-  render();
-}
-
-loadPlans();
-
-function selectTier(tierKey) {
-  const tier = crm[tierKey];
-  const errBox = document.getElementById('errBox');
-  if (tier.link.indexOf(PLACEHOLDER_MARKER) !== -1) {
-    errBox.textContent = "This tier's checkout isn't configured yet — contact capital@hermia.au to complete this manually.";
-    errBox.style.display = 'block';
-    return;
-  }
-  try {
-    sessionStorage.setItem('hermia_tier', tierKey);
-    sessionStorage.setItem('hermia_plan', crmKey);
-  } catch(e) {}
-  window.location.href = 'contract.html?plan=' + encodeURIComponent(crmKey) + '&tier=' + encodeURIComponent(tierKey);
-}
-</script>
+  </script>
 </body>
 </html>
