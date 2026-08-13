@@ -3,309 +3,433 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07070a">
+  <meta name="description" content="Hermia Privacy Policy — updated 11 August 2026.">
   <title>Privacy Policy — Hermia</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
   <style>
+    /* Hermia Privacy Codex: deep charcoal, liquid gold, editorial legal-document hierarchy. */
     :root {
-      --black: #111114;
-      --card: #18181c;
+      --void: #07070a;
+      --ink: #111114;
+      --panel: #141418;
+      --panel-raised: #1a1a1e;
       --gold: #C9A35B;
       --gold-light: #e8c17a;
-      --gold-dim: rgba(201,163,91,0.07);
-      --cream: #f5f1e8;
-      --muted: #9a9692;
+      --gold-wash: rgba(201,163,91,.09);
+      --gold-line: rgba(201,163,91,.26);
+      --cream: #f4f0e6;
       --soft: #c2bfb8;
-      --border: rgba(201,163,91,0.16);
-      --border-strong: rgba(201,163,91,0.34);
+      --muted: #8e8a84;
+      --sage: #83bb91;
+      --display: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', Arial, sans-serif;
+      --mono: 'DM Mono', monospace;
+      --ease: cubic-bezier(.23,1,.32,1);
     }
 
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body { font-family:'DM Sans', sans-serif; background:var(--black); color:var(--cream); min-height:100vh; overflow-x:hidden; }
-    a, a:link, a:visited, a:active { color:inherit; text-decoration:none; }
-
-    .glow-tl { position:fixed; top:-15%; left:-10%; width:600px; height:600px; background:radial-gradient(circle, rgba(201,163,91,0.08) 0%, transparent 70%); filter:blur(90px); pointer-events:none; z-index:0; }
-    .glow-br { position:fixed; bottom:-15%; right:-10%; width:500px; height:500px; background:radial-gradient(circle, rgba(201,163,91,0.05) 0%, transparent 70%); filter:blur(90px); pointer-events:none; z-index:0; }
-
-    .top-nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:18px 48px; display:flex; align-items:center; justify-content:space-between; background:rgba(17,17,20,0.94); backdrop-filter:blur(24px); border-bottom:1px solid var(--border); }
-    .back-btn, .back-btn:link, .back-btn:visited, .back-btn:active { display:inline-flex; align-items:center; gap:9px; color:var(--soft) !important; text-decoration:none !important; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; transition:color 0.25s; }
-    .back-btn:hover { color:var(--gold) !important; }
-    .nav-logo { font-family:'Cormorant Garamond', serif; font-size:20px; font-weight:600; color:var(--cream); letter-spacing:-0.3px; }
-    .nav-badge { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gold); background:var(--gold-dim); border:1px solid var(--border); padding:5px 12px; border-radius:20px; }
-
-    .page-wrap { position:relative; z-index:1; max-width:780px; margin:0 auto; padding:148px 32px 100px; }
-
-    .doc-header { text-align:center; padding-bottom:56px; border-bottom:1px solid var(--border); margin-bottom:56px; }
-    .doc-eyebrow { display:inline-flex; align-items:center; gap:8px; background:var(--gold-dim); border:1px solid var(--border); padding:6px 18px; border-radius:100px; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:28px; }
-    .doc-eyebrow-dot { width:5px; height:5px; background:var(--gold); border-radius:50%; opacity:0.7; }
-    .doc-header h1 { font-family:'Cormorant Garamond', serif; font-size:clamp(38px,6vw,62px); font-weight:700; color:#fff; letter-spacing:-1.5px; line-height:1.06; margin-bottom:18px; text-shadow:0 0 40px rgba(201,163,91,0.18); }
-    .doc-header h1 em { font-style:italic; color:var(--gold); }
-    .doc-meta-row { display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:20px; }
-    .doc-meta-pill { display:flex; align-items:center; gap:7px; font-size:11px; font-weight:500; color:var(--muted); }
-    .doc-meta-pill span { font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:rgba(201,163,91,0.5); }
-    .dot-sep { width:3px; height:3px; background:var(--border-strong); border-radius:50%; }
-
-    .doc-tabs { display:flex; gap:4px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:4px; margin-bottom:60px; width:fit-content; margin-left:auto; margin-right:auto; }
-    .doc-tab, .doc-tab:link, .doc-tab:visited, .doc-tab:active { padding:9px 22px; border-radius:8px; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none !important; color:var(--muted) !important; transition:all 0.25s; display:inline-block; }
-    .doc-tab:hover { color:#fff !important; }
-    .doc-tab.active, .doc-tab.active:link, .doc-tab.active:visited { background:var(--gold-dim); border:1px solid var(--border-strong); color:var(--gold) !important; }
-
-    .section { margin-bottom:56px; animation:fadeUp 0.5s ease both; }
-    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
-    .section-num-row { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
-    .section-num { font-family:'Cormorant Garamond', serif; font-size:13px; font-weight:700; color:rgba(201,163,91,0.4); letter-spacing:2px; min-width:26px; }
-    .section-rule { height:1px; flex:1; background:linear-gradient(90deg, var(--border-strong), transparent); }
-    .section h2 { font-family:'Cormorant Garamond', serif; font-size:clamp(22px,3vw,30px); font-weight:700; color:#fff; line-height:1.2; letter-spacing:-0.4px; margin-bottom:20px; }
-    .section h2 em { font-style:italic; color:var(--gold); }
-    .section p { font-size:15px; color:var(--soft); line-height:1.85; font-weight:300; margin-bottom:16px; }
-    .section p:last-child { margin-bottom:0; }
-    .section strong { color:#e8e4da; font-weight:500; }
-    .section a, .section a:link, .section a:visited, .section a:active { color:var(--gold) !important; text-decoration:underline !important; text-underline-offset:2px; transition:color 0.2s; }
-    .section a:hover { color:var(--gold-light) !important; }
-
-    .doc-list { list-style:none; padding:0; display:flex; flex-direction:column; gap:12px; margin:16px 0; }
-    .doc-list li { display:flex; gap:14px; align-items:flex-start; font-size:15px; color:var(--soft); line-height:1.75; font-weight:300; }
-    .doc-list li::before { content:''; display:block; min-width:5px; height:5px; background:var(--gold); border-radius:50%; margin-top:9px; opacity:0.6; flex-shrink:0; }
-
-    .notice-box { background:rgba(201,163,91,0.05); border:1px solid rgba(201,163,91,0.2); border-left:3px solid var(--gold); border-radius:12px; padding:26px 28px; margin:24px 0; }
-    .notice-label { font-size:9px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; opacity:0.85; }
-    .notice-box p { font-size:14px; color:var(--soft); line-height:1.85; font-weight:300; margin-bottom:0; }
-    .notice-box p strong { color:var(--cream); font-weight:500; }
-    .notice-box.green { background:rgba(16,185,129,0.04); border-color:rgba(16,185,129,0.2); border-left-color:#10b981; }
-    .notice-box.green .notice-label { color:#10b981; }
-    .notice-box.green a, .notice-box.green a:link, .notice-box.green a:visited { color:#10b981 !important; text-decoration:underline !important; text-underline-offset:2px; }
-
-    .what-grid { display:flex; flex-direction:column; gap:10px; margin-top:16px; }
-    .what-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px 22px; display:flex; gap:14px; align-items:flex-start; transition:border-color 0.25s; }
-    .what-card:hover { border-color:var(--border-strong); }
-    .what-tag { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); background:var(--gold-dim); border:1px solid var(--border); border-radius:6px; padding:4px 9px; white-space:nowrap; margin-top:2px; flex-shrink:0; }
-    .what-text { font-size:14px; color:var(--soft); line-height:1.7; font-weight:300; }
-    .what-text strong { color:#e8e4da; font-weight:500; }
-
-    .section-divider { display:flex; align-items:center; gap:12px; margin:56px 0 0; }
-    .section-divider::before, .section-divider::after { content:''; flex:1; height:1px; background:var(--border); }
-    .section-divider-diamond { width:5px; height:5px; background:var(--gold); transform:rotate(45deg); opacity:0.4; }
-
-    footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:48px 48px 40px; background:rgba(0,0,0,0.2); }
-    .footer-inner { max-width:780px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; }
-    .footer-brand { font-family:'Cormorant Garamond', serif; font-size:19px; font-weight:600; color:var(--cream); }
-    .footer-brand small { display:block; font-family:'DM Sans', sans-serif; font-size:11px; font-weight:300; color:var(--muted); margin-top:3px; }
-    .footer-links { display:flex; align-items:center; gap:18px; }
-    .footer-link, .footer-link:link, .footer-link:visited, .footer-link:active { font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--muted) !important; text-decoration:none !important; transition:color 0.2s; }
-    .footer-link:hover { color:var(--gold) !important; }
-    .footer-bottom { max-width:780px; margin:24px auto 0; padding-top:18px; border-top:1px solid rgba(201,163,91,0.06); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
-    .footer-copy { font-size:11px; color:rgba(138,133,128,0.45); font-weight:300; }
-    .footer-abn { display:inline-flex; align-items:center; gap:8px; }
-    .footer-abn-badge { font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:rgba(201,163,91,0.4); background:rgba(201,163,91,0.05); border:1px solid rgba(201,163,91,0.1); border-radius:4px; padding:3px 7px; }
-    .footer-abn-num { font-size:11px; color:rgba(138,133,128,0.4); font-family:'Courier New', monospace; letter-spacing:0.5px; }
-
-    @media(max-width:640px) {
-      .top-nav { padding:16px 20px; }
-      .page-wrap { padding:120px 20px 80px; }
-      .nav-badge { display:none; }
-      footer { padding:36px 20px 28px; }
-      .footer-inner { flex-direction:column; align-items:flex-start; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-width: 320px;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--cream);
+      background: var(--void);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
+    body::before {
+      position: fixed;
+      z-index: -3;
+      inset: 0;
+      content: '';
+      background:
+        radial-gradient(ellipse 74% 38% at 72% -6%, rgba(201,163,91,.16), transparent 66%),
+        radial-gradient(ellipse 50% 26% at 0% 53%, rgba(201,163,91,.055), transparent 72%),
+        linear-gradient(130deg, #07070a 0%, #0d0d10 52%, #09080a 100%);
+    }
+    body::after {
+      position: fixed;
+      z-index: 20;
+      inset: 0;
+      pointer-events: none;
+      opacity: .035;
+      content: '';
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+    }
+    a { color: inherit; text-decoration: none; }
+    ::selection { color: #171209; background: var(--gold-light); }
+
+    .topbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      min-height: 76px;
+      padding: 0 clamp(20px, 5vw, 72px);
+      border-bottom: 1px solid rgba(201,163,91,.15);
+      background: rgba(7,7,10,.83);
+      backdrop-filter: blur(18px);
+    }
+    .return-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      width: fit-content;
+      color: var(--soft);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      transition: color .2s var(--ease), transform .2s var(--ease);
+    }
+    .return-link svg { width: 15px; height: 15px; }
+    .return-link:hover { color: var(--gold-light); transform: translateX(-3px); }
+    .wordmark {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--cream);
+      font: 600 24px/1 var(--display);
+      letter-spacing: -.05em;
+    }
+    .wordmark-mark {
+      position: relative;
+      display: grid;
+      width: 29px;
+      height: 29px;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid var(--gold-line);
+      border-radius: 50%;
+      color: var(--gold-light);
+      background: radial-gradient(circle at 35% 28%, #49391c, #12110d 72%);
+      font: 600 17px/.7 var(--display);
+      box-shadow: 0 0 18px rgba(201,163,91,.16);
+    }
+    .wordmark-mark::before { position: absolute; inset: 5px; border: 1px solid rgba(232,193,122,.34); border-radius: 50%; content: ''; }
+    .wordmark-mark span { position: relative; z-index: 1; }
+    .topbar-status {
+      justify-self: end;
+      color: var(--gold);
+      font: 500 9px/1 var(--mono);
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .topbar-status::before { margin-right: 8px; color: var(--sage); content: '●'; }
+
+    .shell { width: min(1240px, calc(100% - 64px)); margin: 0 auto; }
+    .hero { position: relative; overflow: hidden; padding: clamp(75px, 11vw, 150px) 0 82px; }
+    .hero::after {
+      position: absolute;
+      right: -60px;
+      bottom: 6px;
+      width: 380px;
+      height: 380px;
+      border: 1px solid rgba(232,193,122,.16);
+      border-radius: 50%;
+      box-shadow: 0 0 0 47px rgba(201,163,91,.025), 0 0 0 94px rgba(201,163,91,.018);
+      content: '';
+      pointer-events: none;
+    }
+    .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(320px, .72fr); gap: clamp(42px, 8vw, 126px); align-items: end; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--gold-light); font: 500 10px/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; }
+    .eyebrow::before { width: 27px; height: 1px; background: currentColor; content: ''; }
+    h1 { max-width: 780px; margin: 24px 0 0; color: #fffdf8; font: 600 clamp(62px, 8.1vw, 112px)/.82 var(--display); letter-spacing: -.074em; }
+    h1 em { color: var(--gold-light); font-weight: 500; font-style: italic; }
+    .hero-copy { max-width: 625px; margin: 30px 0 0; color: var(--soft); font-size: 16px; line-height: 1.8; }
+    .hero-copy strong { color: var(--cream); font-weight: 600; }
+    .document-line { display: flex; flex-wrap: wrap; gap: 11px 19px; margin-top: 29px; color: var(--muted); font: 500 10px/1.5 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+    .document-line span { display: inline-flex; align-items: center; gap: 8px; }
+    .document-line span::before { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); content: ''; }
+
+    .assurance-card {
+      position: relative;
+      overflow: hidden;
+      padding: 32px;
+      border: 1px solid rgba(232,193,122,.36);
+      background: linear-gradient(140deg, rgba(201,163,91,.14), rgba(20,20,24,.9) 52%, rgba(7,7,10,.95));
+      box-shadow: inset 0 1px 0 rgba(255,244,214,.08), 0 28px 60px rgba(0,0,0,.28);
+    }
+    .assurance-card::before, .assurance-card::after { position: absolute; width: 31px; height: 31px; border-color: var(--gold-light); border-style: solid; opacity: .8; content: ''; }
+    .assurance-card::before { top: 12px; right: 12px; border-width: 1px 1px 0 0; }
+    .assurance-card::after { bottom: 12px; left: 12px; border-width: 0 0 1px 1px; }
+    .assurance-label { color: var(--gold-light); font: 500 9px/1 var(--mono); letter-spacing: .15em; text-transform: uppercase; }
+    .assurance-card h2 { max-width: 300px; margin: 18px 0 0; color: #fffaf0; font: 600 39px/.9 var(--display); letter-spacing: -.05em; }
+    .assurance-card h2 em { color: var(--gold-light); font-weight: 500; }
+    .assurance-card p { position: relative; z-index: 1; max-width: 310px; margin: 18px 0 0; color: var(--soft); font-size: 13px; line-height: 1.73; }
+    .assurance-rule { height: 1px; margin: 25px 0 17px; background: linear-gradient(90deg, var(--gold-line), transparent); }
+    .assurance-foot { display: flex; align-items: center; gap: 8px; color: var(--sage); font: 500 9px/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+    .assurance-foot::before { width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 11px rgba(131,187,145,.7); content: ''; }
+
+    .principles { position: relative; border-top: 1px solid rgba(201,163,91,.17); border-bottom: 1px solid rgba(201,163,91,.17); background: rgba(255,255,255,.015); }
+    .principle-grid { display: grid; grid-template-columns: 1.42fr repeat(3, 1fr); }
+    .principle-intro, .principle { min-height: 148px; padding: 28px 31px; border-right: 1px solid rgba(201,163,91,.17); }
+    .principle:last-child { border-right: 0; }
+    .principle-intro span, .principle span { color: var(--gold); font: 500 9px/1 var(--mono); letter-spacing: .15em; text-transform: uppercase; }
+    .principle-intro p { max-width: 350px; margin: 12px 0 0; color: #fffaf0; font: 500 25px/.94 var(--display); letter-spacing: -.035em; }
+    .principle-intro em { color: var(--gold-light); font-weight: 500; }
+    .principle b { display: block; margin-top: 14px; color: var(--cream); font: 600 18px/.98 var(--display); letter-spacing: -.025em; }
+    .principle p { margin: 8px 0 0; color: var(--muted); font-size: 11px; line-height: 1.58; }
+
+    .document { display: grid; grid-template-columns: 224px minmax(0, 1fr); gap: clamp(42px, 7vw, 116px); padding: 106px 0 142px; }
+    .policy-index { align-self: start; position: sticky; top: 104px; }
+    .index-label { display: block; margin-bottom: 18px; color: var(--gold); font: 500 9px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; }
+    .policy-index a { display: grid; grid-template-columns: 24px 1fr; gap: 9px; padding: 10px 0; border-top: 1px solid rgba(201,163,91,.12); color: var(--muted); font-size: 11px; line-height: 1.35; transition: color .2s var(--ease), padding-left .2s var(--ease); }
+    .policy-index a:last-child { border-bottom: 1px solid rgba(201,163,91,.12); }
+    .policy-index a span { color: rgba(232,193,122,.6); font: 500 9px/1.5 var(--mono); }
+    .policy-index a:hover { padding-left: 5px; color: var(--cream); }
+    .index-note { margin-top: 23px; color: var(--muted); font-size: 11px; line-height: 1.7; }
+    .index-note strong { color: var(--soft); font-weight: 600; }
+
+    .policy-content { min-width: 0; }
+    .review-banner {
+      position: relative;
+      overflow: hidden;
+      margin: 0 0 74px;
+      padding: 24px 27px 25px;
+      border: 1px solid rgba(201,163,91,.3);
+      background: linear-gradient(110deg, rgba(201,163,91,.10), rgba(20,20,24,.78) 62%);
+    }
+    .review-banner::before { position: absolute; top: 0; bottom: 0; left: 0; width: 3px; background: var(--gold); content: ''; }
+    .review-banner span { display: block; color: var(--gold-light); font: 500 9px/1 var(--mono); letter-spacing: .15em; text-transform: uppercase; }
+    .review-banner p { max-width: 730px; margin: 11px 0 0; color: var(--soft); font-size: 13px; line-height: 1.73; }
+    .review-banner strong { color: var(--cream); font-weight: 600; }
+
+    .policy-section { position: relative; padding: 0 0 72px; margin: 0 0 72px; border-bottom: 1px solid rgba(201,163,91,.16); scroll-margin-top: 116px; }
+    .policy-section:last-child { margin-bottom: 0; }
+    .section-meta { display: flex; align-items: center; gap: 13px; margin-bottom: 19px; }
+    .section-no { color: var(--gold-light); font: 500 10px/1 var(--mono); letter-spacing: .11em; }
+    .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(201,163,91,.38), transparent); }
+    .policy-section h2 { max-width: 710px; margin: 0; color: #fffdf8; font: 600 clamp(38px, 4.5vw, 58px)/.91 var(--display); letter-spacing: -.055em; }
+    .policy-section h2 em { color: var(--gold-light); font-weight: 500; font-style: italic; }
+    .policy-section > p { max-width: 755px; margin: 22px 0 0; color: var(--soft); font-size: 15px; line-height: 1.86; font-weight: 300; }
+    .policy-section strong { color: var(--cream); font-weight: 600; }
+    .policy-section a { color: var(--gold-light); text-decoration: underline; text-decoration-color: rgba(232,193,122,.38); text-underline-offset: 3px; }
+    .policy-section a:hover { color: #fff4d6; }
+
+    .data-cards { display: grid; gap: 10px; margin-top: 27px; }
+    .data-card { display: grid; grid-template-columns: 132px 1fr; gap: 23px; padding: 21px 22px; border: 1px solid rgba(201,163,91,.18); background: rgba(255,255,255,.022); transition: border-color .2s var(--ease), transform .2s var(--ease); }
+    .data-card:hover { border-color: rgba(232,193,122,.47); transform: translateX(4px); }
+    .data-card-label { color: var(--gold); font: 500 9px/1.45 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+    .data-card p { margin: 0; color: var(--soft); font-size: 13px; line-height: 1.75; }
+
+    .policy-list { display: grid; gap: 10px; padding: 0; margin: 26px 0 0; list-style: none; }
+    .policy-list li { position: relative; padding: 16px 19px 16px 46px; border: 1px solid rgba(201,163,91,.16); background: rgba(255,255,255,.018); color: var(--soft); font-size: 13px; line-height: 1.72; }
+    .policy-list li::before { position: absolute; top: 19px; left: 19px; width: 8px; height: 8px; border: 1px solid var(--gold); transform: rotate(45deg); content: ''; }
+    .policy-list li:hover { border-color: rgba(232,193,122,.35); }
+
+    .inline-callout { display: grid; grid-template-columns: 122px 1fr; gap: 23px; margin-top: 28px; padding: 24px 25px; border: 1px solid rgba(232,193,122,.32); background: linear-gradient(105deg, rgba(201,163,91,.12), rgba(20,20,24,.7)); }
+    .inline-callout span { color: var(--gold-light); font: 500 9px/1.5 var(--mono); letter-spacing: .15em; text-transform: uppercase; }
+    .inline-callout p { margin: 0; color: var(--soft); font-size: 13px; line-height: 1.74; }
+    .inline-callout strong { color: var(--cream); }
+
+    footer { border-top: 1px solid rgba(201,163,91,.18); background: rgba(0,0,0,.19); }
+    .footer-in { display: flex; align-items: end; justify-content: space-between; gap: 28px; min-height: 150px; padding: 34px 0; }
+    .footer-brand { color: var(--cream); font: 600 26px/1 var(--display); letter-spacing: -.05em; }
+    .footer-brand small { display: block; max-width: 355px; margin-top: 9px; color: var(--muted); font: 400 10px/1.55 var(--mono); letter-spacing: .04em; }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 17px; }
+    .footer-links a { color: var(--soft); font: 500 10px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; transition: color .2s var(--ease); }
+    .footer-links a:hover { color: var(--gold-light); }
+    .footer-meta { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px 22px; margin-top: 21px; color: rgba(194,191,184,.52); font: 400 10px/1.4 var(--mono); }
+    .footer-meta strong { color: rgba(232,193,122,.65); font-weight: 500; }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 50px; }
+      .assurance-card { max-width: 510px; }
+      .principle-grid { grid-template-columns: 1fr 1fr; }
+      .principle-intro { grid-column: 1 / -1; border-bottom: 1px solid rgba(201,163,91,.17); }
+      .principle:nth-child(3) { border-right: 0; }
+      .document { grid-template-columns: 1fr; gap: 46px; }
+      .policy-index { position: relative; top: auto; display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; }
+      .index-label, .index-note { grid-column: 1 / -1; }
+    }
+    @media (max-width: 640px) {
+      .topbar { min-height: 66px; grid-template-columns: 1fr auto; padding: 0 18px; }
+      .wordmark { justify-self: end; font-size: 22px; }
+      .topbar-status { display: none; }
+      .return-link { font-size: 9px; }
+      .shell { width: min(100% - 38px, 1240px); }
+      .hero { padding: 72px 0 60px; }
+      h1 { font-size: clamp(55px, 16vw, 74px); }
+      .hero-copy { font-size: 14px; }
+      .assurance-card { padding: 26px; }
+      .assurance-card h2 { font-size: 34px; }
+      .principle-grid { grid-template-columns: 1fr; }
+      .principle-intro, .principle { min-height: auto; padding: 24px 21px; border-right: 0; border-bottom: 1px solid rgba(201,163,91,.17); }
+      .principle:last-child { border-bottom: 0; }
+      .document { padding: 76px 0 94px; }
+      .policy-index { grid-template-columns: 1fr; }
+      .review-banner { margin-bottom: 54px; padding: 21px; }
+      .policy-section { padding-bottom: 54px; margin-bottom: 54px; }
+      .policy-section h2 { font-size: clamp(37px, 11vw, 50px); }
+      .policy-section > p { font-size: 14px; }
+      .data-card, .inline-callout { grid-template-columns: 1fr; gap: 12px; padding: 19px; }
+      .policy-list li { padding: 15px 16px 15px 40px; font-size: 12.5px; }
+      .policy-list li::before { left: 16px; }
+      .footer-in { align-items: flex-start; flex-direction: column; min-height: auto; padding: 37px 0; }
+      .footer-links, .footer-meta { justify-content: flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
   </style>
 </head>
 <body>
+  <header class="topbar">
+    <a href="index.html" class="return-link" aria-label="Back to Hermia home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back to site
+    </a>
+    <a href="index.html" class="wordmark" aria-label="Hermia home"><span class="wordmark-mark"><span>H</span></span>Hermia</a>
+    <span class="topbar-status">Legal &amp; governance</span>
+  </header>
 
-<div class="glow-tl"></div>
-<div class="glow-br"></div>
-
-<nav class="top-nav">
-  <a href="index.html" class="back-btn">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="19" y1="12" x2="5" y2="12"></line>
-      <polyline points="12 19 5 12 12 5"></polyline>
-    </svg>
-    Back to Site
-  </a>
-  <a href="index.html" class="nav-logo">Hermia</a>
-  <span class="nav-badge">Legal &amp; Governance</span>
-</nav>
-
-<div class="page-wrap">
-
-  <div class="doc-header">
-    <div class="doc-eyebrow">
-      <span class="doc-eyebrow-dot"></span>
-      Legal Document
-    </div>
-    <h1>Privacy Policy<br><em>&amp; Your Rights</em></h1>
-    <div class="doc-meta-row">
-      <div class="doc-meta-pill"><span>Effective</span> 30 July 2026</div>
-      <div class="dot-sep"></div>
-      <div class="doc-meta-pill"><span>Jurisdiction</span> Victoria, Australia</div>
-      <div class="dot-sep"></div>
-      <div class="doc-meta-pill"><span>Law</span> Privacy Act 1988 (Cth)</div>
-    </div>
-  </div>
-
-  <div class="doc-tabs">
-    <a href="#privacy" class="doc-tab active">Privacy Policy</a>
-    <a href="/terms" class="doc-tab">Terms of Service</a>
-  </div>
-
-  <div id="privacy">
-
-    <!-- 01 -->
-    <div class="section" style="animation-delay:0.05s">
-      <div class="section-num-row">
-        <span class="section-num">01</span>
-        <div class="section-rule"></div>
-      </div>
-      <h2>What This Policy <em>Covers</em></h2>
-      <p>This Privacy Policy explains what information Hermia collects, how we use it, how we protect it, and what rights you have under Australian privacy law.</p>
-      <p>Hermia is an automated intake and qualification tool for trade and building-repair contractors. We read the enquiries you already receive by email or through your CRM, work out which ones are genuine and qualified, and route the good ones back to you. We're based in Victoria, Australia, and everything we do complies with the <strong>Privacy Act 1988 (Cth)</strong> and the Australian Privacy Principles.</p>
-      <p>Got a question about this policy? Email us at <a href="mailto:capital@hermia.au">capital@hermia.au</a> and we'll get back to you.</p>
-    </div>
-
-    <div class="section-divider"><div class="section-divider-diamond"></div></div>
-
-    <!-- 02 -->
-    <div class="section" style="animation-delay:0.10s; margin-top:56px;">
-      <div class="section-num-row">
-        <span class="section-num">02</span>
-        <div class="section-rule"></div>
-      </div>
-      <h2>Your Data vs. <em>Your Customers' Data</em></h2>
-      <p>There are two types of data involved when you use Hermia, and it's important to understand the difference.</p>
-      <p><strong>Your business data</strong> — your name, ABN, billing details, and account information — is held by Hermia and covered by this policy.</p>
-      <p><strong>Your customers' data</strong> — names, phone numbers, job details, and photos — belongs to you. Hermia only processes it on your behalf. We never collect it directly from the public, and we never use it for our own purposes.</p>
-      <p>As the contractor, you're responsible for having the right to collect your customers' information and for getting their permission where required. Hermia is just the tool that helps you handle it faster.</p>
-
-      <div class="notice-box">
-        <div class="notice-label">The short version</div>
-        <p>Hermia doesn't generate leads or collect customer data on its own. We only handle what you send us — enquiries that arrive in your email inbox or your CRM. <strong>Your customers' data belongs to you — not us.</strong></p>
-      </div>
-    </div>
-
-    <div class="section-divider"><div class="section-divider-diamond"></div></div>
-
-    <!-- 03 -->
-    <div class="section" style="animation-delay:0.15s; margin-top:56px;">
-      <div class="section-num-row">
-        <span class="section-num">03</span>
-        <div class="section-rule"></div>
-      </div>
-      <h2>What Information <em>We Handle</em></h2>
-      <p>Depending on how you use Hermia, we process three types of information:</p>
-
-      <div class="what-grid">
-        <div class="what-card">
-          <span class="what-tag">Your account</span>
-          <div class="what-text"><strong>Business details</strong> — your business name, ABN, billing information, and the contact details you use to set up and manage your Hermia account.</div>
+  <main>
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <span class="eyebrow">Hermia legal codex</span>
+          <h1>Privacy,<br><em>made clear.</em></h1>
+          <p class="hero-copy">A direct explanation of how Hermia handles information while qualifying the <strong>existing trade enquiries</strong> a client already receives. The client remains in control of its customer relationship; Hermia helps prepare the detail needed for the next job decision.</p>
+          <div class="document-line" aria-label="Document details">
+            <span>Updated Tuesday, 11 August 2026</span>
+            <span>Victoria, Australia</span>
+            <span>Privacy Act 1988 (Cth)</span>
+          </div>
         </div>
-        <div class="what-card">
-          <span class="what-tag">Enquiry data</span>
-          <div class="what-text"><strong>Customer enquiries you already have</strong> — names, phone numbers, job descriptions, fault photos, urgency level, and location details, read from your connected email inbox (Gmail or Outlook) or your CRM (e.g. Simpro). You control what's connected.</div>
+
+        <aside class="assurance-card" aria-label="Hermia privacy position">
+          <span class="assurance-label">Our position</span>
+          <h2>Built to handle <em>the work.</em></h2>
+          <p>Hermia qualifies and prepares enquiries. It does not generate leads, sell customer information, or turn a client’s customer list into someone else’s opportunity.</p>
+          <div class="assurance-rule"></div>
+          <div class="assurance-foot">Client-directed data handling</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="principles" aria-label="Privacy principles">
+      <div class="shell principle-grid">
+        <div class="principle-intro"><span>What this means</span><p>Clear inputs. <em>Clear ownership.</em> Clear next steps.</p></div>
+        <div class="principle"><span>01</span><b>Existing enquiries only</b><p>Hermia is an intake and qualification service, never a lead-generation service.</p></div>
+        <div class="principle"><span>02</span><b>Client stays in control</b><p>The trade business controls its customer relationship and connected business systems.</p></div>
+        <div class="principle"><span>03</span><b>Purpose-led handling</b><p>Information is used to qualify, prepare, route, support, and administer the selected service.</p></div>
+      </div>
+    </section>
+
+    <div class="shell document">
+      <nav class="policy-index" aria-label="Privacy policy sections">
+        <span class="index-label">Policy map</span>
+        <a href="#scope"><span>01</span>What this policy covers</a>
+        <a href="#roles"><span>02</span>Your data and customer data</a>
+        <a href="#information"><span>03</span>Information we handle</a>
+        <a href="#use"><span>04</span>How information is used</a>
+        <a href="#sharing"><span>05</span>Sharing and safeguards</a>
+        <a href="#retention"><span>06</span>Retention and lifecycle</a>
+        <a href="#rights"><span>07</span>Rights and requests</a>
+        <p class="index-note"><strong>Contact:</strong><br><a href="mailto:capital@hermia.au">capital@hermia.au</a></p>
+      </nav>
+
+      <article class="policy-content">
+        <div class="review-banner">
+          <span>Working legal draft</span>
+          <p>This privacy policy is dated <strong>11 August 2026</strong> and is written to sit beside the Hermia Service Agreement. It should be reviewed by a qualified Australian privacy lawyer before publication or reliance.</p>
         </div>
-        <div class="what-card">
-          <span class="what-tag">System records</span>
-          <div class="what-text"><strong>Technical records</strong> — timestamps, delivery confirmations, and automated processing records created when we qualify and route jobs through WhatsApp or your connected software such as Simpro or Servicem8.</div>
-        </div>
+
+        <section class="policy-section" id="scope">
+          <div class="section-meta"><span class="section-no">01</span><span class="section-line"></span></div>
+          <h2>What This Policy <em>Covers</em></h2>
+          <p>This Privacy Policy explains how Hermia handles personal information in connection with its trade-enquiry qualification and job-preparation service. It covers what we collect or receive, why we use it, who we may disclose it to, how long we keep it, and the privacy rights available to you.</p>
+          <p>Hermia helps trade and field-service businesses qualify the enquiries they already receive. It does not generate, purchase, source, or advertise for leads. On a client’s instructions, Hermia can organise relevant enquiry details from connected Gmail or Outlook inboxes and connected Simpro or AroFlo workflows, then prepare that information for the client’s normal field-service process.</p>
+          <p>Hermia is operated from Victoria, Australia. This policy is designed to support the <strong>Privacy Act 1988 (Cth)</strong> and the Australian Privacy Principles, and it should be read with the Hermia Service Agreement. Where the Service Agreement deals with subscription, trial, refund, or cancellation terms, those terms continue to apply.</p>
+        </section>
+
+        <section class="policy-section" id="roles">
+          <div class="section-meta"><span class="section-no">02</span><span class="section-line"></span></div>
+          <h2>Your Data &amp; <em>Your Customers’ Data</em></h2>
+          <p>There are two broad categories of information involved when a business uses Hermia. The distinction matters because the business, not Hermia, owns the customer relationship and decides how its enquiries are handled.</p>
+          <p><strong>Business and account data</strong> includes information about the client business and its authorised users, such as business and contact details, ABN, selected subscription tier, billing and invoice records, account configuration, and support history. Hermia uses this information to establish and manage the service.</p>
+          <p><strong>Customer and enquiry data</strong> includes the information a client already receives from people seeking its services. This may include names, contact details, site information, job details, photos, video, voice notes, availability, and other qualification responses. The client remains responsible for that data and Hermia processes it only to provide the service on the client’s instructions.</p>
+          <div class="inline-callout"><span>The short version</span><p>Clients are responsible for ensuring they have a lawful basis to collect, use, and provide enquiry data to Hermia, including obtaining any notices or consents that may be required. Hermia does not use that customer information for its own independent marketing or lead-generation purposes.</p></div>
+        </section>
+
+        <section class="policy-section" id="information">
+          <div class="section-meta"><span class="section-no">03</span><span class="section-line"></span></div>
+          <h2>Information <em>We Handle</em></h2>
+          <p>Depending on how a client uses Hermia, we may handle the following categories of information.</p>
+          <div class="data-cards">
+            <div class="data-card"><span class="data-card-label">Your account</span><p><strong>Business, subscription and billing details</strong> — business name, ABN, authorised-user contact details, selected plan, trial or subscription status, invoice records, payment status, and the information used to administer the Hermia account.</p></div>
+            <div class="data-card"><span class="data-card-label">Enquiry context</span><p><strong>Customer enquiries already received by the client</strong> — names, contact details, job or fault descriptions, urgency, site and access information, availability, hazards, custom-field responses, supporting photos, video or voice notes, and related timestamps. This may be read from connected Gmail or Outlook inboxes and connected Simpro or AroFlo workflows that the client chooses to enable.</p></div>
+            <div class="data-card"><span class="data-card-label">Service record</span><p><strong>Service and workflow records</strong> — configuration and custom-field information, enquiry status, qualification and routing records, CRM-preparation records, correspondence generated through the service, delivery status, and account activity records needed to operate, support, secure, and improve the reliability of the service.</p></div>
+          </div>
+        </section>
+
+        <section class="policy-section" id="use">
+          <div class="section-meta"><span class="section-no">04</span><span class="section-line"></span></div>
+          <h2>How We Use <em>Information</em></h2>
+          <p>Hermia uses information only for purposes reasonably connected with providing, administering, securing, and supporting the service. This includes the following activities.</p>
+          <ul class="policy-list">
+            <li>Reading, organising, and qualifying existing enquiries from the business inboxes and workflows the client has connected.</li>
+            <li>Using the client’s configured questions and custom fields to identify the detail needed to prepare an enquiry for action.</li>
+            <li>Processing customer-provided text, photos, video, or voice notes to understand the service request, urgency, site context, and supporting job detail.</li>
+            <li>Preparing and routing approved enquiry or job information into the client’s Simpro or AroFlo workflow, including relevant customer, site, and job context.</li>
+            <li>Supporting communications, notifications, summaries, and follow-up steps that the client has chosen to use within the service.</li>
+            <li>Managing the client’s selected tier, 2-day trial, subscription, invoicing, payment status, refund or cancellation request, and support relationship.</li>
+            <li>Maintaining service quality, preventing misuse, investigating faults, and complying with legal obligations.</li>
+          </ul>
+          <div class="inline-callout"><span>Not our purpose</span><p>Hermia does not sell personal information. It does not use customer enquiry data for advertising or to build independent customer lists. It does not use a client’s customer enquiry data to generate leads for Hermia or for another business.</p></div>
+        </section>
+
+        <section class="policy-section" id="sharing">
+          <div class="section-meta"><span class="section-no">05</span><span class="section-line"></span></div>
+          <h2>Sharing &amp; <em>Safeguarding Data</em></h2>
+          <p>Hermia only discloses personal information where that is necessary to provide the service, where a client has directed us to do so, or where the law permits or requires it. Depending on the client’s configuration, this can include the following.</p>
+          <ul class="policy-list">
+            <li>The client’s connected Gmail or Outlook inboxes, Simpro or AroFlo workflows, and other business systems that the client has chosen to connect, so the relevant enquiry or prepared job information can be handled as instructed.</li>
+            <li>Payment and billing providers used to process subscriptions, invoices, trial conversions, refunds, or cancellations. They handle payment information under their own privacy terms.</li>
+            <li>Trusted service providers that help Hermia operate and support the service, where they are required to protect the information and use it only for the relevant service purpose.</li>
+            <li>Regulators, courts, law-enforcement agencies, or other parties where disclosure is required or authorised by law, or is necessary to protect legal rights, safety, or the integrity of the service.</li>
+          </ul>
+          <p>Hermia uses commercially reasonable organisational and security safeguards designed to protect personal information against unauthorised access, misuse, loss, and disclosure. Access is limited to authorised personnel and service providers with a legitimate need to know. No system can guarantee absolute security, so clients should also protect their own email, CRM, and account access.</p>
+        </section>
+
+        <section class="policy-section" id="retention">
+          <div class="section-meta"><span class="section-no">06</span><span class="section-line"></span></div>
+          <h2>Retention &amp; <em>Data Lifecycle</em></h2>
+          <p>Hermia retains business-account information for as long as is reasonably necessary to provide the service, manage the subscription and billing relationship, resolve enquiries or disputes, and meet legal or record-keeping obligations. Enquiry data is handled only for the period reasonably necessary to provide the client’s configured qualification and job-preparation workflow.</p>
+          <p>Information that has been placed in a client’s own mailbox, Simpro, AroFlo, or other connected business system remains under that client’s control. The client is responsible for managing, correcting, retaining, or deleting information stored in those systems according to its own obligations and settings.</p>
+          <p>When a client disconnects a service or ends its subscription, Hermia will stop processing future information through that connection, subject to the client’s directions and any information we must keep for legal, accounting, security, or dispute-resolution purposes.</p>
+        </section>
+
+        <section class="policy-section" id="rights">
+          <div class="section-meta"><span class="section-no">07</span><span class="section-line"></span></div>
+          <h2>Your Rights, <em>Access &amp; Deletion</em></h2>
+          <p>You may ask Hermia for access to, or correction of, personal information that Hermia holds about you. You may also ask us to delete personal information that we no longer need to hold. This may include account details, account configuration, inbox or CRM connection records, qualification and workflow records, and other information held in connection with your Hermia account.</p>
+          <p>For a verified request, we will respond within <strong>30 days</strong>. Where deletion is appropriate, we will delete or de-identify the relevant information within that period unless we are required or permitted to retain it for legal, billing, security, or dispute-resolution reasons. We will confirm the outcome by email.</p>
+          <p>Where information has already been routed to a client’s Simpro or AroFlo system, or remains in the client’s connected inbox, the client controls that copy. We can explain what remains in the client’s environment, but the client will need to manage deletion or correction there.</p>
+          <div class="inline-callout"><span>Make a request</span><p>Email <a href="mailto:capital@hermia.au">capital@hermia.au</a> with the subject line <strong>“Data Access Request”</strong> or <strong>“Data Deletion Request”</strong>. Include the email address or phone number linked to the Hermia account so we can verify and action the request.</p></div>
+          <p>For customer-enquiry data, a homeowner or other enquirer should normally contact the trade business they dealt with, because that business collected the enquiry and controls the customer relationship. Hermia will reasonably assist its client with a request that relates to the Hermia service.</p>
+          <p>If you have a privacy complaint, please first contact us at <a href="mailto:capital@hermia.au">capital@hermia.au</a>. We will investigate and respond within 30 days. If you are not satisfied with our response, you may contact the Office of the Australian Information Commissioner.</p>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <div class="shell footer-in">
+      <div>
+        <div class="footer-brand">Hermia</div>
+        <small>Automated job qualification for trade contractors. Existing enquiries, prepared with intent.</small>
+      </div>
+      <div>
+        <div class="footer-links"><a href="index.html">Home</a><a href="contract.html">Service Agreement</a><a href="mailto:capital@hermia.au">Contact</a></div>
+        <div class="footer-meta"><span>© 2026 Hermia</span><span>Victoria, Australia</span><span><strong>ABN</strong> 75 434 177 026</span></div>
       </div>
     </div>
-
-    <div class="section-divider"><div class="section-divider-diamond"></div></div>
-
-    <!-- 04 -->
-    <div class="section" style="animation-delay:0.20s; margin-top:56px;">
-      <div class="section-num-row">
-        <span class="section-num">04</span>
-        <div class="section-rule"></div>
-      </div>
-      <h2>How We Use <em>Your Information</em></h2>
-      <p>We only use information to run the Hermia service. That means:</p>
-      <ul class="doc-list">
-        <li>Reading and qualifying repair enquiries from your email inbox and/or CRM on your behalf</li>
-        <li>Following up a qualified enquiry over WhatsApp where that's enabled</li>
-        <li>Pushing structured job records into your Simpro or Servicem8 account</li>
-        <li>Sending you weekly business summary reports</li>
-        <li>Managing your subscription and billing</li>
-        <li>Responding when you contact us for support</li>
-      </ul>
-      <p>We do not sell your data. We do not use your customers' information for advertising. We do not share it with anyone outside the services needed to run Hermia.</p>
-    </div>
-
-    <div class="section-divider"><div class="section-divider-diamond"></div></div>
-
-    <!-- 05 -->
-    <div class="section" style="animation-delay:0.25s; margin-top:56px;">
-      <div class="section-num-row">
-        <span class="section-num">05</span>
-        <div class="section-rule"></div>
-      </div>
-      <h2>How We Keep <em>Your Data Safe</em></h2>
-      <p>We take security seriously. Here's what we do:</p>
-      <ul class="doc-list">
-        <li>All data is encrypted in transit and at rest using 256-bit encryption</li>
-        <li>We never store your email or CRM login credentials — we connect through secure API tokens only</li>
-        <li>Our servers are based in Australia and meet SOC 2 security standards</li>
-        <li>Enquiry data is processed in real time and is not stored in a permanent customer database on our end</li>
-        <li>Access to account data is restricted to authorised Hermia team members only</li>
-      </ul>
-    </div>
-
-    <div class="section-divider"><div class="section-divider-diamond"></div></div>
-
-    <!-- 06 -->
-    <div class="section" style="animation-delay:0.30s; margin-top:56px;">
-      <div class="section-num-row">
-        <span class="section-num">06</span>
-        <div class="section-rule"></div>
-      </div>
-      <h2>Accessing or Correcting <em>Your Data</em></h2>
-      <p>You have the right to see the information Hermia holds about you, and to ask us to fix anything that's incorrect.</p>
-      <p>Because Hermia doesn't keep a permanent database of your customers' enquiry records, any requests from homeowners about their personal data need to go to you as the contractor — you collected it, and you're legally responsible for it.</p>
-      <p>For requests about your own account information — billing, business details, account history — email us at <a href="mailto:capital@hermia.au">capital@hermia.au</a> and we'll respond within 30 days.</p>
-    </div>
-
-    <div class="section-divider"><div class="section-divider-diamond"></div></div>
-
-    <!-- 07 -->
-    <div class="section" style="animation-delay:0.35s; margin-top:56px;">
-      <div class="section-num-row">
-        <span class="section-num">07</span>
-        <div class="section-rule"></div>
-      </div>
-      <h2>Deleting <em>Your Data</em></h2>
-      <p>You can ask us to delete any personal data Hermia holds about you at any time. This includes your account details, email and CRM sync data, WhatsApp message records, job qualification logs, and any connection tokens linked to your account.</p>
-      <p>We'll delete your data within <strong>30 days</strong> of receiving your request and send you an email to confirm when it's done. If any of your data has already been pushed to your Simpro or Servicem8 account, we'll also let you know to remove it from there.</p>
-
-      <div class="notice-box green">
-        <div class="notice-label">How to request deletion</div>
-        <p>Email <a href="mailto:capital@hermia.au">capital@hermia.au</a> with the subject line <strong>"Data Deletion Request"</strong>. Include the email address or phone number linked to your Hermia account. We'll handle the rest and confirm once it's complete.</p>
-      </div>
-
-      <p>This right is protected under the <strong>Privacy Act 1988 (Cth)</strong> and Australian Privacy Principle 11. We take it seriously and we'll never make it difficult to exercise.</p>
-    </div>
-
-  </div>
-</div>
-
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      Hermia
-      <small>Automated Job Qualification for Trade Contractors &middot; Australia</small>
-    </div>
-    <div class="footer-links">
-      <a href="index.html" class="footer-link">Home</a>
-      <a href="/terms" class="footer-link">Terms</a>
-      <a href="mailto:capital@hermia.au" class="footer-link">Contact</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span class="footer-copy">© 2026 Hermia. All rights reserved. Victoria, Australia</span>
-    <div class="footer-abn">
-      <span class="footer-abn-badge">ABN</span>
-      <span class="footer-abn-num">75 434 177 026</span>
-    </div>
-  </div>
-</footer>
-
+  </footer>
 </body>
 </html>
