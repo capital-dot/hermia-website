@@ -9,15 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet" />
     <style>
         :root {
-            --bg: #080705;
-            --bg-card: rgba(10, 9, 7, 0.85);
-            --gold: #D4AF37;
-            --gold-bright: #FFD700;
-            --gold-light: #F9E2AF;
-            --gold-muted: rgba(212, 175, 55, 0.12);
+            --bg: #241e15;
+            --bg-card: rgba(74, 61, 38, 0.9);
+            --gold: #D8B56A;
+            --gold-bright: #FFE0A0;
+            --gold-light: #F2D08D;
+            --gold-muted: rgba(216, 181, 106, 0.22);
             --cream: #f4f0e6;
-            --soft: #a19d94;
-            --border: rgba(212, 175, 55, 0.2);
+            --soft: #d0c7b7;
+            --border: rgba(242, 208, 141, 0.34);
             --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
             --ig-c1: #833AB4;
             --ig-c2: #C13584;
@@ -28,45 +28,46 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
         html, body { height: 100%; background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+        body { background: radial-gradient(ellipse 92% 62% at 50% -10%, rgba(232,193,122,.28) 0%, rgba(91,70,38,.55) 35%, transparent 70%), linear-gradient(135deg, #1d1710 0%, var(--bg) 48%, #17120d 100%); }
         .bg-layers { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-        .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,1) 100%); z-index: 5; }
-        .light-bloom { position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 55%); animation: light-drift 35s infinite alternate ease-in-out; will-change: transform; }
+        .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.18) 70%, rgba(0,0,0,0.62) 100%); z-index: 5; }
+        .light-bloom { position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; background: radial-gradient(760px 620px at 50% 19%, rgba(255,218,145,.27) 0%, rgba(216,181,106,.16) 37%, transparent 65%), radial-gradient(500px 440px at 5% 88%, rgba(216,181,106,.11) 0%, transparent 70%), radial-gradient(560px 480px at 96% 82%, rgba(127,184,138,.07) 0%, transparent 72%); animation: light-drift 12s infinite alternate ease-in-out; will-change: transform; }
         @keyframes light-drift { 0% { transform: translate(-2%, -2%) scale(1); } 100% { transform: translate(2%, 2%) scale(1.05); } }
-        .grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 120px 120px; -webkit-mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 85%); opacity: 0.15; }
+        .grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(232,193,122,0.075) 1px, transparent 1px), linear-gradient(90deg, rgba(232,193,122,0.075) 1px, transparent 1px); background-size: 54px 54px; -webkit-mask-image: radial-gradient(ellipse 78% 62% at 50% 30%, #000 0%, rgba(0,0,0,.7) 54%, transparent 100%); mask-image: radial-gradient(ellipse 78% 62% at 50% 30%, #000 0%, rgba(0,0,0,.7) 54%, transparent 100%); opacity: 0.9; }
         .grain { position: absolute; inset: 0; opacity: 0.03; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-        .wrap { position: relative; z-index: 10; width: 100%; max-width: 600px; margin: 0 auto; padding: 80px 24px 120px; display: flex; flex-direction: column; align-items: center; }
-        .logo-wrap { margin-bottom: 60px; position: relative; animation: fade-in-down 1.2s var(--ease-cinematic) forwards; }
+        .wrap { position: relative; z-index: 10; width: 100%; max-width: 600px; margin: 0 auto; padding: 52px 24px 100px; display: flex; flex-direction: column; align-items: center; }
+        .logo-wrap { margin-bottom: 44px; position: relative; animation: fade-in-down 1.2s var(--ease-cinematic) forwards; }
         .logo-aura { position: absolute; inset: -40px; background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%); filter: blur(25px); animation: aura-pulse 8s infinite ease-in-out; }
         @keyframes aura-pulse { 0%, 100% { opacity: 0.3; transform: scale(0.9); } 50% { opacity: 0.6; transform: scale(1.05); } }
-        .logo { height: 58px; position: relative; z-index: 2; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
-        .steps { display: flex; justify-content: space-between; width: 100%; margin-bottom: 60px; position: relative; opacity: 0; animation: fade-in-up 1s var(--ease-cinematic) 0.4s forwards; }
-        .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: rgba(212, 175, 55, 0.08); }
-        .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: linear-gradient(90deg, var(--gold-muted), var(--gold), var(--gold-muted)); box-shadow: 0 0 12px var(--gold); }
+        .logo { height: 42px; position: relative; z-index: 2; filter: drop-shadow(0 0 14px rgba(201, 163, 91, 0.38)); }
+        .steps { display: flex; justify-content: space-between; width: 100%; margin-bottom: 42px; position: relative; opacity: 0; animation: fade-in-up 1s var(--ease-cinematic) 0.4s forwards; }
+        .steps::before { content: ''; position: absolute; top: 16px; left: 10px; right: 10px; height: 1px; background: linear-gradient(90deg, rgba(201,163,91,.1), rgba(232,193,122,.34), rgba(201,163,91,.1)); }
+        .progressline { position: absolute; top: 16px; left: 10px; height: 1px; background: linear-gradient(90deg, rgba(201,163,91,.18), var(--gold-light), rgba(232,193,122,.42)); box-shadow: 0 0 14px rgba(232,193,122,.6); }
         .step { display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; position: relative; z-index: 1; }
-        .dot { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 300; background: var(--bg); border: 1px solid var(--border); color: var(--soft); transition: all 0.6s var(--ease-cinematic); }
-        .step.active .dot { border-color: var(--gold); color: var(--gold-bright); box-shadow: 0 0 25px rgba(212, 175, 55, 0.25); transform: scale(1.05); }
-        .step.done .dot { background: var(--gold); border-color: var(--gold); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+        .dot { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 500; background: radial-gradient(circle at 35% 25%, #262015, var(--bg) 72%); border: 1px solid rgba(232,193,122,.22); color: var(--soft); box-shadow: inset 0 1px 0 rgba(255,244,214,.05); transition: all 0.6s var(--ease-cinematic); }
+        .step.active .dot { border-color: var(--gold); color: var(--gold-light); box-shadow: 0 0 16px rgba(201,163,91,0.35); transform: scale(1.05); }
+        .step.done .dot { background: var(--gold); border-color: var(--gold); color: var(--bg); box-shadow: 0 0 15px rgba(201,163,91,0.24); }
         .dot svg { width: 14px; height: 14px; stroke-width: 2; }
         .label { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--soft); opacity: 0.5; font-weight: 400; }
         .step.active .label { color: var(--gold-light); opacity: 1; }
-        .card { width: 100%; background: var(--bg-card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); padding: 60px 50px; position: relative; opacity: 0; animation: fade-in-up 1.2s var(--ease-cinematic) 0.6s forwards; box-shadow: 0 50px 120px rgba(0,0,0,0.8); }
-        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.6; }
-        .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 24px; font-weight: 400; }
-        h1 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; line-height: 1.1; margin-bottom: 18px; letter-spacing: -0.02em; }
-        .sub { font-size: 15.5px; color: var(--soft); margin-bottom: 36px; line-height: 1.7; font-weight: 300; }
-        .platform-badge { display: flex; align-items: center; gap: 18px; padding: 22px 24px; border: 1px solid var(--border); background: rgba(212,175,55,0.03); margin-bottom: 36px; }
+        .card { width: 100%; background: linear-gradient(145deg, rgba(91,72,42,.9) 0%, rgba(50,42,26,.96) 42%, rgba(31,25,17,.98) 100%); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(242,208,141,.5); border-radius: 9px; padding: 48px 42px 44px; position: relative; overflow: hidden; opacity: 0; animation: fade-in-up 1.2s var(--ease-cinematic) 0.6s forwards; box-shadow: 0 38px 94px rgba(0,0,0,.38), 0 0 0 1px rgba(255,236,187,.09) inset, 0 0 65px rgba(216,181,106,.19); }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, var(--gold-light), var(--gold), var(--gold-light), transparent); opacity: .92; box-shadow: 0 0 17px rgba(232,193,122,.58); }
+        .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 10.5px; text-transform: uppercase; letter-spacing: .32em; color: var(--gold-light); margin-bottom: 14px; font-weight: 400; text-shadow: 0 0 10px rgba(232,193,122,.2); }
+        h1 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 500; line-height: 1.1; margin-bottom: 12px; letter-spacing: -0.01em; color: var(--cream); text-shadow: 0 0 24px rgba(201,163,91,.15); }
+        .sub { font-size: 14px; color: var(--soft); margin-bottom: 34px; line-height: 1.6; font-weight: 300; max-width: 92%; }
+        .platform-badge { display: flex; align-items: center; gap: 18px; padding: 20px 22px; border: 1px solid rgba(242,208,141,.34); border-radius: 7px; background: linear-gradient(145deg, rgba(255,245,210,.12), rgba(216,181,106,.07)); margin-bottom: 30px; }
         .platform-icon { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; flex-shrink: 0; background: linear-gradient(45deg, var(--ig-c6), var(--ig-c5), var(--ig-c4), var(--ig-c3), var(--ig-c2), var(--ig-c1)); }
         .platform-icon svg { width: 28px; height: 28px; }
         .platform-name { font-size: 17px; font-weight: 500; color: var(--cream); }
         .platform-sub { font-size: 12.5px; color: var(--soft); margin-top: 3px; }
-        .btn { width: 100%; padding: 20px; border: none; color: #fff; font-family: inherit; font-weight: 600; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(90deg, var(--ig-c1), var(--ig-c2), var(--ig-c3), var(--ig-c4), var(--ig-c5), var(--ig-c6)); }
+        .btn { width: 100%; padding: 18px; border: none; border-radius: 7px; color: #fff; font-family: inherit; font-weight: 600; font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); box-shadow: 0 20px 40px rgba(0,0,0,0.36); display: flex; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(90deg, var(--ig-c1), var(--ig-c2), var(--ig-c3), var(--ig-c4), var(--ig-c5), var(--ig-c6)); }
         .btn:hover:not(:disabled) { transform: translateY(-4px); filter: brightness(1.08); }
         .btn:disabled { opacity: 0.5; cursor: wait; }
         .btn svg { width: 18px; height: 18px; }
         .status-msg { margin-top: 18px; padding: 14px 16px; font-size: 13px; text-align: center; }
         .status-msg.wait { background: rgba(212,175,55,0.04); border: 1px solid var(--border); color: var(--soft); }
         .status-msg.err { background: rgba(220,80,80,0.08); border: 1px solid rgba(220,80,80,0.25); color: #ff7e75; }
-        .secure { margin-top: 45px; text-align: center; color: var(--soft); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.4; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .secure { margin-top: 38px; text-align: center; color: var(--soft); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.68; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .secure svg { width: 14px; height: 14px; stroke-width: 1; }
         @keyframes fade-in-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fade-in-down { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
@@ -169,8 +170,28 @@
                 $('btnText').textContent = 'CONNECTING...';
                 renderStatus('Opening Instagram authorization...', 'wait');
 
-                const authUrl = HERMIANANGO_URL + '/social-auth-url?provider=instagram&customerId=' + encodeURIComponent(customerId);
-                window.location.href = authUrl;
+                fetch(HERMIANANGO_URL + '/unipile/connect-link', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ customerId: customerId, provider: 'instagram' })
+                })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.ok && data.url) {
+                        window.location.href = data.url;
+                    } else {
+                        btn.disabled = false;
+                        $('btnText').textContent = 'Connect Instagram';
+                        renderStatus('Could not start connection — refresh and try again.', 'err');
+                        console.error('[social_connect_instagram.html] unipile/connect-link error:', data);
+                    }
+                })
+                .catch(err => {
+                    btn.disabled = false;
+                    $('btnText').textContent = 'Connect Instagram';
+                    renderStatus('Could not start connection — refresh and try again.', 'err');
+                    console.error('[social_connect_instagram.html] unipile/connect-link request failed:', err);
+                });
             });
         }
 
