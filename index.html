@@ -273,6 +273,95 @@ nav.visible{opacity:1;pointer-events:auto}
 .refund-figure .rf-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:"Inter",sans-serif;font-weight:700;margin-bottom:4px}
 .refund-figure .rf-value{font-family:var(--display);font-size:20px;color:#fff;font-weight:600}
 
+
+/* Multi-channel About */
+.about-section{position:relative;overflow:hidden;padding:112px 48px 96px;border-top:1px solid var(--border);background:radial-gradient(circle at 17% 2%,rgba(212,175,55,.09),transparent 28%),radial-gradient(circle at 88% 20%,rgba(255,255,255,.035),transparent 29%),#080808}
+.about-section:before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(to bottom,black,transparent 70%)}
+.about-shell{position:relative;max-width:1240px;margin:0 auto}
+.about-intro{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(340px,.72fr);gap:74px;align-items:end;margin-bottom:52px}
+.about-kicker{margin:0 0 16px;color:var(--gold);font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:800}
+.about-title{margin:0;color:#fff;font-family:var(--display);font-size:clamp(42px,5vw,72px);line-height:.94;letter-spacing:-1.8px;max-width:700px}
+.about-title em{color:var(--gold);font-style:italic;font-weight:500}
+.about-copy{margin:0;color:#c3c1bc;font-size:16px;line-height:1.75;max-width:500px}
+.about-copy strong{color:#fff;font-weight:650}
+.about-identity{border-left:1px solid rgba(212,175,55,.48);padding:5px 0 5px 22px;margin-top:24px;color:#e8d59a;font-size:13px;letter-spacing:.2px}
+.about-identity strong{color:#fff;font-family:var(--display);font-size:20px;font-weight:600;letter-spacing:.1px}
+.about-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(212,175,55,.24);border:1px solid rgba(212,175,55,.24);margin-bottom:28px}
+.about-benefit{background:#0c0c0c;padding:24px 25px 23px}
+.about-benefit small{display:block;color:var(--gold);font-size:9px;font-weight:800;letter-spacing:2.2px;text-transform:uppercase;margin-bottom:10px}
+.about-benefit strong{display:block;color:#fff;font-size:17px;line-height:1.25;font-family:var(--display);font-weight:600;margin-bottom:7px}
+.about-benefit p{margin:0;color:#a5a39f;font-size:12px;line-height:1.55}
+.channel-strip{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px 20px;margin-bottom:24px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025)}
+.channel-strip p{margin:0;color:#a8a6a1;font-size:12px;line-height:1.45}.channel-strip strong{color:#fff}.channel-strip .channel-flow{color:#d6b750;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;font-weight:800;white-space:nowrap}
+.channel-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.channel-card{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#101010;min-height:420px;display:flex;flex-direction:column;transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease}
+.channel-card:hover{transform:translateY(-6px);border-color:rgba(212,175,55,.65);box-shadow:0 22px 44px rgba(0,0,0,.35)}
+.channel-card img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:#080808}
+.channel-card-meta{padding:15px 16px 17px;border-top:1px solid rgba(255,255,255,.09)}
+.channel-card-meta small{display:block;color:var(--gold);font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.channel-card-meta strong{display:block;color:#fff;font-family:var(--display);font-size:20px;font-weight:600;line-height:1.05}
+.channel-card-meta p{margin:7px 0 0;color:#a6a4a0;font-size:11px;line-height:1.45}
+
+.channel-preview{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;min-height:292px;padding:15px;background:radial-gradient(circle at 70% 10%,rgba(212,175,55,.15),transparent 34%),linear-gradient(160deg,#171717,#080808)}
+.channel-preview:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 0 44%,rgba(255,255,255,.025) 44% 45%,transparent 45% 100%);pointer-events:none}
+.message-topline{position:relative;z-index:1;display:flex;align-items:center;gap:7px;margin-bottom:auto;color:#cac8c2;font-size:8px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase}.message-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(212,175,55,.55)}
+.message-thread{position:relative;z-index:1;display:flex;flex-direction:column;gap:9px}
+.message-bubble{max-width:86%;padding:10px 11px;border-radius:13px;color:#eceae5;font-size:10px;line-height:1.4;box-shadow:0 10px 20px rgba(0,0,0,.2)}
+.message-bubble.lead{align-self:flex-start;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-bottom-left-radius:3px}
+.message-bubble.hermia{align-self:flex-end;background:linear-gradient(135deg,rgba(177,137,35,.94),rgba(103,76,18,.95));border:1px solid rgba(239,207,108,.4);border-bottom-right-radius:3px;color:#fff}
+.message-bubble b{display:block;margin-bottom:3px;color:#f5dc91;font-size:7px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}
+.message-system{position:relative;z-index:1;display:flex;align-items:center;gap:7px;margin-top:11px;color:#b7b4ac;font-size:8px;line-height:1.35}.message-system:before{content:"";height:1px;flex:1;background:rgba(212,175,55,.45)}.message-system span{color:#e1bd4f;font-weight:800;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+.channel-whatsapp .channel-preview{background:radial-gradient(circle at 72% 12%,rgba(57,190,112,.2),transparent 36%),linear-gradient(160deg,#123324,#080d0a)}.channel-whatsapp .message-dot{background:#38c979}.channel-whatsapp .message-bubble.hermia{background:linear-gradient(135deg,#1e8e55,#14643b);border-color:rgba(101,232,154,.45)}.channel-whatsapp .message-bubble b{color:#baf7d3}
+.channel-email .channel-preview{background:radial-gradient(circle at 70% 9%,rgba(65,133,222,.2),transparent 36%),linear-gradient(160deg,#101c31,#080a0f)}.channel-email .message-dot{background:#72a5ff}.channel-email .message-bubble.hermia{background:linear-gradient(135deg,#2d68b5,#1d416e);border-color:rgba(117,174,255,.4)}.channel-email .message-bubble b{color:#c9e0ff}
+.channel-instagram .channel-preview{background:radial-gradient(circle at 68% 7%,rgba(237,98,145,.2),transparent 36%),linear-gradient(160deg,#231024,#0d090e)}.channel-instagram .message-dot{background:#ef7da8}.channel-instagram .message-bubble.hermia{background:linear-gradient(135deg,#a74378,#702c70);border-color:rgba(255,155,195,.4)}.channel-instagram .message-bubble b{color:#ffd0e0}
+.channel-facebook .channel-preview{background:radial-gradient(circle at 68% 7%,rgba(61,128,238,.22),transparent 37%),linear-gradient(160deg,#0e1a33,#080a10)}.channel-facebook .message-dot{background:#5c9cff}.channel-facebook .message-bubble.hermia{background:linear-gradient(135deg,#2f6fce,#17437f);border-color:rgba(119,173,255,.42)}.channel-facebook .message-bubble b{color:#cae0ff}
+.channel-google .channel-preview{background:radial-gradient(circle at 72% 7%,rgba(224,179,73,.2),transparent 38%),linear-gradient(160deg,#211b0e,#0d0b08)}.channel-google .message-dot{background:#e2bd47}.channel-google .message-bubble.hermia{background:linear-gradient(135deg,#907329,#5d4816);border-color:rgba(242,211,101,.42)}.channel-google .message-bubble b{color:#fff0ac}
+@media(max-width:640px){.channel-preview{min-height:245px;padding:11px}.message-bubble{font-size:9px;padding:8px}.message-system{font-size:7px}}
+
+/* Platform-style multi-channel snapshots */
+.channel-card{background:#0b0b0b}.channel-card.channel-platform{min-height:0}.channel-card.channel-platform .channel-card-meta{background:#0d0d0d}
+.platform-snapshot{position:relative;overflow:hidden;min-height:292px;background:#f6f7f8;color:#18202a;font-family:Arial,Helvetica,sans-serif;border-bottom:1px solid rgba(255,255,255,.1)}
+.platform-top{height:42px;padding:0 12px;display:flex;align-items:center;gap:7px;color:#fff;font-size:10px;font-weight:700;letter-spacing:.1px}.platform-mark{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;font-weight:900;font-size:13px;line-height:1}.platform-dots{margin-left:auto;letter-spacing:2px;font-weight:900;opacity:.8}
+.platform-thread{display:flex;flex-direction:column;gap:8px;padding:12px}.platform-user{display:flex;align-items:center;gap:7px;color:#697079;font-size:8px;font-weight:700;margin-bottom:0}.platform-avatar{width:18px;height:18px;border-radius:50%;background:linear-gradient(145deg,#d7b17c,#7c4b2b)}
+.platform-message{max-width:88%;padding:9px 10px;border-radius:12px;font-size:10px;line-height:1.38;box-shadow:0 2px 5px rgba(0,0,0,.08)}.platform-message.in{align-self:flex-start;background:#e5e7ea;border-bottom-left-radius:3px;color:#1c242a}.platform-message.out{align-self:flex-end;color:#fff;border-bottom-right-radius:3px}.platform-reply-label{display:block;margin-bottom:3px;font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:800;opacity:.8}
+.email-snap{background:#fff}.email-snap .platform-top{background:#f8f9fa;color:#3a4048;border-bottom:1px solid #dfe2e6}.email-snap .platform-mark{color:#ea4335;background:transparent;font-size:21px}.email-snap .platform-thread{padding-top:13px}.email-snap .platform-message.in{border:1px solid #e1e4e8;background:#fff}.email-snap .platform-message.out{background:#2868d7}.email-subject{padding:10px 12px 2px;color:#252a31;font-size:10px;font-weight:700}.email-line{margin:0 12px;border-top:1px solid #e5e7ea}
+.instagram-snap{background:linear-gradient(145deg,#fcfcfc,#fff)}.instagram-snap .platform-top{color:#171717;background:#fff;border-bottom:1px solid #e9e9e9;font-family:Georgia,serif;font-size:12px}.instagram-snap .platform-mark{font-family:Arial,sans-serif;background:linear-gradient(135deg,#f9ce34,#ee2a7b,#6228d7);font-size:0}.instagram-snap .platform-mark:after{content:"";width:9px;height:9px;border:1.6px solid #fff;border-radius:3px}.instagram-snap .platform-message.in{background:#eeeef1}.instagram-snap .platform-message.out{background:linear-gradient(135deg,#f06a83,#9b49d0)}
+.facebook-snap{background:#f5f7fb}.facebook-snap .platform-top{background:#fff;color:#1b74e4;border-bottom:1px solid #e4e8ef}.facebook-snap .platform-mark{background:#1b74e4;color:#fff;font-family:Arial,sans-serif}.facebook-snap .platform-message.in{background:#e4e6eb}.facebook-snap .platform-message.out{background:#1b74e4}.facebook-snap .platform-thread{background:linear-gradient(#f5f7fb,#fff)}
+.google-snap{background:#fff}.google-snap .platform-top{background:#fff;color:#3c4043;border-bottom:1px solid #e1e4e7}.google-snap .platform-mark{background:conic-gradient(#4285f4 0 25%,#34a853 0 50%,#fbbc05 0 75%,#ea4335 0);color:#fff;font-family:Arial,sans-serif}.google-snap .platform-message.in{background:#f1f3f4}.google-snap .platform-message.out{background:#4b6bda}.google-private{padding:8px 12px 0;color:#777f88;font-size:7px;font-weight:700;letter-spacing:.7px;text-transform:uppercase}
+.whatsapp-snap{display:flex;align-items:center;justify-content:center;min-height:292px;background:#050505;border-bottom:1px solid rgba(255,255,255,.12)}.whatsapp-snap img{display:block;width:100%;height:292px;object-fit:contain;background:#050505}.whatsapp-proof-badge{position:absolute;top:12px;left:12px;right:12px;padding:7px 8px;background:rgba(10,27,18,.86);border:1px solid rgba(66,194,120,.45);color:#c8f7d8;font-size:8px;font-family:Arial,Helvetica,sans-serif;line-height:1.3}.whatsapp-proof-badge b{color:#fff;display:block;font-size:9px;margin-bottom:2px}.channel-card-meta .platform-note{color:#d5d2ca}
+
+/* Handset frames and five-question WhatsApp handover */
+.channel-card.channel-platform{display:flex;flex-direction:column}.channel-card.channel-platform .channel-card-meta{margin-top:auto}
+.phone-stage{display:flex;align-items:center;justify-content:center;min-height:324px;padding:14px 10px;background:radial-gradient(circle at 50% 4%,rgba(212,175,55,.12),transparent 46%),#080808}
+.platform-phone{position:relative;width:150px;height:284px;overflow:hidden;background:#050505;border:6px solid #151515;border-radius:28px;box-shadow:0 19px 34px rgba(0,0,0,.56),inset 0 0 0 1px rgba(255,255,255,.09);padding-top:13px}
+.platform-phone:before{content:"";position:absolute;z-index:4;top:5px;left:50%;transform:translateX(-50%);width:54px;height:9px;border-radius:0 0 10px 10px;background:#050505}
+.platform-phone:after{content:"";position:absolute;z-index:4;bottom:4px;left:50%;transform:translateX(-50%);width:46px;height:3px;border-radius:3px;background:rgba(255,255,255,.55)}
+.platform-phone .platform-snapshot{min-height:265px;height:265px;border:0}.platform-phone .platform-top{height:34px;padding:0 8px;font-size:8px}.platform-phone .platform-mark{width:17px;height:17px;font-size:11px}.platform-phone .platform-thread{padding:8px;gap:6px}.platform-phone .platform-user{font-size:6px;gap:5px}.platform-phone .platform-avatar{width:14px;height:14px}.platform-phone .platform-message{font-size:7.6px;line-height:1.3;padding:7px 8px}.platform-phone .platform-reply-label{font-size:5.5px;letter-spacing:.7px}.platform-phone .email-subject{font-size:8px;padding:8px 8px 2px}.platform-phone .email-line{margin:0 8px}.platform-phone .google-private{padding:6px 8px 0;font-size:5.5px}
+.phone-proof{position:relative;width:150px;height:284px;overflow:hidden;background:#050505;border:6px solid #151515;border-radius:28px;box-shadow:0 19px 34px rgba(0,0,0,.56),inset 0 0 0 1px rgba(255,255,255,.09)}
+.phone-proof:before{content:"";position:absolute;z-index:4;top:5px;left:50%;transform:translateX(-50%);width:54px;height:9px;border-radius:0 0 10px 10px;background:#050505}.phone-proof:after{content:"";position:absolute;z-index:4;bottom:4px;left:50%;transform:translateX(-50%);width:46px;height:3px;border-radius:3px;background:rgba(255,255,255,.55)}
+.phone-proof img,.phone-proof video{width:100%;height:100%;display:block;object-fit:cover;background:#050505}.phone-proof figcaption,.phone-proof .dd-title{display:none}
+
+/* Supplied platform-reference fidelity pass */
+.platform-phone{padding-top:0}.platform-phone:before{z-index:12}.platform-phone:after{z-index:12}
+.platform-phone .platform-snapshot{height:272px;min-height:272px;padding-top:12px}.platform-phone .platform-message{font-size:7.4px}
+.ref-phonebar{height:25px;padding:0 8px;display:flex;align-items:center;justify-content:space-between;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:6.5px;font-weight:700}.ref-phonebar .ref-time{font-size:6px;font-weight:700}.ref-phonebar .ref-status{font-size:6px;letter-spacing:.4px}
+.ref-header{display:flex;align-items:center;gap:7px;padding:7px 8px;border-bottom:1px solid rgba(0,0,0,.1);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.ref-header b{font-size:8.4px}.ref-back{font-size:15px;line-height:1}.ref-spacer{margin-left:auto;font-size:8px;letter-spacing:1px}
+.ref-message-area{padding:8px;display:flex;flex-direction:column;gap:6px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.ref-contact{display:flex;align-items:center;gap:5px;font-size:6.3px;color:#68707b}.ref-contact i{display:block;width:15px;height:15px;border-radius:50%;background:linear-gradient(145deg,#d9bc8a,#8b5c3e)}.ref-bubble{max-width:84%;padding:7px 8px;border-radius:11px;font-size:7.4px;line-height:1.3}.ref-bubble.in{align-self:flex-start}.ref-bubble.out{align-self:flex-end;color:#fff}.ref-bubble small{display:block;margin-bottom:2px;font-size:5.4px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;opacity:.8}
+.gmail-ref{background:#fff;color:#202124}.gmail-ref .ref-phonebar{background:#fff}.gmail-ref .ref-header{background:#fff;color:#db4437}.gmail-ref .ref-header b{color:#3c4043}.gmail-ref .ref-bubble.in{background:#fff;border:1px solid #e2e4e7;color:#252b32}.gmail-ref .ref-bubble.out{background:#1a73e8}.gmail-ref .gmail-subject{padding:7px 8px 0;font:700 7.7px Arial,sans-serif;color:#202124}.gmail-ref .gmail-rule{margin:5px 8px 0;border-top:1px solid #e8eaed}
+.instagram-ref{background:#101114;color:#f7f7f8}.instagram-ref .ref-phonebar{background:#101114;color:#fff}.instagram-ref .ref-header{background:#101114;border-color:#26282d;color:#fff}.instagram-ref .ref-header b{color:#f7f7f8;font-size:8.6px}.instagram-ref .ig-tabs{display:flex;gap:11px;padding:7px 8px;border-bottom:1px solid #24262c;font:700 6.2px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#aeb1b8}.instagram-ref .ig-tabs b{color:#fff;border-bottom:2px solid #fff;padding-bottom:5px}.instagram-ref .ig-search{margin:7px 8px 4px;padding:5px 7px;border-radius:8px;background:#25272d;color:#8d929c;font:6.4px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.instagram-ref .ref-contact{color:#aeb1b8}.instagram-ref .ref-bubble.in{background:#27292f;color:#f6f7f8}.instagram-ref .ref-bubble.out{background:linear-gradient(135deg,#6b5cff,#b445d5)}
+.facebook-ref{background:#fff;color:#111827}.facebook-ref .ref-phonebar{background:#fff}.facebook-ref .ref-header{color:#1877f2;background:#fff}.facebook-ref .ref-header b{color:#1877f2}.facebook-ref .ref-bubble.in{background:#e4e6eb;color:#111827}.facebook-ref .ref-bubble.out{background:#0084ff}.facebook-ref .fb-notice{padding:5px 8px;color:#737a84;text-align:center;font:5.4px Arial,sans-serif}.facebook-ref .ref-contact{color:#656b75}
+.google-ref{background:#fff;color:#3c4043}.google-ref .ref-phonebar{background:#fff}.google-ref .ref-header{background:#fff;color:#4285f4}.google-ref .ref-header b{color:#3c4043}.google-ref .g-tabs{display:flex;justify-content:space-around;padding:6px 4px;border-bottom:1px solid #e7e8ea;font:700 5.7px Arial,sans-serif;color:#70757a}.google-ref .g-tabs b{color:#1a73e8;border-bottom:2px solid #1a73e8;padding-bottom:5px}.google-ref .ref-bubble.in{background:#f1f3f4;color:#3c4043}.google-ref .ref-bubble.out{background:#4285f4}.google-ref .ref-contact{color:#747b84}
+@media(max-width:640px){.platform-phone .platform-snapshot{height:229px;min-height:229px}.ref-header{padding:5px 7px}.ref-message-area{padding:6px}.ref-bubble{font-size:6.6px;padding:6px}.instagram-ref .ig-tabs{padding:5px 7px}.instagram-ref .ig-search{margin:5px 7px 3px;padding:4px 6px}}
+
+.handover-pill{margin:0 14px 12px;padding:8px 9px;border:1px solid rgba(212,175,55,.32);background:rgba(212,175,55,.06);color:#dfc470;font-size:8px;line-height:1.4;text-align:center}.handover-pill strong{color:#fff;font-size:8px;letter-spacing:.7px;text-transform:uppercase}
+@media(max-width:640px){.phone-stage{min-height:282px;padding:10px}.platform-phone,.phone-proof{width:128px;height:242px}.platform-phone .platform-snapshot{min-height:225px;height:225px}.platform-phone:before,.phone-proof:before{width:46px}.platform-phone:after,.phone-proof:after{width:38px}.handover-pill{font-size:7px;margin:0 10px 10px;padding:7px}}
+
+@media(max-width:640px){.platform-snapshot,.whatsapp-snap{min-height:245px}.whatsapp-snap img{height:245px}.platform-top{height:36px;font-size:9px}.platform-thread{padding:9px;gap:6px}.platform-message{font-size:8px;padding:7px 8px}.platform-user{font-size:7px}}
+
+
+@media(max-width:960px){.about-section{padding:82px 26px}.about-intro{grid-template-columns:1fr;gap:25px}.about-copy{max-width:640px}.channel-grid{grid-template-columns:repeat(3,1fr)}.channel-card{min-height:0}.channel-card:last-child{grid-column:2}.about-title{font-size:56px}}
+@media(max-width:640px){.about-section{padding:70px 20px}.about-benefits{grid-template-columns:1fr}.channel-strip{align-items:flex-start;flex-direction:column}.channel-grid{grid-template-columns:repeat(2,1fr);gap:10px}.channel-card:last-child{grid-column:auto}.about-title{font-size:45px;letter-spacing:-1px}.about-copy{font-size:14px}.channel-card-meta{padding:12px}.channel-card-meta strong{font-size:18px}.channel-card-meta p{font-size:10px}}
+
 /* Contact / partner */
 .combo-section{padding:80px 48px;border-top:1px solid var(--border);background:var(--bg3)}
 .combo-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:stretch}
@@ -880,6 +969,217 @@ video.gifv{display:block;width:100%;background:#070707;-webkit-user-drag:none;us
 #skip-btn{font-size:12.5px !important;color:rgba(255,255,255,0.85) !important;background:rgba(255,255,255,0.1) !important;border-color:rgba(255,255,255,0.28) !important;padding:9px 20px !important}
 #skip-btn:hover{background:rgba(212,175,55,0.18) !important;color:#fff !important}
 </style>
+
+  <style id="realistic-channel-proof-style">
+    /* Visual principle: realistic platform screenshots in spacious, premium evidence cards. */
+    .channel-proof-section { background:linear-gradient(180deg,#080704 0%,#10100c 42%,#070707 100%); border-top:1px solid rgba(212,175,55,.28); border-bottom:1px solid rgba(212,175,55,.2); }
+    .channel-proof-section .channel-proof-intro { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr); gap:72px; align-items:end; margin-bottom:34px; }
+    .channel-proof-section .channel-proof-intro p { margin:0; color:#d3d1c8; font-size:16px; line-height:1.7; }
+    .channel-proof-section .channel-proof-intro p strong { color:#fffdfa; }
+    .channel-proof-section .about-note { margin-top:22px; display:flex; gap:13px; align-items:flex-start; padding:15px 17px; border-left:2px solid #d4af37; background:rgba(212,175,55,.055); color:#b9b5a8; font-size:12px; line-height:1.45; }
+    .channel-proof-section .about-note strong { display:block; color:#f2d777; white-space:nowrap; font-size:10px; letter-spacing:.11em; text-transform:uppercase; }
+    .channel-proof-grid { grid-template-columns:repeat(6,minmax(0,1fr)); gap:22px; align-items:stretch; }
+    .channel-proof-grid .channel-proof-card { grid-column:span 2; min-width:0; display:flex; flex-direction:column; padding:17px; border:1px solid rgba(255,255,255,.12); background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012)); box-shadow:0 22px 42px rgba(0,0,0,.25); }
+    .channel-proof-grid .channel-proof-card:nth-child(4), .channel-proof-grid .channel-proof-card:nth-child(5) { grid-column:span 3; }
+    .channel-proof-grid .channel-proof-card:hover { border-color:rgba(212,175,55,.66); transform:translateY(-5px); }
+    .channel-proof-grid .platform-shot { width:min(100%,340px); aspect-ratio:9 / 16; margin:0 auto 17px; padding:8px; overflow:hidden; border:1px solid rgba(255,255,255,.12); border-radius:34px; background:#030303; box-shadow:0 14px 26px rgba(0,0,0,.46),inset 0 0 0 1px rgba(255,255,255,.05); }
+    .channel-proof-grid .platform-shot img { width:100%; height:100%; display:block; object-fit:cover; border-radius:27px; background:#181818; }
+    .channel-proof-grid .handover-pill { width:100%; box-sizing:border-box; margin:0 0 16px; min-height:54px; padding:10px 12px; border:1px solid rgba(212,175,55,.4); background:rgba(212,175,55,.06); color:#b9b5a8; font-size:11px; line-height:1.38; text-align:center; }
+    .channel-proof-grid .handover-pill strong { display:block; color:#f4d977; margin-bottom:2px; font-size:10px; letter-spacing:.12em; text-transform:uppercase; }
+    .channel-proof-grid .channel-card-meta { margin-top:auto; }
+    .channel-proof-grid .channel-card-meta small { display:block; color:#d4af37; font-size:9px; letter-spacing:.16em; line-height:1.35; text-transform:uppercase; }
+    .channel-proof-grid .channel-card-meta strong { display:block; margin:7px 0 5px; color:#fffdf6; font-family:'Cormorant Garamond',Georgia,serif; font-size:27px; font-weight:600; line-height:.95; }
+    .channel-proof-grid .channel-card-meta .platform-note { margin:0; color:#bebbb3; font-size:12px; line-height:1.48; }
+    @media (max-width:980px) { .channel-proof-section .channel-proof-intro { grid-template-columns:1fr; gap:22px; } .channel-proof-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .channel-proof-grid .channel-proof-card, .channel-proof-grid .channel-proof-card:nth-child(4), .channel-proof-grid .channel-proof-card:nth-child(5) { grid-column:span 1; } }
+    @media (max-width:620px) { .channel-proof-section .about-note { display:block; } .channel-proof-section .about-note strong { margin-bottom:7px; white-space:normal; } .channel-proof-grid { grid-template-columns:1fr; gap:16px; } .channel-proof-grid .channel-proof-card, .channel-proof-grid .channel-proof-card:nth-child(4), .channel-proof-grid .channel-proof-card:nth-child(5) { grid-column:span 1; padding:14px; } .channel-proof-grid .platform-shot { width:min(100%,310px); } }
+  </style>
+
+  <style id="gmail-handover-assistant-style">
+    /* Visual principle: a real branded email handover, supported by Hermia-as-assistant channel proof. */
+    .channel-proof-grid .channel-email { grid-column:span 4; border-color:rgba(212,175,55,.38); background:linear-gradient(145deg,rgba(212,175,55,.08),rgba(255,255,255,.02)); }
+    .channel-proof-grid .channel-proof-card:nth-child(4), .channel-proof-grid .channel-proof-card:nth-child(5) { grid-column:span 2; }
+    .channel-proof-grid .channel-email .platform-shot { width:100%; max-width:820px; aspect-ratio:8 / 5; padding:6px; border-radius:18px; background:#101010; }
+    .channel-proof-grid .channel-email .platform-shot img { border-radius:11px; object-position:center; }
+    .channel-proof-grid .channel-email .handover-pill { border-color:rgba(212,175,55,.58); background:rgba(212,175,55,.09); }
+    .channel-proof-section .channel-flow-note { display:block; }
+    .channel-proof-section .channel-flow-note .channel-route { display:block; margin-top:8px; color:#e8ce70; font-size:10px; letter-spacing:.11em; line-height:1.45; }
+    @media (max-width:980px) { .channel-proof-grid .channel-email, .channel-proof-grid .channel-proof-card:nth-child(4), .channel-proof-grid .channel-proof-card:nth-child(5) { grid-column:span 1; } }
+    @media (max-width:620px) { .channel-proof-grid .channel-email .platform-shot { aspect-ratio:8 / 5; } }
+  </style>
+
+  <style id="lead-first-channel-phone-style">
+    /* Visual principle: lead-first, platform-specific phone screens with no assistant/person branding. */
+    .channel-proof-section { background:linear-gradient(180deg,#080704 0%,#10100c 43%,#070707 100%); border-top:1px solid rgba(212,175,55,.28); border-bottom:1px solid rgba(212,175,55,.2); }
+    .channel-proof-section .channel-proof-intro { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr); gap:72px; align-items:end; margin-bottom:34px; }
+    .channel-proof-section .channel-proof-intro p { margin:0; color:#d3d1c8; font-size:16px; line-height:1.7; }
+    .channel-proof-section .channel-proof-intro p strong { color:#fffdfa; }
+    .channel-proof-section .about-note { margin-top:22px; display:flex; gap:13px; align-items:flex-start; padding:15px 17px; border-left:2px solid #d4af37; background:rgba(212,175,55,.055); color:#b9b5a8; font-size:12px; line-height:1.45; }
+    .channel-proof-section .about-note strong { color:#f2d777; white-space:nowrap; font-size:10px; letter-spacing:.11em; text-transform:uppercase; }
+    .channel-proof-section .channel-flow-note { display:block; }
+    .channel-proof-section .channel-route { display:block; margin-top:8px; color:#e8ce70; font-size:10px; letter-spacing:.11em; line-height:1.45; }
+    .channel-proof-grid { grid-template-columns:repeat(6,minmax(0,1fr)); gap:22px; align-items:stretch; }
+    .channel-proof-grid .lead-first-card { grid-column:span 2; min-width:0; display:flex; flex-direction:column; padding:17px; border:1px solid rgba(255,255,255,.12); background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012)); box-shadow:0 22px 42px rgba(0,0,0,.25); }
+    .channel-proof-grid .lead-first-card:nth-child(4), .channel-proof-grid .lead-first-card:nth-child(5) { grid-column:span 3; }
+    .channel-proof-grid .lead-first-card:hover { border-color:rgba(212,175,55,.66); transform:translateY(-5px); }
+    .lead-first-phone { position:relative; width:min(100%,340px); aspect-ratio:9 / 16; margin:0 auto 17px; overflow:hidden; border:8px solid #050505; border-radius:34px; color:#181818; box-shadow:0 14px 26px rgba(0,0,0,.46),inset 0 0 0 1px rgba(255,255,255,.05); background:#f6f5f1; font-family:Arial,Helvetica,sans-serif; }
+    .lead-first-phone:before { content:''; position:absolute; z-index:6; top:0; left:50%; width:37%; height:18px; transform:translateX(-50%); border-radius:0 0 13px 13px; background:#050505; }
+    .lf-status { position:relative; z-index:4; height:28px; padding:5px 13px 0; box-sizing:border-box; display:flex; align-items:center; justify-content:space-between; font-size:9px; font-weight:700; color:inherit; }
+    .lf-head { position:relative; min-height:48px; box-sizing:border-box; display:flex; align-items:center; gap:7px; padding:8px 9px; font-size:10px; }
+    .lf-head > span { font-size:25px; line-height:1; font-weight:300; }
+    .lf-head > b { max-width:126px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:10px; }
+    .lf-head > em { position:absolute; left:59px; top:32px; font-style:normal; font-size:7px; opacity:.82; }
+    .lf-head > strong { margin-left:auto; font-size:12px; white-space:nowrap; }
+    .person-avatar { width:22px; height:22px; flex:0 0 22px; display:grid; place-items:center; border-radius:50%; color:#fff; font-size:9px; font-style:normal; font-weight:700; }
+    .person-avatar.maya { background:#b68e6d; }
+    .person-avatar.business { background:#173e74; }
+    .lf-chat { position:absolute; inset:76px 0 39px; padding:17px 12px; overflow:hidden; background:#ede7dc; }
+    .lead-chip { margin:0 0 8px 2px; color:#6d6862; font-size:8px; font-weight:700; }
+    .lf-bubble { position:relative; width:max-content; max-width:82%; margin:7px 0; padding:9px 9px 16px; border-radius:13px; font-size:10px; line-height:1.28; box-shadow:0 1px 1px rgba(0,0,0,.08); }
+    .lf-bubble small { position:absolute; right:7px; bottom:4px; font-size:6px; color:#777; white-space:nowrap; }
+    .lf-bubble.incoming { background:#fff; border-top-left-radius:3px; }
+    .lf-bubble.outgoing { margin-left:auto; color:#142817; background:#d9fdd3; border-top-right-radius:3px; }
+    .lf-bubble.outgoing small { color:#628067; }
+    .lf-compose { position:absolute; left:0; right:0; bottom:0; height:39px; display:flex; align-items:center; gap:8px; padding:7px 9px; box-sizing:border-box; border-top:1px solid rgba(0,0,0,.08); background:#fff; color:#6c6c6c; font-size:12px; }
+    .lf-compose span { flex:1; padding:6px 8px; border-radius:14px; background:#f0efee; font-size:8px; }
+    .lf-compose b { font-size:9px; white-space:nowrap; }
+    .wa-head { background:#075e54; color:#fff; }.wa-chat { top:76px; background:#efe8dd; }.wa-chat:before { content:''; position:absolute; inset:0; opacity:.22; background-image:radial-gradient(#b9b1a5 1px,transparent 1px); background-size:12px 12px; }.wa-chat > * { position:relative; }.wa-head .person-avatar.business { background:#090909; border:1px solid #d4af37; }
+    .gmail-head { background:#fff; color:#4c5156; border-bottom:1px solid #ececec; }.gmail-head > b { font-size:11px; }.gmail-mark { display:inline-grid; place-items:center; width:18px; height:14px; margin-right:3px; color:#fff; background:linear-gradient(135deg,#ea4335 0 25%,#fbbc05 25% 48%,#34a853 48% 73%,#4285f4 73%); clip-path:polygon(0 100%,0 0,18% 0,50% 45%,82% 0,100% 0,100% 100%,82% 100%,82% 29%,50% 70%,18% 29%,18% 100%); font-size:0; }.email-phone { background:#fff; }.email-phone .lf-status { color:#31343a; }.gmail-subject-line { height:32px; padding:8px 12px 0; box-sizing:border-box; color:#25272a; font-weight:700; font-size:10px; }.email-thread { position:absolute; inset:108px 0 0; padding:0 12px 12px; background:#fff; }.email-sender { display:flex; align-items:center; gap:6px; padding-top:3px; font-size:8px; }.email-sender > div { display:flex; flex-direction:column; gap:1px; }.email-sender span { color:#777; font-size:7px; }.email-sender em { margin-left:auto; color:#888; font-size:7px; font-style:normal; }.email-thread > p { margin:8px 2px; color:#42464a; font-size:9px; line-height:1.38; }.email-rule { height:1px; background:#ececec; margin:12px 0 8px; }.business-sender { padding-top:0; }.email-brand { margin-top:8px; padding:10px 12px; border-radius:4px 4px 0 0; background:#183f79; color:#fff; text-align:center; font-size:12px; line-height:1.1; }.email-thread button { display:block; margin:12px auto 0; padding:7px 10px; border:0; border-radius:3px; background:#1a73e8; color:#fff; font-size:8px; font-weight:700; }
+    .ig-head { color:#f8f8f8; background:#101114; }.ig-head > em { color:#92949b; }.instagram-phone { color:#f8f8f8; background:#101114; }.instagram-phone .lf-status { color:#f8f8f8; }.ig-tabs { height:28px; display:flex; align-items:flex-end; justify-content:space-around; color:#a9a9ad; background:#101114; font-size:8px; }.ig-tabs b { padding:0 4px 7px; color:#fff; border-bottom:2px solid #fff; }.ig-tabs span { padding-bottom:8px; }.ig-search { height:25px; margin:7px 10px 4px; padding:6px 9px; border-radius:6px; box-sizing:border-box; color:#9d9da1; background:#28292e; font-size:8px; }.ig-chat { top:137px; background:#101114; }.ig-chat .lead-chip { color:#9d9da1; }.ig-chat .incoming { color:#f6f6f6; background:#28292e; }.ig-chat .outgoing { color:#fff; background:linear-gradient(135deg,#f04f8c,#7247e8,#4191e6); }.ig-chat .outgoing small { color:#ece7ff; }.instagram-phone .lf-compose { color:#9a9aa0; border-top-color:#28292e; background:#101114; }.instagram-phone .lf-compose span { background:#292a30; }.instagram-phone .lf-bubble small { color:#a8a8ac; }
+    .ms-head { color:#1b1b1b; background:#fff; border-bottom:1px solid #e6e6e6; }.ms-head > em { color:#777; }.ms-private { height:18px; padding-top:7px; box-sizing:border-box; color:#8a8a8a; text-align:center; font-size:7px; background:#fff; }.ms-chat { top:94px; background:#fff; }.ms-chat .incoming { background:#eceef2; }.ms-chat .outgoing { color:#fff; background:#0a7cff; }.ms-chat .outgoing small { color:#dbeaff; }.messenger-phone .lf-compose { border-top-color:#edf0f6; }.messenger-phone .lf-compose span { color:#9398a1; background:#f3f5f9; }
+    .g-head { color:#36383a; background:#fff; border-bottom:1px solid #eaeaea; }.g-head > b { font-size:10px; }.google-mark { display:inline-grid; place-items:center; width:15px; height:15px; margin-right:2px; border-radius:50%; color:#4285f4; font-size:14px; font-style:normal; font-weight:700; background:conic-gradient(#4285f4 0 25%,#34a853 0 43%,#fbbc05 0 63%,#ea4335 0 83%,#4285f4 0); -webkit-background-clip:text; background-clip:text; }.g-tabs { height:30px; display:flex; align-items:flex-end; justify-content:space-around; color:#6f7478; background:#fff; font-size:7px; }.g-tabs b { padding:0 3px 7px; color:#1a73e8; border-bottom:2px solid #1a73e8; }.g-tabs span { padding-bottom:8px; }.g-chat { top:106px; background:#fff; }.g-chat .incoming { background:#f2f3f3; }.g-chat .outgoing { color:#fff; background:#1a73e8; }.g-chat .outgoing small { color:#dbe8ff; }.google-phone .lf-compose { border-top-color:#e7e8ea; }.google-phone .lf-compose span { background:#f4f5f5; }
+    .channel-proof-grid .handover-pill { width:100%; box-sizing:border-box; margin:0 0 16px; min-height:54px; padding:10px 12px; border:1px solid rgba(212,175,55,.4); background:rgba(212,175,55,.06); color:#b9b5a8; font-size:11px; line-height:1.38; text-align:center; }.channel-proof-grid .handover-pill strong { display:block; color:#f4d977; margin-bottom:2px; font-size:10px; letter-spacing:.12em; text-transform:uppercase; }.channel-proof-grid .channel-card-meta { margin-top:auto; }.channel-proof-grid .channel-card-meta small { display:block; color:#d4af37; font-size:9px; letter-spacing:.16em; line-height:1.35; text-transform:uppercase; }.channel-proof-grid .channel-card-meta strong { display:block; margin:7px 0 5px; color:#fffdf6; font-family:'Cormorant Garamond',Georgia,serif; font-size:27px; font-weight:600; line-height:.95; }.channel-proof-grid .channel-card-meta .platform-note { margin:0; color:#bebbb3; font-size:12px; line-height:1.48; }
+    @media (max-width:980px) { .channel-proof-section .channel-proof-intro { grid-template-columns:1fr; gap:22px; }.channel-proof-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }.channel-proof-grid .lead-first-card, .channel-proof-grid .lead-first-card:nth-child(4), .channel-proof-grid .lead-first-card:nth-child(5) { grid-column:span 1; } }
+    @media (max-width:620px) { .channel-proof-section .about-note { display:block; }.channel-proof-section .about-note strong { display:block; margin-bottom:7px; white-space:normal; }.channel-proof-grid { grid-template-columns:1fr; gap:16px; }.channel-proof-grid .lead-first-card, .channel-proof-grid .lead-first-card:nth-child(4), .channel-proof-grid .lead-first-card:nth-child(5) { grid-column:span 1; padding:14px; }.lead-first-phone { width:min(100%,310px); } }
+  </style>
+
+  <style id="human-social-platform-reference-style">
+    /* Visual principle: real human lead names, native-looking platforms, exact supplied Gmail mobile proof. */
+    .channel-proof-grid .lead-first-card { padding:16px; }
+    .channel-proof-grid .lead-first-card .lead-first-phone { width:min(100%,336px); margin-bottom:16px; color:#171717; overflow:hidden; border:8px solid #050505; border-radius:34px; background:#fff; box-shadow:0 18px 30px rgba(0,0,0,.5); font-family:Arial,Helvetica,sans-serif; }
+    .channel-proof-grid .gmail-real { width:min(100%,288px); aspect-ratio:828 / 1707; background:#fff; }
+    .channel-proof-grid .gmail-real img { width:100%; height:100%; display:block; object-fit:cover; }
+    .real-status { height:28px; display:flex; align-items:center; justify-content:space-between; padding:5px 14px 0; box-sizing:border-box; color:inherit; font-size:9px; font-weight:700; }
+    .real-status:before { content:''; position:absolute; z-index:5; top:0; left:50%; width:37%; height:18px; transform:translateX(-50%); border-radius:0 0 13px 13px; background:#050505; }
+    .whatsapp-real { aspect-ratio:9 / 16; background:#efe9df!important; }.whatsapp-real .real-status { color:#fff; background:#075e54; }.whatsapp-top { min-height:48px; display:flex; align-items:center; gap:9px; padding:8px 10px; box-sizing:border-box; color:#fff; background:#075e54; }.whatsapp-top > span { font-size:27px; font-weight:300; }.wa-contact { display:grid; grid-template-columns:25px auto; grid-template-rows:13px 9px; column-gap:7px; }.wa-contact i { grid-row:span 2; width:25px; height:25px; display:grid; place-items:center; border-radius:50%; border:1px solid #d4af37; background:#0c0c0c; color:#d4af37; font-size:10px; font-style:normal; font-weight:700; }.wa-contact b { font-size:10px; }.wa-contact small { color:#d2e4df; font-size:7px; }.whatsapp-top strong { margin-left:auto; font-size:11px; white-space:nowrap; }.real-chat { position:absolute; inset:auto 0 39px; padding:15px 12px; overflow:hidden; }.wa-real-chat { top:76px; background:#efe8dd; }.wa-real-chat:before { content:''; position:absolute; inset:0; opacity:.22; background-image:radial-gradient(#b9b1a5 1px,transparent 1px); background-size:12px 12px; }.wa-real-chat > * { position:relative; }.lead-name { margin:0 0 8px 2px; color:#77726c; font-size:8px; font-weight:700; }.real-bubble { position:relative; width:max-content; max-width:84%; margin:7px 0; padding:9px 10px 16px; box-sizing:border-box; border-radius:13px; font-size:10px; line-height:1.28; box-shadow:0 1px 1px rgba(0,0,0,.08); }.real-bubble time { position:absolute; right:7px; bottom:4px; color:#777; font-size:6px; white-space:nowrap; }.real-bubble.lead { background:#fff; border-top-left-radius:3px; }.real-bubble.reply { margin-left:auto; border-top-right-radius:3px; }.wa-real-chat .reply { background:#d9fdd3; color:#142817; }.wa-real-chat .reply time { color:#628067; }.real-compose { position:absolute; left:0; right:0; bottom:0; height:39px; display:flex; align-items:center; justify-content:space-between; gap:8px; padding:7px 9px; box-sizing:border-box; border-top:1px solid rgba(0,0,0,.08); background:#fff; color:#666; font-size:10px; }.real-compose b { flex:1; padding:6px 8px; border-radius:14px; background:#f0efee; color:#858585; font-size:8px; font-weight:400; }
+    .instagram-real { aspect-ratio:9 / 16; color:#f8f8f8!important; background:#101114!important; }.instagram-real .real-status { color:#f8f8f8; }.ig-brandbar { height:28px; padding:4px 11px 0; display:flex; align-items:center; justify-content:space-between; box-sizing:border-box; border-bottom:1px solid #24252a; font-family:cursive; }.ig-brandbar b { font-size:12px; letter-spacing:-.5px; }.ig-brandbar span { font-family:Arial,sans-serif; font-size:11px; }.ig-inbox-head { height:31px; display:flex; align-items:center; gap:8px; padding:0 10px; box-sizing:border-box; }.ig-inbox-head > span { font-size:23px; font-weight:300; }.ig-inbox-head b { font-size:10px; }.ig-inbox-head strong { margin-left:auto; font-size:12px; }.ig-inbox-tabs { height:27px; display:flex; align-items:flex-end; justify-content:space-around; color:#a9a9ad; font-size:8px; }.ig-inbox-tabs b { padding:0 4px 7px; color:#fff; border-bottom:2px solid #fff; }.ig-inbox-tabs span { padding-bottom:8px; }.ig-search-real { height:25px; margin:6px 10px 5px; padding:6px 9px; border-radius:6px; box-sizing:border-box; background:#28292e; color:#9d9da1; font-size:8px; }.ig-thread-head { height:33px; padding:3px 10px; display:flex; align-items:center; gap:7px; box-sizing:border-box; border-bottom:1px solid #292a30; }.ig-thread-head i { width:21px; height:21px; display:grid; place-items:center; border-radius:50%; background:#ba6c5f; color:#fff; font-size:8px; font-style:normal; }.ig-thread-head div { display:flex; flex-direction:column; gap:1px; }.ig-thread-head b { font-size:8px; }.ig-thread-head small { color:#94949a; font-size:6px; }.ig-thread-head > span { margin-left:auto; font-size:9px; }.ig-real-chat { top:157px; background:#101114; }.ig-real-chat .lead { color:#fff; background:#28292e; }.ig-real-chat .reply { color:#fff; background:linear-gradient(135deg,#f04f8c,#7247e8,#4191e6); }.ig-real-chat .reply time { color:#ece7ff; }.instagram-real .real-compose { color:#9a9aa0; border-top-color:#28292e; background:#101114; }.instagram-real .real-compose b { background:#292a30; color:#a9a9ad; }.instagram-real .real-bubble time { color:#a8a8ac; }
+    .messenger-real { aspect-ratio:9 / 16; background:#fff!important; }.messenger-real .real-status { color:#202124; }.messenger-wordmark { height:29px; display:flex; align-items:center; gap:5px; padding:0 11px; box-sizing:border-box; border-bottom:1px solid #ecedf0; color:#171717; }.messenger-wordmark i { width:16px; height:16px; display:grid; place-items:center; border-radius:50%; background:linear-gradient(135deg,#00c6ff,#0069ff 55%,#9a39ff); color:#fff; font-size:12px; font-style:normal; }.messenger-wordmark b { font-size:11px; }.messenger-wordmark span { margin-left:auto; color:#007cff; font-size:10px; }.ms-thread-head { min-height:45px; display:flex; align-items:center; gap:7px; padding:7px 9px; box-sizing:border-box; }.ms-thread-head > span { font-size:24px; font-weight:300; }.ms-thread-head i { width:24px; height:24px; display:grid; place-items:center; border-radius:50%; background:#123e7c; color:#fff; font-size:9px; font-style:normal; font-weight:700; }.ms-thread-head div { display:flex; flex-direction:column; gap:2px; }.ms-thread-head b { font-size:9px; }.ms-thread-head small { color:#777; font-size:6px; }.ms-thread-head strong { margin-left:auto; color:#067cff; font-size:9px; white-space:nowrap; }.ms-security { height:23px; padding-top:6px; box-sizing:border-box; color:#888; text-align:center; border-top:1px solid #f0f1f3; font-size:6px; }.ms-real-chat { top:125px; background:#fff; }.ms-real-chat .lead { background:#eceef2; }.ms-real-chat .reply { color:#fff; background:#087dff; }.ms-real-chat .reply time { color:#dbeaff; }.messenger-real .real-compose { border-top-color:#edf0f6; }.messenger-real .real-compose b { background:#f3f5f9; }
+    .google-real { aspect-ratio:9 / 16; background:#fff!important; }.google-real .real-status { color:#202124; }.google-titlebar { height:32px; display:flex; align-items:center; gap:8px; padding:0 10px; box-sizing:border-box; border-bottom:1px solid #eceff1; }.google-titlebar > span { font-size:23px; font-weight:300; }.google-titlebar b { font-size:10px; }.google-titlebar b i { margin-right:3px; color:#4285f4; font-size:15px; font-style:normal; font-weight:700; }.google-titlebar strong { margin-left:auto; font-size:13px; }.google-tabs-real { height:31px; display:flex; align-items:flex-end; justify-content:space-around; color:#6f7478; font-size:7px; }.google-tabs-real b { padding:0 3px 7px; color:#1a73e8; border-bottom:2px solid #1a73e8; }.google-tabs-real span { padding-bottom:8px; }.google-company { height:37px; display:flex; align-items:center; gap:7px; padding:5px 11px; box-sizing:border-box; border-bottom:1px solid #eef0f2; }.google-company i { width:22px; height:22px; display:grid; place-items:center; border-radius:50%; background:#103d7d; color:#fff; font-size:9px; font-style:normal; font-weight:700; }.google-company div { display:flex; flex-direction:column; gap:2px; }.google-company b { color:#333; font-size:8px; }.google-company small { color:#7b7f82; font-size:6px; }.g-real-chat { top:128px; background:#fff; }.g-real-chat .lead { background:#f1f3f4; }.g-real-chat .reply { color:#fff; background:#1a73e8; }.g-real-chat .reply time { color:#dbe8ff; }.google-real .real-compose { border-top-color:#e7e8ea; }.google-real .real-compose b { background:#f4f5f5; }
+    .channel-proof-grid .lead-first-card .handover-pill { min-height:54px; }.channel-proof-grid .lead-first-card .platform-note { min-height:54px; }
+    @media (max-width:620px) { .channel-proof-grid .gmail-real { width:min(100%,280px); } }
+  </style>
+
+  <style id="lead-identity-pricing-instagram-style">
+    /* Visual principle: lead names own the visible incoming side; Hermia is represented by its reply bubbles. */
+    .whatsapp-real .wa-contact i { border:0; background:#b8846c; color:#fff; }
+    .messenger-real .ms-thread-head > i { background:#ba7769; }
+    .google-real .google-company > i { background:#a97868; }
+  </style>
+
+  <style id="platform-fidelity-rebuild">
+    /* Platform fidelity rebuild: each frame follows the platform’s native visual grammar, not a generic phone mockup. */
+    .channel-proof-grid { align-items:start; }
+    .channel-card.high-fidelity-card { padding:0; overflow:hidden; background:#10100f; border:1px solid #2e2a1d; }
+    .channel-proof-grid.high-fidelity-grid .channel-email.high-fidelity-card { grid-column:span 1 !important; min-width:0; max-width:none !important; }
+    .channel-card.high-fidelity-card .platform-screen { width:100%; aspect-ratio:9 / 16; position:relative; overflow:hidden; font-family:Arial, Helvetica, sans-serif; text-align:left; }
+    .email-proof-frame { background:#fff; }.email-proof-frame img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
+    .platform-status { position:absolute; top:0; left:0; right:0; height:23px; display:flex; justify-content:space-between; align-items:center; padding:0 13px; box-sizing:border-box; font-size:8px; font-weight:700; z-index:4; }
+    .platform-meta { padding:14px 16px 16px; background:#10100f; border-top:1px solid #2e2a1d; }
+    .platform-meta small { display:block; color:#b08d2d; text-transform:uppercase; letter-spacing:.13em; font:700 8px/1.4 Arial, sans-serif; }
+    .platform-meta strong { display:block; margin-top:4px; color:#fff; font:700 20px/1.1 'Cormorant Garamond', Georgia, serif; }
+    .platform-meta p { margin:7px 0 0; color:#aaa; font:11px/1.45 'DM Sans', Arial, sans-serif; }
+    .fidelity-pill { margin:12px 16px 0; border:1px solid rgba(212,175,55,.45); padding:10px 12px; color:#c9b57c; font:10px/1.35 'DM Sans', Arial, sans-serif; text-align:center; }
+    .fidelity-pill b { display:block; margin-bottom:3px; color:#d9c272; text-transform:uppercase; letter-spacing:.13em; font-size:8px; }
+
+    /* WhatsApp Android app view */
+    .wa-faithful { background:#efeae2; color:#1f2c33; }
+    .wa-faithful .platform-status { color:#fff; background:#075e54; }
+    .wa-top { position:absolute; top:23px; left:0; right:0; height:54px; display:flex; align-items:center; gap:10px; padding:0 13px; box-sizing:border-box; color:#fff; background:#075e54; }
+    .wa-top .back { font-size:23px; font-weight:300; }
+    .wa-top .lead-avatar { width:29px; height:29px; display:grid; place-items:center; border-radius:50%; color:#fff; background:#bd806d; font-size:11px; font-weight:700; }
+    .wa-top .lead-title { display:flex; flex-direction:column; gap:1px; min-width:0; }
+    .wa-top .lead-title b { font-size:12px; }
+    .wa-top .lead-title small { color:#cfe7e2; font-size:8px; }
+    .wa-top .wa-icons { margin-left:auto; font-size:16px; letter-spacing:5px; white-space:nowrap; }
+    .wa-wallpaper { position:absolute; top:77px; left:0; right:0; bottom:49px; background-color:#efeae2; background-image:radial-gradient(rgba(91,102,94,.12) 1px, transparent 1.2px),radial-gradient(rgba(91,102,94,.07) 1px, transparent 1.2px); background-position:0 0,9px 9px; background-size:18px 18px; }
+    .wa-date { position:absolute; top:92px; left:50%; transform:translateX(-50%); padding:4px 9px; border-radius:5px; color:#687a80; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.1); font-size:7px; text-transform:uppercase; }
+    .wa-msg { position:absolute; max-width:70%; padding:8px 9px 7px; border-radius:7px; box-sizing:border-box; box-shadow:0 1px 1px rgba(0,0,0,.12); font-size:11px; line-height:1.27; }
+    .wa-msg span { display:block; margin-top:4px; color:#839197; text-align:right; font-size:7px; }
+    .wa-msg.in { top:128px; left:12px; background:#fff; border-top-left-radius:1px; }
+    .wa-msg.out { top:194px; right:12px; background:#d9fdd3; border-top-right-radius:1px; }
+    .wa-msg.out span { color:#5c7c79; }
+    .wa-compose { position:absolute; bottom:0; left:0; right:0; height:49px; display:flex; align-items:center; gap:7px; padding:0 9px; box-sizing:border-box; background:#f0f2f5; color:#607379; }
+    .wa-compose .entry { flex:1; padding:9px 12px; border-radius:18px; background:#fff; color:#89979b; font-size:9px; }
+    .wa-compose .mic { width:31px; height:31px; display:grid; place-items:center; border-radius:50%; background:#00a884; color:#fff; font-size:13px; }
+
+    /* Instagram Direct on dark desktop-inspired messaging surface */
+    .ig-faithful { background:#000; color:#f5f5f5; }
+    .ig-faithful .platform-status { background:#000; color:#f5f5f5; }
+    .ig-brandbar { position:absolute; top:23px; left:0; right:0; height:42px; display:flex; align-items:center; justify-content:space-between; padding:0 13px; box-sizing:border-box; border-bottom:1px solid #262626; }
+    .ig-brandbar b { font-family:cursive; font-size:17px; font-weight:700; letter-spacing:-.6px; }
+    .ig-brandbar span { font-size:16px; letter-spacing:4px; }
+    .ig-account { position:absolute; top:65px; left:0; right:0; height:36px; display:flex; align-items:center; padding:0 14px; box-sizing:border-box; border-bottom:1px solid #262626; font-size:11px; font-weight:700; }
+    .ig-account .chev { margin-left:4px; color:#aaa; }
+    .ig-account .write { margin-left:auto; font-size:18px; font-weight:400; }
+    .ig-tabs { position:absolute; top:101px; left:0; right:0; height:35px; display:flex; align-items:flex-end; justify-content:space-around; border-bottom:1px solid #262626; color:#a8a8a8; font-size:8px; }
+    .ig-tabs b { height:29px; display:flex; align-items:center; border-bottom:2px solid #fff; color:#fff; }
+    .ig-tabs span { height:29px; display:flex; align-items:center; }
+    .ig-search { position:absolute; top:145px; left:13px; right:13px; height:25px; display:flex; align-items:center; padding:0 9px; box-sizing:border-box; border-radius:7px; color:#aaa; background:#262626; font-size:8px; }
+    .ig-search i { margin-right:6px; font-style:normal; font-size:12px; }
+    .ig-thread { position:absolute; top:180px; left:0; right:0; height:46px; display:flex; align-items:center; gap:9px; padding:0 13px; box-sizing:border-box; background:#121212; border-bottom:1px solid #262626; }
+    .ig-thread .photo { width:30px; height:30px; display:grid; place-items:center; border-radius:50%; color:#fff; background:linear-gradient(135deg,#dca46d,#945e58); font-size:10px; font-weight:700; }
+    .ig-thread div { display:flex; flex-direction:column; gap:3px; }
+    .ig-thread b { font-size:9px; }.ig-thread small { color:#a8a8a8; font-size:7px; }
+    .ig-thread .icons { margin-left:auto; color:#ddd; font-size:12px; letter-spacing:4px; }
+    .ig-chat { position:absolute; top:227px; left:0; right:0; bottom:43px; }
+    .ig-bubble { position:absolute; max-width:72%; padding:8px 9px 7px; border-radius:18px; font-size:10px; line-height:1.25; }
+    .ig-bubble time { display:block; margin-top:4px; opacity:.55; text-align:right; font-size:6px; }
+    .ig-bubble.lead { top:17px; left:13px; color:#f5f5f5; background:#262626; }
+    .ig-bubble.reply { top:90px; right:13px; color:#fff; background:#0095f6; }
+    .ig-compose { position:absolute; bottom:0; left:0; right:0; height:43px; display:flex; align-items:center; gap:7px; padding:0 11px; box-sizing:border-box; border-top:1px solid #262626; color:#f1f1f1; }
+    .ig-compose .entry { flex:1; padding:8px 10px; border:1px solid #3c3c3c; border-radius:17px; color:#a8a8a8; font-size:8px; }
+    .ig-compose span { font-size:12px; }
+
+    /* Facebook Messenger mobile chat */
+    .ms-faithful { background:#fff; color:#111; }
+    .ms-faithful .platform-status { background:#fff; color:#111; }
+    .ms-brand { position:absolute; top:23px; left:0; right:0; height:31px; display:flex; align-items:center; gap:5px; padding:0 12px; box-sizing:border-box; border-bottom:1px solid #ededed; font-size:10px; font-weight:700; }
+    .ms-logo { width:17px; height:17px; display:grid; place-items:center; border-radius:50%; background:linear-gradient(135deg,#00b2ff,#006aff 55%,#a337f2); color:#fff; font-size:12px; font-style:normal; }
+    .ms-brand span { margin-left:auto; color:#0084ff; font-size:11px; letter-spacing:4px; }
+    .ms-head { position:absolute; top:54px; left:0; right:0; height:60px; display:flex; align-items:center; justify-content:center; text-align:center; border-bottom:1px solid #f0f0f0; }
+    .ms-head .back { position:absolute; left:12px; top:19px; font-size:19px; }
+    .ms-head .head-icons { position:absolute; right:11px; top:21px; color:#0084ff; font-size:11px; letter-spacing:3px; }
+    .ms-head .person { display:flex; flex-direction:column; align-items:center; gap:2px; }
+    .ms-head .person i { width:27px; height:27px; display:grid; place-items:center; border-radius:50%; background:#be7a6c; color:#fff; font-size:10px; font-style:normal; font-weight:700; }
+    .ms-head .person b { font-size:9px; }.ms-head .person small { color:#777; font-size:6px; }
+    .ms-security2 { position:absolute; top:115px; left:0; right:0; color:#8c8c8c; text-align:center; font-size:6px; }
+    .ms-message { position:absolute; max-width:72%; padding:8px 9px; border-radius:18px; font-size:10px; line-height:1.25; }
+    .ms-message span { display:block; margin-top:4px; opacity:.58; text-align:right; font-size:6px; }
+    .ms-message.in { top:150px; left:11px; background:#f0f0f0; color:#202020; }
+    .ms-message.out { top:221px; right:11px; background:#0084ff; color:#fff; }
+    .ms-compose { position:absolute; bottom:0; left:0; right:0; height:47px; display:flex; align-items:center; gap:7px; padding:0 10px; box-sizing:border-box; border-top:1px solid #e9e9e9; color:#0084ff; }
+    .ms-compose .entry { flex:1; padding:8px 10px; border-radius:16px; background:#f3f4f6; color:#8b8b8b; font-size:8px; }
+    .ms-compose span { font-size:13px; }
+
+    /* Google Business Messages follows Android Messages, not a web tab shell */
+    .gb-faithful { background:#fff; color:#202124; }
+    .gb-faithful .platform-status { background:#fff; color:#202124; }
+    .gb-header { position:absolute; top:23px; left:0; right:0; height:45px; display:flex; align-items:center; gap:9px; padding:0 11px; box-sizing:border-box; border-bottom:1px solid #e7e7e7; }
+    .gb-header .back { font-size:22px; font-weight:300; }.gb-header .gmark { color:#4285f4; font-size:17px; font-weight:700; }
+    .gb-header .thread-name { display:flex; flex-direction:column; gap:2px; }.gb-header .thread-name b { font-size:10px; }.gb-header .thread-name small { color:#777; font-size:6px; }
+    .gb-header .controls { margin-left:auto; font-size:13px; letter-spacing:4px; color:#4f5357; }
+    .gb-brand-chip { position:absolute; top:78px; left:50%; transform:translateX(-50%); padding:4px 8px; border-radius:11px; color:#5f6368; background:#f1f3f4; white-space:nowrap; font-size:7px; }
+    .gb-divider { position:absolute; top:108px; left:0; right:0; color:#85898d; text-align:center; font-size:6px; }
+    .gb-bubble { position:absolute; max-width:73%; padding:8px 9px; border-radius:18px; font-size:10px; line-height:1.26; }
+    .gb-bubble span { display:block; margin-top:4px; opacity:.58; text-align:right; font-size:6px; }
+    .gb-bubble.in { top:132px; left:12px; background:#f1f3f4; color:#202124; }
+    .gb-bubble.out-wrap { top:205px; right:12px; display:flex; align-items:flex-end; gap:5px; }
+    .gb-bubble.out { position:static; color:#fff; background:#1a73e8; }
+    .gb-mini-logo { width:17px; height:17px; display:grid; place-items:center; border-radius:50%; color:#fff; background:#0f9d58; font-size:9px; font-weight:700; }
+    .gb-compose { position:absolute; bottom:0; left:0; right:0; height:49px; display:flex; align-items:center; gap:7px; padding:0 10px; box-sizing:border-box; border-top:1px solid #e7e7e7; color:#5f6368; }
+    .gb-compose .entry { flex:1; padding:8px 10px; border:1px solid #d1d5d8; border-radius:17px; color:#84898d; font-size:8px; }.gb-compose .send { color:#1a73e8; font-size:14px; }
+
+    @media (max-width:700px) { .channel-card.high-fidelity-card .platform-screen { min-height:480px; } }
+  </style>
 </head>
 <body class="cinematic">
 
@@ -892,7 +1192,7 @@ video.gifv{display:block;width:100%;background:#070707;-webkit-user-drag:none;us
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a class="nav-pricing" href="pricing.html">Pricing</a></li>
-    <li><a href="about us.html">About Us</a></li>
+    <li><a href="#about">About Us</a></li>
     <li><a href="#pricing" class="nav-cta">Start Free Trial</a></li>
   </ul>
 </nav>
@@ -1062,6 +1362,32 @@ video.gifv{display:block;width:100%;background:#070707;-webkit-user-drag:none;us
       } else reveal();
     })();
   </script>
+  <!-- ═══════ ABOUT / MULTI-CHANNEL ═══════ -->
+  <section class="about-section channel-proof-section" id="about">
+    <div class="inner">
+      <div class="channel-proof-intro polished-intro">
+        <div>
+          <div class="eyebrow">Multi-channel enquiries</div>
+          <h2 class="sec-title">One message in.<br><em>One clear response out.</em></h2>
+        </div>
+        <div class="polished-intro-copy">
+          <p>Every lead starts the conversation. Hermia replies once in the channel they chose, then the complete job conversation continues in WhatsApp.</p>
+          <div class="clean-route" aria-label="Lead-first channel route"><span>Lead message</span><i>→</i><span>Hermia reply</span><i>→</i><span>WhatsApp</span></div>
+        </div>
+      </div>
+      <div class="channel-logo-grid recognisable-logo-grid" aria-label="Available Hermia enquiry channels">
+        <article class="logo-channel-card recognisable-logo-card whatsapp-logo-card"><div class="platform-logo"><img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMjVEMzY2IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+V2hhdHNBcHA8L3RpdGxlPjxwYXRoIGQ9Ik0xNy40NzIgMTQuMzgyYy0uMjk3LS4xNDktMS43NTgtLjg2Ny0yLjAzLS45NjctLjI3My0uMDk5LS40NzEtLjE0OC0uNjcuMTUtLjE5Ny4yOTctLjc2Ny45NjYtLjk0IDEuMTY0LS4xNzMuMTk5LS4zNDcuMjIzLS42NDQuMDc1LS4yOTctLjE1LTEuMjU1LS40NjMtMi4zOS0xLjQ3NS0uODgzLS43ODgtMS40OC0xLjc2MS0xLjY1My0yLjA1OS0uMTczLS4yOTctLjAxOC0uNDU4LjEzLS42MDYuMTM0LS4xMzMuMjk4LS4zNDcuNDQ2LS41Mi4xNDktLjE3NC4xOTgtLjI5OC4yOTgtLjQ5Ny4wOTktLjE5OC4wNS0uMzcxLS4wMjUtLjUyLS4wNzUtLjE0OS0uNjY5LTEuNjEyLS45MTYtMi4yMDctLjI0Mi0uNTc5LS40ODctLjUtLjY2OS0uNTEtLjE3My0uMDA4LS4zNzEtLjAxLS41Ny0uMDEtLjE5OCAwLS41Mi4wNzQtLjc5Mi4zNzItLjI3Mi4yOTctMS4wNCAxLjAxNi0xLjA0IDIuNDc5IDAgMS40NjIgMS4wNjUgMi44NzUgMS4yMTMgMy4wNzQuMTQ5LjE5OCAyLjA5NiAzLjIgNS4wNzcgNC40ODcuNzA5LjMwNiAxLjI2Mi40ODkgMS42OTQuNjI1LjcxMi4yMjcgMS4zNi4xOTUgMS44NzEuMTE4LjU3MS0uMDg1IDEuNzU4LS43MTkgMi4wMDYtMS40MTMuMjQ4LS42OTQuMjQ4LTEuMjg5LjE3My0xLjQxMy0uMDc0LS4xMjQtLjI3Mi0uMTk4LS41Ny0uMzQ3bS01LjQyMSA3LjQwM2gtLjAwNGE5Ljg3IDkuODcgMCAwMS01LjAzMS0xLjM3OGwtLjM2MS0uMjE0LTMuNzQxLjk4Mi45OTgtMy42NDgtLjIzNS0uMzc0YTkuODYgOS44NiAwIDAxLTEuNTEtNS4yNmMuMDAxLTUuNDUgNC40MzYtOS44ODQgOS44ODgtOS44ODQgMi42NCAwIDUuMTIyIDEuMDMgNi45ODggMi44OThhOS44MjUgOS44MjUgMCAwMTIuODkzIDYuOTk0Yy0uMDAzIDUuNDUtNC40MzcgOS44ODQtOS44ODUgOS44ODRtOC40MTMtMTguMjk3QTExLjgxNSAxMS44MTUgMCAwMDEyLjA1IDBDNS40OTUgMCAuMTYgNS4zMzUuMTU3IDExLjg5MmMwIDIuMDk2LjU0NyA0LjE0MiAxLjU4OCA1Ljk0NUwuMDU3IDI0bDYuMzA1LTEuNjU0YTExLjg4MiAxMS44ODIgMCAwMDUuNjgzIDEuNDQ4aC4wMDVjNi41NTQgMCAxMS44OS01LjMzNSAxMS44OTMtMTEuODkzYTExLjgyMSAxMS44MjEgMCAwMC0zLjQ4LTguNDEzWiIvPjwvc3ZnPg==" alt="WhatsApp logo"></div><strong>WhatsApp</strong></article>
+        <article class="logo-channel-card recognisable-logo-card email-logo-card"><div class="platform-logo"><img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjRUE0MzM1IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+R21haWw8L3RpdGxlPjxwYXRoIGQ9Ik0yNCA1LjQ1N3YxMy45MDljMCAuOTA0LS43MzIgMS42MzYtMS42MzYgMS42MzZoLTMuODE5VjExLjczTDEyIDE2LjY0bC02LjU0NS00LjkxdjkuMjczSDEuNjM2QTEuNjM2IDEuNjM2IDAgMCAxIDAgMTkuMzY2VjUuNDU3YzAtMi4wMjMgMi4zMDktMy4xNzggMy45MjctMS45NjRMNS40NTUgNC42NCAxMiA5LjU0OGw2LjU0NS00LjkxIDEuNTI4LTEuMTQ1QzIxLjY5IDIuMjggMjQgMy40MzQgMjQgNS40NTd6Ii8+PC9zdmc+" alt="Gmail logo"></div><strong>Email</strong></article>
+        <article class="logo-channel-card recognisable-logo-card instagram-logo-card"><div class="platform-logo"><img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjRTQ0MDVGIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+SW5zdGFncmFtPC90aXRsZT48cGF0aCBkPSJNNy4wMzAxLjA4NGMtMS4yNzY4LjA2MDItMi4xNDg3LjI2NC0yLjkxMS41NjM0LS43ODg4LjMwNzUtMS40NTc1LjcyLTIuMTIyOCAxLjM4NzctLjY2NTIuNjY3Ny0xLjA3NSAxLjMzNjgtMS4zODAyIDIuMTI3LS4yOTU0Ljc2MzgtLjQ5NTYgMS42MzY1LS41NTIgMi45MTQtLjA1NjQgMS4yNzc1LS4wNjg5IDEuNjg4Mi0uMDYyNiA0Ljk0Ny4wMDYyIDMuMjU4Ni4wMjA2IDMuNjY3MS4wODI1IDQuOTQ3My4wNjEgMS4yNzY1LjI2NCAyLjE0ODIuNTYzNSAyLjkxMDcuMzA4Ljc4ODkuNzIgMS40NTczIDEuMzg4IDIuMTIyOC42Njc5LjY2NTUgMS4zMzY1IDEuMDc0MyAyLjEyODUgMS4zOC43NjMyLjI5NSAxLjYzNjEuNDk2MSAyLjkxMzQuNTUyIDEuMjc3My4wNTYgMS42ODg0LjA2OSA0Ljk0NjIuMDYyNyAzLjI1NzgtLjAwNjIgMy42NjgtLjAyMDcgNC45NDc4LS4wODE0IDEuMjgtLjA2MDcgMi4xNDctLjI2NTIgMi45MDk4LS41NjMzLjc4ODktLjMwODYgMS40NTc4LS43MiAyLjEyMjgtMS4zODgxLjY2NS0uNjY4MiAxLjA3NDUtMS4zMzc4IDEuMzc5NS0yLjEyODQuMjk1Ny0uNzYzMi40OTY2LTEuNjM2LjU1Mi0yLjkxMjQuMDU2LTEuMjgwOS4wNjkyLTEuNjg5OC4wNjMtNC45NDgtLjAwNjMtMy4yNTgzLS4wMjEtMy42NjY4LS4wODE3LTQuOTQ2NS0uMDYwNy0xLjI3OTctLjI2NC0yLjE0ODctLjU2MzMtMi45MTE3LS4zMDg0LS43ODg5LS43Mi0xLjQ1NjgtMS4zODc2LTIuMTIyOEMyMS4yOTgyIDEuMzMgMjAuNjI4LjkyMDggMTkuODM3OC42MTY1IDE5LjA3NC4zMjEgMTguMjAxNy4xMTk3IDE2LjkyNDQuMDY0NSAxNS42NDcxLjAwOTMgMTUuMjM2LS4wMDUgMTEuOTc3LjAwMTQgOC43MTguMDA3NiA4LjMxLjAyMTUgNy4wMzAxLjA4MzltLjE0MDIgMjEuNjkzMmMtMS4xNy0uMDUwOS0xLjgwNTMtLjI0NTMtMi4yMjg3LS40MDgtLjU2MDYtLjIxNi0uOTYtLjQ3NzEtMS4zODE5LS44OTUtLjQyMi0uNDE3OC0uNjgxMS0uODE4Ni0uOS0xLjM3OC0uMTY0NC0uNDIzNC0uMzYyNC0xLjA1OC0uNDE3MS0yLjIyOC0uMDU5NS0xLjI2NDUtLjA3Mi0xLjY0NDItLjA3OS00Ljg0OC0uMDA3LTMuMjAzNy4wMDUzLTMuNTgzLjA2MDctNC44NDguMDUtMS4xNjkuMjQ1Ni0xLjgwNS40MDgtMi4yMjgyLjIxNi0uNTYxMy40NzYyLS45Ni44OTUtMS4zODE2LjQxODgtLjQyMTcuODE4NC0uNjgxNCAxLjM3ODMtLjkwMDMuNDIzLS4xNjUxIDEuMDU3NS0uMzYxNCAyLjIyNy0uNDE3MSAxLjI2NTUtLjA2IDEuNjQ0Ny0uMDcyIDQuODQ4LS4wNzkgMy4yMDMzLS4wMDcgMy41ODM1LjAwNSA0Ljg0OTUuMDYwOCAxLjE2OS4wNTA4IDEuODA1My4yNDQ1IDIuMjI4LjQwOC41NjA4LjIxNi45Ni40NzU0IDEuMzgxNi44OTUuNDIxNy40MTk0LjY4MTYuODE3Ni45MDA1IDEuMzc4Ny4xNjUzLjQyMTcuMzYxNyAxLjA1Ni40MTY5IDIuMjI2My4wNjAyIDEuMjY1NS4wNzM5IDEuNjQ1LjA3OTYgNC44NDguMDA1OCAzLjIwMy0uMDA1NSAzLjU4MzQtLjA2MSA0Ljg0OC0uMDUxIDEuMTctLjI0NSAxLjgwNTUtLjQwOCAyLjIyOTQtLjIxNi41NjA0LS40NzYzLjk2LS44OTU0IDEuMzgxNC0uNDE5LjQyMTUtLjgxODEuNjgxMS0xLjM3ODMuOS0uNDIyNC4xNjQ5LTEuMDU3Ny4zNjE3LTIuMjI2Mi40MTc0LTEuMjY1Ni4wNTk1LTEuNjQ0OC4wNzItNC44NDkzLjA3OS0zLjIwNDUuMDA3LTMuNTgyNS0uMDA2LTQuODQ4LS4wNjA4TTE2Ljk1MyA1LjU4NjRBMS40NCAxLjQ0IDAgMSAwIDE4LjM5IDQuMTQ0YTEuNDQgMS40NCAwIDAgMC0xLjQzNyAxLjQ0MjRNNS44Mzg1IDEyLjAxMmMuMDA2NyAzLjQwMzIgMi43NzA2IDYuMTU1NyA2LjE3MyA2LjE0OTMgMy40MDI2LS4wMDY1IDYuMTU3LTIuNzcwMSA2LjE1MDYtNi4xNzMzLS4wMDY1LTMuNDAzMi0yLjc3MS02LjE1NjUtNi4xNzQtNi4xNDk4LTMuNDAzLjAwNjctNi4xNTYgMi43NzEtNi4xNDk2IDYuMTczOE04IDEyLjAwNzdhNCA0IDAgMSAxIDQuMDA4IDMuOTkyMUEzLjk5OTYgMy45OTk2IDAgMCAxIDggMTIuMDA3NyIvPjwvc3ZnPg==" alt="Instagram logo"></div><strong>Instagram</strong></article>
+        <article class="logo-channel-card recognisable-logo-card messenger-logo-card"><div class="platform-logo"><img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDA4NEZGIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+TWVzc2VuZ2VyPC90aXRsZT48cGF0aCBkPSJNMTIgMEM1LjI0IDAgMCA0Ljk1MiAwIDExLjY0YzAgMy40OTkgMS40MzQgNi41MjEgMy43NjkgOC42MWEuOTYuOTYgMCAwIDEgLjMyMy42ODNsLjA2NSAyLjEzNWEuOTYuOTYgMCAwIDAgMS4zNDcuODVsMi4zODEtMS4wNTNhLjk2Ljk2IDAgMCAxIC42NDEtLjA0NkExMyAxMyAwIDAgMCAxMiAyMy4yOGM2Ljc2IDAgMTItNC45NTIgMTItMTEuNjRTMTguNzYgMCAxMiAwbTYuODA2IDcuNDRjLjUyMi0uMDMuOTcxLjU2Ny42MyAxLjA5NGwtNC4xNzggNi40NTdhLjcwNy43MDcgMCAwIDEtLjk3Ny4yMDhsLTMuODctMi41MDRhLjQ0LjQ0IDAgMCAwLS40OS4wMDdsLTQuMzYzIDMuMDFjLS42MzcuNDM4LTEuNDE1LS4zMTctLjk5NS0uOTY2bDQuMTc5LTYuNDU3YS43MDYuNzA2IDAgMCAxIC45NzctLjIxbDMuODcgMi41MDVjLjE1LjA5Ny4zNDQuMDk0LjQ5MS0uMDA3bDQuMzYyLTMuMDA4YS43LjcgMCAwIDEgLjM2NC0uMTMiLz48L3N2Zz4=" alt="Messenger logo"></div><strong>Messenger</strong></article>
+        <article class="logo-channel-card recognisable-logo-card google-logo-card"><div class="platform-logo"><img src="data:image/png;base64,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" alt="Google Business logo"></div><strong>Google Business</strong></article>
+      </div>
+
+    </div>
+  </section>
+
+
+
   <!-- ═══════ DEEP CAPABILITIES ═══════ -->
   <section class="section" id="capabilities" style="background:var(--bg2);border-top:1px solid var(--border)">
     <div class="inner">
@@ -1308,6 +1634,8 @@ video.gifv{display:block;width:100%;background:#070707;-webkit-user-drag:none;us
     </div>
   </section>
 
+
+
   <!-- ═══════ PRICING ═══════ -->
   <section class="pricing-section" id="pricing">
     <div class="pricing-header">
@@ -1329,16 +1657,16 @@ video.gifv{display:block;width:100%;background:#070707;-webkit-user-drag:none;us
               <div class="tier-split-label">Limited</div>
               <div class="tier-split-price">$660<span> /mo</span></div>
               <div class="tier-split-setup">+ $900 AUD one-off setup</div>
-              <div class="tier-split-cap">15 photos / videos / voice notes / hot+warm leads per month</div>
+              <div class="tier-split-cap"><strong>Channels:</strong> Email, WhatsApp &amp; Instagram</div>
             </div>
             <div class="tier-split-col featured">
               <div class="tier-split-label">Unlimited <span class="tier-split-badge">Popular</span></div>
               <div class="tier-split-price">$997<span> /mo</span></div>
               <div class="tier-split-setup">+ $1,300 AUD one-off setup</div>
-              <div class="tier-split-cap">No caps &mdash; unlimited photos, videos, voice notes &amp; hot+warm leads, per connected inbox</div>
+              <div class="tier-split-cap"><strong>All 5 channels:</strong> Instagram, WhatsApp, Email, Facebook &amp; Google Business</div>
             </div>
           </div>
-          <div class="tier-split-foot">Priced per connected inbox. All AUD. First month charged after your 2-day free trial. Setup fee refundable within 48 hours, less the retained $84 amount.</div>
+          <div class="tier-split-foot">Channel access is included in your selected tier. All AUD. First month charged after your 2-day free trial. Setup fee refundable within 48 hours, less the retained $84 amount.</div>
           <div class="plan-box-cta"><a href="tier.html?plan=simpro">Get Started</a></div>
         </div>
         <div class="plan-box-right">
@@ -1362,18 +1690,18 @@ video.gifv{display:block;width:100%;background:#070707;-webkit-user-drag:none;us
           <div class="tier-split">
             <div class="tier-split-col">
               <div class="tier-split-label">Limited</div>
-              <div class="tier-split-price">$497<span> /mo</span></div>
-              <div class="tier-split-setup">+ $900 AUD one-off setup</div>
-              <div class="tier-split-cap">15 photos / videos / voice notes / hot+warm leads per month</div>
+              <div class="tier-split-price">$80<span> /mo</span></div>
+              <div class="tier-split-setup">+ $100 AUD one-off setup</div>
+              <div class="tier-split-cap"><strong>Channels:</strong> Email, WhatsApp &amp; Instagram</div>
             </div>
             <div class="tier-split-col featured">
               <div class="tier-split-label">Unlimited <span class="tier-split-badge">Popular</span></div>
-              <div class="tier-split-price">$997<span> /mo</span></div>
-              <div class="tier-split-setup">+ $1,300 AUD one-off setup</div>
-              <div class="tier-split-cap">No caps &mdash; unlimited photos, videos, voice notes &amp; hot+warm leads, per connected inbox</div>
+              <div class="tier-split-price">$170<span> /mo</span></div>
+              <div class="tier-split-setup">+ $100 AUD one-off setup</div>
+              <div class="tier-split-cap"><strong>All 5 channels:</strong> Instagram, WhatsApp, Email, Facebook &amp; Google Business</div>
             </div>
           </div>
-          <div class="tier-split-foot">Priced per connected inbox. All AUD. First month charged after your 2-day free trial. Setup fee refundable within 48 hours, less the retained $84 amount.</div>
+          <div class="tier-split-foot">Channel access is included in your selected tier. All AUD. First month charged after your 2-day free trial. Setup fee refundable within 48 hours, less the retained $84 amount.</div>
           <div class="plan-box-cta"><a href="tier.html?plan=aroflo">Get Started</a></div>
         </div>
         <div class="plan-box-right">
@@ -1402,9 +1730,11 @@ video.gifv{display:block;width:100%;background:#070707;-webkit-user-drag:none;us
       <p>If, after paying your one-off implementation &amp; connection fee, you decide Hermia isn't right for your business, tell us <strong>within 48 hours of setup</strong> and we'll refund the setup fee less a <strong>retained $84 amount</strong>. The $84 amount is not refundable.</p>
       <p>After that 48-hour window has passed, the setup fee is no longer refundable, as onboarding work on your account is already complete. The retained $84 amount is not refundable at any point.</p>
       <div class="refund-figures">
-        <div class="refund-figure"><div class="rf-label">Limited Setup Fee</div><div class="rf-value">$900 AUD</div></div>
-        <div class="refund-figure"><div class="rf-label">Unlimited Setup Fee</div><div class="rf-value">$1,300 AUD / inbox</div></div>
-        <div class="refund-figure"><div class="rf-label">Refund Window</div><div class="rf-value">48 Hours</div></div><div class="refund-figure"><div class="rf-label">Retained Amount</div><div class="rf-value">$84 AUD</div></div>
+        <div class="refund-figure"><div class="rf-label">Simpro Limited Setup</div><div class="rf-value">$900 AUD</div></div>
+        <div class="refund-figure"><div class="rf-label">Simpro Unlimited Setup</div><div class="rf-value">$1,300 AUD</div></div>
+        <div class="refund-figure"><div class="rf-label">AroFlo Setup</div><div class="rf-value">$100 AUD</div></div>
+        <div class="refund-figure"><div class="rf-label">Refund Window</div><div class="rf-value">48 Hours</div></div>
+        <div class="refund-figure"><div class="rf-label">Retained Amount</div><div class="rf-value">$84 AUD</div></div>
       </div>
     </div>
   </section>
@@ -1456,7 +1786,7 @@ video.gifv{display:block;width:100%;background:#070707;-webkit-user-drag:none;us
         <span>HQ Victoria, Australia &middot; Serving AU, CA, NZ, UK, IE &amp; US &middot; 24/7 Support</span>
         <a href="#capabilities">How It Works</a>
         <a href="#trade-engine">Trade Engine</a>
-        <a href="about us.html">About Us</a>
+        <a href="#about">About Us</a>
         <a href="#pricing">Pricing</a>
         <a href="#contact">Contact</a>
       </div>
@@ -1557,5 +1887,76 @@ if(speedPanelEl) speedObs.observe(speedPanelEl);
 
 </script>
 <script src="hermia-widget.js"></script>
+
+  <style id="platform-fidelity-final-grid">
+    .channel-proof-grid.high-fidelity-grid .high-fidelity-card { grid-column:span 2 !important; min-width:0 !important; max-width:none !important; padding:0 !important; }
+    .channel-proof-grid.high-fidelity-grid .channel-email.high-fidelity-card { grid-column:span 2 !important; }
+    .channel-proof-grid.high-fidelity-grid .email-proof-frame img { display:block !important; width:100% !important; height:100% !important; max-width:100% !important; object-fit:cover !important; object-position:center !important; }
+  </style>
+
+  <style id="channel-section-final-polish">
+    /* Final channel-section polish: sparse information, generous handset scale and a quiet premium frame. */
+    .channel-proof-section { padding-top:132px !important; padding-bottom:138px !important; }
+    .channel-proof-section .polished-intro { display:grid; grid-template-columns:minmax(0,.93fr) minmax(290px,.75fr); align-items:end; gap:76px; margin:0 0 54px; }
+    .channel-proof-section .polished-intro .sec-title { margin:10px 0 0; max-width:680px; font-size:clamp(46px,5.5vw,78px); line-height:.91; }
+    .channel-proof-section .polished-intro-copy { padding-bottom:5px; }
+    .channel-proof-section .polished-intro-copy p { max-width:480px; margin:0; color:#d5d2c9; font:400 16px/1.7 'DM Sans', Arial, sans-serif; }
+    .channel-proof-section .clean-route { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin-top:24px; color:#d9bf62; font:700 10px/1 'DM Sans', Arial, sans-serif; letter-spacing:.12em; text-transform:uppercase; }
+    .channel-proof-section .clean-route span { padding:10px 11px; border:1px solid rgba(212,175,55,.38); background:rgba(212,175,55,.055); }
+    .channel-proof-section .clean-route i { color:#85713b; font-size:15px; font-style:normal; }
+    .channel-proof-section .about-benefits, .channel-proof-section .channel-flow-note { display:none !important; }
+    .channel-proof-grid.high-fidelity-grid { gap:30px !important; align-items:start !important; }
+    .channel-proof-grid.high-fidelity-grid .high-fidelity-card { grid-column:span 3 !important; padding:0 !important; border:1px solid rgba(212,175,55,.28) !important; background:linear-gradient(160deg,rgba(255,255,255,.035),rgba(255,255,255,.008)) !important; box-shadow:0 26px 58px rgba(0,0,0,.36) !important; transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease; }
+    .channel-proof-grid.high-fidelity-grid .high-fidelity-card:hover { transform:translateY(-4px); border-color:rgba(212,175,55,.62) !important; box-shadow:0 34px 68px rgba(0,0,0,.46) !important; }
+    .channel-proof-grid.high-fidelity-grid .high-fidelity-card:nth-child(5) { grid-column:2 / span 4 !important; width:calc(75% - 8px); justify-self:center; }
+    .channel-proof-grid.high-fidelity-grid .platform-screen { aspect-ratio:10 / 13 !important; border-bottom:1px solid rgba(255,255,255,.1); }
+    .channel-proof-grid.high-fidelity-grid .fidelity-pill { display:none !important; }
+    .channel-proof-grid.high-fidelity-grid .platform-meta { display:flex; align-items:baseline; gap:11px; padding:15px 18px 17px; background:#0d0d0c; border:0; }
+    .channel-proof-grid.high-fidelity-grid .platform-meta small { order:2; color:#9d9b96; font:500 10px/1.3 'DM Sans', Arial, sans-serif; letter-spacing:0; text-transform:none; }
+    .channel-proof-grid.high-fidelity-grid .platform-meta strong { order:1; margin:0; color:#fffdf6; font:600 25px/1 'Cormorant Garamond', Georgia, serif; }
+    .channel-proof-grid.high-fidelity-grid .platform-meta p { display:none; }
+    .channel-proof-grid.high-fidelity-grid .email-proof-frame img { object-position:center top !important; }
+    @media (max-width:980px) {
+      .channel-proof-section .polished-intro { grid-template-columns:1fr; gap:24px; }
+      .channel-proof-grid.high-fidelity-grid .high-fidelity-card, .channel-proof-grid.high-fidelity-grid .high-fidelity-card:nth-child(5) { grid-column:span 3 !important; width:auto; justify-self:stretch; }
+    }
+    @media (max-width:620px) {
+      .channel-proof-section { padding-top:88px !important; padding-bottom:92px !important; }
+      .channel-proof-section .polished-intro .sec-title { font-size:44px; }
+      .channel-proof-section .clean-route { gap:7px; font-size:8px; }.channel-proof-section .clean-route span { padding:9px 8px; }
+      .channel-proof-grid.high-fidelity-grid .high-fidelity-card, .channel-proof-grid.high-fidelity-grid .high-fidelity-card:nth-child(5) { grid-column:span 6 !important; width:auto; }
+      .channel-proof-grid.high-fidelity-grid .platform-screen { aspect-ratio:9 / 12 !important; }
+    }
+  </style>
+
+  <style id="channel-logo-only-treatment">
+    /* Logo-only channel treatment: no phone frames, no screenshots, just the channels leads can use. */
+    .channel-proof-section .polished-intro { margin-bottom:46px !important; }
+    .channel-logo-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:17px; }
+    .logo-channel-card { min-height:206px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:19px; padding:22px 12px; box-sizing:border-box; border:1px solid rgba(212,175,55,.24); background:linear-gradient(145deg,rgba(255,255,255,.042),rgba(255,255,255,.012)); box-shadow:0 20px 36px rgba(0,0,0,.22); transition:transform .22s ease,border-color .22s ease,background .22s ease; }
+    .logo-channel-card:hover { transform:translateY(-4px); border-color:rgba(212,175,55,.6); background:linear-gradient(145deg,rgba(212,175,55,.10),rgba(255,255,255,.02)); }
+    .logo-channel-card strong { color:#fbf8f0; font:600 24px/1 'Cormorant Garamond', Georgia, serif; text-align:center; }
+    .platform-logo { width:78px; height:78px; display:grid; place-items:center; position:relative; flex:0 0 auto; }
+    .whatsapp-mark { border-radius:50%; color:#fff; background:#25d366; box-shadow:0 10px 24px rgba(37,211,102,.22); }
+    .whatsapp-mark::after { content:""; position:absolute; left:7px; bottom:7px; width:17px; height:17px; background:#25d366; clip-path:polygon(0 0,100% 100%,0 100%); }
+    .whatsapp-mark span { position:relative; z-index:1; font-size:39px; line-height:1; transform:rotate(-20deg) translateY(-1px); }
+    .gmail-mark { width:86px; height:62px; }.gmail-mark svg { width:100%; height:100%; overflow:visible; }
+    .instagram-mark { border-radius:23px; background:radial-gradient(circle at 28% 108%,#ffd36b 0 16%,#f75f4a 36%,#c13584 63%,#5851db 100%); box-shadow:0 10px 24px rgba(193,53,132,.25); }
+    .ig-camera { width:39px; height:39px; display:grid; place-items:center; border:4px solid #fff; border-radius:12px; box-sizing:border-box; position:relative; }.ig-camera::before { content:""; width:13px; height:13px; border:4px solid #fff; border-radius:50%; }.ig-camera::after { content:""; position:absolute; top:6px; right:6px; width:5px; height:5px; border-radius:50%; background:#fff; }
+    .messenger-mark { border-radius:50%; color:#fff; background:linear-gradient(145deg,#00c6ff,#0069ff 58%,#a734ef); box-shadow:0 10px 24px rgba(0,105,255,.25); }.messenger-mark span { font-size:56px; line-height:1; font-weight:700; transform:translateY(-5px) skewX(-10deg); }
+    .google-mark { color:#4285f4; font:700 66px/.9 Arial, Helvetica, sans-serif; text-shadow:-4px 2px 0 #34a853,2px -4px 0 #ea4335,4px 4px 0 #fbbc04; }
+    @media (max-width:980px) { .channel-logo-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }.logo-channel-card:last-child { grid-column:2; } }
+    @media (max-width:620px) { .channel-logo-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }.logo-channel-card { min-height:174px; }.logo-channel-card:last-child { grid-column:auto; }.platform-logo { transform:scale(.86); }.logo-channel-card strong { font-size:21px; } }
+  </style>
+
+  <style id="recognisable-channel-marks">
+    /* Embed recognisable scalable platform marks rather than approximate glyphs. */
+    .recognisable-logo-grid .recognisable-logo-card { background:linear-gradient(145deg,rgba(255,255,255,.048),rgba(255,255,255,.014)); }
+    .recognisable-logo-grid .recognisable-logo-card .platform-logo { width:92px; height:92px; display:grid; place-items:center; background:none; border-radius:0; box-shadow:none; }
+    .recognisable-logo-grid .recognisable-logo-card .platform-logo::after { content:none; }
+    .recognisable-logo-grid .recognisable-logo-card .platform-logo img { display:block; width:76px; height:76px; object-fit:contain; filter:drop-shadow(0 10px 12px rgba(0,0,0,.23)); }
+    .recognisable-logo-grid .email-logo-card .platform-logo img { width:84px; height:66px; }
+    .recognisable-logo-grid .google-logo-card .platform-logo img { width:72px; height:72px; }
+  </style>
 </body>
 </html>
