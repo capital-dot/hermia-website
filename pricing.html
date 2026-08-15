@@ -261,7 +261,7 @@
     .plan-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
     .plan-card {
       position: relative;
-      min-height: 389px;
+      min-height: 448px;
       overflow: hidden;
       padding: 29px;
       border: 1px solid var(--line);
@@ -292,7 +292,9 @@
     .capacity { display: flex; align-items: center; gap: 11px; margin-top: 9px; color: var(--paper-soft); font-size: 13px; line-height: 1.42; }
     .capacity-marker { display: grid; flex: none; width: 29px; height: 29px; place-items: center; border-radius: 50%; color: var(--gold-light); background: rgba(213,170,88,.12); font: 500 11px/1 var(--mono); }
     .capacity strong { color: #fff; font-weight: 600; }
-    .fit-line { position: absolute; right: 29px; bottom: 28px; left: 29px; display: flex; align-items: center; gap: 9px; color: var(--gold-light); font-size: 11px; }
+    .plan-rationale { margin-top: 16px; padding: 12px 13px; border-left: 1px solid var(--gold); color: var(--muted); background: rgba(213,170,88,.055); font-size: 11px; line-height: 1.55; }
+    .plan-rationale strong { color: var(--paper); font-weight: 600; }
+    .fit-line { position: relative; right: auto; bottom: auto; left: auto; display: flex; align-items: center; gap: 9px; margin-top: 17px; color: var(--gold-light); font-size: 11px; }
     .fit-line::before { width: 14px; height: 1px; content: ""; background: currentColor; }
 
     .roi-section { padding: 0 0 120px; }
@@ -323,6 +325,15 @@
     .tier-choice p { max-width: 500px; margin: 16px 0 0; color: var(--paper-soft); font-size: 13px; line-height: 1.62; }
     .choice-foot { display: inline-flex; align-items: center; gap: 7px; margin-top: 14px; color: var(--gold-light); font-size: 11px; }
     .choice-foot::before { width: 5px; height: 5px; border-radius: 50%; content: ""; background: currentColor; }
+    .price-logic { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 18px; overflow: hidden; border: 1px solid var(--line); border-radius: 15px; background: var(--line); }
+    .price-logic-card { min-height: 205px; padding: 24px; background: #181714; }
+    .price-logic-card:first-child { background: linear-gradient(145deg, #2b2316, #191713); }
+    .price-logic-card:last-child { background: linear-gradient(145deg, rgba(63,50,26,.92), #191713); }
+    .price-logic-kicker { color: var(--gold-light); font: 500 9px/1 var(--mono); letter-spacing: .13em; text-transform: uppercase; }
+    .price-logic-card h3 { margin: 14px 0 8px; color: #fff; font: 600 25px/1 var(--display); letter-spacing: -.04em; }
+    .price-logic-card p { margin: 0; color: var(--paper-soft); font-size: 12px; line-height: 1.63; }
+    .price-logic-card strong { color: var(--gold-light); font-weight: 600; }
+    @media(max-width:760px) { .price-logic { grid-template-columns: 1fr; } .price-logic-card { min-height: auto; } }
 
     .allowance-section { padding: 0 0 120px; }
     .allowance-panel { display: grid; grid-template-columns: minmax(0,1.08fr) minmax(330px,.92fr); overflow: hidden; border: 1px solid var(--gold-light); border-radius: 18px; background: #1b1914; }
@@ -474,7 +485,7 @@
       <section class="hero" aria-labelledby="page-title">
         <div class="hero-grid">
           <div class="hero-copy">
-            <div class="status-pill"><span class="status-dot" aria-hidden="true"></span>Pricing last updated Tuesday, 11 August 2026</div>
+            <div class="status-pill"><span class="status-dot" aria-hidden="true"></span>Pricing last updated Saturday, 15 August 2026</div>
             <p class="eyebrow" style="margin-top:28px">Hermia · Trade business pricing</p>
             <h1 id="page-title">Built for trade businesses.<br><em>Priced by channel.</em></h1>
             <p>Hermia manages enquiries for plumbing, roofing, electrical, and field-service businesses. Choose the channel coverage that matches where your customers actually reach you — no charging by photo, video, voice note, or individual enquiry.</p>
@@ -519,20 +530,22 @@
 	          <article class="plan-card">
 	            <div class="plan-top"><span class="crm-label">Simpro</span><span class="tier-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4v16M4 12h16"/><circle cx="12" cy="12" r="8.5"/></svg></span></div>
 	            <h3>Limited</h3><p class="plan-identity">For essential three-channel coverage.</p>
-	            <div class="price-line"><span class="price">$660</span><span class="price-period">AUD / month</span></div>
-	            <div class="setup-line"><strong>$900 AUD setup</strong> · live in 1 day</div>
+	            <div class="price-line"><span class="price">$497</span><span class="price-period">AUD / month</span></div>
+	            <div class="setup-line"><strong>$650 AUD setup</strong> · live in 1 day</div>
 	            <div class="plan-divider"></div><div class="capacity-label">Included channels</div>
             <div class="capacity"><span class="capacity-marker">3</span><span><strong>Email + WhatsApp + Instagram</strong> in one qualification workflow.</span></div>
+            <div class="plan-rationale"><strong>Deeper job preparation.</strong> Simpro supports fuller customer, site and job context before your team acts.</div>
             <div class="fit-line">Essential coverage for lean trade teams</div>
           </article>
 
 	          <article class="plan-card">
 	            <div class="plan-top"><span class="crm-label">Simpro</span><span class="tier-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17.5 3.5 21M17 17.5l3.5 3.5M12 3v18M3 12h18"/><circle cx="12" cy="12" r="5"/></svg></span></div>
 	            <h3>Unlimited</h3><p class="plan-identity">For complete five-channel coverage.</p>
-	            <div class="price-line"><span class="price">$997</span><span class="price-period">AUD / month</span></div>
-	            <div class="setup-line"><strong>$1,300 AUD setup</strong> · live in 1 day</div>
+	            <div class="price-line"><span class="price">$697</span><span class="price-period">AUD / month</span></div>
+	            <div class="setup-line"><strong>$900 AUD setup</strong> · live in 1 day</div>
 	            <div class="plan-divider"></div><div class="capacity-label">Included channels</div>
             <div class="capacity"><span class="capacity-marker">5</span><span><strong>Full suite:</strong> Email, WhatsApp, Instagram, Facebook and Google Business.</span></div>
+            <div class="plan-rationale"><strong>Full operational depth.</strong> Wider coverage with the most complete preparation path for busy Simpro teams.</div>
             <div class="fit-line">Complete coverage for busy trade operations</div>
           </article>
 
@@ -540,10 +553,11 @@
 	            <span class="ribbon">Lowest monthly rate</span>
 	            <div class="plan-top"><span class="crm-label">AroFlo</span><span class="tier-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4v16M4 12h16"/><circle cx="12" cy="12" r="8.5"/></svg></span></div>
 	            <h3>Limited</h3><p class="plan-identity">For essential three-channel coverage.</p>
-	            <div class="price-line"><span class="price">$170</span><span class="price-period">AUD / month</span></div>
+	            <div class="price-line"><span class="price">$180</span><span class="price-period">AUD / month</span></div>
 	            <div class="setup-line"><strong>$350 AUD setup</strong> · live in 1 day</div>
 	            <div class="plan-divider"></div><div class="capacity-label">Included channels</div>
             <div class="capacity"><span class="capacity-marker">3</span><span><strong>Email + WhatsApp + Instagram</strong> in one qualification workflow.</span></div>
+            <div class="plan-rationale"><strong>Same qualification standard. Lighter path.</strong> Hermia prepares the enquiry; your team retains final booking and customer-pricing control.</div>
             <div class="fit-line">Essential coverage for lean trade teams</div>
           </article>
 
@@ -554,8 +568,15 @@
 	            <div class="setup-line"><strong>$497 AUD setup</strong> · live in 1 day</div>
 	            <div class="plan-divider"></div><div class="capacity-label">Included channels</div>
             <div class="capacity"><span class="capacity-marker">5</span><span><strong>Full suite:</strong> Email, WhatsApp, Instagram, Facebook and Google Business.</span></div>
+            <div class="plan-rationale"><strong>Broader coverage. Same control.</strong> AroFlo-ready job context is prepared across every selected channel for your coordinator.</div>
             <div class="fit-line">Complete coverage for busy trade operations</div>
           </article>
+        </div>
+
+        <div class="price-logic" aria-label="Why Hermia prices differ by operating path">
+          <article class="price-logic-card"><span class="price-logic-kicker">Why AroFlo costs less</span><h3>Same standard.<br>Less office load.</h3><p>Hermia still qualifies, chases missing detail, collects helpful evidence and prepares the handoff. The lower price reflects a <strong>lighter operating path</strong>: your team keeps final booking and customer-pricing control.</p></article>
+          <article class="price-logic-card"><span class="price-logic-kicker">Why Simpro costs more</span><h3>Built for deeper<br>job preparation.</h3><p>Simpro plans are priced for the additional work around <strong>customer, site and job context</strong>, plus approved availability and booking progression where your operating rules allow it.</p></article>
+          <article class="price-logic-card"><span class="price-logic-kicker">Configuration Journey</span><h3>Your rules,<br>every enquiry.</h3><p>The fixed <strong>$800 setup + $600/month</strong> establishes your own question set, evidence rule, booking rule, customer-pricing rule and team handoff standard—then applies it every time.</p></article>
         </div>
       </section>
 
@@ -632,6 +653,27 @@
           <div class="trial-action">
             <a class="trial-button" href="pricing_apply.html">Start Free Trial <span>→</span></a>
             <p class="trial-detail"><strong>No monthly charge during the trial.</strong><br>Choose your Simpro or AroFlo tier on the next page.</p>
+          </div>
+        </div>
+      </section>
+
+      <style>
+        /* Hermia configuration entry: liquid-gold design overlay that distinguishes bespoke operating setup from coverage tiers. */
+        .configuration-section{padding:0 0 118px}.configuration-panel{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(330px,.95fr);gap:48px;overflow:hidden;padding:52px;border:1px solid rgba(232,193,122,.42);background:radial-gradient(circle at 84% 14%,rgba(201,163,91,.22),transparent 29%),linear-gradient(145deg,rgba(201,163,91,.13),rgba(18,17,14,.96) 58%,rgba(9,9,10,.99));box-shadow:0 32px 78px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,244,214,.08)}.configuration-panel:before{position:absolute;top:0;right:45px;left:45px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent);box-shadow:0 0 16px rgba(232,193,122,.56);content:""}.configuration-title{max-width:650px;margin:13px 0 15px;color:#fffdfa;font:600 clamp(39px,4.7vw,62px)/.98 var(--display);letter-spacing:-.055em}.configuration-title em{color:var(--gold-light);font-weight:500}.configuration-copy{max-width:590px;margin:0;color:var(--paper-soft);font-size:15px;line-height:1.75}.configuration-points{display:grid;gap:0;margin-top:26px;border-top:1px solid var(--line)}.configuration-points div{padding:12px 0;border-bottom:1px solid var(--line);color:var(--paper-soft);font-size:12.5px;line-height:1.5}.configuration-points b{color:var(--gold-light);font-weight:600}.configuration-rail{display:flex;flex-direction:column;justify-content:center}.configuration-price{padding:27px;border:1px solid rgba(232,193,122,.4);background:rgba(8,8,8,.46);box-shadow:inset 0 1px 0 rgba(255,244,214,.05)}.configuration-price small{display:block;color:var(--gold-light);font:500 9px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}.configuration-price strong{display:block;margin:13px 0 6px;color:#fff;font:600 43px/.88 var(--display);letter-spacing:-.06em}.configuration-price p{margin:0;color:var(--muted);font-size:11px;line-height:1.55}.configuration-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin:16px 0;background:var(--line);border:1px solid var(--line)}.configuration-steps div{padding:13px;background:#12110f}.configuration-steps i{display:block;color:var(--gold-light);font:500 9px/1 var(--mono);font-style:normal}.configuration-steps span{display:block;margin-top:7px;color:var(--paper-soft);font-size:11px;line-height:1.35}.configuration-button{display:flex;min-height:54px;align-items:center;justify-content:center;background:linear-gradient(90deg,#866422,#e8c17a,#a07828);color:#1b1407;font:700 10px/1 var(--mono);letter-spacing:.14em;text-decoration:none;text-transform:uppercase;transition:.22s}.configuration-button:hover{filter:brightness(1.07);transform:translateY(-2px)}.configuration-note{margin:13px 0 0;color:var(--muted);font-size:10.5px;line-height:1.5;text-align:center}@media(max-width:800px){.configuration-panel{grid-template-columns:1fr;padding:34px 25px}.configuration-steps{grid-template-columns:1fr}}
+      </style>
+      <section class="configuration-section" aria-labelledby="configuration-title">
+        <div class="configuration-panel">
+          <div>
+            <p class="eyebrow">For a tailored operating standard</p>
+            <h2 class="configuration-title" id="configuration-title">Configure the way<br><em>Hermia works for you.</em></h2>
+            <p class="configuration-copy">This is for contractors who want Hermia built around their own question sequence, customer rules, booking preference, handoff standard and Gmail or Outlook inbox—without an unclear bespoke quote.</p>
+            <div class="configuration-points"><div><b>Your customer rules.</b> Decide whether Hermia hands over, collects preferred times, or progresses approved booking.</div><div><b>Your question depth.</b> Choose between five essential checks and the complete fourteen-question qualification sequence.</div><div><b>Your commercial control.</b> Keep customer pricing with your team, or use an approved price guide once it is configured.</div></div>
+          </div>
+          <div class="configuration-rail">
+            <div class="configuration-price"><small>Fixed configuration investment</small><strong>$800 setup + $600/month</strong><p>One clear price for your chosen operating standard. Your decisions change the experience, not the configuration fee.</p></div>
+            <div class="configuration-steps"><div><i>01</i><span>Set your enquiry rules</span></div><div><i>02</i><span>Review the agreement</span></div><div><i>03</i><span>Confirm secure payment</span></div></div>
+            <a class="configuration-button" href="configuration_loading.html">Configure Hermia →</a>
+            <p class="configuration-note">Configuration orders are recorded separately from channel-coverage plans.</p>
           </div>
         </div>
       </section>
