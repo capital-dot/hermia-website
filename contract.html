@@ -155,7 +155,7 @@
 
   <div class="prepared show" id="updatedBanner">
     <span class="dot"></span>
-    <span>Agreement last updated <b>Tuesday, 11 August 2026</b></span>
+    <span>Agreement last updated <b>Saturday, 15 August 2026</b></span>
   </div>
 
   <h2><span class="clause-no">1</span> The Parties</h2>
@@ -174,13 +174,13 @@
     <hr class="price-divider" id="setupFeeDivider" style="display:block;">
     <div class="price-row">
       <span id="planLabel">Simpro — Limited — Monthly Software Access</span>
-      <strong id="displayPrice">$660 AUD / month</strong>
+      <strong id="displayPrice">$497 AUD / month</strong>
     </div>
     <div class="price-row" id="capRow" style="display:flex;">
-      <span>Usage</span>
-      <strong id="capText">15 photos / videos / voice notes / hot+warm leads per month</strong>
+      <span>Included channel coverage</span>
+      <strong id="capText">Email, WhatsApp and Instagram</strong>
     </div>
-    <p class="price-note">Your selected tier includes a <strong>2-day free trial</strong>. After the trial, the monthly rate shown above applies. The applicable one-off setup fee and usage allowance are also shown above.</p>
+    <p class="price-note">Your selected tier includes a <strong>2-day free trial</strong>. After the trial, the monthly rate shown above applies. The applicable one-off setup fee and channel coverage are also shown above.</p>
   </div>
 
   <h2><span class="clause-no">4</span> Refund Policy</h2>
@@ -259,31 +259,31 @@
   const PLAN_CONFIG = {
     simpro_limited: {
       name:     'Simpro — Limited',
-      price:    '$660 AUD / month',
-      setupFee: '$900 AUD',
-      cap:      '15 photos / videos / voice notes / hot+warm leads per month',
-      link:     'https://buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02'
+      price:    '$497 AUD / month',
+      setupFee: '$650 AUD',
+      cap:      'Email, WhatsApp and Instagram',
+      link:     'REPLACE_WITH_STRIPE_LINK_FOR_SIMPRO_LIMITED'
     },
     simpro_unlimited: {
       name:     'Simpro — Unlimited',
-      price:    '$997 AUD / month',
-      setupFee: '$1,300 AUD',
-      cap:      'No caps',
-      link:     'https://buy.stripe.com/9B68wR4Zjfn668i2fW9EI01'
+      price:    '$697 AUD / month',
+      setupFee: '$900 AUD',
+      cap:      'Email, WhatsApp, Instagram, Facebook and Google Business',
+      link:     'REPLACE_WITH_STRIPE_LINK_FOR_SIMPRO_UNLIMITED'
     },
     aroflo_limited: {
       name:     'AroFlo — Limited',
-      price:    '$497 AUD / month',
-      setupFee: '$900 AUD',
-      cap:      '15 photos / videos / voice notes / hot+warm leads per month',
-      link:     'https://buy.stripe.com/fZu7sN2Rbgra54eaMs9EI00'
+      price:    '$180 AUD / month',
+      setupFee: '$350 AUD',
+      cap:      'Email, WhatsApp and Instagram',
+      link:     'REPLACE_WITH_STRIPE_LINK_FOR_AROFLO_LIMITED'
     },
     aroflo_unlimited: {
       name:     'AroFlo — Unlimited',
-      price:    '$997 AUD / month',
-      setupFee: '$1,300 AUD',
-      cap:      'No caps',
-      link:     'https://buy.stripe.com/9B68wR4Zjfn668i2fW9EI01'
+      price:    '$260 AUD / month',
+      setupFee: '$497 AUD',
+      cap:      'Email, WhatsApp, Instagram, Facebook and Google Business',
+      link:     'REPLACE_WITH_STRIPE_LINK_FOR_AROFLO_UNLIMITED'
     }
   };
   const DEFAULT_PLAN = 'simpro_limited';
