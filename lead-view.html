@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-<style>
+<style>/* Hermia job docket: premium trade-intelligence presentation with secure temporary-link support and legacy compatibility. */
   :root {
     --bg:#110d07;
     --card:rgba(201,163,91,0.045);
@@ -479,6 +479,7 @@
 <script>
 (function () {
   const LOGO_URL = 'https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png';
+  const DOCKET_WORKER = 'https://hermianango.capital-fbc.workers.dev';
 
   const ICONS = {
     asset: `<path d="M16 16 L8 22"/><path d="M10 20 L8 22 L6 20" stroke="var(--gold)" opacity="0.6"/><path d="M18 16 L22 22"/><path d="M20 20 L22 22 L24 20" stroke="var(--gold)" opacity="0.6"/><path d="M17 14 L12 9 L15 6 L20 9 Z"/><circle cx="17" cy="14" r="1.2"/>`,
@@ -511,6 +512,23 @@
       for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
       return JSON.parse(new TextDecoder().decode(bytes));
     } catch (e) { return null; }
+  }
+
+  async function fetchSecurePayload() {
+    const token = new URLSearchParams(window.location.search).get('t');
+    if (!token) return null;
+    try {
+      const response = await fetch(DOCKET_WORKER + '/lead-details/view?t=' + encodeURIComponent(token), { cache: 'no-store' });
+      const body = await response.json().catch(() => ({}));
+      return response.ok && body && body.ok && body.payload ? body.payload : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function renderUnavailable() {
+    document.getElementById('root').innerHTML = '<main class="wrap"><section class="head"><div class="head-client-label">Secure docket link</div><h1 class="head-title">This job docket is no longer available.</h1><p class="head-sub">Ask your office for a new link if you still need to review this job.</p></section></main>';
+    document.getElementById('splash').classList.add('hide');
   }
 
   function escapeHtml(str) {
@@ -731,8 +749,12 @@
     }, 2400);
   }
 
-  const data = decodePayload();
-  if (data) render(data);
+  const legacyData = decodePayload();
+  if (legacyData) {
+    render(legacyData);
+  } else {
+    fetchSecurePayload().then(data => data ? render(data) : renderUnavailable());
+  }
 
   document.addEventListener('DOMContentLoaded', function () {
     const backBtn = document.getElementById('photoBackBtn');
