@@ -176,6 +176,32 @@
         .trade-chip span { font-size: 14px; color: var(--cream); letter-spacing: .01em; }
         .trade-hint { font-size: 11.5px; color: var(--soft); opacity: .65; margin-top: 10px; line-height: 1.5; }
 
+
+        .docket-recipient-input-row { display: flex; gap: 10px; }
+        .docket-recipient-input-row input { flex: 1; }
+        .docket-recipient-add-btn {
+            flex: 0 0 auto; padding: 0 20px;
+            background: linear-gradient(135deg, rgba(201,163,91,.16), rgba(201,163,91,.06)); border: 1px solid rgba(232,193,122,.34);
+            color: var(--gold-light); font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
+            letter-spacing: .1em; text-transform: uppercase; border-radius: 7px; cursor: pointer;
+            box-shadow: inset 0 1px 0 rgba(255,244,214,.05); transition: background .25s ease, border-color .25s ease, transform .25s ease;
+        }
+        .docket-recipient-add-btn:hover { background: rgba(201,163,91,.23); border-color: var(--gold-light); transform: translateY(-1px); }
+        .docket-recipient-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; min-height: 0; }
+        .docket-recipient-chip {
+            display: inline-flex; align-items: center; gap: 8px; background: rgba(201,163,91,0.08);
+            border: 1px solid var(--border-strong); border-radius: 100px; padding: 7px 8px 7px 14px;
+            font-size: 12.5px; color: var(--cream); letter-spacing: .01em; animation: chipIn .25s ease;
+        }
+        .docket-recipient-chip button {
+            all: unset; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; cursor: pointer;
+            color: var(--soft); transition: background .2s ease, color .2s ease;
+        }
+        .docket-recipient-chip button:hover { background: rgba(201,123,106,0.2); color: var(--red); }
+        .docket-recipient-chip button svg { width: 10px; height: 10px; }
+        .docket-recipient-count { margin-top: 10px; font-size: 11px; color: var(--soft); opacity: .6; letter-spacing: .04em; }
+        .docket-recipient-input-row.err input { border-color: var(--red); background: rgba(201,123,106,0.05); }
+
         .btn-submit {
             width: 100%; margin-top: 8px; padding: 16px;
             background: linear-gradient(135deg, var(--gold), var(--gold-light));
@@ -285,6 +311,18 @@
                 <label for="gmail">Professional Gmail</label>
                 <input id="gmail" type="email" autocomplete="gmail" placeholder="john@yourcompany.com.au" />
                 <div class="err-msg" id="err-gmail">Valid Gmail Required</div>
+            </div>
+
+            <div class="field">
+                <label for="docketRecipientInput">Email Docket Recipients</label>
+                <div class="docket-recipient-input-row" id="docketRecipientInputRow">
+                    <input id="docketRecipientInput" type="email" inputmode="email" autocomplete="email" placeholder="office@yourcompany.com.au" aria-describedby="docketRecipientHint" />
+                    <button type="button" class="docket-recipient-add-btn" id="docketRecipientAddBtn">Add</button>
+                </div>
+                <div class="err-msg" id="err-emailDocketRecipients">Add at least one valid email address</div>
+                <div class="docket-recipient-chips" id="docketRecipientChips"></div>
+                <div class="docket-recipient-count" id="docketRecipientCount"></div>
+                <div class="trade-hint" id="docketRecipientHint">Add each person who should receive Configuration Journey dockets. Every recipient receives a separate private email; no CC or BCC recipients are exposed. Press Enter, comma, or Add after each address.</div>
             </div>
 
             <div class="row-2">
@@ -520,6 +558,72 @@
             sync();
         });
 
+
+        let emailDocketRecipients = [];
+        const DOCKET_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        function normalizeDocketRecipient(raw) {
+            return String(raw || '').trim().toLowerCase();
+        }
+
+        function renderDocketRecipientChips() {
+            const wrap = $('docketRecipientChips');
+            wrap.innerHTML = '';
+            emailDocketRecipients.forEach((recipient, idx) => {
+                const chip = document.createElement('span');
+                chip.className = 'docket-recipient-chip';
+                const label = document.createElement('span');
+                label.textContent = recipient;
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.setAttribute('aria-label', 'Remove ' + recipient);
+                removeBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+                removeBtn.addEventListener('click', () => {
+                    emailDocketRecipients.splice(idx, 1);
+                    renderDocketRecipientChips();
+                });
+                chip.appendChild(label);
+                chip.appendChild(removeBtn);
+                wrap.appendChild(chip);
+            });
+            const count = emailDocketRecipients.length;
+            $('docketRecipientCount').textContent = count
+                ? count + ' private recipient' + (count === 1 ? '' : 's') + ' added'
+                : '';
+        }
+
+        function addDocketRecipientFromInput() {
+            const input = $('docketRecipientInput');
+            const recipient = normalizeDocketRecipient(input.value);
+            if (!recipient) return true;
+            if (!DOCKET_EMAIL_RE.test(recipient)) {
+                $('docketRecipientInputRow').classList.add('err');
+                $('err-emailDocketRecipients').classList.add('show');
+                return false;
+            }
+            $('docketRecipientInputRow').classList.remove('err');
+            $('err-emailDocketRecipients').classList.remove('show');
+            if (!emailDocketRecipients.includes(recipient)) {
+                emailDocketRecipients.push(recipient);
+                renderDocketRecipientChips();
+            }
+            input.value = '';
+            input.focus();
+            return true;
+        }
+
+        $('docketRecipientAddBtn').addEventListener('click', addDocketRecipientFromInput);
+        $('docketRecipientInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ',' || e.key === ';') {
+                e.preventDefault();
+                addDocketRecipientFromInput();
+            }
+        });
+        $('docketRecipientInput').addEventListener('input', () => {
+            $('docketRecipientInputRow').classList.remove('err');
+            $('err-emailDocketRecipients').classList.remove('show');
+        });
+
         // ============================================================
         // STRIPE SESSION ID — same URL-first, sessionStorage-fallback
         // pattern as `plan` above. See the Simpro variant's comment for
@@ -535,20 +639,22 @@
         try { if (stripeSessionId) sessionStorage.setItem('hermia_stripe_session_id', stripeSessionId); } catch(e) {}
 
         function showErr(id, on) {
-            const t = id === 'phone' ? $('telWrap') : (id === 'trades' ? $('tradeGrid') : $(id));
+            const t = id === 'phone' ? $('telWrap') : (id === 'trades' ? $('tradeGrid') : (id === 'emailDocketRecipients' ? $('docketRecipientInputRow') : $(id)));
             if (t) t.classList.toggle('err', on);
             const e = $('err-' + id);
             if (e) e.classList.toggle('show', on);
         }
 
-        ['fullName', 'company', 'gmail', 'country', 'state', 'phone'].forEach(id => {
+        ['fullName', 'company', 'gmail', 'country', 'state', 'phone', 'emailDocketRecipients'].forEach(id => {
             const el = $(id);
             if (el) el.addEventListener('input', () => showErr(id, false));
             if (el) el.addEventListener('change', () => showErr(id, false));
         });
 
         $('submitBtn').addEventListener('click', async () => {
-            let ok = true;
+            const pendingDocketRecipient = $('docketRecipientInput').value.trim();
+            const pendingDocketRecipientAccepted = !pendingDocketRecipient || addDocketRecipientFromInput();
+            let ok = pendingDocketRecipientAccepted;
             const name = $('fullName').value.trim();
             const company = $('company').value.trim();
             const gmail = $('gmail').value.trim();
@@ -561,6 +667,7 @@
             if (!company) { showErr('company', true); ok = false; }
             if (!allowedTrades.length) { showErr('trades', true); ok = false; }
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(gmail)) { showErr('gmail', true); ok = false; }
+            if (!emailDocketRecipients.length) { showErr('emailDocketRecipients', true); ok = false; }
             if (!country) { showErr('country', true); ok = false; }
             if (!state) { showErr('state', true); ok = false; }
             if (local.length < 6 || local.length > 12) { showErr('phone', true); ok = false; }
@@ -600,7 +707,8 @@
                         // more than one trade (e.g. Remedial + Roofing).
                         // hermianango's /create-customer needs to write this
                         // straight into customers.allowed_trades (jsonb).
-                        allowedTrades: allowedTrades
+                        allowedTrades: allowedTrades,
+                        emailDocketRecipients: emailDocketRecipients
                     })
                 });
                 const data = await res.json();
@@ -617,6 +725,7 @@
                 sessionStorage.setItem('hermia_state', state);
                 sessionStorage.setItem('hermia_country', country);
                 sessionStorage.setItem('hermia_allowed_trades', JSON.stringify(allowedTrades));
+                sessionStorage.setItem('hermia_email_docket_recipients', JSON.stringify(emailDocketRecipients));
                 if (plan) sessionStorage.setItem('hermia_plan', plan);
 
                 document.body.style.transition = 'opacity 1s ease';
