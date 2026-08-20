@@ -350,6 +350,8 @@
   @media (max-width:480px) { .welcome-card { padding:38px 22px 30px; } .activation-panel { grid-template-columns:1fr 106px; gap:8px; padding:17px 15px; } .flow-orbit { width:96px; height:96px; transform:scale(.75); transform-origin:center; margin:-11px -8px; } .activation-copy h2 { font-size:20px; } .signal-step span { max-width:70px; font-size:9px; } .signal-line { margin:0 5px; min-width:8px; } .lead-instruction { padding:14px; } }
   @media (prefers-reduced-motion:reduce) { .bg::before, .bg::after, .bloom, .hero-beam, .setup-complete-tag span, .orbit-ring, .orbit-core, .orbit-ping, .signal-line i { animation:none !important; } }
 
+
+    .configuration-plan-note{display:none;margin:18px 0;padding:16px 18px;border:1px solid rgba(201,163,91,.45);border-radius:12px;background:rgba(201,163,91,.08);color:var(--cream);line-height:1.55}.configuration-plan-note.visible{display:block}.configuration-plan-note b{color:var(--gold-light)}.configuration-plan-note .plan-steps{display:block;margin-top:7px;color:var(--soft);font-size:13px}.configuration-selected-field{box-shadow:inset 3px 0 0 var(--gold)}.configuration-hidden-field{display:none!important}
 </style>
 </head>
 <body>
@@ -437,7 +439,7 @@
     <div class="crm-panel" id="panel-simpro">
       <a href="#" class="back-link" id="back-from-simpro">&larr; Change CRM</a>
 
-      <div class="warning-box card ornate glow">
+      <div class="configuration-plan-note" id="configurationPlanNote" aria-live="polite"></div><div class="warning-box card ornate glow">
         <div class="warning-title">Create these fields</div>
         <p class="warning-text">
           If these custom fields are <b>not created exactly as listed below</b>, Hermia cannot pass full lead details into your CRM — your leads will arrive blank or missing critical information, with no way to recover it after the fact.
@@ -457,8 +459,8 @@
           <div class="field-row"><span class="field-name">Email</span><span class="field-tag normal">— normal field</span></div>
           <div class="field-row"><span class="field-name">Customer Phone</span><span class="field-tag normal">— normal field</span></div>
           <div class="field-row"><span class="field-name">Customer</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row"><span class="field-name">Fault_Code</span><span class="field-tag custom">— custom field, create this</span></div>
-          <div class="field-row"><span class="field-name">Defect_Flag</span><span class="field-tag custom">— custom field, create this</span></div>
+          <div class="field-row" data-config-step="4"><span class="field-name">Fault_Code</span><span class="field-tag custom">— custom field, create this</span></div>
+          <div class="field-row" data-config-step="4"><span class="field-name">Defect_Flag</span><span class="field-tag custom">— custom field, create this</span></div>
         </div>
       </div>
 
@@ -472,9 +474,9 @@
           <div class="field-row"><span class="field-name">Last Name</span><span class="field-tag normal">— normal field</span></div>
           <div class="field-row"><span class="field-name">Phone</span><span class="field-tag normal">— normal field</span></div>
           <div class="field-row"><span class="field-name">Email</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row"><span class="field-name">Urgency</span><span class="field-tag custom">— custom field, create this</span></div>
-          <div class="field-row"><span class="field-name">Billing_Entity</span><span class="field-tag custom">— custom field, create this</span></div>
-          <div class="field-row"><span class="field-name">Estimate Amount</span><span class="field-tag custom">— custom field, create this</span></div>
+          <div class="field-row" data-config-step="1"><span class="field-name">Urgency</span><span class="field-tag custom">— custom field, create this</span></div>
+          <div class="field-row" data-config-step="14"><span class="field-name">Billing_Entity</span><span class="field-tag custom">— custom field, create this</span></div>
+          <div class="field-row" data-config-step="66"><span class="field-name">Estimate Amount</span><span class="field-tag custom">— custom field, create this</span></div>
         </div>
       </div>
 
@@ -488,8 +490,8 @@
           <div class="field-row"><span class="field-name">Site Suburb</span><span class="field-tag normal">— normal field</span></div>
           <div class="field-row"><span class="field-name">Site State</span><span class="field-tag normal">— normal field</span></div>
           <div class="field-row"><span class="field-name">Site Postcode</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row"><span class="field-name">Access_Notes</span><span class="field-tag custom">— custom field, create this</span></div>
-          <div class="field-row"><span class="field-name">Building Type</span><span class="field-tag custom">— custom field, create this</span></div>
+          <div class="field-row" data-config-step="10"><span class="field-name">Access_Notes</span><span class="field-tag custom">— custom field, create this</span></div>
+          <div class="field-row" data-config-step="15"><span class="field-name">Building Type</span><span class="field-tag custom">— custom field, create this</span></div>
         </div>
       </div>
     </div>
@@ -523,11 +525,39 @@
 
 <script>
   const WEBHOOK_URL = 'https://hook.eu1.make.com/8aeiq4rnr6x7ft9994q7hqowuscdr3j4';
+  const HERMIANANGO_BASE = 'https://hermianango.capital-fbc.workers.dev';
+
   const params = new URLSearchParams(window.location.search);
   let customerId = params.get('customerId');
   if (!customerId) {
     try { customerId = sessionStorage.getItem('hermia_outlooker_id') || null; } catch (e) { customerId = null; }
   }
+
+
+  async function applyConfigurationSetupFilter() {
+    if (!customerId) return;
+    try {
+      const response = await fetch(HERMIANANGO_BASE + '/get-customer-state?customerId=' + encodeURIComponent(customerId));
+      const state = await response.json();
+      if (!response.ok || !state.ok || state.financePlan !== 'configuration') return;
+      const checklist = state.configurationStepsChecklist;
+      if (!checklist || !Array.isArray(checklist.selected_steps) || !checklist.selected_steps.length) return;
+      const selectedSteps = new Set(checklist.selected_steps.map(String));
+      document.querySelectorAll('[data-config-step]').forEach(function (row) {
+        const selected = selectedSteps.has(String(row.dataset.configStep));
+        row.classList.toggle('configuration-hidden-field', !selected);
+        row.classList.toggle('configuration-selected-field', selected);
+      });
+      const questions = Array.isArray(checklist.questions) ? checklist.questions : [];
+      const labels = questions.map(function (entry) { return entry.step + ' — ' + entry.label; }).join(' · ');
+      const note = document.getElementById('configurationPlanNote');
+      note.innerHTML = '<b>Your Configuration Journey is active.</b> This setup page is showing the selected configuration-specific fields only. Standard CRM fields and their names remain unchanged.<span class="plan-steps">Selected steps: ' + labels + '</span>';
+      note.classList.add('visible');
+    } catch (error) {
+      console.warn('[hermia_setup] configuration checklist unavailable:', error);
+    }
+  }
+  applyConfigurationSetupFilter();
 
   const boxSimpro = document.getElementById('box-simpro');
   const boxAroflo = document.getElementById('box-aroflo');
