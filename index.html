@@ -1842,17 +1842,20 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
     #hermia-live-ai .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; }
 
 
-    /* Managed-trades panel: visually connects the Hermia effect to the live AI workflow. */
-    #hermia-live-ai .managed-trades { max-width: 760px; margin-top: clamp(26px, 4vw, 42px); padding: 18px 20px 20px; border: 1px solid rgba(212,175,55,.32); background: linear-gradient(120deg, rgba(212,175,55,.11), rgba(255,255,255,.025) 54%, rgba(212,175,55,.06)); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 18px 48px rgba(0,0,0,.18); }
-    #hermia-live-ai .managed-trades-label { display: flex; align-items: center; gap: 10px; margin: 0 0 13px; color: var(--gold-light); font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
-    #hermia-live-ai .managed-trades-label::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--gold-bright); box-shadow: 0 0 13px rgba(255,215,0,.85); }
-    #hermia-live-ai .managed-trades-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
-    #hermia-live-ai .managed-trades-list li { padding: 7px 10px; border: 1px solid rgba(212,175,55,.24); background: rgba(0,0,0,.22); color: var(--cream); font-size: 11px; letter-spacing: .02em; line-height: 1.2; }
-    #hermia-live-ai .managed-trades-list li:last-child { border-color: rgba(255,215,0,.42); color: var(--gold-light); }
+    /* Managed trades: a quiet editorial list, integrated with the Hermia effect instead of a separate UI component. */
+    #hermia-live-ai .managed-trades { max-width: 840px; margin-top: clamp(25px, 4vw, 40px); }
+    #hermia-live-ai .managed-trades-label { display: flex; align-items: center; gap: 12px; margin: 0 0 13px; color: var(--gold); font-size: 10px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+    #hermia-live-ai .managed-trades-label::before { content: ''; width: 32px; height: 1px; background: linear-gradient(90deg, var(--gold-bright), transparent); }
+    #hermia-live-ai .managed-trades-list { display: flex; flex-wrap: wrap; margin: 0; padding: 16px 0 10px; border-top: 1px solid rgba(212,175,55,.34); border-bottom: 1px solid rgba(212,175,55,.16); list-style: none; }
+    #hermia-live-ai .managed-trades-list li { display: inline-flex; align-items: baseline; margin: 0 11px 7px 0; color: rgba(245,242,233,.89); font: 400 clamp(17px, 1.9vw, 22px)/1.15 'Cormorant Garamond', serif; letter-spacing: .005em; }
+    #hermia-live-ai .managed-trades-list li:not(:last-child)::after { content: '·'; margin-left: 11px; color: var(--gold); font-size: 18px; line-height: 1; }
+    #hermia-live-ai .managed-trades-list li:last-child { color: var(--gold-light); font-style: italic; }
     @media (max-width: 580px) {
-      #hermia-live-ai .managed-trades { margin-top: 24px; padding: 16px; }
-      #hermia-live-ai .managed-trades-list { gap: 6px; }
-      #hermia-live-ai .managed-trades-list li { padding: 7px 8px; font-size: 10px; }
+      #hermia-live-ai .managed-trades { margin-top: 23px; }
+      #hermia-live-ai .managed-trades-label { margin-bottom: 11px; font-size: 9px; letter-spacing: .17em; }
+      #hermia-live-ai .managed-trades-list { padding: 13px 0 7px; }
+      #hermia-live-ai .managed-trades-list li { margin-right: 8px; font-size: 17px; }
+      #hermia-live-ai .managed-trades-list li:not(:last-child)::after { margin-left: 8px; font-size: 15px; }
     }
 
     /* Spacing-only matching-diagram correction: same three outcomes and active route, with clearer separation. */
