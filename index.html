@@ -1842,6 +1842,19 @@ footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--bg)
     #hermia-live-ai .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; }
 
 
+    /* Managed-trades panel: visually connects the Hermia effect to the live AI workflow. */
+    #hermia-live-ai .managed-trades { max-width: 760px; margin-top: clamp(26px, 4vw, 42px); padding: 18px 20px 20px; border: 1px solid rgba(212,175,55,.32); background: linear-gradient(120deg, rgba(212,175,55,.11), rgba(255,255,255,.025) 54%, rgba(212,175,55,.06)); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 18px 48px rgba(0,0,0,.18); }
+    #hermia-live-ai .managed-trades-label { display: flex; align-items: center; gap: 10px; margin: 0 0 13px; color: var(--gold-light); font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
+    #hermia-live-ai .managed-trades-label::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--gold-bright); box-shadow: 0 0 13px rgba(255,215,0,.85); }
+    #hermia-live-ai .managed-trades-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    #hermia-live-ai .managed-trades-list li { padding: 7px 10px; border: 1px solid rgba(212,175,55,.24); background: rgba(0,0,0,.22); color: var(--cream); font-size: 11px; letter-spacing: .02em; line-height: 1.2; }
+    #hermia-live-ai .managed-trades-list li:last-child { border-color: rgba(255,215,0,.42); color: var(--gold-light); }
+    @media (max-width: 580px) {
+      #hermia-live-ai .managed-trades { margin-top: 24px; padding: 16px; }
+      #hermia-live-ai .managed-trades-list { gap: 6px; }
+      #hermia-live-ai .managed-trades-list li { padding: 7px 8px; font-size: 10px; }
+    }
+
     /* Spacing-only matching-diagram correction: same three outcomes and active route, with clearer separation. */
     .rotary-match-wrap { max-width: 1120px; margin: 68px auto 0; padding: 38px 46px 36px; }
     .rotary-match-heading { padding: 0 0 26px; }
@@ -2799,6 +2812,12 @@ nav a[href="#faq"]:hover,nav a[href="contact.html"]:hover,nav a[href="pricing.ht
         <div>
           <p class="kicker">The Hermia effect</p>
           <h1 class="headline">Turn missed work into <em>movement.</em></h1>
+          <div class="managed-trades" aria-label="Trades Hermia manages enquiries for">
+            <p class="managed-trades-label">Trades we manage enquiries for</p>
+            <ul class="managed-trades-list">
+              <li>Plumbing</li><li>Electrical</li><li>Roofing</li><li>Remedial</li><li>Fire safety</li><li>Locksmith</li><li>HVAC &amp; air conditioning</li><li>Glazing</li><li>Pest control</li><li>Painting</li><li>Landscaping</li><li>General repairs</li>
+            </ul>
+          </div>
         </div>
         <div>
           <div class="live-status"><span class="live-status-dot"></span> AI system active</div>
