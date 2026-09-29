@@ -46,6 +46,14 @@ header p{font-size:13px;color:var(--soft);text-align:center;max-width:460px;line
 .card-text p{font-size:12.5px;line-height:1.55;color:var(--soft)}
 .tag{display:block;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
 
+/* ── "SOMETHING ELSE" free-text card ── */
+.other-input{display:none;padding:0 18px 18px;cursor:auto}
+.card.other.selected .other-input{display:block}
+.other-input textarea{display:block;width:100%;min-height:96px;resize:vertical;background:#141414;border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--cream);font-family:"DM Sans",sans-serif;font-size:16px;line-height:1.5;outline:none;-webkit-appearance:none;appearance:none}
+.other-input textarea::placeholder{color:var(--muted)}
+.other-input textarea:focus{border-color:var(--gold)}
+.char-count{margin-top:6px;text-align:right;font-size:11px;color:var(--muted)}
+
 .confirm-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(5,5,5,0.92);backdrop-filter:blur(10px);border-top:1px solid var(--border);padding:14px 20px calc(14px + env(safe-area-inset-bottom, 0px));display:none;align-items:center;justify-content:center}
 .confirm-bar.show{display:flex}
 .confirm-btn{width:100%;max-width:640px;background:var(--gold);color:#050505;border:none;border-radius:10px;padding:15px;font-family:"DM Sans",sans-serif;font-weight:500;font-size:15px;letter-spacing:0.3px;cursor:pointer;transition:opacity .15s ease}
@@ -172,8 +180,11 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
     }
   ];
 
+  var OTHER_MAX = 300;          // max characters for the free-text answer
   var selected = new Set();
   var currentTrade = null;
+  var otherOn = false;          // is the "Something else" card ticked?
+  var otherEl = null;           // the textarea for the current trade screen
 
   var screenTrades = document.getElementById('screen-trades');
   var screenDefects = document.getElementById('screen-defects');
@@ -197,9 +208,58 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
     tradeGrid.appendChild(el);
   });
 
+  // Cleaned free-text value: collapsed whitespace, no double quotes, trimmed.
+  // Returns '' if "Something else" is off or the box is empty.
+  function otherValue() {
+    if (!otherOn || !otherEl) return '';
+    return otherEl.value.replace(/\s+/g, ' ').replace(/"/g, "'").trim();
+  }
+
+  function buildOtherCard(trade) {
+    var el = document.createElement('div');
+    el.className = 'card other';
+    el.innerHTML =
+      '<div class="card-body">' +
+        '<div class="check">' + checkSvg + '</div>' +
+        '<div class="card-text">' +
+          '<span class="tag">' + trade.label + '</span>' +
+          '<h2>Something else</h2>' +
+          '<p>Not listed above? Describe it in your own words.</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="other-input">' +
+        '<textarea maxlength="' + OTHER_MAX + '" placeholder="Describe what you can see or what is happening" aria-label="Describe the issue"></textarea>' +
+        '<div class="char-count">0 / ' + OTHER_MAX + '</div>' +
+      '</div>';
+
+    var ta = el.querySelector('textarea');
+    var counter = el.querySelector('.char-count');
+    var inputWrap = el.querySelector('.other-input');
+    otherEl = ta;
+
+    // Typing must not toggle the card
+    inputWrap.addEventListener('click', function (e) { e.stopPropagation(); });
+
+    ta.addEventListener('input', function () {
+      counter.textContent = ta.value.length + ' / ' + OTHER_MAX;
+      updateConfirmButton();
+    });
+
+    el.addEventListener('click', function () {
+      otherOn = !otherOn;
+      el.classList.toggle('selected', otherOn);
+      if (otherOn) { ta.focus(); }
+      updateConfirmButton();
+    });
+
+    return el;
+  }
+
   function openTrade(trade) {
     currentTrade = trade;
     selected.clear();
+    otherOn = false;
+    otherEl = null;
     defectGrid.innerHTML = '';
 
     trade.defects.forEach(function (defect) {
@@ -229,6 +289,9 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
       defectGrid.appendChild(el);
     });
 
+    // "Something else" free-text card, always last
+    defectGrid.appendChild(buildOtherCard(trade));
+
     headerTitle.textContent = trade.label;
     headerSub.textContent = "Tap any that match — you can select more than one.";
     backBtn.classList.add('show');
@@ -242,6 +305,8 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
   function goBackToTrades() {
     currentTrade = null;
     selected.clear();
+    otherOn = false;
+    otherEl = null;
     headerTitle.textContent = "What's the issue?";
     headerSub.textContent = "Select the trade that matches your job.";
     backBtn.classList.remove('show');
@@ -253,12 +318,17 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
 
   backBtn.addEventListener('click', goBackToTrades);
 
+  // Total answers that will actually be sent (ticked defects + non-empty free text)
+  function answerCount() {
+    return selected.size + (otherValue() ? 1 : 0);
+  }
+
   function updateConfirmButton() {
-    var n = selected.size;
+    var n = answerCount();
     if (n === 0) {
       confirmBtn.disabled = true;
       confirmBtn.classList.remove('active');
-      confirmBtn.textContent = 'Select an issue to continue';
+      confirmBtn.textContent = otherOn ? 'Describe the issue to continue' : 'Select an issue to continue';
     } else {
       confirmBtn.disabled = false;
       confirmBtn.classList.add('active');
@@ -272,7 +342,7 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
   }
 
   confirmBtn.addEventListener('click', function () {
-    if (!currentTrade || selected.size === 0) return;
+    if (!currentTrade || answerCount() === 0) return;
 
     var ref = getParam('ref');
     var wa = getParam('wa');
@@ -285,9 +355,12 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
 
     var labelMap = {};
     currentTrade.defects.forEach(function (d) { labelMap[d.value] = d.label; });
-    var chosenLabels = Array.from(selected).map(function (v) { return labelMap[v] || v; });
+    var chosen = Array.from(selected).map(function (v) { return labelMap[v] || v; });
 
-    var messageText = 'ref:' + ref + ' Trade: ' + currentTrade.label + ' — Selected issue(s): ' + chosenLabels.join(', ');
+    var other = otherValue();
+    if (other) { chosen.push('Other: "' + other.slice(0, OTHER_MAX) + '"'); }
+
+    var messageText = 'ref:' + ref + ' Trade: ' + currentTrade.label + ' — Selected issue(s): ' + chosen.join(', ');
     var waLink = 'https://wa.me/' + wa.replace(/[^\d]/g, '') + '?text=' + encodeURIComponent(messageText);
 
     window.location.href = waLink;
