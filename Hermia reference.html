@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What's the Issue?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--card:#0f0f0f;--border:rgba(196,150,60,0.18);--gold:#c4963c;--gl:#d9aa52;--cream:#f4f0e6;--soft:#b0ada5;--muted:#7a7470;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--cream);padding:0 0 110px;-webkit-font-smoothing:antialiased}
+header{display:flex;flex-direction:column;align-items:center;gap:10px;padding:44px 20px 26px;border-bottom:1px solid var(--border);position:relative}
+header img.logo{height:34px}
+header h1{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:22px;letter-spacing:1px;color:#fff;text-align:center}
+header p{font-size:13px;color:var(--soft);text-align:center;max-width:460px;line-height:1.55}
+.back-btn{position:absolute;left:18px;top:44px;background:none;border:1px solid var(--border);color:var(--soft);font-family:"DM Sans",sans-serif;font-size:12px;letter-spacing:0.5px;padding:7px 12px;border-radius:8px;cursor:pointer;display:none;align-items:center;gap:5px}
+.back-btn.show{display:inline-flex}
+.container{max-width:680px;margin:0 auto;padding:32px 20px 0}
+
+/* ── TRADE GRID (landing screen) ── */
+.trade-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:420px){.trade-grid{grid-template-columns:1fr}}
+.trade-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,0.4);cursor:pointer;transition:border-color .15s ease, transform .1s ease}
+.trade-card:active{transform:scale(0.98)}
+.trade-photo{aspect-ratio:16/10;background:#141414;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:11px;text-align:center;letter-spacing:0.5px;position:relative;overflow:hidden}
+.trade-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.trade-label{padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+.trade-label h2{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:18px;color:#fff}
+.trade-label .arrow{color:var(--gold);font-size:16px}
+
+/* ── DEFECT GRID (per-trade screen) ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:22px;box-shadow:0 14px 34px rgba(0,0,0,0.4);cursor:pointer;transition:border-color .15s ease, transform .1s ease}
+.card:active{transform:scale(0.99)}
+.card.selected{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold), 0 14px 34px rgba(0,0,0,0.4)}
+.media-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border)}
+.media-slot{position:relative;aspect-ratio:1/1;background:#141414;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.media-slot img,.media-slot video{display:block;width:100%;height:100%;object-fit:cover}
+.media-slot.empty{color:var(--muted);font-size:11px;text-align:center;padding:8px;letter-spacing:0.5px}
+.card-body{padding:15px 18px;display:flex;align-items:flex-start;gap:12px}
+.check{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--muted);margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s ease}
+.card.selected .check{background:var(--gold);border-color:var(--gold)}
+.check svg{opacity:0;width:12px;height:12px;transition:opacity .1s ease}
+.card.selected .check svg{opacity:1}
+.card-text h2{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:18px;color:#fff;margin-bottom:4px}
+.card-text p{font-size:12.5px;line-height:1.55;color:var(--soft)}
+.tag{display:block;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+
+.confirm-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(5,5,5,0.92);backdrop-filter:blur(10px);border-top:1px solid var(--border);padding:14px 20px calc(14px + env(safe-area-inset-bottom, 0px));display:none;align-items:center;justify-content:center}
+.confirm-bar.show{display:flex}
+.confirm-btn{width:100%;max-width:640px;background:var(--gold);color:#050505;border:none;border-radius:10px;padding:15px;font-family:"DM Sans",sans-serif;font-weight:500;font-size:15px;letter-spacing:0.3px;cursor:pointer;transition:opacity .15s ease}
+.confirm-btn:disabled{opacity:0.35;cursor:not-allowed}
+.confirm-btn.active{opacity:1}
+
+.error-banner{max-width:680px;margin:24px auto;padding:16px 18px;background:rgba(196,150,60,0.08);border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--soft);text-align:center;display:none}
+footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.screen{display:none}
+.screen.active{display:block}
+</style>
+</head>
+<body>
+
+<header>
+  <button id="back-btn" class="back-btn">&larr; Back</button>
+  <img class="logo" src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia">
+  <h1 id="header-title">What's the issue?</h1>
+  <p id="header-sub">Select the trade that matches your job.</p>
+</header>
+
+<div id="missing-params" class="error-banner">
+  This link is missing some information and can't be confirmed here. Please go back to WhatsApp and let us know directly what you're seeing.
+</div>
+
+<!-- SCREEN 1 — trade selector -->
+<div class="container screen active" id="screen-trades">
+  <div class="trade-grid" id="trade-grid"></div>
+</div>
+
+<!-- SCREEN 2 — defect selector for chosen trade -->
+<div class="container screen" id="screen-defects">
+  <div id="defect-grid"></div>
+</div>
+
+<footer>Powered by Hermia</footer>
+
+<div class="confirm-bar" id="confirm-bar">
+  <button id="confirm-btn" class="confirm-btn" disabled>Select an issue to continue</button>
+</div>
+
+<script>
+(function () {
+
+  // ══════════════════════════════════════════════════════════
+  // TRADE + DEFECT DATA. Each defect "value" is chosen to match
+  // words the qualification system already recognises for that
+  // trade, so a selection here reads as a clean, specific answer
+  // downstream instead of something vague.
+  // ══════════════════════════════════════════════════════════
+  var TRADES = [
+    {
+      id: "plumbing",
+      label: "Plumbing",
+      defects: [
+        { value: "leaking pipe or tap", label: "Leaking Pipe / Tap", desc: "A pipe, tap, or fitting that's dripping or actively leaking." },
+        { value: "blocked drain or toilet", label: "Blocked Drain / Toilet", desc: "Water not draining, a blocked toilet, or a clogged sink." },
+        { value: "no hot water", label: "No Hot Water", desc: "Hot water system not working, or no hot water at all." },
+        { value: "burst pipe", label: "Burst Pipe", desc: "A pipe that has burst or split, often with active water loss." },
+        { value: "gas leak", label: "Gas Leak", desc: "Smell of gas, or a suspected gas leak — treat as urgent." },
+        { value: "hot water system fault", label: "Hot Water System Fault", desc: "A fault with the hot water unit itself — noise, leak, or error." }
+      ]
+    },
+    {
+      id: "electrical",
+      label: "Electrical",
+      defects: [
+        { value: "no power", label: "No Power", desc: "Partial or total loss of power to the property." },
+        { value: "switchboard fault", label: "Switchboard Fault", desc: "An issue at the switchboard or meter box." },
+        { value: "tripping safety switch", label: "Tripping Safety Switch", desc: "A safety switch or breaker that keeps tripping." },
+        { value: "sparking or burning smell", label: "Sparking / Burning Smell", desc: "Visible sparking, or a burning smell from an outlet or fitting — treat as urgent." },
+        { value: "faulty powerpoint or switch", label: "Faulty Powerpoint / Switch", desc: "A powerpoint, GPO, or light switch not working correctly." },
+        { value: "lighting fault", label: "Lighting Fault", desc: "Lights not turning on, flickering, or a downlight fault." }
+      ]
+    },
+    {
+      id: "roofing",
+      label: "Roofing",
+      defects: [
+        { value: "roof leak", label: "Roof Leak", desc: "Water coming through the roof, or a ceiling water stain." },
+        { value: "missing or broken tiles", label: "Missing / Broken Tiles", desc: "Tiles that are cracked, broken, or missing." },
+        { value: "blocked or damaged gutter", label: "Blocked / Damaged Gutter", desc: "Gutter overflow, blockage, or physical damage." },
+        { value: "storm damage", label: "Storm Damage", desc: "Damage from a recent storm, hail, or high wind." },
+        { value: "flashing or valley leak", label: "Flashing / Valley Leak", desc: "A leak around flashing, a valley, or a roof junction." },
+        { value: "sagging or structural roof issue", label: "Sagging / Structural Issue", desc: "Visible sagging, movement, or a structural concern with the roof." }
+      ]
+    },
+    {
+      id: "remedial",
+      label: "Remedial",
+      defects: [
+        { value: "water ingress", label: "Water Ingress / Leaking", desc: "Water staining, active dripping, or damp patches." },
+        { value: "structural cracking", label: "Structural Cracking", desc: "Cracking in concrete, render, or masonry." },
+        { value: "concrete spalling", label: "Concrete Spalling", desc: "Flaking or crumbling concrete (\"concrete cancer\")." },
+        { value: "efflorescence", label: "Efflorescence", desc: "White or chalky marks on concrete or masonry." },
+        { value: "delamination", label: "Delamination", desc: "Render or coating lifting or bubbling away." },
+        { value: "waterproofing seal failure", label: "Seal / Waterproofing Failure", desc: "A failed seal, joint, or waterproofing membrane." },
+        { value: "mould or damp staining", label: "Mould / Damp Staining", desc: "Mould growth or damp-related staining." }
+      ]
+    },
+    {
+      id: "fire",
+      label: "Fire Safety",
+      defects: [
+        { value: "fire panel fault", label: "Fire Panel Fault", desc: "A fault light, error, or unresponsive fire indicator panel." },
+        { value: "smoke detector fault", label: "Smoke Detector / Alarm Issue", desc: "Beeping, chirping, or a faulty smoke/heat detector." },
+        { value: "sprinkler fault", label: "Sprinkler Fault", desc: "A leaking, stuck, or faulty sprinkler head." },
+        { value: "fire door not closing", label: "Fire Door Not Closing", desc: "A fire door that won't close or latch properly." },
+        { value: "exit or emergency light fault", label: "Exit / Emergency Light Fault", desc: "An exit sign or emergency light not illuminating." },
+        { value: "expired service tag", label: "Expired Service Tag", desc: "A service tag that's out of date or a failed compliance test." }
+      ]
+    },
+    {
+      id: "repair",
+      label: "Repair",
+      defects: [
+        { value: "locked out or lock issue", label: "Locked Out / Lock Issue", desc: "A lockout, broken lock, or need for a rekey." },
+        { value: "air conditioning fault", label: "Air Conditioning Fault", desc: "An AC or split system unit not working correctly." },
+        { value: "broken glass or window", label: "Broken Glass / Window", desc: "A cracked or broken window or glass door." },
+        { value: "pest issue", label: "Pest Issue", desc: "Termites, cockroaches, rodents, or another pest problem." },
+        { value: "painting", label: "Painting", desc: "Interior or exterior painting work needed." },
+        { value: "garden or landscaping", label: "Garden / Landscaping", desc: "Lawn, garden, hedge, or general landscaping work." }
+      ]
+    }
+  ];
+
+  var selected = new Set();
+  var currentTrade = null;
+
+  var screenTrades = document.getElementById('screen-trades');
+  var screenDefects = document.getElementById('screen-defects');
+  var tradeGrid = document.getElementById('trade-grid');
+  var defectGrid = document.getElementById('defect-grid');
+  var confirmBar = document.getElementById('confirm-bar');
+  var confirmBtn = document.getElementById('confirm-btn');
+  var backBtn = document.getElementById('back-btn');
+  var headerTitle = document.getElementById('header-title');
+  var headerSub = document.getElementById('header-sub');
+  var checkSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="#050505" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+  // ── build trade cards ──
+  TRADES.forEach(function (trade) {
+    var el = document.createElement('div');
+    el.className = 'trade-card';
+    el.innerHTML =
+      '<div class="trade-photo empty">PHOTO<br>drop in here</div>' +
+      '<div class="trade-label"><h2>' + trade.label + '</h2><span class="arrow">&#8250;</span></div>';
+    el.addEventListener('click', function () { openTrade(trade); });
+    tradeGrid.appendChild(el);
+  });
+
+  function openTrade(trade) {
+    currentTrade = trade;
+    selected.clear();
+    defectGrid.innerHTML = '';
+
+    trade.defects.forEach(function (defect) {
+      var el = document.createElement('div');
+      el.className = 'card';
+      el.setAttribute('data-value', defect.value);
+      el.innerHTML =
+        '<div class="media-row">' +
+          '<div class="media-slot empty">PHOTO 1<br>drop in here</div>' +
+          '<div class="media-slot empty">PHOTO 2<br>drop in here</div>' +
+          '<div class="media-slot empty">PHOTO/VIDEO 3<br>drop in here</div>' +
+        '</div>' +
+        '<div class="card-body">' +
+          '<div class="check">' + checkSvg + '</div>' +
+          '<div class="card-text">' +
+            '<span class="tag">' + trade.label + '</span>' +
+            '<h2>' + defect.label + '</h2>' +
+            '<p>' + defect.desc + '</p>' +
+          '</div>' +
+        '</div>';
+      el.addEventListener('click', function () {
+        var v = defect.value;
+        if (selected.has(v)) { selected.delete(v); el.classList.remove('selected'); }
+        else { selected.add(v); el.classList.add('selected'); }
+        updateConfirmButton();
+      });
+      defectGrid.appendChild(el);
+    });
+
+    headerTitle.textContent = trade.label;
+    headerSub.textContent = "Tap any that match — you can select more than one.";
+    backBtn.classList.add('show');
+    screenTrades.classList.remove('active');
+    screenDefects.classList.add('active');
+    confirmBar.classList.add('show');
+    updateConfirmButton();
+    window.scrollTo(0, 0);
+  }
+
+  function goBackToTrades() {
+    currentTrade = null;
+    selected.clear();
+    headerTitle.textContent = "What's the issue?";
+    headerSub.textContent = "Select the trade that matches your job.";
+    backBtn.classList.remove('show');
+    screenDefects.classList.remove('active');
+    screenTrades.classList.add('active');
+    confirmBar.classList.remove('show');
+    window.scrollTo(0, 0);
+  }
+
+  backBtn.addEventListener('click', goBackToTrades);
+
+  function updateConfirmButton() {
+    var n = selected.size;
+    if (n === 0) {
+      confirmBtn.disabled = true;
+      confirmBtn.classList.remove('active');
+      confirmBtn.textContent = 'Select an issue to continue';
+    } else {
+      confirmBtn.disabled = false;
+      confirmBtn.classList.add('active');
+      confirmBtn.textContent = 'Confirm ' + n + ' selected — back to WhatsApp';
+    }
+  }
+
+  function getParam(name) {
+    var params = new URLSearchParams(window.location.search);
+    return params.get(name);
+  }
+
+  confirmBtn.addEventListener('click', function () {
+    if (!currentTrade || selected.size === 0) return;
+
+    var ref = getParam('ref');
+    var wa = getParam('wa');
+
+    if (!ref || !wa) {
+      document.getElementById('missing-params').style.display = 'block';
+      document.getElementById('missing-params').scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    var labelMap = {};
+    currentTrade.defects.forEach(function (d) { labelMap[d.value] = d.label; });
+    var chosenLabels = Array.from(selected).map(function (v) { return labelMap[v] || v; });
+
+    var messageText = 'ref:' + ref + ' Trade: ' + currentTrade.label + ' — Selected issue(s): ' + chosenLabels.join(', ');
+    var waLink = 'https://wa.me/' + wa.replace(/[^\d]/g, '') + '?text=' + encodeURIComponent(messageText);
+
+    window.location.href = waLink;
+  });
+
+})();
+</script>
+
+</body>
+</html>
