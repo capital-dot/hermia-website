@@ -31,6 +31,31 @@ export const WORKFLOW_STATUSES = Object.freeze([
   'retired',
 ]);
 
+// This is the code safe to give a client or type into Make. It is not an
+// authentication secret and must not replace the internal tenant UUID.
+export const MAKE_CLIENT_CODE_PATTERN = /^HM-[A-Z0-9]{6}$/;
+
+export function normalizeMakeClientCode(value) {
+  const code = String(value ?? '').trim().toUpperCase();
+  if (!MAKE_CLIENT_CODE_PATTERN.test(code)) {
+    throw new Error('make_client_code must look like HM-ABC123');
+  }
+  return code;
+}
+
+export function makeClientCodeFromTenantId(tenantId) {
+  const hex = requireNonEmpty(tenantId, 'tenant_id').replace(/-/g, '').toUpperCase();
+  const alphabet = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
+  let value = 0;
+  for (const character of hex.slice(0, 6)) value = (value * 16 + parseInt(character, 16)) >>> 0;
+  let suffix = '';
+  for (let index = 0; index < 6; index += 1) {
+    suffix = alphabet[value % alphabet.length] + suffix;
+    value = Math.floor(value / alphabet.length);
+  }
+  return `HM-${suffix}`;
+}
+
 export const LEAD_STATUSES = Object.freeze([
   'received',
   'qualifying',
@@ -49,6 +74,9 @@ export function requireNonEmpty(value, label) {
 export function normalizeTenantContext(input = {}) {
   return {
     tenant_id: requireNonEmpty(input.tenant_id, 'tenant_id'),
+    make_client_code: input.make_client_code
+      ? normalizeMakeClientCode(input.make_client_code)
+      : makeClientCodeFromTenantId(input.tenant_id),
     workflow_id: requireNonEmpty(input.workflow_id, 'workflow_id'),
     workflow_version: Number.isInteger(input.workflow_version)
       ? input.workflow_version

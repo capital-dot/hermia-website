@@ -5,6 +5,8 @@ create table if not exists public.hermia_workflows (
   id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null,
   workflow_key text not null,
+  -- Human-facing Make code, e.g. HM-7K2Q9A. Keep tenant_id as the internal key.
+  client_code text check (client_code is null or client_code ~ '^HM-[A-Z0-9]{6}$'),
   version integer not null check (version > 0),
   status text not null default 'draft' check (status in ('draft','testing','published','retired')),
   industry text,
@@ -16,6 +18,16 @@ create table if not exists public.hermia_workflows (
 
 create index if not exists hermia_workflows_published_idx
   on public.hermia_workflows (tenant_id, workflow_key, status, version desc);
+
+create table if not exists public.hermia_tenant_codes (
+  tenant_id uuid primary key,
+  client_code text not null unique check (client_code ~ '^HM-[A-Z0-9]{6}$'),
+  created_at timestamptz not null default now()
+);
+
+create index if not exists hermia_workflows_client_code_idx
+  on public.hermia_workflows (tenant_id, client_code)
+  where client_code is not null;
 
 create table if not exists public.hermia_lead_context (
   lead_code text primary key,
