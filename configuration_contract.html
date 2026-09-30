@@ -40,14 +40,14 @@
     let config={};try{config=JSON.parse(sessionStorage.getItem('hermia_configuration')||'{}')}catch(e){}
     const clean=value=>String(value||'').replace(/[&<>'"]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
     const business=config.business_name||'To be confirmed';
-    const crm=config.crm==='aroflo'?'AroFlo':config.crm==='simpro'?'Simpro':config.crm==='salesforce'?'Salesforce — connector setup required':config.crm==='custom_api'?'Other CRM / API — connector setup required':'To be confirmed';
+    const crm=config.crm==='aroflo'?'AroFlo':config.crm==='simpro'?'Simpro':'To be confirmed';
     const provider=config.email_provider==='outlook'?'Outlook':config.email_provider==='gmail'?'Gmail':(Array.isArray(config.inbound_channels)&&config.inbound_channels.length?config.inbound_channels.join(', '):'Channel to be confirmed');
     const trades=Array.isArray(config.trades)&&config.trades.length?config.trades:[config.trade].filter(Boolean);
     const tradeText=trades.length?trades.join(', '):'trade selection to be confirmed';
     const questionCount=Number(config.question_count)||9;
     document.getElementById('businessValue').textContent=business;
     document.getElementById('crmValue').textContent=crm;
-    const inbound=Array.isArray(config.inbound_channels)?config.inbound_channels.join(', '):provider; const outbound=Array.isArray(config.outbound_channels)?config.outbound_channels.join(', '):'to be confirmed'; document.getElementById('configurationDetail').innerHTML='<strong>'+clean(inbound)+'</strong> inbound · <strong>'+clean(outbound)+'</strong> outbound · <strong>'+questionCount+' qualification topics</strong> · <strong>'+clean(tradeText)+'</strong> · your selected availability, price, evidence, access, and safety rules.';
+    const inbound=Array.isArray(config.inbound_channels)?config.inbound_channels.join(', '):provider; const outbound=Array.isArray(config.response_channels)?config.response_channels.join(', '):(Array.isArray(config.outbound_channels)?config.outbound_channels.join(', '):'to be confirmed'); document.getElementById('configurationDetail').innerHTML='<strong>'+clean(inbound)+'</strong> inbound · <strong>'+clean(outbound)+'</strong> outbound · <strong>'+questionCount+' qualification topics</strong> · <strong>'+clean(tradeText)+'</strong> · your selected availability, price, evidence, access, and safety rules.';
     if(config.contact_name||config.business_name){document.getElementById('preparedName').textContent=config.contact_name||config.business_name;document.getElementById('context').classList.add('show')}
     const signer=document.getElementById('signer');signer.textContent=config.contact_name||'the authorised representative';
     const agree=document.getElementById('agree'),pay=document.getElementById('pay'),error=document.getElementById('error');
