@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-AU">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>What's the Issue?</title>
+<title>Identify the Asset or Issue | Hermia</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<link rel="canonical" href="https://www.hermia.au/Hermia%20reference.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -64,19 +67,45 @@ header p{font-size:13px;color:var(--soft);text-align:center;max-width:460px;line
 footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
 .screen{display:none}
 .screen.active{display:block}
+.guide-intro{max-width:680px;margin:0 auto;padding:25px 20px 0;color:var(--soft);font-size:13px;line-height:1.7}
+.guide-intro strong{color:#f4d69a;font-weight:500}
+.guide-intro p+p{margin-top:8px}
+.trade-card{background:#111418;transition:border-color .2s ease,box-shadow .2s ease,transform .16s ease}
+.trade-card:hover,.trade-card:focus-visible,.card:hover,.card:focus-visible{border-color:rgba(239,195,108,.8);box-shadow:0 12px 37px rgba(184,123,37,.12)}
+.trade-card:focus-visible,.card:focus-visible,.confirm-btn:focus-visible,.back-btn:focus-visible{outline:2px solid #f7d995;outline-offset:3px}
+.trade-photo{height:178px;aspect-ratio:auto;background:#151b22}
+.trade-photo img{filter:saturate(.88)}
+.trade-label{background:linear-gradient(115deg,#12171c,#161b20);padding:17px}
+.trade-label h2{font-size:24px}.trade-label .arrow{font-size:22px}
+.card{margin-bottom:15px;background:#12171b}.card.selected{border-color:#e8bd71}
+.media-row{grid-template-columns:1fr;background:#161b20}
+.media-slot{aspect-ratio:16/9}.media-slot img{object-position:center}
+.card-body{padding:17px 18px}
+.card-text h2{font-size:24px}.card-text p{font-size:13px}
+.card.other{border-style:dashed;background:#101419}.card.other .card-body{padding:21px 18px}
+.mode-tag{display:inline-block;color:#f0c97c;font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+.error-banner{color:#f1d6ab;border-color:#ae7737}
+.confirm-bar{z-index:5}.confirm-btn{background:linear-gradient(115deg,#b78736,#f3d799 45%,#c38e3d);font-weight:700}
+header{background:radial-gradient(circle at 50% -70%,rgba(197,143,56,.22),transparent 78%),#090d12;padding-top:34px}
+header img.logo{height:40px;max-width:110px;object-fit:contain}
+header h1{font-size:30px}.container{padding-top:22px}
+footer{padding:0 20px;line-height:1.6;letter-spacing:.08em}
+@media(max-width:420px){.trade-grid{grid-template-columns:1fr 1fr;gap:10px}.trade-photo{height:110px}.trade-label{padding:12px}.trade-label h2{font-size:18px}.trade-label .arrow{font-size:16px}.container{padding:18px 14px 0}.guide-intro{padding:20px 14px 0}.media-slot{aspect-ratio:16/10}.back-btn{top:18px;left:12px}.card-text h2{font-size:21px}header{padding:27px 14px 22px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
 <body>
 
 <header>
-  <button id="back-btn" class="back-btn">&larr; Back</button>
+  <button id="back-btn" class="back-btn" type="button">&larr; Back</button>
   <img class="logo" src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia">
   <h1 id="header-title">What's the issue?</h1>
   <p id="header-sub">Select the trade that matches your job.</p>
 </header>
+<div class="guide-intro" id="guide-intro"><p><strong>See an example. Name what you see.</strong> These photos help explain the choices; they cannot diagnose a fault. If nothing fits, choose “Something else”. For immediate danger, use the appropriate emergency service.</p><p id="handoff-instruction"></p><p id="handoff-status" role="status" aria-live="polite"></p></div>
 
-<div id="missing-params" class="error-banner">
-  This link is missing some information and can't be confirmed here. Please go back to WhatsApp and let us know directly what you're seeing.
+<div id="missing-params" class="error-banner" role="alert">
+  This link is missing a valid enquiry reference or has an invalid reply destination. Please describe the item or issue directly in your existing WhatsApp chat instead.
 </div>
 
 <!-- SCREEN 1 — trade selector -->
@@ -89,10 +118,10 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
   <div id="defect-grid"></div>
 </div>
 
-<footer>Powered by Hermia</footer>
+<footer>Illustrative examples only · Do not touch unsafe equipment · An on-site professional makes the assessment</footer>
 
 <div class="confirm-bar" id="confirm-bar">
-  <button id="confirm-btn" class="confirm-btn" disabled>Select an issue to continue</button>
+  <button id="confirm-btn" class="confirm-btn" type="button" disabled>Choose an example to continue</button>
 </div>
 
 <script>
@@ -163,7 +192,7 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
         { value: "sprinkler fault", label: "Sprinkler Fault", desc: "A leaking, stuck, or faulty sprinkler head." },
         { value: "fire door not closing", label: "Fire Door Not Closing", desc: "A fire door that won't close or latch properly." },
         { value: "exit or emergency light fault", label: "Exit / Emergency Light Fault", desc: "An exit sign or emergency light not illuminating." },
-        { value: "expired service tag", label: "Expired Service Tag", desc: "A service tag that's out of date or a failed compliance test." }
+        { value: "fire equipment service tag concern", label: "Service Tag Concern", desc: "A service tag you believe is missing or out of date; the fire-safety team must verify it." }
       ]
     },
     {
@@ -173,12 +202,29 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
         { value: "locked out or lock issue", label: "Locked Out / Lock Issue", desc: "A lockout, broken lock, or need for a rekey." },
         { value: "air conditioning fault", label: "Air Conditioning Fault", desc: "An AC or split system unit not working correctly." },
         { value: "broken glass or window", label: "Broken Glass / Window", desc: "A cracked or broken window or glass door." },
-        { value: "pest issue", label: "Pest Issue", desc: "Termites, cockroaches, rodents, or another pest problem." },
+        { value: "timber damage or possible pest issue", label: "Timber / Pest Concern", desc: "Visible timber damage or suspected pests; the cause needs professional assessment." },
         { value: "painting", label: "Painting", desc: "Interior or exterior painting work needed." },
         { value: "garden or landscaping", label: "Garden / Landscaping", desc: "Lawn, garden, hedge, or general landscaping work." }
       ]
     }
   ];
+
+  // Equipment/areas the customer can identify without diagnosing a defect.
+  // The image order exactly matches the separate asset photo sheets.
+  var ASSETS = {
+    plumbing: ['Supply pipe', 'Sink or drain', 'Hot-water unit', 'Toilet', 'Tap or mixer', 'Gas meter or pipe'],
+    electrical: ['Switchboard', 'Power outlet', 'Light fitting', 'Safety switch', 'Wall switch', 'Electricity meter'],
+    roofing: ['Tiled roof', 'Metal roof', 'Gutter or downpipe', 'Roof valley or flashing', 'Skylight', 'Roof edge or membrane'],
+    remedial: ['Balcony slab', 'Rendered wall', 'Brick or masonry wall', 'Tiled wet area', 'Concrete beam or column', 'Window junction'],
+    fire: ['Fire indicator panel', 'Smoke detector', 'Sprinkler head', 'Fire door', 'Exit or emergency light', 'Fire extinguisher'],
+    repair: ['Door lock', 'Air conditioner', 'Window or glass', 'Timber trim', 'Painted wall', 'Garden or hedge']
+  };
+  var params = new URLSearchParams(window.location.search);
+  var mode = params.get('mode') === 'asset' ? 'asset' : 'issue';
+  var launchRef = params.get('ref') || '';
+  var launchWa = params.get('wa') || '';
+  var handbackValid = /^[A-Za-z0-9_-]{3,64}$/.test(launchRef) && (!launchWa || /^\+?[0-9]{8,15}$/.test(launchWa));
+  document.getElementById('handoff-instruction').innerHTML = launchWa ? 'Your choice opens a drafted WhatsApp reply. <strong>Check it and press Send</strong> in your existing chat.' : 'After choosing, <strong>copy your drafted reply</strong> and paste it into your existing WhatsApp chat. This page cannot send it for you.';
 
   var OTHER_MAX = 300;          // max characters for the free-text answer
   var selected = new Set();
@@ -197,16 +243,24 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
   var headerSub = document.getElementById('header-sub');
   var checkSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="#050505" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
 
-  // ── build trade cards ──
+  if (!handbackValid) document.getElementById('missing-params').style.display = 'block';
+  var modeLabel = mode === 'asset' ? 'asset or area' : 'issue';
+  headerTitle.textContent = mode === 'asset' ? 'What is affected?' : "What's happening?";
+  headerSub.textContent = 'Choose the trade to see examples of the ' + modeLabel + '.';
+
+  // Build trade cards from the corresponding, original visual examples.
   TRADES.forEach(function (trade) {
-    var el = document.createElement('div');
+    var el = document.createElement('button');
+    el.type = 'button';
     el.className = 'trade-card';
     el.innerHTML =
-      '<div class="trade-photo empty">PHOTO<br>drop in here</div>' +
+      '<div class="trade-photo"><img src="assets/reference/' + trade.id + '-' + mode + '-1.webp" alt="Illustrative ' + trade.label + ' example" loading="lazy"></div>' +
       '<div class="trade-label"><h2>' + trade.label + '</h2><span class="arrow">&#8250;</span></div>';
     el.addEventListener('click', function () { openTrade(trade); });
     tradeGrid.appendChild(el);
   });
+  var preselectedTrade = TRADES.find(function (t) { return t.id === params.get('trade'); });
+  if (preselectedTrade) openTrade(preselectedTrade);
 
   // Cleaned free-text value: collapsed whitespace, no double quotes, trimmed.
   // Returns '' if "Something else" is off or the box is empty.
@@ -218,13 +272,16 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
   function buildOtherCard(trade) {
     var el = document.createElement('div');
     el.className = 'card other';
+    el.setAttribute('role', 'button');
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('aria-pressed', 'false');
     el.innerHTML =
       '<div class="card-body">' +
         '<div class="check">' + checkSvg + '</div>' +
         '<div class="card-text">' +
           '<span class="tag">' + trade.label + '</span>' +
           '<h2>Something else</h2>' +
-          '<p>Not listed above? Describe it in your own words.</p>' +
+          '<p>Not listed above? Tell us what you can see, in your own words.</p>' +
         '</div>' +
       '</div>' +
       '<div class="other-input">' +
@@ -248,9 +305,11 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
     el.addEventListener('click', function () {
       otherOn = !otherOn;
       el.classList.toggle('selected', otherOn);
+      el.setAttribute('aria-pressed', String(otherOn));
       if (otherOn) { ta.focus(); }
       updateConfirmButton();
     });
+    el.addEventListener('keydown', function (e) { if (e.target === el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); el.click(); } });
 
     return el;
   }
@@ -262,15 +321,19 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
     otherEl = null;
     defectGrid.innerHTML = '';
 
-    trade.defects.forEach(function (defect) {
+    var choices = mode === 'asset' ? ASSETS[trade.id].map(function (asset, i) {
+      return { value: asset.toLowerCase(), label: asset, desc: 'Example of a ' + asset.toLowerCase() + '. Choose it if this is the item or area affected.' };
+    }) : trade.defects;
+    choices.forEach(function (defect, i) {
       var el = document.createElement('div');
       el.className = 'card';
       el.setAttribute('data-value', defect.value);
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('aria-pressed', 'false');
       el.innerHTML =
         '<div class="media-row">' +
-          '<div class="media-slot empty">PHOTO 1<br>drop in here</div>' +
-          '<div class="media-slot empty">PHOTO 2<br>drop in here</div>' +
-          '<div class="media-slot empty">PHOTO/VIDEO 3<br>drop in here</div>' +
+          '<div class="media-slot"><img src="assets/reference/' + trade.id + '-' + mode + '-' + (i + 1) + '.webp" alt="Illustrative example of ' + defect.label + '" loading="lazy"></div>' +
         '</div>' +
         '<div class="card-body">' +
           '<div class="check">' + checkSvg + '</div>' +
@@ -284,16 +347,18 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
         var v = defect.value;
         if (selected.has(v)) { selected.delete(v); el.classList.remove('selected'); }
         else { selected.add(v); el.classList.add('selected'); }
+        el.setAttribute('aria-pressed', String(selected.has(v)));
         updateConfirmButton();
       });
+      el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); } });
       defectGrid.appendChild(el);
     });
 
     // "Something else" free-text card, always last
     defectGrid.appendChild(buildOtherCard(trade));
 
-    headerTitle.textContent = trade.label;
-    headerSub.textContent = "Tap any that match — you can select more than one.";
+    headerTitle.textContent = trade.label + (mode === 'asset' ? ' · Asset type' : ' · Issue');
+    headerSub.textContent = 'Tap any that look similar. These photos are examples, not a diagnosis.';
     backBtn.classList.add('show');
     screenTrades.classList.remove('active');
     screenDefects.classList.add('active');
@@ -307,8 +372,8 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
     selected.clear();
     otherOn = false;
     otherEl = null;
-    headerTitle.textContent = "What's the issue?";
-    headerSub.textContent = "Select the trade that matches your job.";
+    headerTitle.textContent = mode === 'asset' ? 'What is affected?' : "What's happening?";
+    headerSub.textContent = 'Choose the trade to see examples of the ' + modeLabel + '.';
     backBtn.classList.remove('show');
     screenDefects.classList.remove('active');
     screenTrades.classList.add('active');
@@ -325,45 +390,45 @@ footer{text-align:center;margin-top:36px;font-size:11px;letter-spacing:2px;text-
 
   function updateConfirmButton() {
     var n = answerCount();
-    if (n === 0) {
+    if (!handbackValid || n === 0) {
       confirmBtn.disabled = true;
       confirmBtn.classList.remove('active');
-      confirmBtn.textContent = otherOn ? 'Describe the issue to continue' : 'Select an issue to continue';
+      confirmBtn.textContent = !handbackValid ? 'Please reply in your existing WhatsApp chat' : otherOn ? 'Describe it to continue' : 'Choose an example to continue';
     } else {
       confirmBtn.disabled = false;
       confirmBtn.classList.add('active');
-      confirmBtn.textContent = 'Confirm ' + n + ' selected — back to WhatsApp';
+      confirmBtn.textContent = (launchWa ? 'Continue in WhatsApp' : 'Copy reply for WhatsApp') + ' · ' + n + ' selected';
     }
-  }
-
-  function getParam(name) {
-    var params = new URLSearchParams(window.location.search);
-    return params.get(name);
   }
 
   confirmBtn.addEventListener('click', function () {
-    if (!currentTrade || answerCount() === 0) return;
-
-    var ref = getParam('ref');
-    var wa = getParam('wa');
-
-    if (!ref || !wa) {
-      document.getElementById('missing-params').style.display = 'block';
-      document.getElementById('missing-params').scrollIntoView({ behavior: 'smooth' });
-      return;
-    }
+    if (!currentTrade || !handbackValid || answerCount() === 0) return;
 
     var labelMap = {};
-    currentTrade.defects.forEach(function (d) { labelMap[d.value] = d.label; });
+    if (mode === 'asset') ASSETS[currentTrade.id].forEach(function (name) { labelMap[name.toLowerCase()] = name; });
+    else currentTrade.defects.forEach(function (d) { labelMap[d.value] = d.label; });
     var chosen = Array.from(selected).map(function (v) { return labelMap[v] || v; });
 
     var other = otherValue();
     if (other) { chosen.push('Other: "' + other.slice(0, OTHER_MAX) + '"'); }
 
-    var messageText = 'ref:' + ref + ' Trade: ' + currentTrade.label + ' — Selected issue(s): ' + chosen.join(', ');
-    var waLink = 'https://wa.me/' + wa.replace(/[^\d]/g, '') + '?text=' + encodeURIComponent(messageText);
-
-    window.location.href = waLink;
+    var detailName = mode === 'asset' ? 'Asset type' : 'Issue / defect status';
+    var messageText = 'ref:' + launchRef + ' Trade: ' + currentTrade.label + ' — ' + detailName + ': ' + chosen.join(', ');
+    if (launchWa) {
+      var waLink = 'https://wa.me/' + launchWa.replace(/[^\d]/g, '') + '?text=' + encodeURIComponent(messageText);
+      window.location.href = waLink;
+      return;
+    }
+    var status = document.getElementById('handoff-status');
+    if (!navigator.clipboard || !navigator.clipboard.writeText) {
+      status.textContent = 'Copy is unavailable here. Please describe your selection in your existing WhatsApp chat.';
+      return;
+    }
+    navigator.clipboard.writeText(messageText).then(function () {
+      status.textContent = 'Copied. Return to your existing WhatsApp chat, paste the reply and press Send.';
+      confirmBtn.textContent = 'Copied · paste in WhatsApp';
+      status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, function () { status.textContent = 'Copy was blocked. Please describe your selection in your existing WhatsApp chat.'; });
   });
 
 })();
