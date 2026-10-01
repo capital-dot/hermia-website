@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="preload" href="assets/hermia-mark.webp" as="image" type="image/webp">
-  <link rel="stylesheet" href="home.css?v=20261001b">
+  <link rel="stylesheet" href="home.css?v=20261002a">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Hermia","url":"https://www.hermia.au/","logo":"https://www.hermia.au/assets/hermia-mark.webp","description":"Hermia prepares structured enquiry context and handoffs using approved question paths. Current onboarding supports configured trade workflows; other use cases require separate scoping and testing.","contactPoint":{"@type":"ContactPoint","email":"info@hermia.au","contactType":"customer service"}}</script>
 </head>
 <body>
@@ -29,11 +29,11 @@
       <a class="brand" href="/" aria-label="Hermia home"><img src="assets/hermia-mark.webp" alt="" width="38" height="38"><span>Hermia</span></a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Open navigation"><span></span><span></span></button>
       <div class="nav-items" id="site-menu">
-        <a href="#system">The system</a>
-        <a href="#applications">Where it fits</a>
+        <a href="#industries">Industries</a>
+        <a href="#system">How it works</a>
         <a href="pricing.html">Pricing</a>
         <a href="contact.html">Contact</a>
-        <a class="nav-action" href="configuration.html">Configure Hermia <span aria-hidden="true">↗</span></a>
+        <a class="nav-action" href="#industries">Pick industry <span aria-hidden="true">↘</span></a>
       </div>
     </nav>
   </header>
@@ -43,16 +43,28 @@
       <div class="hero-orbit" aria-hidden="true"></div>
       <div class="hero-inner">
         <img class="hero-mark" src="assets/hermia-mark.webp" alt="" width="112" height="112">
-        <h1 id="hero-title">Hermia</h1>
+        <h1 id="hero-title" data-text="Hermia">Hermia</h1>
         <p class="hero-statement">Know The Job First</p>
       </div>
-      <a class="hero-scroll" href="#system">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></a>
+      <a class="hero-scroll" href="#industries">DISCOVER YOUR INDUSTRY <span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section class="applications-section section-shell" id="industries" aria-labelledby="applications-title">
+      <div class="applications-heading"><div><span class="eyebrow">01 / CHOOSE YOUR INDUSTRY</span><h2 id="applications-title">Where does your work begin?<br><em>Pick your industry.</em></h2></div><p>Explore how Hermia could clarify incoming requests for your team. Trades have a current onboarding pathway; other industries begin with a scoped conversation and testing before anything goes live.</p></div>
+      <div class="application-grid">
+        <a class="application-card" href="industries.html#trades" aria-label="Explore trades use case"><img src="assets/sector-trade.webp" alt="Trade professional reviewing a customer request" loading="lazy" width="1500" height="1002"><div class="application-caption"><span class="application-status current">CURRENT PATHWAY</span><h3>Trades & field teams</h3><p>Clearer job details for the office to review and hand to the right team.</p></div><span class="application-arrow" aria-hidden="true">↗</span></a>
+        <a class="application-card" href="industries.html#property" aria-label="Explore property use case"><img src="assets/sector-property.webp" alt="Property team workspace" loading="lazy" width="1500" height="1000"><div class="application-caption"><span class="application-status">SCOPED USE CASE</span><h3>Property</h3><p>Organise maintenance requests before the property team responds.</p></div><span class="application-arrow" aria-hidden="true">↗</span></a>
+        <a class="application-card" href="industries.html#legal" aria-label="Explore legal use case"><img src="assets/sector-professional.webp" alt="Professional services meeting room" loading="lazy" width="1500" height="1000"><div class="application-caption"><span class="application-status">SCOPED USE CASE</span><h3>Legal operations</h3><p>Make initial administrative requests easier for people to review.</p></div><span class="application-arrow" aria-hidden="true">↗</span></a>
+        <a class="application-card" href="industries.html#healthcare" aria-label="Explore healthcare use case"><img src="assets/sector-healthcare.webp" alt="Healthcare administration workspace" loading="lazy" width="1500" height="1000"><div class="application-caption"><span class="application-status">SCOPED USE CASE</span><h3>Healthcare administration</h3><p>Gather non-clinical context for the appropriate care team.</p></div><span class="application-arrow" aria-hidden="true">↗</span></a>
+        <a class="application-card" href="industries.html#finance" aria-label="Explore finance use case"><img src="assets/sector-finance.webp" alt="Finance team reviewing paperwork" loading="lazy" width="1500" height="1000"><div class="application-caption"><span class="application-status">SCOPED USE CASE</span><h3>Finance operations</h3><p>Keep document follow-up and handoffs easier to track.</p></div><span class="application-arrow" aria-hidden="true">↗</span></a>
+      </div>
+      <p class="applications-note">These images illustrate possible contexts, not live integrations, customer results or regulated-service approvals. <a href="contact.html">Talk to Hermia about a scoped use case ↗</a></p>
     </section>
 
     <section class="system-section section-shell" id="system" aria-labelledby="system-title">
       <div class="section-heading">
         <div class="section-title-group">
-          <span class="eyebrow">01 / THE SYSTEM</span>
+          <span class="eyebrow">02 / THE SYSTEM</span>
           <h2 id="system-title">Less chasing.<br><em>More knowing.</em></h2>
         </div>
         <p>Messages, forms and forwarded alerts rarely contain the whole story. Hermia follows the questions a business approves, checks incomplete replies and brings the useful details together before the next handoff.</p>
@@ -63,18 +75,6 @@
         <div class="system-stage"><span class="stage-number">03</span><div><h3>Hand off</h3><p>Approved context reaches the configured team or connected system for human review.</p></div></div>
       </div>
       <div class="system-footnote">Each source, question path and destination is configured and tested before use. Selecting a channel does not connect an account automatically.</div>
-    </section>
-
-    <section class="applications-section section-shell" id="applications" aria-labelledby="applications-title">
-      <div class="applications-heading"><div><span class="eyebrow">02 / WHERE IT CAN FIT</span><h2 id="applications-title">Different work.<br><em>The same need for clarity.</em></h2></div><p>Hermia is not defined by one industry. The same principle—understand the request, clarify what matters, and pass it to the right people—can be designed around different operations. Availability depends on the specific workflow being built and tested.</p></div>
-      <div class="application-grid">
-        <article class="application-card"><img src="assets/sector-trade.webp" alt="Trade professional reviewing a customer request" loading="lazy" width="1500" height="1002"><div class="application-caption"><span class="application-status current">CURRENT PATHWAY</span><h3>Trades & field teams</h3><p>Clearer job details for the office to review and hand to the right team.</p></div></article>
-        <article class="application-card"><img src="assets/sector-property.webp" alt="Property team workspace" loading="lazy" width="1500" height="1000"><div class="application-caption"><span class="application-status">SCOPED USE CASE</span><h3>Property</h3><p>Organise maintenance requests before the property team responds.</p></div></article>
-        <article class="application-card"><img src="assets/sector-professional.webp" alt="Professional services meeting room" loading="lazy" width="1500" height="1000"><div class="application-caption"><span class="application-status">SCOPED USE CASE</span><h3>Legal operations</h3><p>Make initial administrative requests easier for people to review.</p></div></article>
-        <article class="application-card"><img src="assets/sector-healthcare.webp" alt="Healthcare administration workspace" loading="lazy" width="1500" height="1000"><div class="application-caption"><span class="application-status">SCOPED USE CASE</span><h3>Healthcare administration</h3><p>Gather non-clinical context for the appropriate care team.</p></div></article>
-        <article class="application-card"><img src="assets/sector-finance.webp" alt="Finance team reviewing paperwork" loading="lazy" width="1500" height="1000"><div class="application-caption"><span class="application-status">SCOPED USE CASE</span><h3>Finance operations</h3><p>Keep document follow-up and handoffs easier to track.</p></div></article>
-      </div>
-      <p class="applications-note">These images illustrate possible contexts, not live integrations, customer results or regulated-service approvals. <a href="contact.html">Talk to Hermia about a scoped use case ↗</a></p>
     </section>
 
     <section class="benefits-section section-shell" aria-labelledby="benefits-title">

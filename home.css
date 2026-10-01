@@ -42,3 +42,66 @@ h2{font:400 clamp(43px,5.1vw,74px)/1.16 var(--display);letter-spacing:-.055em;ma
 @media(max-width:680px){.hero-mark{width:112px;height:112px;margin-bottom:26px}.hero h1{margin:10px 0 20px}.hero-statement{font-size:14px;letter-spacing:.17em}.hero-scroll{display:flex;left:50%;right:auto;bottom:28px;font-size:9px}.applications-heading{display:block;margin-bottom:28px}.applications-heading>p{margin:22px 0 0}.application-grid{display:block}.application-card,.application-card:nth-child(-n+2){height:255px;margin-bottom:12px}.application-caption{left:21px;right:19px;bottom:18px}.application-caption h3{font-size:26px}.benefits-list{display:block;margin-top:35px}.benefits-list>div{padding:23px 0}.benefits-list h3{font-size:25px}}
 
 .benefits-heading>p{max-width:420px;margin:28px 0 0;color:#bfc0c1;font-size:13px;line-height:1.85}
+
+/* 2026-10-02: Industry-first cinematic treatment. The wordmark stays selectable HTML, not an inaccessible raster. */
+.hero{
+  min-height:max(760px,calc(100svh - 76px));
+  background:
+    radial-gradient(ellipse 38% 33% at 50% 50%,rgba(218,160,60,.13),transparent 80%),
+    radial-gradient(ellipse 73% 83% at 50% 47%,#222027 0%,#13161c 54%,#090c11 100%);
+}
+.hero::before{inset:auto 8% 0;background:linear-gradient(90deg,transparent,rgba(218,170,85,.26),transparent)}
+.hero::after{inset:0 auto 0 50%;background:linear-gradient(180deg,transparent,rgba(233,194,112,.08),transparent)}
+.hero-orbit{width:min(76vw,920px);top:49%;border-color:rgba(239,190,96,.13);background:radial-gradient(circle at 50% 46%,rgba(206,149,46,.12),transparent 59%);box-shadow:0 0 85px 12px rgba(171,109,29,.075),0 0 0 128px rgba(215,176,106,.013),inset 0 0 100px rgba(247,196,104,.045)}
+.hero-inner{padding:105px 24px 132px;max-width:1000px;position:relative;z-index:1}
+.hero-mark{width:122px;height:122px;margin:0 auto 68px;filter:drop-shadow(0 6px 2px #57310d) drop-shadow(0 0 28px rgba(242,176,59,.55)) drop-shadow(0 0 74px rgba(216,134,29,.32))}
+.hero h1{
+  display:inline-block;position:relative;z-index:1;margin:0;
+  font:500 clamp(105px,14vw,202px)/1.08 var(--display);letter-spacing:-.076em;
+  color:#f4d796;
+  background:linear-gradient(115deg,#93601f 0%,#e3b86b 20%,#fff4ce 34%,#d59b41 48%,#8b551e 62%,#f9dfa1 80%,#bd8133 100%);
+  background-size:210% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  -webkit-text-stroke:.6px rgba(255,231,180,.38);
+  text-shadow:2px 3px 0 rgba(75,43,12,.52),5px 9px 5px rgba(0,0,0,.49),0 18px 39px rgba(233,160,42,.24);
+  filter:drop-shadow(0 0 37px rgba(223,164,65,.20));
+  animation:hermiaGoldGlint 9s ease-in-out infinite alternate;
+}
+@keyframes hermiaGoldGlint{0%,18%{background-position:95% 50%}60%,100%{background-position:0% 50%}}
+.hero-statement{margin:51px 0 0;font-size:clamp(15px,1.55vw,21px);letter-spacing:.36em;color:#f6dfab;text-shadow:0 0 18px rgba(220,160,61,.32)}
+.hero-scroll{bottom:45px;color:#c6bba9}.hero-scroll:hover{color:#fff0c4}
+.nav-action{background:linear-gradient(110deg,#b47b29,#f2d288 38%,#d3a251 80%,#a87327);box-shadow:inset 0 1px rgba(255,248,218,.64),0 8px 25px rgba(178,122,42,.23);border:1px solid rgba(255,231,179,.48)}
+.nav-action:hover{background:linear-gradient(110deg,#c68a35,#ffe5a7 43%,#ddad60);box-shadow:inset 0 1px rgba(255,255,237,.75),0 12px 28px rgba(203,145,54,.32)}
+.applications-section{position:relative;background:radial-gradient(ellipse 38% 25% at 82% 0%,rgba(188,130,49,.10),transparent 85%),#12161d;padding-top:135px;padding-bottom:130px}
+.applications-heading h2{margin-top:26px}.applications-heading>p{max-width:490px;font-size:15px;line-height:1.9}
+.application-grid{gap:19px}.application-card{display:block;color:var(--white);border:1px solid rgba(231,193,113,.20);box-shadow:0 22px 55px rgba(0,0,0,.21);transition:border-color .25s,box-shadow .25s,transform .25s}
+.application-card:hover,.application-card:focus-visible{border-color:rgba(247,202,120,.77);box-shadow:0 26px 64px rgba(0,0,0,.33),0 0 30px rgba(212,147,49,.16);transform:translateY(-5px)}
+.application-card:focus-visible{outline:2px solid #f5d892;outline-offset:3px}
+.application-arrow{display:grid;place-items:center;position:absolute;right:0;bottom:2px;width:35px;height:35px;border:1px solid rgba(242,211,153,.55);border-radius:50%;color:#fff2cf;font-size:18px;transition:background .2s,transform .2s}
+.application-card:hover .application-arrow{background:rgba(214,175,104,.24);transform:translate(2px,-2px)}
+.application-caption{padding-right:39px}.application-card:nth-child(-n+2) .application-caption h3{font-size:36px}
+.applications-note{margin-top:27px}
+@media(max-width:900px){.applications-section{padding-top:100px;padding-bottom:100px}.application-card:nth-child(-n+2) .application-caption h3{font-size:29px}}
+@media(max-width:680px){
+  .hero{min-height:max(680px,calc(100svh - 68px))}
+  .hero-orbit{width:115vw;top:47%}
+  .hero-inner{padding:88px 20px 125px}
+  .hero-mark{width:98px;height:98px;margin-bottom:49px}
+  .hero h1{font-size:clamp(75px,19vw,116px);line-height:1.13;letter-spacing:-.07em}
+  .hero-statement{margin-top:40px;font-size:12px;letter-spacing:.23em}
+  .hero-scroll{bottom:38px;display:flex}
+  .applications-section{padding-top:87px;padding-bottom:88px}
+  .applications-heading h2{font-size:clamp(43px,11vw,64px)}
+  .application-card:nth-child(-n+2) .application-caption h3{font-size:27px}
+}
+@media(prefers-reduced-motion:reduce){.hero h1{animation:none;background-position:44% 50%}.application-card,.application-card:hover{transform:none}}
+
+.nav-action,.nav-action:hover{color:#17110b;font-size:13px;font-weight:800;text-shadow:none}
+.nav-action:active,.button-primary:active{transform:scale(.97)}
+@media(prefers-reduced-motion:no-preference){
+  .hero-mark{animation:hermiaMarkArrival .85s cubic-bezier(.23,1,.32,1) both}
+  .hero h1{animation:hermiaWordArrival 1s cubic-bezier(.23,1,.32,1) .12s both,hermiaGoldGlint 9s ease-in-out 1.2s infinite alternate}
+  .hero-statement{animation:hermiaWordArrival .8s cubic-bezier(.23,1,.32,1) .4s both}
+}
+@keyframes hermiaMarkArrival{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes hermiaWordArrival{from{opacity:0;transform:translateY(19px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.hero-mark,.hero h1,.hero-statement{animation:none!important;opacity:1}}
