@@ -28,7 +28,7 @@
       <div class="hermia-header">
         <div class="hermia-headmeta">
           <span class="hermia-live"></span>
-          <div><h4>Hermia</h4><p>Trade intake assistant</p></div>
+          <div><h4>Hermia</h4><p>Ask about the system</p></div>
         </div>
         <button class="hermia-close" aria-label="Close">&#10005;</button>
       </div>
@@ -47,14 +47,14 @@
   /* ---------- INJECT STYLES ---------- */
   var css = `
   #hermia-widget { position: fixed; bottom: 28px; right: 28px; z-index: 999999; font-family: 'DM Sans', system-ui, sans-serif; }
-  #hermia-trigger { width: 62px; height: 62px; border-radius: 50%; background: #0c0c0c; border: 1.5px solid #C9A35B; cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative; transition: transform .25s ease; animation: hermiaGlow 2.2s ease-in-out infinite; }
+  #hermia-trigger { width: 52px; height: 52px; border-radius: 50%; background: #13171c; border: 1px solid rgba(201,163,91,.55); cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative; transition: transform .2s ease, border-color .2s ease; box-shadow: 0 8px 24px rgba(0,0,0,.28); }
   #hermia-trigger:hover { transform: scale(1.07); }
   @keyframes hermiaGlow {
     0%,100% { box-shadow: 0 0 14px 2px rgba(201,163,91,.55), 0 0 30px 6px rgba(201,163,91,.25); }
     50%     { box-shadow: 0 0 22px 5px rgba(201,163,91,.95), 0 0 48px 14px rgba(201,163,91,.5); }
   }
-  .hermia-pulse { position: absolute; inset: -3px; border-radius: 50%; border: 2px solid rgba(201,163,91,.9); animation: hermiaRing 2.2s ease-out infinite; pointer-events: none; }
-  .hermia-pulse::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid rgba(201,163,91,.6); animation: hermiaRing 2.2s ease-out infinite; animation-delay: 1.1s; }
+  .hermia-pulse { display:none; }
+  .hermia-pulse::after { display:none; }
   @keyframes hermiaRing { 0% { transform: scale(1); opacity:.85 } 100% { transform: scale(1.6); opacity:0 } }
   #hermia-window { position: absolute; bottom: 78px; right: 0; width: 380px; height: 560px; max-height: 78vh; background: #0c0c0c; border: 1px solid rgba(201,163,91,.22); border-radius: 20px; box-shadow: 0 24px 60px rgba(0,0,0,.85); display: flex; flex-direction: column; overflow: hidden; opacity: 0; transform: translateY(16px) scale(.97); pointer-events: none; transition: all .3s cubic-bezier(.25,1,.5,1); }
   #hermia-window.open { opacity: 1; transform: none; pointer-events: auto; }
@@ -108,7 +108,7 @@
     winEl.classList.toggle('open');
     if (winEl.classList.contains('open') && !greeted) {
       greeted = true;
-      bot("Quick one before I show you what Hermia does — when a homeowner submits an enquiry after hours or while you're on a job, what usually happens to it?", true);
+      bot("Tell me what kind of enquiries your team handles. I can explain Hermia’s current workflows and what would need to be scoped for another use case.", true);
       inputEl.focus();
     }
   }
@@ -122,7 +122,7 @@
     var b = append(text, 'bot');
     if (withChips) {
       var c = document.createElement('div'); c.className = 'hermia-chips';
-      ['What does Hermia do?', 'How does Simpro fit in?', 'Start the free trial'].forEach(function (q) {
+      ['How does Hermia work?', 'What is available now?', 'Discuss my use case'].forEach(function (q) {
         var chip = document.createElement('button'); chip.className = 'hermia-chip'; chip.textContent = q;
         chip.onclick = function () { chip.parentElement.remove(); userSay(q); };
         c.appendChild(chip);
