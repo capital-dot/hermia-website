@@ -13,9 +13,9 @@
   <meta property="og:description" content="AI-assisted enquiry qualification and human-ready handoffs, configured around the work your team does.">
   <meta property="og:image" content="https://www.hermia.au/assets/hermia-mark.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
   <link rel="preload" href="assets/hermia-mark.webp" as="image" type="image/webp">
-  <link rel="stylesheet" href="home.css?v=20261002g">
+  <link rel="stylesheet" href="home.css?v=20261002intro">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Hermia","url":"https://www.hermia.au/","logo":"https://www.hermia.au/assets/hermia-mark.webp","description":"AI-assisted enquiry qualification and human-ready handoffs. Current paid configuration supports approved trade workflows; other industries are scoped and tested individually.","contactPoint":{"@type":"ContactPoint","email":"info@hermia.au","contactType":"customer service"}}</script>
 </head>
 <body>
@@ -26,11 +26,60 @@
   <div class="nav-links" id="main-menu"><a href="#capabilities">How it works</a><a href="#industries">Industries</a><a href="industry-trades.html#trade-pricing">Trade plans</a><a href="about%20us.html">About</a><a href="contact.html">Contact</a><a class="nav-cta" href="#industries">Pick your industry <span aria-hidden="true">↗</span></a></div>
 </nav></header>
 <main id="main">
-  <section class="hero" aria-labelledby="hero-title"><div class="hero-inner wrap"><div class="hero-identity" aria-label="Hermia">
-    <img class="hero-emblem" src="assets/hermia-mark.webp" width="180" height="180" alt="">
-    <div class="hero-wordmark">Hermia</div>
-    <h1 id="hero-title">Know The Job First</h1>
-  </div></div></section>
+  <section id="cinematic-hero" aria-labelledby="hero-title">
+    <p class="ci-sr">Animated fictional demonstration: an example property manager reports a burst pipe, Hermia asks follow-up questions, and an illustrative trade brief is prepared for office review. No real customer, address, booking or technician is shown.</p>
+    <button class="ci-skip" type="button">Skip intro</button>
+    <p class="ci-flag" aria-hidden="true">Fictional demonstration · Illustrative workflow only</p>
+    <div class="ci-scene" id="ci-alert" aria-hidden="true">
+      <div class="ci-alert-box ci-rise">
+        <p class="ci-alert-title">Property Manager Reports a <span class="gold">Burst Pipe</span></p>
+        <div class="ci-alert-card"><p class="ci-alert-label">Fictional fault report</p><p class="ci-alert-quote">“Water is coming from under the kitchen sink.”</p><div class="ci-alert-line"></div></div>
+      </div>
+    </div>
+    <div class="ci-scene" id="ci-narrative-1" aria-hidden="true">
+      <div class="ci-narrative ci-rise"><p class="ci-narrative-title">Know the job <em>before you roll a truck</em>.</p><p class="ci-narrative-sub">Hermia asks the follow-up questions first</p></div>
+    </div>
+    <div class="ci-scene" id="ci-narrative-2" aria-hidden="true">
+      <div class="ci-narrative ci-rise"><p class="ci-narrative-title">Right questions. Clear answers. <em>Fewer call-backs.</em></p><p class="ci-narrative-sub">Watch a fictional enquiry get qualified</p></div>
+    </div>
+    <div class="ci-scene" id="ci-chat" aria-hidden="true">
+      <div class="ci-phone">
+        <div class="ci-phone-header"><div class="ci-avatar">E</div><div><div class="ci-phone-name">Example Property Manager</div><div class="ci-phone-subtitle">Fictional enquiry</div></div></div>
+        <div class="ci-phone-chat" id="ci-chat-box"></div>
+      </div>
+    </div>
+    <div class="ci-scene" id="ci-dashboard" aria-hidden="true">
+      <div class="ci-crm ci-rise">
+        <div class="ci-crm-header"><p class="ci-crm-title">Illustrative Trade Brief</p><span class="ci-crm-badge">Fictional demo</span></div>
+        <div class="ci-crm-grid">
+          <div class="ci-crm-card">
+            <span class="ci-crm-label">Qualified details</span>
+            <div class="ci-row"><span class="ci-key">Reporter</span><span class="ci-value">Example property manager</span></div>
+            <div class="ci-row"><span class="ci-key">Site</span><span class="ci-value">Example rental · address withheld</span></div>
+            <div class="ci-row"><span class="ci-key">Issue</span><span class="ci-value">Burst pipe under kitchen sink</span></div>
+            <div class="ci-row"><span class="ci-key">Water</span><span class="ci-value">Isolated at mains · still dripping</span></div>
+            <div class="ci-row"><span class="ci-key">Photo</span><span class="ci-value">1 illustrative image</span></div>
+            <div class="ci-row"><span class="ci-key">Access</span><span class="ci-value">Tenant on site this afternoon</span></div>
+            <div class="ci-row"><span class="ci-key">Urgency</span><span class="ci-value"><span class="ci-tag">Urgent</span></span></div>
+          </div>
+          <div class="ci-status-card">
+            <div class="ci-status-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5h6M8.5 12.5l2.2 2.2 4.8-5"/></svg></div>
+            <div class="ci-status-details"><div class="ci-status-time">Prepared for office review</div><div class="ci-status-title">Burst pipe — kitchen sink</div><div class="ci-status-loc">No booking or technician is assigned in this demonstration.</div></div>
+            <p class="ci-sync">Awaiting team review</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ci-scene active" id="ci-final">
+      <div class="ci-final-content">
+        <img class="ci-final-logo" src="assets/hermia-mark.webp" width="497" height="513" alt="">
+        <p class="ci-final-brand">Hermia</p>
+        <h1 id="hero-title">Know The Job First</h1>
+      </div>
+    </div>
+    <figure class="ci-partner"><img src="Partner_Logo_Badge_Registered-1.png" width="353" height="376" alt="Simpro Registered Partner badge"><figcaption>Simpro registered partner<br>Trades pathway</figcaption></figure>
+    <a class="ci-scroll" href="#platform" aria-label="Scroll to Hermia overview"><span>Scroll</span><i aria-hidden="true"></i></a>
+  </section>
 
   <section class="thesis section" id="platform" aria-labelledby="thesis-title"><div class="narrow">
     <span class="eyebrow">BUILT FOR THE WORK THAT ALREADY COMES IN</span>
@@ -79,6 +128,7 @@
 </main>
 <footer class="site-footer"><div class="wrap footer-main"><a class="brand" href="index.html"><img src="assets/hermia-mark.webp" width="28" height="28" alt="">Hermia</a><p>Know The Job First.</p><div class="footer-links"><a href="industries.html">Industries</a><a href="industry-trades.html#trade-pricing">Trade plans</a><a href="about%20us.html">About</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div></div><div class="wrap footer-bottom"><span>© <span id="year">2026</span> Hermia · ABN 75 434 177 026</span><a href="mailto:info@hermia.au">info@hermia.au</a></div></footer>
 <script>document.getElementById('year').textContent=String(new Date().getFullYear());const t=document.querySelector('.menu-toggle'),m=document.getElementById('main-menu');t.addEventListener('click',()=>{const o=t.getAttribute('aria-expanded')==='true';t.setAttribute('aria-expanded',String(!o));t.setAttribute('aria-label',o?'Open menu':'Close menu');m.classList.toggle('open',!o)});m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{t.setAttribute('aria-expanded','false');t.setAttribute('aria-label','Open menu');m.classList.remove('open')}));</script>
-<script>const hero=document.querySelector('.hero');function updateIntroVisibility(){const past=window.scrollY>=hero.offsetHeight-70;document.body.classList.toggle('past-hero',past);document.querySelector('.site-header').inert=!past;const assistant=document.getElementById('hermia-widget');if(assistant)assistant.inert=!past}addEventListener('scroll',updateIntroVisibility,{passive:true});addEventListener('resize',updateIntroVisibility);addEventListener('DOMContentLoaded',updateIntroVisibility);updateIntroVisibility();</script>
+<script>(()=>{const hero=document.getElementById('cinematic-hero');if(!hero)return;const scenes=[...hero.querySelectorAll('.ci-scene')],chat=document.getElementById('ci-chat-box'),skip=hero.querySelector('.ci-skip'),scrollCue=hero.querySelector('.ci-scroll');const who={pm:'Example property manager',ai:'Hermia'};const messages=[['pm','Hi, a pipe has burst under the kitchen sink at one of our rentals. Water is everywhere.'],['ai','Thanks for letting us know. Has the water been turned off at the mains, and is it still leaking?'],['pm','The tenant turned the mains off. It is still dripping.'],['ai','Thank you. Could you send a photo of the pipe or fitting where the water is coming from?'],['pm','Illustrative image for this demonstration','assets/reference/plumbing-issue-1.webp'],['ai','That helps. Is someone on site to provide access this afternoon?'],['pm','Yes, the tenant is home until 5pm.'],['ai','Thanks. I have prepared these details for the team to review. They will confirm next steps with you directly.']];let timers=[],finished=false;const later=(fn,ms)=>timers.push(setTimeout(fn,ms));function show(id){scenes.forEach(scene=>{const on=scene.id===id;scene.classList.toggle('active',on);scene.inert=!on})}function addMessage([side,text,image]){const group=document.createElement('div');group.className='ci-msg '+(side==='ai'?'outgoing':'incoming');const label=document.createElement('span');label.className='ci-sender';label.textContent=who[side];const bubble=document.createElement(image?'figure':'p');bubble.className='ci-bubble';if(image){const img=document.createElement('img');img.src=image;img.width=520;img.height=330;img.alt='';const cap=document.createElement('figcaption');cap.textContent=text;bubble.append(img,cap)}else bubble.textContent=text;group.append(label,bubble);chat.append(group);chat.scrollTo({top:chat.scrollHeight,behavior:'smooth'})}function finish(moveFocus){if(finished)return;finished=true;timers.forEach(clearTimeout);timers=[];show('ci-final');hero.classList.remove('is-playing');hero.classList.add('is-final');skip.hidden=true;if(moveFocus)scrollCue.focus({preventScroll:true})}function play(){hero.classList.add('is-playing');show('ci-alert');let t=3200;later(()=>show('ci-narrative-1'),t);t+=3000;later(()=>show('ci-narrative-2'),t);t+=2900;later(()=>show('ci-chat'),t);t+=900;messages.forEach((message,index)=>later(()=>addMessage(message),t+index*1750));t+=messages.length*1750+900;later(()=>show('ci-dashboard'),t);t+=5600;later(()=>finish(false),t)}skip.addEventListener('click',()=>finish(true));addEventListener('scroll',()=>{if(!finished&&scrollY>hero.offsetHeight*.3)finish(false)},{passive:true});if(matchMedia('(prefers-reduced-motion: reduce)').matches||location.hash||scrollY>0)finish(false);else play()})();</script>
+<script>const hero=document.getElementById('cinematic-hero');function updateIntroVisibility(){const past=window.scrollY>=hero.offsetHeight-120;document.body.classList.toggle('past-hero',past);document.querySelector('.site-header').inert=!past;const assistant=document.getElementById('hermia-widget');if(assistant)assistant.inert=!past}addEventListener('scroll',updateIntroVisibility,{passive:true});addEventListener('resize',updateIntroVisibility);addEventListener('DOMContentLoaded',updateIntroVisibility);updateIntroVisibility();</script>
 <script src="hermia-widget.js" defer></script>
 </body></html>
