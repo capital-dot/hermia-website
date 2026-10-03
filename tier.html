@@ -17,7 +17,7 @@
 <body>
   <main class="page">
     <div class="shell">
-      <header class="nav"><a class="brand" href="index.html" aria-label="Hermia home"><span class="brandmark">H</span>Hermia</a><a class="back-link" id="backLink" href="index.html">← Back to Home</a></header>
+      <header class="nav"><a class="brand" href="index.html" aria-label="Hermia home"><span class="brandmark">H</span>Hermia</a><a class="back-link" id="backLink" data-back-link href="index.html">← Back to Home</a></header>
       <section class="hero" aria-labelledby="tier-title"><div><span class="eyebrow">Step 02 / Channel coverage</span><h1 id="tier-title">Choose the coverage<br><em>your customers use.</em></h1><p class="lede">Your plan is built around the customer channels Hermia will manage for your trade business. Select the coverage that gives your office one professional front door—without paying by photo, video, attachment, or individual enquiry.</p></div><aside class="progress" aria-label="Your Hermia path"><div class="progress-step"><i>01</i><div><b>Select your field-service system</b><span>Choose Simpro or AroFlo.</span></div></div><div class="progress-step active"><i>02</i><div><b>Choose channel coverage</b><span>Choose three essential channels or all five customer channels.</span></div></div><div class="progress-step"><i>03</i><div><b>Confirm your free trial</b><span>Continue to the service agreement.</span></div></div></aside></section>
       <div class="plan-context"><span>Selected field-service system</span><strong id="crmName">Simpro</strong></div>
       <section class="plans" aria-label="Select your Hermia coverage tier">
@@ -51,6 +51,11 @@
         } catch (error) {}
       });
     });
+    document.querySelectorAll('[data-back-link]').forEach((link) => link.addEventListener('click', (event) => {
+      if (document.referrer && new URL(document.referrer, location.href).origin === location.origin && history.length > 1) {
+        event.preventDefault(); history.back();
+      }
+    }));
   </script>
 </body>
 </html>
