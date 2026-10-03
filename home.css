@@ -32,7 +32,7 @@
 .hm-scroll:hover{color:#fff}
 .hm-scroll span{padding-left:3.4px;font:500 10px/1 var(--hm-inter);letter-spacing:3.4px;text-transform:uppercase}
 .hm-scroll i{width:1px;height:44px;background:linear-gradient(180deg,rgba(212,175,55,.65),transparent)}
-@media(prefers-reduced-motion:no-preference){.hm-halo{animation:hmHalo 1.8s var(--hm-ease) both}.hm-logo-wrap{animation:hmPop 1.05s var(--hm-ease) .15s both}.hm-logo{animation:hmFloat 6s ease-in-out 1.35s infinite}.hm-brand{animation:hmWord 1.2s var(--hm-ease) 1.35s both,hmShine 1.4s linear 2.85s both}.hm-scroll{animation:hmFade 1s ease-out 3.75s both}.hm-scroll i{animation:hmDrop 2.2s ease-in-out 4.35s infinite}}
+@media(prefers-reduced-motion:no-preference){.hm-halo{animation:hmHalo 1.8s var(--hm-ease) both}.hm-logo-wrap{animation:hmPop 1.05s var(--hm-ease) .15s both}.hm-logo{animation:hmFloat 6s ease-in-out 1.35s infinite}.hm-brand{animation:hmWord 1.2s var(--hm-ease) 1.35s both,hmShine 8.5s linear 2.85s infinite}.hm-scroll{animation:hmFade 1s ease-out 3.75s both}.hm-scroll i{animation:hmDrop 2.2s ease-in-out 4.35s infinite}}
 @keyframes hmHalo{from{opacity:0;transform:translate(-50%,-50%) scale(.82)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 @keyframes hmPop{0%{opacity:0;filter:blur(16px);transform:scale(.68)}65%{opacity:1;filter:blur(0);transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
 @keyframes hmFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
