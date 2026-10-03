@@ -41,9 +41,15 @@
 @keyframes hmFade{from{opacity:0}to{opacity:1}}
 @keyframes hmDrop{0%{transform:scaleY(0);transform-origin:top;opacity:0}40%{transform:scaleY(1);opacity:1}80%{transform:scaleY(1);transform-origin:bottom;opacity:1}100%{transform:scaleY(0);transform-origin:bottom;opacity:0}}
 @media(max-width:640px){.hm-logo{width:98px}.hm-brand{padding-left:9px;font-size:clamp(54px,15.5vw,74px);letter-spacing:9px}.hm-scroll{bottom:26px}}
-/* Source board: one consistent tile per enquiry origin. */
-.source-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;margin-top:22px;background:var(--line);border:1px solid var(--line)}
-.source-mark{display:flex;align-items:center;gap:14px;min-height:86px;padding:16px 18px;background:#121418;transition:background .2s var(--ease),transform .2s var(--ease)}
+/* Lead and enquiry platform board: spacious, consistent cards rather than a dense integration wall. */
+.source-board{padding:31px 34px 30px;border-color:rgba(239,218,171,.2);background:linear-gradient(145deg,#14171b,#101216)}
+.source-board-heading{align-items:flex-end;padding-bottom:24px}
+.source-board-heading>div{display:grid;gap:8px;max-width:560px}
+.source-board-heading strong{font:500 clamp(25px,2.4vw,34px)/1.08 var(--serif);letter-spacing:-.015em;color:var(--cream)}
+.source-board-heading small{max-width:315px;line-height:1.65;text-align:right}
+.source-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:24px;background:none;border:0}
+.source-mark{display:flex;align-items:center;gap:15px;min-height:104px;padding:19px 18px;background:#0d0f12;border:1px solid rgba(239,218,171,.13);transition:background .2s var(--ease),border-color .2s var(--ease),transform .2s var(--ease)}
+.source-mark:hover{border-color:rgba(242,208,122,.42);transform:translateY(-2px)}
 .source-mark:hover{background:#171a1f}
 .source-mark:hover .src-icon{border-color:rgba(242,208,122,.45);transform:translateY(-1px)}
 .src-icon{flex:none;display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(239,218,171,.22);border-radius:12px;background:#0b0c0f;color:#fff;transition:border-color .2s var(--ease),transform .2s var(--ease)}
@@ -55,7 +61,7 @@
 .source-mark small{display:block;margin-top:3px;color:var(--muted);font-size:11px;line-height:1.4}
 
 @media(max-width:750px){.source-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:530px){.source-mark{flex-direction:column;align-items:flex-start;gap:11px;min-height:0;padding:15px 14px}.src-icon{width:40px;height:40px;border-radius:11px}.src-icon img{width:23px;height:23px}.source-mark strong{font-size:12.5px}.source-mark small{font-size:10.5px}}
+@media(max-width:530px){.source-mark{flex-direction:column;align-items:flex-start;gap:11px;min-height:0;padding:15px 14px}.src-icon{width:40px;height:40px;border-radius:11px}.src-icon img{width:23px;height:23px}.source-mark strong{font-size:12.5px}.source-mark small{font-size:10.5px}.source-board{padding:23px 18px 22px}.source-board-heading strong{font-size:27px}.source-board-heading small{margin-top:10px;text-align:left;max-width:100%}}
 /* How it works: a calm overview of what Hermia does. */
 .hiw{display:grid;grid-template-columns:.92fr 1fr;gap:8vw;align-items:start}
 .hiw-lead{position:sticky;top:130px}
