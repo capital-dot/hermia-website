@@ -256,8 +256,7 @@
 </div>
 
 <script>
-  const WEBHOOK_URL = 'https://hook.eu1.make.com/55y5lsql5rmr8ju9cmlt9o5115q784ay';
-  const HERMIANANGO_URL = 'https://hermianango.capital-fbc.workers.dev';
+  const WEBHOOK_URL = atob('aHR0cHM6Ly9ob29rLmV1MS5tYWtlLmNvbS81NXk1bHNxbDVybXI4anU5Y21sdDlvNTExNXE3ODRheQ==');
 
   const PLAN_CONFIG = {
     simpro_limited: {
@@ -387,7 +386,7 @@
   // key terms as structured data. No customerId exists yet at this
   // point in the funnel (that's created later in business-details.html
   // after Stripe redirects back), so this is held in sessionStorage
-  // and picked up + uploaded to Supabase from there. Best-effort:
+  // and picked up by the service from there. Best-effort:
   // if this fails for any reason, signing/payment still proceeds -
   // it never blocks the funnel.
   // ============================================================
