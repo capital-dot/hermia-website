@@ -275,6 +275,23 @@
       footer { padding:36px 20px 28px; }
       .footer-inner { flex-direction:column; align-items:flex-start; }
     }
+
+    /* Editorial codex refinement: calmer reading width, clearer clause panels. */
+    .page-wrap { max-width:1040px; padding-top:146px; }
+    .doc-header { text-align:left; padding:42px 46px 48px; border:1px solid rgba(201,163,91,.20); background:linear-gradient(125deg,rgba(201,163,91,.10),rgba(17,17,17,.88) 58%,rgba(7,7,10,.96)); box-shadow:inset 0 1px 0 rgba(255,244,214,.06),0 26px 70px rgba(0,0,0,.25); }
+    .doc-header h1 { max-width:720px; font-size:clamp(52px,7vw,88px); }
+    .doc-meta-row { justify-content:flex-start; }
+    .doc-tabs { margin-left:0; margin-right:0; }
+    .section { padding:30px 32px 34px; margin-bottom:28px; border:1px solid rgba(201,163,91,.13); background:linear-gradient(135deg,rgba(255,255,255,.025),rgba(17,17,17,.62)); box-shadow:0 18px 42px rgba(0,0,0,.16); }
+    .section-divider { display:none; }
+    .section h2 { font-size:clamp(28px,4vw,42px); }
+    .notice-box { background:linear-gradient(105deg,rgba(201,163,91,.11),rgba(17,17,17,.58)); }
+    @media(max-width:640px) {
+      .page-wrap { padding:112px 16px 70px; }
+      .doc-header { padding:28px 22px 30px; }
+      .section { padding:24px 20px 26px; }
+      .section h2 { font-size:30px; }
+    }
   </style>
 </head>
 <body>
@@ -338,6 +355,7 @@
     <p>The sources and steps used depend on your approved configuration. If a request needs follow-up, Hermia may use an enabled channel such as email, WhatsApp, Instagram, Facebook, or another supported connection before returning the information to your nominated team or CRM.</p>
     <p>Where Hermia communicates with an end customer on your behalf, the service should identify both the technology and the business. The standard disclosure is: <strong>“Hi, I’m Hermia, the digital assistant for [Business Name]. I’m collecting a few details so the [Business Name] team can review your request.”</strong> Hermia must not present itself as a human or as an independent professional adviser.</p>
     <p>Client-approved workflows must distinguish an operational reply to an enquiry from marketing. The Client must provide a lawful basis for the relevant collection, use, disclosure, and channel, keep evidence of consent where required, honour withdrawal and opt-out requests, and ensure that any marketing message identifies the Client and includes a usable unsubscribe method. Hermia may suspend or refuse a workflow that appears unlawful, unsafe, misleading, or outside the approved scope.</p>
+    <p>The Client is the party that decides why enquiry data is collected and how it is used. Hermia acts only on the Client’s documented instructions as a technical service provider or processor where that concept applies. The Client must provide accurate instructions, maintain required notices and consent records, keep suppression lists current, and ensure that every connected channel and recipient is authorised under the law that applies to the Client and its customers.</p>
     <div class="notice-box">
       <div class="notice-label">⚑ Important</div>
       <p><strong>Hermia is not a lead generation service.</strong> You are solely responsible for marketing, advertising, and bringing in enquiries. We only process enquiries that have already reached your inbox or CRM — we don't create or source them.</p>
@@ -419,6 +437,7 @@
     <p>You must not configure Hermia to record or transcribe private conversations by default. If a workflow records calls, voice notes, or other communications, you must provide the required notice, obtain any consent required by the applicable state, territory, or country, offer an appropriate alternative where required, and use the recording only for the approved purpose. You must also ensure that messages sent through Hermia comply with applicable spam, telemarketing, direct-marketing, and channel rules, including suppression of recipients who have opted out.</p>
     <p>Health, finance, insurance, legal, employment, education, government, children’s, and other regulated workflows may require additional review and controls. Hermia may require a sector-specific assessment, human approval, restricted features, or decline activation. You remain responsible for the industry-specific obligations and decisions of your organisation.</p>
     <p>If a suspected security incident affects information processed through Hermia, you must notify Hermia promptly and cooperate with containment, investigation, remediation, and any legally required notification. Hermia will reasonably cooperate with the Client’s assessment, but the party legally required to notify individuals or a regulator remains determined by applicable law and the facts of the incident.</p>
+    <p>Where permitted by law, the Client will indemnify Hermia for third-party claims, regulatory action, penalties, and reasonable costs arising from the Client’s unlawful instructions, missing consent, inaccurate data, unauthorised messaging, or breach of these Terms. This allocation does not bind a regulator or remove any non-excludable right, duty, or remedy.</p>
   </div>
 
   <footer>
