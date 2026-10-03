@@ -21,7 +21,7 @@
 @media(max-width:750px){.wrap{width:calc(100% - 36px)}.section{padding-block:83px}.menu-toggle{display:grid;gap:5px;padding:12px;border:1px solid var(--line);background:#17191d;cursor:pointer}.menu-toggle span{width:20px;height:1px;background:var(--cream)}.nav-links{display:none;position:absolute;top:72px;left:0;right:0;padding:10px 20px 23px;background:#101216;border-bottom:1px solid var(--line);box-shadow:0 22px 38px #0009}.nav-links.open{display:grid}.nav-links>a{display:block;padding:13px 0;border-bottom:1px solid var(--line)}.nav-links .nav-cta{display:flex;margin-top:11px;padding:12px 15px}.source-layout,.section-heading,.faq-grid{grid-template-columns:1fr;gap:27px}.source-layout p{max-width:680px}.industry-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.industry-tile{height:290px}.comparison-grid{grid-template-columns:1fr}.comparison-grid>div+div{border-left:0;border-top:1px solid var(--line)}.footer-main{display:block}.footer-main p{margin:18px 0}.footer-links{margin-top:17px}}
 @media(max-width:530px){.thesis p{font-size:14px}.section-heading h2,.source-layout h2{font-size:clamp(42px,10vw,60px)}.industry-grid{grid-template-columns:1fr}.industry-tile{height:285px}.source-board{padding:18px 17px}.source-board-heading{display:block}.source-board-heading small{display:block;margin-top:7px;line-height:1.6}.contact-actions{align-items:start;flex-direction:column}.footer-bottom{display:block;line-height:1.85}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-/* Homepage opening: logo first, then the name, then the gold sweep and scroll cue. */
+/* Homepage opening: logo pop, then the name, then a gold sweep and scroll cue. */
 #cinematic-hero{--hm-gl:#f2d07a;--hm-display:'Cormorant Garamond',Georgia,serif;--hm-inter:'Inter','DM Sans',Arial,sans-serif;--hm-ease:cubic-bezier(.23,1,.32,1);position:relative;display:grid;place-items:center;width:100%;height:100svh;min-height:560px;overflow:hidden;background:radial-gradient(circle at 50% 46%,#141414 0%,#060606 58%,#000 100%);isolation:isolate}
 .hm-reveal{position:relative;display:flex;flex-direction:column;align-items:center;padding:0 20px;text-align:center;transform:translateY(-3vh)}
 .hm-halo{position:absolute;z-index:-1;top:50%;left:50%;width:min(700px,125vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.15) 0%,rgba(212,175,55,.05) 34%,transparent 64%);transform:translate(-50%,-50%);pointer-events:none}
@@ -32,9 +32,9 @@
 .hm-scroll:hover{color:#fff}
 .hm-scroll span{padding-left:3.4px;font:500 10px/1 var(--hm-inter);letter-spacing:3.4px;text-transform:uppercase}
 .hm-scroll i{width:1px;height:44px;background:linear-gradient(180deg,rgba(212,175,55,.65),transparent)}
-@media(prefers-reduced-motion:no-preference){.hm-halo{animation:hmHalo 1.8s var(--hm-ease) both}.hm-logo-wrap{animation:hmRise 1.35s var(--hm-ease) .25s both}.hm-logo{animation:hmFloat 6s ease-in-out 1.8s infinite}.hm-brand{animation:hmWord 1.3s var(--hm-ease) 1.55s both,hmShine 7s linear 3.05s infinite}.hm-scroll{animation:hmFade 1s ease-out 3.9s both}.hm-scroll i{animation:hmDrop 2.2s ease-in-out 4.7s infinite}}
+@media(prefers-reduced-motion:no-preference){.hm-halo{animation:hmHalo 1.8s var(--hm-ease) both}.hm-logo-wrap{animation:hmPop 1.05s var(--hm-ease) .15s both}.hm-logo{animation:hmFloat 6s ease-in-out 1.35s infinite}.hm-brand{animation:hmWord 1.2s var(--hm-ease) 1.35s both,hmShine 1.4s linear 2.85s both}.hm-scroll{animation:hmFade 1s ease-out 3.75s both}.hm-scroll i{animation:hmDrop 2.2s ease-in-out 4.35s infinite}}
 @keyframes hmHalo{from{opacity:0;transform:translate(-50%,-50%) scale(.82)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
-@keyframes hmRise{from{opacity:0;filter:blur(16px);transform:translateY(22px) scale(.95)}to{opacity:1;filter:blur(0);transform:none}}
+@keyframes hmPop{0%{opacity:0;filter:blur(16px);transform:scale(.68)}65%{opacity:1;filter:blur(0);transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
 @keyframes hmFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 @keyframes hmWord{from{opacity:0;filter:blur(18px);letter-spacing:.55em;padding-left:.55em}to{opacity:1;filter:blur(0)}}
 @keyframes hmShine{to{background-position:200% center}}
@@ -48,7 +48,7 @@
 .source-mark:hover .src-icon{border-color:rgba(242,208,122,.45);transform:translateY(-1px)}
 .src-icon{flex:none;display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(239,218,171,.22);border-radius:12px;background:#0b0c0f;color:#fff;transition:border-color .2s var(--ease),transform .2s var(--ease)}
 .src-email{color:#fff}
-.source-facebook .src-icon img{filter:grayscale(1) brightness(0) invert(1)}
+.source-facebook .src-icon img{filter:none}
 .src-icon img{width:26px;height:26px;object-fit:contain}
 .src-icon svg{width:21px;height:21px}
 .source-mark strong{display:block;color:var(--cream);font-size:13.5px;font-weight:600;line-height:1.3}
