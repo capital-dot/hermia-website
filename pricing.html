@@ -473,6 +473,30 @@
       .footer-legal { text-align: left; }
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+
+    /* Pricing overview: separate the monthly service from configuration scope. */
+    .pricing-overview{padding:0 0 120px}
+    .pricing-overview-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(270px,.72fr);gap:48px;align-items:end;margin-bottom:28px}
+    .pricing-overview-title{max-width:650px;margin:13px 0 0;color:#fffdfa;font:600 clamp(40px,4.8vw,65px)/.97 var(--display);letter-spacing:-.055em}
+    .pricing-overview-title em{color:var(--gold-light);font-weight:500}
+    .pricing-overview-lede{max-width:430px;margin:0;color:var(--paper-soft);font-size:14px;line-height:1.75}
+    .pricing-equation{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-bottom:16px;border:1px solid var(--line);background:var(--line)}
+    .pricing-equation div{padding:20px;background:#141310;color:var(--paper-soft);font-size:12px;line-height:1.45}
+    .pricing-equation b{display:block;margin-bottom:7px;color:var(--gold-light);font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+    .pricing-equation strong{display:block;color:#fff;font:600 19px/1 var(--display);letter-spacing:-.025em}
+    .pricing-addons{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .pricing-addon{padding:24px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,255,255,.028),rgba(255,255,255,.008));transition:border-color .2s ease,transform .2s ease}
+    .pricing-addon:hover{border-color:var(--gold-light);transform:translateY(-2px)}
+    .pricing-addon-kicker{color:var(--gold-light);font:500 9px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+    .pricing-addon h3{margin:13px 0 8px;color:#fff;font:600 27px/.98 var(--display);letter-spacing:-.04em}
+    .pricing-addon-price{margin:0 0 10px;color:var(--gold-light);font:600 20px/1 var(--display)}
+    .pricing-addon p{margin:0;color:var(--paper-soft);font-size:12px;line-height:1.65}
+    .pricing-addon strong{color:#fff;font-weight:600}
+    .pricing-note{margin:16px 0 0;padding:17px 20px;border-left:2px solid var(--gold-light);background:rgba(213,170,88,.06);color:var(--paper-soft);font-size:12px;line-height:1.65}
+    .pricing-note strong{color:#fff}
+    @media(max-width:820px){.pricing-overview-head{grid-template-columns:1fr;gap:19px}.pricing-equation{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.pricing-addons{grid-template-columns:1fr}.pricing-equation{grid-template-columns:1fr}.pricing-overview{padding-bottom:86px}}
+
   </style>
 <link rel="stylesheet" href="sector-experience.css">
 </head>
@@ -487,7 +511,7 @@
       <section class="hero" aria-labelledby="page-title">
         <div class="hero-grid">
           <div class="hero-copy">
-            <div class="status-pill"><span class="status-dot" aria-hidden="true"></span>Pricing last updated Saturday, 15 August 2026</div>
+            <div class="status-pill"><span class="status-dot" aria-hidden="true"></span>Pricing last updated Sunday, 4 October 2026</div>
             <p class="eyebrow" style="margin-top:28px">Hermia · Business pricing</p>
             <h1 id="page-title">A clearer customer enquiry<br><em>before your team acts.</em></h1>
             <p>Hermia helps businesses turn enquiries they already receive into a clearer, ready-to-review brief. Through approved connected or forwarded intake, it can collect issue, location, urgency, access, safety and supplied-evidence context before your office decides the next step.</p>
@@ -580,6 +604,27 @@
           <article class="price-logic-card"><span class="price-logic-kicker">Why the tiers differ</span><h3>Built for deeper<br>job preparation.</h3><p>Core plans are priced for the additional work around <strong>customer, site and request context</strong>, plus approved availability and booking progression where your operating rules allow it.</p></article>
           <article class="price-logic-card"><span class="price-logic-kicker">Configuration Journey</span><h3>Your rules,<br>every enquiry.</h3><p>The base <strong>$1,500 setup + $600/month</strong> establishes your operating standard. Additional channels, client-authored questions and handoff routes are itemised before payment, so the total reflects the scope you select.</p></article>
         </div>
+      </section>
+
+
+      <section class="pricing-overview" id="overview" aria-labelledby="overview-title">
+        <div class="pricing-overview-head">
+          <div><p class="eyebrow">Pricing overview</p><h2 class="pricing-overview-title" id="overview-title">A clear build price.<br><em>No surprise scope.</em></h2></div>
+          <p class="pricing-overview-lede">Your total is made from the monthly service, the one-off configuration, and any approved add-ons your workflow actually needs. Questions are charged as configuration work once—not every time a customer answers one.</p>
+        </div>
+        <div class="pricing-equation" aria-label="How Hermia pricing is calculated">
+          <div><b>01 / Monthly</b><strong>Coverage</strong><span>Selected channels, service access, and ongoing workflow operation.</span></div>
+          <div><b>02 / One-off</b><strong>Configuration</strong><span>From $1,500 for the base workflow and initial setup.</span></div>
+          <div><b>03 / Add-ons</b><strong>Approved scope</strong><span>Questions, calendars, recipients, channels, and extra routes.</span></div>
+          <div><b>04 / Usage</b><strong>Pass-through</strong><span>Third-party messaging or platform charges where they apply.</span></div>
+        </div>
+        <div class="pricing-addons">
+          <article class="pricing-addon"><span class="pricing-addon-kicker">Questions / setup</span><h3>Build the right question path.</h3><p class="pricing-addon-price">$75 standard · $150 complex</p><p>The base configuration includes up to <strong>10 standard questions</strong>. Additional standard questions are $75 each. Branching, calculations, validation, CRM field mapping, media handling, or special approval paths are quoted at $150 each or more where the work is more involved.</p></article>
+          <article class="pricing-addon"><span class="pricing-addon-kicker">Calendar connection</span><h3>Turn qualified interest into a time.</h3><p class="pricing-addon-price">From $450 one-off · $25/user/month</p><p>Calendar or scheduling integration starts at $450 per system. Additional active calendar users are $25 per month after any included allowance. The setup covers availability rules, booking handoff, cancellations, rescheduling, and testing.</p></article>
+          <article class="pricing-addon"><span class="pricing-addon-kicker">Recipients / handoff</span><h3>Keep the right people informed.</h3><p class="pricing-addon-price">$35 setup · $15/recipient/month</p><p>Additional internal recipients are $35 to configure and $15 per active recipient each month after the included allowance. This is a predictable recipient fee—not a charge for every email sent.</p></article>
+          <article class="pricing-addon"><span class="pricing-addon-kicker">Channels / changes</span><h3>Extend the operating path carefully.</h3><p class="pricing-addon-price">From $350 channel · $800 change minimum</p><p>An additional channel starts from $350 one-off. A requested rebuild, migration, material retest, new route, or other configuration change has a minimum $800 base fee plus the written implementation quote. Nothing starts until you approve the scope and total price.</p></article>
+        </div>
+        <p class="pricing-note"><strong>What you are not charged for:</strong> Hermia does not charge by photo, video, attachment, or each time a customer answers a configured question. Third-party message, calendar, and platform usage costs can change and are disclosed separately where they apply. All figures are AUD and are “from” or quoted where scope varies.</p>
       </section>
 
       <section class="roi-section" aria-labelledby="roi-title">
