@@ -136,6 +136,9 @@
     .legal-chip span { display:block; color:var(--gold-light); font:500 9px/1.3 'DM Sans',sans-serif; letter-spacing:.14em; text-transform:uppercase; }
     .legal-chip b { display:block; margin-top:8px; color:var(--cream); font:600 16px/1.05 var(--display); }
     .legal-chip small { display:block; margin-top:7px; color:var(--muted); font-size:11px; line-height:1.45; }
+    .agreement-internal-price { display:none !important; }
+    .agreement-back { display:inline-flex; align-items:center; gap:9px; margin:0 0 30px; color:var(--soft); font:600 10px/1 'DM Sans',sans-serif; letter-spacing:.16em; text-decoration:none; text-transform:uppercase; transition:color .2s,transform .2s; }
+    .agreement-back:hover { color:var(--gold-light); transform:translateX(-3px); }
     @media(max-width:640px){ .legal-strip{grid-template-columns:1fr;} }
   </style>
 </head>
@@ -143,6 +146,8 @@
 <div class="bg-glow"></div>
 
 <div class="wrap">
+
+  <a class="agreement-back" href="index.html" data-back-link aria-label="Back to the previous page or Hermia home">← <span>Back</span></a>
 
   <div class="header">
     <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia Logo" class="logo">
@@ -177,22 +182,22 @@
   <p>The Provider delivers AI-powered intake and qualification software designed to engage with the Client's existing inbound enquiries. When a prospective customer submits an enquiry through the Client's connected inbox — Gmail or Outlook — Hermia may automatically collect and organise relevant information — including contact details, service requirements, urgency, supporting media, availability, and other qualification data.</p>
   <p>This information is then structured and routed into the Client's connected CRM or business system to reduce manual administration and improve response times.</p>
 
-  <h2><span class="clause-no">3</span> Pricing</h2>
+  <h2><span class="clause-no">3</span> Commercial Terms</h2>
   <div class="highlight-box">
-    <div class="price-row" id="setupFeeRow" style="display:flex;">
-      <span>One-Time Setup Fee</span>
-      <strong id="setupFeePrice">$900 AUD</strong>
+    <div class="price-row agreement-internal-price" id="setupFeeRow" style="display:flex;">
+      <span>Selected service setup</span>
+      <strong id="setupFeePrice">Shown at checkout</strong>
     </div>
     <hr class="price-divider" id="setupFeeDivider" style="display:block;">
-    <div class="price-row">
-      <span id="planLabel">Simpro — Limited — Monthly Software Access</span>
-      <strong id="displayPrice">$497 AUD / month</strong>
+    <div class="price-row agreement-internal-price">
+      <span id="planLabel">Selected Hermia service</span>
+      <strong id="displayPrice">Shown at checkout</strong>
     </div>
-    <div class="price-row" id="capRow" style="display:flex;">
-      <span>Included channel coverage</span>
+    <div class="price-row agreement-internal-price" id="capRow" style="display:flex;">
+      <span>Configured coverage</span>
       <strong id="capText">Email, WhatsApp and Instagram</strong>
     </div>
-    <p class="price-note">Your selected tier includes a <strong>2-day free trial of the monthly service</strong>. The one-off setup fee is charged at checkout, and the monthly rate shown above starts when the trial ends. If a subscription payment fails, is unpaid, is cancelled or is paused, Hermia automatically suspends new enquiry processing for that account and restores access after Stripe reports the subscription as active again.</p>
+    <p class="price-note">Your selected service scope and final price are shown in the secure checkout before payment. Any stated trial, setup fee, recurring fee, included channels, and payment terms apply only when displayed in that checkout and accepted by the Client. If a subscription payment fails, is unpaid, is cancelled or is paused, Hermia may suspend new enquiry processing for that account and restore access after payment is active again.</p>
   </div>
 
   <h2><span class="clause-no">4</span> Refund Policy</h2>
@@ -273,36 +278,36 @@
   const WEBHOOK_URL = atob('aHR0cHM6Ly9ob29rLmV1MS5tYWtlLmNvbS81NXk1bHNxbDVybXI4anU5Y21sdDlvNTExNXE3ODRheQ==');
 
   const PLAN_CONFIG = {
-    simpro_limited: {
-      name:     'Simpro — Limited',
+    core_limited: {
+      name:     'Essential — Limited',
       price:    '$497 AUD / month',
       setupFee: '$650 AUD',
       cap:      'Email, WhatsApp and Instagram',
       link:     'https://buy.stripe.com/5kQ6oJ3VfdeYcwG7Ag9EI02'
     },
-    simpro_unlimited: {
-      name:     'Simpro — Unlimited',
+    core_unlimited: {
+      name:     'Essential — Unlimited',
       price:    '$697 AUD / month',
       setupFee: '$900 AUD',
       cap:      'Email, WhatsApp, Instagram, Facebook and Google Business',
       link:     'https://buy.stripe.com/9B68wR4Zjfn668i2fW9EI01'
     },
-    aroflo_limited: {
-      name:     'AroFlo — Limited',
+    expanded_limited: {
+      name:     'Expanded — Limited',
       price:    '$180 AUD / month',
       setupFee: '$350 AUD',
       cap:      'Email, WhatsApp and Instagram',
       link:     'https://buy.stripe.com/bJe9AVfDX1wgbsC9Io9EI03'
     },
-    aroflo_unlimited: {
-      name:     'AroFlo — Unlimited',
+    expanded_unlimited: {
+      name:     'Expanded — Unlimited',
       price:    '$260 AUD / month',
       setupFee: '$497 AUD',
       cap:      'Email, WhatsApp, Instagram, Facebook and Google Business',
       link:     'https://buy.stripe.com/3cI5kFajD4Isaoy4o49EI06'
     }
   };
-  const DEFAULT_PLAN = 'simpro_limited';
+  const DEFAULT_PLAN = 'core_limited';
   const PLACEHOLDER_MARKER = 'REPLACE_WITH_';
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -325,8 +330,8 @@
     sessionStorage.setItem('hermia_tier', selectedPlanKey.split('_').slice(1).join('_'));
   } catch(e) {}
 
-  document.getElementById('displayPrice').textContent = planConfig.price;
-  document.getElementById('planLabel').textContent = planConfig.name + ' — Monthly Software Access';
+  document.getElementById('displayPrice').textContent = 'Shown at checkout';
+  document.getElementById('planLabel').textContent = 'Selected Hermia service';
 
   if (planConfig.setupFee) {
     document.getElementById('setupFeePrice').textContent = planConfig.setupFee;
@@ -478,6 +483,15 @@
     const finalUrl = appendParam(planConfig.link, 'client_reference_id', selectedPlanKey);
     window.location.href = finalUrl;
   }
+</script>
+<script>
+  document.querySelectorAll('[data-back-link]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      if (document.referrer && new URL(document.referrer, location.href).origin === location.origin && history.length > 1) {
+        event.preventDefault(); history.back();
+      }
+    });
+  });
 </script>
 </body>
 </html>

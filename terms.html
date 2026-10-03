@@ -300,7 +300,7 @@
 <div class="glow-br"></div>
 
 <nav class="top-nav">
-  <a href="index.html" class="back-btn">
+  <a href="index.html" class="back-btn" data-back-link>
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <line x1="19" y1="12" x2="5" y2="12"></line>
       <polyline points="12 19 5 12 12 5"></polyline>
@@ -350,7 +350,7 @@
     <p>We do this by connecting to two kinds of places:</p>
     <ul class="doc-list">
       <li><strong>Your email inbox</strong> (Gmail or Outlook) — we read new enquiries as they land.</li>
-      <li><strong>Your connected CRM or business system</strong> (which may include Simpro, AroFlo, or another supported platform), where enabled — we use it according to the agreed workflow.</li>
+      <li><strong>Your connected CRM or business system</strong>, where enabled — we use it according to the agreed workflow and supported connection.</li>
     </ul>
     <p>The sources and steps used depend on your approved configuration. If a request needs follow-up, Hermia may use an enabled channel such as email, WhatsApp, Instagram, Facebook, or another supported connection before returning the information to your nominated team or CRM.</p>
     <p>Where Hermia communicates with an end customer on your behalf, the service should identify both the technology and the business. The standard disclosure is: <strong>“Hi, I’m Hermia, the digital assistant for [Business Name]. I’m collecting a few details so the [Business Name] team can review your request.”</strong> Hermia must not present itself as a human or as an independent professional adviser.</p>
@@ -371,7 +371,7 @@
     <div class="notice-box">
       <div class="notice-label">Pricing Notice</div>
       <p>
-        Current pricing for all plans is on our <a href="index.html#pricing">pricing page</a> and is indicative only — subject to
+        Current pricing for all plans is on our <a href="pricing.html">pricing page</a> and is indicative only — subject to
         change at any time. If we change pricing, it won't affect a subscription you've already paid for until your next
         billing period (unless the law requires otherwise).
       </p>
@@ -379,9 +379,8 @@
     <div class="notice-box">
       <div class="notice-label">Setup Fee Refund Guarantee</div>
       <p>
-        Not happy after setup? You can get a full refund of your setup fee within <strong>2 calendar days (48 hours)</strong> of
-        setup being completed — just ask us in writing. This covers the setup fee only, not subscription charges,
-        third-party fees, or services already used, unless Australian Consumer Law says otherwise.
+        Not happy after setup? You can request a refund of your setup fee within <strong>2 calendar days (48 hours)</strong> of
+        setup being completed — just ask us in writing. Any approved refund is reduced by a <strong>non-refundable AUD $84 processing amount</strong> and does not include subscription charges, third-party fees, or services already used, unless Australian Consumer Law says otherwise.
       </p>
     </div>
   </div>
@@ -398,7 +397,7 @@
       <li><strong>CRM or business-system integration</strong> — where enabled and technically supported.</li>
       <li><strong>WhatsApp qualification</strong> — where enabled, for following up on a qualified enquiry directly.</li>
     </ul>
-    <p>Setup and monthly fees vary by channel and plan. Current rates are on our <a href="index.html#pricing">pricing page</a>, quoted in AUD.</p>
+    <p>Setup and monthly fees vary by channel and plan. Current rates are on our <a href="pricing.html">pricing page</a>, quoted in AUD.</p>
     <p>All payments are handled through <strong>Stripe</strong>. Subscriptions are billed monthly in advance after any stated free trial. If a subscription payment fails, is unpaid, is cancelled or is paused, Hermia automatically suspends new enquiry processing for that account. Access is automatically restored after Stripe reports the subscription as active again.</p>
   </div>
 
@@ -462,5 +461,14 @@
   </footer>
 
 </div>
+<script>
+  document.querySelectorAll('[data-back-link]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      if (document.referrer && new URL(document.referrer, location.href).origin === location.origin && history.length > 1) {
+        event.preventDefault(); history.back();
+      }
+    });
+  });
+</script>
 </body>
 </html>
