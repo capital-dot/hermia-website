@@ -20,7 +20,7 @@
 </head>
 <body>
   <header class="shell top">
-    <div class="brand-group"><a class="brand" href="index.html" aria-label="Hermia home"><span class="mark">H</span>Hermia</a><a class="home-return" href="index.html">← Home</a></div>
+    <div class="brand-group"><a class="brand" href="index.html" aria-label="Hermia home"><span class="mark">H</span>Hermia</a><a class="home-return" href="index.html" data-flow-back>← Home</a></div>
     <button class="menu" type="button" aria-label="Open navigation" aria-expanded="false" id="menu">☰</button>
     <nav class="nav" id="nav" aria-label="Primary navigation">
       <a href="index.html#faq">FAQ</a>
@@ -83,5 +83,6 @@
     document.addEventListener('keydown',event=>{if(event.key==='Escape'&&nav.classList.contains('open')){nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='☰';menu.focus()}});
   </script>
 <script id="sector-contact-context">(function(){const label={property:'Property & real estate',legal:'Legal services',healthcare:'Healthcare administration',finance:'Finance',insurance:'Insurance companies'}[new URLSearchParams(location.search).get('sector')];if(!label)return;const links=document.querySelectorAll('a[href^="mailto:info@hermia.au"]');links.forEach(a=>{const url=new URL(a.href);url.searchParams.set('subject','Hermia '+label+' scoped pilot enquiry');a.href=url.toString();});const note=document.createElement('p');note.className='he-config-note';note.style.maxWidth='750px';note.style.margin='22px auto';note.textContent='You are enquiring about a '+label+' pilot. This workflow is not live yet; our team will first confirm its approved questions, channels, system connections and safeguards.';document.querySelector('h1')?.insertAdjacentElement('afterend',note);const intro=[...document.querySelectorAll('p')].find(n=>n.textContent.includes('Questions about your trade'));if(intro)intro.textContent='Questions about your current enquiry process or a carefully scoped pilot? Contact us directly and we will confirm what can actually be connected and tested.';})();</script>
+<script id="hermia-history-back">document.querySelectorAll('[data-flow-back]').forEach(function(link){link.addEventListener('click',function(event){var sameOrigin=false;try{sameOrigin=document.referrer&&new URL(document.referrer,location.href).origin===location.origin;}catch(e){}if(sameOrigin&&history.length>1){event.preventDefault();history.back();}});});</script>
 </body>
 </html>

@@ -147,7 +147,7 @@
 
 <div class="wrap">
 
-  <a class="agreement-back" href="index.html" data-back-link aria-label="Back to the previous page or Hermia home">← <span>Back</span></a>
+  <a class="agreement-back" href="index.html" data-flow-back aria-label="Back to the previous page or Hermia home">← <span>Back</span></a>
 
   <div class="header">
     <img src="https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png" alt="Hermia Logo" class="logo">
@@ -199,7 +199,7 @@
     </div>
     <p class="price-note">Your selected service scope and final price are shown in the secure checkout before payment. Any stated trial, setup fee, recurring fee, included channels, and payment terms apply only when displayed in that checkout and accepted by the Client. If a subscription payment fails, is unpaid, is cancelled or is paused, Hermia may suspend new enquiry processing for that account and restore access after payment is active again.</p>
   </div>
-  <p>Questions added to the approved configuration are charged once as configuration work at <strong>USD $75 per standard question</strong> or <strong>USD $150 per complex question</strong>. Complex questions may require branching, calculations, validation, field mapping, media handling, or special approval logic. Hermia does not charge each time a lead answers a question. The Client approves any added question and its price before the work is implemented.</p>
+  <p>Questions added to the approved configuration are charged once as configuration work at <strong>USD $500 per added question</strong>. Complex questions may require branching, calculations, validation, field mapping, media handling, or special approval logic. Hermia does not charge each time a lead answers a question. The Client approves any added question and its price before the work is implemented.</p>
   <p>Other requested components, including additional platforms, photo or video handling, calendar users, internal recipients, technical capacity, support, monitoring, and high-volume processing, may carry one-off or recurring charges. The applicable amounts are shown in the written configuration scope and approved before implementation.</p>
 
   <h2><span class="clause-no">4</span> Refund Policy</h2>
@@ -486,8 +486,8 @@
     window.location.href = finalUrl;
   }
 </script>
-<script>
-  document.querySelectorAll('[data-back-link]').forEach(function (link) {
+<script id="hermia-history-back">
+  document.querySelectorAll('[data-flow-back]').forEach(function (link) {
     link.addEventListener('click', function (event) {
       if (document.referrer && new URL(document.referrer, location.href).origin === location.origin && history.length > 1) {
         event.preventDefault(); history.back();
