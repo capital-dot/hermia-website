@@ -59,6 +59,34 @@
     agree.addEventListener('change',()=>{pay.classList.toggle('show',agree.checked);error.style.display='none'});
     pay.addEventListener('click',async()=>{if(!agree.checked){error.style.display='block';return}pay.disabled=true;pay.textContent='Preparing secure checkout…';const agreement={finance_plan:'configuration',agreement_type:'configuration_service_agreement',signed_at:new Date().toISOString(),configuration:config,pricing};try{sessionStorage.setItem('hermia_configuration_agreement',JSON.stringify(agreement))}catch(e){}try{await fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:'configuration_agreement_signed',finance_plan:'configuration',agreement})})}catch(e){}try{const r=await fetch(CHECKOUT_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'configuration',customerEmail:config.contact_email,configuration:config,successUrl:'https://onboarding.hermia.au/configuration_complete.html?session_id={CHECKOUT_SESSION_ID}',cancelUrl:'https://onboarding.hermia.au/configuration_contract.html'})});const d=await r.json();if(!r.ok||!d.checkoutUrl)throw new Error(d.error||'Checkout could not be prepared.');window.location.href=d.checkoutUrl;}catch(e){pay.disabled=false;pay.textContent='Confirm & Continue to Payment →';error.textContent=e.message||'Checkout could not be prepared. Please try again.';error.style.display='block';}});
   </script>
-<script id="hermia-history-back">document.querySelectorAll('[data-flow-back]').forEach(function(link){link.addEventListener('click',function(event){var sameOrigin=false;try{sameOrigin=document.referrer&&new URL(document.referrer,location.href).origin===location.origin;}catch(e){}if(sameOrigin&&history.length>1){event.preventDefault();history.back();}});});</script>
+<script id="hermia-history-back">
+(function () {
+  var trailKey = 'hermiaNavigationTrail';
+  var current = (location.pathname.split('/').pop() || 'index.html');
+  var trail = [];
+  try { trail = JSON.parse(sessionStorage.getItem(trailKey) || '[]'); } catch (e) { trail = []; }
+  if (!Array.isArray(trail)) trail = [];
+  if (current === 'index.html') {
+    trail = ['index.html'];
+  } else if (trail[trail.length - 1] !== current) {
+    trail.push(current);
+  }
+  if (trail.length > 40) trail = trail.slice(-40);
+  try { sessionStorage.setItem(trailKey, JSON.stringify(trail)); } catch (e) {}
+
+  document.querySelectorAll('[data-flow-back]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      var active = trail.slice();
+      if (active[active.length - 1] === current) active.pop();
+      var destination = active[active.length - 1] || 'index.html';
+      if (destination === current) destination = 'index.html';
+      if (destination === 'index.html') active = ['index.html'];
+      try { sessionStorage.setItem(trailKey, JSON.stringify(active)); } catch (e) {}
+      location.assign(destination);
+    });
+  });
+}());
+</script>
 </body>
 </html>

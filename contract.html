@@ -487,13 +487,33 @@
   }
 </script>
 <script id="hermia-history-back">
+(function () {
+  var trailKey = 'hermiaNavigationTrail';
+  var current = (location.pathname.split('/').pop() || 'index.html');
+  var trail = [];
+  try { trail = JSON.parse(sessionStorage.getItem(trailKey) || '[]'); } catch (e) { trail = []; }
+  if (!Array.isArray(trail)) trail = [];
+  if (current === 'index.html') {
+    trail = ['index.html'];
+  } else if (trail[trail.length - 1] !== current) {
+    trail.push(current);
+  }
+  if (trail.length > 40) trail = trail.slice(-40);
+  try { sessionStorage.setItem(trailKey, JSON.stringify(trail)); } catch (e) {}
+
   document.querySelectorAll('[data-flow-back]').forEach(function (link) {
     link.addEventListener('click', function (event) {
-      if (document.referrer && new URL(document.referrer, location.href).origin === location.origin && history.length > 1) {
-        event.preventDefault(); history.back();
-      }
+      event.preventDefault();
+      var active = trail.slice();
+      if (active[active.length - 1] === current) active.pop();
+      var destination = active[active.length - 1] || 'index.html';
+      if (destination === current) destination = 'index.html';
+      if (destination === 'index.html') active = ['index.html'];
+      try { sessionStorage.setItem(trailKey, JSON.stringify(active)); } catch (e) {}
+      location.assign(destination);
     });
   });
+}());
 </script>
 </body>
 </html>

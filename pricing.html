@@ -591,16 +591,35 @@
       <div class="footer-row"><div>© 2026 Hermia · ABN 75 434 177 026</div><div class="footer-legal">Pricing shown in USD. All industries use the configuration pricing path. <a href="mailto:info@hermia.au">info@hermia.au</a></div></div>
     </footer>
   </div>
-<script>
+<script>document.querySelectorAll('[data-card-link]').forEach(function(card){card.addEventListener('click',function(){location.href=card.dataset.cardLink});card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();location.href=card.dataset.cardLink}})});</script>
+<script id="hermia-history-back">
+(function () {
+  var trailKey = 'hermiaNavigationTrail';
+  var current = (location.pathname.split('/').pop() || 'index.html');
+  var trail = [];
+  try { trail = JSON.parse(sessionStorage.getItem(trailKey) || '[]'); } catch (e) { trail = []; }
+  if (!Array.isArray(trail)) trail = [];
+  if (current === 'index.html') {
+    trail = ['index.html'];
+  } else if (trail[trail.length - 1] !== current) {
+    trail.push(current);
+  }
+  if (trail.length > 40) trail = trail.slice(-40);
+  try { sessionStorage.setItem(trailKey, JSON.stringify(trail)); } catch (e) {}
+
   document.querySelectorAll('[data-flow-back]').forEach(function (link) {
     link.addEventListener('click', function (event) {
-      if (document.referrer && new URL(document.referrer, location.href).origin === location.origin && history.length > 1) {
-        event.preventDefault(); history.back();
-      }
+      event.preventDefault();
+      var active = trail.slice();
+      if (active[active.length - 1] === current) active.pop();
+      var destination = active[active.length - 1] || 'index.html';
+      if (destination === current) destination = 'index.html';
+      if (destination === 'index.html') active = ['index.html'];
+      try { sessionStorage.setItem(trailKey, JSON.stringify(active)); } catch (e) {}
+      location.assign(destination);
     });
   });
+}());
 </script>
-<script>document.querySelectorAll('[data-card-link]').forEach(function(card){card.addEventListener('click',function(){location.href=card.dataset.cardLink});card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();location.href=card.dataset.cardLink}})});</script>
-<script id="hermia-history-back">document.querySelectorAll('[data-flow-back]').forEach(function(link){link.addEventListener('click',function(event){var sameOrigin=false;try{sameOrigin=document.referrer&&new URL(document.referrer,location.href).origin===location.origin;}catch(e){}if(sameOrigin&&history.length>1){event.preventDefault();history.back();}});});</script>
 </body>
 </html>
