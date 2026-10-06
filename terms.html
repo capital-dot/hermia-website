@@ -300,7 +300,7 @@
 <div class="glow-br"></div>
 
 <nav class="top-nav">
-  <a href="index.html" class="back-btn" data-back-link>
+  <a href="index.html" class="back-btn" data-flow-back>
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <line x1="19" y1="12" x2="5" y2="12"></line>
       <polyline points="12 19 5 12 12 5"></polyline>
@@ -463,8 +463,8 @@
   </footer>
 
 </div>
-<script>
-  document.querySelectorAll('[data-back-link]').forEach(function (link) {
+<script id="hermia-history-back">
+  document.querySelectorAll('[data-flow-back]').forEach(function (link) {
     link.addEventListener('click', function (event) {
       if (document.referrer && new URL(document.referrer, location.href).origin === location.origin && history.length > 1) {
         event.preventDefault(); history.back();

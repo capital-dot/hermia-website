@@ -280,7 +280,7 @@
 </head>
 <body>
   <header class="topbar">
-    <a href="index.html" class="return-link" aria-label="Back to the previous page or Hermia home" data-back-link>
+    <a href="index.html" class="return-link" aria-label="Back to the previous page or Hermia home" data-flow-back>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
       Back to site
     </a>
@@ -431,8 +431,8 @@
       </div>
     </div>
   </footer>
-<script>
-  document.querySelectorAll('[data-back-link]').forEach(function (link) {
+<script id="hermia-history-back">
+  document.querySelectorAll('[data-flow-back]').forEach(function (link) {
     link.addEventListener('click', function (event) {
       if (document.referrer && new URL(document.referrer, location.href).origin === location.origin && history.length > 1) {
         event.preventDefault(); history.back();
