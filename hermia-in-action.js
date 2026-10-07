@@ -127,17 +127,80 @@
   clear.addEventListener('click', function () { search.value = ''; filterCards(); search.focus(); });
   if (!selected) filterCards();
 
+  document.querySelectorAll('[data-media-gallery]').forEach(function (gallery) {
+    var items = Array.prototype.slice.call(gallery.querySelectorAll('[data-media-category]'));
+    var filters = Array.prototype.slice.call(gallery.querySelectorAll('[data-gallery-filter]'));
+    var more = gallery.querySelector('[data-gallery-more]');
+    var status = gallery.querySelector('[data-gallery-count]');
+    var category = 'all';
+    var expanded = false;
+    filters.forEach(function (button) {
+      var value = button.getAttribute('data-gallery-filter');
+      button.hidden = value !== 'all' && !items.some(function (item) {
+        return item.getAttribute('data-media-category') === value;
+      });
+      button.addEventListener('click', function () {
+        category = value;
+        expanded = false;
+        renderGallery();
+      });
+    });
+    function renderGallery() {
+      var matches = 0;
+      var shown = 0;
+      items.forEach(function (item) {
+        var match = category === 'all' || item.getAttribute('data-media-category') === category;
+        if (match) matches++;
+        var visible = match && (category !== 'all' || expanded || matches <= 6);
+        item.hidden = !visible;
+        if (visible) shown++;
+      });
+      filters.forEach(function (button) {
+        button.setAttribute('aria-pressed', String(button.getAttribute('data-gallery-filter') === category));
+      });
+      status.textContent = shown === matches ? matches + ' examples' : 'Showing ' + shown + ' of ' + matches + ' examples';
+      more.hidden = category !== 'all' || matches <= 6;
+      more.textContent = expanded ? 'Show fewer examples ↑' : 'Show all ' + matches + ' examples ↓';
+    }
+    more.addEventListener('click', function () { expanded = !expanded; renderGallery(); });
+    renderGallery();
+  });
+
   var lightbox = document.getElementById('media-lightbox');
   var lightboxImage = document.getElementById('lightbox-image');
+  var lightboxVideo = document.getElementById('lightbox-video');
+  var lightboxCaption = document.getElementById('lightbox-caption');
   var opener = null;
-  document.querySelectorAll('[data-enlarge]').forEach(function (button) {
+  document.querySelectorAll('[data-enlarge], [data-video]').forEach(function (button) {
     button.addEventListener('click', function () {
       opener = button;
-      lightboxImage.src = button.getAttribute('data-enlarge');
-      lightboxImage.alt = button.getAttribute('data-media-title');
-      document.getElementById('lightbox-title').textContent = lightboxImage.alt;
-      if (typeof lightbox.showModal === 'function') lightbox.showModal();
-      else window.open(lightboxImage.src, '_blank', 'noopener');
+      var movie = button.hasAttribute('data-video');
+      var source = button.getAttribute(movie ? 'data-video' : 'data-enlarge');
+      var title = button.getAttribute('data-media-title');
+      var caption = button.getAttribute('data-media-caption') || '';
+      if (typeof lightbox.showModal !== 'function') {
+        window.open(source, '_blank', 'noopener');
+        return;
+      }
+      document.querySelectorAll('video').forEach(function (video) { video.pause(); });
+      lightboxImage.hidden = movie;
+      lightboxVideo.hidden = !movie;
+      document.getElementById('lightbox-title').textContent = title;
+      lightboxCaption.textContent = caption;
+      lightboxCaption.hidden = !caption;
+      if (movie) {
+        lightboxVideo.src = source;
+        lightboxVideo.poster = button.getAttribute('data-poster') || '';
+        lightboxVideo.setAttribute('aria-label', title);
+      } else {
+        lightboxImage.src = source;
+        lightboxImage.alt = title;
+      }
+      lightbox.showModal();
+      if (movie) {
+        var playback = lightboxVideo.play();
+        if (playback) playback.catch(function () {});
+      }
     });
   });
   document.getElementById('close-lightbox').addEventListener('click', function () { lightbox.close(); });
@@ -148,6 +211,9 @@
     }
   });
   lightbox.addEventListener('close', function () {
+    lightboxVideo.pause();
+    lightboxVideo.removeAttribute('src');
+    lightboxVideo.load();
     lightboxImage.removeAttribute('src');
     if (opener) opener.focus();
   });
