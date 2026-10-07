@@ -75,4 +75,32 @@
 <script>document.getElementById('year').textContent=String(new Date().getFullYear());const t=document.querySelector('.menu-toggle'),m=document.getElementById('main-menu');t.addEventListener('click',()=>{const o=t.getAttribute('aria-expanded')==='true';t.setAttribute('aria-expanded',String(!o));t.setAttribute('aria-label',o?'Open menu':'Close menu');m.classList.toggle('open',!o)});m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{t.setAttribute('aria-expanded','false');t.setAttribute('aria-label','Open menu');m.classList.remove('open')}));</script>
 <script>const hero=document.getElementById('cinematic-hero');function updateIntroVisibility(){const past=window.scrollY>=hero.offsetHeight-120;document.body.classList.toggle('past-hero',past);document.querySelector('.site-header').inert=!past;const assistant=document.getElementById('hermia-widget');if(assistant)assistant.inert=!past}addEventListener('scroll',updateIntroVisibility,{passive:true});addEventListener('resize',updateIntroVisibility);addEventListener('DOMContentLoaded',updateIntroVisibility);updateIntroVisibility();</script>
 <script src="hermia-widget.js" defer></script>
+<script id="hermia-history-back">
+(function () {
+  var trailKey = 'hermiaNavigationTrail';
+  var current = (location.pathname.split('/').pop() || 'index.html');
+  var trail = [];
+  try { trail = JSON.parse(sessionStorage.getItem(trailKey) || '[]'); } catch (e) { trail = []; }
+  if (!Array.isArray(trail)) trail = [];
+  if (current === 'index.html') {
+    trail = ['index.html'];
+  } else if (trail[trail.length - 1] !== current) {
+    trail.push(current);
+  }
+  if (trail.length > 40) trail = trail.slice(-40);
+  try { sessionStorage.setItem(trailKey, JSON.stringify(trail)); } catch (e) {}
+  document.querySelectorAll('[data-flow-back]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      var active = trail.slice();
+      if (active[active.length - 1] === current) active.pop();
+      var destination = active[active.length - 1] || 'index.html';
+      if (destination === current) destination = 'index.html';
+      if (destination === 'index.html') active = ['index.html'];
+      try { sessionStorage.setItem(trailKey, JSON.stringify(active)); } catch (e) {}
+      location.assign(destination);
+    });
+  });
+}());
+</script>
 </body></html>
