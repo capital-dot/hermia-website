@@ -75,6 +75,7 @@
 <script>document.getElementById('year').textContent=String(new Date().getFullYear());const t=document.querySelector('.menu-toggle'),m=document.getElementById('main-menu');t.addEventListener('click',()=>{const o=t.getAttribute('aria-expanded')==='true';t.setAttribute('aria-expanded',String(!o));t.setAttribute('aria-label',o?'Open menu':'Close menu');m.classList.toggle('open',!o)});m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{t.setAttribute('aria-expanded','false');t.setAttribute('aria-label','Open menu');m.classList.remove('open')}));</script>
 <script>const hero=document.getElementById('cinematic-hero');function updateIntroVisibility(){const past=window.scrollY>=hero.offsetHeight-120;document.body.classList.toggle('past-hero',past);document.querySelector('.site-header').inert=!past;const assistant=document.getElementById('hermia-widget');if(assistant)assistant.inert=!past}addEventListener('scroll',updateIntroVisibility,{passive:true});addEventListener('resize',updateIntroVisibility);addEventListener('DOMContentLoaded',updateIntroVisibility);updateIntroVisibility();</script>
 <script src="hermia-widget.js" defer></script>
+
 <script id="hermia-history-back">
 (function () {
   var trailKey = 'hermiaNavigationTrail';

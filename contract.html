@@ -486,6 +486,7 @@
     window.location.href = finalUrl;
   }
 </script>
+
 <script id="hermia-history-back">
 (function () {
   var trailKey = 'hermiaNavigationTrail';
@@ -500,7 +501,6 @@
   }
   if (trail.length > 40) trail = trail.slice(-40);
   try { sessionStorage.setItem(trailKey, JSON.stringify(trail)); } catch (e) {}
-
   document.querySelectorAll('[data-flow-back]').forEach(function (link) {
     link.addEventListener('click', function (event) {
       event.preventDefault();

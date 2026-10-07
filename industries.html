@@ -29,4 +29,34 @@
 <article class="he-demo"><small>06 / Insurance companies · scoped pilot</small><h3>Clarify an administrative claim follow-up.</h3><p class="he-bubble">I submitted damage photos and was asked for more information.</p><p class="he-bubble reply">What is your claim reference, and which item did the insurer ask for? Please use your insurer’s approved secure channel for sensitive evidence.</p><p class="he-demo-label">Illustrative only; no coverage determination, claims decision or connected insurer system.</p></article>
 </div></div></section>
 </main><footer class="he-detail-footer">Hermia prepares context for people to decide. <a href="index.html#industries">All industries</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></footer>
+<a class="hermia-global-back" href="index.html" data-flow-back aria-label="Back to the previous Hermia page">← Back</a>
+<style>.hermia-global-back{position:fixed;top:18px;left:18px;z-index:9999;display:inline-flex;align-items:center;gap:7px;padding:9px 13px;border:1px solid rgba(201,163,91,.42);background:rgba(8,8,8,.82);color:#e8c17a;font:500 11px/1.1 Arial,sans-serif;letter-spacing:.08em;text-decoration:none;text-transform:uppercase;backdrop-filter:blur(10px)}.hermia-global-back:hover{border-color:#e8c17a;color:#fff}</style>
+<script id="hermia-history-back">
+(function () {
+  var trailKey = 'hermiaNavigationTrail';
+  var current = (location.pathname.split('/').pop() || 'index.html');
+  var trail = [];
+  try { trail = JSON.parse(sessionStorage.getItem(trailKey) || '[]'); } catch (e) { trail = []; }
+  if (!Array.isArray(trail)) trail = [];
+  if (current === 'index.html') {
+    trail = ['index.html'];
+  } else if (trail[trail.length - 1] !== current) {
+    trail.push(current);
+  }
+  if (trail.length > 40) trail = trail.slice(-40);
+  try { sessionStorage.setItem(trailKey, JSON.stringify(trail)); } catch (e) {}
+  document.querySelectorAll('[data-flow-back]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      var active = trail.slice();
+      if (active[active.length - 1] === current) active.pop();
+      var destination = active[active.length - 1] || 'index.html';
+      if (destination === current) destination = 'index.html';
+      if (destination === 'index.html') active = ['index.html'];
+      try { sessionStorage.setItem(trailKey, JSON.stringify(active)); } catch (e) {}
+      location.assign(destination);
+    });
+  });
+}());
+</script>
 </body></html>

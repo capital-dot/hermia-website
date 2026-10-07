@@ -5,5 +5,35 @@
   <title>Configuration Change Received — Hermia</title>
   <style>:root{--void:#07070a;--cream:#f4f0e6;--soft:#b8b3a9;--gold:#e8c17a}*{box-sizing:border-box}body{min-height:100vh;margin:0;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 40%,rgba(201,163,91,.2),transparent 42%),var(--void);color:var(--cream);font-family:Arial,sans-serif}.card{width:min(560px,calc(100% - 42px));padding:56px 42px;border:1px solid rgba(201,163,91,.28);background:rgba(12,12,10,.8);text-align:center}.mark{display:grid;width:48px;height:48px;margin:auto;place-items:center;border:1px solid var(--gold);border-radius:50%;color:var(--gold);font:600 28px Georgia}.eyebrow{display:block;margin-top:28px;color:var(--gold);font:11px monospace;letter-spacing:.14em;text-transform:uppercase}.card h1{margin:16px 0;font:600 52px/ .9 Georgia}.card h1 em{color:var(--gold);font-style:italic}.card p{color:var(--soft);font-size:15px;line-height:1.7}.code{display:inline-block;margin:20px 0;padding:14px 18px;border:1px solid rgba(232,193,122,.35);color:var(--cream);font:500 16px monospace;letter-spacing:.12em}.back{display:inline-block;margin-top:14px;color:var(--gold);text-decoration:none;font-size:13px}</style>
 </head>
-<body><main class="card"><div class="mark">H</div><span class="eyebrow">Payment received</span><h1>Change request<br><em>received.</em></h1><p>Hermia has recorded the requested configuration change. The existing workflow remains active while the change is prepared, tested and reviewed before publishing.</p><div class="code" id="requestCode">Change request recorded</div><p>Keep your existing Hermia Make code available when discussing this request with the Hermia team.</p><a class="back" href="configuration.html">Return to configuration</a></main><script>const id=new URLSearchParams(location.search).get('request_code');if(id)document.getElementById('requestCode').textContent='Request code: '+id;</script></body>
+<body><main class="card"><div class="mark">H</div><span class="eyebrow">Payment received</span><h1>Change request<br><em>received.</em></h1><p>Hermia has recorded the requested configuration change. The existing workflow remains active while the change is prepared, tested and reviewed before publishing.</p><div class="code" id="requestCode">Change request recorded</div><p>Keep your existing Hermia Make code available when discussing this request with the Hermia team.</p><a class="back" href="configuration.html">Return to configuration</a></main><script>const id=new URLSearchParams(location.search).get('request_code');if(id)document.getElementById('requestCode').textContent='Request code: '+id;</script><a class="hermia-global-back" href="index.html" data-flow-back aria-label="Back to the previous Hermia page">← Back</a>
+<style>.hermia-global-back{position:fixed;top:18px;left:18px;z-index:9999;display:inline-flex;align-items:center;gap:7px;padding:9px 13px;border:1px solid rgba(201,163,91,.42);background:rgba(8,8,8,.82);color:#e8c17a;font:500 11px/1.1 Arial,sans-serif;letter-spacing:.08em;text-decoration:none;text-transform:uppercase;backdrop-filter:blur(10px)}.hermia-global-back:hover{border-color:#e8c17a;color:#fff}</style>
+<script id="hermia-history-back">
+(function () {
+  var trailKey = 'hermiaNavigationTrail';
+  var current = (location.pathname.split('/').pop() || 'index.html');
+  var trail = [];
+  try { trail = JSON.parse(sessionStorage.getItem(trailKey) || '[]'); } catch (e) { trail = []; }
+  if (!Array.isArray(trail)) trail = [];
+  if (current === 'index.html') {
+    trail = ['index.html'];
+  } else if (trail[trail.length - 1] !== current) {
+    trail.push(current);
+  }
+  if (trail.length > 40) trail = trail.slice(-40);
+  try { sessionStorage.setItem(trailKey, JSON.stringify(trail)); } catch (e) {}
+  document.querySelectorAll('[data-flow-back]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      var active = trail.slice();
+      if (active[active.length - 1] === current) active.pop();
+      var destination = active[active.length - 1] || 'index.html';
+      if (destination === current) destination = 'index.html';
+      if (destination === 'index.html') active = ['index.html'];
+      try { sessionStorage.setItem(trailKey, JSON.stringify(active)); } catch (e) {}
+      location.assign(destination);
+    });
+  });
+}());
+</script>
+</body>
 </html>

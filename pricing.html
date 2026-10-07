@@ -591,6 +591,7 @@
       <div class="footer-row"><div>© 2026 Hermia · ABN 75 434 177 026</div><div class="footer-legal">Open an industry card to view its complete pricing details. <a href="mailto:info@hermia.au">info@hermia.au</a></div></div>
     </footer>
   </div>
+
 <script id="hermia-history-back">
 (function () {
   var trailKey = 'hermiaNavigationTrail';
@@ -605,7 +606,6 @@
   }
   if (trail.length > 40) trail = trail.slice(-40);
   try { sessionStorage.setItem(trailKey, JSON.stringify(trail)); } catch (e) {}
-
   document.querySelectorAll('[data-flow-back]').forEach(function (link) {
     link.addEventListener('click', function (event) {
       event.preventDefault();

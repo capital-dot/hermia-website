@@ -15,7 +15,8 @@
 <details><summary>Can it decide whether a request is urgent?</summary><p>It can collect reported urgency and flag an approved escalation path in a pilot. Staff remain responsible for judging and handling emergencies.</p></details></div></section>
 <section class="shell related"><span class="eyebrow">EXPLORE THE OTHER PATHS</span><div class="related-links"><a href="industry-trades.html">Trades &amp; field services</a><a href="industry-property.html" aria-current="page">Property &amp; real estate</a><a href="industry-legal.html">Legal operations</a><a href="industry-healthcare.html">Healthcare administration</a><a href="industry-finance.html">Finance operations</a><a href="industry-insurance.html">Insurance companies</a></div></section>
 <section class="end"><div class="shell end-inner"><span class="eyebrow">SCOPED PILOT / NOT LIVE</span><h2>Start with a proper scope, not a promise.</h2><a class="gold-button" href="contact.html?sector=property">Discuss a property pilot ↗</a><p>A pilot is not sold or activated from this page. Contact Hermia to discuss feasibility, safeguards and connection testing.</p></div></section></main>
-<footer><div class="shell footer-inner"><a href="index.html" class="brand">Hermia</a><div><a href="industries.html">All industries</a><a href="pricing.html">Trade pricing</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></div><small>© 2026 Hermia · ABN 75 434 177 026</small></div></footer><script id="hermia-history-back">
+<footer><div class="shell footer-inner"><a href="index.html" class="brand">Hermia</a><div><a href="industries.html">All industries</a><a href="pricing.html">Trade pricing</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></div><small>© 2026 Hermia · ABN 75 434 177 026</small></div></footer>
+<script id="hermia-history-back">
 (function () {
   var trailKey = 'hermiaNavigationTrail';
   var current = (location.pathname.split('/').pop() || 'index.html');
@@ -29,7 +30,6 @@
   }
   if (trail.length > 40) trail = trail.slice(-40);
   try { sessionStorage.setItem(trailKey, JSON.stringify(trail)); } catch (e) {}
-
   document.querySelectorAll('[data-flow-back]').forEach(function (link) {
     link.addEventListener('click', function (event) {
       event.preventDefault();
