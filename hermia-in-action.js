@@ -29,11 +29,12 @@
       if (url.origin !== location.origin) return null;
       var leaf = url.pathname.split('/').pop() || home;
       if (leaf === 'index' || leaf === home) return home;
-      if (!leaf.endsWith('.html')) leaf += '.html';
-      if (leaf === catalogueRoute) {
+      if (leaf === 'hermia-in-action' || leaf === catalogueRoute) {
         var crm = url.searchParams.get('crm');
-        return leaf + (allowed.indexOf(crm) !== -1 ? '?crm=' + crm : '');
+        return catalogueRoute + (allowed.indexOf(crm) !== -1 ? '?crm=' + crm : '');
       }
+      // Other pages still compare their literal pathname leaf with the stored
+      // entry. Preserve that representation (clean URL or .html) for them.
       return leaf;
     } catch (error) { return null; }
   }
