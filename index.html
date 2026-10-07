@@ -16,6 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
   <link rel="preload" href="assets/hermia-mark.webp" as="image" type="image/webp">
   <link rel="stylesheet" href="home.css?v=20261003platforms1">
+  <link rel="stylesheet" href="showcase-entry.css?v=20261008">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Hermia","url":"https://www.hermia.au/","logo":"https://www.hermia.au/assets/hermia-mark.webp","description":"Hermia turns messy operational data into complete CRM records and private team briefs. Each workflow is configured and tested for the business.","contactPoint":{"@type":"ContactPoint","email":"info@hermia.au","contactType":"customer service"}}</script>
 </head>
 <body>
@@ -23,7 +24,7 @@
 <header class="site-header"><nav class="nav-inner wrap" aria-label="Primary navigation">
   <a class="brand" href="index.html" aria-label="Hermia home"><img src="assets/hermia-mark.webp" width="34" height="34" alt=""><span>Hermia</span></a>
   <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu" aria-label="Open menu"><span></span><span></span></button>
-  <div class="nav-links" id="main-menu"><a href="#capabilities">How it works</a><a href="pricing.html">Pricing</a><a href="about%20us.html">About</a><a href="contact.html">Contact</a><a class="nav-cta" href="industries.html">View industry <span aria-hidden="true">↗</span></a></div>
+  <div class="nav-links" id="main-menu"><a href="#capabilities">How it works</a><a href="pricing.html">Pricing</a><a href="about%20us.html">About</a><a href="hermia-in-action.html">In action</a><a href="contact.html">Contact</a><a class="nav-cta" href="industries.html">View industry <span aria-hidden="true">↗</span></a></div>
 </nav></header>
 <main id="main">
   <section id="cinematic-hero" aria-labelledby="hero-title">
@@ -68,10 +69,16 @@
 
 
 
+<section class="ha-entry" aria-labelledby="action-entry-title">
+  <div class="ha-entry-inner">
+    <div><span class="ha-entry-label">Hermia in action</span><h2 id="action-entry-title">See the conversation.<br><em>See what reaches your team.</em></h2></div>
+    <div><p>Explore the messages, prepared records and calendar handoffs. Choose your CRM and see the detail that turns an enquiry into a clearer next step.</p><a class="ha-entry-link" href="hermia-in-action.html">Explore Hermia in action <span aria-hidden="true">↗</span></a></div>
+  </div>
+</section>
   <section class="faq section" id="faq" aria-labelledby="faq-title"><div class="wrap faq-grid"><div><span class="eyebrow">QUESTIONS BEFORE YOU START</span><h2 id="faq-title">Clear scope.<br><em>No guesswork.</em></h2></div><div class="faq-list"><details><summary>Does Hermia bring my business new customers?</summary><p>No. Hermia works on the enquiries your business already receives, through sources you approve and connect.</p></details><details><summary>Can we choose our own questions and recipients?</summary><p>Yes. You choose them during configuration, and each one is built and tested for your business before it goes live.</p></details><details><summary>Which CRMs and industries are available today?</summary><p>Each industry page sets out what is live now, which CRMs are supported and what is still a scoped pilot.</p></details><details><summary>Does Hermia make decisions for my team?</summary><p>No. Your authorised people stay responsible for bookings, pricing, safety and any legal, clinical, financial or insurance judgement.</p></details></div></div></section>
   <section class="contact-band section" id="contact"><div class="wrap contact-inner"><div><span class="eyebrow">GET IN TOUCH</span><h2>Tell us what the first<br><em>conversation misses.</em></h2><p>We can discuss the workflow you want to scope and whether the channel and system connections are actually available.</p></div><div class="contact-actions"><a class="button-gold" href="industries.html">Pick your industry <span aria-hidden="true">↗</span></a><a class="quiet-link" href="contact.html">Contact Hermia ↗</a></div></div></section>
 </main>
-<footer class="site-footer"><div class="wrap footer-main"><a class="brand" href="index.html"><img src="assets/hermia-mark.webp" width="28" height="28" alt="">Hermia</a><p>Know The Job First.</p><div class="footer-links"><a href="pricing.html">Pricing</a><a href="about%20us.html">About</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div></div><div class="wrap footer-bottom"><span>© <span id="year">2026</span> Hermia · ABN 75 434 177 026</span><a href="mailto:info@hermia.au">info@hermia.au</a></div></footer>
+<footer class="site-footer"><div class="wrap footer-main"><a class="brand" href="index.html"><img src="assets/hermia-mark.webp" width="28" height="28" alt="">Hermia</a><p>Know The Job First.</p><div class="footer-links"><a href="pricing.html">Pricing</a><a href="about%20us.html">About</a><a href="hermia-in-action.html">In action</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div></div><div class="wrap footer-bottom"><span>© <span id="year">2026</span> Hermia · ABN 75 434 177 026</span><a href="mailto:info@hermia.au">info@hermia.au</a></div></footer>
 <script>document.getElementById('year').textContent=String(new Date().getFullYear());const t=document.querySelector('.menu-toggle'),m=document.getElementById('main-menu');t.addEventListener('click',()=>{const o=t.getAttribute('aria-expanded')==='true';t.setAttribute('aria-expanded',String(!o));t.setAttribute('aria-label',o?'Open menu':'Close menu');m.classList.toggle('open',!o)});m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{t.setAttribute('aria-expanded','false');t.setAttribute('aria-label','Open menu');m.classList.remove('open')}));</script>
 <script>const hero=document.getElementById('cinematic-hero');function updateIntroVisibility(){const past=window.scrollY>=hero.offsetHeight-120;document.body.classList.toggle('past-hero',past);document.querySelector('.site-header').inert=!past;const assistant=document.getElementById('hermia-widget');if(assistant)assistant.inert=!past}addEventListener('scroll',updateIntroVisibility,{passive:true});addEventListener('resize',updateIntroVisibility);addEventListener('DOMContentLoaded',updateIntroVisibility);updateIntroVisibility();</script>
 <script src="hermia-widget.js" defer></script>

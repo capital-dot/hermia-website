@@ -1,0 +1,32 @@
+/* Scoped to the industry overview: its existing alternating rows stay intact. */
+body.he-detail{margin:0;background:#0b0e12;-webkit-font-smoothing:antialiased}
+.overview-header{position:sticky;top:0;z-index:30;background:rgba(11,14,18,.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(230,197,134,.19)}
+.overview-nav{width:min(1220px,calc(100% - 64px));min-height:84px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.overview-brand-group{display:flex;align-items:center;gap:28px}
+.overview-brand{display:inline-flex;align-items:center;gap:12px;color:#f4f0e6!important;text-decoration:none;font:600 30px/1 'Cormorant Garamond',Georgia,serif;letter-spacing:-.03em}
+.overview-brand img{width:32px;height:34px;object-fit:contain}
+.overview-back{padding:7px 0 7px 22px;border-left:1px solid rgba(230,197,134,.3);font:500 12px/1.3 'DM Sans',Arial,sans-serif;color:#e6c586!important;text-decoration:none;white-space:nowrap}
+.overview-links{display:flex;align-items:center;gap:28px;font:500 12px/1.5 'DM Sans',Arial,sans-serif}
+.overview-links a{color:#c8cbc9;text-decoration:none;white-space:nowrap}
+.overview-links a:hover{color:#e6c586}
+.overview-links .overview-action{color:#e6c586;border-bottom:1px solid rgba(230,197,134,.55);padding-bottom:5px}
+.overview-intro{width:min(1220px,calc(100% - 64px));margin:auto;padding:88px 0 54px}
+.overview-intro .he-eyebrow{letter-spacing:.17em;font-weight:600}
+.overview-intro-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:70px;align-items:end;margin-top:24px}
+.overview-intro h1{max-width:14ch;margin:0;font:500 clamp(46px,5.8vw,84px)/.98 'Cormorant Garamond',Georgia,serif;letter-spacing:-.045em}
+.overview-intro h1 em{display:block;margin-top:5px;color:#e6c586;font-weight:400}
+.overview-intro p{max-width:45ch;margin:0 0 7px;color:#bcc3ca;font:400 16px/1.85 'DM Sans',Arial,sans-serif}
+.overview-jump{width:min(1220px,calc(100% - 64px));margin:0 auto 64px;border-top:1px solid rgba(230,197,134,.28);border-bottom:1px solid rgba(230,197,134,.28)}
+.overview-jump-label{display:block;margin:19px 0 13px;font:600 9px/1.5 'DM Sans',Arial,sans-serif;text-transform:uppercase;letter-spacing:.17em;color:#b2aa9a}
+.overview-jump nav{display:flex;gap:24px;overflow-x:auto;scrollbar-width:thin;padding-bottom:21px}
+.overview-jump a{display:flex;align-items:center;gap:11px;white-space:nowrap;text-decoration:none;color:#ebebe6;font:500 12px/1.5 'DM Sans',Arial,sans-serif}
+.overview-jump a span{font:400 10px/1 monospace;color:#e6c586}
+.overview-jump a:hover{color:#e6c586}
+.he-detail-section{scroll-margin-top:105px}
+.he-detail-footer{background:#090c10;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:16px;padding:34px 24px;font-size:12px}
+.he-detail-footer a{text-decoration:none;margin:0;color:#e6c586}
+.overview-skip{position:fixed;top:-80px;left:20px;z-index:60;background:#e6c586;color:#12120f!important;padding:12px 18px}
+.overview-skip:focus{top:12px}
+:focus-visible{outline:2px solid #e6c586;outline-offset:5px}
+@media(max-width:900px){.overview-nav{min-height:78px;gap:18px}.overview-links{gap:18px}.overview-intro-grid{grid-template-columns:1fr;gap:25px}.overview-intro p{max-width:60ch}.overview-intro{padding-top:64px}.overview-links a:nth-child(2){display:none}}
+@media(max-width:620px){.overview-nav,.overview-intro,.overview-jump{width:calc(100% - 40px)}.overview-nav{flex-wrap:wrap;padding:15px 0;gap:18px}.overview-brand-group{gap:22px;width:100%;justify-content:space-between}.overview-back{border:0;padding-left:0}.overview-links{width:100%;justify-content:space-between;gap:12px}.overview-links a:nth-child(2){display:inline}.overview-intro{padding:54px 0 32px}.overview-intro h1{font-size:52px}.overview-jump{margin-bottom:36px}.overview-jump nav{gap:22px}.he-detail-section{scroll-margin-top:145px}}

@@ -1,0 +1,12 @@
+/* A text-led invitation, intentionally not a card or tile. */
+.ha-entry{padding:86px 0;border-top:1px solid rgba(201,163,91,.24);border-bottom:1px solid rgba(201,163,91,.24);background:linear-gradient(110deg,rgba(201,163,91,.045),transparent 70%);color:#f4f0e6}
+.ha-entry-inner{width:min(1200px,calc(100% - 80px));margin:auto;display:grid;grid-template-columns:1.15fr 1fr;gap:80px;align-items:center}
+.ha-entry-label{display:block;margin-bottom:18px;color:#e6c586;font:600 10px/1.3 'DM Sans',Arial,sans-serif;letter-spacing:.19em;text-transform:uppercase}
+.ha-entry h2{margin:0;font:500 clamp(40px,4.8vw,68px)/1.02 'Cormorant Garamond',Georgia,serif;letter-spacing:-.035em}
+.ha-entry h2 em{display:block;color:#e6c586;font-weight:400}
+.ha-entry p{max-width:46ch;margin:0 0 27px;color:#c5c6c5;font:400 16px/1.8 'DM Sans',Arial,sans-serif}
+.ha-entry-link{display:inline-flex;align-items:center;gap:30px;padding:0 0 10px;border-bottom:1px solid #e6c586;color:#e6c586!important;font:600 13px/1.5 'DM Sans',Arial,sans-serif;text-decoration:none;transition:gap .2s,color .2s}
+.ha-entry-link:hover{gap:38px;color:#fff!important}
+.ha-entry-link:focus-visible{outline:2px solid #e6c586;outline-offset:5px}
+@media(max-width:760px){.ha-entry{padding:62px 0}.ha-entry-inner{width:calc(100% - 40px);grid-template-columns:1fr;gap:26px}.ha-entry p{font-size:15px;margin-bottom:22px}}
+@media(prefers-reduced-motion:reduce){.ha-entry-link{transition:none}}
