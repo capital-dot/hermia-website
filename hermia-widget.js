@@ -28,7 +28,7 @@
       <div class="hermia-header">
         <div class="hermia-headmeta">
           <span class="hermia-live"></span>
-          <div><h4>Hermia</h4><p>Ask about the system</p></div>
+          <div><h4>Hermia</h4><p>Ask about Hermia for your business</p></div>
         </div>
         <button class="hermia-close" aria-label="Close">&#10005;</button>
       </div>
@@ -108,7 +108,9 @@
     winEl.classList.toggle('open');
     if (winEl.classList.contains('open') && !greeted) {
       greeted = true;
-      bot("Tell me what kind of enquiries your team handles. I can explain Hermia’s current workflows and what would need to be scoped for another use case.", true);
+      var greeting = "Hi, I’m Hermia’s assistant. Hermia turns the enquiries your business already receives into complete, checked records and private briefs for your team. What kind of business do you run?";
+      bot(greeting, true);
+      history.push({ role: 'assistant', content: greeting });
       inputEl.focus();
     }
   }
@@ -122,7 +124,7 @@
     var b = append(text, 'bot');
     if (withChips) {
       var c = document.createElement('div'); c.className = 'hermia-chips';
-      ['How does Hermia work?', 'What is available now?', 'Discuss my use case'].forEach(function (q) {
+      ['Trades & field services', 'Another industry', 'How does Hermia work?'].forEach(function (q) {
         var chip = document.createElement('button'); chip.className = 'hermia-chip'; chip.textContent = q;
         chip.onclick = function () { chip.parentElement.remove(); userSay(q); };
         c.appendChild(chip);
