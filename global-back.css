@@ -1,0 +1,120 @@
+:root {
+  --hermia-back-gold: #c9a35b;
+  --hermia-back-pale: #e8c17a;
+  --hermia-back-line: rgba(201, 163, 91, .22);
+}
+
+/* The Hermia in action reference: quiet, inline, gold and separated by one rule. */
+a[data-flow-back]:not(.hermia-global-back),
+a.back,
+a.back-link,
+a.back-btn,
+a.return-link,
+a.home-return,
+a.agreement-back,
+a.overview-back,
+a.nav-back-btn,
+a.home[href="index.html"],
+a.btn.ghost[href="index.html"],
+a[href="#setup"],
+a[href="#top"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  width: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 7px 0 7px 22px !important;
+  border: 0 !important;
+  border-left: 1px solid var(--hermia-back-line) !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  color: var(--hermia-back-gold) !important;
+  font: 500 12px/1.2 Arial, sans-serif !important;
+  letter-spacing: .02em !important;
+  text-align: left !important;
+  text-decoration: none !important;
+  text-transform: none !important;
+  transition: color .2s ease, border-color .2s ease, text-shadow .2s ease !important;
+}
+
+a[data-flow-back]:not(.hermia-global-back):hover,
+a.back:hover,
+a.back-link:hover,
+a.back-btn:hover,
+a.return-link:hover,
+a.home-return:hover,
+a.agreement-back:hover,
+a.overview-back:hover,
+a.nav-back-btn:hover,
+a.home[href="index.html"]:hover,
+a.btn.ghost[href="index.html"]:hover,
+a[href="#setup"]:hover,
+a[href="#top"]:hover {
+  border-left-color: var(--hermia-back-pale) !important;
+  color: var(--hermia-back-pale) !important;
+  text-shadow: 0 0 14px rgba(232, 193, 122, .3) !important;
+}
+
+/* Pages without a shared header use the same treatment as a restrained top-left utility. */
+a.hermia-global-back {
+  position: fixed !important;
+  top: 18px !important;
+  left: 18px !important;
+  right: auto !important;
+  bottom: auto !important;
+  z-index: 9999 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  width: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 7px 0 7px 22px !important;
+  border: 0 !important;
+  border-left: 1px solid var(--hermia-back-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--hermia-back-gold) !important;
+  font: 500 12px/1.2 Arial, sans-serif !important;
+  letter-spacing: .02em !important;
+  text-decoration: none !important;
+  text-transform: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: color .2s ease, border-color .2s ease, text-shadow .2s ease !important;
+}
+
+a.hermia-global-back:hover {
+  border-left-color: var(--hermia-back-pale) !important;
+  color: var(--hermia-back-pale) !important;
+  text-shadow: 0 0 14px rgba(232, 193, 122, .3) !important;
+}
+
+@media (max-width: 640px) {
+  a[data-flow-back]:not(.hermia-global-back),
+  a.back,
+  a.back-link,
+  a.back-btn,
+  a.return-link,
+  a.home-return,
+  a.agreement-back,
+  a.overview-back,
+  a.nav-back-btn,
+  a.home[href="index.html"],
+  a.btn.ghost[href="index.html"],
+  a[href="#setup"],
+  a[href="#top"] {
+    padding-left: 12px !important;
+    font-size: 11px !important;
+  }
+
+  a.hermia-global-back {
+    top: 14px !important;
+    left: 15px !important;
+    padding-left: 12px !important;
+    font-size: 11px !important;
+  }
+}
