@@ -2,237 +2,754 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Build Hermia's customer-specific enquiry qualification operating rules.">
-  <title>Configuration Journey — Hermia</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Build your Hermia configuration one decision at a time, then continue to secure payment.">
+  <title>Start your build — Hermia</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/config/build-hero.webp">
   <style>
-    /* Hermia Configuration Journey: liquid-gold operating studio, flexible customer-owned rules, spacious vertical flow. */
-    :root{--void:#07070a;--surface:#10100f;--cream:#f4f0e6;--soft:#b8b3a9;--muted:#827e75;--gold:#c9a35b;--pale:#e8c17a;--line:rgba(201,163,91,.2);--hi:rgba(232,193,122,.54);--green:#9fe0b1;--red:#df8b7a;--display:"Cormorant Garamond",serif;--sans:"DM Sans",sans-serif;--mono:"IBM Plex Mono",monospace}*{box-sizing:border-box}html{scroll-behavior:smooth}body{min-width:320px;margin:0;background:var(--void);color:var(--cream);font-family:var(--sans);overflow-x:hidden}body:before{position:fixed;z-index:-2;inset:0;opacity:.34;background-image:linear-gradient(rgba(201,163,91,.034) 1px,transparent 1px),linear-gradient(90deg,rgba(201,163,91,.034) 1px,transparent 1px);background-size:56px 56px;content:""}body:after{position:fixed;z-index:-1;top:-22vh;left:50%;width:min(1120px,100vw);height:760px;background:radial-gradient(ellipse,rgba(201,163,91,.16),transparent 66%);content:"";filter:blur(26px);transform:translateX(-50%)}.shell{width:min(1160px,calc(100% - 48px));margin:auto}.nav{display:flex;align-items:center;justify-content:space-between;padding:24px 0;border-bottom:1px solid var(--line)}.brand{display:inline-flex;align-items:center;gap:11px;color:var(--cream);font:600 25px/1 var(--display);letter-spacing:-.04em;text-decoration:none}.mark{display:grid;width:32px;height:32px;place-items:center;border:1px solid var(--pale);border-radius:50%;color:var(--pale);font:500 19px/1 var(--display)}.back{display:inline-flex;align-items:center;gap:9px;padding:11px 14px;border:1px solid var(--line);color:var(--soft);font:500 10px/1 var(--mono);letter-spacing:.1em;text-decoration:none;text-transform:uppercase;transition:.2s}.back:hover{border-color:var(--pale);color:var(--pale);transform:translateY(-1px)}.intro{display:grid;grid-template-columns:1fr .75fr;gap:70px;padding:80px 0 53px;align-items:end}.eyebrow{display:block;color:var(--pale);font:500 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase}.intro h1{max-width:720px;margin:18px 0;font:600 clamp(50px,7vw,83px)/.88 var(--display);letter-spacing:-.075em}.intro h1 em{color:var(--pale);font-style:italic;font-weight:500}.intro p{max-width:605px;margin:0;color:var(--soft);font-size:15px;line-height:1.8}.price-lock{padding:22px;border:1px solid var(--hi);background:linear-gradient(140deg,rgba(201,163,91,.15),rgba(201,163,91,.04));box-shadow:inset 0 1px 0 rgba(255,244,214,.07)}.price-lock span{display:block;color:var(--pale);font:500 9px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}.price-lock strong{display:block;margin:12px 0 5px;color:var(--cream);font:600 34px/.9 var(--display);letter-spacing:-.05em}.price-lock p{color:var(--muted);font-size:11px;line-height:1.55}.journey{display:grid;grid-template-columns:255px minmax(0,1fr);gap:28px;padding-bottom:88px}.rail{height:max-content;padding:9px;border:1px solid var(--line);background:rgba(10,10,9,.82);position:sticky;top:18px}.rail button{display:flex;width:100%;align-items:flex-start;gap:12px;padding:15px;border:0;border-left:1px solid transparent;background:transparent;color:var(--muted);font-family:var(--sans);text-align:left;cursor:pointer;transition:.2s}.rail button:hover{background:rgba(201,163,91,.05);color:var(--soft)}.rail button.active{border-left-color:var(--pale);background:rgba(201,163,91,.1);color:var(--cream)}.rail-num{color:var(--pale);font:500 9px/1.5 var(--mono)}.rail b{display:block;font-size:12px}.rail span:last-child{display:block;margin-top:4px;font-size:10px;line-height:1.4}.panel{display:none;min-height:590px;padding:42px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,255,255,.028),rgba(255,255,255,.006));box-shadow:0 28px 70px rgba(0,0,0,.24)}.panel.active{display:block;animation:rise .38s both}.panel-top{display:flex;justify-content:space-between;gap:20px;padding-bottom:26px;border-bottom:1px solid var(--line)}.panel-kicker{color:var(--pale);font:500 10px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase}.panel h2{margin:12px 0 0;font:600 clamp(34px,4.4vw,51px)/.96 var(--display);letter-spacing:-.06em}.panel h2 em{color:var(--pale);font-style:italic;font-weight:500}.count{height:max-content;padding:8px 10px;border:1px solid var(--line);color:var(--muted);font:500 9px/1 var(--mono);letter-spacing:.08em}.panel-copy{max-width:710px;margin:20px 0 30px;color:var(--soft);font-size:14px;line-height:1.72}.fields{display:grid;grid-template-columns:1fr 1fr;gap:17px}.field{display:grid;gap:8px}.field.full{grid-column:1/-1}label,.field-label{color:var(--pale);font:500 9px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}input,select,textarea{width:100%;padding:14px 15px;border:1px solid var(--line);border-radius:0;background:rgba(5,5,5,.38);color:var(--cream);font:400 14px/1.3 var(--sans);outline:none;transition:.2s}textarea{min-height:100px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:var(--pale);box-shadow:0 0 0 3px rgba(201,163,91,.09)}select option{background:#11110f}.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.choice{position:relative;display:block;padding:18px;border:1px solid var(--line);background:rgba(201,163,91,.025);cursor:pointer;transition:.2s}.choice:hover{border-color:var(--hi);background:rgba(201,163,91,.07);transform:translateY(-1px)}.choice input{position:absolute;opacity:0;pointer-events:none}.choice:has(input:checked){border-color:var(--pale);background:linear-gradient(140deg,rgba(201,163,91,.17),rgba(201,163,91,.04));box-shadow:inset 0 1px 0 rgba(255,244,214,.08)}.choice small{display:block;margin-bottom:8px;color:var(--gold);font:500 9px/1 var(--mono);letter-spacing:.11em}.choice b{display:block;color:var(--cream);font-size:14px}.choice span{display:block;margin-top:7px;color:var(--soft);font-size:11px;line-height:1.52}.rule-list{display:grid;gap:10px}.rule-list .choice{padding:17px 18px}.section-label{display:block;margin:33px 0 12px;color:var(--pale);font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}.section-label:first-child{margin-top:0}.subcopy{margin:-3px 0 14px;color:var(--muted);font-size:11px;line-height:1.55}.builder{padding:17px;border:1px solid var(--hi);background:linear-gradient(140deg,rgba(201,163,91,.1),rgba(201,163,91,.02))}.builder-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:13px}.builder-head b{display:block;color:var(--cream);font:600 19px/1 var(--display);letter-spacing:-.02em}.counter{color:var(--pale);font:500 10px/1 var(--mono);letter-spacing:.08em}.repeat-list{display:grid;gap:9px}.repeat-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:9px;align-items:center}.repeat-row.single{grid-template-columns:minmax(0,1fr) auto}.repeat-row input{padding:12px}.icon-btn,.add-btn{border:1px solid var(--line);background:transparent;color:var(--soft);font:600 9px/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;cursor:pointer;transition:.2s}.icon-btn{display:grid;width:42px;height:42px;place-items:center;color:var(--muted);font-size:17px}.icon-btn:hover{border-color:var(--red);color:var(--red)}.add-btn{width:100%;margin-top:11px;padding:13px;color:var(--pale);text-align:left}.add-btn:hover{border-color:var(--pale);background:rgba(201,163,91,.08)}.preset-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;border:1px solid var(--line);background:var(--line)}.preset-check{display:flex;align-items:center;gap:10px;padding:13px;background:#0d0d0c;color:var(--soft);font-size:12px;cursor:pointer}.preset-check input{width:17px;height:17px;margin:0;padding:0;accent-color:var(--gold)}.preset-check:has(input:checked){background:rgba(201,163,91,.1);color:var(--cream)}.alert-group{display:grid;gap:18px}.weekly-summary-card{border-color:var(--hi);background:linear-gradient(145deg,rgba(201,163,91,.12),rgba(0,0,0,.18))}.summary-choice{display:flex;align-items:flex-start;gap:11px;padding:14px;border:1px solid var(--line);background:rgba(5,5,5,.26);color:var(--cream);cursor:pointer}.summary-choice input{width:18px;height:18px;margin:0;padding:0;accent-color:var(--gold)}.summary-choice b{display:block;font-size:13px}.summary-choice small{display:block;margin-top:5px;color:var(--soft);font-size:11px;line-height:1.5}.weekly-summary-fields{margin-top:15px}.alert-card{padding:20px;border:1px solid var(--line);background:rgba(0,0,0,.16)}.alert-card h3{margin:0 0 7px;color:var(--cream);font:600 22px/1 var(--display);letter-spacing:-.03em}.alert-card p{margin:0 0 15px;color:var(--muted);font-size:11px;line-height:1.55}.summary{display:grid;grid-template-columns:1fr 1fr;gap:1px;border:1px solid var(--line);background:var(--line)}.summary div{padding:16px;background:#0c0c0b}.summary span{display:block;color:var(--muted);font:500 9px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}.summary b{display:block;margin-top:7px;color:var(--cream);font-size:13px;line-height:1.45}.status{min-height:20px;margin-top:18px;color:var(--green);font-size:12px;line-height:1.5}.controls{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line)}.btn{display:inline-flex;min-height:48px;align-items:center;justify-content:center;padding:0 19px;border:1px solid var(--hi);background:transparent;color:var(--cream);font:600 10px/1 var(--mono);letter-spacing:.13em;text-decoration:none;text-transform:uppercase;cursor:pointer;transition:.2s}.btn:hover{border-color:var(--pale);background:rgba(201,163,91,.1);transform:translateY(-1px)}.btn.gold{border:0;background:linear-gradient(90deg,#80601f,var(--pale),#9c7628);color:#1a1306}.btn.gold:hover{filter:brightness(1.06)}.notice{margin:12px 0 0;color:var(--muted);font-size:11px;line-height:1.55}@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}@media(max-width:820px){.intro,.journey{grid-template-columns:1fr}.intro{gap:35px;padding:62px 0 42px}.rail{display:flex;overflow:auto;position:relative;top:auto;padding:6px}.rail button{min-width:160px}.rail button span:last-child{display:none}.panel{min-height:0;padding:27px}.fields,.summary,.preset-list{grid-template-columns:1fr}.choice-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.shell{width:min(100% - 32px,1160px)}}@media(max-width:560px){.repeat-row{grid-template-columns:1fr auto}.repeat-row input:first-child{grid-column:1/-1}.builder-head{align-items:start;flex-direction:column}.controls{align-items:stretch;flex-direction:column-reverse}.controls .btn{width:100%}}@media(prefers-reduced-motion:reduce){.panel.active{animation:none}}
+    :root{--void:#07070a;--ink:#0d0d12;--panel:#111118;--line:rgba(201,163,91,.18);--line-2:rgba(244,240,230,.09);--gold:#c9a35b;--pale:#e8c17a;--cream:#f4f0e6;--mute:rgba(244,240,230,.62);--faint:rgba(244,240,230,.38);--ok:#7fd1a8;--warn:#f0b36a;--ease:cubic-bezier(.23,1,.32,1)}
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:var(--void);color:var(--cream);font:400 16px/1.55 "DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+    body{overflow:hidden}
+    button,input,select,textarea{font:inherit;color:inherit}
+    a{color:var(--pale)}
+    .app{display:grid;grid-template-columns:minmax(0,44fr) minmax(0,56fr);height:100vh;height:100dvh}
+    /* Visual side */
+    .visual{position:relative;overflow:hidden;background:#000;border-right:1px solid var(--line)}
+    .visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity .7s var(--ease),transform 1.6s var(--ease)}
+    .visual img.on{opacity:.86;transform:scale(1)}
+    .visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,10,.55) 0%,rgba(7,7,10,0) 26%,rgba(7,7,10,0) 52%,rgba(7,7,10,.92) 100%),radial-gradient(120% 70% at 0% 100%,rgba(201,163,91,.22),transparent 60%);pointer-events:none}
+    .visual .brand{position:absolute;z-index:2;top:26px;left:30px;display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--cream);font:600 22px/1 "Cormorant Garamond",serif;letter-spacing:.04em}
+    .visual .brand img{position:static;opacity:1;transform:none;width:30px;height:30px;object-fit:contain}
+    .visual .caption{position:absolute;z-index:2;left:30px;right:30px;bottom:34px}
+    .caption .k{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--pale)}
+    .caption .t{margin-top:12px;font:500 clamp(24px,2.3vw,34px)/1.12 "Cormorant Garamond",serif;max-width:30ch}
+    .caption .s{margin-top:10px;color:var(--mute);font-size:14px;max-width:46ch}
+    /* Question side */
+    .side{position:relative;display:flex;flex-direction:column;min-height:0;background:radial-gradient(90% 60% at 100% 0%,rgba(201,163,91,.07),transparent 60%),var(--void)}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px clamp(22px,4vw,64px) 0}
+    .progress{flex:1;max-width:340px}
+    .progress .bar{height:2px;background:var(--line-2);border-radius:2px;overflow:hidden}
+    .progress .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--pale));transition:width .45s var(--ease)}
+    .progress .lbl{margin-top:9px;font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.18em;color:var(--faint);text-transform:uppercase}
+    .stage{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:clamp(28px,6vh,72px) clamp(22px,4vw,64px) 40px}
+    .screen{display:none;max-width:640px}
+    .screen.on{display:block;animation:enter .42s var(--ease) both}
+    .screen.back.on{animation-name:enterBack}
+    @keyframes enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+    @keyframes enterBack{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+    .eyebrow{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+    h1,h2{font-family:"Cormorant Garamond",serif;font-weight:500;letter-spacing:-.005em;margin:14px 0 0}
+    h1{font-size:clamp(46px,5.6vw,78px);line-height:.98}
+    h2{font-size:clamp(34px,3.6vw,52px);line-height:1.04}
+    h1 em,h2 em{font-style:italic;color:var(--pale)}
+    .lead{margin:16px 0 0;color:var(--mute);font-size:17px;max-width:52ch}
+    .field{margin-top:30px}
+    .field+.field{margin-top:18px}
+    .field label,.mini{display:block;font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+    .input,select.input,textarea.input{width:100%;background:rgba(244,240,230,.035);border:1px solid var(--line-2);border-radius:14px;padding:17px 18px;font-size:19px;outline:none;transition:border-color .2s,background .2s,box-shadow .2s}
+    textarea.input{font-size:16px;min-height:120px;resize:vertical;line-height:1.5}
+    select.input{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--gold) 50%),linear-gradient(135deg,var(--gold) 50%,transparent 50%);background-position:calc(100% - 22px) 52%,calc(100% - 16px) 52%;background-size:6px 6px;background-repeat:no-repeat}
+    select.input option{background:#111;color:var(--cream)}
+    .input:focus{border-color:rgba(232,193,122,.7);background:rgba(244,240,230,.06);box-shadow:0 0 0 4px rgba(201,163,91,.12)}
+    .input::placeholder{color:rgba(244,240,230,.28)}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .hint{margin-top:10px;color:var(--faint);font-size:13.5px}
+    .err{margin-top:14px;color:#ffb4a2;font-size:14px;min-height:20px}
+    /* Choice tiles */
+    .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:30px}
+    .tiles.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .tile{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:10px;text-align:left;padding:18px 18px 16px;min-height:104px;border-radius:16px;border:1px solid var(--line-2);background:rgba(244,240,230,.03);cursor:pointer;transition:border-color .2s,background .2s,transform .16s var(--ease)}
+    .tile:hover{border-color:rgba(232,193,122,.4);background:rgba(244,240,230,.05)}
+    .tile:active{transform:scale(.98)}
+    .tile[aria-pressed="true"]{border-color:var(--pale);background:linear-gradient(160deg,rgba(201,163,91,.16),rgba(201,163,91,.04));box-shadow:0 0 0 1px rgba(232,193,122,.35) inset,0 18px 40px -24px rgba(201,163,91,.6)}
+    .tile[aria-pressed="true"]::after{content:"";position:absolute;top:14px;right:14px;width:18px;height:18px;border-radius:50%;background:var(--pale) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.2 4.2L19 7' fill='none' stroke='%2307070a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat}
+    .tile[disabled]{opacity:.42;cursor:not-allowed}
+    .tile .tt{font-weight:600;font-size:16.5px}
+    .tile .td{color:var(--mute);font-size:13.5px;line-height:1.45}
+    .tile .tag{font:500 10px/1 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--line);border-radius:999px;padding:5px 8px}
+    .ico{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:rgba(244,240,230,.06);overflow:hidden}
+    .ico img{width:26px;height:26px;object-fit:contain}
+    .logo-chip{height:46px;padding:0 14px;border-radius:11px;background:#f7f5f0;display:flex;align-items:center;justify-content:center}
+    .logo-chip img{height:24px;width:auto;display:block}
+    .logo-chip .aroflo{font:800 21px/1 "DM Sans",sans-serif;letter-spacing:-.02em;color:#0b2a4a}
+    .logo-chip .aroflo b{color:#e0532d}
+    .search{position:relative;margin-top:14px}
+    .search .input{padding-left:48px;font-size:16px}
+    .search svg{position:absolute;left:17px;top:50%;transform:translateY(-50%);opacity:.6}
+    .results{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .chip{border:1px solid var(--line-2);background:rgba(244,240,230,.03);border-radius:999px;padding:9px 14px;font-size:14px;cursor:pointer;transition:border-color .2s,background .2s}
+    .chip:hover{border-color:rgba(232,193,122,.4)}
+    .chip[aria-pressed="true"]{border-color:var(--pale);background:rgba(201,163,91,.16);color:var(--cream)}
+    .note{margin-top:22px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:rgba(201,163,91,.05);color:var(--mute);font-size:14px}
+    .note b{color:var(--cream);font-weight:600}
+    /* Lists */
+    .list-rows{margin-top:24px;display:grid;gap:10px}
+    .list-row{display:grid;grid-template-columns:1fr 1.4fr auto;gap:10px}
+    .list-row.one{grid-template-columns:1fr auto}
+    .list-row .input{font-size:16px;padding:14px 15px}
+    .x{width:48px;border-radius:12px;border:1px solid var(--line-2);background:transparent;cursor:pointer;color:var(--faint);font-size:20px}
+    .x:hover{color:var(--cream);border-color:rgba(232,193,122,.4)}
+    .add{margin-top:12px;background:none;border:1px dashed rgba(232,193,122,.4);color:var(--pale);border-radius:12px;padding:12px 16px;cursor:pointer;font-weight:500}
+    .add:hover{background:rgba(201,163,91,.07)}
+    /* Qualification */
+    .q-list{margin-top:26px;display:grid;gap:10px}
+    .q{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:start;padding:15px 16px;border-radius:14px;border:1px solid var(--line-2);background:rgba(244,240,230,.025)}
+    .q .n{font:500 11px/1.9 "IBM Plex Mono",monospace;color:var(--gold);letter-spacing:.08em}
+    .q .qt{font-weight:600;font-size:15.5px}
+    .q .qw{color:var(--mute);font-size:13.5px;margin-top:3px;line-height:1.45}
+    .switch{position:relative;width:44px;height:26px;flex:none;margin-top:2px}
+    .switch input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+    .switch span{position:absolute;inset:0;border-radius:999px;background:rgba(244,240,230,.14);transition:background .2s}
+    .switch span::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--cream);transition:transform .22s var(--ease)}
+    .switch input:checked+span{background:var(--gold)}
+    .switch input:checked+span::after{transform:translateX(18px);background:#0b0b0f}
+    .switch input:disabled+span{opacity:.55}
+    .switch input:focus-visible+span{box-shadow:0 0 0 3px rgba(232,193,122,.4)}
+    .section-k{margin-top:34px;font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--pale)}
+    .how{margin-top:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .how div{padding:14px;border-radius:14px;background:rgba(244,240,230,.03);border:1px solid var(--line-2);font-size:13.5px;color:var(--mute)}
+    .how b{display:block;color:var(--cream);font-size:14.5px;margin-bottom:4px}
+    .seg{display:inline-flex;margin-top:14px;border:1px solid var(--line-2);border-radius:12px;overflow:hidden}
+    .seg button{background:none;border:0;padding:11px 16px;cursor:pointer;color:var(--mute)}
+    .seg button[aria-pressed="true"]{background:rgba(201,163,91,.18);color:var(--cream)}
+    .file{display:flex;align-items:center;gap:12px;margin-top:12px;padding:16px;border:1px dashed rgba(232,193,122,.4);border-radius:14px;cursor:pointer;color:var(--mute)}
+    .file input{display:none}
+    .calendar-proof{margin-top:16px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+    .calendar-proof img{display:block;width:100%;height:auto}
+    /* Review */
+    .review-grid{margin-top:28px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .rv{position:relative;padding:15px 16px 14px;border-radius:14px;border:1px solid var(--line-2);background:linear-gradient(180deg,rgba(244,240,230,.04),rgba(244,240,230,.015));overflow:hidden}
+    .rv::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--pale),transparent)}
+    .rv .k{font:500 10.5px/1 "IBM Plex Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+    .rv .v{margin-top:8px;font-size:15px;line-height:1.45;word-break:break-word}
+    .rv .edit{position:absolute;top:11px;right:12px;background:none;border:0;color:var(--gold);font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+    .rv.wide{grid-column:1/-1}
+    .price{margin-top:16px;padding:20px;border-radius:16px;border:1px solid rgba(232,193,122,.45);background:radial-gradient(120% 140% at 0% 0%,rgba(201,163,91,.2),rgba(201,163,91,.03) 60%)}
+    .price .big{font:500 clamp(28px,2.6vw,36px)/1.1 "Cormorant Garamond",serif}
+    .price .small{margin-top:8px;color:var(--mute);font-size:14px}
+    .scan{position:relative;height:1px;margin-top:26px;background:var(--line-2);overflow:hidden}
+    .scan i{position:absolute;top:0;left:-30%;width:30%;height:1px;background:linear-gradient(90deg,transparent,var(--pale),transparent);animation:scan 2.8s linear infinite}
+    @keyframes scan{to{left:100%}}
+    /* Footer actions */
+    .actions{display:flex;align-items:center;gap:14px;padding:16px clamp(22px,4vw,64px) calc(18px + env(safe-area-inset-bottom));border-top:1px solid var(--line-2);background:rgba(7,7,10,.86);backdrop-filter:blur(10px)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:999px;padding:15px 26px;font-weight:600;font-size:15.5px;cursor:pointer;transition:transform .16s var(--ease),opacity .2s,background .2s}
+    .btn:active{transform:scale(.97)}
+    .btn.primary{background:linear-gradient(135deg,var(--pale),var(--gold));color:#0b0b0f;box-shadow:0 16px 40px -18px rgba(201,163,91,.85)}
+    .btn.primary[disabled]{opacity:.38;cursor:not-allowed;box-shadow:none}
+    .btn.ghost{background:transparent;color:var(--mute);border:1px solid var(--line-2)}
+    .btn.ghost:hover{color:var(--cream)}
+    .spacer{flex:1}
+    .keyhint{font:500 11px/1 "IBM Plex Mono",monospace;color:var(--faint);letter-spacing:.1em}
+    .header-links{display:flex;align-items:center;gap:18px;font-size:13px}
+    .header-links a{text-decoration:none}
+    .intro-meta{margin-top:34px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;border:1px solid var(--line-2);border-radius:16px;overflow:hidden;background:var(--line-2)}
+    .intro-meta div{background:var(--void);padding:16px 16px 15px}
+    .intro-meta b{display:block;font:500 24px/1.1 "Cormorant Garamond",serif;color:var(--cream)}
+    .intro-meta span{display:block;margin-top:6px;font-size:12.5px;color:var(--faint)}
+    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    @media (max-width:900px){
+      body{overflow:auto}
+      .app{display:block;height:auto;min-height:100dvh}
+      .visual{position:relative;height:30vh;min-height:190px;border-right:0;border-bottom:1px solid var(--line)}
+      .visual .caption{bottom:18px;left:20px;right:20px}
+      .caption .s{display:none}
+      .visual .brand{top:18px;left:20px}
+      .side{min-height:70vh}
+      .stage{overflow:visible;padding-top:30px}
+      .actions{position:sticky;bottom:0}
+      .tiles.three{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .how{grid-template-columns:1fr}
+      .review-grid{grid-template-columns:1fr}
+      .keyhint{display:none}
+    }
+    @media (max-width:520px){
+      .tiles,.tiles.three{grid-template-columns:1fr}
+      .row2{grid-template-columns:1fr}
+      .list-row{grid-template-columns:1fr auto}
+      .list-row .input.name{grid-column:1/-1}
+      .intro-meta{grid-template-columns:1fr}
+      h1{font-size:44px}
+      h2{font-size:32px}
+      .btn{padding:14px 20px}
+    }
+    @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
   </style>
-<style id="estimate-grounding-system">
-/* Hermia configuration rule: contractor-owned price material plus job detail, never a guessed figure. */
-.estimate-grounding{position:relative;margin:6px 0 20px;padding:20px 21px 20px 24px;border:1px solid rgba(201,163,91,.32);background:linear-gradient(140deg,rgba(201,163,91,.13),rgba(201,163,91,.035));overflow:hidden}.estimate-grounding:before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(#e8c17a,#8b6728)}.estimate-grounding span{display:block;margin-bottom:8px;color:#e8c17a;font:600 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase}.estimate-grounding h4{margin:0 0 8px;color:var(--cream);font:600 25px/1 var(--display)}.estimate-grounding p{margin:0;color:var(--soft);font-size:13px;line-height:1.7}
-</style>
-<style id="configuration-monday-summary-and-estimate-outcome">
-/* Hermia Configuration refinement: room to think, a fixed Monday brief, and visible estimate answers. */
-[data-panel="4"] .panel-copy{max-width:760px;margin-bottom:42px!important;line-height:1.85!important}[data-panel="4"] .panel-top{margin-bottom:28px!important}[data-panel="4"] .rule-list{gap:18px!important;margin:22px 0 32px!important}[data-panel="4"] .choice{min-height:122px!important;padding:28px 26px!important}[data-panel="4"] .builder{margin:22px 0 64px!important;padding:22px!important;border:1px solid rgba(201,163,91,.18);background:rgba(201,163,91,.025)}[data-panel="4"] .section-label{display:block;margin-top:50px!important}[data-panel="4"] .subcopy{margin:13px 0 23px!important;line-height:1.75!important}[data-panel="4"] .controls{margin-top:66px!important;padding-top:30px!important;border-top:1px solid rgba(201,163,91,.22)}
-.weekly-monday-card{margin:42px 0 34px!important;padding:30px!important;border-color:rgba(232,193,122,.52)!important;background:radial-gradient(circle at 92% 12%,rgba(232,193,122,.16),transparent 28%),rgba(18,17,17,.92)!important}.monday-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;border-bottom:1px solid rgba(232,193,122,.2);padding-bottom:20px;margin-bottom:20px}.monday-heading small,.estimate-outcome-card small{display:block;color:#e8c17a;font:700 10px/1.2 'IBM Plex Mono',monospace;letter-spacing:.16em}.monday-heading h3{margin:8px 0 0!important}.monday-lock{white-space:nowrap;border:1px solid rgba(232,193,122,.55);padding:8px 10px;color:#f4f0e6;font:700 9px/1 'IBM Plex Mono',monospace;letter-spacing:.12em}.weekly-monday-card p{max-width:820px;line-height:1.85!important;margin-bottom:24px!important}.weekly-recipient-field{max-width:720px;padding:22px;border:1px solid rgba(232,193,122,.22);background:rgba(7,7,10,.56)}.weekly-recipient-field small{display:block;margin-top:10px;color:var(--muted);line-height:1.55}
-.estimate-outcome-card{margin:44px 0 58px;padding:clamp(28px,4vw,52px);border:1px solid rgba(232,193,122,.48);background:radial-gradient(circle at 94% 0,rgba(232,193,122,.16),transparent 32%),linear-gradient(135deg,rgba(201,163,91,.08),rgba(7,7,10,.16));box-shadow:inset 0 1px rgba(255,244,208,.08)}.estimate-outcome-intro{max-width:760px}.estimate-outcome-intro h3{margin:10px 0 14px;font:400 clamp(32px,4vw,52px)/1.02 'Cormorant Garamond',serif;color:#f4f0e6}.estimate-outcome-intro p{max-width:700px;line-height:1.8}.outcome-track{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}.outcome{display:flex;gap:18px;align-items:flex-start;min-height:176px;padding:25px;border:1px solid rgba(244,240,230,.12);background:rgba(7,7,10,.5)}.outcome-mark{display:grid;place-items:center;flex:0 0 48px;width:48px;height:48px;border-radius:50%;font:600 34px/1 'DM Sans',sans-serif}.accepted .outcome-mark{color:#efffee;border:1px solid #8fd58f;background:rgba(80,178,87,.18);box-shadow:0 0 23px rgba(96,201,105,.22)}.declined .outcome-mark{color:#ffe9e4;border:1px solid #df7f6c;background:rgba(199,76,57,.16);box-shadow:0 0 23px rgba(199,76,57,.16)}.outcome b{display:block;color:#f4f0e6;font:400 25px/1.05 'Cormorant Garamond',serif;margin:7px 0 10px}.outcome p{margin:0;color:var(--muted);line-height:1.7}
-@media(max-width:720px){[data-panel="4"] .choice{min-height:auto!important;padding:22px 19px!important}.weekly-monday-card{padding:23px!important}.monday-heading{flex-direction:column}.outcome-track{grid-template-columns:1fr}.estimate-outcome-card{padding:27px 22px}.outcome{min-height:auto}}
-</style>
-
-<style id="configuration-pricing-gallery">
-/* Hermia Configuration Journey: liquid-gold operating studio aligned with the premium pricing gallery; the Monday brief is included automatically, never configured. */
-body:after{top:-14vh;left:17%;width:860px;height:720px;background:radial-gradient(ellipse,rgba(201,163,91,.2),transparent 67%)}.shell{width:min(1240px,calc(100% - 52px))}.nav{padding:28px 0;border-color:rgba(232,193,122,.24)}.brand{font-size:29px}.mark{width:38px;height:38px;border-color:rgba(232,193,122,.8);background:radial-gradient(circle at 35% 28%,rgba(232,193,122,.22),transparent 66%)}.back{padding:13px 16px;border-color:rgba(232,193,122,.36);background:rgba(201,163,91,.035)}
-.intro{position:relative;gap:clamp(42px,7vw,106px);padding:clamp(86px,11vw,142px) 0 72px;align-items:center}.intro:before{content:"CONFIGURATION";position:absolute;right:0;top:30px;color:rgba(232,193,122,.1);font:600 9px/1 var(--mono);letter-spacing:.3em}.intro h1{font-size:clamp(58px,7.2vw,98px);max-width:740px}.intro p{max-width:590px;font-size:16px}.price-lock{position:relative;overflow:hidden;align-self:stretch;display:flex;flex-direction:column;justify-content:center;min-height:254px;padding:42px;border-color:rgba(232,193,122,.68);background:radial-gradient(circle at 15% 20%,rgba(232,193,122,.22),transparent 33%),linear-gradient(145deg,rgba(201,163,91,.18),rgba(12,12,12,.9) 62%);box-shadow:inset 0 1px 0 rgba(255,247,218,.12),0 28px 60px rgba(0,0,0,.28)}.price-lock:before{content:"05";position:absolute;right:24px;top:17px;color:rgba(232,193,122,.12);font:600 105px/.8 var(--display);letter-spacing:-.08em}.price-lock span,.price-lock strong,.price-lock p{position:relative;z-index:1}.price-lock strong{font-size:clamp(39px,4vw,58px);line-height:.84}.price-lock p{max-width:340px;font-size:12px}
-.journey{position:relative;grid-template-columns:286px minmax(0,1fr);gap:clamp(34px,5vw,70px);padding:0 0 128px}.journey:before{content:"";position:absolute;top:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(232,193,122,.62),transparent)}.rail{padding:18px 12px;border-color:rgba(232,193,122,.33);background:linear-gradient(180deg,rgba(17,17,16,.96),rgba(8,8,9,.82));box-shadow:inset 0 1px rgba(255,248,226,.06),0 26px 60px rgba(0,0,0,.2)}.rail button{position:relative;gap:15px;padding:19px 17px;border-left-width:2px}.rail button:before{content:"";position:absolute;left:17px;right:17px;bottom:0;height:1px;background:rgba(255,255,255,.055)}.rail button:last-child:before{display:none}.rail button.active{background:linear-gradient(90deg,rgba(201,163,91,.16),rgba(201,163,91,.03));border-left-color:var(--pale)}.rail b{font-size:13px}.rail span:last-child{font-size:10px;line-height:1.5}.rail-num{padding-top:2px}
-.panel{position:relative;overflow:hidden;min-height:660px;padding:clamp(36px,5.4vw,76px);border-color:rgba(232,193,122,.36);background:radial-gradient(circle at 92% 8%,rgba(232,193,122,.12),transparent 25%),linear-gradient(145deg,rgba(20,20,19,.97),rgba(8,8,9,.98));box-shadow:inset 0 1px rgba(255,248,226,.06),0 34px 80px rgba(0,0,0,.28)}.panel:before{content:attr(data-panel);position:absolute;right:30px;top:25px;color:rgba(232,193,122,.07);font:600 120px/.7 var(--display);letter-spacing:-.09em;pointer-events:none}.panel>*{position:relative;z-index:1}.panel-top{padding-bottom:34px;border-color:rgba(232,193,122,.2)}.panel h2{font-size:clamp(42px,4.8vw,65px)}.count{padding:10px 12px;border-color:rgba(232,193,122,.3);background:rgba(201,163,91,.04);color:var(--pale)}.panel-copy{max-width:740px;margin:26px 0 42px;font-size:15px;line-height:1.82}.fields{gap:20px}.choice-grid{gap:15px}.choice{min-height:142px;padding:23px;border-color:rgba(232,193,122,.19);background:rgba(255,255,255,.012)}.choice:hover{transform:translateY(-3px);box-shadow:0 18px 38px rgba(0,0,0,.22)}.choice small{color:var(--pale)}.choice b{font:600 21px/1 var(--display);letter-spacing:-.02em}.choice span{font-size:12px;line-height:1.65}.builder{padding:24px;border-color:rgba(232,193,122,.38);background:linear-gradient(145deg,rgba(201,163,91,.12),rgba(11,11,11,.25))}.add-btn{padding:16px;border-color:rgba(232,193,122,.22)}.alert-card{padding:29px;border-color:rgba(232,193,122,.2);background:rgba(255,255,255,.012)}.alert-card h3{font-size:28px}.alert-card p{font-size:12px;line-height:1.7}.controls{margin-top:52px;padding-top:28px;border-color:rgba(232,193,122,.21)}.btn{min-height:52px;padding:0 22px;border-color:rgba(232,193,122,.6)}.btn.gold{background:linear-gradient(90deg,#80601f,#e8c17a,#9d772b);box-shadow:0 16px 32px rgba(201,163,91,.18)}.summary{border-color:rgba(232,193,122,.25)}.summary div{padding:21px;background:rgba(255,255,255,.018)}
-@media(max-width:860px){.shell{width:min(100% - 34px,1240px)}.intro{grid-template-columns:1fr;padding:72px 0 54px}.price-lock{min-height:0}.journey{grid-template-columns:1fr;gap:28px}.rail{display:flex;overflow:auto;position:relative;top:auto}.rail button{min-width:178px}.panel{min-height:0;padding:36px 28px}.rail button:before{display:none}}@media(max-width:580px){.shell{width:min(100% - 28px,1240px)}.nav{padding:20px 0}.brand{font-size:25px}.back{padding:10px;font-size:8px}.intro h1{font-size:53px}.price-lock{padding:30px}.panel{padding:30px 21px}.panel h2{font-size:42px}.panel-copy{margin-bottom:30px}.choice-grid{grid-template-columns:1fr}.choice{min-height:0}.panel:before{right:18px;top:18px;font-size:88px}}
-</style>
-<style id="contractor-pricing-principle-style">/* Hermia Configuration Journey: contractor ownership is visually primary—pricing is never generated by Hermia, only governed by approved business material. */.pricing-principle-intro{margin-top:44px;padding:24px 28px 27px;border-left:2px solid #c9a35b;background:linear-gradient(90deg,rgba(201,163,91,.1),rgba(201,163,91,0) 78%)}.pricing-principle{margin:12px 0 13px;color:#f4f0e6;font:600 clamp(30px,3.1vw,42px)/.9 'Cormorant Garamond',Georgia,serif;letter-spacing:-.04em}.pricing-principle em{color:#e8c17a;font-weight:500}.pricing-principle-intro .subcopy{max-width:820px;margin:0}@media(max-width:640px){.pricing-principle-intro{margin-top:34px;padding:22px 20px}.pricing-principle{font-size:34px}}</style><style id="customer-rules-principle-style">/* Hermia Customer Rules: each operating group carries the same calm, liquid-gold principle-card hierarchy while keeping the selected rule mechanics unchanged. */.rule-principle-intro{margin-top:44px;padding:24px 28px 27px;border-left:2px solid #c9a35b;background:linear-gradient(90deg,rgba(201,163,91,.1),rgba(201,163,91,0) 78%)}.rule-principle{margin:12px 0 13px;color:#f4f0e6;font:600 clamp(30px,3.1vw,42px)/.9 'Cormorant Garamond',Georgia,serif;letter-spacing:-.04em}.rule-principle em{color:#e8c17a;font-weight:500}.rule-principle-intro .subcopy{max-width:820px;margin:0}.availability-principle{margin-top:34px}.evidence-principle{margin-top:46px}@media(max-width:640px){.rule-principle-intro{margin-top:34px;padding:22px 20px}.rule-principle{font-size:34px}}</style><style id="configuration-rhythm-reduction-style">/* Hermia Configuration Journey: a varied editorial rhythm—compact qualification rows, quiet rule lines, and restrained actions—prevents repeated card framing while retaining the charcoal, liquid-gold, and cream system. */
-.panel[data-panel="3"] .choice-grid{gap:0;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid rgba(232,193,122,.22);background:rgba(201,163,91,.018)}
-.panel[data-panel="3"] .choice-grid .choice{min-height:0!important;margin:0;padding:15px 16px 15px 42px!important;border:0!important;border-bottom:1px solid rgba(232,193,122,.14)!important;background:transparent!important;box-shadow:none!important;transform:none!important}
-.panel[data-panel="3"] .choice-grid .choice:nth-child(odd){border-right:1px solid rgba(232,193,122,.14)!important}.panel[data-panel="3"] .choice-grid .choice:nth-child(odd):last-child{grid-column:1 / -1;border-right:0!important}
-.panel[data-panel="3"] .choice-grid .choice:nth-last-child(-n+2){border-bottom:0!important}
-.panel[data-panel="3"] .choice-grid .choice:hover{background:rgba(201,163,91,.055)!important}
-.panel[data-panel="3"] .choice-grid .choice:has(input:checked){background:rgba(201,163,91,.105)!important;box-shadow:inset 2px 0 0 var(--pale)!important}
-.panel[data-panel="3"] .choice-grid .choice small{display:inline;margin:0 9px 0 0;color:var(--gold);font-size:9px}
-.panel[data-panel="3"] .choice-grid .choice b{display:inline;color:var(--cream);font:500 13px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase}
-.panel[data-panel="3"] .choice-grid .choice span{display:none}
-.panel[data-panel="3"] .builder{margin:26px 0 32px!important;padding:22px 0 0!important;border:0!important;border-top:1px solid rgba(232,193,122,.22)!important;background:none!important}
-.panel[data-panel="3"] .builder-head{align-items:center!important;flex-direction:row!important;margin-bottom:5px!important}
-.panel[data-panel="3"] .builder-head b{font-size:20px!important}
-.panel[data-panel="3"] .add-btn,.panel[data-panel="4"] .add-btn{width:auto!important;margin:4px 0 0!important;padding:10px 0!important;border:0!important;border-bottom:1px solid rgba(232,193,122,.42)!important;background:transparent!important;color:var(--pale)!important}
-.panel[data-panel="3"] .add-btn:hover,.panel[data-panel="4"] .add-btn:hover{border-color:var(--cream)!important;background:transparent!important}
-.panel[data-panel="4"] .rule-principle-intro,.panel[data-panel="4"] .pricing-principle-intro{margin:42px 0 10px!important;padding:0 0 17px 21px!important;border-left:1px solid var(--pale)!important;border-bottom:1px solid rgba(232,193,122,.2)!important;background:none!important}
-.panel[data-panel="4"] .rule-principle,.panel[data-panel="4"] .pricing-principle{margin:8px 0 9px!important;font-size:clamp(28px,2.55vw,36px)!important;line-height:.93!important}
-.panel[data-panel="4"] .rule-principle-intro .subcopy,.panel[data-panel="4"] .pricing-principle-intro .subcopy{max-width:760px;font-size:12px;line-height:1.55}
-.panel[data-panel="4"] .rule-list{display:block!important;margin:0 0 12px!important;border-top:1px solid rgba(232,193,122,.14)}
-.panel[data-panel="4"] .rule-list .choice{display:grid!important;grid-template-columns:170px minmax(0,1fr)!important;grid-template-rows:auto auto!important;column-gap:20px;min-height:0!important;margin:0!important;padding:16px 0 17px 24px!important;border:0!important;border-bottom:1px solid rgba(232,193,122,.14)!important;background:transparent!important;box-shadow:none!important;transform:none!important}
-.panel[data-panel="4"] .rule-list .choice:hover{background:rgba(201,163,91,.04)!important}
-.panel[data-panel="4"] .rule-list .choice:has(input:checked){background:linear-gradient(90deg,rgba(201,163,91,.09),transparent 75%)!important;box-shadow:inset 2px 0 0 var(--pale)!important}
-.panel[data-panel="4"] .rule-list .choice small{grid-column:1;grid-row:1 / span 2;margin:3px 0 0!important;color:var(--gold)!important;font-size:9px!important;line-height:1.35!important}
-.panel[data-panel="4"] .rule-list .choice b{grid-column:2;grid-row:1;color:var(--cream)!important;font:600 19px/1.08 var(--display)!important;letter-spacing:-.015em!important}
-.panel[data-panel="4"] .rule-list .choice span{grid-column:2;grid-row:2;margin:5px 0 0!important;font-size:11px!important;line-height:1.52!important}
-.panel[data-panel="4"] .builder{margin:0 0 34px!important;padding:10px 0 0!important;border:0!important;background:none!important}
-@media(max-width:720px){.panel[data-panel="3"] .choice-grid{grid-template-columns:1fr}.panel[data-panel="3"] .choice-grid .choice:nth-child(odd){border-right:0!important}.panel[data-panel="3"] .choice-grid .choice:nth-last-child(-n+2){border-bottom:1px solid rgba(232,193,122,.14)!important}.panel[data-panel="3"] .choice-grid .choice:last-child{border-bottom:0!important}.panel[data-panel="3"] .builder-head{align-items:flex-start!important;flex-direction:column!important}.panel[data-panel="4"] .rule-list .choice{grid-template-columns:1fr!important;gap:5px;padding:15px 0 16px 21px!important}.panel[data-panel="4"] .rule-list .choice small,.panel[data-panel="4"] .rule-list .choice b,.panel[data-panel="4"] .rule-list .choice span{grid-column:1;grid-row:auto}.panel[data-panel="4"] .rule-list .choice small{margin:0!important}.panel[data-panel="4"] .rule-principle-intro,.panel[data-panel="4"] .pricing-principle-intro{margin-top:34px!important}}</style><style id="configuration-gold-restoration-style">/* Hermia Configuration Journey: retain a clean one-time question path while restoring liquid-gold authority to the operating principles, selected rules, and custom rule controls. */
-.panel[data-panel="3"] .choice-grid{border-color:rgba(232,193,122,.42)!important;box-shadow:0 18px 46px rgba(0,0,0,.22),0 0 32px rgba(201,163,91,.045)}
-.panel[data-panel="3"] .choice-grid .choice:has(input:checked){background:linear-gradient(90deg,rgba(201,163,91,.2),rgba(201,163,91,.05))!important;box-shadow:inset 2px 0 0 var(--pale),inset 0 1px 0 rgba(255,244,214,.1)!important}
-.panel[data-panel="3"] .add-btn,.panel[data-panel="4"] .add-btn{margin-top:9px!important;padding:12px 15px!important;border:1px solid rgba(232,193,122,.45)!important;border-bottom-color:rgba(232,193,122,.7)!important;background:linear-gradient(90deg,rgba(201,163,91,.17),rgba(201,163,91,.04))!important;box-shadow:inset 0 1px 0 rgba(255,244,214,.08),0 10px 23px rgba(0,0,0,.15)}
-.panel[data-panel="3"] .add-btn:hover,.panel[data-panel="4"] .add-btn:hover{border-color:var(--pale)!important;background:linear-gradient(90deg,rgba(201,163,91,.28),rgba(201,163,91,.08))!important;box-shadow:0 0 20px rgba(201,163,91,.16)!important}
-.panel[data-panel="4"] .rule-principle-intro,.panel[data-panel="4"] .pricing-principle-intro{border-left:2px solid var(--pale)!important;border-bottom-color:rgba(232,193,122,.4)!important;background:linear-gradient(90deg,rgba(201,163,91,.17),rgba(201,163,91,.035) 58%,transparent 86%)!important;box-shadow:inset 0 1px 0 rgba(255,244,214,.07),0 16px 34px rgba(0,0,0,.12)}
-.panel[data-panel="4"] .rule-principle-intro .section-label,.panel[data-panel="4"] .pricing-principle-intro .section-label{color:var(--pale)!important;text-shadow:0 0 14px rgba(232,193,122,.25)}
-.panel[data-panel="4"] .rule-list{border-top-color:rgba(232,193,122,.28)!important}
-.panel[data-panel="4"] .rule-list .choice{border-bottom-color:rgba(232,193,122,.22)!important}
-.panel[data-panel="4"] .rule-list .choice:hover{background:linear-gradient(90deg,rgba(201,163,91,.12),transparent 72%)!important}
-.panel[data-panel="4"] .rule-list .choice:has(input:checked){background:linear-gradient(90deg,rgba(201,163,91,.24),rgba(201,163,91,.06) 64%,transparent)!important;box-shadow:inset 3px 0 0 var(--pale),inset 0 1px 0 rgba(255,244,214,.1)!important}
-
-    /* Pricing guidance overlay: shown only when the business permits an estimate conversation. */
-    .pricing-guide-card{margin:18px 0 28px;padding:20px;border:1px solid rgba(201,163,91,.45);border-radius:16px;background:linear-gradient(135deg,rgba(201,163,91,.12),rgba(201,163,91,.025));display:flex;gap:16px;justify-content:space-between;align-items:center}.pricing-guide-card .section-label{display:block;margin-bottom:7px}.pricing-guide-card h4{font-size:17px;margin:0 0 6px}.pricing-guide-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.55;max-width:580px}.pricing-guide-card button{white-space:nowrap}.pricing-guide-state{margin-top:10px;font-size:13px;color:var(--pale)}
-    dialog.pricing-guide-dialog{width:min(760px,calc(100vw - 32px));max-height:calc(100vh - 40px);overflow:auto;border:1px solid rgba(201,163,91,.55);border-radius:18px;background:#15130f;color:var(--ink);padding:0;box-shadow:0 24px 72px rgba(0,0,0,.55)}dialog.pricing-guide-dialog::backdrop{background:rgba(8,8,7,.7);backdrop-filter:blur(3px)}.pricing-guide-modal{padding:28px}.pricing-guide-modal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;border-bottom:1px solid var(--line);padding-bottom:18px}.pricing-guide-modal h3{font-family:var(--serif);font-size:30px;line-height:1.05;margin:4px 0 8px}.pricing-guide-modal p{color:var(--muted);line-height:1.6}.pricing-guide-close{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--ink);font-size:22px;cursor:pointer}.pricing-guide-how{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:20px 0}.pricing-guide-how div{padding:13px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.018)}.pricing-guide-how b{display:block;font-size:13px;margin-bottom:4px}.pricing-guide-how span{font-size:12px;color:var(--muted);line-height:1.45}.pricing-guide-methods{display:flex;gap:10px;margin:20px 0 14px}.pricing-guide-method{flex:1;border:1px solid var(--line);border-radius:12px;background:transparent;color:var(--ink);padding:14px;text-align:left;cursor:pointer}.pricing-guide-method.active{border-color:var(--gold);background:rgba(201,163,91,.1)}.pricing-guide-method b{display:block;font-size:14px;margin-bottom:4px}.pricing-guide-method span{font-size:12px;color:var(--muted);line-height:1.45}.pricing-guide-pane{display:none}.pricing-guide-pane.active{display:block}.pricing-guide-textarea{width:100%;min-height:180px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:14px;color:var(--ink);font:inherit;line-height:1.55;resize:vertical}.pricing-guide-upload{border:1.5px dashed rgba(201,163,91,.45);border-radius:12px;padding:24px;text-align:center;background:rgba(201,163,91,.035)}.pricing-guide-upload input{display:block;width:100%;margin:14px auto 0;color:var(--muted)}.pricing-guide-requirements{margin:16px 0 0;padding:14px 16px;border-left:3px solid var(--gold);background:rgba(201,163,91,.055)}.pricing-guide-requirements b{font-size:13px}.pricing-guide-requirements ul{margin:8px 0 0 18px;color:var(--muted);font-size:13px;line-height:1.55}.pricing-guide-feedback{min-height:20px;margin-top:10px;color:#efb29f;font-size:13px}.pricing-guide-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}.pricing-guide-actions .btn{min-width:150px}@media(max-width:620px){.pricing-guide-card{display:block}.pricing-guide-card button{margin-top:14px;width:100%}.pricing-guide-how{grid-template-columns:1fr}.pricing-guide-methods{flex-direction:column}.pricing-guide-actions{flex-direction:column-reverse}.pricing-guide-actions .btn{width:100%}}
-</style><link rel="stylesheet" href="sector-experience.css">
-<style id="configuration-stage-system">
-/* Hermia Configuration Journey: one full screen per stage, a generated visual for each, a slim sticky build bar and generous spacing. */
-.stage-intro{position:relative;display:block!important;min-height:calc(100svh - 92px);margin:0 calc(50% - 50vw);padding:0!important;overflow:hidden;isolation:isolate}
-.stage-intro:before{display:none!important}
-.intro-visual{position:absolute;inset:0;z-index:-2}
-.intro-visual img{width:100%;height:100%;object-fit:cover;object-position:70% 50%;opacity:.92;transform:scale(1.04);animation:introDrift 18s cubic-bezier(.45,0,.55,1) infinite alternate}
-.stage-intro:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#050505 0%,rgba(5,5,5,.9) 30%,rgba(5,5,5,.25) 62%,rgba(5,5,5,.1)),linear-gradient(0deg,#050505 0%,transparent 26%)}
-.intro-copy{width:min(1240px,calc(100% - 52px));margin:0 auto;padding:clamp(110px,17vh,190px) 0 0}
-.intro-copy h1{max-width:660px!important;margin:22px 0 26px!important}
-.intro-copy p{max-width:520px!important}
-.intro-start{display:inline-flex;align-items:center;gap:12px;margin-top:40px;padding:15px 24px;border:1px solid rgba(232,193,122,.55);border-radius:999px;background:linear-gradient(90deg,rgba(201,163,91,.2),rgba(201,163,91,.05));color:var(--cream);font:600 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;transition:background .2s,box-shadow .2s,transform .16s}
-.intro-start:hover{background:linear-gradient(90deg,rgba(201,163,91,.34),rgba(201,163,91,.1));box-shadow:0 0 34px rgba(201,163,91,.22)}
-.intro-start:active{transform:scale(.97)}
-.intro-stages{position:absolute;left:50%;bottom:44px;display:flex;gap:clamp(18px,4vw,64px);width:min(1240px,calc(100% - 52px));margin:0;padding:22px 0 0;transform:translateX(-50%);border-top:1px solid rgba(232,193,122,.2);list-style:none}
-.intro-stages li{color:var(--soft);font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
-.intro-stages b{display:block;margin-bottom:9px;color:var(--pale);font-weight:600}
-.journey{display:block!important;padding:0 0 150px!important;scroll-margin-top:0}
-.journey:before{display:none!important}
-.build-bar{position:sticky;top:0;z-index:20;margin:0 calc(50% - 50vw) 0;padding:0 max(26px,calc(50vw - 620px));background:rgba(5,5,5,.86);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(232,193,122,.2)}
-.build-bar-inner{display:flex;align-items:center;justify-content:space-between;gap:28px;min-height:74px}
-.build-bar .rail{position:static!important;display:flex!important;gap:4px;height:auto;padding:0!important;border:0!important;background:none!important;box-shadow:none!important;overflow-x:auto;scrollbar-width:none}
-.build-bar .rail::-webkit-scrollbar{display:none}
-.build-bar .rail button{flex:0 0 auto;width:auto!important;min-width:0!important;align-items:center!important;gap:10px!important;padding:12px 16px!important;border:1px solid transparent!important;border-radius:999px;background:transparent!important}
-.build-bar .rail button:before{display:none!important}
-.build-bar .rail button>span:last-child>span{display:none!important}
-.build-bar .rail button b{font-size:12px!important;white-space:nowrap}
-.build-bar .rail button.active{border-color:rgba(232,193,122,.5)!important;background:rgba(201,163,91,.13)!important;color:var(--cream)}
-.build-bar .live-price{flex:0 1 auto;min-width:0;margin:0!important;padding:10px 0 10px 24px!important;border:0!important;border-left:1px solid rgba(232,193,122,.22)!important;border-radius:0!important;background:none!important;box-shadow:none!important;text-align:right;outline:none}
-.build-bar .live-price-label{font-size:9px!important}
-.build-bar .live-price strong{margin:4px 0 0!important;font-size:clamp(15px,1.5vw,19px)!important;white-space:nowrap}
-.build-bar .live-price p,.build-bar .live-price small{display:none!important}
-.build-bar .live-price:hover p,.build-bar .live-price:focus-within p,.build-bar .live-price:focus p{position:absolute;right:max(26px,calc(50vw - 620px));top:calc(100% + 8px);display:block!important;width:min(420px,90vw);margin:0!important;padding:16px 18px;border:1px solid rgba(232,193,122,.35);border-radius:12px;background:#0d0d0c;text-align:left;box-shadow:0 22px 50px #000a}
-.build-progress{position:absolute;left:0;bottom:-1px;height:2px;width:calc(var(--build-progress,.2) * 100%);background:linear-gradient(90deg,rgba(232,193,122,.2),var(--pale));box-shadow:0 0 14px rgba(232,193,122,.55);transition:width .6s cubic-bezier(.23,1,.32,1)}
-.workspace{padding-top:clamp(48px,7vh,80px)}
-.panel{min-height:calc(100svh - 74px - 80px)!important;padding:0!important;border:0!important;background:none!important;box-shadow:none!important;overflow:visible!important}
-.panel:before{display:none!important}
-.panel.active{display:grid!important;grid-template-columns:minmax(300px,.82fr) minmax(0,1.18fr);gap:clamp(48px,6vw,104px);align-items:start}
-.stage-visual{position:sticky;top:110px;margin:0;aspect-ratio:4/5;max-height:calc(100svh - 150px);overflow:hidden;border:1px solid rgba(232,193,122,.32);border-radius:28px;background:#050505;box-shadow:0 40px 90px rgba(0,0,0,.45),0 0 60px rgba(201,163,91,.06)}
-.stage-visual img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 1.4s cubic-bezier(.23,1,.32,1)}
-.panel.active .stage-visual img{transform:scale(1)}
-.stage-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(5,5,5,.94));pointer-events:none}
-.stage-scan{position:absolute;left:0;right:0;top:-30%;z-index:1;height:30%;background:linear-gradient(180deg,transparent,rgba(232,193,122,.12),transparent);pointer-events:none}
-.panel.active .stage-scan{animation:stageScan 1.6s cubic-bezier(.77,0,.175,1) .1s both}
-.stage-visual figcaption{position:absolute;left:30px;right:30px;bottom:28px;z-index:2}
-.stage-no{display:block;color:rgba(232,193,122,.9);font:300 clamp(58px,6vw,92px)/.8 var(--sans);letter-spacing:-.05em;font-variant-numeric:lining-nums tabular-nums;font-feature-settings:'lnum' 1,'tnum' 1}
-.stage-of{display:block;margin:18px 0 10px;color:var(--pale);font:500 10px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase}
-.stage-visual b{display:block;color:var(--cream);font:600 26px/1.05 var(--display);letter-spacing:-.02em}
-.stage-visual small{display:block;margin-top:8px;color:var(--soft);font-size:13px;line-height:1.55}
-.stage-body{min-width:0;padding-top:6px}
-.stage-body .panel-top{padding-bottom:40px!important}
-.stage-body .panel-copy{margin:34px 0 52px!important;font-size:16px!important;line-height:1.9!important}
-.stage-body .he-config-note{margin:0 0 52px!important;padding:20px 24px!important;line-height:1.75!important}
-.stage-body .fields{gap:28px!important}
-.stage-body .choice-grid{gap:20px!important}
-.stage-body .section-label{margin-top:56px!important;margin-bottom:20px!important}
-.stage-body .section-label:first-child{margin-top:0!important}
-.stage-body .choice{padding:26px!important}
-.stage-body .controls{margin-top:76px!important;padding-top:34px!important}
-.panel.active .stage-body{animation:stageIn .6s cubic-bezier(.23,1,.32,1) both}
-@keyframes stageIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-@keyframes stageScan{from{top:-30%}to{top:100%}}
-@keyframes introDrift{from{transform:scale(1.04) translate3d(0,0,0)}to{transform:scale(1.1) translate3d(-1.5%,-1%,0)}}
-@media(max-width:1100px){.panel.active{grid-template-columns:minmax(240px,.7fr) minmax(0,1.3fr);gap:44px}.build-bar .rail button{padding:10px 12px!important}.build-bar .rail button b{font-size:11px!important}}
-@media(max-width:860px){.stage-intro{min-height:auto}.intro-copy{width:calc(100% - 34px);padding:88px 0 150px}.intro-visual img{object-position:78% 50%;opacity:.55}.stage-intro:after{background:linear-gradient(180deg,rgba(5,5,5,.5),rgba(5,5,5,.86) 55%,#050505)}.intro-stages{width:calc(100% - 34px);bottom:30px;gap:0;justify-content:space-between}.intro-stages li{font-size:9px}.build-bar{padding:0 17px}.build-bar-inner{flex-direction:column;align-items:stretch;gap:0;min-height:0;padding:8px 0}.build-bar .live-price{padding:8px 4px 6px!important;border-left:0!important;border-top:1px solid rgba(232,193,122,.14)!important;text-align:left;display:flex;align-items:baseline;justify-content:space-between;gap:12px}.build-bar .live-price strong{margin:0!important;font-size:14px!important;white-space:normal;text-align:right}.panel.active{grid-template-columns:1fr;gap:36px}.stage-visual{position:relative;top:auto;aspect-ratio:16/10;max-height:none;border-radius:22px}.stage-visual img{object-position:50% 40%}.stage-no{font-size:60px}.stage-visual figcaption{left:22px;right:22px;bottom:20px}.stage-visual b{font-size:22px}.panel{min-height:0!important}.stage-body .panel-copy{margin:26px 0 38px!important;font-size:15px!important}.stage-body .controls{margin-top:56px!important}}
-@media(max-width:580px){.intro-copy h1{font-size:50px!important}.intro-stages li b{margin-bottom:6px}.build-bar .rail button{padding:9px 11px!important}.build-bar .live-price:hover p,.build-bar .live-price:focus p,.build-bar .live-price:focus-within p{left:17px;right:17px;width:auto}.stage-visual{aspect-ratio:4/3}.stage-visual small{display:none}.stage-body .choice{padding:22px 20px!important}}
-@media(prefers-reduced-motion:reduce){.intro-visual img,.panel.active .stage-scan,.panel.active .stage-body{animation:none!important}.stage-visual img{transition:none;transform:none}.build-progress{transition:none}}
-.choice input,.journey input[type=checkbox][style*=absolute]{width:1px!important;height:1px!important;max-width:1px}
-</style>
   <link rel="stylesheet" href="global-back.css?v=20261012-back-design">
 </head>
 <body>
-  <main class="shell">
-    <header class="nav"><a class="brand" href="pricing.html"><span class="mark">H</span>Hermia</a><a class="back" href="pricing.html" data-flow-back>← Back to Pricing</a></header>
-    <section class="intro stage-intro"><div class="intro-visual" aria-hidden="true"><img src="assets/config/build-hero.webp" width="1920" height="1080" alt="" fetchpriority="high"></div><div class="intro-copy"><span class="eyebrow">Hermia configuration journey</span><h1>Make it yours.<br><em>Keep it useful.</em></h1><p>Build the exact operating standard Hermia follows for your business, one stage at a time. Add your own rules, choose who receives each prepared enquiry, and see the price before anything is agreed.</p><a class="intro-start" href="#build">Begin the build <span aria-hidden="true">&darr;</span></a></div><ol class="intro-stages" aria-label="The five build stages"><li><b>01</b>Operation</li><li><b>02</b>Channels</li><li><b>03</b>Questions</li><li><b>04</b>Rules</li><li><b>05</b>Review</li></ol></section>
-    <section class="journey" id="build" aria-label="Hermia configuration builder">
-      <div class="build-bar"><div class="build-bar-inner"><nav class="rail" aria-label="Configuration steps"><button class="active" data-step="1"><span class="rail-num">01</span><span><b>Your operation</b><span>Industry, system, contact</span></span></button><button data-step="2"><span class="rail-num">02</span><span><b>Inbox & alerts</b><span>Email plus recipients</span></span></button><button data-step="3"><span class="rail-num">03</span><span><b>Qualification</b><span>Select or add questions</span></span></button><button data-step="4"><span class="rail-num">04</span><span><b>Customer rules</b><span>Booking, pricing, evidence</span></span></button><button data-step="5"><span class="rail-num">05</span><span><b>Review & continue</b><span>Agreement and fixed price</span></span></button></nav><div class="live-price" aria-live="polite" tabindex="0"><span class="live-price-label">YOUR BUSINESS · FIXED PRICE</span><strong id="priceLockValue">USD $4,400 setup + USD $1,700/month</strong><p id="estimateBreakdown">One price per business, including GST. Initial channels, recipients, media, calendar steps and up to 35 questions are included. A requested post-live change is USD $500 per bundled request.</p><small>The same fixed USD price applies to every industry and supported configuration.</small></div></div><i class="build-progress" aria-hidden="true"></i></div>
-      <div class="workspace">
-        <section class="panel active" data-panel="1"><figure class="stage-visual" aria-hidden="true"><img src="assets/config/step-1-operation.webp" width="960" height="1200" alt="" loading="eager"><i class="stage-scan"></i><figcaption><span class="stage-no">01</span><span class="stage-of">Stage 01 / 05</span><b>Your operation</b><small>Industries, system and the people behind it.</small></figcaption></figure><div class="stage-body"><div class="panel-top"><div><span class="panel-kicker">01 / Your operation</span><h2>Start with the<br><em>way you work.</em></h2></div><span class="count">1 of 5</span></div><p class="panel-copy">Select the industries and service areas this configuration covers. Choose the business system and operating scope you want configured. The approved setup and monthly service pricing is shown before the agreement.</p><div class="he-config-note">Choose your industry, CRM or business system, channels, recipients, questions, calendar, media handling, and operating support. Your initial selections are included in the fixed USD $4,400 setup and USD $1,700 monthly service; there are no component surcharges.</div><div class="fields"><div class="field"><label for="business">Business name</label><input id="business" placeholder="Your business name" autocomplete="organization"></div><div class="field"><label for="contact">Configuration contact</label><input id="contact" placeholder="Your name" autocomplete="name"></div><div class="field"><label for="email">Business email</label><input id="email" type="email" placeholder="you@business.com" autocomplete="email"></div><div class="field"><label for="phone">Direct line</label><input id="phone" type="tel" placeholder="Your direct business number" autocomplete="tel"></div><div class="field"><label for="country">Country</label><select id="country"><option value="Australia">Australia</option><option value="New Zealand">New Zealand</option><option value="United States">United States</option><option value="Canada">Canada</option><option value="United Kingdom">United Kingdom</option><option value="Ireland">Ireland</option></select></div><div class="field"><label for="state">State / region</label><input id="state" placeholder="State, region or county" autocomplete="address-level1"></div><div class="field full"><label for="crm">CRM or business system</label><select id="crm"><option value="" selected disabled>Choose a CRM or business system</option><option value="simpro">Simpro</option><option value="aroflo">AroFlo</option><option value="other">Other CRM / business system — scoped</option><option value="none">No CRM — email docket and owner alert</option></select></div><div class="field full"><span class="field-label">Industries this configuration covers</span><div class="choice-grid" id="industryOptions"><label class="choice"><input type="checkbox" name="industry" value="Trades & field services"><small>01 / CONFIGURATION</small><b>Trades &amp; field services</b><span>Trade workflow configured around your approved scope.</span></label><label class="choice"><input type="checkbox" name="industry" value="Property"><small>02 / CONFIGURATION</small><b>Property</b><span>Maintenance, site, access, tenant, and owner enquiries.</span></label><label class="choice"><input type="checkbox" name="industry" value="Legal operations"><small>03 / CONFIGURATION</small><b>Legal operations</b><span>Administrative intake without legal advice.</span></label><label class="choice"><input type="checkbox" name="industry" value="Healthcare administration"><small>04 / CONFIGURATION</small><b>Healthcare administration</b><span>Non-clinical follow-up for authorised staff.</span></label><label class="choice"><input type="checkbox" name="industry" value="Finance"><small>05 / CONFIGURATION</small><b>Finance</b><span>Approved document and enquiry follow-up.</span></label><label class="choice"><input type="checkbox" name="industry" value="Insurance companies"><small>06 / CONFIGURATION</small><b>Insurance companies</b><span>Prepare claim enquiries for authorised staff.</span></label></div></div><div class="field full"><span class="field-label">Trade service areas, when the trade pathway is selected</span><div class="choice-grid" id="tradeOptions"><label class="choice"><input type="checkbox" name="trade" value="Plumbing"><small>01 / TRADE</small><b>Plumbing</b><span>Leaks, water, gas, drainage and repairs.</span></label><label class="choice"><input type="checkbox" name="trade" value="Electrical"><small>02 / TRADE</small><b>Electrical</b><span>Faults, power, circuits and safety checks.</span></label><label class="choice"><input type="checkbox" name="trade" value="Roofing"><small>03 / TRADE</small><b>Roofing</b><span>Leaks, damage, weather and access.</span></label><label class="choice"><input type="checkbox" name="trade" value="Remedial"><small>04 / TRADE</small><b>Remedial</b><span>Assessment, repair scope and site conditions.</span></label><label class="choice"><input type="checkbox" name="trade" value="Fire / ESM"><small>05 / TRADE</small><b>Fire / ESM</b><span>Compliance, systems, access and urgency.</span></label></div></div><div class="field full"><div class="builder"><div class="builder-head"><div><span class="field-label">Add another trade or service area</span><b>Make the selection fit your business.</b></div><span class="counter" id="tradeCounter">0 selected</span></div><div class="repeat-list" id="customTrades"></div><button class="add-btn" type="button" data-add="customTrades">+ Add another trade or service area</button></div></div></div><div class="controls"><a class="btn" href="pricing.html">Cancel</a><button class="btn gold" data-next>Continue →</button></div></div></section>
+<div class="app">
+  <aside class="visual" aria-hidden="true">
+    <a class="brand" href="index.html" tabindex="-1"><img src="assets/hermia-mark.webp" alt="">Hermia</a>
+    <div id="visuals"></div>
+    <div class="caption"><div class="k" id="capK">Configuration</div><div class="t" id="capT">Every enquiry, turned into a complete record.</div><div class="s" id="capS">One decision per screen. Nothing goes live until it has been built and tested with you.</div></div>
+  </aside>
+  <main class="side">
+    <div class="top">
+      <div class="progress" aria-hidden="true"><div class="bar"><i id="bar"></i></div><div class="lbl" id="lbl">Start</div></div>
+      <div class="header-links"><a class="back" href="pricing.html" data-flow-back>← Back</a></div>
+    </div>
+    <form class="stage" id="stage" novalidate autocomplete="on" onsubmit="return false">
 
-        <section class="panel" data-panel="2"><figure class="stage-visual" aria-hidden="true"><img src="assets/config/step-2-channels.webp" width="960" height="1200" alt="" loading="lazy"><i class="stage-scan"></i><figcaption><span class="stage-no">02</span><span class="stage-of">Stage 02 / 05</span><b>Channels &amp; replies</b><small>Where enquiries arrive, and how Hermia answers.</small></figcaption></figure><div class="stage-body"><div class="panel-top"><div><span class="panel-kicker">02 / Channels &amp; alerts</span><h2>Choose the sources.<br><em>Choose how Hermia replies.</em></h2></div><span class="count">2 of 5</span></div><p class="panel-copy">Choose one or several enquiry sources, then choose how customers should hear back. Each selected account or forwarding route must be connected and tested during onboarding; choosing it here does not turn it on immediately.</p><div class="he-config-note">The current operational response choices are connected Email or WhatsApp. Instagram, Facebook, Google Business and website forms are intake preferences until each approved source is actually connected and tested. SMS and Salesforce are future work, not live options.</div><span class="section-label">Where enquiries can arrive</span><div class="choice-grid" id="inboundChannels"><label class="choice"><input type="checkbox" name="inboundChannel" value="email"><small>INBOUND / EMAIL</small><b>Email</b><span>Gmail or Outlook enquiries and forwarded platform alerts.</span></label><label class="choice"><input type="checkbox" name="inboundChannel" value="whatsapp"><small>INBOUND / MESSAGING</small><b>WhatsApp</b><span>Direct customer messages and replies.</span></label><label class="choice"><input type="checkbox" name="inboundChannel" value="instagram"><small>INBOUND / SOCIAL</small><b>Instagram</b><span>Connected Instagram enquiries and direct messages.</span></label><label class="choice"><input type="checkbox" name="inboundChannel" value="facebook"><small>INBOUND / SOCIAL</small><b>Facebook</b><span>Connected Facebook Page enquiries and messages.</span></label><label class="choice"><input type="checkbox" name="inboundChannel" value="google_business"><small>INBOUND / GOOGLE</small><b>Google Business</b><span>Customer enquiries forwarded or connected from Google Business.</span></label><label class="choice"><input type="checkbox" name="inboundChannel" value="web_form"><small>INBOUND / WEB</small><b>Website forms</b><span>Direct forms and other approved webhook sources.</span></label></div><span class="section-label">Where Hermia should continue the customer conversation</span><div class="choice-grid" id="responseChannels"><label class="choice"><input type="checkbox" name="responseChannel" value="email"><small>REPLY / EMAIL</small><b>Email</b><span>Reply from the connected Gmail or Outlook inbox.</span></label><label class="choice"><input type="checkbox" name="responseChannel" value="whatsapp"><small>REPLY / WHATSAPP</small><b>WhatsApp</b><span>Continue qualification through the configured WhatsApp number.</span></label></div><span class="section-label">Email connection, when Email is selected</span><div class="choice-grid"><label class="choice"><input type="radio" name="emailProvider" value="gmail"><small>EMAIL / GMAIL</small><b>Connect Gmail</b><span>Use the Gmail inbox that receives the business enquiries.</span></label><label class="choice"><input type="radio" name="emailProvider" value="outlook"><small>EMAIL / OUTLOOK</small><b>Connect Outlook</b><span>Use the Outlook inbox that receives the business enquiries.</span></label></div><div class="he-config-future" role="note">A CRM, platform, or connector not listed here is assessed for support before implementation. A supported initial connection is included in the fixed price; selecting a name does not promise that an unsupported integration is available.</div><div class="alert-group"><div class="alert-card"><h3>Internal email docket</h3><p>Add the private business recipients who should receive completed qualification briefs. This internal handoff is separate from the channel used to talk with the customer.</p><div class="repeat-list" id="emailRecipients"></div><button class="add-btn" type="button" data-add="emailRecipients">+ Add email docket recipient</button></div></div><div class="controls"><button class="btn" data-back>← Back</button><button class="btn gold" data-next>Continue →</button></div></div></section>
-        <section class="panel" data-panel="3"><figure class="stage-visual" aria-hidden="true"><img src="assets/config/step-3-questions.webp" width="960" height="1200" alt="" loading="lazy"><i class="stage-scan"></i><figcaption><span class="stage-no">03</span><span class="stage-of">Stage 03 / 05</span><b>Qualification</b><small>The questions that turn a vague message into a job.</small></figcaption></figure><div class="stage-body"><div class="panel-top"><div><span class="panel-kicker">03 / Qualification</span><h2>Ask what matters.<br><em>Add what is yours.</em></h2></div><span class="count">3 of 5</span></div><p class="panel-copy">Start with the core job facts only. Select the established topics you need, remove the ones you do not, and add questions that reflect how your business qualifies an enquiry. Availability, media, access, site safety, and estimate handling are set once in Customer Rules.</p><div class="he-config-note">Your question choices are recorded for a client-specific build. New questions or changed routes are not active just because checkout completes; they must be connected and tested before go-live.</div><span class="section-label">Select from the core qualification topics</span><div class="preset-list" id="standardQuestions"></div><div class="builder" style="margin-top:20px"><div class="builder-head"><div><span class="field-label">Client-authored questions</span><b>Add the questions unique to your operation.</b></div><span class="counter" id="questionCounter">0 added</span></div><div class="repeat-list" id="customQuestions"></div><button class="add-btn" type="button" data-add="customQuestions">+ Add custom question</button><p class="panel-copy" style="margin-top:10px">Up to 35 initial questions are included in the setup price. After go-live, several question or configuration changes submitted together cost USD $500 for one change request—not USD $500 for each question.</p></div><div class="controls"><button class="btn" data-back>← Back</button><button class="btn gold" data-next>Continue →</button></div></div></section>
+      <section class="screen" data-id="intro" data-img="assets/config/build-hero.webp" data-k="Configuration" data-t="Every enquiry, turned into a complete record." data-s="One decision per screen. Nothing goes live until it has been built and tested with you.">
+        <div class="eyebrow">Hermia configuration</div>
+        <h1>Start your <em>build.</em></h1>
+        <p class="lead">Tell Hermia how your business works, one decision at a time. It takes about five minutes.</p>
+        <div class="intro-meta">
+          <div><b>USD $4,400</b><span>Setup, paid at checkout</span></div>
+          <div><b>USD $1,700</b><span>Per month, after a 2-day trial</span></div>
+          <div><b>35</b><span>Of your own questions included</span></div>
+        </div>
+        <p class="hint">GST included. No per-enquiry, per-question or per-recipient fees. Already live? <a href="configuration_change.html">Request a change</a>.</p>
+      </section>
 
-        <section class="panel" data-panel="4"><figure class="stage-visual" aria-hidden="true"><img src="assets/config/step-4-rules.webp" width="960" height="1200" alt="" loading="lazy"><i class="stage-scan"></i><figcaption><span class="stage-no">04</span><span class="stage-of">Stage 04 / 05</span><b>Customer rules</b><small>Availability, estimates, media and safety, on your terms.</small></figcaption></figure><div class="stage-body"><div class="panel-top"><div><span class="panel-kicker">04 / Customer rules</span><h2>Build the rules.<br><em>Keep the control.</em></h2></div><span class="count">4 of 5</span></div><p class="panel-copy">Set the follow-up detail your team needs after the core job facts. Availability, estimate handling, media, access, and site safety are configured here once only, alongside your own rules.</p><div class="rule-principle-intro availability-principle"><span class="section-label">Field readiness</span><h3 class="rule-principle">Their time.<br><em>Your control.</em></h3><p class="subcopy">Hermia captures when the customer is available in the Open Lead Notes, hands the prepared story to the right person, and only places a confirmed time into the schedule when your setup permits it.</p></div><div class="rule-list"><label class="choice"><input type="checkbox" name="bookingRule" value="Capture customer availability in Open Lead Notes"><small>AVAILABILITY / OPEN LEAD NOTES</small><b>Capture customer availability in Open Lead Notes</b><span>Ask which days and times suit the customer, then place those preferences into the Open Lead Notes for your office or coordinator to use.</span></label><label class="choice"><input type="checkbox" name="bookingRule" value="Hand prepared Open Lead to our coordinator"><small>HANDOFF / OPEN LEAD</small><b>Hand the prepared Open Lead to our coordinator</b><span>Send the fully qualified job story—including the customer’s availability—to the right person in your team for a clear next move.</span></label><label class="choice"><input type="checkbox" name="bookingRule" value="Schedule confirmed time where enabled"><small>SCHEDULING / WHEN ENABLED</small><b>Place a confirmed time into the schedule</b><span>Only after availability is collected and the customer has a confirmed time, put that time into the schedule where your approved setup permits it.</span></label></div><div class="pricing-principle-intro"><span class="section-label">Pricing control</span><h3 class="pricing-principle">Your prices.<br><em>Your rules.</em></h3><p class="subcopy">Hermia never invents, sets or changes a price. If you permit an estimate, it works only from the approved pricing PDF or price guide you provide, matched to the affected asset type and the customer&rsquo;s fault description. You then choose whether it asks the customer for an estimate amount.</p></div><div class="rule-list"><label class="choice"><input type="radio" name="pricingRule" value="Ask customer for estimate amount"><small>ESTIMATE AMOUNT / ASK</small><b>Ask the customer for an estimate amount</b><span>Once the job details are clear, ask what estimate amount the customer has in mind and keep that answer in the Open Lead Notes for your team.</span></label><label class="choice"><input type="radio" name="pricingRule" value="Do not ask customer for estimate amount"><small>ESTIMATE AMOUNT / DO NOT ASK</small><b>Do not ask for an estimate amount</b><span>Collect the job facts only. Keep every estimate or price discussion with your office and do not ask the customer for an amount.</span></label></div><div class="pricing-guide-card" id="pricingGuideCard"><div><span class="section-label">Approved price guide</span><h4>Give Hermia the guide, not a guess.</h4><p>When you let Hermia ask about an estimate amount, add the exact wording or PDF it may use. Hermia matches the asset and fault to your approved material, keeps uncertain pricing with your office, and never treats an estimate as a final quote.</p><div class="pricing-guide-state" id="pricingGuideState">No price guide added yet.</div></div><button class="btn gold" type="button" id="openPricingGuide">Add price guide →</button></div><div class="rule-principle-intro evidence-principle"><span class="section-label">Site readiness</span><h3 class="rule-principle">See it first.<br><em>Arrive prepared.</em></h3><p class="subcopy">Hermia brings the job evidence, access details, hazards, and site conditions into the same prepared story so your team knows what to expect before the next move.</p></div><div class="rule-list"><label class="choice"><input type="checkbox" name="evidenceRule" value="Ask for photos when helpful"><small>EVIDENCE / PHOTO</small><b>Ask for photos when helpful</b><span>Photo collection and handling are included in your agreed initial configuration.</span></label><label class="choice"><input type="checkbox" name="evidenceRule" value="Ask for video when helpful"><small>EVIDENCE / VIDEO</small><b>Ask for video when helpful</b><span>Video collection and handling are included in your agreed initial configuration.</span></label><label class="choice"><input type="checkbox" name="evidenceRule" value="Confirm access and hazards before handoff"><small>EVIDENCE</small><b>Confirm access and hazards before handoff</b><span>Make site context visible before the team acts.</span></label></div><div class="controls"><button class="btn" data-back>← Back</button><button class="btn gold" data-next>Review configuration →</button></div></div></section>
+      <section class="screen" data-id="business" data-img="assets/config/step-1-operation.webp" data-k="Your business" data-t="Built around one business, not a template." data-s="Hermia uses your name when it talks to your customers.">
+        <div class="eyebrow">Your business</div>
+        <h2>What is your business <em>called?</em></h2>
+        <div class="field"><label for="business">Business name</label><input class="input" id="business" autocomplete="organization" placeholder="e.g. Harbour Plumbing" maxlength="120"></div>
+        <div class="field"><label for="entity">Registered entity name <span style="text-transform:none;letter-spacing:0">(optional)</span></label><input class="input" id="entity" placeholder="e.g. Harbour Plumbing Pty Ltd" maxlength="160"></div>
+        <div class="err" data-err></div>
+      </section>
 
-        <dialog class="pricing-guide-dialog" id="pricingGuideDialog" aria-labelledby="pricingGuideTitle"><div class="pricing-guide-modal"><div class="pricing-guide-modal-header"><div><span class="panel-kicker">Approved price guide</span><h3 id="pricingGuideTitle">How Hermia handles<br><em>price guidance.</em></h3><p>Hermia uses only the material you approve. It can ask a customer about an estimate amount, but it never invents a price, promises a final quote, or changes your commercial rules.</p></div><button class="pricing-guide-close" type="button" id="closePricingGuide" aria-label="Close price guide">×</button></div><div class="pricing-guide-how" aria-label="How price guidance works"><div><b>1. Read the job story</b><span>Hermia collects the asset, fault, urgency and supporting evidence first.</span></div><div><b>2. Match your guide</b><span>It compares those facts with the service, scope and conditions in your approved material.</span></div><div><b>3. Keep it an estimate</b><span>Any amount is contextual guidance, not a final quote or a promise to the customer.</span></div><div><b>4. Escalate uncertainty</b><span>If there is no close fit, Hermia keeps price discussion with your office.</span></div></div><div class="pricing-guide-methods" role="tablist" aria-label="Price guide format"><button class="pricing-guide-method active" type="button" data-pricing-mode="text"><b>Type your guidance</b><span>Paste service, scope, price ranges, callout rules and exclusions.</span></button><button class="pricing-guide-method" type="button" data-pricing-mode="pdf"><b>Upload a PDF</b><span>Attach your current approved price guide or rate sheet.</span></button></div><div class="pricing-guide-pane active" data-pricing-pane="text"><label class="field-label" for="pricingGuideText">Pricing instructions Hermia may use</label><textarea class="pricing-guide-textarea" id="pricingGuideText" placeholder="Example:
-Emergency electrical callout — $250 plus parts
-Standard switchboard inspection — from $180
-After-hours work — confirm scope with office before discussing any amount
-All pricing includes GST unless stated otherwise"></textarea></div><div class="pricing-guide-pane" data-pricing-pane="pdf"><div class="pricing-guide-upload"><b>Upload your approved pricing PDF</b><p>PDF only, up to 20 MB. It will be sent with the configuration record when you continue.</p><input id="pricingGuidePdf" type="file" accept="application/pdf" aria-describedby="pricingGuidePdfStatus"><p id="pricingGuidePdfStatus">No PDF selected.</p></div><div class="pricing-guide-requirements"><b>For the best match, make sure the PDF shows:</b><ul><li>the service or job type and the scope it covers;</li><li>prices or price ranges, including callout, labour, materials and GST where relevant;</li><li>conditions, exclusions or cases that must be quoted by your office; and</li><li>the effective date or version of the guide.</li></ul></div></div><p class="pricing-guide-feedback" id="pricingGuideFeedback" role="alert"></p><div class="pricing-guide-actions"><button class="btn" type="button" id="cancelPricingGuide">Cancel</button><button class="btn gold" type="button" id="savePricingGuide">Save approved guide</button></div></div></dialog><section class="panel" data-panel="5"><figure class="stage-visual" aria-hidden="true"><img src="assets/config/step-5-review.webp" width="960" height="1200" alt="" loading="lazy"><i class="stage-scan"></i><figcaption><span class="stage-no">05</span><span class="stage-of">Stage 05 / 05</span><b>Review &amp; continue</b><small>Your operating standard, with one clear price.</small></figcaption></figure><div class="stage-body"><div class="panel-top"><div><span class="panel-kicker">05 / Review</span><h2>Your operating<br><em>standard, ready.</em></h2></div><span class="count">5 of 5</span></div><p class="panel-copy">Review what Hermia will use for this customer. Your configuration can contain selected trades, custom rules and alert recipients. Your initial choices are included: USD $4,400 setup and USD $1,700/month per business, including GST. No component add-ons are charged.</p><div class="summary" id="summary"></div><div class="status" id="status"></div><div class="controls"><button class="btn" data-back>← Back</button><button class="btn gold" id="continueAgreement">Continue to Agreement →</button></div><p class="notice">By continuing, this configuration is marked as <strong>Configuration</strong> for your business record before you review the service agreement.</p></div></section>
-      </div>
-    </section>
+      <section class="screen" data-id="contact" data-img="assets/config/step-1-operation.webp" data-k="Your details" data-t="One owner for the build." data-s="We use these details for your account, your agreement and your go-live check.">
+        <div class="eyebrow">Your details</div>
+        <h2>Who are we building this <em>with?</em></h2>
+        <div class="field"><label for="contact">Your name</label><input class="input" id="contact" autocomplete="name" placeholder="Full name" maxlength="120"></div>
+        <div class="field"><label for="email">Work email</label><input class="input" id="email" type="email" autocomplete="email" placeholder="you@business.com" maxlength="200"></div>
+        <div class="field"><label for="phone">Direct line</label><input class="input" id="phone" type="tel" autocomplete="tel" placeholder="+61 4xx xxx xxx" maxlength="40"></div>
+        <div class="err" data-err></div>
+      </section>
+
+      <section class="screen" data-id="location" data-img="assets/config/step-1-operation.webp" data-k="Location" data-t="Local details, global reach." data-s="Used for your account, time zones and tax on your invoice.">
+        <div class="eyebrow">Location</div>
+        <h2>Where is the business <em>based?</em></h2>
+        <div class="field"><label for="country">Country</label>
+          <select class="input" id="country"></select></div>
+        <div class="field"><label for="state">State or region</label><input class="input" id="state" autocomplete="address-level1" placeholder="e.g. Victoria" maxlength="80"></div>
+        <div class="err" data-err></div>
+      </section>
+
+      <section class="screen" data-id="crm" data-img="assets/config/step-4-rules.webp" data-k="Business system" data-t="Records land where your team already works." data-s="Hermia writes complete, checked records into one system per business.">
+        <div class="eyebrow">Business system</div>
+        <h2>Where should finished records <em>go?</em></h2>
+        <p class="lead">Pick one system. Hermia connects to one CRM or job system per business.</p>
+        <div class="tiles" id="crmTiles">
+          <button type="button" class="tile" data-crm="simpro" aria-pressed="false"><span class="logo-chip"><img src="Partner_Logo_Horizontal_Registered.png" alt="Simpro"></span><span class="td">Open Leads, customers and sites. Registered Technology Partner.</span></button>
+          <button type="button" class="tile" data-crm="aroflo" aria-pressed="false"><span class="logo-chip"><span class="aroflo">Aro<b>Flo</b></span></span><span class="td">Tasks, clients and locations.</span></button>
+        </div>
+        <div class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input class="input" id="crmSearch" placeholder="Search another system" autocomplete="off" aria-label="Search another system"></div>
+        <div class="results" id="crmResults"></div>
+        <div class="note" id="crmNote" hidden></div>
+        <div class="err" data-err></div>
+      </section>
+
+      <section class="screen" data-id="industry" data-img="assets/sector-trade.webp" data-k="Industry" data-t="One engine. Your industry's language." data-s="Choose the industry this build is for.">
+        <div class="eyebrow">Industry</div>
+        <h2>Which industry are <em>you in?</em></h2>
+        <div class="tiles" id="industryTiles"></div>
+        <div class="note" id="industryNote" hidden></div>
+        <div class="err" data-err></div>
+      </section>
+
+      <section class="screen" data-id="trade" data-img="assets/sector-trade.webp" data-k="Your trade" data-t="Any trade. Your trade's questions." data-s="Hermia asks the questions that matter for the work you actually do.">
+        <div class="eyebrow">Your trade</div>
+        <h2>What work do <em>you do?</em></h2>
+        <p class="lead">Pick your main trade, or write your own.</p>
+        <div class="results" id="tradeChips" style="margin-top:26px"></div>
+        <div class="field"><label for="tradeOwn">Or write your trade</label><input class="input" id="tradeOwn" placeholder="e.g. Air conditioning" maxlength="60"></div>
+        <div class="err" data-err></div>
+      </section>
+
+      <section class="screen" data-id="sources" data-img="assets/config/step-2-channels.webp" data-k="Enquiry sources" data-t="Messy enquiries in. Clean records out." data-s="Platform alerts, emails and messages all arrive in one place.">
+        <div class="eyebrow">Enquiry sources</div>
+        <h2>Where do your enquiries <em>arrive?</em></h2>
+        <p class="lead">Choose every source you use. Forwarded platform alerts arrive through email.</p>
+        <div class="tiles" id="sourceTiles"></div>
+        <div class="err" data-err></div>
+      </section>
+
+      <section class="screen" data-id="conversation" data-img="assets/config/step-2-channels.webp" data-k="Conversation" data-t="One clear conversation per customer." data-s="Hermia follows up on one channel so customers are never asked twice.">
+        <div class="eyebrow">Customer conversation</div>
+        <h2>Where should Hermia talk with <em>your customers?</em></h2>
+        <p class="lead">Pick one. Every business runs one conversation channel.</p>
+        <div class="tiles" id="convTiles"></div>
+        <div class="err" data-err></div>
+      </section>
+
+      <section class="screen" data-id="inbox" data-img="assets/config/step-2-channels.webp" data-k="Inbox" data-t="Your inbox, connected once." data-s="You connect it securely straight after payment.">
+        <div class="eyebrow">Inbox</div>
+        <h2>Which inbox receives your <em>enquiries?</em></h2>
+        <p class="lead">You will connect it securely after payment. Hermia only reads new enquiries.</p>
+        <div class="tiles" id="inboxTiles"></div>
+        <div class="err" data-err></div>
+      </section>
+
+      <section class="screen" data-id="docket" data-img="assets/config/step-4-rules.webp" data-k="Your team" data-t="The right person gets the full picture." data-s="Each person receives their own private email. No CC, no shared lists.">
+        <div class="eyebrow">Your team</div>
+        <h2>Who receives each <em>prepared brief?</em></h2>
+        <p class="lead">Each person gets a separate, private email with the full brief, photos and the customer's availability.</p>
+        <div class="list-rows" id="docketRows"></div>
+        <button type="button" class="add" id="addDocket">+ Add another person</button>
+        <div class="err" data-err></div>
+      </section>
+
+      <section class="screen" data-id="senders" data-img="assets/config/step-4-rules.webp" data-k="Your own senders" data-t="Your own notifications are never treated as leads." data-s="Optional, and you can add more later.">
+        <div class="eyebrow">Your own senders <span style="color:var(--faint)">· optional</span></div>
+        <h2>Which addresses do your own forms <em>send from?</em></h2>
+        <p class="lead">Add the domains your website forms, booking widgets or notifications send from. Hermia uses this to tell your own notifications apart from a genuine customer.</p>
+        <div class="list-rows" id="senderRows"></div>
+        <button type="button" class="add" id="addSender">+ Add a domain</button>
+        <div class="err" data-err></div>
+      </section>
+
+      <section class="screen" data-id="questions" data-img="assets/config/step-3-questions.webp" data-k="Qualification" data-t="Only what your team needs. Nothing it doesn't." data-s="Every answer is checked before it is accepted. Vague replies are asked again.">
+        <div class="eyebrow">Qualification</div>
+        <h2>What Hermia <em>asks.</em></h2>
+        <p class="lead" id="qLead"></p>
+        <div class="how">
+          <div><b>One at a time</b>Customers answer one short question per message, so replies stay clear.</div>
+          <div><b>Checked answers</b>"It's leaking" is not accepted. Hermia asks again until the answer is useful.</div>
+          <div><b>Ready to act</b>Your team gets a complete brief instead of a back-and-forth.</div>
+        </div>
+        <div class="section-k">Included questions</div>
+        <div class="q-list" id="defaultQs"></div>
+        <div id="estimateBlock" hidden>
+          <div class="section-k">Estimates</div>
+          <div class="q" style="margin-top:14px"><span class="n">$</span><div><div class="qt">Share an estimate from your price guide</div><div class="qw">Hermia only uses prices you approve, never invents one and never gives a final quote. Without a guide, price questions go to your team.</div></div><label class="switch"><input type="checkbox" id="estimateOn"><span></span><span class="sr">Share estimates</span></label></div>
+          <div id="guideBox" hidden style="margin-top:12px">
+            <div class="seg" role="group" aria-label="Price guide format"><button type="button" data-guide="text" aria-pressed="true">Type it</button><button type="button" data-guide="pdf" aria-pressed="false">Upload PDF</button></div>
+            <textarea class="input" id="guideText" style="margin-top:12px" placeholder="e.g. Blocked drain from USD $220. Hot water unit replacement from USD $1,900 supplied and installed."></textarea>
+            <label class="file" id="guideFileLabel" hidden><input type="file" id="guideFile" accept="application/pdf"><span id="guideFileName">Choose your approved price guide (PDF, up to 20 MB)</span></label>
+          </div>
+        </div>
+        <div class="section-k">Your own questions <span style="color:var(--faint)">· free, up to 35</span></div>
+        <div class="list-rows" id="customRows"></div>
+        <button type="button" class="add" id="addCustom">+ Add a question</button>
+        <p class="hint">Write it the way you would ask it. Changes after go-live are USD $500 per bundled request.</p>
+        <div class="err" data-err></div>
+      </section>
+
+      <section class="screen" data-id="calendar" data-img="assets/config/step-4-rules.webp" data-k="Calendar" data-t="Bookings your team approves." data-s="Hermia suggests the most available technician. Your team stays in control.">
+        <div class="eyebrow">Calendar</div>
+        <h2>Should Hermia book into your <em>Simpro calendar?</em></h2>
+        <div class="tiles" id="calTiles"></div>
+        <div id="calExtra" hidden>
+          <div class="calendar-proof"><img src="assets/showcase/simpro-calendar-labelled-demo.webp" alt="Example Simpro schedule with a booking placed by Hermia" loading="lazy"></div>
+          <div class="section-k">How bookings are confirmed</div>
+          <div class="tiles" id="modeTiles" style="margin-top:14px"></div>
+        </div>
+        <div class="note">Customer availability always goes into the lead notes and the brief your team receives, whichever option you choose.</div>
+        <div class="err" data-err></div>
+      </section>
+
+      <section class="screen" data-id="language" data-img="assets/config/step-2-channels.webp" data-k="Language" data-t="Speak to every customer in their language." data-s="Your team still receives every brief in English.">
+        <div class="eyebrow">Language</div>
+        <h2>Which language should Hermia <em>use?</em></h2>
+        <p class="lead">This is the language Hermia uses with your customers. Briefs to your team stay in English.</p>
+        <div class="tiles" id="langTiles"></div>
+        <div class="field" id="langPick" hidden><label for="langFixed">Language</label><select class="input" id="langFixed"></select></div>
+        <div class="err" data-err></div>
+      </section>
+
+      <section class="screen" data-id="review" data-img="assets/config/step-5-review.webp" data-k="Review" data-t="Your build, ready to run." data-s="We build and test it with you before anything goes live.">
+        <div class="eyebrow">Review</div>
+        <h2>Your <em>build.</em></h2>
+        <div class="scan"><i></i></div>
+        <div class="review-grid" id="reviewGrid"></div>
+        <div class="price"><div class="big">USD $4,400 setup · USD $1,700 / month</div><div class="small">Setup is paid today. Your 2-day trial starts now, and the monthly fee begins after it. GST included. Cancel within 48 hours for a USD $4,316 refund. Month to month, no lock-in.</div></div>
+        <p class="hint">On the secure payment page you will tick to accept the <a href="contract.html" target="_blank" rel="noopener">Service Agreement</a> and <a href="terms.html" target="_blank" rel="noopener">Terms</a>. A record of your acceptance is stored with your account.</p>
+        <div class="err" data-err id="payErr"></div>
+      </section>
+    </form>
+    <div class="actions">
+      <button type="button" class="btn ghost" id="prev">Back</button>
+      <span class="spacer"></span>
+      <span class="keyhint" id="keyhint">Press Enter ↵</span>
+      <button type="button" class="btn primary" id="next">Begin build</button>
+    </div>
   </main>
-  <script>
-    /* Customer-owned operating instructions; up to 35 initial qualification questions and no component price multipliers. */
-    const WEBHOOK_URL='https://hook.eu1.make.com/55y5lsql5rmr8ju9cmlt9o5115q784ay';
-    const standardQuestions=['Customer name and contact','Request or enquiry summary','Preferred follow-up method'];
-    const panels=[...document.querySelectorAll('.panel')],rail=[...document.querySelectorAll('.rail button')];let step=1;
-    const clean=value=>String(value||'').trim();
-    const checked=name=>[...document.querySelectorAll(`input[name="${name}"]:checked`)].map(input=>input.value);
-    const selected=name=>document.querySelector(`input[name="${name}"]:checked`)?.value||'';
-    const selectedMany=name=>[...document.querySelectorAll(`input[name="${name}"]:checked`)].map(input=>input.value);
-    const unique=list=>[...new Set(list.map(clean).filter(Boolean))];
-    const pricingGuide={source:'none',text:'',file:null};
-    const pricingAskValue='Ask customer for estimate amount';
-    const pricingGuideDialog=document.getElementById('pricingGuideDialog');
-    const pricingGuideState=document.getElementById('pricingGuideState');
-    const pricingGuideText=document.getElementById('pricingGuideText');
-    const pricingGuidePdf=document.getElementById('pricingGuidePdf');
-    const pricingGuidePdfStatus=document.getElementById('pricingGuidePdfStatus');
-    const pricingGuideFeedback=document.getElementById('pricingGuideFeedback');
-    function isPricingGuideRequired(){return selected('pricingRule')===pricingAskValue;}
-    function pricingGuidePayload(){if(!isPricingGuideRequired())return {status:'not_requested',source:'none'};if(pricingGuide.source==='text')return {status:'approved',source:'text',instructions:clean(pricingGuide.text),use:'estimate context only; never a final quote'};if(pricingGuide.source==='pdf'&&pricingGuide.file)return {status:'ready_for_upload',source:'pdf',file_name:pricingGuide.file.name,file_size_bytes:pricingGuide.file.size,mime_type:pricingGuide.file.type,use:'estimate context only; never a final quote'};return {status:'required',source:'missing'};}
-    function updatePricingGuideState(){const guide=pricingGuidePayload();if(guide.source==='text')pricingGuideState.textContent='Approved text guide saved.';else if(guide.source==='pdf')pricingGuideState.textContent='Approved PDF ready to attach: '+guide.file_name+'.';else pricingGuideState.textContent=isPricingGuideRequired()?'Add an approved guide before continuing.':'No price guide is needed while Hermia does not ask about estimate amounts.';}
-    function setPricingGuideMode(mode){document.querySelectorAll('[data-pricing-mode]').forEach(button=>button.classList.toggle('active',button.dataset.pricingMode===mode));document.querySelectorAll('[data-pricing-pane]').forEach(pane=>pane.classList.toggle('active',pane.dataset.pricingPane===mode));pricingGuideFeedback.textContent='';}
-    function openPricingGuide(){if(!isPricingGuideRequired()){document.getElementById('status').textContent='Choose “Ask the customer for an estimate amount” first, then add the approved guide Hermia may use.';setStep(4);return;}if(typeof pricingGuideDialog.showModal==='function')pricingGuideDialog.showModal();else pricingGuideDialog.setAttribute('open','');}
-    function closePricingGuide(){if(typeof pricingGuideDialog.close==='function')pricingGuideDialog.close();else pricingGuideDialog.removeAttribute('open');}
-    async function uploadPricingGuidePdf(config){if(pricingGuide.source!=='pdf'||!pricingGuide.file)return;const form=new FormData();form.append('event','configuration_pricing_guide_pdf');form.append('finance_plan','configuration');form.append('configuration',JSON.stringify(config));form.append('pricing_pdf',pricingGuide.file,pricingGuide.file.name);const response=await fetch(WEBHOOK_URL,{method:'POST',body:form});if(!response.ok)throw new Error('The approved pricing PDF could not be attached. Please try again before continuing.');}
-    document.getElementById('openPricingGuide').addEventListener('click',openPricingGuide);
-    document.getElementById('closePricingGuide').addEventListener('click',closePricingGuide);
-    document.getElementById('cancelPricingGuide').addEventListener('click',closePricingGuide);
-    document.querySelectorAll('[data-pricing-mode]').forEach(button=>button.addEventListener('click',()=>setPricingGuideMode(button.dataset.pricingMode)));
-    pricingGuidePdf.addEventListener('change',()=>{const file=pricingGuidePdf.files&&pricingGuidePdf.files[0];if(!file){pricingGuidePdfStatus.textContent='No PDF selected.';return;}if(file.type!=='application/pdf'){pricingGuidePdfStatus.textContent='Please choose a PDF file.';pricingGuidePdf.value='';return;}if(file.size>20*1024*1024){pricingGuidePdfStatus.textContent='This PDF is over 20 MB. Please use a smaller file.';pricingGuidePdf.value='';return;}pricingGuidePdfStatus.textContent='Selected: '+file.name+' ('+Math.max(1,Math.round(file.size/1024))+' KB).';});
-    document.getElementById('savePricingGuide').addEventListener('click',()=>{const text=clean(pricingGuideText.value);const mode=document.querySelector('[data-pricing-mode].active')?.dataset.pricingMode||'text';if(mode==='text'){if(text.length<12){pricingGuideFeedback.textContent='Add a little more detail so Hermia can follow the guide safely.';return;}pricingGuide.source='text';pricingGuide.text=text;pricingGuide.file=null;}else{const file=pricingGuidePdf.files&&pricingGuidePdf.files[0];if(!file){pricingGuideFeedback.textContent='Choose the approved pricing PDF first.';return;}pricingGuide.source='pdf';pricingGuide.file=file;pricingGuide.text='';}updatePricingGuideState();closePricingGuide();});
-    document.querySelectorAll('input[name="pricingRule"]').forEach(input=>input.addEventListener('change',()=>{updatePricingGuideState();if(input.checked&&input.value===pricingAskValue)openPricingGuide();}));
-    function setStep(next){step=Math.max(1,Math.min(5,next));panels.forEach(panel=>panel.classList.toggle('active',Number(panel.dataset.panel)===step));rail.forEach(button=>button.classList.toggle('active',Number(button.dataset.step)===step));if(step===5)renderSummary();}
-    rail.forEach(button=>button.addEventListener('click',()=>setStep(Number(button.dataset.step))));document.querySelectorAll('[data-next]').forEach(button=>button.addEventListener('click',()=>setStep(step+1)));document.querySelectorAll('[data-back]').forEach(button=>button.addEventListener('click',()=>setStep(step-1)));
-    function removeButton(row){const button=document.createElement('button');button.type='button';button.className='icon-btn';button.setAttribute('aria-label','Remove item');button.textContent='×';button.addEventListener('click',()=>{row.remove();refreshCounters();});return button;}
-    function addRow(target,kind,values={}){const list=document.getElementById(target),row=document.createElement('div');row.className=`repeat-row ${kind==='single'?'single':''}`;if(kind==='recipient-email'){row.innerHTML=`<input data-recipient-name placeholder="Name or role (e.g. Service coordinator)" value="${values.name||''}"><input type="email" data-recipient-value placeholder="email@business.com" value="${values.value||''}">`;}else if(kind==='recipient-whatsapp'){row.innerHTML=`<input data-recipient-name placeholder="Name or role (e.g. On-call manager)" value="${values.name||''}"><input type="tel" data-recipient-value placeholder="WhatsApp number" value="${values.value||''}">`;}else{row.innerHTML=`<input data-value placeholder="Write the rule, trade or question you want Hermia to use" value="${values.value||''}">`;row.classList.add('single');}row.append(removeButton(row));row.querySelectorAll('input').forEach(input=>input.addEventListener('input',refreshCounters));list.append(row);refreshCounters();}
-    const builders={customTrades:'single',emailRecipients:'recipient-email',customQuestions:'single',customBookingRules:'single',customPricingRules:'single',customEvidenceRules:'single'};
-    document.querySelectorAll('[data-add]').forEach(button=>button.addEventListener('click',()=>addRow(button.dataset.add,builders[button.dataset.add])));
-    function values(target){return [...document.querySelectorAll(`#${target} [data-value]`)].map(input=>clean(input.value)).filter(Boolean);}
-    function recipients(target){return [...document.querySelectorAll(`#${target} .repeat-row`)].map(row=>({name:clean(row.querySelector('[data-recipient-name]')?.value),value:clean(row.querySelector('[data-recipient-value]')?.value)})).filter(item=>item.value);}
-    function renderStandardQuestions(){const root=document.getElementById('standardQuestions');root.innerHTML=standardQuestions.map((question,index)=>{return `<label class="preset-check"><input type="checkbox" name="standardQuestion" value="${question}"><span>${String(index+1).padStart(2,'0')} / ${question}</span></label>`;}).join('');root.querySelectorAll('input').forEach(input=>input.addEventListener('change',refreshCounters));}
-    function refreshCounters(){const trades=unique([...checked('trade'),...values('customTrades')]);document.getElementById('tradeCounter').textContent=`${trades.length} selected`;const q=document.getElementById('questionCounter');if(q)q.textContent=`${values('customQuestions').length} added`;}
-    renderStandardQuestions();
-    document.querySelectorAll('#tradeOptions input,#industryOptions input').forEach(input=>input.addEventListener('change',refreshCounters));
-    function configuration(){
-      const provider=selected('emailProvider');
-      const industries=unique(checked('industry'));
-      const trades=unique([...checked('trade'),...values('customTrades')]);
-      const customQuestions=values('customQuestions');
-      const questionSequence=unique([...checked('standardQuestion'),...customQuestions]);
-      const bookingRules=unique(checked('bookingRule'));
-      const pricingRules=unique(checked('pricingRule'));
-      const evidenceRules=unique(checked('evidenceRule'));
-      const emailAlerts=recipients('emailRecipients');
-      const pricingGuide=pricingGuidePayload();
-      return {finance_plan:'configuration',contract_version:'1.0',configuration_price:calculateLocalPricing({inbound_channels:selectedMany('inboundChannel'),response_channels:selectedMany('responseChannel'),qualification:{question_count:questionSequence.length},booking_rules:bookingRules,evidence_rules:evidenceRules,alert_recipients:{email:recipients('emailRecipients')}}),industries,
-        business_name:clean(document.getElementById('business').value),contact_name:clean(document.getElementById('contact').value),contact_email:clean(document.getElementById('email').value),phone:clean(document.getElementById('phone').value),country:document.getElementById('country').value,state:clean(document.getElementById('state').value),crm:document.getElementById('crm').value,crm_provider_status:'available',inbound_channels:selectedMany('inboundChannel'),response_channels:selectedMany('responseChannel'),outbound_channels:selectedMany('responseChannel'),trades,trade:trades[0]||'',email_provider:provider,email_inbox:provider==='outlook'?'Outlook':provider==='gmail'?'Gmail':'Choose Gmail or Outlook',channels:unique([...selectedMany('inboundChannel'),...selectedMany('responseChannel')]),weekly_business_summary:{enabled:true,delivery_day:'Monday morning',focus:'Operations overview',notes:'',recipient_email:clean(document.getElementById('email').value)},alert_recipients:{delivery:'email_docket',email:emailAlerts.map(item=>({name:item.name,email:item.value}))},question_count:questionSequence.length,question_sequence:questionSequence,qualification:{standard_questions:checked('standardQuestion'),custom_questions:customQuestions},booking_rules:bookingRules,booking_rule:bookingRules[0]||'',availability_handling:bookingRules.some(rule=>/availability|open lead notes/i.test(rule))?'Capture customer availability in Open Lead Notes':'No availability-note rule selected',scheduling_handling:bookingRules.some(rule=>/schedule confirmed time/i.test(rule))?'Place confirmed time into the schedule where enabled':'Handoff or team confirmation',custom_booking_rules:[],pricing_rules:pricingRules,customer_pricing_rule:pricingRules[0]||'',pricing_handling:pricingRules.includes(pricingAskValue)?'Ask customer for estimate amount using approved guidance':'Do not ask customer for estimate amount',estimate_amount_prompt:pricingRules.includes(pricingAskValue),pricing_guide:pricingGuide,custom_pricing_rules:[],evidence_rules:evidenceRules,custom_evidence_rules:[],request_media:evidenceRules.some(rule=>/photo|video|media/i.test(rule)),created_at:new Date().toISOString()};
-    }
-    function plural(number,word){return `${number} ${word}${number===1?'':'s'}`;}
-    function calculateLocalPricing(c){return {setup:4400,monthly:1700,inboundAddOn:0,responseAddOn:0,questionAddOn:0,routeAddOn:0,mediaAddOn:0,calendarAddOn:0,inboundMonthly:0,responseMonthly:0,routeMonthly:0,calendarMonthly:0};}
-    function renderEstimate(){const p=calculateLocalPricing(configuration()),lock=document.getElementById('priceLockValue'),detail=document.getElementById('estimateBreakdown');if(!lock||!detail)return;lock.textContent=`USD $${p.setup.toLocaleString()} setup + USD $${p.monthly.toLocaleString()}/month`;detail.textContent='Per business, including GST. Your initial questions (up to 35), supported channels, recipients, media and calendar choices are included. Post-live changes: USD $500 per bundled request, only when requested.';}
-    document.addEventListener('input',()=>setTimeout(renderEstimate,0));document.addEventListener('change',()=>setTimeout(renderEstimate,0));document.addEventListener('click',()=>setTimeout(renderEstimate,0));setTimeout(renderEstimate,0);
-    function renderSummary(){const c=configuration();const pricing=calculateLocalPricing(c);const lock=document.getElementById('priceLockValue');if(lock)lock.textContent=`USD $${pricing.setup.toLocaleString()} setup + USD $${pricing.monthly.toLocaleString()}/month`;const alerts=c.alert_recipients.email.length;const guide=c.pricing_guide;const guideLabel=guide.source==='text'?'Approved text guide':guide.source==='pdf'?'Approved PDF: '+guide.file_name:(c.estimate_amount_prompt?'Guide required':'Not requested');document.getElementById('summary').innerHTML=[['Business',c.business_name||'To be confirmed'],['Industries',c.industries?.length?c.industries.join(', '):'Choose at least one industry'],['CRM / system',c.crm==='aroflo'?'AroFlo':c.crm==='simpro'?'Simpro':c.crm==='other'?'Other / scoped':c.crm==='none'?'No CRM · email docket':'To be confirmed'],['Trade services',c.trades.length?c.trades.join(', '):'Configuration-defined'],['Inbound platforms',c.inbound_channels.join(', ')||'Choose at least one'],['Customer replies',c.response_channels.join(', ')||'Choose at least one'],['Email inbox',c.email_inbox],['Email docket',plural(c.alert_recipients.email.length,'recipient')],['Qualification',plural(c.question_count,'question')],['Booking rules',plural(c.booking_rules.length,'rule')],['Pricing rules',plural(c.pricing_rules.length,'rule')],['Approved price guide',guideLabel],['Media rules',plural(c.evidence_rules.length,'rule')],['Pricing',`USD $${pricing.setup.toLocaleString()} setup + USD $${pricing.monthly.toLocaleString()}/month · GST included`]].map(pair=>`<div><span>${pair[0]}</span><b>${pair[1]}</b></div>`).join('');if(!alerts)document.getElementById('status').textContent='Add at least one email docket recipient so the prepared lead has a clear delivery destination.';else document.getElementById('status').textContent='Your configuration is ready to be recorded with the selected email docket recipient.';}
-    document.getElementById('continueAgreement').addEventListener('click',async()=>{const c=configuration();if(!c.business_name||!c.contact_name||!c.contact_email||!c.phone||!c.state||!c.crm){document.getElementById('status').textContent='Please complete your business, contact, email, direct line, state or region, and CRM or business system in Step 1 before continuing.';setStep(1);return;}if(!c.industries.length){document.getElementById('status').textContent='Select at least one industry in Step 1 before continuing.';setStep(1);return;}if(!c.inbound_channels.length){document.getElementById('status').textContent='Choose at least one enquiry source in Step 2 before continuing.';setStep(2);return;}if(!c.response_channels.length){document.getElementById('status').textContent='Choose at least one customer response route in Step 2 before continuing.';setStep(2);return;}if((c.inbound_channels.includes('email')||c.response_channels.includes('email'))&&!c.email_provider){document.getElementById('status').textContent='Choose Gmail or Outlook because Email is selected in Step 2.';setStep(2);return;}if(!c.alert_recipients.email.length){document.getElementById('status').textContent='Add at least one email docket recipient in Step 2 before continuing.';setStep(2);return;}if(c.question_count>35){document.getElementById('status').textContent='Your initial setup includes up to 35 questions. Please reduce the selection to 35 or fewer before continuing.';setStep(3);return;}if(c.estimate_amount_prompt&&c.pricing_guide.status==='required'){document.getElementById('status').textContent='Add the approved price guide Hermia may use before you continue.';setStep(4);openPricingGuide();return;}try{await uploadPricingGuidePdf(c);}catch(e){document.getElementById('status').textContent=e.message||'The pricing PDF could not be attached. Please try again.';setStep(4);return;}try{sessionStorage.setItem('hermia_configuration',JSON.stringify(c));sessionStorage.setItem('hermia_finance_plan','configuration');sessionStorage.setItem('hermia_name',c.contact_name);sessionStorage.setItem('hermia_email',c.contact_email);sessionStorage.setItem('hermia_plan',c.email_provider);}catch(e){}document.getElementById('status').textContent='Configuration prepared. Taking you to the agreement…';try{await fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:'configuration_created',finance_plan:'configuration',configuration:c})});}catch(e){}setTimeout(()=>{window.location.href='configuration_contract.html';},500);});
-  </script>
+</div>
+<script>
+(function(){
+  'use strict';
+  var API = 'https://platform.hermia.au';
+  var DRAFT_KEY = 'hermia_configuration_draft';
+  var esc = function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
+  var clean = function(v){return String(v==null?'':v).replace(/\s+/g,' ').trim();};
+  var uniq = function(a){var s={},o=[];(a||[]).forEach(function(x){x=clean(x);var k=x.toLowerCase();if(x&&!s[k]){s[k]=1;o.push(x);}});return o;};
+  var isEmail = function(v){return /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(String(v||'').trim());};
+  var $ = function(id){return document.getElementById(id);};
 
-<script id="hermia-history-back">
+  var INDUSTRIES = [
+    {v:'Trades & field services',t:'Trades & field services',d:'Plumbing, electrical, roofing, remedial, fire and more.',img:'assets/sector-trade.webp',live:true},
+    {v:'Property',t:'Property & real estate',d:'Enquiries, inspections and maintenance requests.',img:'assets/sector-property.webp'},
+    {v:'Legal operations',t:'Legal operations',d:'Matter intake and enquiry triage.',img:'assets/sector-professional.webp'},
+    {v:'Healthcare administration',t:'Healthcare administration',d:'Booking and admin enquiries. No clinical triage.',img:'assets/sector-healthcare.webp'},
+    {v:'Finance',t:'Finance',d:'Application and document intake.',img:'assets/sector-finance.webp'},
+    {v:'Insurance companies',t:'Insurance',d:'Claim and policy enquiry intake.',img:'assets/sector-insurance.webp'}
+  ];
+  var TRADES = ['Plumbing','Electrical','Roofing','Remedial','Fire / ESM','Repair & maintenance','Air conditioning & HVAC','Painting','Carpentry','Glazing','Landscaping','Pest control','Solar','Cleaning'];
+  var OTHER_SYSTEMS = ['ServiceM8','Fergus','Tradify','Jobber','ServiceTitan','HubSpot','Salesforce','Rex','Microsoft Dynamics','Zoho CRM','Pipedrive','Monday.com','Xero Practice Manager','Clio','Actionstep','Cliniko','Halaxy'];
+  var COUNTRIES = ['Australia','New Zealand','United States','Canada','United Kingdom','Ireland','United Arab Emirates','Saudi Arabia','Qatar','Singapore','India','South Africa','Germany','France','Spain','Italy','Netherlands','Russia','Japan','Other'];
+  var LANGS = [['ar','Arabic'],['zh','Chinese'],['nl','Dutch'],['fr','French'],['de','German'],['el','Greek'],['hi','Hindi'],['id','Indonesian'],['it','Italian'],['ja','Japanese'],['ko','Korean'],['pt','Portuguese'],['ru','Russian'],['es','Spanish'],['tr','Turkish'],['vi','Vietnamese']];
+  var ICON = {
+    email:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e8c17a" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7l8 6 8-6"/></svg>',
+    gbp:'<svg width="24" height="24" viewBox="0 0 24 24"><path d="M4 9.5L5.6 4h12.8L20 9.5" fill="none" stroke="#4285F4" stroke-width="1.7" stroke-linejoin="round"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5S9.3 10.9 9.3 9.5c0 1.4 1.2 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1.1 2.5 2.6 2.5S20 10.9 20 9.5" fill="none" stroke="#4285F4" stroke-width="1.7"/><path d="M5.5 12v8h13v-8" fill="none" stroke="#34A853" stroke-width="1.7"/><path d="M10 20v-4.5h4V20" fill="none" stroke="#FBBC05" stroke-width="1.7"/></svg>',
+    gmail:'<svg width="26" height="26" viewBox="0 0 24 24"><path d="M3 7.2V18a1.5 1.5 0 001.5 1.5H7V10.6l5 3.7 5-3.7v8.9h2.5A1.5 1.5 0 0021 18V7.2a2 2 0 00-3.2-1.6L12 10 6.2 5.6A2 2 0 003 7.2z" fill="#EA4335"/><path d="M3 7.2V18a1.5 1.5 0 001.5 1.5H7V10.6L3 7.6z" fill="#4285F4"/><path d="M17 10.6v8.9h2.5A1.5 1.5 0 0021 18V7.6z" fill="#34A853"/><path d="M17 6.3v4.3l4-3V7.2a2 2 0 00-3.2-1.6z" fill="#FBBC05"/></svg>',
+    outlook:'<svg width="26" height="26" viewBox="0 0 24 24"><rect x="8" y="5" width="13" height="14" rx="2" fill="#28A8EA"/><path d="M8 11l6.5 4L21 11" fill="none" stroke="#fff" stroke-width="1.3" opacity=".8"/><rect x="3" y="7" width="10" height="10" rx="2" fill="#0F6CBD"/><circle cx="8" cy="12" r="2.6" fill="none" stroke="#fff" stroke-width="1.6"/></svg>'
+  };
+  var SOURCES = [
+    {v:'email',t:'Email',d:'Your inbox, including forwarded platform and marketplace alerts.',ico:ICON.email},
+    {v:'instagram',t:'Instagram',d:'Direct messages to your business account.',img:'assets/channels/instagram-96.webp'},
+    {v:'facebook',t:'Facebook',d:'Messages to your business page.',img:'assets/channels/facebook-96.webp'},
+    {v:'google_business',t:'Google Business',d:'Messages from your Google Business Profile. Connected with you during setup.',ico:ICON.gbp}
+  ];
+  var CONVS = [
+    {v:'email',t:'Email',d:'Hermia replies by email and keeps the thread in one place.',ico:ICON.email},
+    {v:'whatsapp',t:'WhatsApp',d:'Hermia follows up by WhatsApp. Fast replies, photos and short videos.',img:'assets/channels/whatsapp-96.webp'}
+  ];
+  // Trade questions: names and rules match the qualification steps Hermia runs.
+  var TRADE_QS = [
+    {id:'urgency',t:'Urgency and immediate risk',w:'Sorts emergencies from routine work, so urgent jobs reach your team first.',locked:true,q:['Urgency and immediate risk']},
+    {id:'media',t:'Photos or a short video',w:'Your team sees the problem before anyone drives to site.',ev:['Ask for photos when helpful','Ask for video when helpful']},
+    {id:'asset',t:'Asset or area involved',w:'Points the job at the right technician and parts.',q:['Asset or area involved']},
+    {id:'fault',t:'What is happening',w:'A clear, specific description. Vague answers are asked again.',q:['Fault or issue description']},
+    {id:'site',t:'Site address, confirmed',w:'Matched to the right customer and site in your system.',q:['Site address','Address confirmation']},
+    {id:'avail',t:'Customer availability',w:'Goes into the lead notes and the brief, so booking is one call.',bk:['Capture customer availability in Open Lead Notes']},
+    {id:'access',t:'Access and hazards',w:'Keys, codes, pets, asbestos or confined spaces, known before arrival.',ev:['Confirm access and hazards before handoff']},
+    {id:'iso',t:'Water or gas isolation',w:'Whether the supply can be isolated safely before the visit.',q:['Water / gas isolation context'],only:/plumb|gas|repair|remedial/i},
+    {id:'materials',t:'Materials',w:'Who is supplying materials, so the quote is right first time.',q:['Materials responsibility']},
+    {id:'billing',t:'Who to invoice',w:'Owner, tenant, agent or company. Invoices go to the right party.',q:['Billing contact']},
+    {id:'ptype',t:'Residential or commercial',w:'Sets expectations for access, compliance and pricing.',q:['Property type']}
+  ];
+  var GENERAL_QS = [
+    {id:'urgency',t:'Urgency',w:'How soon the customer needs help, so time-critical requests come first.',locked:true,q:['Urgency and immediate risk']},
+    {id:'contact',t:'Customer name and contact',w:'Confirmed details your team can act on.',q:['Customer name and contact'],locked:true},
+    {id:'summary',t:'What the request is about',w:'A clear summary, checked for detail before it is accepted.',q:['Request or enquiry summary'],locked:true},
+    {id:'follow',t:'Preferred follow-up',w:'How and when the customer prefers to be contacted.',q:['Preferred follow-up method']}
+  ];
+
+  var state = {
+    business:'',entity:'',contact:'',email:'',phone:'',country:'Australia',state:'',
+    crm:'',crmOther:'',industry:'',trade:'',sources:[],conv:'',inbox:'',
+    docket:[{name:'',email:''}],senders:[''],qs:{},custom:[''],estimate:false,guideMode:'text',guideText:'',guideFileName:'',guideFileSize:0,
+    calendar:'',calMode:'manual',lang:'en',langFixed:'ar'
+  };
+  try{var saved=JSON.parse(sessionStorage.getItem(DRAFT_KEY)||'null');if(saved&&typeof saved==='object')Object.keys(state).forEach(function(k){if(k in saved)state[k]=saved[k];});}catch(e){}
+  /* Pre-select the industry when arriving from an industry or pricing page (configuration.html?industry=property). */
+  try{var IND_PARAM={trades:'Trades & field services',property:'Property',legal:'Legal operations',healthcare:'Healthcare administration',finance:'Finance',insurance:'Insurance companies'};var ip=IND_PARAM[String(new URLSearchParams(location.search).get('industry')||'').toLowerCase()];if(ip&&state.industry!==ip){state.industry=ip;state.qs={};if(ip!=='Trades & field services'){state.trade='';state.estimate=false;state.calendar='';}}}catch(e){}
+  var guideFile = null;
+  function persist(){try{var s=Object.assign({},state);sessionStorage.setItem(DRAFT_KEY,JSON.stringify(s));}catch(e){}}
+
+  var isTrade = function(){return state.industry==='Trades & field services';};
+  var needsInbox = function(){return state.sources.indexOf('email')>-1||state.conv==='email';};
+  var FLOW = function(){
+    var f=['intro','business','contact','location','crm','industry'];
+    if(isTrade())f.push('trade');
+    f.push('sources','conversation');
+    if(needsInbox())f.push('inbox');
+    f.push('docket','senders','questions');
+    if(state.crm==='simpro'&&isTrade())f.push('calendar');
+    f.push('language','review');
+    return f;
+  };
+  var screens = {};
+  Array.prototype.forEach.call(document.querySelectorAll('.screen'),function(s){screens[s.dataset.id]=s;});
+  var current = 'intro';
+
+  /* ---------- visuals ---------- */
+  var visuals = $('visuals'), imgCache = {};
+  function showImage(src){
+    if(!imgCache[src]){var im=new Image();im.src=src;im.alt='';im.decoding='async';visuals.appendChild(im);imgCache[src]=im;}
+    Object.keys(imgCache).forEach(function(k){imgCache[k].classList.toggle('on',k===src);});
+  }
+  function caption(s,img){
+    $('capK').textContent=s.dataset.k||'';$('capT').textContent=s.dataset.t||'';$('capS').textContent=s.dataset.s||'';
+    showImage(img||s.dataset.img);
+  }
+
+  /* ---------- builders ---------- */
+  function tile(o,pressed){
+    var icon = o.img?'<span class="ico"><img src="'+esc(o.img)+'" alt=""></span>':(o.ico?'<span class="ico">'+o.ico+'</span>':'');
+    return '<button type="button" class="tile" aria-pressed="'+(pressed?'true':'false')+'" data-v="'+esc(o.v)+'"'+(o.disabled?' disabled':'')+'>'+icon+'<span class="tt">'+esc(o.t)+'</span>'+(o.d?'<span class="td">'+esc(o.d)+'</span>':'')+(o.tag?'<span class="tag">'+esc(o.tag)+'</span>':'')+'</button>';
+  }
+  function renderCountries(){$('country').innerHTML=COUNTRIES.map(function(c){return '<option'+(c===state.country?' selected':'')+'>'+esc(c)+'</option>';}).join('');}
+  function renderCrm(){
+    Array.prototype.forEach.call(document.querySelectorAll('#crmTiles .tile'),function(b){b.setAttribute('aria-pressed',String(state.crm===b.dataset.crm));});
+    var q=clean($('crmSearch').value).toLowerCase();
+    var list=OTHER_SYSTEMS.filter(function(n){return !q||n.toLowerCase().indexOf(q)>-1;}).slice(0,q?10:6);
+    var html=list.map(function(n){return '<button type="button" class="chip" data-other="'+esc(n)+'" aria-pressed="'+(state.crm==='other'&&state.crmOther===n)+'">'+esc(n)+'</button>';}).join('');
+    if(q&&!OTHER_SYSTEMS.some(function(n){return n.toLowerCase()===q;}))html+='<button type="button" class="chip" data-other="'+esc(clean($('crmSearch').value))+'" aria-pressed="'+(state.crm==='other'&&state.crmOther.toLowerCase()===q)+'">Use "'+esc(clean($('crmSearch').value))+'"</button>';
+    html+='<button type="button" class="chip" data-none="1" aria-pressed="'+(state.crm==='none')+'">No CRM, brief by email only</button>';
+    $('crmResults').innerHTML=html;
+    var note=$('crmNote');
+    if(state.crm==='other'){note.hidden=false;note.innerHTML='<b>'+esc(state.crmOther)+'</b> is scoped per business. We confirm the connection and test it with you before go-live, and the brief is emailed to your team in the meantime.';}
+    else if(state.crm==='none'){note.hidden=false;note.innerHTML='Your team receives each finished brief by email. You can add a system later as a change request.';}
+    else note.hidden=true;
+  }
+  function renderIndustry(){
+    $('industryTiles').innerHTML=INDUSTRIES.map(function(o){return tile({v:o.v,t:o.t,d:o.d,tag:o.live?'':'Scoped pilot'},state.industry===o.v);}).join('');
+    var n=$('industryNote');
+    if(state.industry&&!isTrade()){n.hidden=false;n.innerHTML='<b>Scoped pilot.</b> We confirm the fit for your business before anything goes live. Hermia never gives legal, medical, financial or insurance advice and never makes those decisions. Qualified people on your team always do.';}
+    else n.hidden=true;
+  }
+  function industryImg(){var f=INDUSTRIES.filter(function(o){return o.v===state.industry;})[0];return f?f.img:'assets/sector-trade.webp';}
+  function renderTrades(){
+    var own=TRADES.indexOf(state.trade)===-1?state.trade:'';
+    $('tradeChips').innerHTML=TRADES.map(function(t){return '<button type="button" class="chip" data-trade="'+esc(t)+'" aria-pressed="'+(state.trade===t)+'">'+esc(t)+'</button>';}).join('');
+    if(document.activeElement!==$('tradeOwn'))$('tradeOwn').value=own;
+  }
+  function renderSources(){$('sourceTiles').innerHTML=SOURCES.map(function(o){return tile(o,state.sources.indexOf(o.v)>-1);}).join('');}
+  function renderConv(){$('convTiles').innerHTML=CONVS.map(function(o){return tile(o,state.conv===o.v);}).join('');}
+  function renderInbox(){$('inboxTiles').innerHTML=[{v:'gmail',t:'Gmail',d:'Google Workspace or Gmail.',ico:ICON.gmail},{v:'outlook',t:'Outlook',d:'Microsoft 365 or Outlook.',ico:ICON.outlook}].map(function(o){return tile(o,state.inbox===o.v);}).join('');}
+  function renderRows(id,arr,kind){
+    var root=$(id);
+    root.innerHTML=arr.map(function(r,i){
+      if(kind==='docket')return '<div class="list-row"><input class="input name" data-i="'+i+'" data-f="name" placeholder="Name or role" value="'+esc(r.name)+'" maxlength="80"><input class="input" type="email" data-i="'+i+'" data-f="email" placeholder="name@business.com" value="'+esc(r.email)+'" maxlength="200"><button type="button" class="x" data-del="'+i+'" aria-label="Remove">×</button></div>';
+      return '<div class="list-row one"><input class="input" data-i="'+i+'" placeholder="'+(kind==='sender'?'e.g. yourbusiness.com':'e.g. Is the property tenanted?')+'" value="'+esc(r)+'" maxlength="'+(kind==='sender'?120:300)+'"><button type="button" class="x" data-del="'+i+'" aria-label="Remove">×</button></div>';
+    }).join('');
+  }
+  function qSet(){return isTrade()?TRADE_QS.filter(function(q){return !q.only||q.only.test(state.trade);}):GENERAL_QS;}
+  function qOn(q){if(q.locked)return true;if(q.id in state.qs)return !!state.qs[q.id];return true;}
+  function renderQuestions(){
+    $('qLead').textContent=isTrade()?'These are the questions Hermia asks for '+(state.trade||'your trade')+' work. Each one exists for a reason, and you can switch off the ones you do not need.':'Hermia always confirms urgency, contact details and what the request is about. Anything specific to your business goes in your own questions below.';
+    $('defaultQs').innerHTML=qSet().map(function(q,i){return '<div class="q"><span class="n">'+String(i+1).padStart(2,'0')+'</span><div><div class="qt">'+esc(q.t)+'</div><div class="qw">'+esc(q.w)+'</div></div><label class="switch"><input type="checkbox" data-q="'+q.id+'"'+(qOn(q)?' checked':'')+(q.locked?' disabled':'')+'><span></span><span class="sr">'+esc(q.t)+'</span></label></div>';}).join('');
+    $('estimateBlock').hidden=!isTrade();
+    $('estimateOn').checked=!!state.estimate&&isTrade();
+    $('guideBox').hidden=!(state.estimate&&isTrade());
+    Array.prototype.forEach.call(document.querySelectorAll('[data-guide]'),function(b){b.setAttribute('aria-pressed',String(b.dataset.guide===state.guideMode));});
+    $('guideText').hidden=state.guideMode!=='text';$('guideFileLabel').hidden=state.guideMode!=='pdf';
+    if(document.activeElement!==$('guideText'))$('guideText').value=state.guideText;
+    $('guideFileName').textContent=state.guideFileName?(state.guideFileName+(guideFile?'':' (choose it again)')):'Choose your approved price guide (PDF, up to 20 MB)';
+    renderRows('customRows',state.custom,'custom');
+  }
+  function renderCalendar(){
+    $('calTiles').innerHTML=[
+      {v:'simpro',t:'Simpro calendar',d:'Hermia proposes the most available technician and a time. Booked into your Simpro schedule.'},
+      {v:'none',t:'None',d:'Your team books every job. Availability still arrives in the brief.'},
+      {v:'google',t:'Google Calendar',d:'Not available yet.',tag:'Coming later',disabled:true},
+      {v:'outlook_cal',t:'Outlook Calendar',d:'Not available yet.',tag:'Coming later',disabled:true}
+    ].map(function(o){return tile(o,state.calendar===o.v);}).join('');
+    $('calExtra').hidden=state.calendar!=='simpro';
+    $('modeTiles').innerHTML=[{v:'manual',t:'Your team confirms',d:'Each brief shows the suggested technician and time. One tap books it, or pick someone else.'},{v:'auto',t:'Hermia books automatically',d:'Hermia books the suggested technician. You can change it or switch this off at any time.'}].map(function(o){return tile(o,state.calMode===o.v);}).join('');
+  }
+  function renderLang(){
+    $('langTiles').innerHTML=[{v:'en',t:'English',d:'Every customer conversation in English.'},{v:'auto',t:"Each customer's language",d:'Hermia replies in the language the customer writes in.'},{v:'fixed',t:'Another language',d:'Choose one language for every conversation.'}].map(function(o){return tile(o,state.lang===o.v);}).join('');
+    $('langPick').hidden=state.lang!=='fixed';
+    $('langFixed').innerHTML=LANGS.map(function(l){return '<option value="'+l[0]+'"'+(state.langFixed===l[0]?' selected':'')+'>'+esc(l[1])+'</option>';}).join('');
+  }
+  function crmLabel(){return state.crm==='simpro'?'Simpro':state.crm==='aroflo'?'AroFlo':state.crm==='other'?(state.crmOther+' (scoped)'):state.crm==='none'?'No CRM, email brief only':'';}
+  function srcLabel(v){var f=SOURCES.filter(function(o){return o.v===v;})[0];return f?f.t:v;}
+  function renderReview(){
+    var c=buildConfiguration();
+    var lang=state.lang==='en'?'English':state.lang==='auto'?"Each customer's language":(LANGS.filter(function(l){return l[0]===state.langFixed;})[0]||['',''])[1];
+    var qs=c.question_sequence.slice();
+    var items=[
+      ['Business',esc(c.business_name)+(state.entity?'<br><span style="color:var(--faint)">'+esc(state.entity)+'</span>':''),'business'],
+      ['Owner',esc(c.contact_name)+'<br><span style="color:var(--faint)">'+esc(c.contact_email)+' · '+esc(c.phone)+'</span>','contact'],
+      ['Location',esc((c.state?c.state+', ':'')+c.country),'location'],
+      ['Business system',esc(crmLabel()),'crm'],
+      ['Industry',esc((INDUSTRIES.filter(function(o){return o.v===state.industry;})[0]||{}).t||'')+(isTrade()&&state.trade?' · '+esc(state.trade):'')+(isTrade()?'':' <span style="color:var(--gold)">· scoped pilot</span>'),isTrade()?'trade':'industry'],
+      ['Enquiries from',esc(state.sources.map(srcLabel).join(', ')),'sources'],
+      ['Customer conversation',esc(state.conv==='whatsapp'?'WhatsApp':'Email'),'conversation']
+    ];
+    if(needsInbox())items.push(['Inbox',esc(state.inbox==='outlook'?'Outlook':'Gmail'),'inbox']);
+    items.push(['Briefs go to',c.alert_recipients.email.map(function(r){return esc(r.email);}).join('<br>'),'docket']);
+    items.push(['Your own senders',c.sending_domains.length?esc(c.sending_domains.join(', ')):'<span style="color:var(--faint)">None added</span>','senders']);
+    items.push(['Questions',qs.length+' questions'+(c.qualification.custom_questions.length?' · '+c.qualification.custom_questions.length+' of your own':'')+'<br><span style="color:var(--faint)">'+esc(qs.slice(0,6).join(' · '))+(qs.length>6?' …':'')+'</span>','questions',true]);
+    if(isTrade())items.push(['Estimates',state.estimate?('From your approved guide ('+(state.guideMode==='pdf'?'PDF':'typed')+')'):'Price questions go to your team','questions']);
+    if(state.crm==='simpro'&&isTrade())items.push(['Calendar',state.calendar==='simpro'?('Simpro · '+(state.calMode==='auto'?'Hermia books automatically':'your team confirms')):'None','calendar']);
+    items.push(['Language',esc(lang),'language']);
+    $('reviewGrid').innerHTML=items.map(function(it){return '<div class="rv'+(it[3]?' wide':'')+'"><div class="k">'+it[0]+'</div><div class="v">'+it[1]+'</div><button type="button" class="edit" data-go="'+it[2]+'">Edit</button></div>';}).join('');
+  }
+
+  /* ---------- validation ---------- */
+  function validate(id){
+    if(id==='business'){if(clean(state.business).length<2)return 'Please enter your business name.';}
+    if(id==='contact'){if(clean(state.contact).length<2)return 'Please enter your name.';if(!isEmail(state.email))return 'Please enter a valid work email.';if(clean(state.phone).replace(/\D/g,'').length<6)return 'Please enter a direct line we can reach you on.';}
+    if(id==='location'){if(!state.country)return 'Please choose a country.';if(clean(state.state).length<2)return 'Please enter your state or region.';}
+    if(id==='crm'){if(!state.crm)return 'Choose one system, or choose "No CRM".';if(state.crm==='other'&&clean(state.crmOther).length<2)return 'Choose or type the system you use.';}
+    if(id==='industry'){if(!state.industry)return 'Choose one industry.';}
+    if(id==='trade'){if(clean(state.trade).length<2)return 'Pick your trade or write it in.';}
+    if(id==='sources'){if(!state.sources.length)return 'Choose at least one source.';}
+    if(id==='conversation'){if(!state.conv)return 'Choose one conversation channel.';}
+    if(id==='inbox'){if(!state.inbox)return 'Choose Gmail or Outlook.';}
+    if(id==='docket'){var ok=state.docket.filter(function(r){return clean(r.email);});if(!ok.length)return 'Add at least one person to receive the brief.';var bad=ok.filter(function(r){return !isEmail(r.email);})[0];if(bad)return 'Check this email address: '+bad.email;}
+    if(id==='senders'){var b=state.senders.map(clean).filter(Boolean).filter(function(d){return !/^@?([a-z0-9-]+\.)+[a-z]{2,}$/i.test(d.replace(/^.*@/,''));})[0];if(b)return 'Use a domain like yourbusiness.com: '+b;}
+    if(id==='questions'){var cq=state.custom.map(clean).filter(Boolean);if(cq.length>35)return 'Up to 35 of your own questions are included.';var short=cq.filter(function(q){return q.length<3;})[0];if(short)return 'Each question needs a few words.';if(isTrade()&&state.estimate){if(state.guideMode==='text'&&clean(state.guideText).length<12)return 'Add your price guide, or switch estimates off.';if(state.guideMode==='pdf'&&!guideFile)return 'Choose your price guide PDF, or type it instead.';}}
+    if(id==='calendar'){if(!state.calendar)return 'Choose Simpro calendar or None.';}
+    return '';
+  }
+
+  /* ---------- configuration object (same keys the build expects) ---------- */
+  function buildConfiguration(){
+    var trade=isTrade();
+    var std=[],ev=[],bk=[];
+    qSet().forEach(function(q){if(!qOn(q))return;(q.q||[]).forEach(function(x){std.push(x);});(q.ev||[]).forEach(function(x){ev.push(x);});(q.bk||[]).forEach(function(x){bk.push(x);});});
+    var calendarOn=trade&&state.crm==='simpro'&&state.calendar==='simpro';
+    if(calendarOn)bk.push('Schedule confirmed time where enabled');
+    var custom=uniq(state.custom).slice(0,35);
+    var sequence=uniq(std.concat(custom));
+    var ask=trade&&state.estimate;
+    var pricingRule=ask?'Ask customer for estimate amount':'Do not ask customer for estimate amount';
+    var guide={status:'not_requested',source:'none'};
+    if(ask&&state.guideMode==='text')guide={status:'approved',source:'text',instructions:clean(state.guideText),use:'estimate context only; never a final quote'};
+    if(ask&&state.guideMode==='pdf'&&state.guideFileName)guide={status:'ready_for_upload',source:'pdf',file_name:state.guideFileName,file_size_bytes:state.guideFileSize,mime_type:'application/pdf',use:'estimate context only; never a final quote'};
+    var recips=[],seen={};
+    state.docket.forEach(function(r){var e=clean(r.email).toLowerCase();if(isEmail(e)&&!seen[e]){seen[e]=1;recips.push({name:clean(r.name),email:e});}});
+    var domains=uniq(state.senders.map(function(d){return clean(d).toLowerCase().replace(/^.*@/,'').replace(/^https?:\/\//,'').replace(/\/.*$/,'');}));
+    var conv=state.conv||'email';
+    var provider=needsInbox()?state.inbox:'';
+    var lang=state.lang==='fixed'?state.langFixed:state.lang;
+    var tradeName=trade?clean(state.trade):'';
+    return {
+      finance_plan:'configuration',contract_version:'1.1',
+      configuration_price:{setup:4400,monthly:1700,currency:'usd',inboundAddOn:0,responseAddOn:0,questionAddOn:0,routeAddOn:0,mediaAddOn:0,calendarAddOn:0},
+      industry:state.industry,industries:[state.industry],
+      business_name:clean(state.business),legal_entity_name:clean(state.entity),contact_name:clean(state.contact),contact_email:clean(state.email).toLowerCase(),phone:clean(state.phone),country:state.country,state:clean(state.state),
+      crm:state.crm,crm_other_name:state.crm==='other'?clean(state.crmOther):'',crm_provider_status:state.crm==='other'?'scoped':'available',
+      inbound_channels:state.sources.slice(),response_channels:[conv],outbound_channels:[conv],conversation_channel:conv,
+      trades:tradeName?[tradeName]:[],trade:tradeName,
+      email_provider:provider,email_inbox:provider==='outlook'?'Outlook':provider==='gmail'?'Gmail':'',
+      channels:uniq(state.sources.concat([conv])),
+      weekly_business_summary:{enabled:true,delivery_day:'Monday morning',focus:'Operations overview',notes:'',recipient_email:clean(state.email).toLowerCase()},
+      alert_recipients:{delivery:'email_docket',email:recips},
+      question_count:sequence.length+1,question_sequence:['Urgency and immediate risk'].concat(sequence.filter(function(q){return q!=='Urgency and immediate risk';})),
+      qualification:{standard_questions:std,custom_questions:custom},
+      booking_rules:uniq(bk),booking_rule:bk[0]||'',
+      availability_handling:bk.some(function(r){return /availability/i.test(r);})?'Capture customer availability in Open Lead Notes':'No availability-note rule selected',
+      scheduling_handling:calendarOn?'Place confirmed time into the schedule where enabled':'Handoff or team confirmation',custom_booking_rules:[],
+      pricing_rules:[pricingRule],customer_pricing_rule:pricingRule,pricing_handling:ask?'Ask customer for estimate amount using approved guidance':'Do not ask customer for estimate amount',estimate_amount_prompt:ask,pricing_guide:guide,custom_pricing_rules:[],
+      evidence_rules:uniq(ev),custom_evidence_rules:[],request_media:ev.some(function(r){return /photo|video/i.test(r);}),
+      calendar:{provider:calendarOn?'simpro':'none',mode:calendarOn?state.calMode:'manual'},
+      sending_domains:domains,language:lang,
+      created_at:new Date().toISOString()
+    };
+  }
+
+  /* ---------- price guide PDF kept on this device across the payment step ---------- */
+  function idb(){return new Promise(function(res,rej){var r=indexedDB.open('hermia-config',1);r.onupgradeneeded=function(){r.result.createObjectStore('files');};r.onsuccess=function(){res(r.result);};r.onerror=function(){rej(r.error);};});}
+  function storeGuide(file){return idb().then(function(db){return new Promise(function(res,rej){var tx=db.transaction('files','readwrite');tx.objectStore('files').put(file,'pricing_pdf');tx.oncomplete=function(){res();};tx.onerror=function(){rej(tx.error);};});});}
+
+  /* ---------- navigation ---------- */
+  function show(id,dir,fromPop){
+    var flow=FLOW();if(flow.indexOf(id)===-1)id='intro';
+    var s=screens[id];
+    Object.keys(screens).forEach(function(k){screens[k].classList.remove('on','back');});
+    if(dir<0)s.classList.add('back');
+    s.classList.add('on');current=id;
+    var idx=flow.indexOf(id);
+    $('bar').style.width=(idx/(flow.length-1)*100)+'%';
+    $('lbl').textContent=id==='intro'?'Start':(id==='review'?'Review':String(idx).padStart(2,'0')+' / '+String(flow.length-2).padStart(2,'0'));
+    $('prev').style.visibility=id==='intro'?'hidden':'visible';
+    $('next').textContent=id==='intro'?'Begin build':id==='review'?'Continue to payment':'Next';
+    $('keyhint').style.display=id==='review'||id==='questions'?'none':'';
+    s.querySelector('[data-err]')&&(s.querySelector('[data-err]').textContent='');
+    render(id);
+    caption(s,id==='industry'||id==='trade'?industryImg():null);
+    $('stage').scrollTop=0;if(window.innerWidth<=900)window.scrollTo(0,0);
+    if(!fromPop){try{history[id==='intro'&&!location.hash?'replaceState':'pushState']({s:id},'','#'+id);}catch(e){}}
+    var f=s.querySelector('input.input:not([type=file]),select.input');if(f&&window.innerWidth>900&&id!=='review'&&id!=='questions')setTimeout(function(){try{f.focus({preventScroll:true});}catch(e){}},60);
+    persist();
+  }
+  function render(id){
+    if(id==='business'){$('business').value=state.business;$('entity').value=state.entity;}
+    if(id==='contact'){$('contact').value=state.contact;$('email').value=state.email;$('phone').value=state.phone;}
+    if(id==='location'){renderCountries();$('state').value=state.state;}
+    if(id==='crm')renderCrm();
+    if(id==='industry')renderIndustry();
+    if(id==='trade')renderTrades();
+    if(id==='sources')renderSources();
+    if(id==='conversation')renderConv();
+    if(id==='inbox')renderInbox();
+    if(id==='docket'){if(!state.docket.length)state.docket=[{name:'',email:''}];if(state.docket.length===1&&!state.docket[0].email&&state.email)state.docket[0]={name:clean(state.contact),email:clean(state.email)};renderRows('docketRows',state.docket,'docket');}
+    if(id==='senders'){if(!state.senders.length)state.senders=[''];renderRows('senderRows',state.senders,'sender');}
+    if(id==='questions'){if(!state.custom.length)state.custom=[''];renderQuestions();}
+    if(id==='calendar')renderCalendar();
+    if(id==='language')renderLang();
+    if(id==='review')renderReview();
+  }
+  function go(step){
+    var flow=FLOW(),i=flow.indexOf(current);
+    if(step>0){var e=validate(current);if(e){var el=screens[current].querySelector('[data-err]');if(el)el.textContent=e;return;}
+      if(current==='review'){pay();return;}
+      show(flow[Math.min(i+1,flow.length-1)],1);}
+    else{ if(i<=0)return; history.back(); }
+  }
+  window.addEventListener('popstate',function(ev){var id=(ev.state&&ev.state.s)||(location.hash||'').slice(1)||'intro';var flow=FLOW();show(flow.indexOf(id)>-1?id:'intro',flow.indexOf(id)<flow.indexOf(current)?-1:1,true);});
+  $('next').addEventListener('click',function(){go(1);});
+  $('prev').addEventListener('click',function(){go(-1);});
+  document.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey&&e.target.tagName!=='TEXTAREA'&&e.target.tagName!=='BUTTON'&&current!=='review'){e.preventDefault();go(1);}});
+
+  /* ---------- inputs ---------- */
+  var bind=function(id,key){$(id).addEventListener('input',function(){state[key]=$(id).value;persist();});};
+  bind('business','business');bind('entity','entity');bind('contact','contact');bind('email','email');bind('phone','phone');bind('state','state');
+  $('country').addEventListener('change',function(){state.country=$('country').value;persist();});
+  $('crmTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;state.crm=b.dataset.crm;state.crmOther='';renderCrm();persist();});
+  $('crmSearch').addEventListener('input',renderCrm);
+  $('crmResults').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;if(b.dataset.none){state.crm='none';state.crmOther='';}else{state.crm='other';state.crmOther=b.dataset.other;}renderCrm();persist();});
+  $('industryTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;if(state.industry!==b.dataset.v){state.industry=b.dataset.v;state.qs={};if(!isTrade()){state.trade='';state.estimate=false;state.calendar='';}}renderIndustry();showImage(industryImg());persist();});
+  $('tradeChips').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;state.trade=b.dataset.trade;state.qs={};$('tradeOwn').value='';renderTrades();persist();});
+  $('tradeOwn').addEventListener('input',function(){var v=$('tradeOwn').value;if(clean(v)){state.trade=clean(v);}else if(TRADES.indexOf(state.trade)===-1)state.trade='';renderTrades();persist();});
+  $('sourceTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;var v=b.dataset.v,i=state.sources.indexOf(v);if(i>-1)state.sources.splice(i,1);else state.sources.push(v);renderSources();persist();});
+  $('convTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;state.conv=b.dataset.v;renderConv();persist();});
+  $('inboxTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;state.inbox=b.dataset.v;renderInbox();persist();});
+  function listHandlers(rootId,key,kind,blank){
+    $(rootId).addEventListener('input',function(e){var t=e.target,i=Number(t.dataset.i);if(isNaN(i))return;if(kind==='docket')state[key][i][t.dataset.f]=t.value;else state[key][i]=t.value;persist();});
+    $(rootId).addEventListener('click',function(e){var b=e.target.closest('[data-del]');if(!b)return;state[key].splice(Number(b.dataset.del),1);if(!state[key].length)state[key].push(blank());renderRows(rootId,state[key],kind);persist();});
+  }
+  listHandlers('docketRows','docket','docket',function(){return {name:'',email:''};});
+  listHandlers('senderRows','senders','sender',function(){return '';});
+  listHandlers('customRows','custom','custom',function(){return '';});
+  $('addDocket').addEventListener('click',function(){if(state.docket.length>=50)return;state.docket.push({name:'',email:''});renderRows('docketRows',state.docket,'docket');var r=$('docketRows').lastElementChild;r&&r.querySelector('input').focus();});
+  $('addSender').addEventListener('click',function(){if(state.senders.length>=30)return;state.senders.push('');renderRows('senderRows',state.senders,'sender');var r=$('senderRows').lastElementChild;r&&r.querySelector('input').focus();});
+  $('addCustom').addEventListener('click',function(){if(state.custom.filter(function(q){return clean(q);}).length>=35){screens.questions.querySelector('[data-err]').textContent='Up to 35 of your own questions are included.';return;}state.custom.push('');renderRows('customRows',state.custom,'custom');var r=$('customRows').lastElementChild;r&&r.querySelector('input').focus();});
+  $('defaultQs').addEventListener('change',function(e){var t=e.target;if(t.dataset.q){state.qs[t.dataset.q]=t.checked;persist();}});
+  $('estimateOn').addEventListener('change',function(){state.estimate=$('estimateOn').checked;renderQuestions();persist();});
+  Array.prototype.forEach.call(document.querySelectorAll('[data-guide]'),function(b){b.addEventListener('click',function(){state.guideMode=b.dataset.guide;renderQuestions();persist();});});
+  $('guideText').addEventListener('input',function(){state.guideText=$('guideText').value;persist();});
+  $('guideFile').addEventListener('change',function(){var f=$('guideFile').files&&$('guideFile').files[0];var err=screens.questions.querySelector('[data-err]');if(!f)return;if(f.type!=='application/pdf'){err.textContent='Please choose a PDF file.';return;}if(f.size>20*1024*1024){err.textContent='This PDF is over 20 MB. Please use a smaller file.';return;}guideFile=f;state.guideFileName=f.name;state.guideFileSize=f.size;err.textContent='';renderQuestions();persist();});
+  $('calTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b||b.disabled)return;state.calendar=b.dataset.v;renderCalendar();persist();});
+  $('modeTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;state.calMode=b.dataset.v;renderCalendar();persist();});
+  $('langTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;state.lang=b.dataset.v;renderLang();persist();});
+  $('langFixed').addEventListener('change',function(){state.langFixed=$('langFixed').value;persist();});
+  $('reviewGrid').addEventListener('click',function(e){var b=e.target.closest('[data-go]');if(b)show(b.dataset.go,-1);});
+
+  /* ---------- payment ---------- */
+  var paying=false;
+  function pay(){
+    if(paying)return;
+    var flow=FLOW();
+    for(var i=1;i<flow.length-1;i++){var e=validate(flow[i]);if(e){show(flow[i],-1);var el=screens[flow[i]].querySelector('[data-err]');if(el)el.textContent=e;return;}}
+    var c=buildConfiguration(),err=$('payErr');
+    paying=true;$('next').disabled=true;$('next').textContent='Preparing secure payment…';err.textContent='';
+    var store=Promise.resolve();
+    if(c.pricing_guide.source==='pdf'&&guideFile)store=storeGuide(guideFile).catch(function(){});
+    try{var s=JSON.stringify(c);sessionStorage.setItem('hermia_configuration',s);localStorage.setItem('hermia_configuration',s);sessionStorage.setItem('hermia_finance_plan','configuration');sessionStorage.setItem('hermia_name',c.contact_name);sessionStorage.setItem('hermia_email',c.contact_email);if(c.email_provider)sessionStorage.setItem('hermia_plan',c.email_provider);}catch(e){}
+    var origin=location.origin&&/^https:\/\//.test(location.origin)?location.origin:'https://www.hermia.au';
+    store.then(function(){
+      return fetch(API+'/stripe/create-checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'configuration',customerEmail:c.contact_email,configuration:c,successUrl:origin+'/configuration_complete.html?session_id={CHECKOUT_SESSION_ID}',cancelUrl:origin+'/configuration.html#review'})});
+    }).then(function(r){return r.json().then(function(d){return {r:r,d:d};});}).then(function(x){
+      if(!x.r.ok||!x.d.checkoutUrl)throw new Error(x.d.error||'Secure payment could not be prepared.');
+      location.href=x.d.checkoutUrl;
+    }).catch(function(e){paying=false;$('next').disabled=false;$('next').textContent='Continue to payment';err.textContent=(e&&e.message?e.message:'Secure payment could not be prepared.')+' Please try again, or email info@hermia.au.';});
+  }
+
+  /* ---------- start ---------- */
+  var startId=(location.hash||'').slice(1);
+  if(startId&&FLOW().indexOf(startId)>-1&&startId!=='intro'){
+    var flow=FLOW(),ok=true;
+    for(var i=1;i<flow.indexOf(startId);i++){if(validate(flow[i])){ok=false;startId=flow[i];break;}}
+    try{history.replaceState({s:'intro'},'','#intro');}catch(e){}
+    show(startId,1);
+  } else show('intro',1,true);
+  try{history.replaceState({s:current},'','#'+current);}catch(e){}
+}());
+</script>
+<script>
 (function () {
   var trailKey = 'hermiaNavigationTrail';
   var current = (location.pathname.split('/').pop() || 'index.html');
@@ -260,6 +777,5 @@ All pricing includes GST unless stated otherwise"></textarea></div><div class="p
   });
 }());
 </script>
-<script id="configuration-stage-flow">(()=>{const bar=document.querySelector('.build-bar'),build=document.getElementById('build');if(!bar||!build)return;const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;const sync=()=>{const a=document.querySelector('.panel.active');const n=a?+a.dataset.panel:1;bar.style.setProperty('--build-progress',(n/5).toFixed(2));const r=bar.querySelector('.rail button.active');if(r&&r.scrollIntoView&&innerWidth<861)r.scrollIntoView({block:'nearest',inline:'center',behavior:reduce?'auto':'smooth'});};const toStage=()=>{const top=build.getBoundingClientRect().top+scrollY;if(Math.abs(scrollY-top)>4)scrollTo({top,behavior:reduce?'auto':'smooth'});};document.addEventListener('click',e=>{const t=e.target.closest('[data-next],[data-back],.rail button');if(!t)return;const before=document.querySelector('.panel.active');requestAnimationFrame(()=>{const after=document.querySelector('.panel.active');sync();if(after!==before)toStage();});},true);sync();})();</script>
 </body>
 </html>
