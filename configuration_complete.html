@@ -1,25 +1,302 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Preparing Email Connection — Hermia</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>/* Hermia configuration completion: a quiet bridge from confirmed payment into the established email-connection journey. */:root{--void:#07070a;--cream:#f4f0e6;--soft:#b8b3a9;--gold:#c9a35b;--pale:#e8c17a;--line:rgba(201,163,91,.22);--display:"Cormorant Garamond",serif;--mono:"IBM Plex Mono",monospace}*{box-sizing:border-box}body{min-width:320px;min-height:100vh;margin:0;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 40%,rgba(201,163,91,.2),transparent 42%),#07070a;color:var(--cream);font-family:"DM Sans",sans-serif}body:before{position:fixed;inset:0;opacity:.3;background-image:linear-gradient(rgba(201,163,91,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,163,91,.04) 1px,transparent 1px);background-size:56px 56px;content:""}.card{position:relative;width:min(560px,calc(100% - 42px));padding:58px 44px;border:1px solid var(--line);background:rgba(12,12,10,.78);box-shadow:0 34px 90px rgba(0,0,0,.35);text-align:center}.mark{display:grid;width:48px;height:48px;margin:auto;place-items:center;border:1px solid var(--pale);border-radius:50%;color:var(--pale);font:600 28px/1 var(--display)}.spin{width:83px;height:83px;margin:31px auto 27px;border:1px solid rgba(232,193,122,.25);border-top-color:var(--pale);border-radius:50%;box-shadow:0 0 30px rgba(201,163,91,.18);animation:spin 1.25s linear infinite}.eyebrow{color:var(--pale);font:500 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase}.card h1{margin:16px 0 12px;font:600 clamp(38px,6vw,58px)/.9 var(--display);letter-spacing:-.06em}.card h1 em{color:var(--pale);font-style:italic;font-weight:500}.card p{margin:0;color:var(--soft);font-size:14px;line-height:1.7}.status{margin-top:22px;color:var(--pale);font:500 10px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase}.retry{display:none;margin-top:23px;color:var(--cream);font-size:12px;line-height:1.55}.retry a{color:var(--pale)}@keyframes spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.spin{animation:none}}</style>
-  <link rel="stylesheet" href="global-back.css?v=20261012-back-design">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Your Hermia payment is confirmed. Finish connecting your channels so your build can be tested and go live.">
+  <title>Payment confirmed — Hermia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--void:#07070a;--line:rgba(201,163,91,.18);--line-2:rgba(244,240,230,.09);--gold:#c9a35b;--pale:#e8c17a;--cream:#f4f0e6;--mute:rgba(244,240,230,.62);--faint:rgba(244,240,230,.38);--ok:#7fd1a8;--warn:#f0b36a;--bad:#f08a7a;--ease:cubic-bezier(.23,1,.32,1)}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:var(--void);color:var(--cream);font:400 16px/1.55 "DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+    a{color:var(--pale)}
+    button{font:inherit;color:inherit}
+    .app{display:grid;grid-template-columns:minmax(0,40fr) minmax(0,60fr);min-height:100vh;min-height:100dvh}
+    .visual{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:#000;border-right:1px solid var(--line)}
+    .visual>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.86}
+    .visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,10,.55) 0%,rgba(7,7,10,0) 26%,rgba(7,7,10,0) 52%,rgba(7,7,10,.92) 100%),radial-gradient(120% 70% at 0% 100%,rgba(201,163,91,.22),transparent 60%);pointer-events:none}
+    .brand{position:absolute;z-index:2;top:26px;left:30px;display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--cream);font:600 22px/1 "Cormorant Garamond",serif;letter-spacing:.04em}
+    .brand img{width:30px;height:30px;object-fit:contain}
+    .caption{position:absolute;z-index:2;left:30px;right:30px;bottom:34px}
+    .caption .k,.eyebrow{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--pale)}
+    .caption .t{margin-top:12px;font:500 clamp(24px,2.3vw,34px)/1.12 "Cormorant Garamond",serif;max-width:30ch}
+    .caption .s{margin-top:10px;color:var(--mute);font-size:14px;max-width:46ch}
+    .side{padding:clamp(28px,7vh,80px) clamp(22px,5vw,72px) 60px;background:radial-gradient(90% 60% at 100% 0%,rgba(201,163,91,.07),transparent 60%),var(--void)}
+    .wrap{max-width:660px}
+    h1{margin:16px 0 0;font:500 clamp(40px,4.6vw,62px)/1.02 "Cormorant Garamond",serif;letter-spacing:-.01em}
+    h1 em{font-style:italic;color:var(--pale)}
+    h2{margin:0;font:500 clamp(26px,2.4vw,32px)/1.1 "Cormorant Garamond",serif}
+    .lead{margin:16px 0 0;color:var(--mute);font-size:17px;max-width:56ch}
+    section{margin-top:44px}
+    .steps{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:10px}
+    .steps li{display:grid;grid-template-columns:26px 1fr;gap:14px;align-items:center;padding:14px 16px;border-radius:14px;border:1px solid var(--line-2);background:rgba(244,240,230,.025);color:var(--faint);transition:color .3s,border-color .3s}
+    .steps li .dot{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line-2);display:grid;place-items:center;font-size:12px}
+    .steps li.run{color:var(--cream);border-color:var(--line)}
+    .steps li.run .dot{border-color:var(--gold);border-top-color:transparent;animation:spin .9s linear infinite}
+    .steps li.done{color:var(--cream)}
+    .steps li.done .dot{border-color:var(--ok);background:rgba(127,209,168,.14);color:var(--ok)}
+    .steps li.done .dot::before{content:"\2713"}
+    .steps li.warn .dot{border-color:var(--warn);color:var(--warn)}
+    .steps li.warn .dot::before{content:"!"}
+    .steps li.fail{color:var(--cream);border-color:rgba(240,138,122,.4)}
+    .steps li.fail .dot{border-color:var(--bad);color:var(--bad)}
+    .steps li.fail .dot::before{content:"\00d7"}
+    .steps li.skip{display:none}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .msg{margin-top:16px;padding:14px 16px;border-radius:14px;font-size:14.5px;display:none}
+    .msg.on{display:block}
+    .msg.bad{border:1px solid rgba(240,138,122,.4);background:rgba(240,138,122,.06);color:var(--cream)}
+    .msg.warn{border:1px solid rgba(240,179,106,.35);background:rgba(240,179,106,.06);color:var(--cream)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 24px;border-radius:999px;border:1px solid var(--line);background:transparent;cursor:pointer;text-decoration:none;color:var(--cream);font-weight:600;transition:transform .16s var(--ease),background .2s,border-color .2s}
+    .btn:active{transform:scale(.97)}
+    .btn.primary{background:linear-gradient(180deg,#f1d08f,var(--gold));color:#17120a;border-color:transparent}
+    .btn.small{min-height:40px;padding:0 16px;font-size:14px}
+    .code{margin-top:22px;display:flex;flex-wrap:wrap;align-items:center;gap:18px;padding:22px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(201,163,91,.09),rgba(201,163,91,.02))}
+    .code b{font:500 clamp(30px,3.4vw,40px)/1 "IBM Plex Mono",monospace;letter-spacing:.06em;color:var(--pale)}
+    .code p{margin:0;flex:1 1 220px;color:var(--mute);font-size:14px}
+    .todo{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:12px}
+    .todo li{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:18px;border-radius:16px;border:1px solid var(--line-2);background:rgba(244,240,230,.03)}
+    .todo .n{font:500 11px/1 "IBM Plex Mono",monospace;color:var(--gold);letter-spacing:.1em}
+    .todo b{display:block;font-weight:600}
+    .todo span{display:block;margin-top:3px;color:var(--mute);font-size:14px}
+    .todo .tag{font:500 10px/1 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--line);border-radius:999px;padding:7px 10px;white-space:nowrap}
+    .note{margin-top:22px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:rgba(201,163,91,.05);color:var(--mute);font-size:14px}
+    .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+    .hidden{display:none!important}
+    .back{position:fixed;top:22px;right:24px;z-index:5;font:500 12px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);text-decoration:none}
+    @media (max-width:900px){
+      .app{grid-template-columns:1fr}
+      .visual{position:relative;height:34vh;min-height:220px}
+      .caption{bottom:18px;left:18px;right:18px}.caption .s{display:none}
+      .brand{top:16px;left:18px}
+      .back{top:18px;right:18px}
+      .todo li{grid-template-columns:auto 1fr}
+      .todo li>a,.todo li>.tag{grid-column:1/-1;justify-self:start}
+    }
+    @media (prefers-reduced-motion:reduce){.steps li.run .dot{animation:none}}
+  </style>
 </head>
-  <body><main class="card"><div class="mark">H</div><div class="spin" aria-hidden="true"></div><span class="eyebrow">Configuration payment confirmed</span><h1>Now connect<br><em>your inbox.</em></h1><p>We are preparing the selected email connection so you can securely sign in and finish your existing Hermia setup.</p><div class="status" id="status">Preparing your connection…</div><div id="clientCode" style="display:none;margin-top:22px;padding:16px;border:1px solid rgba(232,193,122,.35);color:#f4f0e6;font-family:IBM Plex Mono,monospace;font-size:15px;letter-spacing:.12em"></div><div class="retry" id="retry">We could not prepare the connection automatically. <a href="configuration.html">Return to configuration</a> and try again.</div></main><script>const WORKER='https://hermianango.capital-fbc.workers.dev';let c={};try{c=JSON.parse(sessionStorage.getItem('hermia_configuration')||'{}')}catch(e){};const qs=new URLSearchParams(location.search);const sessionId=qs.get('session_id')||'';const status=document.getElementById('status'),retry=document.getElementById('retry'),clientCode=document.getElementById('clientCode');async function begin(){if(!c.business_name||!c.contact_name||!c.contact_email||!c.phone||!c.state||!sessionId){status.textContent='We need the configuration and payment confirmation to continue.';retry.style.display='block';return;}try{const res=await fetch(WORKER+'/create-outlooker',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fullName:c.contact_name,companyName:c.business_name,gmail:c.contact_email,country:c.country,state:c.state,phone:c.phone,stripeSessionId:sessionId,crmProvider:c.crm,plan:c.email_provider,allowedTrades:Array.isArray(c.trades)&&c.trades.length?c.trades:[c.trade].filter(Boolean),financePlan:'configuration'})});const data=await res.json();if(!res.ok||!data.ok||!data.outlookerId)throw new Error(data.error||'Could not prepare onboarding.');const id=data.outlookerId;status.textContent='Saving your operating rules…';const profileRes=await fetch(WORKER+'/configuration/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({customerId:id,stripeSessionId:sessionId,configuration:c})});const profileData=await profileRes.json();if(!profileRes.ok||!profileData.ok)throw new Error(profileData.error||'Could not save your operating rules.');if(profileData.makeClientCode){clientCode.textContent='Your Hermia Make code: '+profileData.makeClientCode;clientCode.style.display='block';sessionStorage.setItem('hermia_make_client_code',profileData.makeClientCode);localStorage.setItem('hermia_make_client_code',profileData.makeClientCode);}sessionStorage.setItem('hermia_customer_id',id);sessionStorage.setItem('hermia_outlooker_id',id);sessionStorage.setItem('hermia_plan',c.email_provider);localStorage.setItem('hermia_customer_id',id);if(c.email_provider){status.textContent='Opening '+(c.email_provider==='outlook'?'Outlook':'Gmail')+' connection…';setTimeout(()=>{location.href='gmail.html?customerId='+encodeURIComponent(id)+'&plan='+encodeURIComponent(c.email_provider)+'&makeClientCode='+encodeURIComponent(profileData.makeClientCode||'')+'&from=configuration';},550);}else{status.textContent='Configuration recorded. A channel connection is required before this workflow can go live.';retry.style.display='block';}}catch(e){status.textContent='We could not prepare the email connection.';retry.style.display='block';}}begin();</script><a class="hermia-global-back" href="index.html" data-flow-back aria-label="Back to the previous Hermia page">← Back</a>
-<style>.hermia-global-back{position:fixed;top:18px;left:18px;z-index:9999;display:inline-flex;align-items:center;gap:7px;padding:9px 13px;border:1px solid rgba(201,163,91,.42);background:rgba(8,8,8,.82);color:#e8c17a;font:500 11px/1.1 Arial,sans-serif;letter-spacing:.08em;text-decoration:none;text-transform:uppercase;backdrop-filter:blur(10px)}.hermia-global-back:hover{border-color:#e8c17a;color:#fff}</style>
-<script id="hermia-history-back">
+<body>
+  <a class="back" href="index.html" data-flow-back>&larr; Back</a>
+  <div class="app">
+    <aside class="visual" aria-hidden="true">
+      <img src="assets/config/step-5-review.webp" alt="">
+      <a class="brand" href="index.html"><img src="assets/hermia-mark.webp" alt="">Hermia</a>
+      <div class="caption">
+        <div class="k">Payment confirmed</div>
+        <div class="t">Your build is in motion.</div>
+        <div class="s">We build and test your configuration with you. Nothing goes live until it has been checked.</div>
+      </div>
+    </aside>
+    <main class="side">
+      <div class="wrap">
+        <div class="eyebrow">Hermia configuration</div>
+        <h1 id="title">Setting up your <em>build.</em></h1>
+        <p class="lead" id="lead">Your payment went through. Please keep this page open for a moment while we save everything you chose.</p>
+
+        <ol class="steps" id="steps">
+          <li data-s="pay"><i class="dot"></i>Confirming your payment</li>
+          <li data-s="account"><i class="dot"></i>Creating your Hermia account</li>
+          <li data-s="config"><i class="dot"></i>Saving your configuration and agreement</li>
+          <li data-s="guide" class="skip"><i class="dot"></i>Uploading your price guide</li>
+        </ol>
+        <div class="msg bad" id="error"></div>
+        <div class="msg warn" id="warning"></div>
+        <div class="row hidden" id="retryRow">
+          <button class="btn primary" id="retry" type="button">Try again</button>
+          <a class="btn" href="mailto:info@hermia.au?subject=Hermia%20configuration%20payment" id="mail">Email info@hermia.au</a>
+        </div>
+
+        <div id="ready" class="hidden">
+          <section>
+            <div class="eyebrow">Your client code</div>
+            <div class="code">
+              <b id="clientCode">HM-······</b>
+              <p>Keep this code. You need it, with your registered email, to request any change after you go live.</p>
+              <button class="btn small" type="button" id="copy">Copy</button>
+            </div>
+          </section>
+
+          <section>
+            <h2>What happens next</h2>
+            <p class="lead">Connect the accounts below. Each one only takes a minute. We then build your workflow, test it with you, and switch it on.</p>
+            <ul class="todo" id="todo"></ul>
+            <div class="note">Your two-day service trial runs for 48 hours from this payment. If you cancel within it, the ordinary setup refund is USD $4,316 (USD $4,400 less the USD $84 processing deduction), and no monthly fee is taken. If you continue, the first USD $1,700 monthly payment is taken when the trial ends. Full terms are in your <a href="contract.html">Service Agreement</a>.</div>
+          </section>
+
+          <section>
+            <h2>Need to change something?</h2>
+            <p class="lead">Before you go live, just reply to your welcome email or write to <a href="mailto:info@hermia.au">info@hermia.au</a>. After you go live, use a change request.</p>
+            <div class="row"><a class="btn" href="configuration_change.html">Request a change</a></div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+<script>
+(function(){
+  'use strict';
+  var API = 'https://platform.hermia.au';
+  var $ = function(id){ return document.getElementById(id); };
+  var qs = new URLSearchParams(location.search);
+  var sessionId = (qs.get('session_id') || '').trim();
+  var c = {};
+  function readConfig(){
+    var raw = null;
+    try { raw = sessionStorage.getItem('hermia_configuration'); } catch (e) {}
+    if (!raw) { try { raw = localStorage.getItem('hermia_configuration'); } catch (e) {} }
+    try { return JSON.parse(raw || '{}') || {}; } catch (e) { return {}; }
+  }
+  function step(name, cls){
+    var li = document.querySelector('#steps [data-s="' + name + '"]');
+    if (!li) return;
+    li.classList.remove('run', 'done', 'fail', 'warn', 'skip');
+    if (cls) li.classList.add(cls);
+  }
+  function fail(name, text){
+    step(name, 'fail');
+    $('error').textContent = text;
+    $('error').classList.add('on');
+    $('retryRow').classList.remove('hidden');
+    $('mail').href = 'mailto:info@hermia.au?subject=' + encodeURIComponent('Hermia configuration payment') + '&body=' + encodeURIComponent('Payment reference: ' + (sessionId || 'not shown') + '\nBusiness: ' + (c.business_name || '') + '\n');
+  }
+  function post(path, body){
+    return fetch(API + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(d){ return { ok: r.ok && d && d.ok !== false, status: r.status, data: d || {} }; }); });
+  }
+  function idbGet(){
+    return new Promise(function(res){
+      if (!window.indexedDB) return res(null);
+      var r = indexedDB.open('hermia-config', 1);
+      r.onupgradeneeded = function(){ r.result.createObjectStore('files'); };
+      r.onerror = function(){ res(null); };
+      r.onsuccess = function(){
+        try {
+          var tx = r.result.transaction('files', 'readonly');
+          var g = tx.objectStore('files').get('pricing_pdf');
+          g.onsuccess = function(){ res(g.result || null); };
+          g.onerror = function(){ res(null); };
+        } catch (e) { res(null); }
+      };
+    });
+  }
+  function idbClear(){
+    try { var r = indexedDB.open('hermia-config', 1); r.onsuccess = function(){ try { r.result.transaction('files', 'readwrite').objectStore('files').delete('pricing_pdf'); } catch (e) {} }; } catch (e) {}
+  }
+  function uploadGuide(customerId, file){
+    return post('/pricing/create-upload-url', { customerId: customerId, fileName: String(file.name || 'price-guide.pdf').replace(/[^A-Za-z0-9._-]+/g, '_').slice(0, 120) })
+      .then(function(s){
+        if (!s.ok || !s.data.uploadUrl) throw new Error('upload');
+        return fetch(s.data.uploadUrl, { method: 'PUT', headers: { 'Content-Type': file.type || 'application/pdf' }, body: file })
+          .then(function(u){ if (!u.ok) throw new Error('upload'); return s.data.storagePath; });
+      })
+      .then(function(path){ return post('/save-pricing', { customerId: customerId, contentType: 'pdf', storagePath: path, mimeType: file.type || 'application/pdf' }); })
+      .then(function(r){ if (!r.ok) throw new Error('read'); });
+  }
+  function link(href, label){ return '<a class="btn small primary" href="' + href + '">' + label + '</a>'; }
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(ch){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]; }); }
+  function buildTodo(id, code){
+    var items = [];
+    var inbound = Array.isArray(c.inbound_channels) ? c.inbound_channels : [];
+    var responses = Array.isArray(c.response_channels) ? c.response_channels : [];
+    var provider = c.email_provider === 'outlook' ? 'outlook' : (c.email_provider === 'gmail' ? 'gmail' : '');
+    if (provider) items.push({ t: 'Connect your ' + (provider === 'outlook' ? 'Outlook' : 'Gmail') + ' inbox', s: 'So Hermia can read new enquiries and reply from your address.', a: link('gmail.html?customerId=' + encodeURIComponent(id) + '&plan=' + provider + '&makeClientCode=' + encodeURIComponent(code || '') + '&from=configuration', 'Connect') });
+    if (c.crm === 'simpro') {
+      items.push({ t: 'Add the Simpro custom fields', s: 'A short list of fields so each record lands complete in your Simpro build.', a: link('hermia_setup.html?crm=simpro&customerId=' + encodeURIComponent(id), 'View fields') });
+      items.push({ t: 'Connect Simpro', s: 'Links Hermia to your Simpro build so records go straight in.', a: link('simpro_connect.html' + (provider ? '?plan=' + provider : ''), 'Connect') });
+    } else if (c.crm === 'aroflo') {
+      items.push({ t: 'Connect AroFlo', s: 'Links Hermia to your AroFlo account so records go straight in.', a: link('aroflo_connect.html' + (provider ? '?plan=' + provider : ''), 'Connect') });
+    } else if (c.crm === 'other') {
+      items.push({ t: 'Your ' + esc(c.crm_other_name || 'business system'), s: 'Hermia doesn\u2019t connect to this system yet. Each finished brief is emailed to your team, and we have noted the system you use.', tag: 'Briefs by email' });
+    } else if (c.crm === 'none') {
+      items.push({ t: 'Briefs by email', s: 'You told us you don\u2019t use a CRM, so each finished brief is emailed to your team.', tag: 'Email' });
+    }
+    if (inbound.indexOf('instagram') > -1) items.push({ t: 'Connect Instagram', s: 'Direct messages to your business account.', a: link('social_connect_instagram.html', 'Connect') });
+    if (inbound.indexOf('facebook') > -1) items.push({ t: 'Connect Facebook', s: 'Messages to your business page.', a: link('facebook.html', 'Connect') });
+    if (inbound.indexOf('google_business') > -1) items.push({ t: 'Google Business Profile', s: 'We connect this with you during setup.', tag: 'With your team' });
+    if (responses.indexOf('whatsapp') > -1) items.push({ t: 'WhatsApp Business number', s: 'We link the number your customers will hear from with you during setup.', tag: 'With your team' });
+    items.push({ t: 'Build and test', s: 'We build your workflow, run test enquiries with you, and switch it on once you are happy.', tag: 'Hermia' });
+    $('todo').innerHTML = items.map(function(it, i){
+      return '<li><span class="n">' + String(i + 1).padStart(2, '0') + '</span><div><b>' + it.t + '</b><span>' + it.s + '</span></div>' + (it.a || ('<span class="tag">' + it.tag + '</span>')) + '</li>';
+    }).join('');
+  }
+  function finish(id, code){
+    try {
+      sessionStorage.setItem('hermia_customer_id', id);
+      sessionStorage.setItem('hermia_outlooker_id', id);
+      if (c.email_provider) sessionStorage.setItem('hermia_plan', c.email_provider);
+      localStorage.setItem('hermia_customer_id', id);
+      if (code) { sessionStorage.setItem('hermia_make_client_code', code); localStorage.setItem('hermia_make_client_code', code); }
+      localStorage.removeItem('hermia_configuration');
+      sessionStorage.removeItem('hermia_configuration_draft');
+    } catch (e) {}
+    $('clientCode').textContent = code || 'Sent by email';
+    buildTodo(id, code);
+    $('title').innerHTML = 'You are <em>in.</em>';
+    $('lead').textContent = 'Payment confirmed and your configuration is saved. We have recorded your agreement with your payment.';
+    $('ready').classList.remove('hidden');
+  }
+  var running = false;
+  function begin(){
+    if (running) return;
+    running = true;
+    c = readConfig();
+    $('error').classList.remove('on');
+    $('retryRow').classList.add('hidden');
+    ['pay', 'account', 'config'].forEach(function(s){ step(s, ''); });
+    if (!sessionId) { running = false; return fail('pay', 'We could not find your payment reference. If you have paid, email info@hermia.au and we will finish this with you.'); }
+    if (!c.business_name || !c.contact_email) { running = false; return fail('pay', 'Your configuration was not found in this browser. Open this page in the same browser you used to build it, or email info@hermia.au with your payment reference and we will finish it with you.'); }
+    step('pay', 'done');
+    step('account', 'run');
+    var trades = Array.isArray(c.trades) && c.trades.length ? c.trades : (c.trade ? [c.trade] : (c.industry ? [c.industry] : []));
+    var id = '', code = '';
+    post('/create-outlooker', {
+      fullName: c.contact_name, companyName: c.business_name, gmail: c.contact_email, country: c.country, state: c.state, phone: c.phone,
+      stripeSessionId: sessionId, crmProvider: c.crm, plan: c.email_provider || '', allowedTrades: trades, financePlan: 'configuration'
+    }).then(function(r){
+      if (!r.ok || !r.data.outlookerId) throw { s: 'account', m: r.status === 403 ? 'We could not confirm this payment yet. Wait a minute and try again.' : 'We could not create your account. Please try again.' };
+      id = r.data.outlookerId; code = r.data.makeClientCode || '';
+      step('account', 'done');
+      step('config', 'run');
+      return post('/configuration/save', { customerId: id, stripeSessionId: sessionId, configuration: c });
+    }).then(function(r){
+      if (!r.ok) throw { s: 'config', m: 'We could not save your configuration. Please try again; nothing will be charged twice.' };
+      code = r.data.makeClientCode || code;
+      step('config', 'done');
+      var wantsPdf = c.pricing_guide && c.pricing_guide.source === 'pdf';
+      if (!wantsPdf) return null;
+      step('guide', 'run');
+      return idbGet().then(function(file){
+        if (!file) { step('guide', 'warn'); $('warning').textContent = 'Your price guide file was not found in this browser. Please email it to info@hermia.au and we will add it to your build.'; $('warning').classList.add('on'); return; }
+        return uploadGuide(id, file).then(function(){ step('guide', 'done'); idbClear(); }, function(){ step('guide', 'warn'); $('warning').textContent = 'Your configuration is saved, but we could not read your price guide file. Please email it to info@hermia.au and we will add it to your build.'; $('warning').classList.add('on'); });
+      });
+    }).then(function(){
+      running = false;
+      finish(id, code);
+    }).catch(function(e){
+      running = false;
+      fail((e && e.s) || 'account', (e && e.m) || 'Something went wrong. Please try again.');
+    });
+  }
+  $('retry').addEventListener('click', begin);
+  $('copy').addEventListener('click', function(){
+    var t = $('clientCode').textContent;
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(function(){ $('copy').textContent = 'Copied'; setTimeout(function(){ $('copy').textContent = 'Copy'; }, 1600); });
+  });
+  begin();
+}());
 (function () {
   var trailKey = 'hermiaNavigationTrail';
   var current = (location.pathname.split('/').pop() || 'index.html');
   var trail = [];
   try { trail = JSON.parse(sessionStorage.getItem(trailKey) || '[]'); } catch (e) { trail = []; }
   if (!Array.isArray(trail)) trail = [];
-  if (current === 'index.html') {
-    trail = ['index.html'];
-  } else if (trail[trail.length - 1] !== current) {
-    trail.push(current);
-  }
+  if (current === 'index.html') { trail = ['index.html']; } else if (trail[trail.length - 1] !== current) { trail.push(current); }
   if (trail.length > 40) trail = trail.slice(-40);
   try { sessionStorage.setItem(trailKey, JSON.stringify(trail)); } catch (e) {}
   document.querySelectorAll('[data-flow-back]').forEach(function (link) {
@@ -27,6 +304,8 @@
       event.preventDefault();
       var active = trail.slice();
       if (active[active.length - 1] === current) active.pop();
+      // never send someone back into the payment page
+      while (active.length && /^configuration(\.html)?$/.test(active[active.length - 1])) active.pop();
       var destination = active[active.length - 1] || 'index.html';
       if (destination === current) destination = 'index.html';
       if (destination === 'index.html') active = ['index.html'];
@@ -36,4 +315,5 @@
   });
 }());
 </script>
-</body></html>
+</body>
+</html>

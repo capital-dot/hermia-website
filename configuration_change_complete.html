@@ -1,39 +1,99 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Configuration Change Received — Hermia</title>
-  <style>:root{--void:#07070a;--cream:#f4f0e6;--soft:#b8b3a9;--gold:#e8c17a}*{box-sizing:border-box}body{min-height:100vh;margin:0;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 40%,rgba(201,163,91,.2),transparent 42%),var(--void);color:var(--cream);font-family:Arial,sans-serif}.card{width:min(560px,calc(100% - 42px));padding:56px 42px;border:1px solid rgba(201,163,91,.28);background:rgba(12,12,10,.8);text-align:center}.mark{display:grid;width:48px;height:48px;margin:auto;place-items:center;border:1px solid var(--gold);border-radius:50%;color:var(--gold);font:600 28px Georgia}.eyebrow{display:block;margin-top:28px;color:var(--gold);font:11px monospace;letter-spacing:.14em;text-transform:uppercase}.card h1{margin:16px 0;font:600 52px/ .9 Georgia}.card h1 em{color:var(--gold);font-style:italic}.card p{color:var(--soft);font-size:15px;line-height:1.7}.code{display:inline-block;margin:20px 0;padding:14px 18px;border:1px solid rgba(232,193,122,.35);color:var(--cream);font:500 16px monospace;letter-spacing:.12em}.back{display:inline-block;margin-top:14px;color:var(--gold);text-decoration:none;font-size:13px}</style>
-  <link rel="stylesheet" href="global-back.css?v=20261012-back-design">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Change request paid — Hermia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--void:#07070a;--line:rgba(201,163,91,.18);--line-2:rgba(244,240,230,.09);--gold:#c9a35b;--pale:#e8c17a;--cream:#f4f0e6;--mute:rgba(244,240,230,.62);--faint:rgba(244,240,230,.38);--ok:#7fd1a8;--bad:#f08a7a;--ease:cubic-bezier(.23,1,.32,1)}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:radial-gradient(70% 55% at 50% 30%,rgba(201,163,91,.14),transparent 60%),var(--void);color:var(--cream);font:400 16px/1.55 "DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+    a{color:var(--pale)}
+    main{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:40px 22px}
+    .card{width:min(620px,100%);padding:clamp(28px,5vw,52px);border-radius:24px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(244,240,230,.045),rgba(244,240,230,.015))}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--cream);font:600 22px/1 "Cormorant Garamond",serif;letter-spacing:.04em}
+    .brand img{width:30px;height:30px;object-fit:contain}
+    .eyebrow{margin-top:34px;font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--pale)}
+    h1{margin:14px 0 0;font:500 clamp(36px,5vw,54px)/1.04 "Cormorant Garamond",serif}
+    h1 em{font-style:italic;color:var(--pale)}
+    p{color:var(--mute);margin:16px 0 0}
+    .ref{margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:16px 18px;border-radius:16px;border:1px solid var(--line);background:rgba(201,163,91,.06)}
+    .ref span{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+    .ref b{font:500 24px/1 "IBM Plex Mono",monospace;letter-spacing:.06em;color:var(--pale)}
+    ol{margin:26px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+    ol li{display:grid;grid-template-columns:30px 1fr;gap:12px;color:var(--mute);font-size:15px}
+    ol li i{font:500 11px/1.9 "IBM Plex Mono",monospace;color:var(--gold);font-style:normal}
+    .spin{display:inline-block;width:16px;height:16px;border-radius:50%;border:2px solid var(--gold);border-top-color:transparent;animation:s .9s linear infinite;vertical-align:-3px;margin-right:8px}
+    @keyframes s{to{transform:rotate(360deg)}}
+    .bad{color:var(--cream);border:1px solid rgba(240,138,122,.4);background:rgba(240,138,122,.06);padding:14px 16px;border-radius:14px}
+    .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--cream);text-decoration:none;font-weight:600;cursor:pointer;font:inherit;font-weight:600}
+    .btn.primary{background:linear-gradient(180deg,#f1d08f,var(--gold));color:#17120a;border-color:transparent}
+    .hidden{display:none!important}
+  </style>
 </head>
-<body><main class="card"><div class="mark">H</div><span class="eyebrow">Payment received</span><h1>Change request<br><em>received.</em></h1><p>Hermia has recorded the requested configuration change. The existing workflow remains active while the change is prepared, tested and reviewed before publishing.</p><div class="code" id="requestCode">Change request recorded</div><p>Keep your existing Hermia Make code available when discussing this request with the Hermia team.</p><a class="back" href="configuration.html">Return to configuration</a></main><script>const id=new URLSearchParams(location.search).get('request_code');if(id)document.getElementById('requestCode').textContent='Request code: '+id;</script><a class="hermia-global-back" href="index.html" data-flow-back aria-label="Back to the previous Hermia page">← Back</a>
-<style>.hermia-global-back{position:fixed;top:18px;left:18px;z-index:9999;display:inline-flex;align-items:center;gap:7px;padding:9px 13px;border:1px solid rgba(201,163,91,.42);background:rgba(8,8,8,.82);color:#e8c17a;font:500 11px/1.1 Arial,sans-serif;letter-spacing:.08em;text-decoration:none;text-transform:uppercase;backdrop-filter:blur(10px)}.hermia-global-back:hover{border-color:#e8c17a;color:#fff}</style>
-<script id="hermia-history-back">
-(function () {
-  var trailKey = 'hermiaNavigationTrail';
-  var current = (location.pathname.split('/').pop() || 'index.html');
-  var trail = [];
-  try { trail = JSON.parse(sessionStorage.getItem(trailKey) || '[]'); } catch (e) { trail = []; }
-  if (!Array.isArray(trail)) trail = [];
-  if (current === 'index.html') {
-    trail = ['index.html'];
-  } else if (trail[trail.length - 1] !== current) {
-    trail.push(current);
+<body>
+<main>
+  <div class="card">
+    <a class="brand" href="index.html"><img src="assets/hermia-mark.webp" alt="">Hermia</a>
+    <div id="wait">
+      <div class="eyebrow">Change request</div>
+      <h1>Confirming your <em>payment.</em></h1>
+      <p><span class="spin" aria-hidden="true"></span>This takes a few seconds. Please keep this page open.</p>
+    </div>
+    <div id="done" class="hidden">
+      <div class="eyebrow">Payment received</div>
+      <h1>Change request <em>received.</em></h1>
+      <p>Your current workflow stays live while we prepare and test the change. Nothing changes for your customers until it passes.</p>
+      <div class="ref"><span>Reference</span><b id="code">CH-······</b></div>
+      <ol>
+        <li><i>01</i>We review your request and confirm anything unclear by email.</li>
+        <li><i>02</i>We build the change and test it against your live setup.</li>
+        <li><i>03</i>We publish it and email you when it is live.</li>
+      </ol>
+      <div class="row"><a class="btn primary" href="index.html">Back to Hermia</a><a class="btn" href="configuration_change.html">Request another change</a></div>
+    </div>
+    <div id="fail" class="hidden">
+      <div class="eyebrow">Change request</div>
+      <h1>We could not confirm <em>it yet.</em></h1>
+      <p class="bad" id="failText">We could not confirm this payment yet.</p>
+      <div class="row"><button class="btn primary" id="retry" type="button">Try again</button><a class="btn" id="mail" href="mailto:info@hermia.au">Email info@hermia.au</a></div>
+    </div>
+  </div>
+</main>
+<script>
+(function(){
+  'use strict';
+  var API = 'https://platform.hermia.au';
+  var $ = function(id){ return document.getElementById(id); };
+  var sessionId = (new URLSearchParams(location.search).get('session_id') || '').trim();
+  var tries = 0;
+  function show(id){ ['wait', 'done', 'fail'].forEach(function(x){ $(x).classList.toggle('hidden', x !== id); }); }
+  function failed(text){
+    $('failText').textContent = text;
+    $('mail').href = 'mailto:info@hermia.au?subject=' + encodeURIComponent('Hermia change request payment') + '&body=' + encodeURIComponent('Payment reference: ' + (sessionId || 'not shown') + '\n');
+    show('fail');
   }
-  if (trail.length > 40) trail = trail.slice(-40);
-  try { sessionStorage.setItem(trailKey, JSON.stringify(trail)); } catch (e) {}
-  document.querySelectorAll('[data-flow-back]').forEach(function (link) {
-    link.addEventListener('click', function (event) {
-      event.preventDefault();
-      var active = trail.slice();
-      if (active[active.length - 1] === current) active.pop();
-      var destination = active[active.length - 1] || 'index.html';
-      if (destination === current) destination = 'index.html';
-      if (destination === 'index.html') active = ['index.html'];
-      try { sessionStorage.setItem(trailKey, JSON.stringify(active)); } catch (e) {}
-      location.assign(destination);
-    });
-  });
+  function run(){
+    if (!sessionId) return failed('We could not find your payment reference. If you have paid, email info@hermia.au and we will confirm it with you.');
+    show('wait');
+    tries++;
+    fetch(API + '/configuration/change-finalize', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sessionId: sessionId }) })
+      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(d){ return { status: r.status, d: d || {} }; }); })
+      .then(function(res){
+        if (res.d.ok) { $('code').textContent = res.d.requestCode || 'Sent by email'; show('done'); return; }
+        // Stripe can take a moment to mark a payment as paid.
+        if (res.status === 403 && tries < 4) { setTimeout(run, 2500 * tries); return; }
+        failed(res.status === 403 ? 'Stripe has not confirmed this payment yet. Wait a minute and try again.' : 'Your payment may have gone through, but we could not record it just now. Please try again.');
+      })
+      .catch(function(){ if (tries < 3) setTimeout(run, 2000 * tries); else failed('We could not reach Hermia just now. Please try again.'); });
+  }
+  $('retry').addEventListener('click', function(){ tries = 0; run(); });
+  run();
 }());
 </script>
 </body>
