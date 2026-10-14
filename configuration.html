@@ -182,6 +182,18 @@
     @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
   </style>
   <link rel="stylesheet" href="global-back.css?v=20261012-back-design">
+  <link rel="stylesheet" href="connect-kit.css?v=20261015">
+  <style>
+    .cx-wrap{margin-top:22px}
+    .cx-wrap .cx-group{padding-top:6px}
+    .cx-wrap .cx-cards{grid-template-columns:minmax(0,1fr)}
+    .src-group{margin-top:26px}
+    .src-group .mini{margin-bottom:0}
+    .src-group .tiles{margin-top:12px}
+    .flash{margin-top:18px;padding:13px 15px;border-radius:14px;border:1px solid var(--line);background:rgba(201,163,91,.06);color:var(--mute);font-size:14px}
+    .flash.good{border-color:rgba(127,209,168,.45);color:#cdeedd}
+    .flash.bad{border-color:rgba(255,180,162,.45);color:#ffd4c8}
+  </style>
 </head>
 <body>
 <div class="app">
@@ -247,6 +259,7 @@
           <div class="results"><button type="button" class="chip" id="crmNoneBtn" aria-pressed="false">We don't use a CRM</button></div>
         </div>
         <div class="note" id="crmNote" hidden></div>
+        <div class="cx cx-wrap" id="crmConnect" hidden></div>
         <div class="err" data-err></div>
       </section>
 
@@ -270,8 +283,9 @@
       <section class="screen" data-id="sources" data-img="assets/config/step-2-channels.webp" data-k="Enquiry sources" data-t="Messy enquiries in. Clean records out." data-s="Platform alerts, emails and messages all arrive in one place.">
         <div class="eyebrow">Enquiry sources</div>
         <h2>Where do your enquiries <em>arrive?</em></h2>
-        <p class="lead">Choose every source you use. Forwarded platform alerts arrive through email.</p>
-        <div class="tiles" id="sourceTiles"></div>
+        <p class="lead">Choose every source you use. Marketplace and portal alerts arrive through email.</p>
+        <div id="sourceTiles"></div>
+        <div class="cx cx-wrap" id="sourceConnect" hidden></div>
         <div class="err" data-err></div>
       </section>
 
@@ -283,11 +297,12 @@
         <div class="err" data-err></div>
       </section>
 
-      <section class="screen" data-id="inbox" data-img="assets/config/step-2-channels.webp" data-k="Inbox" data-t="Your inbox, connected once." data-s="You connect it securely straight after payment.">
+      <section class="screen" data-id="inbox" data-img="assets/config/step-2-channels.webp" data-k="Inbox" data-t="Your inbox, connected once." data-s="Connect it now, or straight after payment.">
         <div class="eyebrow">Inbox</div>
         <h2>Which inbox receives your <em>enquiries?</em></h2>
-        <p class="lead">You will connect it securely after payment. Hermia only reads new enquiries.</p>
+        <p class="lead">Connect it now, or after payment. Hermia only reads new enquiries.</p>
         <div class="tiles" id="inboxTiles"></div>
+        <div class="cx cx-wrap" id="inboxConnect" hidden></div>
         <div class="err" data-err></div>
       </section>
 
@@ -332,7 +347,7 @@
         <div class="section-k">Your own questions <span style="color:var(--faint)">· free, up to 35</span></div>
         <div class="list-rows" id="customRows"></div>
         <button type="button" class="add" id="addCustom">+ Add a question</button>
-        <p class="hint">Write it the way you would ask it. Changes after go-live are USD $500 per bundled request.</p>
+        <p class="hint">Write it the way you would ask it. After go-live, a change costs USD $500 for each kind of change: connections, questions or calendar.</p>
         <div class="err" data-err></div>
       </section>
 
@@ -358,6 +373,14 @@
         <div class="err" data-err></div>
       </section>
 
+      <section class="screen" data-id="connect" data-img="assets/config/step-2-channels.webp" data-k="Connections" data-t="Connect what you picked." data-s="Each one opens that platform's own sign-in. Nothing here blocks payment.">
+        <div class="eyebrow">Connect your accounts</div>
+        <h2>Connect what <em>you picked.</em></h2>
+        <p class="lead">Each one takes about a minute. Not ready? Press Next and connect after payment.</p>
+        <div class="cx cx-wrap" id="connectGroups"></div>
+        <div class="err" data-err></div>
+      </section>
+
       <section class="screen" data-id="review" data-img="assets/config/step-5-review.webp" data-k="Review" data-t="Your build, ready to run." data-s="We build and test it with you before anything goes live.">
         <div class="eyebrow">Review</div>
         <h2>Your <em>build.</em></h2>
@@ -376,6 +399,7 @@
     </div>
   </main>
 </div>
+<script src="connect-kit.js?v=20261015"></script>
 <script>
 (function(){
   'use strict';
@@ -387,14 +411,20 @@
   var isEmail = function(v){return /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(String(v||'').trim());};
   var $ = function(id){return document.getElementById(id);};
 
+  // k = the industry pack key (Notes). v is what the build receives as the industry name.
   var INDUSTRIES = [
-    {v:'Trades & field services',t:'Trades & field services',d:'Plumbing, electrical, roofing, remedial, fire and more.',img:'assets/sector-trade.webp',live:true},
-    {v:'Property',t:'Property & real estate',d:'Enquiries, inspections and maintenance requests.',img:'assets/sector-property.webp'},
-    {v:'Legal operations',t:'Legal operations',d:'Matter intake and enquiry triage.',img:'assets/sector-professional.webp'},
-    {v:'Healthcare administration',t:'Healthcare administration',d:'Booking and admin enquiries. No clinical triage.',img:'assets/sector-healthcare.webp'},
-    {v:'Finance',t:'Finance',d:'Application and document intake.',img:'assets/sector-finance.webp'},
-    {v:'Insurance companies',t:'Insurance',d:'Claim and policy enquiry intake.',img:'assets/sector-insurance.webp'}
+    {v:'Trades & field services',k:'trades',t:'Trades & field services',d:'Plumbing, electrical, roofing, remedial, fire and more.',img:'assets/industries/trades.webp'},
+    {v:'Real estate',k:'real_estate',t:'Real estate',d:'Buyer and renter enquiries, inspections and appraisals.',img:'assets/industries/real-estate.webp'},
+    {v:'Property management',k:'real_estate',t:'Property management',d:'Maintenance requests, tenants, access and photos.',img:'assets/industries/property-management.webp'},
+    {v:'Healthcare',k:'healthcare',t:'Healthcare',d:'New patient and booking enquiries for reception. No clinical advice.',img:'assets/industries/healthcare.webp'},
+    {v:'Legal',k:'law',t:'Legal',d:'New matter enquiries, with what your conflict check needs.',img:'assets/industries/legal.webp'},
+    {v:'Insurance',k:'insurance',t:'Insurance',d:'Claim and cover enquiries.',img:'assets/industries/insurance.webp'},
+    {v:'Finance',k:'finance',t:'Finance',d:'Loan, lending and advice enquiries by email.',img:'assets/industries/finance.webp'},
+    {v:'Car dealers',k:'car_dealers',t:'Car dealers',d:'Stock questions, trade-ins and test drives.',img:'assets/industries/car-dealers.webp'},
+    {v:'Education',k:'education',t:'Education',d:'Course, intake and open-day enquiries.',img:'assets/industries/education.webp'},
+    {v:'Hospitality',k:'hospitality',t:'Hospitality',d:'Table, function and menu enquiries.',img:'assets/industries/hospitality.webp'}
   ];
+  var LEGACY_INDUSTRY = {'Property':'Property management','Legal operations':'Legal','Healthcare administration':'Healthcare','Insurance companies':'Insurance'};
   var TRADES = ['Plumbing','Electrical','Roofing','Remedial','Fire / ESM','Repair & maintenance','Air conditioning & HVAC','Painting','Carpentry','Glazing','Landscaping','Pest control','Solar','Cleaning'];
   /* Business systems come from the platform's CRM list (live + coming soon). Nothing else is offered here. */
   var CRM_CACHE_KEY = 'hermia_crm_catalog_v1';
@@ -409,14 +439,22 @@
     email:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e8c17a" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7l8 6 8-6"/></svg>',
     gbp:'<svg width="24" height="24" viewBox="0 0 24 24"><path d="M4 9.5L5.6 4h12.8L20 9.5" fill="none" stroke="#4285F4" stroke-width="1.7" stroke-linejoin="round"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5S9.3 10.9 9.3 9.5c0 1.4 1.2 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1.1 2.5 2.6 2.5S20 10.9 20 9.5" fill="none" stroke="#4285F4" stroke-width="1.7"/><path d="M5.5 12v8h13v-8" fill="none" stroke="#34A853" stroke-width="1.7"/><path d="M10 20v-4.5h4V20" fill="none" stroke="#FBBC05" stroke-width="1.7"/></svg>',
     gmail:'<svg width="26" height="26" viewBox="0 0 24 24"><path d="M3 7.2V18a1.5 1.5 0 001.5 1.5H7V10.6l5 3.7 5-3.7v8.9h2.5A1.5 1.5 0 0021 18V7.2a2 2 0 00-3.2-1.6L12 10 6.2 5.6A2 2 0 003 7.2z" fill="#EA4335"/><path d="M3 7.2V18a1.5 1.5 0 001.5 1.5H7V10.6L3 7.6z" fill="#4285F4"/><path d="M17 10.6v8.9h2.5A1.5 1.5 0 0021 18V7.6z" fill="#34A853"/><path d="M17 6.3v4.3l4-3V7.2a2 2 0 00-3.2-1.6z" fill="#FBBC05"/></svg>',
+    note:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e8c17a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.6 2.6 2.4 4.3 5 4.6"/></svg>',
     outlook:'<svg width="26" height="26" viewBox="0 0 24 24"><rect x="8" y="5" width="13" height="14" rx="2" fill="#28A8EA"/><path d="M8 11l6.5 4L21 11" fill="none" stroke="#fff" stroke-width="1.3" opacity=".8"/><rect x="3" y="7" width="10" height="10" rx="2" fill="#0F6CBD"/><circle cx="8" cy="12" r="2.6" fill="none" stroke="#fff" stroke-width="1.6"/></svg>'
   };
+  /* Where enquiries come from (Kevin's decision, 14 Oct): email, messages, lead forms, missed calls.
+     No WhatsApp intake, no web forms, no Google Business. soon = shown, not offered yet. */
   var SOURCES = [
-    {v:'email',t:'Email',d:'Your inbox, including forwarded platform and marketplace alerts.',ico:ICON.email},
-    {v:'instagram',t:'Instagram',d:'Direct messages to your business account.',img:'assets/channels/instagram-96.webp'},
-    {v:'facebook',t:'Facebook',d:'Messages to your business page.',img:'assets/channels/facebook-96.webp'},
-    {v:'google_business',t:'Google Business',d:'Messages from your Google Business Profile. Connected with you during setup.',ico:ICON.gbp}
+    {v:'email',g:'email',t:'Email',d:'Your inbox, including marketplace and portal alerts.',ico:ICON.email},
+    {v:'facebook',g:'messages',t:'Facebook',d:'Messages to your Facebook Page.',img:'assets/channels/facebook-96.webp'},
+    {v:'instagram',g:'messages',t:'Instagram',d:'Messages to your Instagram account.',img:'assets/channels/instagram-96.webp'},
+    {v:'tiktok',g:'messages',t:'TikTok',d:'Messages to your TikTok business account.',ico:ICON.note},
+    {v:'meta_lead_forms',g:'forms',t:'Facebook and Instagram',d:'Lead forms on your ads.',soon:true},
+    {v:'linkedin_lead_forms',g:'forms',t:'LinkedIn',d:'Lead forms on your LinkedIn ads.',soon:true},
+    {v:'google_ads_lead_forms',g:'forms',t:'Google Ads',d:'Lead forms on your Google ads.',soon:true},
+    {v:'missed_calls',g:'calls',t:'Missed calls',d:'Callers texted back within a minute.',soon:true}
   ];
+  var SOURCE_GROUPS = [{g:'email',t:'Email'},{g:'messages',t:'Messages'},{g:'forms',t:'Lead forms'},{g:'calls',t:'Calls'}];
   var CONVS = [
     {v:'email',t:'Email',d:'Hermia replies by email and keeps the thread in one place.',ico:ICON.email},
     {v:'whatsapp',t:'WhatsApp',d:'Hermia follows up by WhatsApp. Fast replies, photos and short videos.',img:'assets/channels/whatsapp-96.webp'}
@@ -449,12 +487,32 @@
     calendar:'',calMode:'manual',lang:'en',langFixed:'ar'
   };
   try{var saved=JSON.parse(sessionStorage.getItem(DRAFT_KEY)||'null');if(saved&&typeof saved==='object')Object.keys(state).forEach(function(k){if(k in saved)state[k]=saved[k];});}catch(e){}
+  if(LEGACY_INDUSTRY[state.industry])state.industry=LEGACY_INDUSTRY[state.industry];
+  if(state.industry&&!INDUSTRIES.some(function(o){return o.v===state.industry;}))state.industry='';
+  state.sources=(Array.isArray(state.sources)?state.sources:[]).filter(function(v){return SOURCES.some(function(o){return o.v===v&&!o.soon;});});
   /* Pre-select the industry when arriving from an industry or pricing page (configuration.html?industry=property). */
-  try{var IND_PARAM={trades:'Trades & field services',property:'Property',legal:'Legal operations',healthcare:'Healthcare administration',finance:'Finance',insurance:'Insurance companies'};var ip=IND_PARAM[String(new URLSearchParams(location.search).get('industry')||'').toLowerCase()];if(ip&&state.industry!==ip){state.industry=ip;state.qs={};if(ip!=='Trades & field services'){state.trade='';state.estimate=false;state.calendar='';}}}catch(e){}
+  try{var IND_PARAM={trades:'Trades & field services','real-estate':'Real estate',realestate:'Real estate','property-management':'Property management',property:'Property management',healthcare:'Healthcare',legal:'Legal',insurance:'Insurance',finance:'Finance','car-dealers':'Car dealers',cars:'Car dealers',education:'Education',hospitality:'Hospitality'};var ip=IND_PARAM[String(new URLSearchParams(location.search).get('industry')||'').toLowerCase()];if(ip&&state.industry!==ip){state.industry=ip;state.qs={};if(ip!=='Trades & field services'){state.trade='';state.estimate=false;state.calendar='';}}}catch(e){}
   var guideFile = null;
   function persist(){try{var s=Object.assign({},state);sessionStorage.setItem(DRAFT_KEY,JSON.stringify(s));}catch(e){}}
 
   var isTrade = function(){return state.industry==='Trades & field services';};
+  var isFinance = function(){return state.industry==='Finance';};
+  var K = window.HermiaConnect, connState = null, sessionReady = null;
+  function kitPicks(){return {sources:state.sources.slice(),inbox:state.inbox,conv:state.conv,crm:state.crm,crmOther:state.crmOther,calendar:(state.crm==='simpro'&&isTrade()&&state.calendar==='simpro')?'simpro':''};}
+  function hasConnections(){var p=kitPicks();return p.crm==='simpro'||p.sources.some(function(v){return v==='email'||v==='facebook'||v==='instagram'||v==='tiktok';})||p.conv==='email';}
+  function returnUrl(){return (location.origin&&/^https:/.test(location.origin)?location.origin:'https://www.hermia.au')+location.pathname+'#'+current;}
+  /* The business record behind this journey: made on the details screen, refreshed as answers come in. */
+  function saveSession(){if(!K||!isEmail(state.email))return Promise.resolve('');sessionReady=K.start({email:clean(state.email),businessName:clean(state.business),fullName:clean(state.contact),phone:clean(state.phone),country:state.country,industry:state.industry}).catch(function(){return '';});return sessionReady;}
+  function ensureSession(){if(K&&K.token())return Promise.resolve(K.token());return saveSession();}
+  function refreshConnections(){if(!K||!K.token())return Promise.resolve(null);return K.state().then(function(st){connState=st;renderConnectPanels();return st;});}
+  function connectPanel(id,filter){var el=$(id);if(!el||!K)return;var groups=K.cards(filter(kitPicks()),connState);el.hidden=!groups.length;el.innerHTML=groups.length?K.render(groups):'';}
+  function renderConnectPanels(){
+    if(current==='crm')connectPanel('crmConnect',function(p){return {crm:p.crm==='simpro'?'simpro':''};});
+    if(current==='sources')connectPanel('sourceConnect',function(p){return {sources:p.sources.filter(function(v){return v==='facebook'||v==='instagram'||v==='tiktok';})};});
+    if(current==='inbox')connectPanel('inboxConnect',function(p){return p.inbox?{sources:['email'],inbox:p.inbox}:{};});
+    if(current==='connect'){var g=K?K.cards(kitPicks(),connState):[];$('connectGroups').innerHTML=g.length?K.render(g):'<p class="lead">Nothing to connect for what you picked.</p>';}
+  }
+  function flash(text,kind){var s=screens[current];if(!s)return;var f=s.querySelector('.flash');if(!f){f=document.createElement('div');f.className='flash';var e=s.querySelector('[data-err]');s.insertBefore(f,e||null);}f.className='flash'+(kind?' '+kind:'');f.textContent=text;f.hidden=!text;}
   var needsInbox = function(){return state.sources.indexOf('email')>-1||state.conv==='email';};
   var FLOW = function(){
     var f=['intro','business','contact','location','crm','industry'];
@@ -463,7 +521,9 @@
     if(needsInbox())f.push('inbox');
     f.push('docket','senders','questions');
     if(state.crm==='simpro'&&isTrade())f.push('calendar');
-    f.push('language','review');
+    f.push('language');
+    if(hasConnections())f.push('connect');
+    f.push('review');
     return f;
   };
   var screens = {};
@@ -547,11 +607,12 @@
     if(state.crm==='other'&&name.length>=2){note.hidden=false;note.innerHTML='Hermia doesn\u2019t connect to <b>'+esc(name)+'</b> yet. Each finished brief is emailed to your team instead, and we note the system you use so we know which connections businesses need next.';}
     else if(state.crm==='none'){note.hidden=false;note.innerHTML='Your team receives each finished brief by email. You can add a system later as a change request.';}
     else note.hidden=true;
+    renderConnectPanels();
   }
   function renderIndustry(){
-    $('industryTiles').innerHTML=INDUSTRIES.map(function(o){return tile({v:o.v,t:o.t,d:o.d,tag:o.live?'':'Scoped pilot'},state.industry===o.v);}).join('');
+    $('industryTiles').innerHTML=INDUSTRIES.map(function(o){return tile({v:o.v,t:o.t,d:o.d},state.industry===o.v);}).join('');
     var n=$('industryNote');
-    if(state.industry&&!isTrade()){n.hidden=false;n.innerHTML='<b>Scoped pilot.</b> We confirm the fit for your business before anything goes live. Hermia never gives legal, medical, financial or insurance advice and never makes those decisions. Qualified people on your team always do.';}
+    if(state.industry&&!isTrade()){n.hidden=false;n.innerHTML='We confirm the fit for your business before anything goes live. Hermia never gives legal, medical, financial or insurance advice and never makes those decisions. Qualified people on your team always do.';}
     else n.hidden=true;
   }
   function industryImg(){var f=INDUSTRIES.filter(function(o){return o.v===state.industry;})[0];return f?f.img:'assets/sector-trade.webp';}
@@ -560,9 +621,16 @@
     $('tradeChips').innerHTML=TRADES.map(function(t){return '<button type="button" class="chip" data-trade="'+esc(t)+'" aria-pressed="'+(state.trade===t)+'">'+esc(t)+'</button>';}).join('');
     if(document.activeElement!==$('tradeOwn'))$('tradeOwn').value=own;
   }
-  function renderSources(){$('sourceTiles').innerHTML=SOURCES.map(function(o){return tile(o,state.sources.indexOf(o.v)>-1);}).join('');}
+  function sourceOffered(o){if(o.g==='messages'&&isFinance())return false;if(o.v==='tiktok'&&K&&!K.tiktokAllowed(state.country))return false;return true;}
+  function renderSources(){
+    state.sources=state.sources.filter(function(v){var o=SOURCES.filter(function(x){return x.v===v;})[0];return o&&!o.soon&&sourceOffered(o);});
+    $('sourceTiles').innerHTML=SOURCE_GROUPS.map(function(gr){var items=SOURCES.filter(function(o){return o.g===gr.g&&sourceOffered(o);});if(!items.length)return '';
+      return '<div class="src-group"><div class="mini">'+esc(gr.t)+'</div><div class="tiles">'+items.map(function(o){return tile({v:o.v,t:o.t,d:o.d,img:o.img,ico:o.ico,tag:o.soon?'Coming soon':'',disabled:o.soon},state.sources.indexOf(o.v)>-1);}).join('')+'</div></div>';}).join('')+
+      (isFinance()?'<p class="hint">Hermia never messages a finance business\u2019s customers, so message sources aren\u2019t offered.</p>':'');
+    renderConnectPanels();
+  }
   function renderConv(){$('convTiles').innerHTML=CONVS.map(function(o){return tile(o,state.conv===o.v);}).join('');}
-  function renderInbox(){$('inboxTiles').innerHTML=[{v:'gmail',t:'Gmail',d:'Google Workspace or Gmail.',ico:ICON.gmail},{v:'outlook',t:'Outlook',d:'Microsoft 365 or Outlook.',ico:ICON.outlook}].map(function(o){return tile(o,state.inbox===o.v);}).join('');}
+  function renderInbox(){$('inboxTiles').innerHTML=[{v:'gmail',t:'Gmail',d:'Google Workspace or Gmail.',ico:ICON.gmail},{v:'outlook',t:'Outlook',d:'Microsoft 365 or Outlook.',ico:ICON.outlook}].map(function(o){return tile(o,state.inbox===o.v);}).join('');renderConnectPanels();}
   function renderRows(id,arr,kind){
     var root=$(id);
     root.innerHTML=arr.map(function(r,i){
@@ -610,7 +678,7 @@
       ['Owner',esc(c.contact_name)+'<br><span style="color:var(--faint)">'+esc(c.contact_email)+' · '+esc(c.phone)+'</span>','contact'],
       ['Location',esc((c.state?c.state+', ':'')+c.country),'location'],
       ['Business system',esc(crmLabel()),'crm'],
-      ['Industry',esc((INDUSTRIES.filter(function(o){return o.v===state.industry;})[0]||{}).t||'')+(isTrade()&&state.trade?' · '+esc(state.trade):'')+(isTrade()?'':' <span style="color:var(--gold)">· scoped pilot</span>'),isTrade()?'trade':'industry'],
+      ['Industry',esc((INDUSTRIES.filter(function(o){return o.v===state.industry;})[0]||{}).t||'')+(isTrade()&&state.trade?' · '+esc(state.trade):''),isTrade()?'trade':'industry'],
       ['Enquiries from',esc(state.sources.map(srcLabel).join(', ')),'sources'],
       ['Customer conversation',esc(state.conv==='whatsapp'?'WhatsApp':'Email'),'conversation']
     ];
@@ -621,6 +689,7 @@
     if(isTrade())items.push(['Estimates',state.estimate?('From your approved guide ('+(state.guideMode==='pdf'?'PDF':'typed')+')'):'Price questions go to your team','questions']);
     if(state.crm==='simpro'&&isTrade())items.push(['Calendar',state.calendar==='simpro'?('Simpro · '+(state.calMode==='auto'?'Hermia books automatically':'your team confirms')):'None','calendar']);
     items.push(['Language',esc(lang),'language']);
+    if(hasConnections()&&K){var kc=K.counts(K.cards(kitPicks(),connState));if(kc.total)items.push(['Connections',kc.done+' of '+kc.total+' connected'+(kc.done<kc.total?'<br><span style="color:var(--faint)">Connect the rest now or after payment.</span>':''),'connect']);}
     $('reviewGrid').innerHTML=items.map(function(it){return '<div class="rv'+(it[3]?' wide':'')+'"><div class="k">'+it[0]+'</div><div class="v">'+it[1]+'</div><button type="button" class="edit" data-go="'+it[2]+'">Edit</button></div>';}).join('');
   }
 
@@ -666,7 +735,7 @@
     return {
       finance_plan:'configuration',contract_version:'1.1',
       configuration_price:{setup:4400,monthly:1700,currency:'usd',inboundAddOn:0,responseAddOn:0,questionAddOn:0,routeAddOn:0,mediaAddOn:0,calendarAddOn:0},
-      industry:state.industry,industries:[state.industry],
+      industry:state.industry,industries:[state.industry],industry_key:((INDUSTRIES.filter(function(o){return o.v===state.industry;})[0]||{}).k||''),
       business_name:clean(state.business),legal_entity_name:clean(state.entity),contact_name:clean(state.contact),contact_email:clean(state.email).toLowerCase(),phone:clean(state.phone),country:state.country,state:clean(state.state),
       crm:state.crm,crm_other_name:state.crm==='other'?clean(state.crmOther):'',crm_provider_status:state.crm==='other'?'scoped':'available',
       inbound_channels:state.sources.slice(),response_channels:[conv],outbound_channels:[conv],conversation_channel:conv,
@@ -728,12 +797,14 @@
     if(id==='questions'){if(!state.custom.length)state.custom=[''];renderQuestions();}
     if(id==='calendar')renderCalendar();
     if(id==='language')renderLang();
+    if(id==='connect')renderConnectPanels();
     if(id==='review')renderReview();
   }
   function go(step){
     var flow=FLOW(),i=flow.indexOf(current);
     if(step>0){var e=validate(current);if(e){var el=screens[current].querySelector('[data-err]');if(el)el.textContent=e;return;}
       if(current==='review'){pay();return;}
+      if(current==='contact'||current==='location'||current==='industry')saveSession();
       show(flow[Math.min(i+1,flow.length-1)],1);}
     else{ if(i<=0)return; history.back(); }
   }
@@ -761,7 +832,7 @@
   $('industryTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;if(state.industry!==b.dataset.v){state.industry=b.dataset.v;state.qs={};if(!isTrade()){state.trade='';state.estimate=false;state.calendar='';}}renderIndustry();showImage(industryImg());persist();});
   $('tradeChips').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;state.trade=b.dataset.trade;state.qs={};$('tradeOwn').value='';renderTrades();persist();});
   $('tradeOwn').addEventListener('input',function(){var v=$('tradeOwn').value;if(clean(v)){state.trade=clean(v);}else if(TRADES.indexOf(state.trade)===-1)state.trade='';renderTrades();persist();});
-  $('sourceTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;var v=b.dataset.v,i=state.sources.indexOf(v);if(i>-1)state.sources.splice(i,1);else state.sources.push(v);renderSources();persist();});
+  $('sourceTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b||b.disabled)return;var v=b.dataset.v,i=state.sources.indexOf(v);if(i>-1)state.sources.splice(i,1);else state.sources.push(v);renderSources();persist();});
   $('convTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;state.conv=b.dataset.v;renderConv();persist();});
   $('inboxTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;state.inbox=b.dataset.v;renderInbox();persist();});
   function listHandlers(rootId,key,kind,blank){
@@ -797,8 +868,8 @@
     if(c.pricing_guide.source==='pdf'&&guideFile)store=storeGuide(guideFile).catch(function(){});
     try{var s=JSON.stringify(c);sessionStorage.setItem('hermia_configuration',s);localStorage.setItem('hermia_configuration',s);sessionStorage.setItem('hermia_finance_plan','configuration');sessionStorage.setItem('hermia_name',c.contact_name);sessionStorage.setItem('hermia_email',c.contact_email);if(c.email_provider)sessionStorage.setItem('hermia_plan',c.email_provider);}catch(e){}
     var origin=location.origin&&/^https:\/\//.test(location.origin)?location.origin:'https://www.hermia.au';
-    store.then(function(){
-      return fetch(API+'/stripe/create-checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'configuration',customerEmail:c.contact_email,configuration:c,successUrl:origin+'/configuration_complete.html?session_id={CHECKOUT_SESSION_ID}',cancelUrl:origin+'/configuration.html#review'})});
+    store.then(function(){return ensureSession();}).then(function(){
+      return fetch(API+'/stripe/create-checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'configuration',customerEmail:c.contact_email,configuration:c,configToken:K?K.token():'',successUrl:origin+'/configuration_complete.html?session_id={CHECKOUT_SESSION_ID}',cancelUrl:origin+'/configuration.html#review'})});
     }).then(function(r){return r.json().then(function(d){return {r:r,d:d};});}).then(function(x){
       if(!x.r.ok||!x.d.checkoutUrl)throw new Error(x.d.error||'Secure payment could not be prepared.');
       location.href=x.d.checkoutUrl;
@@ -806,6 +877,8 @@
   }
 
   /* ---------- start ---------- */
+  var signin=K?K.readReturn():{};
+  ['crmConnect','sourceConnect','inboxConnect','connectGroups'].forEach(function(id){if(K&&$(id))K.wire($(id),kitPicks,returnUrl,function(t,bad){flash(t,bad?'bad':'');});});
   var startId=(location.hash||'').slice(1);
   if(startId&&FLOW().indexOf(startId)>-1&&startId!=='intro'){
     var flow=FLOW(),ok=true;
@@ -814,6 +887,9 @@
     show(startId,1);
   } else show('intro',1,true);
   try{history.replaceState({s:current},'','#'+current);}catch(e){}
+  if(signin.connected)flash((K.names[signin.connected]||'Your account')+' is connected.','good');
+  else if(signin.error)flash(K.errorText(signin.error,signin.reason),'bad');
+  refreshConnections();
 }());
 </script>
 <script>
