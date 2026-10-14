@@ -212,7 +212,9 @@
     } else if (c.crm === 'aroflo') {
       items.push({ t: 'Connect AroFlo', s: 'Links Hermia to your AroFlo account so records go straight in.', a: link('aroflo_connect.html' + (provider ? '?plan=' + provider : ''), 'Connect') });
     } else if (c.crm === 'other') {
-      items.push({ t: 'Your ' + esc(c.crm_other_name || 'business system'), s: 'We confirm the connection with you during setup. Until it is tested, briefs arrive by email.', tag: 'Scoped with you' });
+      items.push({ t: 'Your ' + esc(c.crm_other_name || 'business system'), s: 'Hermia doesn\u2019t connect to this system yet. Each finished brief is emailed to your team, and we have noted the system you use.', tag: 'Briefs by email' });
+    } else if (c.crm === 'none') {
+      items.push({ t: 'Briefs by email', s: 'You told us you don\u2019t use a CRM, so each finished brief is emailed to your team.', tag: 'Email' });
     }
     if (inbound.indexOf('instagram') > -1) items.push({ t: 'Connect Instagram', s: 'Direct messages to your business account.', a: link('social_connect_instagram.html', 'Connect') });
     if (inbound.indexOf('facebook') > -1) items.push({ t: 'Connect Facebook', s: 'Messages to your business page.', a: link('facebook.html', 'Connect') });

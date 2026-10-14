@@ -68,6 +68,9 @@
     .tile[aria-pressed="true"]{border-color:var(--pale);background:linear-gradient(160deg,rgba(201,163,91,.16),rgba(201,163,91,.04));box-shadow:0 0 0 1px rgba(232,193,122,.35) inset,0 18px 40px -24px rgba(201,163,91,.6)}
     .tile[aria-pressed="true"]::after{content:"";position:absolute;top:14px;right:14px;width:18px;height:18px;border-radius:50%;background:var(--pale) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.2 4.2L19 7' fill='none' stroke='%2307070a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat}
     .tile[disabled]{opacity:.42;cursor:not-allowed}
+    .tile.wide{grid-column:1/-1}
+    .tile.soon[disabled]{opacity:.62}
+    .crm-msg{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:16px 4px;color:var(--mute);font-size:14px}
     .tile .tt{font-weight:600;font-size:16.5px}
     .tile .td{color:var(--mute);font-size:13.5px;line-height:1.45}
     .tile .tag{font:500 10px/1 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--line);border-radius:999px;padding:5px 8px}
@@ -236,12 +239,13 @@
         <div class="eyebrow">Business system</div>
         <h2>Where should finished records <em>go?</em></h2>
         <p class="lead">Pick one system. Hermia connects to one CRM or job system per business.</p>
-        <div class="tiles" id="crmTiles">
-          <button type="button" class="tile" data-crm="simpro" aria-pressed="false"><span class="logo-chip"><img src="Partner_Logo_Horizontal_Registered.png" alt="Simpro"></span><span class="td">Open Leads, customers and sites. Registered Technology Partner.</span></button>
-          <button type="button" class="tile" data-crm="aroflo" aria-pressed="false"><span class="logo-chip"><span class="aroflo">Aro<b>Flo</b></span></span><span class="td">Tasks, clients and locations.</span></button>
-        </div>
-        <div class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input class="input" id="crmSearch" placeholder="Search another system" autocomplete="off" aria-label="Search another system"></div>
+        <div class="search" style="margin-top:30px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input class="input" id="crmSearch" placeholder="Search for your system" autocomplete="off" aria-label="Search for your system"></div>
+        <div class="tiles" id="crmTiles" aria-live="polite" style="margin-top:14px"><div class="crm-msg">Loading systems…</div></div>
         <div class="results" id="crmResults"></div>
+        <div id="crmOtherBox" hidden>
+          <div class="field"><label for="crmOtherName">Which system do you use?</label><input class="input" id="crmOtherName" maxlength="80" autocomplete="off" placeholder="Type the name of your CRM or job system"></div>
+          <div class="results"><button type="button" class="chip" id="crmNoneBtn" aria-pressed="false">We don't use a CRM</button></div>
+        </div>
         <div class="note" id="crmNote" hidden></div>
         <div class="err" data-err></div>
       </section>
@@ -392,7 +396,13 @@
     {v:'Insurance companies',t:'Insurance',d:'Claim and policy enquiry intake.',img:'assets/sector-insurance.webp'}
   ];
   var TRADES = ['Plumbing','Electrical','Roofing','Remedial','Fire / ESM','Repair & maintenance','Air conditioning & HVAC','Painting','Carpentry','Glazing','Landscaping','Pest control','Solar','Cleaning'];
-  var OTHER_SYSTEMS = ['ServiceM8','Fergus','Tradify','Jobber','ServiceTitan','HubSpot','Salesforce','Rex','Microsoft Dynamics','Zoho CRM','Pipedrive','Monday.com','Xero Practice Manager','Clio','Actionstep','Cliniko','Halaxy'];
+  /* Business systems come from the platform's CRM list (live + coming soon). Nothing else is offered here. */
+  var CRM_CACHE_KEY = 'hermia_crm_catalog_v1';
+  var CRM_LOOK = {
+    simpro:{logo:'Partner_Logo_Horizontal_Registered.png',d:'Open Leads, customers and sites. Registered Technology Partner.'},
+    none:{t:"My CRM isn't listed",d:"Tell us the system you use, or that you don't use one. Each finished brief is emailed to your team.",wide:true}
+  };
+  var crmCatalog = null, crmCatalogState = 'loading';
   var COUNTRIES = ['Australia','New Zealand','United States','Canada','United Kingdom','Ireland','United Arab Emirates','Saudi Arabia','Qatar','Singapore','India','South Africa','Germany','France','Spain','Italy','Netherlands','Russia','Japan','Other'];
   var LANGS = [['ar','Arabic'],['zh','Chinese'],['nl','Dutch'],['fr','French'],['de','German'],['el','Greek'],['hi','Hindi'],['id','Indonesian'],['it','Italian'],['ja','Japanese'],['ko','Korean'],['pt','Portuguese'],['ru','Russian'],['es','Spanish'],['tr','Turkish'],['vi','Vietnamese']];
   var ICON = {
@@ -477,16 +487,64 @@
     return '<button type="button" class="tile" aria-pressed="'+(pressed?'true':'false')+'" data-v="'+esc(o.v)+'"'+(o.disabled?' disabled':'')+'>'+icon+'<span class="tt">'+esc(o.t)+'</span>'+(o.d?'<span class="td">'+esc(o.d)+'</span>':'')+(o.tag?'<span class="tag">'+esc(o.tag)+'</span>':'')+'</button>';
   }
   function renderCountries(){$('country').innerHTML=COUNTRIES.map(function(c){return '<option'+(c===state.country?' selected':'')+'>'+esc(c)+'</option>';}).join('');}
+  function crmItems(){return (crmCatalog||[]).filter(function(x){return x.key!=='none';});}
+  function crmLive(key){return crmItems().some(function(x){return x.key===key&&x.status==='live';});}
+  /* A saved draft keeps its system only while that system is still offered. */
+  function reconcileCrm(){
+    var c=state.crm;
+    if(!c||c==='other'||c==='none')return;
+    if(crmCatalogState==='ready'?!crmLive(c):c!=='simpro'){state.crm='';state.crmOther='';persist();}
+  }
+  function useCrmCatalog(items){
+    crmCatalog=(Array.isArray(items)?items:[]).filter(function(x){return x&&typeof x.key==='string'&&typeof x.label==='string'&&x.key&&x.label&&(x.status==='live'||x.status==='coming_soon');})
+      .map(function(x){return {key:x.key,label:x.label,status:x.status,sort:Number(x.sort)||100};})
+      .sort(function(a,b){return a.sort-b.sort;});
+    crmCatalogState='ready';reconcileCrm();if(current==='crm')renderCrm();
+  }
+  function loadCrmCatalog(){
+    crmCatalogState='loading';if(current==='crm')renderCrm();
+    var ctl=window.AbortController?new AbortController():null,timer=setTimeout(function(){if(ctl)ctl.abort();},8000);
+    fetch(API+'/configuration/crm-catalog',{method:'GET',credentials:'omit',signal:ctl?ctl.signal:undefined})
+      .then(function(r){if(!r.ok)throw new Error('catalog');return r.json();})
+      .then(function(d){clearTimeout(timer);if(!d||!Array.isArray(d.items))throw new Error('catalog');try{sessionStorage.setItem(CRM_CACHE_KEY,JSON.stringify({at:Date.now(),items:d.items}));}catch(e){}useCrmCatalog(d.items);})
+      .catch(function(){
+        clearTimeout(timer);
+        var c=null;try{c=JSON.parse(sessionStorage.getItem(CRM_CACHE_KEY)||'null');}catch(e){}
+        if(c&&Array.isArray(c.items)&&Date.now()-Number(c.at||0)<6*3600000){useCrmCatalog(c.items);return;}
+        crmCatalog=[];crmCatalogState='error';reconcileCrm();if(current==='crm')renderCrm();
+      });
+  }
+  function crmTile(x){
+    var look=CRM_LOOK[x.key]||{},soon=x.status==='coming_soon';
+    var head=look.logo?'<span class="logo-chip"><img src="'+esc(look.logo)+'" alt="'+esc(x.label)+'"></span>':'<span class="tt">'+esc(look.t||x.label)+'</span>';
+    var d=soon?"Not available yet. Choose \u201cMy CRM isn\u2019t listed\u201d for now and each brief is emailed to your team.":(look.d||'');
+    var on=x.key==='none'?(state.crm==='other'||state.crm==='none'):state.crm===x.key;
+    return '<button type="button" class="tile'+(look.wide?' wide':'')+(soon?' soon':'')+'" data-crm="'+esc(x.key)+'"'+(soon?' disabled aria-disabled="true"':'')+' aria-pressed="'+(soon?'false':String(on))+'">'+(soon?'<span class="tag">Coming soon</span>':'')+head+(d?'<span class="td">'+esc(d)+'</span>':'')+'</button>';
+  }
   function renderCrm(){
-    Array.prototype.forEach.call(document.querySelectorAll('#crmTiles .tile'),function(b){b.setAttribute('aria-pressed',String(state.crm===b.dataset.crm));});
-    var q=clean($('crmSearch').value).toLowerCase();
-    var list=OTHER_SYSTEMS.filter(function(n){return !q||n.toLowerCase().indexOf(q)>-1;}).slice(0,q?10:6);
-    var html=list.map(function(n){return '<button type="button" class="chip" data-other="'+esc(n)+'" aria-pressed="'+(state.crm==='other'&&state.crmOther===n)+'">'+esc(n)+'</button>';}).join('');
-    if(q&&!OTHER_SYSTEMS.some(function(n){return n.toLowerCase()===q;}))html+='<button type="button" class="chip" data-other="'+esc(clean($('crmSearch').value))+'" aria-pressed="'+(state.crm==='other'&&state.crmOther.toLowerCase()===q)+'">Use "'+esc(clean($('crmSearch').value))+'"</button>';
-    html+='<button type="button" class="chip" data-none="1" aria-pressed="'+(state.crm==='none')+'">No CRM, brief by email only</button>';
-    $('crmResults').innerHTML=html;
-    var note=$('crmNote');
-    if(state.crm==='other'){note.hidden=false;note.innerHTML='<b>'+esc(state.crmOther)+'</b> is scoped per business. We confirm the connection and test it with you before go-live, and the brief is emailed to your team in the meantime.';}
+    var raw=clean($('crmSearch').value),q=raw.toLowerCase();
+    var items=crmItems();
+    /* If the list can't load, a Simpro choice already saved in this draft stays visible (it was live when chosen). */
+    if(crmCatalogState!=='ready'&&state.crm==='simpro'&&!items.some(function(x){return x.key==='simpro';}))items=[{key:'simpro',label:'Simpro',status:'live',sort:10}].concat(items);
+    var shown=items.filter(function(x){return !q||x.label.toLowerCase().indexOf(q)>-1||x.key.indexOf(q)>-1;});
+    var html='';
+    if(crmCatalogState==='loading')html='<div class="crm-msg">Loading systems…</div>';
+    else if(crmCatalogState==='error')html='<div class="crm-msg">We couldn\u2019t load the list of systems. <button type="button" class="chip" data-retry="1">Try again</button></div>';
+    html+=shown.map(crmTile).join('');
+    html+=crmTile({key:'none',label:"My CRM isn't listed",status:'live'});
+    $('crmTiles').innerHTML=html;
+    var res='';
+    if(q&&crmCatalogState!=='loading'&&!shown.length)res='<button type="button" class="chip" data-other="'+esc(raw)+'" aria-pressed="'+(state.crm==='other'&&clean(state.crmOther).toLowerCase()===q)+'">Not listed? Use \u201c'+esc(raw)+'\u201d</button>';
+    $('crmResults').innerHTML=res;
+    var open=state.crm==='other'||state.crm==='none';
+    $('crmOtherBox').hidden=!open;
+    if(open&&$('crmOtherName').value!==state.crmOther)$('crmOtherName').value=state.crmOther;
+    $('crmNoneBtn').setAttribute('aria-pressed',String(state.crm==='none'));
+    renderCrmNote();
+  }
+  function renderCrmNote(){
+    var note=$('crmNote'),name=clean(state.crmOther);
+    if(state.crm==='other'&&name.length>=2){note.hidden=false;note.innerHTML='Hermia doesn\u2019t connect to <b>'+esc(name)+'</b> yet. Each finished brief is emailed to your team instead, and we note the system you use so we know which connections businesses need next.';}
     else if(state.crm==='none'){note.hidden=false;note.innerHTML='Your team receives each finished brief by email. You can add a system later as a change request.';}
     else note.hidden=true;
   }
@@ -541,7 +599,7 @@
     $('langPick').hidden=state.lang!=='fixed';
     $('langFixed').innerHTML=LANGS.map(function(l){return '<option value="'+l[0]+'"'+(state.langFixed===l[0]?' selected':'')+'>'+esc(l[1])+'</option>';}).join('');
   }
-  function crmLabel(){return state.crm==='simpro'?'Simpro':state.crm==='aroflo'?'AroFlo':state.crm==='other'?(state.crmOther+' (scoped)'):state.crm==='none'?'No CRM, email brief only':'';}
+  function crmLabel(){if(state.crm==='simpro')return 'Simpro';if(state.crm==='aroflo')return 'AroFlo';if(state.crm==='other')return clean(state.crmOther)+' (briefs by email)';if(state.crm==='none')return 'No CRM, briefs by email';var m=(crmCatalog||[]).filter(function(x){return x.key===state.crm;})[0];return m?m.label:state.crm;}
   function srcLabel(v){var f=SOURCES.filter(function(o){return o.v===v;})[0];return f?f.t:v;}
   function renderReview(){
     var c=buildConfiguration();
@@ -571,7 +629,7 @@
     if(id==='business'){if(clean(state.business).length<2)return 'Please enter your business name.';}
     if(id==='contact'){if(clean(state.contact).length<2)return 'Please enter your name.';if(!isEmail(state.email))return 'Please enter a valid work email.';if(clean(state.phone).replace(/\D/g,'').length<6)return 'Please enter a direct line we can reach you on.';}
     if(id==='location'){if(!state.country)return 'Please choose a country.';if(clean(state.state).length<2)return 'Please enter your state or region.';}
-    if(id==='crm'){if(!state.crm)return 'Choose one system, or choose "No CRM".';if(state.crm==='other'&&clean(state.crmOther).length<2)return 'Choose or type the system you use.';}
+    if(id==='crm'){if(!state.crm)return 'Choose one system, or choose “My CRM isn’t listed”.';if(state.crm==='other'&&clean(state.crmOther).length<2)return 'Type the name of the system you use, or choose “We don’t use a CRM”.';}
     if(id==='industry'){if(!state.industry)return 'Choose one industry.';}
     if(id==='trade'){if(clean(state.trade).length<2)return 'Pick your trade or write it in.';}
     if(id==='sources'){if(!state.sources.length)return 'Choose at least one source.';}
@@ -688,9 +746,18 @@
   var bind=function(id,key){$(id).addEventListener('input',function(){state[key]=$(id).value;persist();});};
   bind('business','business');bind('entity','entity');bind('contact','contact');bind('email','email');bind('phone','phone');bind('state','state');
   $('country').addEventListener('change',function(){state.country=$('country').value;persist();});
-  $('crmTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;state.crm=b.dataset.crm;state.crmOther='';renderCrm();persist();});
+  $('crmTiles').addEventListener('click',function(e){
+    if(e.target.closest('[data-retry]')){loadCrmCatalog();return;}
+    var b=e.target.closest('.tile');if(!b||b.disabled)return;
+    var k=b.dataset.crm;
+    if(k==='none'){if(state.crm!=='other'&&state.crm!=='none'){state.crm='other';state.crmOther='';}renderCrm();persist();setTimeout(function(){try{$('crmOtherName').focus({preventScroll:true});}catch(err){}},40);return;}
+    state.crm=k;state.crmOther='';renderCrm();persist();
+  });
   $('crmSearch').addEventListener('input',renderCrm);
-  $('crmResults').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;if(b.dataset.none){state.crm='none';state.crmOther='';}else{state.crm='other';state.crmOther=b.dataset.other;}renderCrm();persist();});
+  $('crmResults').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b||!b.dataset.other)return;state.crm='other';state.crmOther=clean(b.dataset.other).slice(0,80);renderCrm();persist();});
+  $('crmOtherName').addEventListener('input',function(){state.crm='other';state.crmOther=$('crmOtherName').value;$('crmNoneBtn').setAttribute('aria-pressed','false');Array.prototype.forEach.call(document.querySelectorAll('#crmResults .chip'),function(c){c.setAttribute('aria-pressed',String(clean(c.dataset.other).toLowerCase()===clean(state.crmOther).toLowerCase()));});renderCrmNote();persist();});
+  $('crmNoneBtn').addEventListener('click',function(){if(state.crm==='none'){state.crm='other';}else{state.crm='none';state.crmOther='';}renderCrm();persist();});
+  reconcileCrm();loadCrmCatalog();
   $('industryTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;if(state.industry!==b.dataset.v){state.industry=b.dataset.v;state.qs={};if(!isTrade()){state.trade='';state.estimate=false;state.calendar='';}}renderIndustry();showImage(industryImg());persist();});
   $('tradeChips').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;state.trade=b.dataset.trade;state.qs={};$('tradeOwn').value='';renderTrades();persist();});
   $('tradeOwn').addEventListener('input',function(){var v=$('tradeOwn').value;if(clean(v)){state.trade=clean(v);}else if(TRADES.indexOf(state.trade)===-1)state.trade='';renderTrades();persist();});
