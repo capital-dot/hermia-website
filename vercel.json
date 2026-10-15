@@ -1,3 +1,50 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/pricing-trades",
+      "destination": "/pricing?industry=trades",
+      "permanent": true
+    },
+    {
+      "source": "/pricing-property",
+      "destination": "/pricing?industry=property",
+      "permanent": true
+    },
+    {
+      "source": "/pricing-legal",
+      "destination": "/pricing?industry=legal",
+      "permanent": true
+    },
+    {
+      "source": "/pricing-healthcare",
+      "destination": "/pricing?industry=healthcare",
+      "permanent": true
+    },
+    {
+      "source": "/pricing-finance",
+      "destination": "/pricing?industry=finance",
+      "permanent": true
+    },
+    {
+      "source": "/pricing-insurance",
+      "destination": "/pricing?industry=insurance",
+      "permanent": true
+    },
+    {
+      "source": "/pricing-automotive",
+      "destination": "/pricing?industry=automotive",
+      "permanent": true
+    },
+    {
+      "source": "/pricing-education",
+      "destination": "/pricing?industry=education",
+      "permanent": true
+    },
+    {
+      "source": "/pricing-hospitality",
+      "destination": "/pricing?industry=hospitality",
+      "permanent": true
+    }
+  ]
 }

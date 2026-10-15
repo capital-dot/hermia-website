@@ -215,11 +215,11 @@
         <h1>Start your <em>build.</em></h1>
         <p class="lead">Tell Hermia how your business works, one decision at a time. It takes about five minutes.</p>
         <div class="intro-meta">
-          <div><b>USD $4,400</b><span>Setup, paid at checkout</span></div>
-          <div><b>USD $1,700</b><span>Per month, after a 2-day trial</span></div>
+          <div><b id="introA">USD $4,400</b><span id="introAs">Setup, paid at checkout</span></div>
+          <div><b id="introB">USD $1,700</b><span id="introBs">Per month, after a 2-day trial</span></div>
           <div><b>35</b><span>Of your own questions included</span></div>
         </div>
-        <p class="hint">GST included. No per-enquiry, per-question or per-recipient fees. Already live? <a href="configuration_change.html">Request a change</a>.</p>
+        <p class="hint"><span id="introHint">GST included. No per-enquiry, per-question or per-recipient fees.</span> Already live? <a href="configuration_change.html">Request a change</a>.</p>
       </section>
 
       <section class="screen" data-id="business" data-img="assets/config/step-1-operation.webp" data-k="Your business" data-t="Built around one business, not a template." data-s="Hermia uses your name when it talks to your customers.">
@@ -375,6 +375,15 @@
         <div class="err" data-err></div>
       </section>
 
+      <section class="screen" data-id="volume" data-img="assets/config/step-5-review.webp" data-k="Your plan" data-t="Priced by the work, not by features." data-s="Every plan gets the same Hermia. Your plan follows your real enquiries.">
+        <div class="eyebrow">Your plan</div>
+        <h2>About how many enquiries do you get <em>a month?</em></h2>
+        <p class="lead">Count each new person who gets in touch, whichever way they reach you. Every plan gets the same Hermia.</p>
+        <div class="tiles" id="planTiles"></div>
+        <p class="hint" id="planHint"></p>
+        <div class="err" data-err></div>
+      </section>
+
       <section class="screen" data-id="connect" data-img="assets/config/step-2-channels.webp" data-k="Connections" data-t="Connect what you picked." data-s="Each one opens that platform's own sign-in. Nothing here blocks payment.">
         <div class="eyebrow">Connect your accounts</div>
         <h2>Connect what <em>you picked.</em></h2>
@@ -388,7 +397,7 @@
         <h2>Your <em>build.</em></h2>
         <div class="scan"><i></i></div>
         <div class="review-grid" id="reviewGrid"></div>
-        <div class="price"><div class="big">USD $4,400 setup · USD $1,700 / month</div><div class="small">Setup is paid today. Your 2-day trial starts now, and the monthly fee begins after it. GST included. Cancel within 48 hours for a USD $4,316 refund. Month to month, no lock-in.</div></div>
+        <div class="price"><div class="big" id="priceBig">USD $4,400 setup · USD $1,700 / month</div><div class="small" id="priceSmall">Setup is paid today. Your 2-day trial starts now, and the monthly fee begins after it. GST included. Cancel within 48 hours for a USD $4,316 refund. Month to month, no lock-in.</div></div>
         <p class="hint">On the secure payment page you will tick to accept the <a href="contract.html" target="_blank" rel="noopener">Service Agreement</a> and <a href="terms.html" target="_blank" rel="noopener">Terms</a>. A record of your acceptance is stored with your account.</p>
         <div class="err" data-err id="payErr"></div>
       </section>
@@ -507,7 +516,7 @@
     business:'',entity:'',contact:'',email:'',phone:'',country:'Australia',state:'',
     crm:'',crmOther:'',industry:'',trade:'',sources:[],conv:'',inbox:'',
     docket:[{name:'',email:''}],senders:[''],qs:{},custom:[''],estimate:false,guideMode:'text',guideText:'',guideFileName:'',guideFileSize:0,
-    calendar:'',calMode:'manual',lang:'en',langFixed:'ar'
+    calendar:'',calMode:'manual',lang:'en',langFixed:'ar',plan:''
   };
   try{var saved=JSON.parse(sessionStorage.getItem(DRAFT_KEY)||'null');if(saved&&typeof saved==='object')Object.keys(state).forEach(function(k){if(k in saved)state[k]=saved[k];});}catch(e){}
   if(LEGACY_INDUSTRY[state.industry])state.industry=LEGACY_INDUSTRY[state.industry];
@@ -515,6 +524,41 @@
   state.sources=(Array.isArray(state.sources)?state.sources:[]).filter(function(v){return SOURCES.some(function(o){return o.v===v&&!o.soon;});});
   /* Pre-select the industry when arriving from an industry or pricing page (configuration.html?industry=property). */
   try{var IND_PARAM={trades:'Trades & field services','real-estate':'Property & real estate',realestate:'Property & real estate','property-management':'Property & real estate',property:'Property & real estate',healthcare:'Healthcare',legal:'Legal',insurance:'Insurance',finance:'Finance',automotive:'Automotive','car-dealers':'Automotive',cars:'Automotive',education:'Education',hospitality:'Hospitality'};var ip=IND_PARAM[String(new URLSearchParams(location.search).get('industry')||'').toLowerCase()];if(ip&&state.industry!==ip){state.industry=ip;state.qs={};if(ip!=='Trades & field services'){state.trade='';state.estimate=false;state.calendar='';}}}catch(e){}
+  /* A plan chosen on the pricing page (configuration.html?plan=standard). */
+  try{var pp=String(new URLSearchParams(location.search).get('plan')||'').toLowerCase();if(/^[a-z0-9_-]{1,40}$/.test(pp))state.plan=pp;}catch(e){}
+  /* Plans follow enquiries: shown only while the platform says they're on. Off, or not loaded: the single price. */
+  var plansInfo={enabled:false,plans:[],currency:'usd',windowMonths:4,upNoticeDays:7};
+  function money(n){return (plansInfo.currency||'usd').toUpperCase()+' '+Number(n).toLocaleString('en-US');}
+  function planRange(p){return p.max==null?'More than '+(p.min-1).toLocaleString('en-US'):(p.min===0?'Up to '+p.max.toLocaleString('en-US'):p.min.toLocaleString('en-US')+' to '+p.max.toLocaleString('en-US'));}
+  function currentPlan(){return plansInfo.enabled?plansInfo.plans.filter(function(p){return p.key===state.plan;})[0]||null:null;}
+  function applyPlans(){
+    if(!plansInfo.enabled)return;
+    if(state.plan&&!currentPlan())state.plan='';
+    var low=plansInfo.plans[0];
+    $('introA').textContent='From '+money(low.monthly);$('introAs').textContent='A month, by how many enquiries you get';
+    $('introB').textContent='2 days';$('introBs').textContent='Free trial, from the day your Hermia is ready';
+    $('introHint').textContent='Prices include any GST that applies. No per-message, per-question or per-recipient fees.';
+    if(current==='volume'||current==='review')render(current);
+    if(screens[current]){var flow=FLOW(),idx=flow.indexOf(current);if(idx>-1){$('bar').style.width=(idx/(flow.length-1)*100)+'%';if(current!=='intro'&&current!=='review')$('lbl').textContent=String(idx).padStart(2,'0')+' / '+String(flow.length-2).padStart(2,'0');}}
+    persist();
+  }
+  function loadPlans(tries){
+    var ctl=window.AbortController?new AbortController():null,timer=setTimeout(function(){if(ctl)ctl.abort();},8000);
+    fetch(API+'/configuration/plans',{method:'GET',credentials:'omit',signal:ctl?ctl.signal:undefined})
+      .then(function(r){clearTimeout(timer);if(!r.ok)throw new Error('plans');return r.json();})
+      .then(function(d){
+        if(!d||d.enabled!==true||!Array.isArray(d.plans)||!d.plans.length)return;
+        plansInfo={enabled:true,currency:String(d.currency||'usd'),windowMonths:Number(d.windowMonths)||4,upNoticeDays:Number(d.upNoticeDays)||7,
+          plans:d.plans.filter(function(p){return p&&typeof p.key==='string'&&typeof p.label==='string'&&Number(p.monthly)>0;}).map(function(p){return {key:p.key,label:p.label,min:Number(p.min)||0,max:p.max==null?null:Number(p.max),setup:Number(p.setup)||0,monthly:Number(p.monthly)};})};
+        if(!plansInfo.plans.length){plansInfo.enabled=false;return;}
+        applyPlans();
+      })
+      .catch(function(){clearTimeout(timer);if((tries||0)<1)setTimeout(function(){loadPlans(1);},3000);});
+  }
+  function renderPlans(){
+    $('planTiles').innerHTML=plansInfo.plans.map(function(p){return tile({v:p.key,t:planRange(p)+' a month',d:p.label+' · '+(money(p.monthly)+' a month').replace(/ /g,'\u00a0')+' · '+(money(p.setup)+' setup').replace(/ /g,'\u00a0')},state.plan===p.key);}).join('');
+    $('planHint').textContent='Not sure? Pick the closest. Your plan follows your real enquiries: over your plan '+plansInfo.windowMonths+' months in a row and it moves up from your next bill, with no setup fee for the move; under it '+plansInfo.windowMonths+' months in a row and it moves down. We always email you the numbers first.';
+  }
   var guideFile = null;
   function persist(){try{var s=Object.assign({},state);sessionStorage.setItem(DRAFT_KEY,JSON.stringify(s));}catch(e){}}
 
@@ -546,6 +590,7 @@
     f.push('docket','senders','questions');
     if(state.crm==='simpro'&&isTrade())f.push('calendar');
     if(!isFinance())f.push('language');
+    if(plansInfo.enabled)f.push('volume');
     if(hasConnections())f.push('connect');
     f.push('review');
     return f;
@@ -726,7 +771,9 @@
     if(isTrade())items.push(['Estimates',state.estimate?('From your approved guide ('+(state.guideMode==='pdf'?'PDF':'typed')+')'):'Price questions go to your team','questions']);
     if(state.crm==='simpro'&&isTrade())items.push(['Calendar',state.calendar==='simpro'?('Simpro · '+(state.calMode==='auto'?'Hermia books automatically':'your team confirms')):'None','calendar']);
     if(!isFinance())items.push(['Language',esc(lang),'language']);
+    var pl=currentPlan();if(pl)items.push(['Plan',esc(pl.label)+'<br><span style="color:var(--faint)">'+esc(planRange(pl))+' enquiries a month · follows your real enquiries</span>','volume']);
     if(hasConnections()&&K){var kc=K.counts(K.cards(kitPicks(),connState));if(kc.total)items.push(['Connections',kc.done+' of '+kc.total+' connected'+(kc.done<kc.total?'<br><span style="color:var(--faint)">Connect the rest now or after payment.</span>':''),'connect']);}
+    if(pl){$('priceBig').textContent=pl.label+' plan · '+money(pl.setup)+' setup · '+money(pl.monthly)+' / month';$('priceSmall').textContent='Setup is paid today. Your 2-day free trial starts the day your Hermia is ready, and the monthly fee begins when it ends. Cancel within the 2 days for a '+money(Math.max(0,pl.setup-84))+' refund, or before it\u2019s ready for all of it. Your plan follows your enquiries. Month to month, no lock-in.';}
     $('reviewGrid').innerHTML=items.map(function(it){return '<div class="rv'+(it[3]?' wide':'')+'"><div class="k">'+it[0]+'</div><div class="v">'+it[1]+'</div><button type="button" class="edit" data-go="'+it[2]+'">Edit</button></div>';}).join('');
   }
 
@@ -745,6 +792,7 @@
     if(id==='senders'){var b=state.senders.map(clean).filter(Boolean).filter(function(d){return !/^@?([a-z0-9-]+\.)+[a-z]{2,}$/i.test(d.replace(/^.*@/,''));})[0];if(b)return 'Use a domain like yourbusiness.com: '+b;}
     if(id==='questions'){var cq=state.custom.map(clean).filter(Boolean);if(cq.length>35)return 'Up to 35 of your own questions are included.';var short=cq.filter(function(q){return q.length<3;})[0];if(short)return 'Each question needs a few words.';if(isTrade()&&state.estimate){if(state.guideMode==='text'&&clean(state.guideText).length<12)return 'Add your price guide, or switch estimates off.';if(state.guideMode==='pdf'&&!guideFile)return 'Choose your price guide PDF, or type it instead.';}}
     if(id==='calendar'){if(!state.calendar)return 'Choose Simpro calendar or None.';}
+    if(id==='volume'){if(plansInfo.enabled&&!currentPlan())return 'Choose the plan closest to a typical month.';}
     return '';
   }
 
@@ -772,7 +820,8 @@
     var tradeName=trade?clean(state.trade):'';
     return {
       finance_plan:'configuration',contract_version:'1.1',
-      configuration_price:{setup:4400,monthly:1700,currency:'usd',inboundAddOn:0,responseAddOn:0,questionAddOn:0,routeAddOn:0,mediaAddOn:0,calendarAddOn:0},
+      configuration_price:(function(){var p=currentPlan();return {setup:p?p.setup:4400,monthly:p?p.monthly:1700,currency:p?plansInfo.currency:'usd',plan:p?p.key:'',inboundAddOn:0,responseAddOn:0,questionAddOn:0,routeAddOn:0,mediaAddOn:0,calendarAddOn:0};}()),
+      enquiry_plan:currentPlan()?state.plan:'',
       industry:state.industry,industries:[state.industry],industry_key:((INDUSTRIES.filter(function(o){return o.v===state.industry;})[0]||{}).k||''),
       business_name:clean(state.business),legal_entity_name:clean(state.entity),contact_name:clean(state.contact),contact_email:clean(state.email).toLowerCase(),phone:clean(state.phone),country:state.country,state:clean(state.state),
       crm:state.crm,crm_other_name:state.crm==='other'?clean(state.crmOther):'',crm_provider_status:state.crm==='other'?'scoped':'available',
@@ -836,6 +885,7 @@
     if(id==='calendar')renderCalendar();
     if(id==='language')renderLang();
     if(id==='connect')renderConnectPanels();
+    if(id==='volume')renderPlans();
     if(id==='review')renderReview();
   }
   function go(step){
@@ -866,7 +916,7 @@
   $('crmResults').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b||!b.dataset.other)return;state.crm='other';state.crmOther=clean(b.dataset.other).slice(0,80);renderCrm();persist();});
   $('crmOtherName').addEventListener('input',function(){state.crm='other';state.crmOther=$('crmOtherName').value;$('crmNoneBtn').setAttribute('aria-pressed','false');Array.prototype.forEach.call(document.querySelectorAll('#crmResults .chip'),function(c){c.setAttribute('aria-pressed',String(clean(c.dataset.other).toLowerCase()===clean(state.crmOther).toLowerCase()));});renderCrmNote();persist();});
   $('crmNoneBtn').addEventListener('click',function(){if(state.crm==='none'){state.crm='other';}else{state.crm='none';state.crmOther='';}renderCrm();persist();});
-  reconcileCrm();loadCrmCatalog();
+  reconcileCrm();loadCrmCatalog();loadPlans(0);
   $('industryTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;if(state.industry!==b.dataset.v){state.industry=b.dataset.v;state.qs={};if(!isTrade()){state.trade='';state.estimate=false;state.calendar='';}}renderIndustry();showImage(industryImg());persist();});
   $('tradeChips').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;state.trade=b.dataset.trade;state.qs={};$('tradeOwn').value='';renderTrades();persist();});
   $('tradeOwn').addEventListener('input',function(){var v=$('tradeOwn').value;if(clean(v)){state.trade=clean(v);}else if(TRADES.indexOf(state.trade)===-1)state.trade='';renderTrades();persist();});
@@ -906,6 +956,7 @@
   $('modeTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;state.calMode=b.dataset.v;renderCalendar();persist();});
   $('langTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;state.lang=b.dataset.v;renderLang();persist();});
   $('langFixed').addEventListener('change',function(){state.langFixed=$('langFixed').value;persist();});
+  $('planTiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;state.plan=b.dataset.v;renderPlans();persist();var el=screens.volume.querySelector('[data-err]');if(el)el.textContent='';});
   $('reviewGrid').addEventListener('click',function(e){var b=e.target.closest('[data-go]');if(b)show(b.dataset.go,-1);});
 
   /* ---------- payment ---------- */
