@@ -1,7 +1,7 @@
 /* No backend requests, no fabricated live CRM state. */
 (function () {
   'use strict';
-  var allowed = ['simpro', 'aroflo', 'other'];
+  var allowed = ['simpro', 'other'];
   var selected = new URLSearchParams(location.search).get('crm');
   if (allowed.indexOf(selected) === -1) selected = null;
   var catalogue = document.getElementById('crm-catalog');
@@ -12,7 +12,7 @@
     detail.hidden = !active;
     detail.classList.toggle('is-active', active);
   });
-  var names = { simpro: 'Simpro', aroflo: 'AroFlo', other: 'Your CRM' };
+  var names = { simpro: 'Simpro', other: 'Your CRM' };
   if (selected) document.title = names[selected] + ' examples | Hermia in action';
 
   /* Compatible with the site's existing session trail, but keeps the selected

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="description" content="Request a change to your live Hermia configuration. Each change request is USD $500, GST included, and is tested before it is published.">
+  <meta name="description" content="Request a change to your live Hermia setup. USD $500 for each kind of change, tested before it is published.">
   <title>Request a change — Hermia</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,6 +61,17 @@
     .btn.primary{background:linear-gradient(180deg,#f1d08f,var(--gold));color:#17120a;border-color:transparent}
     .btn[disabled]{opacity:.55;cursor:wait}
     .hidden{display:none!important}
+    .kind{margin-top:22px;padding:18px;border-radius:16px;border:1px solid var(--line-2);background:rgba(244,240,230,.025)}
+    .kind.on{border-color:var(--gold);background:rgba(201,163,91,.06)}
+    .kind-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+    .kind-head h2{margin:0;font:500 26px/1.1 "Cormorant Garamond",serif}
+    .kind-head p{margin:4px 0 0;color:var(--mute);font-size:13.5px}
+    .now{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:6px;font-size:14px;color:var(--mute)}
+    .now b{color:var(--cream);font-weight:600}
+    .toggle{flex:none;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--pale);cursor:pointer;font-weight:600;font-size:14px}
+    .toggle[aria-pressed="true"]{background:var(--gold);color:#17120a;border-color:transparent}
+    .kind textarea{margin-top:14px}
+    .total{margin-top:24px;font:500 26px/1.2 "Cormorant Garamond",serif}
     .back{position:fixed;top:22px;right:24px;z-index:5;font:500 12px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);text-decoration:none}
     @media (max-width:900px){
       .app{grid-template-columns:1fr}
@@ -85,116 +96,147 @@
       </div>
     </aside>
     <main class="side">
-      <form class="wrap" id="form" novalidate>
+      <div class="wrap">
         <div class="eyebrow">Live configuration</div>
         <h1>Request a <em>change.</em></h1>
-        <p class="lead">Tell us what should change. You pay securely through Stripe, then we build, test and publish the change.</p>
+        <p class="lead">Tell us what should change. You pay securely at checkout, then we build, test and publish the change.</p>
         <div class="price">
-          <div><b>USD $500</b><span>Per change request</span></div>
-          <div><b>Bundled</b><span>List several changes in one request</span></div>
+          <div><b>USD $500</b><span>For each kind of change</span></div>
+          <div><b>One charge</b><span>For several changes of the same kind</span></div>
           <div><b>GST included</b><span>Paid securely at checkout</span></div>
         </div>
 
-        <fieldset>
-          <legend class="lbl">Your business</legend>
-          <div class="grid2">
-            <div><input class="input" id="code" autocomplete="off" placeholder="Client code, e.g. HM-AB12CD" maxlength="9" aria-label="Client code"><div class="hint">From your welcome email.</div></div>
-            <div><input class="input" id="email" type="email" autocomplete="email" placeholder="Your registered email" aria-label="Registered email"><div class="hint">The owner email or a brief recipient.</div></div>
-          </div>
-        </fieldset>
+        <form id="linkForm" novalidate>
+          <fieldset>
+            <legend class="lbl">Get your change link</legend>
+            <p class="hint" style="margin:0 0 14px">For your security, the change page opens from a link we email to an address registered with your business.</p>
+            <div class="grid2">
+              <div><input class="input" id="code" autocomplete="off" placeholder="Customer ID, e.g. HM-AB12CD" maxlength="9" aria-label="Customer ID"><div class="hint">From your welcome email.</div></div>
+              <div><input class="input" id="email" type="email" autocomplete="email" placeholder="Your registered email" aria-label="Registered email"><div class="hint">The owner email or a brief recipient.</div></div>
+            </div>
+          </fieldset>
+          <div class="err" id="linkErr" role="alert"></div>
+          <div class="note hidden" id="linkSent" role="status"></div>
+          <div class="actions"><button class="btn primary" type="submit" id="sendLink">Email me the link</button></div>
+        </form>
 
-        <fieldset>
-          <legend class="lbl">What should change?</legend>
-          <div class="tiles" id="areas">
-            <button type="button" class="tile" data-area="questions" aria-pressed="false"><b>Questions</b><span>Add, remove or reword what Hermia asks.</span></button>
-            <button type="button" class="tile" data-area="recipients" aria-pressed="false"><b>Who receives briefs</b><span>Add or remove people on your team.</span></button>
-            <button type="button" class="tile" data-area="channels" aria-pressed="false"><b>Channels</b><span>Where enquiries arrive or how Hermia replies.</span></button>
-            <button type="button" class="tile" data-area="rules" aria-pressed="false"><b>Rules and price guide</b><span>Estimates, evidence and booking rules.</span></button>
-            <button type="button" class="tile" data-area="calendar" aria-pressed="false"><b>Calendar</b><span>Your team confirms, or Hermia books.</span></button>
-            <button type="button" class="tile" data-area="language" aria-pressed="false"><b>Language</b><span>The language Hermia uses with customers.</span></button>
-            <button type="button" class="tile" data-area="other" aria-pressed="false"><b>Something else</b><span>Describe it below.</span></button>
-          </div>
-        </fieldset>
-
-        <fieldset id="qBox" class="hidden">
-          <legend class="lbl">Questions to add</legend>
-          <div class="list" id="qRows"></div>
-          <button type="button" class="add" id="addQ">+ Add another question</button>
-          <div class="hint">Write each question as you want customers to read it. We check every answer type before it goes live.</div>
-        </fieldset>
-
-        <fieldset>
-          <legend class="lbl">Describe the change</legend>
-          <textarea class="input" id="summary" maxlength="2000" placeholder="For example: remove the materials question, add dispatch@yourbusiness.com to briefs, and reply in Arabic."></textarea>
-          <div class="hint"><span id="count">0</span> / 2000</div>
-        </fieldset>
-
-        <div class="note">Your current workflow stays live while the change is prepared and tested. We email you when it is published. Questions about a change before paying? Write to <a href="mailto:info@hermia.au">info@hermia.au</a>.</div>
-        <div class="err" id="err" role="alert"></div>
-        <div class="actions">
-          <button class="btn primary" type="submit" id="pay">Pay USD $500 and submit</button>
-        </div>
-      </form>
+        <form id="changeForm" class="hidden" novalidate>
+          <p class="lead" id="bizLine"></p>
+          <div id="kinds"></div>
+          <div class="note">Free, no change request needed: reconnecting the same account, your notes and the people in them, a plan change, and your own contact details. Email <a href="mailto:info@hermia.au">info@hermia.au</a> for those.</div>
+          <div class="note">Your current setup stays live while the change is prepared and tested. We email you when it is published.</div>
+          <div class="total" id="total" aria-live="polite">Choose what you want to change.</div>
+          <div class="err" id="err" role="alert"></div>
+          <div class="actions"><button class="btn primary" type="submit" id="pay" disabled>Continue to payment</button></div>
+        </form>
+      </div>
     </main>
   </div>
 <script>
 (function(){
   'use strict';
   var API = 'https://platform.hermia.au';
+  var KEY = 'hermia_change_token';
   var $ = function(id){ return document.getElementById(id); };
-  var areas = [];
-  try { var known = localStorage.getItem('hermia_make_client_code'); if (known && /^HM-[A-Z0-9]{6}$/.test(known)) $('code').value = known; } catch (e) {}
-  try { var cfg = JSON.parse(localStorage.getItem('hermia_configuration') || sessionStorage.getItem('hermia_configuration') || '{}'); if (cfg && cfg.contact_email) $('email').value = cfg.contact_email; } catch (e) {}
-  function qRow(v){
-    var d = document.createElement('div'); d.className = 'list-row';
-    d.innerHTML = '<input class="input" maxlength="240" placeholder="New question"><button type="button" class="x" aria-label="Remove">&times;</button>';
-    d.querySelector('input').value = v || '';
-    d.querySelector('.x').addEventListener('click', function(){ if ($('qRows').children.length > 1) d.remove(); else d.querySelector('input').value = ''; });
-    $('qRows').appendChild(d);
+  var esc = function(v){ return String(v == null ? '' : v).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  function post(path, body){
+    return fetch(API + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), credentials: 'omit' })
+      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(d){ return { status: r.status, d: d || {} }; }); });
   }
-  qRow('');
-  $('addQ').addEventListener('click', function(){ if ($('qRows').children.length < 35) qRow(''); });
-  document.querySelectorAll('#areas .tile').forEach(function(t){
-    t.addEventListener('click', function(){
-      var a = t.dataset.area, i = areas.indexOf(a);
-      if (i > -1) areas.splice(i, 1); else areas.push(a);
-      t.setAttribute('aria-pressed', i > -1 ? 'false' : 'true');
-      $('qBox').classList.toggle('hidden', areas.indexOf('questions') === -1);
-    });
-  });
-  $('summary').addEventListener('input', function(){ $('count').textContent = $('summary').value.length; });
+  // A link from the email carries its own session (?t=): keep it for this visit only, then tidy the address bar.
+  var qs = new URLSearchParams(location.search);
+  if (qs.get('t')) { try { sessionStorage.setItem(KEY, qs.get('t')); } catch (e) {} qs.delete('t'); try { history.replaceState(null, '', location.pathname + (qs.toString() ? '?' + qs.toString() : '')); } catch (e) {} }
+  var token = ''; try { token = sessionStorage.getItem(KEY) || ''; } catch (e) {}
+  try { var known = localStorage.getItem('hermia_make_client_code'); if (known && /^HM-[A-Z0-9]{6}$/.test(known)) $('code').value = known; } catch (e) {}
+
+  /* ---------- step 1: the link ---------- */
   $('code').addEventListener('input', function(){ var v = $('code').value.toUpperCase().replace(/[^A-Z0-9-]/g, ''); if (/^HM[A-Z0-9]/.test(v)) v = 'HM-' + v.slice(2).replace(/-/g, ''); $('code').value = v.slice(0, 9); });
-  $('form').addEventListener('submit', function(ev){
+  $('linkForm').addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var err = $('linkErr'); err.textContent = '';
+    var code = $('code').value.trim().toUpperCase(), email = $('email').value.trim().toLowerCase();
+    if (!/^HM-[A-Z0-9]{6}$/.test(code)) { err.textContent = 'Enter your customer ID in the form HM-AB12CD.'; $('code').focus(); return; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.textContent = 'Enter the email address registered with Hermia.'; $('email').focus(); return; }
+    var btn = $('sendLink'); btn.disabled = true; btn.textContent = 'Sending…';
+    post('/configuration/change-link', { clientCode: code, email: email }).then(function(res){
+      btn.disabled = false; btn.textContent = 'Email me the link';
+      if (res.d.ok) { $('linkSent').textContent = 'If that email is registered with this business, a link is on its way. It works for 2 days. Open it on any device to continue.'; $('linkSent').classList.remove('hidden'); return; }
+      err.textContent = res.status === 429 ? 'Too many requests from this connection. Please try again in an hour.' : (res.d.error || 'We could not send the link just now. Please try again.');
+    }).catch(function(){ btn.disabled = false; btn.textContent = 'Email me the link'; err.textContent = 'We could not reach Hermia just now. Please try again.'; });
+  });
+
+  /* ---------- step 2: what changes ---------- */
+  var SOURCE = { email: 'Email', facebook: 'Facebook messages', instagram: 'Instagram messages', tiktok: 'TikTok messages', meta_lead_forms: 'Facebook and Instagram lead forms', linkedin_lead_forms: 'LinkedIn lead forms', google_ads_lead_forms: 'Google Ads lead forms', missed_calls: 'Missed calls', whatsapp: 'WhatsApp', google_business: 'Google Business', web_form: 'Web forms' };
+  var LANG = { en: 'English', auto: "Each customer's language", ar: 'Arabic', zh: 'Chinese', nl: 'Dutch', fr: 'French', de: 'German', el: 'Greek', hi: 'Hindi', id: 'Indonesian', it: 'Italian', ja: 'Japanese', ko: 'Korean', pt: 'Portuguese', ru: 'Russian', es: 'Spanish', tr: 'Turkish', vi: 'Vietnamese' };
+  var fee = 500, picked = {};
+  function list(a){ return a && a.length ? a.map(esc).join(', ') : '<span style="color:var(--faint)">None</span>'; }
+  function kinds(cur){
+    var c = cur.connections || {}, q = cur.questions || {}, cal = cur.calendar || {};
+    var crm = c.crm === 'simpro' ? 'Simpro' : (c.crm === 'none' ? 'No CRM, briefs by email' : (c.crm ? 'Briefs by email' : ''));
+    return [
+      { k: 'connections', t: 'Connections', d: 'Where enquiries come from, the channel Hermia talks on, your CRM, who receives briefs, your sending domain.',
+        now: ['<b>Enquiries from:</b> ' + list((c.sources || []).map(function(v){ return SOURCE[v] || v; })), '<b>Talks to customers on:</b> ' + esc(c.conversationChannel === 'whatsapp' ? 'WhatsApp' : (c.conversationChannel === 'email' ? 'Email' : '')), '<b>CRM:</b> ' + esc(crm), '<b>Briefs go to:</b> ' + list(c.recipients), '<b>Your sending domains:</b> ' + list(c.sendingDomains)],
+        ph: 'For example: add Instagram messages, and send briefs to dispatch@yourbusiness.com too.' },
+      { k: 'questions', t: 'Questions', d: 'Add, remove or reword questions, where each answer goes, the next step, or the reply language.',
+        now: ['<b>Questions:</b> ' + esc((q.questions || []).length) + ((q.custom || []).length ? ' (' + esc(q.custom.length) + ' of your own)' : ''), '<b>Language:</b> ' + esc(LANG[q.language] || q.language || 'English')],
+        ph: 'For example: add "Is the property tenanted?", and remove the materials question.' },
+      { k: 'calendar', t: 'Calendar', d: 'How bookings work, approve or automatic, which calendars, open-home and open-day rules.',
+        now: ['<b>Bookings:</b> ' + esc(cal.provider === 'simpro' ? 'Simpro calendar \u00b7 ' + (cal.mode === 'auto' ? 'Hermia books automatically' : 'your team approves each booking') : 'Hermia doesn\u2019t book; your team arranges times')],
+        ph: 'For example: book automatically instead of asking us to approve each one.' }
+    ];
+  }
+  function total(){
+    var n = Object.keys(picked).filter(function(k){ return picked[k]; }).length;
+    $('total').textContent = n ? 'USD ' + (fee * n).toLocaleString('en-US') + ' \u00b7 ' + n + (n === 1 ? ' kind of change' : ' kinds of change') : 'Choose what you want to change.';
+    $('pay').disabled = !n;
+  }
+  function showChange(data){
+    fee = Number(data.feePerKind) || 500;
+    $('linkForm').classList.add('hidden'); $('changeForm').classList.remove('hidden');
+    $('bizLine').textContent = data.business ? 'For ' + data.business + '.' : '';
+    $('kinds').innerHTML = kinds(data.current || {}).map(function(x){
+      return '<section class="kind" data-k="' + x.k + '"><div class="kind-head"><div><h2>' + x.t + '</h2><p>' + esc(x.d) + '</p></div><button type="button" class="toggle" aria-pressed="false" data-k="' + x.k + '">I want to change this</button></div>' +
+        '<ul class="now">' + x.now.map(function(li){ return '<li>' + li + '</li>'; }).join('') + '</ul>' +
+        '<textarea class="input hidden" maxlength="6000" data-k="' + x.k + '" aria-label="What should change: ' + x.t + '" placeholder="' + esc(x.ph) + '"></textarea></section>';
+    }).join('');
+    total();
+  }
+  $('kinds').addEventListener('click', function(e){
+    var b = e.target.closest('.toggle'); if (!b) return;
+    var k = b.dataset.k; picked[k] = !picked[k];
+    b.setAttribute('aria-pressed', String(picked[k]));
+    var sec = b.closest('.kind'); sec.classList.toggle('on', picked[k]);
+    var ta = sec.querySelector('textarea'); ta.classList.toggle('hidden', !picked[k]); if (picked[k]) ta.focus();
+    total();
+  });
+  $('changeForm').addEventListener('submit', function(ev){
     ev.preventDefault();
     var err = $('err'); err.textContent = '';
-    var code = $('code').value.trim().toUpperCase();
-    var email = $('email').value.trim().toLowerCase();
-    var summary = $('summary').value.trim();
-    var addQs = [].map.call($('qRows').querySelectorAll('input'), function(i){ return i.value.trim(); }).filter(function(v){ return v.length >= 3; });
-    if (!/^HM-[A-Z0-9]{6}$/.test(code)) { err.textContent = 'Enter your client code in the form HM-AB12CD.'; $('code').focus(); return; }
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.textContent = 'Enter the email address registered with Hermia.'; $('email').focus(); return; }
-    if (!areas.length) { err.textContent = 'Choose what should change.'; return; }
-    if (summary.length < 10 && !addQs.length) { err.textContent = 'Describe the change in a sentence or two.'; $('summary').focus(); return; }
+    var ks = Object.keys(picked).filter(function(k){ return picked[k]; }), changes = {};
+    for (var i = 0; i < ks.length; i++) {
+      var t = String(document.querySelector('textarea[data-k="' + ks[i] + '"]').value || '').trim();
+      if (t.length < 3) { err.textContent = 'Say what should change for ' + ks[i] + '.'; document.querySelector('textarea[data-k="' + ks[i] + '"]').focus(); return; }
+      changes[ks[i]] = t;
+    }
     var origin = /^https:\/\/(www\.)?hermia\.au$|^https:\/\/onboarding\.hermia\.au$/.test(location.origin) ? location.origin : 'https://www.hermia.au';
-    var body = {
-      clientCode: code, customerEmail: email,
-      requestedChanges: { areas: areas.slice(), summary: summary.slice(0, 2000), add_questions: addQs.slice(0, 35), requested_from: 'configuration_change', requested_at: new Date().toISOString() },
-      successUrl: origin + '/configuration_change_complete.html?session_id={CHECKOUT_SESSION_ID}',
-      cancelUrl: origin + '/configuration_change.html'
-    };
     var btn = $('pay'); btn.disabled = true; btn.textContent = 'Opening secure payment…';
-    fetch(API + '/configuration/change-checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
-      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(d){ return { status: r.status, d: d || {} }; }); })
+    post('/configuration/change-checkout', { token: token, kinds: ks, requestedChanges: changes, successUrl: origin + '/configuration_change_complete.html?session_id={CHECKOUT_SESSION_ID}', cancelUrl: origin + '/configuration_change.html' })
       .then(function(res){
         if (res.d.ok && res.d.checkoutUrl) { location.assign(res.d.checkoutUrl); return; }
-        var m = res.status === 404 ? 'We could not find that client code. Check your welcome email.'
-          : res.status === 403 ? 'That email is not registered for this client code. Use the owner email or a brief recipient email.'
-          : res.status === 413 ? 'Please shorten the description.'
-          : 'We could not open payment just now. Please try again, or email info@hermia.au.';
-        throw new Error(m);
+        if (res.status === 401) { try { sessionStorage.removeItem(KEY); } catch (e) {} expired(); return; }
+        throw new Error(res.d.error || 'We could not open payment just now. Please try again, or email info@hermia.au.');
       })
-      .catch(function(e){ err.textContent = e.message || 'We could not open payment just now.'; btn.disabled = false; btn.textContent = 'Pay USD $500 and submit'; });
+      .catch(function(e){ err.textContent = e.message || 'We could not open payment just now.'; btn.disabled = false; btn.textContent = 'Continue to payment'; });
   });
+  function expired(){
+    $('changeForm').classList.add('hidden'); $('linkForm').classList.remove('hidden');
+    $('linkErr').textContent = 'That link has expired. Enter your customer ID and email for a new one.';
+  }
+  if (token) {
+    post('/configuration/change-session', { token: token }).then(function(res){
+      if (res.d.ok) showChange(res.d); else { try { sessionStorage.removeItem(KEY); } catch (e) {} expired(); }
+    }).catch(function(){ $('linkErr').textContent = 'We could not reach Hermia just now. Please refresh the page.'; });
+  }
 }());
 (function () {
   var trailKey = 'hermiaNavigationTrail';

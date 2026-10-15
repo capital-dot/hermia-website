@@ -123,7 +123,7 @@
 
           <section>
             <h2>What happens next</h2>
-            <p class="lead">Connect the accounts below. Each one only takes a minute. We then build your workflow, test it with you, and switch it on.</p>
+            <p class="lead">Connect your accounts. Each one takes about a minute. We then build your Hermia, test it with you, and switch it on.</p>
             <ul class="todo" id="todo"></ul>
             <div class="note">Your two-day service trial runs for 48 hours from this payment. If you cancel within it, the ordinary setup refund is USD $4,316 (USD $4,400 less the USD $84 processing deduction), and no monthly fee is taken. If you continue, the first USD $1,700 monthly payment is taken when the trial ends. Full terms are in your <a href="contract.html">Service Agreement</a>.</div>
           </section>
@@ -203,27 +203,28 @@
   function buildTodo(id, code){
     var items = [];
     var inbound = Array.isArray(c.inbound_channels) ? c.inbound_channels : [];
-    var responses = Array.isArray(c.response_channels) ? c.response_channels : [];
-    var provider = c.email_provider === 'outlook' ? 'outlook' : (c.email_provider === 'gmail' ? 'gmail' : '');
-    if (provider) items.push({ t: 'Connect your ' + (provider === 'outlook' ? 'Outlook' : 'Gmail') + ' inbox', s: 'So Hermia can read new enquiries and reply from your address.', a: link('gmail.html?customerId=' + encodeURIComponent(id) + '&plan=' + provider + '&makeClientCode=' + encodeURIComponent(code || '') + '&from=configuration', 'Connect') });
-    if (c.crm === 'simpro') {
-      items.push({ t: 'Add the Simpro custom fields', s: 'A short list of fields so each record lands complete in your Simpro build.', a: link('hermia_setup.html?crm=simpro&customerId=' + encodeURIComponent(id), 'View fields') });
-      items.push({ t: 'Connect Simpro', s: 'Links Hermia to your Simpro build so records go straight in.', a: link('simpro_connect.html' + (provider ? '?plan=' + provider : ''), 'Connect') });
-    } else if (c.crm === 'aroflo') {
-      items.push({ t: 'Connect AroFlo', s: 'Links Hermia to your AroFlo account so records go straight in.', a: link('aroflo_connect.html' + (provider ? '?plan=' + provider : ''), 'Connect') });
-    } else if (c.crm === 'other') {
-      items.push({ t: 'Your ' + esc(c.crm_other_name || 'business system'), s: 'Hermia doesn\u2019t connect to this system yet. Each finished brief is emailed to your team, and we have noted the system you use.', tag: 'Briefs by email' });
-    } else if (c.crm === 'none') {
-      items.push({ t: 'Briefs by email', s: 'You told us you don\u2019t use a CRM, so each finished brief is emailed to your team.', tag: 'Email' });
+    var connectable = inbound.some(function(v){ return v === 'email' || v === 'facebook' || v === 'instagram' || v === 'tiktok'; }) || c.crm === 'simpro' || c.conversation_channel === 'email';
+    // Oct 2026: one place for every connection (the same cards as the journey); this browser still holds the session.
+    if (connectable) items.push({ t: 'Connect your accounts', s: 'Your inbox, social accounts and system, each with its own sign-in. Anything already connected shows a tick.', a: link('connections.html', 'Open') });
+    if (c.crm === 'other') items.push({ t: 'Your ' + esc(c.crm_other_name || 'business system'), s: 'Hermia doesn\u2019t connect to this system yet. Each finished brief is emailed to your team, and we have noted the system you use.', tag: 'Briefs by email' });
+    else if (c.crm === 'none') items.push({ t: 'Briefs by email', s: 'You told us you don\u2019t use a CRM, so each finished brief is emailed to your team.', tag: 'Email' });
+    items.push({ t: 'Build and test', s: 'We build your Hermia, run test enquiries with you, and switch it on once you are happy.', tag: 'Hermia' });
+    function draw(){
+      $('todo').innerHTML = items.map(function(it, i){
+        return '<li><span class="n">' + String(i + 1).padStart(2, '0') + '</span><div><b>' + it.t + '</b><span>' + it.s + '</span></div>' + (it.a || ('<span class="tag">' + it.tag + '</span>')) + '</li>';
+      }).join('');
     }
-    if (inbound.indexOf('instagram') > -1) items.push({ t: 'Connect Instagram', s: 'Direct messages to your business account.', a: link('social_connect_instagram.html', 'Connect') });
-    if (inbound.indexOf('facebook') > -1) items.push({ t: 'Connect Facebook', s: 'Messages to your business page.', a: link('facebook.html', 'Connect') });
-    if (inbound.indexOf('google_business') > -1) items.push({ t: 'Google Business Profile', s: 'We connect this with you during setup.', tag: 'With your team' });
-    if (responses.indexOf('whatsapp') > -1) items.push({ t: 'WhatsApp Business number', s: 'We link the number your customers will hear from with you during setup.', tag: 'With your team' });
-    items.push({ t: 'Build and test', s: 'We build your workflow, run test enquiries with you, and switch it on once you are happy.', tag: 'Hermia' });
-    $('todo').innerHTML = items.map(function(it, i){
-      return '<li><span class="n">' + String(i + 1).padStart(2, '0') + '</span><div><b>' + it.t + '</b><span>' + it.s + '</span></div>' + (it.a || ('<span class="tag">' + it.tag + '</span>')) + '</li>';
-    }).join('');
+    draw();
+    // Oct 2026: any system that needs fields added gets this step; the list lives on the platform, per CRM.
+    fetch(API + '/setup/checklist?customerId=' + encodeURIComponent(id), { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        if (!d || !d.ok || !(d.fieldCount > 0) || !d.crmLabel) return;
+        var name = esc(d.crmLabel);
+        items.splice(items.length - 1, 0, { t: 'Add the fields ' + name + ' needs', s: 'A short list of fields to add in ' + name + ', so every answer goes into the right place.', a: link('hermia_setup.html?customerId=' + encodeURIComponent(id), 'View fields') });
+        draw();
+      })
+      .catch(function(){});
   }
   function finish(id, code){
     try {

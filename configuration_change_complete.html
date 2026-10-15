@@ -48,7 +48,7 @@
     <div id="done" class="hidden">
       <div class="eyebrow">Payment received</div>
       <h1>Change request <em>received.</em></h1>
-      <p>Your current workflow stays live while we prepare and test the change. Nothing changes for your customers until it passes.</p>
+      <p>Your current setup stays live while we prepare and test the change. Nothing changes for your customers until it passes.</p>
       <div class="ref"><span>Reference</span><b id="code">CH-······</b></div>
       <ol>
         <li><i>01</i>We review your request and confirm anything unclear by email.</li>
@@ -88,7 +88,7 @@
         if (res.d.ok) { $('code').textContent = res.d.requestCode || 'Sent by email'; show('done'); return; }
         // Stripe can take a moment to mark a payment as paid.
         if (res.status === 403 && tries < 4) { setTimeout(run, 2500 * tries); return; }
-        failed(res.status === 403 ? 'Stripe has not confirmed this payment yet. Wait a minute and try again.' : 'Your payment may have gone through, but we could not record it just now. Please try again.');
+        failed(res.status === 403 ? 'Your payment hasn\'t been confirmed yet. Wait a minute and try again.' : 'Your payment may have gone through, but we could not record it just now. Please try again.');
       })
       .catch(function(){ if (tries < 3) setTimeout(run, 2000 * tries); else failed('We could not reach Hermia just now. Please try again.'); });
   }
