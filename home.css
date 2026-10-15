@@ -79,3 +79,6 @@
 .hiw-steps p{max-width:430px;margin:0;color:var(--soft);font-size:14.5px;line-height:1.8}
 @media(max-width:900px){.hiw{grid-template-columns:1fr;gap:44px}.hiw-lead{position:static}}
 @media(max-width:530px){.hiw-steps li{grid-template-columns:48px 1fr;padding:30px 0}.hiw-steps li>span{font-size:20px}.hiw-lead p{font-size:15px}}
+
+/* Palette harmony: warm olive-charcoal hero, not flat brown */
+#cinematic-hero{background:radial-gradient(ellipse at 50% 42%,rgba(211,174,87,.18) 0%,rgba(211,174,87,.06) 31%,transparent 56%),radial-gradient(circle at 50% 46%,#303128 0%,#22251f 50%,#151814 100%)}
