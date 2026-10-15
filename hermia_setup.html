@@ -261,6 +261,9 @@
 
   /* ── CRM panels ── */
   .crm-panel { display: none; width: 100%; margin-top: 24px; }
+  .crm-state { color: var(--soft); font-size: 14px; text-align: center; margin: 6px 0 0; }
+  .crm-state[hidden], #crmFields[hidden], #crmClear[hidden] { display: none; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   .crm-panel.active { display: block; }
 
   @keyframes fadeUp { from { opacity:0; transform:translateY(12px) } to { opacity:1; transform:translateY(0) } }
@@ -378,19 +381,19 @@
 
   <div class="shellcol">
 
-    <!-- ═══════════════ WELCOME / CRM SELECTOR ═══════════════ -->
+    <!-- ═══════════════ WELCOME ═══════════════ -->
     <div class="welcome-card card ornate glow" id="selector-card">
       <div class="hero-beam" aria-hidden="true"></div>
       <div class="hero-grid" aria-hidden="true"></div>
       <div class="eyebrow">Hermia is now live</div>
-      <h1>Your lead response system is <em>on.</em></h1>
+      <h1>Your enquiry assistant is <em>on.</em></h1>
       <div class="setup-complete-tag"><span></span> Setup complete</div>
 
       <div class="activation-panel">
         <div class="activation-copy">
-          <div class="live-chip"><i></i> Qualification active</div>
-          <h2>Every form submission gets a fast first response.</h2>
-          <p>As soon as a new lead submits a form, Hermia qualifies the enquiry and follows up within seconds.</p>
+          <div class="live-chip"><i></i> Answering now</div>
+          <h2>Every new enquiry gets a fast first reply.</h2>
+          <p>As soon as an enquiry arrives, Hermia replies, asks your questions and sends you the finished brief.</p>
         </div>
         <div class="flow-orbit" aria-hidden="true">
           <div class="orbit-ring ring-one"></div>
@@ -406,118 +409,46 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a8.4 8.4 0 0 1-8.5 8.2 9.3 9.3 0 0 1-3.7-.8L4 20l1-3.5A8 8 0 0 1 3.5 11.5 8.4 8.4 0 0 1 12 3.3a8.4 8.4 0 0 1 8 8.2Z"/><path d="M8.5 9.2c.2 1.8 1.8 3.6 3.8 4.2l1.2-1.2c.2-.2.4-.2.6-.1l1.7.8"/></svg>
         </div>
         <div class="instruction-copy">
-          <span>Tell your leads</span>
-          <strong>“Keep an eye on your WhatsApp or Gmail — Hermia will send your qualification update shortly after you submit.”</strong>
+          <span>Tell your customers</span>
+          <strong id="tellCustomers">“You’ll hear back from us within minutes. Keep an eye on your WhatsApp or email.”</strong>
         </div>
       </div>
 
-      <div class="signal-strip" aria-label="Qualification journey">
-        <div class="signal-step"><b>01</b><span>Form submitted</span></div>
+      <div class="signal-strip" aria-label="How each enquiry is handled">
+        <div class="signal-step"><b>01</b><span>Enquiry arrives</span></div>
         <div class="signal-line"><i></i></div>
-        <div class="signal-step"><b>02</b><span>Qualified in seconds</span></div>
+        <div class="signal-step"><b>02</b><span>Questions asked</span></div>
         <div class="signal-line"><i></i></div>
-        <div class="signal-step"><b>03</b><span>WhatsApp or Gmail update</span></div>
-      </div>
-
-      <div class="selector-caption">Connect your CRM</div>
-      <div class="method-row">
-        <div class="method-card card" id="box-simpro" data-crm="simpro">
-          <div class="crm-mark">S</div>
-          <h3>Simpro</h3>
-          <p>Custom fields required</p>
-          <span class="choose-label">Configure <b>→</b></span>
-        </div>
-        <div class="method-card card" id="box-aroflo" data-crm="aroflo">
-          <div class="crm-mark">A</div>
-          <h3>AroFlo</h3>
-          <p>No setup required</p>
-          <span class="choose-label">Continue <b>→</b></span>
-        </div>
+        <div class="signal-step"><b>03</b><span>Brief sent to you</span></div>
       </div>
     </div>
 
-    <!-- ═══════════ SIMPRO PANEL ═══════════ -->
-    <div class="crm-panel" id="panel-simpro">
-      <a href="#" class="back-link" id="back-from-simpro">&larr; Change CRM</a>
-
-      <div class="configuration-plan-note" id="configurationPlanNote" aria-live="polite"></div><div class="warning-box card ornate glow">
-        <div class="warning-title">Create these fields</div>
-        <p class="warning-text">
-          If these custom fields are <b>not created exactly as listed below</b>, Hermia cannot pass full lead details into your CRM — your leads will arrive blank or missing critical information, with no way to recover it after the fact.
-        </p>
-        <p class="warning-text">
-          <b>Take a screenshot of this page right now</b> and keep it somewhere you won't lose it. You will need it when setting up each module.
-        </p>
-      </div>
-
-      <div class="module-block" style="animation-delay:.05s">
-        <h2>Simpro &middot; Leads module</h2>
-        <p class="module-sub">Go to Leads &rarr; Modify Table View</p>
-        <div class="ornament"><span>&#10022;</span></div>
-        <div class="field-list card ornate">
-          <div class="field-row"><span class="field-name">Description</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row"><span class="field-name">Notes</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row"><span class="field-name">Email</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row"><span class="field-name">Customer Phone</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row"><span class="field-name">Customer</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row" data-config-step="4"><span class="field-name">Fault_Code</span><span class="field-tag custom">— custom field, create this</span></div>
-          <div class="field-row" data-config-step="4"><span class="field-name">Defect_Flag</span><span class="field-tag custom">— custom field, create this</span></div>
+    <!-- ═══════════ YOUR SYSTEM: the fields it needs, for whichever CRM the business uses ═══════════ -->
+    <div class="crm-panel active" id="panel-crm">
+      <p class="crm-state" id="crmState" role="status">Checking your system…</p>
+      <div id="crmFields" hidden>
+        <div class="warning-box card ornate glow">
+          <div class="warning-title" id="fieldsTitle">Add these fields</div>
+          <p class="warning-text" id="fieldsLead"></p>
         </div>
+        <div id="fieldAreas"></div>
       </div>
-
-      <div class="module-block" style="animation-delay:.1s">
-        <h2>Simpro &middot; Customers module</h2>
-        <p class="module-sub">Go to Customers &rarr; Modify Table View</p>
-        <div class="ornament"><span>&#10022;</span></div>
-        <div class="field-list card ornate">
-          <div class="field-row"><span class="field-name">Customer</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row"><span class="field-name">First Name</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row"><span class="field-name">Last Name</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row"><span class="field-name">Phone</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row"><span class="field-name">Email</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row" data-config-step="1"><span class="field-name">Urgency</span><span class="field-tag custom">— custom field, create this</span></div>
-          <div class="field-row" data-config-step="14"><span class="field-name">Billing_Entity</span><span class="field-tag custom">— custom field, create this</span></div>
-          <div class="field-row" data-config-step="66"><span class="field-name">Estimate Amount</span><span class="field-tag custom">— custom field, create this</span></div>
-        </div>
-      </div>
-
-      <div class="module-block" style="animation-delay:.15s">
-        <h2>Simpro &middot; Sites module</h2>
-        <p class="module-sub">Go to Sites &rarr; Modify Table View</p>
-        <div class="ornament"><span>&#10022;</span></div>
-        <div class="field-list card ornate">
-          <div class="field-row"><span class="field-name">Site</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row"><span class="field-name">Site Address</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row"><span class="field-name">Site Suburb</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row"><span class="field-name">Site State</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row"><span class="field-name">Site Postcode</span><span class="field-tag normal">— normal field</span></div>
-          <div class="field-row" data-config-step="10"><span class="field-name">Access_Notes</span><span class="field-tag custom">— custom field, create this</span></div>
-          <div class="field-row" data-config-step="15"><span class="field-name">Building Type</span><span class="field-tag custom">— custom field, create this</span></div>
-        </div>
+      <div class="allclear-box card ornate glow" id="crmClear" hidden>
+        <div class="allclear-title">Nothing else to set up</div>
+        <p class="allclear-text" id="crmClearText"></p>
       </div>
     </div>
 
-    <!-- ═══════════ AROFLO PANEL ═══════════ -->
-    <div class="crm-panel" id="panel-aroflo">
-      <a href="#" class="back-link" id="back-from-aroflo">&larr; Change CRM</a>
-      <div class="allclear-box card ornate glow">
-        <div class="allclear-title">Setup complete</div>
-        <p class="allclear-text">
-          <b>No further steps required.</b><br />
-          Your AroFlo connection is fully configured on our end — there are no custom fields for you to create. Leads will start flowing through automatically.
-        </p>
-      </div>
-    </div>
-
-    <!-- ═══════════ EMAIL REMINDER (Simpro only) ═══════════ -->
-    <div class="email-card card ornate crm-panel" id="panel-simpro-email">
-      <h2>Get these fields by email</h2>
-      <p class="sub">Enter your email and we'll send you this exact list of fields to create, so you have it on hand while you're setting up each module.</p>
+    <!-- ═══════════ THE SAME LIST BY EMAIL (only when there are fields to add) ═══════════ -->
+    <div class="email-card card ornate crm-panel" id="panel-email">
+      <h2>Get this list by email</h2>
+      <p class="sub">Enter your email and we’ll send you this exact list, so you have it on hand while you add the fields.</p>
       <div class="email-input-row">
+        <label class="visually-hidden" for="reminderEmail">Your email</label>
         <input type="email" id="reminderEmail" class="email-input" placeholder="you@business.com" autocomplete="email" />
-        <button class="btn-submit save-btn" id="saveBtn">Save</button>
+        <button class="btn-submit save-btn" id="saveBtn" type="button">Send</button>
       </div>
-      <div class="email-status" id="emailStatus"></div>
+      <div class="email-status" id="emailStatus" role="status"></div>
     </div>
 
   </div><!-- /shellcol -->
@@ -525,112 +456,77 @@
 </div><!-- /shell -->
 
 <script>
-  // Oct 2026: the field list is sent by the platform (the webhook address is no longer in this page).
-  const FIELDS_EMAIL_URL = 'https://platform.hermia.au/setup/fields-email';
-  const HERMIANANGO_BASE = 'https://platform.hermia.au';
-
+  // Oct 2026: every CRM and every business. The platform says which system the business uses and
+  // which fields (if any) to add, from the business's own questions; nothing here names a CRM.
+  const API = 'https://platform.hermia.au';
   const params = new URLSearchParams(window.location.search);
   let customerId = params.get('customerId');
   if (!customerId) {
-    try { customerId = sessionStorage.getItem('hermia_outlooker_id') || null; } catch (e) { customerId = null; }
+    try { customerId = sessionStorage.getItem('hermia_outlooker_id') || sessionStorage.getItem('hermia_customer_id') || null; } catch (e) { customerId = null; }
+  }
+  const $ = (id) => document.getElementById(id);
+  const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  function say(text) { $('crmState').textContent = text; $('crmState').hidden = !text; }
+
+  function draw(d) {
+    const name = d.crmLabel && d.crm !== 'none' && d.crm !== 'other' ? d.crmLabel : '';
+    if (d.channel === 'whatsapp') $('tellCustomers').textContent = '\u201cYou\u2019ll hear back from us within minutes. Keep an eye on your WhatsApp.\u201d';
+    else if (d.channel === 'email') $('tellCustomers').textContent = '\u201cYou\u2019ll hear back from us within minutes. Keep an eye on your email.\u201d';
+    if (d.fieldCount > 0 && name) {
+      $('fieldsTitle').textContent = 'Add these fields in ' + name;
+      $('fieldsLead').textContent = 'Add each field below in ' + name + ' with exactly this name, so every answer Hermia collects goes into the right field.';
+      $('fieldAreas').innerHTML = d.areas.map(function (a, i) {
+        const where = d.help ? d.help.split('{area}').join(a.area) : '';
+        return '<div class="module-block" style="animation-delay:' + (0.05 * (i + 1)).toFixed(2) + 's">' +
+          '<h2>' + esc(name) + ' &middot; ' + esc(a.area) + '</h2>' +
+          (where ? '<p class="module-sub">' + esc(where) + '</p>' : '') +
+          '<div class="ornament"><span>&#10022;</span></div>' +
+          '<div class="field-list card ornate">' + a.fields.map(function (f) {
+            return '<div class="field-row"><span class="field-name">' + esc(f.label) + '</span><span class="field-tag custom">— ' + esc(f.purpose || 'add this field') + '</span></div>';
+          }).join('') + '</div></div>';
+      }).join('');
+      $('crmFields').hidden = false;
+      $('panel-email').classList.add('active');
+    } else {
+      $('crmClearText').textContent = name
+        ? 'There are no fields to add in ' + name + '. Hermia is ready to go.'
+        : 'Each finished brief is emailed to the people you chose. There is nothing to add.';
+      $('crmClear').hidden = false;
+    }
+    say('');
   }
 
-
-  async function applyConfigurationSetupFilter() {
-    if (!customerId) return;
+  async function load() {
+    if (!customerId) { say('Open this page from the link in your Hermia email to see what is left to set up.'); return; }
+    say('Checking your system\u2026');
     try {
-      const response = await fetch(HERMIANANGO_BASE + '/get-customer-state?customerId=' + encodeURIComponent(customerId));
-      const state = await response.json();
-      if (!response.ok || !state.ok || state.financePlan !== 'configuration') return;
-      const checklist = state.configurationStepsChecklist;
-      if (!checklist || !Array.isArray(checklist.selected_steps) || !checklist.selected_steps.length) return;
-      const selectedSteps = new Set(checklist.selected_steps.map(String));
-      document.querySelectorAll('[data-config-step]').forEach(function (row) {
-        const selected = selectedSteps.has(String(row.dataset.configStep));
-        row.classList.toggle('configuration-hidden-field', !selected);
-        row.classList.toggle('configuration-selected-field', selected);
-      });
-      const questions = Array.isArray(checklist.questions) ? checklist.questions : [];
-      const labels = questions.map(function (entry) { return entry.step + ' — ' + entry.label; }).join(' · ');
-      const note = document.getElementById('configurationPlanNote');
-      note.innerHTML = '<b>Your Configuration Journey is active.</b> This setup page is showing the selected configuration-specific fields only. Standard CRM fields and their names remain unchanged.<span class="plan-steps">Selected steps: ' + labels + '</span>';
-      note.classList.add('visible');
-    } catch (error) {
-      console.warn('[hermia_setup] configuration checklist unavailable:', error);
+      const r = await fetch(API + '/setup/checklist?customerId=' + encodeURIComponent(customerId), { cache: 'no-store' });
+      const d = await r.json().catch(() => ({}));
+      if (r.status === 404 || r.status === 400) { say('We couldn\u2019t find your setup. Open this page from the link in your Hermia email.'); return; }
+      if (!r.ok || !d.ok) throw new Error('HTTP ' + r.status);
+      draw(d);
+    } catch (e) {
+      say('We couldn\u2019t load your setup list just now. Please refresh the page in a minute.');
     }
   }
-  applyConfigurationSetupFilter();
+  load();
 
-  const boxSimpro = document.getElementById('box-simpro');
-  const boxAroflo = document.getElementById('box-aroflo');
-  const selectorCard = document.getElementById('selector-card');
-  const panelSimpro = document.getElementById('panel-simpro');
-  const panelAroflo = document.getElementById('panel-aroflo');
-  const panelSimproEmail = document.getElementById('panel-simpro-email');
-  const backFromSimpro = document.getElementById('back-from-simpro');
-  const backFromAroflo = document.getElementById('back-from-aroflo');
-
-  function enterCrm(crm) {
-    const isSimpro = crm === 'simpro';
-    selectorCard.style.display = 'none';
-    panelSimpro.classList.toggle('active', isSimpro);
-    panelSimproEmail.classList.toggle('active', isSimpro);
-    panelAroflo.classList.toggle('active', !isSimpro);
-    try { sessionStorage.setItem('hermia_crm_choice', crm); } catch (e) {}
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function showSelector() {
-    panelSimpro.classList.remove('active');
-    panelSimproEmail.classList.remove('active');
-    panelAroflo.classList.remove('active');
-    selectorCard.style.display = '';
-    try { sessionStorage.removeItem('hermia_crm_choice'); } catch (e) {}
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  boxSimpro.addEventListener('click', () => enterCrm('simpro'));
-  boxAroflo.addEventListener('click', () => enterCrm('aroflo'));
-  backFromSimpro.addEventListener('click', (e) => { e.preventDefault(); showSelector(); });
-  backFromAroflo.addEventListener('click', (e) => { e.preventDefault(); showSelector(); });
-
-  const crmParam = params.get('crm');
-  if (crmParam === 'simpro' || crmParam === 'aroflo') {
-    enterCrm(crmParam);
-  }
-
-  const btn = document.getElementById('saveBtn');
-  const input = document.getElementById('reminderEmail');
-  const status = document.getElementById('emailStatus');
-
-  function showStatus(msg, ok) {
-    status.textContent = msg;
-    status.className = 'email-status visible ' + (ok ? 'ok' : 'err');
-  }
-
+  const btn = $('saveBtn'), input = $('reminderEmail'), status = $('emailStatus');
+  function showStatus(msg, ok) { status.textContent = msg; status.className = 'email-status visible ' + (ok ? 'ok' : 'err'); }
   btn.addEventListener('click', async () => {
     const email = input.value.trim();
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      showStatus('Enter a valid email address.', false);
-      input.focus();
-      return;
-    }
-    btn.disabled = true;
-    btn.textContent = 'Saving…';
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showStatus('Enter a valid email address.', false); input.focus(); return; }
+    btn.disabled = true; btn.textContent = 'Sending\u2026';
     try {
-      const res = await fetch(FIELDS_EMAIL_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, customerId })
-      });
-      if (res.status === 429) { showStatus('You\u2019ve asked for this list a few times today. Please try again tomorrow.', false); btn.disabled = false; btn.textContent = 'Save'; return; }
+      const res = await fetch(API + '/setup/fields-email', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, customerId }) });
+      if (res.status === 429) { showStatus('You\u2019ve asked for this list a few times today. Please try again tomorrow.', false); btn.disabled = false; btn.textContent = 'Send'; return; }
       if (!res.ok) throw new Error('HTTP ' + res.status);
-      showStatus('Saved — the field list is on its way to your inbox.', true);
-      btn.textContent = 'Saved';
+      showStatus('Sent. The list is on its way to your inbox.', true);
+      btn.textContent = 'Sent';
     } catch (e) {
-      showStatus('Could not save right now. Please try again.', false);
-      btn.disabled = false;
-      btn.textContent = 'Save';
+      showStatus('We couldn\u2019t send it right now. Please try again.', false);
+      btn.disabled = false; btn.textContent = 'Send';
     }
   });
 </script>
