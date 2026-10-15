@@ -525,8 +525,9 @@
 </div><!-- /shell -->
 
 <script>
-  const WEBHOOK_URL = 'https://hook.eu1.make.com/8aeiq4rnr6x7ft9994q7hqowuscdr3j4';
-  const HERMIANANGO_BASE = 'https://hermianango.capital-fbc.workers.dev';
+  // Oct 2026: the field list is sent by the platform (the webhook address is no longer in this page).
+  const FIELDS_EMAIL_URL = 'https://platform.hermia.au/setup/fields-email';
+  const HERMIANANGO_BASE = 'https://platform.hermia.au';
 
   const params = new URLSearchParams(window.location.search);
   let customerId = params.get('customerId');
@@ -617,12 +618,13 @@
     btn.disabled = true;
     btn.textContent = 'Saving…';
     try {
-      const res = await fetch(WEBHOOK_URL, {
+      const res = await fetch(FIELDS_EMAIL_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, customerId, source: 'simpro_fields_reminder' })
+        body: JSON.stringify({ email, customerId })
       });
-      if (!res.ok) throw new Error('Webhook returned ' + res.status);
+      if (res.status === 429) { showStatus('You\u2019ve asked for this list a few times today. Please try again tomorrow.', false); btn.disabled = false; btn.textContent = 'Save'; return; }
+      if (!res.ok) throw new Error('HTTP ' + res.status);
       showStatus('Saved — the field list is on its way to your inbox.', true);
       btn.textContent = 'Saved';
     } catch (e) {
