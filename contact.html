@@ -43,19 +43,15 @@
         </form>
       </section>
 
-      <section class="desk-integration" aria-labelledby="integration-title">
-        <div class="desk-tech-console" aria-label="Live technical systems monitor">
-          <div class="desk-tech-console-head"><span class="live-status-text">TECHNICAL SYSTEMS / ACTIVE</span><small>CRM ROUTE / LIVE</small></div>
-          <div class="desk-tech-visual">
-            <div class="desk-tech-grid"></div><div class="desk-tech-scan"></div>
-            <div class="desk-tech-node desk-tech-node-a"></div><div class="desk-tech-node desk-tech-node-b"></div><div class="desk-tech-node desk-tech-node-c"></div>
-            <div class="desk-tech-route desk-tech-route-a"></div><div class="desk-tech-route desk-tech-route-b"></div>
-            <div class="desk-tech-message"><span>MESSAGE / 014</span><strong>New enquiry routed</strong><small>Context checked · handoff ready</small></div>
-            <div class="desk-tech-stream"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-          </div>
-          <div class="desk-tech-readout"><span><b>08</b> SIGNALS</span><span><b>02</b> ROUTES</span><span><b>LIVE</b> STATUS</span></div>
-        </div>
-        <div class="desk-integration-copy"><div class="desk-kicker"><span class="desk-kicker-line"></span>Technical route</div><h2 id="integration-title">Your CRM.<br><em>Our next system.</em></h2><p>Want to connect your own CRM or build a Hermia integration into a system your business already uses? Send the platform, workflow and desired handoff to the technical team.</p><a class="desk-button desk-button-outline" href="mailto:technical@hermia.au?subject=Custom%20CRM%20integration">technical@hermia.au <span>↗</span></a></div>
+      <section class="desk-technical-route" aria-labelledby="technical-title">
+        <div class="desk-message-intro"><div class="desk-kicker"><span class="desk-kicker-line"></span>Technical / custom CRM</div><h2 id="technical-title">Build a route<br><em>that fits.</em></h2><p>Tell the technical team what you want to connect, clarify or improve. Include the platform, workflow and the handoff your business needs.</p><div class="desk-direct"><span>TECHNICAL ENQUIRIES</span><a href="mailto:technical@hermia.au">technical@hermia.au</a></div></div>
+        <form id="technicalForm" class="desk-form desk-technical-form">
+          <div class="desk-form-top"><span>Message terminal</span><small>EMAIL / REVIEW BEFORE SEND</small></div>
+          <label><span>01 / CRM OR PLATFORM</span><input id="technicalPlatform" type="text" placeholder="Your CRM or business platform" required></label>
+          <label><span>02 / YOUR EMAIL</span><input id="technicalEmail" type="email" autocomplete="email" placeholder="you@business.com" required></label>
+          <label><span>03 / TECHNICAL BRIEF</span><textarea id="technicalMessage" rows="6" placeholder="What should Hermia connect, route or improve?" required></textarea></label>
+          <div class="desk-form-bottom"><button class="desk-button desk-button-primary" type="submit">Prepare technical email <span>↗</span></button><p id="technicalFormStatus" aria-live="polite"></p></div>
+        </form>
       </section>
     </main>
 
@@ -64,6 +60,7 @@
 
   <script>
     document.getElementById('contactForm').addEventListener('submit',function(event){event.preventDefault();var industry=document.getElementById('industryQuestion').value,email=document.getElementById('senderEmail').value.trim(),message=document.getElementById('messageBody').value.trim(),subject=encodeURIComponent('Hermia question — '+industry),body=encodeURIComponent('Industry: '+industry+'\nFrom: '+email+'\n\n'+message);document.getElementById('contactFormStatus').textContent='Opening your email app…';window.location.href='mailto:info@hermia.au?subject='+subject+'&body='+body;});
+    document.getElementById('technicalForm').addEventListener('submit',function(event){event.preventDefault();var platform=document.getElementById('technicalPlatform').value.trim(),email=document.getElementById('technicalEmail').value.trim(),message=document.getElementById('technicalMessage').value.trim(),subject=encodeURIComponent('Hermia technical CRM enquiry — '+platform),body=encodeURIComponent('CRM / platform: '+platform+'\nFrom: '+email+'\n\nTechnical brief:\n'+message);document.getElementById('technicalFormStatus').textContent='Opening your email app…';window.location.href='mailto:technical@hermia.au?subject='+subject+'&body='+body;});
     (function(){var el=document.querySelector('.live-status-text');if(!el||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;var states=['SYSTEMS DESK / READY','SIGNAL MAP / ACTIVE','WORKFLOW CHECK / LIVE','ROUTING LAYER / READY'],i=0;setInterval(function(){i=(i+1)%states.length;el.textContent=states[i]},2600)})();
   </script>
   <script id="hermia-history-back">(function(){var key='hermiaNavigationTrail',current=location.pathname.split('/').pop()||'index.html',trail=[];try{trail=JSON.parse(sessionStorage.getItem(key)||'[]')}catch(e){}if(!Array.isArray(trail))trail=[];if(current==='index.html')trail=['index.html'];else if(trail[trail.length-1]!==current)trail.push(current);if(trail.length>40)trail=trail.slice(-40);try{sessionStorage.setItem(key,JSON.stringify(trail))}catch(e){}document.querySelectorAll('[data-flow-back]').forEach(function(link){link.addEventListener('click',function(event){event.preventDefault();var active=trail.slice();if(active[active.length-1]===current)active.pop();var destination=active[active.length-1]||'index.html';if(destination===current)destination='index.html';if(destination==='index.html')active=['index.html'];try{sessionStorage.setItem(key,JSON.stringify(active))}catch(e){}location.assign(destination)})})}())</script>
