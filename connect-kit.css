@@ -26,7 +26,7 @@
 .cx-card.attention .cx-dot{background:var(--cx-amber)}
 .cx-card.working .cx-dot{background:var(--cx-champagne);animation:cxPulse 1s ease-in-out infinite}
 @keyframes cxPulse{50%{opacity:.35}}
-.cx-btn{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:22px;border:1px solid var(--cx-champagne);background:var(--cx-champagne);color:var(--cx-night);font:600 14px/1 "DM Sans",Arial,sans-serif;cursor:pointer;white-space:nowrap;transition:background .2s var(--cx-ease),color .2s var(--cx-ease)}
+.cx-btn{text-decoration:none;flex:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:22px;border:1px solid var(--cx-champagne);background:var(--cx-champagne);color:var(--cx-night);font:600 14px/1 "DM Sans",Arial,sans-serif;cursor:pointer;white-space:nowrap;transition:background .2s var(--cx-ease),color .2s var(--cx-ease)}
 .cx-btn:hover{background:#f3d9a3}
 .cx-btn.ghost{background:transparent;color:var(--cx-champagne)}
 .cx-btn.ghost:hover{background:rgba(232,193,122,.1)}
