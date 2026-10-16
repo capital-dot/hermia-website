@@ -413,18 +413,17 @@
 
   // k = the industry pack key (Notes). v is what the build receives as the industry name.
   var INDUSTRIES = [
-    {v:'Trades & field services',k:'trades',t:'Trades & field services',d:'Plumbing, electrical, roofing, remedial, fire and more.',img:'assets/industries/trades.webp'},
-    {v:'Real estate',k:'real_estate',t:'Real estate',d:'Buyer and renter enquiries, inspections and appraisals.',img:'assets/industries/real-estate.webp'},
-    {v:'Property management',k:'real_estate',t:'Property management',d:'Maintenance requests, tenants, access and photos.',img:'assets/industries/property-management.webp'},
-    {v:'Healthcare',k:'healthcare',t:'Healthcare',d:'New patient and booking enquiries for reception. No clinical advice.',img:'assets/industries/healthcare.webp'},
-    {v:'Legal',k:'law',t:'Legal',d:'New matter enquiries, with what your conflict check needs.',img:'assets/industries/legal.webp'},
-    {v:'Insurance',k:'insurance',t:'Insurance',d:'Claim and cover enquiries.',img:'assets/industries/insurance.webp'},
-    {v:'Finance',k:'finance',t:'Finance',d:'Loan, lending and advice enquiries by email.',img:'assets/industries/finance.webp'},
-    {v:'Car dealers',k:'car_dealers',t:'Car dealers',d:'Stock questions, trade-ins and test drives.',img:'assets/industries/car-dealers.webp'},
-    {v:'Education',k:'education',t:'Education',d:'Course, intake and open-day enquiries.',img:'assets/industries/education.webp'},
-    {v:'Hospitality',k:'hospitality',t:'Hospitality',d:'Table, function and menu enquiries.',img:'assets/industries/hospitality.webp'}
+    {v:'Trades & field services',k:'trades',t:'Trades & field services',d:'Plumbing, electrical, roofing, remedial, fire and more.',img:'assets/sector-trade.webp'},
+    {v:'Property & real estate',k:'real_estate',t:'Property & real estate',d:'Buyers, renters and tenants: inspections, appraisals, maintenance and access.',img:'assets/sector-property.webp'},
+    {v:'Healthcare',k:'healthcare',t:'Healthcare',d:'New patient and booking enquiries for reception. No clinical advice.',img:'assets/sector-healthcare.webp'},
+    {v:'Legal',k:'law',t:'Legal',d:'New matter enquiries, with what your conflict check needs.',img:'assets/sector-professional.webp'},
+    {v:'Insurance',k:'insurance',t:'Insurance',d:'Claim and cover enquiries.',img:'assets/sector-insurance.webp'},
+    {v:'Finance',k:'finance',t:'Finance',d:'Loan, lending and advice enquiries by email.',img:'assets/sector-finance.webp'},
+    {v:'Automotive',k:'automotive',t:'Automotive',d:'Stock questions, trade-ins and test drives.',img:'assets/sector-automotive.webp'},
+    {v:'Education',k:'education',t:'Education',d:'Course, intake and open-day enquiries.',img:'assets/sector-education.webp'},
+    {v:'Hospitality',k:'hospitality',t:'Hospitality',d:'Table, function and menu enquiries.',img:'assets/sector-hospitality.webp'}
   ];
-  var LEGACY_INDUSTRY = {'Property':'Property management','Legal operations':'Legal','Healthcare administration':'Healthcare','Insurance companies':'Insurance'};
+  var LEGACY_INDUSTRY = {'Property':'Property & real estate','Real estate':'Property & real estate','Property management':'Property & real estate','Car dealers':'Automotive','Legal operations':'Legal','Healthcare administration':'Healthcare','Insurance companies':'Insurance'};
   var TRADES = ['Plumbing','Electrical','Roofing','Remedial','Fire / ESM','Repair & maintenance','Air conditioning & HVAC','Painting','Carpentry','Glazing','Landscaping','Pest control','Solar','Cleaning'];
   /* Business systems come from the platform's CRM list (live + coming soon). Nothing else is offered here. */
   var CRM_CACHE_KEY = 'hermia_crm_catalog_v1';
@@ -491,7 +490,7 @@
   if(state.industry&&!INDUSTRIES.some(function(o){return o.v===state.industry;}))state.industry='';
   state.sources=(Array.isArray(state.sources)?state.sources:[]).filter(function(v){return SOURCES.some(function(o){return o.v===v&&!o.soon;});});
   /* Pre-select the industry when arriving from an industry or pricing page (configuration.html?industry=property). */
-  try{var IND_PARAM={trades:'Trades & field services','real-estate':'Real estate',realestate:'Real estate','property-management':'Property management',property:'Property management',healthcare:'Healthcare',legal:'Legal',insurance:'Insurance',finance:'Finance','car-dealers':'Car dealers',cars:'Car dealers',education:'Education',hospitality:'Hospitality'};var ip=IND_PARAM[String(new URLSearchParams(location.search).get('industry')||'').toLowerCase()];if(ip&&state.industry!==ip){state.industry=ip;state.qs={};if(ip!=='Trades & field services'){state.trade='';state.estimate=false;state.calendar='';}}}catch(e){}
+  try{var IND_PARAM={trades:'Trades & field services','real-estate':'Property & real estate',realestate:'Property & real estate','property-management':'Property & real estate',property:'Property & real estate',healthcare:'Healthcare',legal:'Legal',insurance:'Insurance',finance:'Finance',automotive:'Automotive','car-dealers':'Automotive',cars:'Automotive',education:'Education',hospitality:'Hospitality'};var ip=IND_PARAM[String(new URLSearchParams(location.search).get('industry')||'').toLowerCase()];if(ip&&state.industry!==ip){state.industry=ip;state.qs={};if(ip!=='Trades & field services'){state.trade='';state.estimate=false;state.calendar='';}}}catch(e){}
   var guideFile = null;
   function persist(){try{var s=Object.assign({},state);sessionStorage.setItem(DRAFT_KEY,JSON.stringify(s));}catch(e){}}
 
