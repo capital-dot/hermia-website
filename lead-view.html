@@ -412,6 +412,23 @@
   .testi-popup .tp-cta { background:linear-gradient(135deg, var(--gold-light), var(--copper)); box-shadow:0 8px 14px rgba(0,0,0,.18); }
   .foot { padding-top:24px; }
   .foot-mark { color:var(--gold-light); }
+  /* Booking: approve, another time or technician, decline (17 Oct 2026). */
+  .booking { margin-bottom:22px; }
+  .bk-state { display:inline-block; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; padding:5px 10px; border-radius:999px; border:1px solid var(--border-strong); color:var(--gold-light); margin-bottom:12px; }
+  .bk-state.done { border-color:rgba(120,200,140,.45); color:#9fdcae; }
+  .bk-state.stop { border-color:rgba(240,109,97,.40); color:#f3a49b; }
+  .bk-line { font-size:15px; line-height:1.6; color:var(--cream); margin-bottom:16px; }
+  .bk-actions { display:flex; flex-wrap:wrap; gap:10px; }
+  .bk-btn { font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:11px 16px; border-radius:10px; cursor:pointer; border:1px solid var(--border-strong); background:transparent; color:var(--gold-light); }
+  .bk-btn.main { border:none; color:#1a1409; background:linear-gradient(135deg, var(--gold-light), var(--gold)); }
+  .bk-btn:disabled { opacity:.5; cursor:default; }
+  .bk-form { display:none; margin-top:16px; gap:12px; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); align-items:end; }
+  .bk-form.open { display:grid; }
+  .bk-form label { display:block; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
+  .bk-form select, .bk-form input { width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--border-strong); background:rgba(0,0,0,.35); color:var(--cream); font:inherit; font-size:14px; color-scheme:dark; }
+  .bk-note { font-size:12.5px; color:var(--soft); margin-top:12px; line-height:1.55; }
+  .bk-auto { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:18px; padding-top:14px; border-top:1px solid rgba(240,209,132,.10); font-size:13px; color:var(--soft); }
+  .bk-msg { font-size:13px; margin-top:12px; color:#f3a49b; min-height:1em; }
   /* Answers to the business's own questions (payload.customAnswers). */
   .qa-list { display:grid; gap:16px; }
   .qa-item + .qa-item { padding-top:16px; border-top:1px solid rgba(240,209,132,.10); }
@@ -485,7 +502,7 @@
 <script>
 (function () {
   const LOGO_URL = 'https://raw.githubusercontent.com/capital-dot/hermia-connect/main/logo.png';
-  const DOCKET_WORKER = 'https://hermianango.capital-fbc.workers.dev';
+  const DOCKET_WORKER = 'https://platform.hermia.au';
 
   const ICONS = {
     asset: `<path d="M16 16 L8 22"/><path d="M10 20 L8 22 L6 20" stroke="var(--gold)" opacity="0.6"/><path d="M18 16 L22 22"/><path d="M20 20 L22 22 L24 20" stroke="var(--gold)" opacity="0.6"/><path d="M17 14 L12 9 L15 6 L20 9 Z"/><circle cx="17" cy="14" r="1.2"/>`,
@@ -507,27 +524,15 @@
     return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONS[name] || ''}</svg>`;
   }
 
-  function decodePayload() {
-    const params = new URLSearchParams(window.location.search);
-    const d = params.get('d');
-    if (!d) return null;
-    try {
-      const b64 = d.replace(/-/g, '+').replace(/_/g, '/');
-      const padded = b64 + '==='.slice((b64.length + 3) % 4);
-      const binary = atob(padded);
-      const bytes = new Uint8Array(binary.length);
-      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-      return JSON.parse(new TextDecoder().decode(bytes));
-    } catch (e) { return null; }
-  }
-
+  // 17 Oct 2026: only private links (?t=) open a lead. The old ?d= links carried the lead in the
+  // address itself, so anyone could make one; they now show the "no longer available" page.
+  const TOKEN = (new URLSearchParams(window.location.search).get('t') || '').trim();
   async function fetchSecurePayload() {
-    const token = new URLSearchParams(window.location.search).get('t');
-    if (!token) return null;
+    if (!/^[a-f0-9]{64}$/i.test(TOKEN)) return null;
     try {
-      const response = await fetch(DOCKET_WORKER + '/lead-details/view?t=' + encodeURIComponent(token), { cache: 'no-store' });
+      const response = await fetch(DOCKET_WORKER + '/lead-details/view?t=' + encodeURIComponent(TOKEN), { cache: 'no-store' });
       const body = await response.json().catch(() => ({}));
-      return response.ok && body && body.ok && body.payload ? body.payload : null;
+      return response.ok && body && body.ok && body.payload ? { payload: body.payload, booking: body.booking || null } : null;
     } catch (e) {
       return null;
     }
@@ -539,9 +544,7 @@
   }
 
   function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str == null ? '' : String(str);
-    return div.innerHTML;
+    return String(str == null ? '' : str).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
   }
 
   function pick(data, keys) {
@@ -597,7 +600,8 @@
     })).filter(a => a.answer !== '');
   }
 
-  function isUrl(str) { return !!str && /^https?:\/\//i.test(str.trim()); }
+  const SAFE_URL = /^https:\/\/[A-Za-z0-9.-]+(?::\d{2,5})?(?:\/[A-Za-z0-9\-._~%!$&*+;=:@\/?]*)?$/;
+  function isUrl(str) { return !!str && SAFE_URL.test(String(str).trim()); }
   function splitUrls(str) { return str ? str.split(/[\s,]+/).map(s => s.trim()).filter(isUrl) : []; }
   function isVideoUrl(url) { return /\.(mp4|mov|webm|m4v)(\?.*)?$/i.test(url); }
 
@@ -616,6 +620,14 @@
     }
   };
 
+  let photoTile = null;
+  function wirePhotoTile() {
+    const el = document.getElementById('photoTile');
+    if (!el || !photoTile) return;
+    if (photoTile.bg) el.style.backgroundImage = 'url("' + photoTile.bg + '")';
+    el.addEventListener('click', () => window.__docket.openPhotos(photoTile.open));
+  }
+
   function renderPhotoCard(photosVideosStr) {
     const urls = splitUrls(photosVideosStr);
     if (!urls.length) {
@@ -629,9 +641,8 @@
     }
     const media = urls.map(u => ({ url: u, isVideo: isVideoUrl(u) }));
     const firstImage = media.find(m => !m.isVideo);
-    const bg = firstImage ? ` style="background-image:url('${firstImage.url.replace(/'/g, "%27")}')"` : '';
-    const targetUrl = media[0].url.replace(/'/g, "\\'");
-    return `<button type="button" class="tile-photo"${bg} onclick="window.__docket.openPhotos('${targetUrl}')">
+    photoTile = { open: media[0].url, bg: firstImage ? firstImage.url : '' };
+    return `<button type="button" class="tile-photo" id="photoTile">
       <div class="tile-photo-overlay">
         <div class="tp-icon">${iconSvg('camera')}</div>
         <div class="tp-label">Photos & Videos</div>
@@ -640,7 +651,106 @@
     </button>`;
   }
 
-  function render(data) {
+  // ── Booking (17 Oct 2026). The owner approves the time Hermia found, picks another technician or
+  // time, or declines. Nothing is booked without the owner, unless they switched automatic booking on.
+  function niceTime(hhmm) {
+    const m = /^(\d{1,2}):(\d{2})/.exec(String(hhmm || ''));
+    if (!m) return String(hhmm || '');
+    const h = Number(m[1]);
+    return (h % 12 || 12) + ':' + m[2] + (h >= 12 ? ' pm' : ' am');
+  }
+  function postBooking(path, body) {
+    return fetch(DOCKET_WORKER + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ t: TOKEN }, body || {})) })
+      .then(r => r.json().catch(() => ({})).then(d => ({ ok: r.ok && !!d && d.ok !== false, status: r.status, data: d || {} })))
+      .catch(() => ({ ok: false, status: 0, data: {} }));
+  }
+  function refreshBooking() {
+    return fetch(DOCKET_WORKER + '/lead-details/view?t=' + encodeURIComponent(TOKEN), { cache: 'no-store' })
+      .then(r => r.json()).then(b => { if (b && b.ok) renderBooking(b.booking || null); return b && b.booking; })
+      .catch(() => null);
+  }
+  let bookingPolls = 0, bookingTimer = null;
+  function watchBooking() {
+    clearTimeout(bookingTimer);
+    if (bookingPolls >= 24) return;
+    bookingTimer = setTimeout(() => { bookingPolls++; refreshBooking().then(b => { if (b && b.status === 'processing') watchBooking(); }); }, 5000);
+  }
+  function renderBooking(b) {
+    const box = document.getElementById('bookingBox');
+    if (!box) return;
+    if (!b || !TOKEN) { box.innerHTML = ''; return; }
+    const st = String(b.status || '');
+    const who = (b.recommended && b.recommended.staffName) || 'Your technician';
+    const when = [formatBookedDate(b.date), b.startTime ? niceTime(b.startTime) + (b.endTime ? ' to ' + niceTime(b.endTime) : '') : ''].filter(Boolean).join(', ');
+    const STATES = {
+      pending: ['Awaiting your approval', '', who + ' is free ' + (when ? 'on ' + when : 'for this job') + '. Approve it and Hermia books it in your calendar.'],
+      processing: ['Booking now', '', 'Booking ' + who + (when ? ' for ' + when : '') + '. This page updates when your calendar confirms it.'],
+      booked: ['Confirmed', 'done', who + (when ? ', ' + when : '') + '.'],
+      auto_booked: ['Confirmed', 'done', who + (when ? ', ' + when : '') + '. Booked automatically.'],
+      failed: ['Not booked', 'stop', 'This could not be booked' + (b.resultMessage ? ': ' + b.resultMessage.replace(/\.?$/, '.') : '.') + ' Please book it in your calendar.'],
+      declined_manual: ['Declined', 'stop', 'You declined this time. Nothing was booked.'],
+      expired: ['Expired', 'stop', 'This booking request has expired. Please book it in your calendar.']
+    };
+    const s = STATES[st] || ['Booking', '', when ? who + ', ' + when + '.' : ''];
+    const staff = [b.recommended].concat(Array.isArray(b.otherStaff) ? b.otherStaff : []).filter(x => x && x.staffId != null);
+    const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    box.innerHTML = `<div class="section booking">
+        <div class="sec-icon">${iconSvg('tasks')}</div>
+        <div class="sec-body">
+          <div class="eyebrow">Booking</div>
+          <div class="bk-state ${s[1]}">${escapeHtml(s[0])}</div>
+          <div class="bk-line">${escapeHtml(s[2])}</div>
+          ${st === 'pending' ? `<div class="bk-actions">
+            <button type="button" class="bk-btn main" id="bkApprove">Approve</button>
+            <button type="button" class="bk-btn" id="bkOther">Another time or technician</button>
+            <button type="button" class="bk-btn" id="bkDecline">Decline</button>
+          </div>
+          <div class="bk-form" id="bkForm">
+            <div><label for="bkStaff">Technician</label><select id="bkStaff">${staff.map(x => `<option value="${escapeHtml(x.staffId)}">${escapeHtml(x.staffName || 'Team member')}</option>`).join('')}</select></div>
+            <div><label for="bkDate">Date</label><input type="date" id="bkDate" min="${today}" value="${escapeHtml(b.date || today)}"></div>
+            <div><label for="bkTime">Start time</label><input type="time" id="bkTime" step="900" value="${escapeHtml(String(b.startTime || '09:00').slice(0, 5))}"></div>
+            <div><button type="button" class="bk-btn main" id="bkBookOther">Book this</button></div>
+          </div>
+          <div class="bk-note">Booked for one hour. Your customer is only told once it is confirmed.</div>` : ''}
+          <div class="bk-msg" id="bkMsg" role="status"></div>
+          <div class="bk-auto"><span>Automatic booking is <b>${b.calendarMode === 'auto' ? 'on' : 'off'}</b>${b.calendarMode === 'auto' ? ': Hermia books the first free technician without asking.' : ': you approve each booking.'}</span>
+            <button type="button" class="bk-btn" id="bkMode">${b.calendarMode === 'auto' ? 'Turn off' : 'Turn on'}</button></div>
+        </div>
+      </div>`;
+    const msg = (t) => { const m = document.getElementById('bkMsg'); if (m) m.textContent = t || ''; };
+    const busy = (on) => box.querySelectorAll('button').forEach(x => { x.disabled = on; });
+    const after = (r, fallback) => {
+      busy(false);
+      if (r.ok) { refreshBooking().then(nb => { if (nb && nb.status === 'processing') { bookingPolls = 0; watchBooking(); } }); return; }
+      msg(r.status === 409 ? 'This booking was already handled. The page shows where it is now.' : fallback);
+      if (r.status === 409) refreshBooking();
+    };
+    const on = (id, fn) => { const el = document.getElementById(id); if (el) el.addEventListener('click', fn); };
+    on('bkApprove', () => { busy(true); msg(''); postBooking('/booking/confirm').then(r => after(r, 'It could not be booked just now. Please try again.')); });
+    on('bkOther', () => { const f = document.getElementById('bkForm'); if (f) f.classList.toggle('open'); });
+    on('bkBookOther', () => {
+      const staffId = (document.getElementById('bkStaff') || {}).value;
+      const date = (document.getElementById('bkDate') || {}).value;
+      const startTime = (document.getElementById('bkTime') || {}).value;
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date || '') || !/^\d{2}:\d{2}$/.test(startTime || '')) { msg('Pick a date and a start time.'); return; }
+      busy(true); msg('');
+      postBooking('/booking/confirm', { staffId: staffId, date: date, startTime: startTime }).then(r => after(r, r.data && r.data.error === 'date is in the past' ? 'That date has passed. Pick another one.' : 'It could not be booked just now. Please try again.'));
+    });
+    on('bkDecline', () => {
+      if (!window.confirm('Decline this time? Nothing will be booked.')) return;
+      busy(true); msg('');
+      postBooking('/booking/decline').then(r => after(r, 'It could not be declined just now. Please try again.'));
+    });
+    on('bkMode', () => {
+      const next = b.calendarMode === 'auto' ? 'manual' : 'auto';
+      if (next === 'auto' && !window.confirm('Turn on automatic booking? Hermia will book the first free technician for every new job without asking you first.')) return;
+      busy(true); msg('');
+      postBooking('/booking/mode', { mode: next, confirm: next === 'auto' }).then(r => after(r, 'That could not be changed just now. Please try again.'));
+    });
+    if (st === 'processing' && !bookingTimer) watchBooking();
+  }
+
+  function render(data, booking) {
     const givenName = pick(data, ['firstName','first_name','fullName','name','clientName','givenName','given_name']);
     const lastName  = pick(data, ['lastName','last_name']);
     const displayName = [givenName, lastName].filter(Boolean).join(' ') || 'Name pending';
@@ -772,6 +882,8 @@
             </div>` : '').join('')}
         </div>
 
+        <div id="bookingBox"></div>
+
         <div class="sections">${sectionsHtml}</div>
 
         <div class="foot">
@@ -781,6 +893,8 @@
       </div></div>`;
 
     document.getElementById('root').innerHTML = html;
+    wirePhotoTile();
+    renderBooking(booking);
 
     setTimeout(() => {
       document.getElementById('splash').classList.add('hide');
@@ -790,12 +904,7 @@
     }, 2400);
   }
 
-  const legacyData = decodePayload();
-  if (legacyData) {
-    render(legacyData);
-  } else {
-    fetchSecurePayload().then(data => data ? render(data) : renderUnavailable());
-  }
+  fetchSecurePayload().then(res => res ? render(res.payload, res.booking) : renderUnavailable());
 
   document.addEventListener('DOMContentLoaded', function () {
     const backBtn = document.getElementById('photoBackBtn');
@@ -847,6 +956,7 @@
   }
 
   function init() {
+    return; // 17 Oct 2026: only the old ?d= links used this. The new lead view asks after a lead is marked Won.
     if (!new URLSearchParams(window.location.search).get('d')) return;
     if (alreadyHandled()) return;
     var email = decodeEmailFromUrl();
