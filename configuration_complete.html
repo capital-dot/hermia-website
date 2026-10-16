@@ -189,13 +189,13 @@
     try { var r = indexedDB.open('hermia-config', 1); r.onsuccess = function(){ try { r.result.transaction('files', 'readwrite').objectStore('files').delete('pricing_pdf'); } catch (e) {} }; } catch (e) {}
   }
   function uploadGuide(customerId, file){
-    return post('/pricing/create-upload-url', { customerId: customerId, fileName: String(file.name || 'price-guide.pdf').replace(/[^A-Za-z0-9._-]+/g, '_').slice(0, 120) })
+    return post('/pricing/create-upload-url', { customerId: customerId, stripeSessionId: sessionId, fileName: String(file.name || 'price-guide.pdf').replace(/[^A-Za-z0-9._-]+/g, '_').slice(0, 120) })
       .then(function(s){
         if (!s.ok || !s.data.uploadUrl) throw new Error('upload');
         return fetch(s.data.uploadUrl, { method: 'PUT', headers: { 'Content-Type': file.type || 'application/pdf' }, body: file })
           .then(function(u){ if (!u.ok) throw new Error('upload'); return s.data.storagePath; });
       })
-      .then(function(path){ return post('/save-pricing', { customerId: customerId, contentType: 'pdf', storagePath: path, mimeType: file.type || 'application/pdf' }); })
+      .then(function(path){ return post('/save-pricing', { customerId: customerId, stripeSessionId: sessionId, contentType: 'pdf', storagePath: path, mimeType: file.type || 'application/pdf' }); })
       .then(function(r){ if (!r.ok) throw new Error('read'); });
   }
   function link(href, label){ return '<a class="btn small primary" href="' + href + '">' + label + '</a>'; }
