@@ -87,10 +87,23 @@
     .crm h2 em{display:block;color:var(--gold-d);font-weight:500}
     .crm-copy p{margin:24px 0 0;max-width:56ch;color:var(--ink-d2);font-size:17px;line-height:1.8}
     .crm .crm-art{margin:0;aspect-ratio:16/11;border:1px solid var(--line-d2);background-position:50% 50%;box-shadow:0 30px 70px rgba(41,42,37,.18)}
-    .crm-points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin:56px 0 0;padding:0;list-style:none;border:1px solid var(--line-d2);background:var(--line-d2)}
-    .crm-points li{padding:24px 26px;background:var(--paper);color:var(--ink-d2);font-size:15px;line-height:1.65}
-    .crm-points b{display:block;margin-bottom:6px;color:var(--ink-d);font:600 22px/1.15 var(--display)}
-    .crm-points q{color:var(--gold-d)}
+    .crm-more{margin-top:72px;padding-top:44px;border-top:1px solid var(--line-d2)}
+    .crm-more-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:30px}
+    .crm-more-head h3{margin:14px 0 0;color:var(--ink-d);font:600 clamp(30px,3.2vw,48px)/1 var(--display);letter-spacing:-.03em}
+    .crm-more-head h3 em{color:var(--gold-d);font-weight:500}
+    .crm-more-head p{margin:0;max-width:46ch;color:var(--ink-d2);font-size:15px;line-height:1.7}
+    .crm-stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;border:1px solid var(--line-d2);background:var(--line-d2)}
+    .crm-stage{padding:28px 28px 26px;background:var(--paper)}
+    .crm-stage-n{display:block;color:var(--gold-d);font:500 10px/1.2 var(--mono);letter-spacing:.18em;text-transform:uppercase}
+    .crm-stage h4{margin:12px 0 4px;color:var(--ink-d);font:600 29px/1.08 var(--display);letter-spacing:-.02em}
+    .crm-stage-sub{margin:0 0 16px;color:var(--ink-d2);font-size:14px}
+    .crm-stage ul{margin:0;padding:0;list-style:none}
+    .crm-stage li{padding:15px 0;border-top:1px solid var(--line-d);color:var(--ink-d2);font-size:14.5px;line-height:1.65}
+    .crm-stage li b{display:block;margin-bottom:4px;color:var(--ink-d);font:600 20px/1.18 var(--display)}
+    .crm-stage q{color:var(--gold-d)}
+    .crm-stage .soon{display:inline-block;margin:0 0 6px;padding:3px 7px;border:1px solid var(--line-d2);color:var(--gold-d);font:500 9px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+    .crm-any{margin:18px 0 0;padding:20px 24px;border:1px solid var(--line-d2);background:var(--paper);color:var(--ink-d2);font-size:15px;line-height:1.7}
+    .crm-any b{color:var(--ink-d);font-weight:600}
 
     /* Cards with photos, like the industry picker */
     .how{padding:120px 0 130px;background:var(--night)}
@@ -177,7 +190,8 @@
       .ind-grid>.ind:last-child:nth-child(odd){grid-column:1/-1;flex-direction:row}
       .ind-grid>.ind:last-child:nth-child(odd) .ind-art{flex:0 0 50%}
       .ind-grid>.ind:last-child:nth-child(odd) .ind-body{align-self:center}
-      .crm-points{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .crm-stages{grid-template-columns:1fr}
+      .crm-more-head{flex-direction:column;align-items:flex-start;gap:12px}
       .ind-head{flex-direction:column;align-items:flex-start;gap:12px}
       .ch-art{max-width:760px}
       .ch-side{position:static}
@@ -190,7 +204,9 @@
       .hero{min-height:auto;padding:150px 0 64px}
       .hero:before{background:linear-gradient(0deg,rgba(29,26,20,.96) 0%,rgba(29,26,20,.8) 55%,rgba(29,26,20,.35) 100%)}
       .why,.how,.close{padding:84px 0}
-      .ind-grid,.crm-points{grid-template-columns:1fr}
+      .ind-grid{grid-template-columns:1fr}
+      .crm-more{margin-top:56px;padding-top:34px}
+      .crm-stage{padding:24px 20px 20px}
       .ind-grid>.ind:last-child:nth-child(odd){grid-column:auto;flex-direction:column}
       .ind-grid>.ind:last-child:nth-child(odd) .ind-art{flex:none}
       .ind-head{margin-top:64px}
@@ -314,18 +330,52 @@
             <span class="label">And then there's the CRM</span>
             <h2>A CRM is only as good <em>as what goes into it.</em></h2>
             <p>The detail problem doesn't end with the enquiry. It ends up in the CRM: the same customer saved three times, half-empty records, notes that say “see email” or “call back??”, and the real details stuck in an inbox or in someone's head. Nobody trusts it, so nobody uses it properly.</p>
-            <p>Hermia stops the mess at the door. Everything it puts into your CRM arrives complete, in the right place, once.</p>
+            <p>Hermia stops the mess at the door. Everything it puts into your CRM arrives complete, in the right place, once. Then it makes the system you already pay for do more than it could on its own.</p>
           </div>
           <figure class="crm-art art art-crm" role="img" aria-label="Before: a CRM with the same customer saved five ways, empty fields and notes like see email and call back. After: one complete record from Hermia with contact, enquiry, urgency, description, notes, photos and a lead rating."></figure>
         </div>
-        <ul class="crm-points">
-          <li><b>One enquiry, one record.</b>The same enquiry sent twice, or a customer writing on two channels, becomes one record, not three.</li>
-          <li><b>Every answer in its place.</b>Each answer lands in the description or the notes, wherever you chose, one answer per line.</li>
-          <li><b>No silent blanks.</b>If something wasn't answered, the record says so: <q>Not answered (asked 3 times)</q>.</li>
-          <li><b>Photos with the record.</b>Checked first, then kept with the enquiry they belong to.</li>
-          <li><b>Nothing retyped.</b>No copying from chats and no re-keying from emails.</li>
-          <li><b>Works with what you use.</b>Hermia writes into the system your team already works in. If yours isn't connected yet, every prepared enquiry still reaches you straight away as a secure lead docket by email.</li>
-        </ul>
+        <div class="crm-more" id="crm-advanced">
+          <div class="crm-more-head">
+            <div><span class="label">More than a clean CRM</span><h3>How Hermia makes your CRM <em>more advanced.</em></h3></div>
+            <p>No new system to learn and nothing for your team to change. The CRM you already use simply knows more, sooner, about every customer, and keeps getting better after each record is saved.</p>
+          </div>
+          <div class="crm-stages">
+            <div class="crm-stage">
+              <span class="crm-stage-n">01 / Before anything is saved</span>
+              <h4>The record is right before it exists.</h4>
+              <p class="crm-stage-sub">Mess is stopped at the door, not cleaned up later.</p>
+              <ul>
+                <li><b>One enquiry, one record.</b>The same enquiry sent twice, or a customer writing on two channels, becomes one record, not three.</li>
+                <li><b>Matched to the customer you already have.</b>When your connected system already holds the customer and their site, the enquiry joins their history instead of starting a duplicate.</li>
+                <li><b>Asked, then checked.</b>Your questions are asked one at a time, and every answer is judged by two independent reviewers before it counts.</li>
+                <li><b>Urgency on every record.</b>Needed today, within days, or this week is fine, so the most urgent work is seen first.</li>
+              </ul>
+            </div>
+            <div class="crm-stage">
+              <span class="crm-stage-n">02 / What every record holds</span>
+              <h4>More than a name and a number.</h4>
+              <p class="crm-stage-sub">Everything your team needs to act, in one place.</p>
+              <ul>
+                <li><b>Every answer in its place.</b>Each answer lands in the description or the notes, wherever you chose, one answer per line. Nothing is retyped from a chat or an email.</li>
+                <li><b>No silent blanks.</b>If something wasn't answered, the record says so: <q>Not answered (asked 3 times)</q>.</li>
+                <li><b>Photos, videos and voice, made usable.</b>Photos are checked, then kept with the enquiry they belong to. Videos and voice messages arrive as text your team can read.</li>
+                <li><b>In English, whatever language they wrote in.</b>Customers can write, and be answered, in their own language. Your team reads the record in English.</li>
+              </ul>
+            </div>
+            <div class="crm-stage">
+              <span class="crm-stage-n">03 / After it's saved</span>
+              <h4>Your CRM keeps getting better.</h4>
+              <p class="crm-stage-sub">Followed through, and fed by your team.</p>
+              <ul>
+                <li><b>Nothing lost on the way in.</b>Every lead is saved before it is delivered. If your system can't confirm it within 30 minutes, the full brief is emailed to you instead.</li>
+                <li><b>Bookings from your calendar.</b>For trades on Simpro, the brief suggests the most available technician and a time for your team to confirm. Other calendars are coming soon.</li>
+                <li><b>Your team's notes, without typing.</b><span class="soon">Coming soon</span><br>A voice note, photo or PDF sent to Hermia becomes a note on the right customer's record, after you confirm it.</li>
+                <li><b>Customer questions, answered and kept.</b><span class="soon">Coming soon</span><br><q>Is there parking?</q> is answered from your own notes, or by the right person on your team, and the question and answer are saved with the lead.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="crm-any"><b>Works with what you use.</b> Hermia writes into the system your team already works in. Not connected yet? Every prepared enquiry still reaches you straight away as a secure lead docket by email, and connecting your CRM later is one change request: nothing is rebuilt.</p>
+        </div>
       </div>
     </section>
 

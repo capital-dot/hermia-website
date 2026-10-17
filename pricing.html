@@ -2,624 +2,661 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10100e">
-  <meta name="description" content="Hermia pricing for CRM intake support across industries.">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#1d1a14">
+  <meta name="description" content="Hermia pricing: four plans by enquiries a month, the same Hermia in every plan. Starter USD 600 a month, Standard USD 1,700, Growth USD 3,500 and Large USD 8,000, each with a one-time setup and a 2-day free trial that starts when your Hermia is ready. Your plan follows your enquiries, up and down.">
   <title>Pricing | Hermia</title>
   <link rel="canonical" href="https://www.hermia.au/pricing.html">
+  <link rel="icon" href="assets/hermia-mark.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --ink: #11110f;
-      --ink-2: #181714;
-      --ink-3: #22201a;
-      --paper: #f7f3e9;
-      --paper-soft: #dfdacd;
-      --muted: #a6a195;
-      --muted-dark: #706d64;
-      --gold: #d5aa58;
-      --gold-light: #f5d796;
-      --gold-deep: #8d6220;
-      --sage: #9fb99c;
-      --sage-deep: #435c48;
-      --line: rgba(246, 236, 215, .14);
-      --line-gold: rgba(213, 170, 88, .46);
-      --display: "Playfair Display", Georgia, serif;
-      --sans: "DM Sans", Arial, sans-serif;
-      --mono: "DM Mono", monospace;
-      --shadow: 0 2px 0 rgba(0, 0, 0, .34);
+    /* Hermia Pricing (plans). Same colours, type and parts as the About page.
+       Every price on this page is the price on the live checkout and in the plans table. */
+    :root{
+      --night:#1d1a14;--night-2:#24201a;--deep:#15130e;
+      --paper:#f5f0e4;--wash:#eee6d4;--ink-d:#292a25;--ink-d2:#595b53;--gold-d:#805a1e;--gold:#b8832e;--line-d:#ded3bc;--line-d2:#c9b98f;
+      --ink:#f4f0e6;--mist:#d2cfc5;--dim:#a8a497;--brass:#c9a35b;--champagne:#e8c17a;--green:#4f7a5a;
+      --line:rgba(201,163,91,.18);--line-strong:rgba(201,163,91,.38);
+      --display:"Cormorant Garamond",Georgia,serif;--sans:"DM Sans",Arial,sans-serif;--mono:"DM Mono",monospace;
+      --ease:cubic-bezier(.23,1,.32,1)
     }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--night);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    :focus-visible{outline:2px solid var(--champagne);outline-offset:3px}
+    .shell{width:min(1320px,calc(100% - 88px));margin:auto}
+    .label{display:inline-block;color:var(--champagne);font:500 10px/1.2 var(--mono);letter-spacing:.18em;text-transform:uppercase}
+    .on-paper .label{color:var(--gold-d)}
+    section[id]{scroll-margin-top:76px}
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      overflow-x: hidden;
-      color: var(--paper);
-      background: var(--ink);
-      font-family: var(--sans);
-      font-size: 16px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-    body::before {
-      position: fixed;
-      z-index: -3;
-      inset: 0;
-      content: "";
-      background: linear-gradient(180deg, #171611 0%, #10100f 100%);
-    }
-    body::after { display: none; }
-    a { color: inherit; }
-    svg { display: block; }
-    .page-shell { width: min(1180px, calc(100% - 44px)); margin: 0 auto; }
-    .eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 0 0 15px;
-      color: var(--gold-light);
-      font: 500 11px/1 var(--mono);
-      letter-spacing: .13em;
-      text-transform: uppercase;
-    }
-    .eyebrow::before { width: 24px; height: 1px; content: ""; background: currentColor; }
-    .section-title {
-      max-width: 670px;
-      margin: 0;
-      color: #fffdfa;
-      font: 600 clamp(34px, 4.1vw, 55px)/1.06 var(--display);
-      letter-spacing: -.045em;
-    }
-    .section-intro {
-      max-width: 560px;
-      margin: 18px 0 0;
-      color: var(--paper-soft);
-      font-size: 16px;
-    }
+    /* Navigation */
+    .nav{position:sticky;z-index:40;top:0;height:76px;border-bottom:1px solid var(--line-strong);background:rgba(29,26,20,.9);backdrop-filter:blur(18px)}
+    .navin{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand-cluster{display:flex;align-items:center;gap:22px}
+    .brand{display:inline-flex;align-items:center;gap:12px;font:600 25px/1 var(--display);letter-spacing:-.04em}
+    .brand img{width:34px;height:34px;object-fit:contain}
+    .home{display:inline-flex;align-items:center;gap:8px;padding:4px 0 4px 16px;border-left:1px solid rgba(232,193,122,.42);color:rgba(232,193,122,.85);font:700 9px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase}
+    .home:hover{color:var(--ink);border-color:var(--champagne)}
+    .links{display:flex;align-items:center;gap:28px;font-size:12.5px}
+    .links a{color:var(--ink);transition:color .2s var(--ease)}
+    .links a:hover{color:var(--champagne)}
+    .links .cta{padding:12px 18px;border:1px solid var(--champagne);background:var(--champagne);color:#1d1a14;font-weight:600}
+    .links .cta:hover{background:transparent;color:var(--champagne)}
 
-    .topbar {
-      position: relative;
-      z-index: 5;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 78px;
-      border-bottom: 1px solid var(--line);
-    }
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 11px;
-      color: #fff;
-      text-decoration: none;
-      font: 600 22px/1 var(--display);
-      letter-spacing: -.04em;
-    }
-    .brand-mark {
-      display: grid;
-      width: 29px;
-      height: 29px;
-      place-items: center;
-      border: 1px solid var(--line-gold);
-      border-radius: 50%;
-      color: var(--gold-light);
-      font: 500 17px/1 var(--display);
-      transform: rotate(-12deg);
-    }
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--paper-soft);
-      font-size: 13px;
-      text-decoration: none;
-      transition: color .2s ease;
-    }
-    .back-link:hover { color: var(--gold-light); }
-    .back-link svg { width: 15px; height: 15px; }
+    /* Buttons */
+    .btns{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 26px;border:1px solid var(--champagne);background:var(--champagne);color:#1d1a14;font:700 12px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;transition:background .2s var(--ease),color .2s var(--ease)}
+    .btn:hover{background:transparent;color:var(--champagne)}
+    .btn.ghost{background:transparent;color:var(--champagne)}
+    .btn.ghost:hover{background:var(--champagne);color:#1d1a14}
+    .more{color:var(--champagne);font-size:13px;font-weight:600;border-bottom:1px solid var(--champagne);padding-bottom:4px}
 
-    .hero { position: relative; padding: 92px 0 74px; }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.12fr) minmax(400px, .88fr);
-      align-items: center;
-      gap: clamp(44px, 7vw, 100px);
-    }
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 12px 7px 9px;
-      border: 1px solid rgba(159, 185, 156, .33);
-      border-radius: 99px;
-      color: var(--paper-soft);
-      background: rgba(63, 91, 68, .15);
-      font-size: 11px;
-      letter-spacing: .02em;
-    }
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #a7d498;
-      box-shadow: none;
-    }
-    .hero h1 {
-      max-width: 650px;
-      margin: 21px 0 20px;
-      color: #fffefa;
-      font: 600 clamp(51px, 6.35vw, 79px)/.98 var(--display);
-      letter-spacing: -.065em;
-    }
-    .hero h1 em { color: var(--gold-light); font-weight: 500; }
-    .hero-copy > p:not(.eyebrow) {
-      max-width: 515px;
-      margin: 0;
-      color: var(--paper-soft);
-      font-size: 17px;
-      line-height: 1.72;
-    }
-    .hero-meta { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 31px; }
-    .hero-meta-item { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; }
-    .hero-meta-item svg { width: 16px; height: 16px; color: var(--gold); }
+    /* Hero: the words on the left, the price on the right */
+    .hero{position:relative;padding:120px 0 110px;overflow:hidden;isolation:isolate}
+    .hero .bg{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:60% 40%}
+    .hero:before{position:absolute;inset:0;z-index:-1;content:"";background:linear-gradient(90deg,rgba(29,26,20,.95) 0%,rgba(29,26,20,.84) 48%,rgba(29,26,20,.55) 100%)}
+    .hero-in{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:70px;align-items:center}
+    .hero h1{margin:20px 0 0;font:600 clamp(48px,6vw,92px)/.93 var(--display);letter-spacing:-.045em}
+    .hero h1 em{display:block;margin-top:.08em;color:var(--champagne);font-weight:500}
+    .hero p{margin:28px 0 0;max-width:54ch;color:var(--mist);font-size:17px;line-height:1.75}
+    .hero p strong{color:var(--ink);font-weight:600}
+    .hero .btns{margin-top:34px}
+    .price-card{padding:38px 40px 34px;background:linear-gradient(180deg,#fdfaf3,#f3ede0);color:var(--ink-d);box-shadow:0 40px 90px rgba(0,0,0,.4)}
+    .price-card .label{color:var(--gold-d)}
+    .pc-row{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:20px 0;border-bottom:1px solid var(--line-d)}
+    .pc-row:first-of-type{padding-top:14px}
+    .pc-row span{color:var(--ink-d2);font-size:14px;line-height:1.5}
+    .pc-row b{display:block;color:var(--ink-d);font:600 15px/1.3 var(--sans)}
+    .pc-amount{text-align:right;white-space:nowrap}
+    .pc-amount strong{display:block;color:var(--ink-d);font:600 clamp(34px,3.4vw,46px)/1 var(--display);letter-spacing:-.03em}
+    .pc-amount small{color:var(--ink-d2);font-size:12px}
+    .pc-trial{display:flex;gap:12px;align-items:flex-start;margin-top:22px;padding:16px 18px;background:#f4e5bf;color:#5c4113;font-size:14px;line-height:1.6}
+    .pc-trial b{font-weight:700}
+    .price-card .pc-none{max-width:none;margin:18px 0 0;color:var(--ink-d2);font-size:13.5px;line-height:1.6}
+    .pc-none b{color:var(--ink-d)}
 
-    .signal-visual {
-      position: relative;
-      min-height: 412px;
-      isolation: isolate;
+    /* Paper sections */
+    .paper{padding:120px 0;background:var(--paper);color:var(--ink-d)}
+    .paper.wash{background:var(--wash)}
+    .sec-head{display:flex;justify-content:space-between;align-items:end;gap:48px;margin-bottom:46px}
+    .sec-head h2,.split h2{margin:16px 0 0;color:var(--ink-d);font:600 clamp(38px,4.8vw,70px)/.96 var(--display);letter-spacing:-.04em}
+    .sec-head h2 em,.split h2 em{display:block;color:var(--gold-d);font-weight:500}
+    .sec-head p{margin:0;max-width:46ch;color:var(--ink-d2);font-size:16px;line-height:1.75}
+
+    /* What you pay */
+    .pay-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;border:1px solid var(--line-d2);background:var(--line-d2)}
+    .pay{display:flex;flex-direction:column;padding:34px 32px 32px;background:var(--paper)}
+    .pay .when{color:var(--gold-d);font:500 11px/1.2 var(--mono);letter-spacing:.16em;text-transform:uppercase}
+    .pay h3{margin:14px 0 4px;font:600 26px/1.1 var(--display);letter-spacing:-.02em}
+    .pay .amt{margin:10px 0 0;font:600 54px/1 var(--display);letter-spacing:-.035em}
+    .pay .amt small{margin-left:6px;color:var(--ink-d2);font:500 14px/1 var(--sans);letter-spacing:0}
+    .pay p{margin:18px 0 0;color:var(--ink-d2);font-size:15px;line-height:1.7}
+    .year{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:18px;border:1px solid var(--line-d2);background:var(--line-d2)}
+    .year div{padding:24px 28px;background:var(--wash)}
+    .year span{display:block;color:var(--ink-d2);font-size:13.5px;line-height:1.5}
+    .year strong{display:block;margin-top:6px;color:var(--ink-d);font:600 34px/1.05 var(--display);letter-spacing:-.03em}
+    .year em{color:var(--ink-d2);font-style:normal;font-size:13px}
+    .fine{margin:16px 0 0;color:var(--ink-d2);font-size:13.5px;line-height:1.6}
+
+    /* Setup and monthly, each beside its picture */
+    .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:70px;align-items:center}
+    .split + .split{margin-top:110px}
+    .split.flip .split-art{order:-1}
+    .split-art{margin:0;aspect-ratio:16/11;border:1px solid var(--line-d2);background:#6c5236 center/cover no-repeat;box-shadow:0 30px 70px rgba(41,42,37,.18)}
+    .split p{margin:22px 0 0;max-width:56ch;color:var(--ink-d2);font-size:16.5px;line-height:1.8}
+    .ticks{margin:24px 0 0;padding:0;list-style:none;border-top:1px solid var(--line-d2)}
+    .ticks li{position:relative;padding:14px 0 14px 34px;border-bottom:1px solid var(--line-d);color:var(--ink-d);font-size:15.5px;line-height:1.6}
+    .ticks li:before{position:absolute;left:0;top:15px;width:20px;height:20px;border-radius:50%;content:"✓";background:var(--green);color:#fff;font:700 11px/20px var(--sans);text-align:center}
+
+    /* Why it's priced this way */
+    .why-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .reason{padding:30px 30px 32px;border:1px solid var(--line-d2);background:var(--paper)}
+    .reason .n{color:var(--gold);font:500 12px/1 var(--mono)}
+    .reason h3{margin:16px 0 0;color:var(--ink-d);font:600 27px/1.08 var(--display);letter-spacing:-.02em}
+    .reason p{margin:14px 0 0;color:var(--ink-d2);font-size:15px;line-height:1.75}
+
+    /* Included / extra */
+    .inc-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:40px;align-items:start}
+    .inc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 34px;margin:0;padding:0;list-style:none;border-top:1px solid var(--line-d2)}
+    .inc li{position:relative;padding:16px 0 16px 34px;border-bottom:1px solid var(--line-d);color:var(--ink-d2);font-size:15px;line-height:1.6}
+    .inc li b{display:block;color:var(--ink-d);font-weight:600}
+    .inc li:before{position:absolute;left:0;top:18px;width:20px;height:20px;border-radius:50%;content:"✓";background:var(--green);color:#fff;font:700 11px/20px var(--sans);text-align:center}
+    .side{padding:30px 30px 32px;border:1px solid var(--line-d2);background:var(--wash)}
+    .side + .side{margin-top:18px}
+    .side h3{margin:12px 0 0;color:var(--ink-d);font:600 26px/1.1 var(--display);letter-spacing:-.02em}
+    .side p{margin:12px 0 0;color:var(--ink-d2);font-size:15px;line-height:1.7}
+    .never{margin:14px 0 0;padding:0;list-style:none}
+    .never li{padding:9px 0;border-bottom:1px solid var(--line-d);color:var(--ink-d);font-size:15px}
+    .never li:before{content:"✕";display:inline-block;width:24px;color:#a4553f;font-weight:700}
+
+    /* How billing works */
+    .steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin:0;padding:0;list-style:none;counter-reset:s;border-top:2px solid var(--gold)}
+    .steps li{position:relative;padding:28px 24px 0 0;counter-increment:s}
+    .steps li:before{position:absolute;top:-8px;left:0;width:14px;height:14px;border-radius:50%;content:"";background:var(--gold);box-shadow:0 0 0 5px var(--paper)}
+    .steps .when{color:var(--gold-d);font:500 11px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+    .steps h3{margin:10px 0 0;color:var(--ink-d);font:600 23px/1.1 var(--display);letter-spacing:-.02em}
+    .steps p{margin:10px 0 0;color:var(--ink-d2);font-size:14.5px;line-height:1.7}
+
+    /* Failed payments */
+    .fail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;border:1px solid var(--line-d2);background:var(--line-d2)}
+    .fail div{padding:28px 26px;background:var(--paper)}
+    .fail .when{color:var(--gold-d);font:500 11px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+    .fail h3{margin:12px 0 0;color:var(--ink-d);font:600 23px/1.1 var(--display);letter-spacing:-.02em}
+    .fail p{margin:10px 0 0;color:var(--ink-d2);font-size:14.5px;line-height:1.7}
+
+    /* Questions */
+    .faq{border-top:1px solid var(--line-d2)}
+    .faq details{border-bottom:1px solid var(--line-d2)}
+    .faq summary{position:relative;display:block;padding:24px 56px 24px 0;color:var(--ink-d);font:600 clamp(21px,2vw,26px)/1.2 var(--display);letter-spacing:-.015em;cursor:pointer;list-style:none}
+    .faq summary::-webkit-details-marker{display:none}
+    .faq summary:after{position:absolute;top:22px;right:4px;content:"+";color:var(--gold);font:400 30px/1 var(--sans);transition:transform .25s var(--ease)}
+    .faq details[open] summary:after{transform:rotate(45deg)}
+    .faq .a{max-width:78ch;padding:0 0 26px;color:var(--ink-d2);font-size:16px;line-height:1.8}
+    .faq .a p{margin:0 0 12px}
+    .faq .a p:last-child{margin:0}
+    .faq .a b{color:var(--ink-d)}
+
+    /* Close */
+    .close{position:relative;padding:140px 0;overflow:hidden;isolation:isolate}
+    .close .bg{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 35%}
+    .close:before{position:absolute;inset:0;z-index:-1;content:"";background:linear-gradient(90deg,rgba(29,26,20,.95) 0%,rgba(29,26,20,.82) 50%,rgba(29,26,20,.55) 100%)}
+    .close-in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:60px;align-items:end}
+    .close h2{margin:16px 0 0;font:600 clamp(42px,5.6vw,84px)/.95 var(--display);letter-spacing:-.045em}
+    .close h2 em{display:block;color:var(--champagne);font-weight:500}
+    .close p{margin:0 0 30px;color:var(--mist);font-size:16px;line-height:1.75}
+    .footer{padding:34px 0;border-top:1px solid var(--line);background:var(--deep);color:#b6b1a6;font-size:13px}
+    .footin{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .footin a:last-child:hover{color:var(--champagne)}
+
+    @media (max-width:1080px){
+      .links a:not(.cta){display:none}
+      .hero-in,.split,.inc-grid,.close-in{grid-template-columns:1fr;gap:44px}
+      .split.flip .split-art{order:0}
+      .split-art{max-width:760px}
+      .why-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .steps{grid-template-columns:1fr;border-top:0;border-left:2px solid var(--gold)}
+      .steps li{padding:0 0 30px 30px}
+      .steps li:before{top:4px;left:-8px}
+      .fail{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .sec-head{flex-direction:column;align-items:flex-start;gap:18px}
     }
-    .signal-visual::before { display: none; }
-    .orbit {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 360px;
-      height: 360px;
-      border: 1px solid rgba(213,170,88,.16);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
+    @media (max-width:760px){
+      .shell{width:calc(100% - 32px)}
+      .home{display:none}
+      .hero{padding:90px 0 70px}
+      .hero:before{background:linear-gradient(0deg,rgba(29,26,20,.94),rgba(29,26,20,.84))}
+      .paper,.close{padding:80px 0}
+      .price-card{padding:30px 24px 26px}
+      .pay-grid,.year,.why-grid,.inc,.fail{grid-template-columns:1fr}
+      .inc{gap:0}
+      .split + .split{margin-top:80px}
     }
-    .orbit::before, .orbit::after { position: absolute; border: inherit; border-radius: 50%; content: ""; }
-    .orbit::before { inset: 37px; border-color: rgba(246,236,215,.08); }
-    .orbit::after { inset: 74px; border-color: rgba(213,170,88,.12); }
-    .float-card {
-      position: absolute;
-      border: 1px solid var(--line);
-      border-radius: 13px;
-      background: #1c1b17;
-      box-shadow: var(--shadow);
-      backdrop-filter: none;
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*:before,*:after{animation:none!important;transition:none!important}
     }
-    .incoming-card { top: 58px; left: 0; width: 208px; padding: 14px 15px 15px; transform: rotate(-5deg); }
-    .incoming-top { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
-    .avatar { display: grid; width: 27px; height: 27px; place-items: center; border-radius: 50%; color: #35240d; background: linear-gradient(140deg, #f2d091, #b77d2f); font: 700 10px/1 var(--sans); }
-    .incoming-name { color: #fff; font-size: 11px; font-weight: 600; }
-    .incoming-time { margin-top: 1px; color: var(--muted); font-size: 9px; }
-    .message-bubble { padding: 9px 10px; border-radius: 3px 10px 10px 10px; color: var(--paper-soft); background: rgba(247,243,233,.07); font-size: 10px; line-height: 1.48; }
-    .media-row { display: flex; gap: 5px; margin-top: 9px; }
-    .media-thumb { display: grid; width: 35px; height: 27px; place-items: center; border-radius: 5px; color: rgba(255,255,255,.82); background: linear-gradient(135deg, #887445, #3c4838); }
-    .media-thumb:nth-child(2) { background: linear-gradient(135deg, #536d70, #262c3a); }
-    .media-thumb:nth-child(3) { background: linear-gradient(135deg, #765749, #302733); }
-    .media-thumb svg { width: 12px; height: 12px; }
-    .hermia-core {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      display: grid;
-      width: 170px;
-      height: 170px;
-      place-items: center;
-      border: 1px solid rgba(245,215,150,.58);
-      border-radius: 50%;
-      background: #272116;
-      box-shadow: none;
-      text-align: center;
-      transform: translate(-50%, -50%);
-    }
-    .hermia-core svg { width: 32px; height: 32px; margin: 0 auto 7px; color: var(--gold-light); }
-    .hermia-core span { display: block; color: #fff; font: 600 19px/1 var(--display); letter-spacing: -.04em; }
-    .hermia-core small { display: block; margin-top: 6px; color: var(--gold-light); font: 500 8px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
-    .route-card { right: -6px; bottom: 47px; width: 211px; padding: 16px; transform: rotate(4deg); }
-    .route-label { display: flex; align-items: center; gap: 8px; color: var(--gold-light); font: 500 9px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
-    .route-label svg { width: 15px; height: 15px; }
-    .route-card strong { display: block; margin: 9px 0 2px; color: #fff; font: 600 15px/1.2 var(--sans); }
-    .route-card p { margin: 0; color: var(--muted); font-size: 10px; }
-    .route-person { display: flex; align-items: center; gap: 7px; margin-top: 12px; }
-    .route-person .avatar { width: 22px; height: 22px; color: #e6f0e5; background: #3d5944; font-size: 8px; }
-    .route-person span { color: var(--paper-soft); font-size: 10px; }
-    .route-person i { width: 6px; height: 6px; margin-left: auto; border-radius: 50%; background: #a7d498; box-shadow: none; }
-    .signal-line { position: absolute; width: 91px; height: 1px; transform-origin: left center; background: linear-gradient(90deg, rgba(245,215,150,.72), transparent); }
-    .line-one { top: 143px; left: 186px; transform: rotate(25deg); }
-    .line-two { right: 188px; bottom: 133px; transform: rotate(-24deg); }
-    .signal-pulse { position: absolute; width: 7px; height: 7px; border-radius: 50%; background: var(--gold-light); box-shadow: none; animation: travel 3.5s ease-in-out infinite; }
-    .pulse-one { top: 160px; left: 219px; }
-    .pulse-two { right: 198px; bottom: 116px; animation-delay: 1.4s; }
-    @keyframes travel { 0%, 100% { opacity: .25; transform: scale(.65); } 50% { opacity: 1; transform: scale(1.1); } }
-
-    .context-strip {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      margin: 0 0 118px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(247,243,233,.025);
-    }
-    .context-item { display: flex; align-items: center; gap: 13px; min-height: 87px; padding: 18px 22px; }
-    .context-item + .context-item { border-left: 1px solid var(--line); }
-    .context-number { flex: none; color: var(--gold); font: 500 12px/1 var(--mono); }
-    .context-item strong { display: block; color: var(--paper); font-size: 13px; line-height: 1.25; }
-    .context-item span { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; line-height: 1.3; }
-
-    .plans-section { padding: 0 0 120px; }
-    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 40px; }
-    .per-inbox-note { max-width: 258px; padding-bottom: 4px; color: var(--muted); font-size: 12px; text-align: right; }
-    .per-inbox-note strong { color: var(--gold-light); font-weight: 600; }
-    .plan-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
-    .plan-card {
-      position: relative;
-      min-height: 448px;
-      overflow: hidden;
-      padding: 29px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: #1b1a17;
-      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-    }
-    .plan-card:hover { border-color: var(--gold-light); box-shadow: none; transform: translateY(-2px); }
-    .plan-card.featured { border-color: var(--gold-light); background: #2a2215; box-shadow: inset 0 1px 0 rgba(255,239,195,.12); }
-    .plan-card.featured::after { display: none; }
-    .ribbon { position: absolute; top: 18px; right: 19px; z-index: 1; padding: 5px 9px; border: 1px solid rgba(245,215,150,.35); border-radius: 99px; color: #2a1e0c; background: var(--gold-light); font: 700 9px/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
-    .plan-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-    .crm-label { color: var(--muted); font: 500 10px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
-    .tier-icon { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid var(--line); border-radius: 10px; color: var(--gold-light); background: rgba(213,170,88,.07); }
-    .tier-icon svg { width: 18px; height: 18px; }
-    .plan-card h3 { margin: 0; color: #fff; font: 600 31px/1 var(--display); letter-spacing: -.045em; }
-    .plan-identity { margin: 7px 0 25px; color: var(--paper-soft); font-size: 13px; }
-    .price-line { display: flex; align-items: baseline; gap: 8px; }
-    .price { color: var(--gold-light); font: 600 47px/.94 var(--display); letter-spacing: -.05em; }
-    .price-period { color: var(--muted); font-size: 12px; }
-    .setup-line { display: flex; align-items: center; gap: 7px; min-height: 36px; margin-top: 10px; color: var(--muted); font-size: 12px; }
-    .setup-line strong { color: var(--paper); font-weight: 600; }
-    .setup-line.waived { color: #b9daa8; }
-    .setup-line.waived strong { color: #c9e5ba; }
-    .setup-line svg { width: 15px; height: 15px; color: #a7d498; }
-    .plan-divider { height: 1px; margin: 20px 0 17px; background: var(--line); }
-    .capacity-label { color: var(--muted); font: 500 10px/1 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
-    .capacity { display: flex; align-items: center; gap: 11px; margin-top: 9px; color: var(--paper-soft); font-size: 13px; line-height: 1.42; }
-    .capacity-marker { display: grid; flex: none; width: 29px; height: 29px; place-items: center; border-radius: 50%; color: var(--gold-light); background: rgba(213,170,88,.12); font: 500 11px/1 var(--mono); }
-    .capacity strong { color: #fff; font-weight: 600; }
-    .plan-rationale { margin-top: 16px; padding: 12px 13px; border-left: 1px solid var(--gold); color: var(--muted); background: rgba(213,170,88,.055); font-size: 11px; line-height: 1.55; }
-    .plan-rationale strong { color: var(--paper); font-weight: 600; }
-    .fit-line { position: relative; right: auto; bottom: auto; left: auto; display: flex; align-items: center; gap: 9px; margin-top: 17px; color: var(--gold-light); font-size: 11px; }
-    .fit-line::before { width: 14px; height: 1px; content: ""; background: currentColor; }
-
-    .roi-section { padding: 0 0 120px; }
-    .roi-layout { display: grid; grid-template-columns: .72fr 1.28fr; gap: clamp(42px, 7vw, 105px); align-items: start; }
-    .roi-title { margin: 0; color: #fffdfa; font: 600 clamp(39px, 4.7vw, 63px)/1.03 var(--display); letter-spacing: -.052em; }
-    .roi-title em { color: var(--gold-light); font-weight: 500; }
-    .roi-lede { max-width: 490px; margin: 20px 0 0; color: var(--paper-soft); font-size: 16px; line-height: 1.78; }
-    .roi-quote { margin-top: 30px; padding: 22px 24px; border-left: 2px solid var(--gold-light); background: rgba(213,170,88,.06); color: var(--paper); font: 500 21px/1.28 var(--display); letter-spacing: -.02em; }
-    .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
-    .roi-card { min-height: 205px; padding: 25px; border: 1px solid var(--line); border-radius: 14px; background: #1b1a17; }
-    .roi-card:last-child { grid-column: 1 / -1; min-height: auto; }
-    .roi-number { color: var(--gold-light); font: 500 10px/1 var(--mono); letter-spacing: .13em; }
-    .roi-card h3 { margin: 17px 0 9px; color: #fff; font: 600 27px/.98 var(--display); letter-spacing: -.04em; }
-    .roi-card p { max-width: 510px; margin: 0; color: var(--paper-soft); font-size: 13px; line-height: 1.68; }
-    .roi-card strong { color: var(--gold-light); font-weight: 600; }
-    @media(max-width:820px) { .roi-layout { grid-template-columns: 1fr; } }
-    @media(max-width:560px) { .roi-grid { grid-template-columns: 1fr; } .roi-card:last-child { grid-column: auto; } .roi-card { min-height: auto; } }
-    .tier-section { padding: 0 0 120px; }
-    .tier-layout { display: grid; grid-template-columns: .84fr 1.16fr; align-items: center; gap: clamp(42px, 7vw, 105px); }
-    .tier-cards { display: grid; gap: 13px; }
-    .tier-choice { position: relative; overflow: hidden; min-height: 210px; padding: 26px 27px 24px; border: 1px solid var(--line); border-radius: 14px; background: rgba(247,243,233,.035); }
-    .tier-choice.unlimited { border-color: rgba(213,170,88,.38); background: linear-gradient(120deg, rgba(76,59,29,.52), rgba(28,26,19,.82)); }
-    .choice-head { display: flex; align-items: center; gap: 12px; }
-    .choice-icon { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 9px; color: var(--gold-light); background: rgba(213,170,88,.11); }
-    .choice-icon svg { width: 20px; height: 20px; }
-    .choice-title { color: #fff; font: 600 23px/1 var(--display); letter-spacing: -.035em; }
-    .choice-tag { margin: 3px 0 0; color: var(--muted); font-size: 10px; }
-    .tier-choice p { max-width: 500px; margin: 16px 0 0; color: var(--paper-soft); font-size: 13px; line-height: 1.62; }
-    .choice-foot { display: inline-flex; align-items: center; gap: 7px; margin-top: 14px; color: var(--gold-light); font-size: 11px; }
-    .choice-foot::before { width: 5px; height: 5px; border-radius: 50%; content: ""; background: currentColor; }
-    .price-logic { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 18px; overflow: hidden; border: 1px solid var(--line); border-radius: 15px; background: var(--line); }
-    .price-logic-card { min-height: 205px; padding: 24px; background: #181714; }
-    .price-logic-card:first-child { background: linear-gradient(145deg, #2b2316, #191713); }
-    .price-logic-card:last-child { background: linear-gradient(145deg, rgba(63,50,26,.92), #191713); }
-    .price-logic-kicker { color: var(--gold-light); font: 500 9px/1 var(--mono); letter-spacing: .13em; text-transform: uppercase; }
-    .price-logic-card h3 { margin: 14px 0 8px; color: #fff; font: 600 25px/1 var(--display); letter-spacing: -.04em; }
-    .price-logic-card p { margin: 0; color: var(--paper-soft); font-size: 12px; line-height: 1.63; }
-    .price-logic-card strong { color: var(--gold-light); font-weight: 600; }
-    @media(max-width:760px) { .price-logic { grid-template-columns: 1fr; } .price-logic-card { min-height: auto; } }
-
-    .allowance-section { padding: 0 0 120px; }
-    .allowance-panel { display: grid; grid-template-columns: minmax(0,1.08fr) minmax(330px,.92fr); overflow: hidden; border: 1px solid var(--gold-light); border-radius: 18px; background: #1b1914; }
-    .allowance-copy { padding: clamp(36px, 5vw, 62px); }
-    .allowance-copy h2 { max-width: 540px; margin: 0; color: #fff; font: 600 clamp(31px, 3.4vw, 43px)/1.08 var(--display); letter-spacing: -.05em; }
-    .allowance-copy > p { max-width: 540px; margin: 20px 0 0; color: var(--paper-soft); font-size: 15px; line-height: 1.72; }
-    .channel-tier-list { display: grid; gap: 13px; margin-top: 31px; }
-    .channel-tier { position: relative; padding: 19px; border: 1px solid var(--line); background: rgba(0,0,0,.14); }
-    .channel-tier.unlimited { border-color: rgba(245,215,150,.42); background: linear-gradient(135deg,rgba(213,170,88,.14),rgba(0,0,0,.12)); }
-    .channel-tier-head { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; }
-    .channel-tier-label { color: #fff; font: 600 27px/.95 var(--display); letter-spacing: -.04em; }
-    .channel-tier-count { color: var(--gold-light); font: 500 9px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
-    .channel-tier p { margin: 11px 0 0; color: var(--paper-soft); font-size: 12px; line-height: 1.64; }
-    .channel-badges { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 15px; }
-    .channel-badges span { padding: 6px 8px; border: 1px solid rgba(245,215,150,.23); background: rgba(245,215,150,.055); color: var(--paper); font: 9px/1 var(--mono); letter-spacing: .04em; }
-    .channel-tier.unlimited .channel-badges span { border-color: rgba(245,215,150,.43); color: var(--gold-light); }
-    .channel-outcome { margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; line-height: 1.55; }
-    .channel-outcome strong { color: var(--paper); font-weight: 600; }
-    .allowance-note { max-width: 540px; margin-top: 20px; padding: 15px 17px; border: 1px solid var(--line); border-radius: 10px; color: var(--muted); background: #15140f; font-size: 12px; line-height: 1.62; }
-    .allowance-note strong { color: var(--paper); font-weight: 600; }
-    .allowance-visual { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-height: 510px; padding: clamp(36px, 5vw, 62px); border-left: 1px solid var(--line); background: #161511; }
-    .visual-kicker { color: var(--gold-light); font: 500 10px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
-    .pool-number { display: block; margin: 13px 0 3px; color: #fff; font: 600 clamp(82px, 9vw, 122px)/.76 var(--display); letter-spacing: -.08em; }
-    .pool-label { color: var(--paper-soft); font: 500 14px/1.2 var(--sans); }
-    .visual-rule { width: 100%; height: 1px; margin: 30px 0 19px; background: var(--line); }
-    .visual-copy { max-width: 290px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.62; }
-    .visual-copy strong { color: var(--gold-light); font-weight: 600; }
-    .coverage-steps { width: 100%; margin-top: 21px; border-top: 1px solid var(--line); }
-    .coverage-step { display: grid; grid-template-columns: 42px 1fr; gap: 10px; padding: 13px 0; border-bottom: 1px solid var(--line); }
-    .coverage-step b { color: var(--gold-light); font: 500 10px/1.2 var(--mono); letter-spacing: .08em; }
-    .coverage-step span { color: var(--paper-soft); font-size: 11px; line-height: 1.45; }
-
-    .multi-section { padding: 0 0 120px; }
-    .multi-panel { display: grid; grid-template-columns: .86fr 1.14fr; gap: clamp(34px, 6vw, 86px); padding: clamp(31px, 5vw, 60px); border-radius: 18px; color: #262219; background: var(--paper); }
-    .multi-panel .eyebrow { color: var(--gold-deep); }
-    .multi-panel h2 { max-width: 440px; margin: 0; color: #1c1b17; font: 600 clamp(33px, 3.6vw, 48px)/1.07 var(--display); letter-spacing: -.05em; }
-    .multi-panel p { margin: 17px 0 0; color: #59564f; font-size: 14px; }
-    .multi-panel p strong { color: #262219; }
-    .multi-visual { align-self: center; }
-    .inbox-flow { display: flex; align-items: center; justify-content: center; gap: 11px; }
-    .inbox-card { display: grid; width: 72px; height: 76px; place-content: center; border: 1px solid #cfc5b3; border-radius: 10px; color: #3e3b34; background: #fcfaf5; text-align: center; box-shadow: none; }
-    .inbox-card svg { width: 18px; height: 18px; margin: 0 auto 5px; color: var(--gold-deep); }
-    .inbox-card span { font: 500 9px/1 var(--mono); letter-spacing: .03em; }
-    .inbox-add { display: grid; width: 26px; height: 26px; place-items: center; color: var(--gold-deep); font-size: 18px; }
-    .equals { margin: 23px 0 15px; color: #777168; font: 500 11px/1 var(--mono); letter-spacing: .12em; text-align: center; text-transform: uppercase; }
-    .multi-total { display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; border: 1px solid #d9d1c2; border-radius: 11px; background: #ebe5d9; }
-    .total-cell { padding: 18px 20px; }
-    .total-cell + .total-cell { border-left: 1px solid #d9d1c2; }
-    .total-label { color: #777168; font: 500 9px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
-    .total-cell strong { display: block; margin-top: 5px; color: #272319; font: 600 26px/1 var(--display); letter-spacing: -.045em; }
-    .multi-caption { margin-top: 13px; color: #777168; font-size: 11px; text-align: center; }
-
-    .trial-section { padding: 0 0 120px; }
-    .trial-panel { position: relative; overflow: hidden; display: grid; grid-template-columns: 1.08fr .92fr; gap: 42px; align-items: center; padding: 50px; border: 1px solid var(--line-gold); border-radius: 16px; background: linear-gradient(110deg, #2c2315 0%, #181611 58%, #14130f 100%); }
-    .trial-panel::before { position: absolute; top: -170px; right: -100px; width: 470px; height: 470px; border: 1px solid rgba(245,215,150,.23); border-radius: 50%; box-shadow: 0 0 0 42px rgba(213,170,88,.035), 0 0 0 84px rgba(213,170,88,.02); content: ""; }
-    .trial-copy, .trial-action { position: relative; z-index: 1; }
-    .trial-title { max-width: 620px; margin: 0; color: #fffdfa; font: 600 clamp(42px, 5vw, 66px)/1.01 var(--display); letter-spacing: -.055em; }
-    .trial-title em { color: var(--gold-light); font-weight: 500; }
-    .trial-copy > p:not(.eyebrow) { max-width: 590px; margin: 18px 0 0; color: var(--paper-soft); font-size: 15px; line-height: 1.75; }
-    .trial-action { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
-    .trial-button { display: inline-flex; align-items: center; justify-content: space-between; min-width: 245px; padding: 16px 18px 16px 21px; border: 1px solid rgba(245,215,150,.65); border-radius: 8px; color: #241a0a; background: linear-gradient(90deg, #b98834, #f5d796, #c7963e); font: 700 12px/1 var(--sans); letter-spacing: .09em; text-decoration: none; text-transform: uppercase; transition: transform .2s ease, filter .2s ease; }
-    .trial-button:hover { filter: brightness(1.08); transform: translateY(-2px); }
-    .trial-button span { font: 500 21px/1 var(--display); }
-    .trial-detail { max-width:310px; color: var(--muted); font-size: 12px; line-height: 1.55; }
-    .trial-detail strong { color: var(--paper-soft); font-weight: 600; }
-    @media(max-width:760px) { .trial-panel { grid-template-columns: 1fr; padding: 34px 28px; } .trial-action { align-items: flex-start; } }
-    .refund-section { padding: 0 0 105px; }
-    .refund-heading { text-align: center; }
-    .refund-heading .eyebrow { justify-content: center; }
-    .refund-heading .eyebrow::after { width: 24px; height: 1px; content: ""; background: currentColor; }
-    .refund-heading .section-title { margin-inline: auto; }
-    .refund-heading .section-intro { margin-inline: auto; }
-    .refund-grid { display: grid; grid-template-columns: 1fr 1fr 1.36fr; gap: 1px; margin-top: 39px; overflow: hidden; border: 1px solid var(--line); border-radius: 15px; background: var(--line); }
-    .refund-cell { min-height: 194px; padding: 27px; background: #181714; }
-    .refund-kicker { color: var(--gold-light); font: 500 10px/1 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
-    .refund-number { margin-top: 12px; color: #fff; font: 600 42px/.96 var(--display); letter-spacing: -.06em; }
-    .refund-number small { color: var(--paper-soft); font: 500 16px/1 var(--sans); letter-spacing: 0; }
-    .refund-cell p { margin: 9px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
-    .refund-cell.highlight { background: linear-gradient(130deg, #352c1d, #1b1913); }
-    .refund-cell.highlight p { color: var(--paper-soft); }
-    .refund-cell strong { color: #fff; }
-
-    footer { padding: 30px 0 40px; border-top: 1px solid var(--line); }
-    .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 22px; color: var(--muted-dark); font-size: 11px; }
-    .footer-row a { color: var(--muted); text-decoration: none; transition: color .2s; }
-    .footer-row a:hover { color: var(--gold-light); }
-    .footer-legal { max-width: 510px; text-align: right; }
-
-    @media (max-width: 900px) {
-      .hero-grid, .allowance-panel, .multi-panel { grid-template-columns: 1fr; }
-      .hero { padding-top: 68px; }
-      .signal-visual { width: min(480px, 100%); margin: 5px auto -3px; }
-      .allowance-visual { min-height: 360px; border-top: 1px solid var(--line); border-left: 0; }
-      .section-heading { align-items: start; flex-direction: column; }
-      .per-inbox-note { padding: 0; text-align: left; }
-      .tier-layout { grid-template-columns: 1fr; }
-      .tier-layout > div:first-child { max-width: 680px; }
-      .multi-panel { gap: 35px; }
-      .multi-visual { width: min(500px, 100%); }
-    }
-    @media (max-width: 650px) {
-      .page-shell { width: min(100% - 30px, 1180px); }
-      .topbar { min-height: 64px; }
-      .brand { font-size: 20px; }
-      .back-link span { display: none; }
-      .hero { padding: 59px 0 55px; }
-      .hero h1 { font-size: clamp(45px, 14vw, 62px); }
-      .hero-copy > p:not(.eyebrow) { font-size: 15px; }
-      .hero-meta { margin-top: 25px; }
-      .signal-visual { min-height: 336px; transform: scale(.9); transform-origin: center top; margin-bottom: -37px; }
-      .orbit { width: 300px; height: 300px; }
-      .incoming-card { top: 42px; left: -2px; }
-      .route-card { right: -4px; bottom: 37px; }
-      .line-one, .line-two, .signal-pulse { display: none; }
-      .context-strip { grid-template-columns: 1fr; margin-bottom: 78px; }
-      .context-item { min-height: 67px; padding: 15px 17px; }
-      .context-item + .context-item { border-top: 1px solid var(--line); border-left: 0; }
-      .plans-section, .tier-section, .allowance-section, .multi-section { padding-bottom: 82px; }
-      .plan-grid, .refund-grid { grid-template-columns: 1fr; }
-      .plan-card { min-height: 363px; padding: 24px; }
-      .fit-line { right: 24px; bottom: 23px; left: 24px; }
-      .tier-choice { padding: 23px; }
-      .allowance-copy { padding: 30px 24px; }
-      .allowance-visual { min-height: 336px; padding: 30px; }
-      .unit-orbit { width: 250px; }
-      .unit-dot { transform: translate(-50%, -50%) rotate(var(--a)) translateY(-124px) rotate(calc(-1 * var(--a))); }
-      .channel-tier-list { grid-template-columns: 1fr; }
-      .multi-panel { padding: 31px 24px; }
-      .inbox-card { width: 62px; height: 68px; }
-      .inbox-flow { gap: 3px; }
-      .inbox-add { width: 16px; }
-      .total-cell { padding: 15px 13px; }
-      .total-cell strong { font-size: 22px; }
-      .refund-cell { min-height: 0; padding: 24px; }
-      .footer-row { align-items: start; flex-direction: column; }
-      .footer-legal { text-align: left; }
-    }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
-
-    /* Pricing overview: separate the monthly service from configuration scope. */
-    .pricing-overview{padding:0 0 120px}
-    .pricing-overview-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(270px,.72fr);gap:48px;align-items:end;margin-bottom:28px}
-    .pricing-overview-title{max-width:650px;margin:13px 0 0;color:#fffdfa;font:600 clamp(40px,4.8vw,65px)/.97 var(--display);letter-spacing:-.055em}
-    .pricing-overview-title em{color:var(--gold-light);font-weight:500}
-    .pricing-overview-lede{max-width:430px;margin:0;color:var(--paper-soft);font-size:14px;line-height:1.75}
-    .pricing-equation{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-bottom:16px;border:1px solid var(--line);background:var(--line)}
-    .pricing-equation div{padding:20px;background:#141310;color:var(--paper-soft);font-size:12px;line-height:1.45}
-    .pricing-equation b{display:block;margin-bottom:7px;color:var(--gold-light);font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
-    .pricing-equation strong{display:block;color:#fff;font:600 19px/1 var(--display);letter-spacing:-.025em}
-    .pricing-addons{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    .pricing-addon{padding:24px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,255,255,.028),rgba(255,255,255,.008));transition:border-color .2s ease,transform .2s ease}
-    .pricing-addon:hover{border-color:var(--gold-light);transform:translateY(-2px)}
-    .pricing-addon-kicker{color:var(--gold-light);font:500 9px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
-    .pricing-addon h3{margin:13px 0 8px;color:#fff;font:600 27px/.98 var(--display);letter-spacing:-.04em}
-    .pricing-addon-price{margin:0 0 10px;color:var(--gold-light);font:600 20px/1 var(--display)}
-    .pricing-addon p{margin:0;color:var(--paper-soft);font-size:12px;line-height:1.65}
-    .pricing-addon strong{color:#fff;font-weight:600}
-    .pricing-note{margin:16px 0 0;padding:17px 20px;border-left:2px solid var(--gold-light);background:rgba(213,170,88,.06);color:var(--paper-soft);font-size:12px;line-height:1.65}
-    .pricing-note strong{color:#fff}
-    @media(max-width:820px){.pricing-overview-head{grid-template-columns:1fr;gap:19px}.pricing-equation{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:560px){.pricing-addons{grid-template-columns:1fr}.pricing-equation{grid-template-columns:1fr}.pricing-overview{padding-bottom:86px}}
-
+      .footer .legal{display:flex;flex-wrap:wrap;gap:18px}.footer .legal a{color:var(--mist);font-size:13px}.footer .legal a:hover{color:var(--champagne)}
+    .fine-legal{padding:4px 0 34px;color:var(--dim);font-size:12.5px;line-height:1.6}.fine-legal p{margin:6px 0;max-width:90ch}.fine-legal a{color:var(--champagne);text-decoration:underline;text-underline-offset:2px}
   </style>
-<link rel="stylesheet" href="sector-experience.css">
-  <link rel="stylesheet" href="global-back.css?v=20261012-back-design">
+  <style>
+    /* Plans: four plans that follow each business's enquiries.
+       Every amount on this page must equal the rows in the plans table and the live checkout. */
+    .on-paper .btn.ghost{color:var(--gold-d);border-color:var(--gold-d)}
+    .on-paper .btn.ghost:hover{background:var(--gold-d);color:var(--paper)}
+
+    /* Hero card: the four plans */
+    .pc-plan{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:15px 0;border-bottom:1px solid var(--line-d)}
+    .pc-plan b{display:block;color:var(--ink-d);font:600 15px/1.3 var(--sans)}
+    .pc-plan span{color:var(--ink-d2);font-size:13.5px;line-height:1.45}
+    .pc-plan .pc-amount strong{font-size:clamp(28px,2.5vw,36px)}
+    .pc-plan .pc-amount small{display:block;margin-top:4px}
+
+    /* The plans */
+    .plan-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;border:1px solid var(--line-d2);background:var(--line-d2)}
+    .plan{display:flex;flex-direction:column;padding:34px 30px 30px;background:var(--paper)}
+    .plan .when{color:var(--gold-d);font:500 11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+    .plan h3{margin:14px 0 0;color:var(--ink-d);font:600 32px/1.05 var(--display);letter-spacing:-.02em}
+    .plan .amt{margin:18px 0 0;color:var(--ink-d);font:600 52px/1 var(--display);letter-spacing:-.035em;white-space:nowrap}
+    .plan .amt small{display:block;margin-top:8px;color:var(--ink-d2);font:500 14px/1 var(--sans);letter-spacing:0}
+    .plan .setup{margin:18px 0 0;color:var(--ink-d2);font-size:15px;line-height:1.6}
+    .plan .setup b{color:var(--ink-d)}
+    .plan dl{display:grid;gap:9px;margin:20px 0 26px;padding:16px 0 0;border-top:1px solid var(--line-d)}
+    .plan dl div{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--ink-d2)}
+    .plan dt{margin:0}
+    .plan dd{margin:0;color:var(--ink-d);font-weight:600;white-space:nowrap}
+    .plan .btn{margin-top:auto;min-height:48px;padding:0 18px}
+    .plan .note{margin:10px 0 0;color:var(--ink-d2);font-size:13.5px;line-height:1.55}
+
+    /* Your plan follows your enquiries */
+    .rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .rule{padding:30px 30px 32px;border:1px solid var(--line-d2);border-top:3px solid var(--line-d2);background:var(--paper)}
+    .rule.up{border-top-color:var(--gold)}
+    .rule.down{border-top-color:var(--green)}
+    .rule .when{color:var(--gold-d);font:500 11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+    .rule h3{margin:14px 0 0;color:var(--ink-d);font:600 28px/1.08 var(--display);letter-spacing:-.02em}
+    .rule p{margin:12px 0 0;color:var(--ink-d2);font-size:15px;line-height:1.75}
+    .examples{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px;margin-top:18px}
+    .ex{display:flex;flex-direction:column;margin:0;padding:30px 30px 28px;border:1px solid var(--line-d2);background:var(--paper)}
+    .ex h3{margin:12px 0 0;color:var(--ink-d);font:600 25px/1.12 var(--display);letter-spacing:-.02em}
+    .bars{position:relative;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:14px;height:200px;margin-top:26px;border-bottom:1px solid var(--line-d2)}
+    .bars .col{position:relative}
+    .bars .bar{position:absolute;left:0;right:0;bottom:0;height:calc(var(--v) / var(--max) * 100%);border-radius:4px 4px 0 0;background:#cdbf9f}
+    .bars .bar.over{background:var(--gold)}
+    .bars .bar.under{background:var(--green)}
+    .bars .bar b{position:absolute;left:0;right:0;top:10px;color:#fff;font:500 13px/1 var(--mono);text-align:center}
+    .bars .bar:not(.over):not(.under) b{color:var(--ink-d)}
+    .bars .limit{position:absolute;left:-6px;right:-6px;bottom:calc(var(--at) / var(--max) * 100%);z-index:1;border-top:2px dashed var(--ink-d)}
+    .legend{display:flex;align-items:center;gap:10px;margin:10px 0 0;color:var(--ink-d2);font-size:13.5px;line-height:1.4}
+    .legend i{flex:none;width:26px;border-top:2px dashed var(--ink-d)}
+    .months{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:14px;margin-top:10px}
+    .months span{color:var(--ink-d2);font:500 11px/1.3 var(--mono);letter-spacing:.1em;text-align:center;text-transform:uppercase}
+    .months i{display:block;margin-top:6px;color:var(--gold-d);font:600 12px/1.35 var(--sans);font-style:normal;letter-spacing:0;text-transform:none}
+    .ex-out{margin:22px 0 0;padding-top:18px;border-top:1px solid var(--line-d);color:var(--ink-d2);font-size:15px;line-height:1.7}
+    .ex-out b{color:var(--ink-d)}
+    .count{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:40px;margin-top:18px;padding:34px 34px 30px;border:1px solid var(--line-d2);background:var(--paper)}
+    .count h3{margin:14px 0 0;color:var(--ink-d);font:600 34px/1.05 var(--display);letter-spacing:-.02em}
+    .count > div > p{margin:14px 0 0;color:var(--ink-d2);font-size:15px;line-height:1.7}
+    .count .ticks{margin:0}
+    .count .ticks li{font-size:15px}
+
+    /* Sections now alternate one step later than before */
+    .wash .steps li:before{box-shadow:0 0 0 5px var(--wash)}
+    .paper:not(.wash) .fail div{background:var(--wash)}
+
+    /* Year costs inside the questions */
+    .faq table{width:100%;margin:6px 0 12px;border-collapse:collapse;font-size:15px}
+    .faq th,.faq td{padding:10px 12px 10px 0;border-bottom:1px solid var(--line-d);text-align:left}
+    .faq th{color:var(--ink-d2);font:500 11px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+    .faq td{color:var(--ink-d)}
+    .faq td:not(:first-child),.faq th:not(:first-child){text-align:right}
+
+    @media (max-width:1080px){
+      .plan-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .rules{grid-template-columns:1fr}
+      .examples,.count{grid-template-columns:1fr}
+      .count{gap:20px}
+    }
+    @media (max-width:760px){
+      .plan-grid{grid-template-columns:1fr}
+      .pc-plan{align-items:flex-start}
+      .ex,.count,.rule{padding:24px 22px}
+      .bars,.months{gap:8px}
+      .bars .bar b{font-size:11.5px}
+      .faq table{font-size:14px}
+    }
+  </style>
+  <style>
+    /* The two illustrations on this page, built in. */
+    .art-setup{background-image:url(assets/pricing/art-setup.webp)}
+    .art-reply{background-image:url(assets/pricing/art-reply.webp)}
+  </style>
 </head>
 <body>
-  <div class="page-shell">
-    <nav class="topbar" aria-label="Page navigation">
-      <a class="brand" href="index.html" aria-label="Hermia home"><span class="brand-mark">H</span> Hermia</a>
-      <a class="back-link" href="index.html" data-flow-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg><span>Back</span></a>
-    </nav>
+  <header class="nav">
+    <div class="shell navin">
+      <div class="brand-cluster">
+        <a class="brand" href="index.html"><img src="assets/hermia-mark.webp" alt="" width="34" height="34">Hermia</a>
+        <a class="home" href="index.html"><span aria-hidden="true">←</span><span>Home</span></a>
+      </div>
+      <nav class="links" aria-label="Pricing">
+        <a href="#pay">Plans</a>
+        <a href="#follow">How plans change</a>
+        <a href="#questions">Questions</a>
+        <a class="cta" href="configuration.html">Configure</a>
+      </nav>
+    </div>
+  </header>
 
-    <main>
-      <section class="hero" aria-labelledby="page-title">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <div class="status-pill"><span class="status-dot" aria-hidden="true"></span>Pricing last updated Sunday, 4 October 2026</div>
-            <p class="eyebrow" style="margin-top:28px">Hermia · Business pricing</p>
-            <h1 id="page-title">A clearer customer enquiry<br><em>before your team acts.</em></h1>
-            <p>Choose an industry to open its dedicated pricing page. The full setup, monthly service, change and refund details are shown inside that industry path.</p>
-            <div class="hero-meta" aria-label="Pricing principles">
-              <span class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 1.8"/></svg>Your team keeps the final decision</span>
-              <span class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 6.8A9.1 9.1 0 0 0 12 3a9 9 0 1 0 8.2 12.7"/><path d="M20 4v5h-5"/></svg>2-day free trial included</span>
+  <main id="top">
+    <section class="hero">
+      <img class="bg" src="assets/pricing/plans-bg.webp" alt="">
+      <div class="shell hero-in">
+        <div>
+          <span class="label">Pricing</span>
+          <h1>Four plans. <em>One Hermia.</em></h1>
+          <p>Every plan gets the same Hermia, with the same checks and the same care, whether you run a trade business, manage property, practise law, run a clinic or a restaurant. The plans differ only in how many enquiries a month they're built for. <strong>Your plan follows your enquiries: up when you grow, and down by itself when you don't.</strong></p>
+          <div class="btns">
+            <a class="btn" href="configuration.html">Configure Hermia</a>
+            <a class="more" href="#follow">How your plan follows your enquiries</a>
+          </div>
+        </div>
+        <div class="price-card" aria-label="Hermia plans">
+          <span class="label">Every industry, every country</span>
+          <div class="pc-plan"><div><b>Starter</b><span>Up to 300 enquiries a month</span></div><div class="pc-amount"><strong>USD 600</strong><small>a month · USD 800 setup</small></div></div>
+          <div class="pc-plan"><div><b>Standard</b><span>301 to 1,000 a month</span></div><div class="pc-amount"><strong>USD 1,700</strong><small>a month · USD 4,400 setup</small></div></div>
+          <div class="pc-plan"><div><b>Growth</b><span>1,001 to 2,500 a month</span></div><div class="pc-amount"><strong>USD 3,500</strong><small>a month · USD 7,500 setup</small></div></div>
+          <div class="pc-plan"><div><b>Large</b><span>More than 2,500, no upper limit</span></div><div class="pc-amount"><strong>USD 8,000</strong><small>a month · USD 15,000 setup</small></div></div>
+          <div class="pc-trial"><span aria-hidden="true">✦</span><span><b>2-day free trial, from the day your Hermia is ready.</b> Cancel within the 2 days and your setup fee is refunded, less a USD 84 refund processing fee.</span></div>
+          <p class="pc-none"><b>No usage charges:</b> nothing per message, per channel, per question or per person who receives your leads.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper on-paper" id="pay">
+      <div class="shell">
+        <div class="sec-head">
+          <div>
+            <span class="label">The plans</span>
+            <h2>Choose by enquiries. <em>Nothing else changes.</em></h2>
+          </div>
+          <p>Choose the plan that fits a typical month. A setup fee once, a monthly fee after your free trial, and a fixed price for changes you ask for later. That is the whole price list.</p>
+        </div>
+        <div class="plan-grid">
+          <article class="plan">
+            <span class="when">Up to 300 enquiries a month</span>
+            <h3>Starter</h3>
+            <div class="amt">USD 600<small>a month, after the free trial</small></div>
+            <p class="setup">Setup <b>USD 800</b>, paid once</p>
+            <dl><div><dt>Your first year</dt><dd>USD 8,000</dd></div><div><dt>Each year after</dt><dd>USD 7,200</dd></div></dl>
+            <a class="btn ghost" href="configuration.html?plan=starter">Choose Starter</a>
+          </article>
+          <article class="plan">
+            <span class="when">301 to 1,000 enquiries a month</span>
+            <h3>Standard</h3>
+            <div class="amt">USD 1,700<small>a month, after the free trial</small></div>
+            <p class="setup">Setup <b>USD 4,400</b>, paid once</p>
+            <dl><div><dt>Your first year</dt><dd>USD 24,800</dd></div><div><dt>Each year after</dt><dd>USD 20,400</dd></div></dl>
+            <a class="btn ghost" href="configuration.html?plan=standard">Choose Standard</a>
+          </article>
+          <article class="plan">
+            <span class="when">1,001 to 2,500 enquiries a month</span>
+            <h3>Growth</h3>
+            <div class="amt">USD 3,500<small>a month, after the free trial</small></div>
+            <p class="setup">Setup <b>USD 7,500</b>, paid once</p>
+            <dl><div><dt>Your first year</dt><dd>USD 49,500</dd></div><div><dt>Each year after</dt><dd>USD 42,000</dd></div></dl>
+            <a class="btn ghost" href="configuration.html?plan=growth">Choose Growth</a>
+          </article>
+          <article class="plan">
+            <span class="when">More than 2,500 enquiries a month</span>
+            <h3>Large</h3>
+            <div class="amt">USD 8,000<small>a month, after the free trial</small></div>
+            <p class="setup">Setup <b>USD 15,000</b>, paid once</p>
+            <dl><div><dt>Your first year</dt><dd>USD 111,000</dd></div><div><dt>Each year after</dt><dd>USD 96,000</dd></div></dl>
+            <a class="btn ghost" href="configuration.html?plan=large">Choose Large</a>
+          </article>
+        </div>
+        <div class="year" aria-label="On every plan">
+          <div><span>Change request, on every plan</span><strong>USD 500</strong><em>for each kind of change, only if you ask</em></div>
+          <div><span>Free trial, on every plan</span><strong>2 days</strong><em>starting the day your Hermia is ready</em></div>
+          <div><span>Large has no upper limit</span><strong>No quotes</strong><em>every business can choose a plan and start</em></div>
+        </div>
+        <p class="fine">All prices are in US dollars (USD) and are the same for every business, in every industry and every country. A year is the setup plus 12 monthly payments, then 12 monthly payments, with no change requests and no change of plan.</p>
+      </div>
+    </section>
+
+    <section class="paper wash on-paper" id="follow">
+      <div class="shell">
+        <div class="sec-head">
+          <div>
+            <span class="label">Your plan follows your enquiries</span>
+            <h2>Up when you grow. <em>Down when you don't.</em></h2>
+          </div>
+          <p>You never have to watch your numbers or ask for a better price. Hermia counts your enquiries every month and moves your plan both ways, and it always tells you first, with the numbers.</p>
+        </div>
+        <!-- D2 (Kevin, 15 Oct 2026): up after 4 months in a row over the plan, from the first bill at least 7 days after the email, monthly fee only (no setup fee); down after 4 months in a row under it, from the next bill. -->
+        <div class="rules">
+          <article class="rule"><span class="when">One busy month</span><h3>Nothing changes.</h3><p>We let you know you were over your plan that month, and that's all. Hermia never stops answering because you're busy.</p></article>
+          <article class="rule up"><span class="when">Over your plan 4 months in a row</span><h3>Up, with the numbers.</h3><p>We email you each month's total, where your enquiries came from, and a private list of every enquiry we counted. Your new monthly price starts on your first bill at least 7 days after that email. There's no setup fee for the move.</p></article>
+          <article class="rule down"><span class="when">Under your plan 4 months in a row</span><h3>Down, by itself.</h3><p>Your plan moves down on your next bill, to the plan that fits the busiest of those 4 months. You don't have to ask, and we email you the numbers.</p></article>
+        </div>
+        <div class="examples">
+          <figure class="ex" aria-label="Example of a plan moving up. A business on Starter, which covers up to 300 enquiries a month, has 360 enquiries in January, 420 in February, 380 in March and 400 in April. January gets a heads-up only. After April it has been over its plan 4 months in a row, so it moves to Standard from its first bill at least 7 days after the email, with no setup fee.">
+            <figcaption><span class="label">Example · moving up</span><h3>A business on Starter</h3><p class="legend"><i aria-hidden="true"></i>Starter covers up to 300 enquiries a month</p></figcaption>
+            <div class="bars" style="--n:4;--max:480" aria-hidden="true">
+              <div class="limit" style="--at:300"></div>
+              <div class="col"><div class="bar over" style="--v:360"><b>360</b></div></div>
+              <div class="col"><div class="bar over" style="--v:420"><b>420</b></div></div>
+              <div class="col"><div class="bar over" style="--v:380"><b>380</b></div></div>
+              <div class="col"><div class="bar over" style="--v:400"><b>400</b></div></div>
+            </div>
+            <div class="months" style="--n:4" aria-hidden="true"><span>Jan<i>First month over: a heads-up</i></span><span>Feb</span><span>Mar</span><span>Apr<i>4 months over: up</i></span></div>
+            <p class="ex-out">The business moves to <b>Standard, USD 1,700 a month</b>, from its first bill at least 7 days after we email it the numbers. There's no setup fee for the move. Had any one of those months been 300 or under, nothing would have changed.</p>
+          </figure>
+          <figure class="ex" aria-label="Example of a plan moving down. A business on Growth, which starts at 1,001 enquiries a month, has 820 enquiries in January, 760 in February, 900 in March and 870 in April. That is under its plan 4 months in a row, so it moves down to Standard, which fits its busiest month of 900.">
+            <figcaption><span class="label">Example · moving down</span><h3>A business on Growth</h3><p class="legend"><i aria-hidden="true"></i>Growth starts at 1,001 enquiries a month</p></figcaption>
+            <div class="bars" style="--n:4;--max:1300" aria-hidden="true">
+              <div class="limit" style="--at:1001"></div>
+              <div class="col"><div class="bar under" style="--v:820"><b>820</b></div></div>
+              <div class="col"><div class="bar under" style="--v:760"><b>760</b></div></div>
+              <div class="col"><div class="bar under" style="--v:900"><b>900</b></div></div>
+              <div class="col"><div class="bar under" style="--v:870"><b>870</b></div></div>
+            </div>
+            <div class="months" style="--n:4" aria-hidden="true"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr<i>4 months under: down</i></span></div>
+            <p class="ex-out">The business moves to <b>Standard, USD 1,700 a month instead of USD 3,500</b>, on its next bill, because Standard fits its busiest month (900). Nothing to ask for, and Hermia works exactly the same.</p>
+          </figure>
+        </div>
+        <div class="count">
+          <div>
+            <span class="label">What counts as an enquiry</span>
+            <h3>One new person, counted once.</h3>
+            <p>Your plan is based only on how many people get in touch, never on how many messages, questions or replies it takes.</p>
+          </div>
+          <!-- D5: the same person within 7 days counts once. Change the second line if Kevin changes D5. -->
+          <ul class="ticks">
+            <li>One new person getting in touch is one enquiry, whichever way they reach you: an email, or a Facebook, Instagram or TikTok message.</li>
+            <li>If the same person gets in touch again within 7 days, it still counts once.</li>
+            <li>Spam that Hermia blocks isn't counted.</li>
+            <li>Months are calendar months in your own time zone. The month your Hermia goes live is a part month and doesn't count.</li>
+            <li>Your plan can't move until you've had 4 full months live, because there aren't 4 months to go on before then.</li>
+            <li>Every plan email shows your numbers and links to a private list of every enquiry we counted: each person's name, email or phone, the date and the channel. It opens only with your customer ID, and names and contact details are deleted after 6 months.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper on-paper" id="what">
+      <div class="shell">
+        <div class="split">
+          <div>
+            <span class="label">What the setup pays for</span>
+            <h2>Your own Hermia, <em>built for you alone.</em></h2>
+            <p>Your enquiries are never dropped into a shared queue. The setup fee builds a dedicated system for your business, from the choices you make when you configure it, and nothing is routed to it until every check has passed. It's usually ready within 1 business day, often much sooner.</p>
+            <ul class="ticks">
+              <li>Where your enquiries come from: email, and Facebook, Instagram and TikTok messages. Lead forms and missed calls are coming soon.</li>
+              <li>The one channel your customers are answered on: WhatsApp or email</li>
+              <li>Up to 35 of your own questions, in your words, alongside the ones Hermia suggests for your industry</li>
+              <li>Where every answer belongs: the description or the notes</li>
+              <li>Who receives each finished lead, by email</li>
+              <li>Your CRM or job system, or the lead docket by email if you don't use one</li>
+              <li>Every part checked, step by step, before it goes live</li>
+              <li>Your customer ID, the reference for anything you change later</li>
+            </ul>
+          </div>
+          <figure class="split-art art-setup" role="img" aria-label="An example setup for a business on the Standard plan: configuration saved and the USD 4,400 setup paid on Thursday morning, built, checked and live at 9 am Friday, with the 2-day free trial running from Friday 9 am to Sunday 9 am."></figure>
+        </div>
+        <div class="split flip">
+          <div>
+            <span class="label">What the monthly fee pays for</span>
+            <h2>Every enquiry, <em>every day.</em></h2>
+            <p>The monthly fee runs everything your Hermia does, for every enquiry, every day of the month, including nights, weekends and your busiest week of the year.</p>
+            <ul class="ticks">
+              <li>A reply in about a minute, day or night, as the assistant for your business</li>
+              <li>Your questions asked one at a time, and asked again when an answer isn't usable</li>
+              <li>Every answer judged by two independent reviewers before it is saved</li>
+              <li>Every photo checked against the enquiry, and every message checked before it is sent</li>
+              <li>One friendly follow-up when a customer goes quiet, at a sensible hour</li>
+              <li>Duplicates removed, so one enquiry becomes one record</li>
+              <li>Every finished enquiry delivered to your CRM or job system, and by email to the people you choose</li>
+              <li>Your setup checked every day, a queue for busy days, and our team alerted the moment something needs a person</li>
+            </ul>
+          </div>
+          <figure class="split-art art-reply" role="img" aria-label="An example enquiry by email at 9:02 pm, answered by Hermia on WhatsApp at 9:03 pm, after hours. The business chose WhatsApp, so every conversation carries on there."></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper wash on-paper" id="why">
+      <div class="shell">
+        <div class="sec-head">
+          <div>
+            <span class="label">Why it's priced this way</span>
+            <h2>Every choice in this price <em>has a reason.</em></h2>
+          </div>
+          <p>Pricing is a promise about how we will treat your business. These are the reasons behind ours, in plain terms.</p>
+        </div>
+        <div class="why-grid">
+          <article class="reason"><span class="n">01</span><h3>Plans by enquiries, because that's the work.</h3><p>Every plan gets the same Hermia: the same checks, the same two reviewers, the same reliability. What changes is how much work it does, and the clearest measure of that is how many people get in touch. So that's the only thing the plans differ by.</p></article>
+          <article class="reason"><span class="n">02</span><h3>Your plan comes down by itself.</h3><p>Most services wait for you to notice you're paying too much. If your enquiries stay under your plan for 4 months in a row, Hermia moves you to the cheaper plan on your next bill and shows you the numbers. You never have to ask.</p></article>
+          <article class="reason"><span class="n">03</span><h3>The numbers first, before it goes up.</h3><p>One busy month never changes your price. Your plan moves up only when you've been over it 4 months in a row, and we email you every month's total and the list of enquiries we counted before the new price starts. There's no setup fee for the move.</p></article>
+          <article class="reason"><span class="n">04</span><h3>A setup fee, because yours is built for you.</h3><p>Your Hermia is a dedicated system, not a login to a shared one. Building it from your configuration and checking every part before it goes live is work done once, so it's paid once. Moving to another plan later changes only the monthly fee.</p></article>
+          <article class="reason"><span class="n">05</span><h3>Changes priced on their own, so the monthly fee stays flat.</h3><p>A change is real work on your own setup. Pricing each kind of change on its own means a business that rarely changes isn't paying for one that changes every week, and the monthly fee stays the same for everyone on the same plan.</p></article>
+          <article class="reason"><span class="n">06</span><h3>A free trial that starts when Hermia does.</h3><p>Your 2 days start the day your Hermia is ready, not the day you pay, so you see it work on your own enquiries before the monthly fee starts. If it isn't right for you, cancel within the 2 days and the setup fee comes back, less the USD 84 it costs to process the refund.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper on-paper" id="included">
+      <div class="shell">
+        <div class="sec-head">
+          <div>
+            <span class="label">Included in every plan</span>
+            <h2>Everything Hermia does <em>is in every plan.</em></h2>
+          </div>
+          <p>Nothing on this list is an add-on or a usage charge, and no plan gets less of it.</p>
+        </div>
+        <!-- Bookings are not listed yet: Kevin hasn't decided whether connected calendars are limited per plan. Add a line when he does. -->
+        <div class="inc-grid">
+          <ul class="inc">
+            <li><b>Every way leads reach you</b>Email, and Facebook, Instagram and TikTok messages (TikTok where it's available). Lead forms and missed calls are coming soon. Connect as many as you use.</li>
+            <li><b>One conversation channel</b>WhatsApp or email, so every conversation stays in one place.</li>
+            <li><b>Your own questions</b>Up to 35, in your words, alongside the ones Hermia suggests for your industry, each sent to the description or the notes.</li>
+            <li><b>Replies day and night</b>In about a minute, on the channel you chose.</li>
+            <li><b>Two independent reviewers</b>On every answer, before it is saved.</li>
+            <li><b>Photo and message checks</b>Unrelated photos stopped, every message checked before it is sent.</li>
+            <li><b>One follow-up</b>Between 9am and 7pm in your time zone, and never a second.</li>
+            <li><b>Clean records</b>Duplicates removed, gaps marked as gaps, nothing retyped.</li>
+            <li><b>Delivery to your team</b>Your CRM or job system, and the lead docket by email to everyone you choose.</li>
+            <li><b>Your own dedicated setup</b>Checked every day, with busy days queued, none dropped, and our team alerted if anything drifts.</li>
+          </ul>
+          <div>
+            <div class="side">
+              <span class="label">The only extra</span>
+              <h3>A change request, if you want one.</h3>
+              <p>USD 500 for each kind of change, on every plan: your connections, your questions or your calendar. Several changes of the same kind sent together are one charge. Reconnecting an account is always free.</p>
+            </div>
+            <div class="side">
+              <span class="label">No usage charges</span>
+              <ul class="never">
+                <li>Per message</li>
+                <li>Per channel, each month</li>
+                <li>Per question, each month</li>
+                <li>Per person who receives leads</li>
+                <li>For using a CRM, or for not using one</li>
+                <li>For one busy month</li>
+              </ul>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <div class="signal-visual" aria-label="Hermia turns customer enquiries into qualified, routed enquiries">
-            <div class="orbit" aria-hidden="true"></div>
-            <article class="float-card incoming-card">
-              <div class="incoming-top"><span class="avatar">MH</span><div><div class="incoming-name">Mia, homeowner</div><div class="incoming-time">Roof repair enquiry · 10:24</div></div></div>
-              <div class="message-bubble">There’s a leak above the garage. Can you quote it this week?</div>
-              <div class="media-row" aria-label="Three attached images"><span class="media-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="8.5" cy="9" r="1.4"/><path d="m5.5 17 4.3-4.3 3.1 2.8 2.2-2.1 3.2 3.7"/></svg></span><span class="media-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="8.5" cy="9" r="1.4"/><path d="m5.5 17 4.3-4.3 3.1 2.8 2.2-2.1 3.2 3.7"/></svg></span><span class="media-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="8.5" cy="9" r="1.4"/><path d="m5.5 17 4.3-4.3 3.1 2.8 2.2-2.1 3.2 3.7"/></svg></span></div>
-            </article>
-            <div class="signal-line line-one" aria-hidden="true"></div><span class="signal-pulse pulse-one" aria-hidden="true"></span>
-            <div class="hermia-core"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" aria-hidden="true"><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3M6 6l2.1 2.1M15.9 15.9 18 18M18 6l-2.1 2.1M8.1 15.9 6 18"/><circle cx="12" cy="12" r="5.2"/><path d="M9.8 12.1h4.4M12 9.9v4.4"/></svg><span>Hermia</span><small>Understand · qualify · route</small></div></div>
-            <div class="signal-line line-two" aria-hidden="true"></div><span class="signal-pulse pulse-two" aria-hidden="true"></span>
-            <article class="float-card route-card">
-              <div class="route-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="m4.5 6 7.5 6 7.5-6"/></svg>Qualified enquiry</div>
-              <strong>Ready to book</strong><p>Roof repair · this week · high intent</p>
-              <div class="route-person"><span class="avatar">JM</span><span>Routed to the office</span><i aria-label="Online"></i></div>
-            </article>
+    <section class="paper wash on-paper" id="billing">
+      <div class="shell">
+        <div class="sec-head">
+          <div>
+            <span class="label">How billing works</span>
+            <h2>From configuration <em>to your first month.</em></h2>
+          </div>
+          <p>What happens, in order, and when each payment is taken.</p>
+        </div>
+        <!-- D4: cancelling before Hermia is ready refunds the whole setup fee. Change step 4 and the trial question if Kevin changes D4. -->
+        <ol class="steps">
+          <li><span class="when">Step 1 · Free</span><h3>Configure</h3><p>Choose your plan, where your enquiries come from, the channel customers are answered on, your questions, who receives leads and your CRM.</p></li>
+          <li><span class="when">Step 2 · Your plan's setup</span><h3>Pay the setup</h3><p>The setup fee is paid at checkout, and the card is kept on file for your monthly fee.</p></li>
+          <li><span class="when">Step 3 · 1 business day</span><h3>Built and checked</h3><p>Your own Hermia is built and checked step by step, often much sooner. We email you the moment it's live, with your customer ID.</p></li>
+          <li><span class="when">Step 4 · 2 days, from go-live</span><h3>Free trial</h3><p>Hermia works on your real enquiries. Cancel within the 2 days and the setup is refunded, less USD 84. Cancel before it's ready and you get all of it back.</p></li>
+          <li><span class="when">Step 5 · Monthly fee</span><h3>Monthly service</h3><p>Your first monthly payment is taken when the trial ends. From then on, your plan follows your enquiries.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="paper on-paper" id="payments">
+      <div class="shell">
+        <div class="sec-head">
+          <div>
+            <span class="label">If a payment fails</span>
+            <h2>Clear rules, <em>so there are no surprises.</em></h2>
+          </div>
+          <p>A missed payment shouldn't come as a shock, and coming back shouldn't mean starting again.</p>
+        </div>
+        <div class="fail">
+          <div><span class="when">Straight away</span><h3>We email you</h3><p>The moment a payment fails, the business is emailed so it can update the card.</p></div>
+          <div><span class="when">While unpaid</span><h3>Hermia pauses</h3><p>If the account stays unpaid, Hermia stops replying to new enquiries. Your setup is paused, not deleted.</p></div>
+          <div><span class="when">When you pay</span><h3>It switches back on</h3><p>As soon as the account is paid, Hermia switches back on by itself. Nothing needs to be rebuilt.</p></div>
+          <div><span class="when">After 12 months unpaid</span><h3>Your setup is removed</h3><p>We don't keep an unused setup forever. If you come back later, your Hermia is built again from your saved configuration.</p></div>
+        </div>
+        <p class="fine">The same applies when a free trial ends without an active subscription: Hermia pauses and the business is told by email.</p>
+      </div>
+    </section>
+
+    <section class="paper wash on-paper" id="questions">
+      <div class="shell">
+        <div class="sec-head">
+          <div>
+            <span class="label">Questions</span>
+            <h2>What businesses ask <em>before they start.</em></h2>
+          </div>
+          <p>Straight answers about the plans, the trial and the bill.</p>
+        </div>
+        <div class="faq">
+          <details open><summary>Which plan should I choose?</summary><div class="a"><p>The one that fits the enquiries you get in a typical month: <b>Starter</b> up to 300, <b>Standard</b> 301 to 1,000, <b>Growth</b> 1,001 to 2,500, and <b>Large</b> for more than 2,500. Every plan gets the same Hermia.</p><p>If you choose wrong, your plan corrects itself from your real numbers, and you're told before anything changes.</p></div></details>
+          <details><summary>What counts as an enquiry?</summary><div class="a"><p>One new person getting in touch, whichever way they reach you: an email, or a message on Facebook, Instagram or TikTok. If the same person gets in touch again within 7 days, it still counts once. Spam that Hermia blocks isn't counted.</p><p>Months are calendar months in your own time zone, and the month your Hermia goes live doesn't count.</p></div></details>
+          <details><summary>What happens if I get more enquiries than my plan covers?</summary><div class="a"><p>Hermia keeps answering every one of them. One busy month changes nothing: we let you know, and that's all.</p><p>If you're over your plan 4 months in a row, your plan moves up, to the plan that fits the quietest of those months. We email you the numbers and the list of every enquiry we counted, and the new monthly price starts on your first bill at least 7 days later. There's no setup fee for the move.</p></div></details>
+          <details><summary>And if I get fewer?</summary><div class="a"><p>If you're under your plan 4 months in a row, Hermia moves you down on your next bill, to the plan that fits the busiest of those 4 months. You don't have to ask, and we email you the numbers. Hermia works exactly the same; only the price changes.</p></div></details>
+          <details><summary>Is there a limit on the Large plan?</summary><div class="a"><p>No. Large has no upper limit and no custom quote. Every business with more than 2,500 enquiries a month is on Large, at <b>USD 8,000</b> a month, and can choose it and start straight away.</p></div></details>
+          <!-- D3: a move down doesn't refund setup; a move up never adds a setup fee (Kevin, 15 Oct 2026). -->
+          <details><summary>Do I pay setup again when my plan changes?</summary><div class="a"><p>No. Setup is paid once, for the plan you start on. Moving to another plan changes only your monthly fee, up or down.</p><p>Moving down doesn't refund setup you've already paid.</p></div></details>
+          <details><summary>How do I know you counted right?</summary><div class="a"><p>Every plan email shows your total for each month and where those enquiries came from, with a private link to the full list: each person's name, email or phone, the date and time, and the channel. The list opens only with your customer ID, and you can download it.</p><p>Names and contact details are deleted 6 months after each enquiry; the monthly totals are kept. If anything looks wrong, reply to the email and we'll go through it with you.</p></div></details>
+          <details><summary>When does a new price start?</summary><div class="a"><p>Always on a bill, never part-way through a month. A move up starts on your first bill at least 7 days after we email you. A move down starts on your next bill. Nothing is charged or credited for the month you're in.</p></div></details>
+          <details><summary>How does the free trial work?</summary><div class="a"><p>You pay your plan's setup fee at checkout and your Hermia is built, usually within 1 business day. Your <b>2-day</b> free trial starts the day it's ready, not the day you pay, and your first monthly payment is taken when the 2 days end.</p><p>Cancel within the 2 days and the setup fee is refunded, less a <b>USD 84</b> refund processing fee: <b>USD 716</b> back on Starter, <b>USD 4,316</b> on Standard, <b>USD 7,416</b> on Growth and <b>USD 14,916</b> on Large. Cancel before your Hermia is ready and the whole setup fee is refunded.</p></div></details>
+          <details><summary>When exactly am I charged?</summary><div class="a"><p>The setup fee is charged at checkout. The monthly fee is charged for the first time when your 2-day trial ends, and then every month after that. Your card is kept on file at checkout so the monthly fee can be taken.</p></div></details>
+          <details><summary>Is there a minimum term? Can I cancel?</summary><div class="a"><p>There's no minimum term. After the free trial it's month to month, and you can cancel any time. Service stops straight away when you cancel, and the rest of the month you've already paid for isn't refunded.</p></div></details>
+          <details><summary>I run more than one business or brand. How does that work?</summary><div class="a"><p>Each business or brand has its own Hermia, with its own setup and its own monthly fee, so each one's enquiries, questions and records stay separate.</p></div></details>
+          <details><summary>Why does Hermia use only one channel to talk to my customers?</summary><div class="a"><p>Hermia talks to your customers on one channel, WhatsApp or email, so every conversation stays in one place. Enquiries can still reach you from every way you connect. Changing the channel once you're live is a change request.</p></div></details>
+          <details><summary>Are there any extra charges?</summary><div class="a"><p>Only if you choose them: a <b>change request</b> once you are live, at <b>USD 500</b> for each kind of change, on every plan. There are no usage charges: nothing per message, per channel, per question or per person who receives leads, and nothing for using (or not using) a CRM.</p><p>The only other amount on this page is the <b>USD 84</b> refund processing fee, which applies only if you cancel during the free trial.</p></div></details>
+          <details><summary>What counts as a change request?</summary><div class="a"><p>Any change to your setup once it is live. There are three kinds, and each is <b>USD 500</b>:</p><p><b>Connections:</b> adding or removing a way leads reach you, changing the channel customers are answered on, moving to a different CRM, or changing who receives leads.<br><b>Questions:</b> adding, removing or rewording your questions, where each answer goes, your next step, or the reply language.<br><b>Calendar:</b> how bookings work, approving or booking automatically, and which calendars are used.</p><p>Several changes of the same kind sent together are one charge. Going from five connections to two is USD 500; new questions and a calendar change together are USD 1,000. Reconnecting an account is always free, and your plan moves by itself, at no charge. You ask from the link we email you, and pay when you send the request.</p></div></details>
+          <details><summary>What happens if a payment fails?</summary><div class="a"><p>We email you straight away. If the account stays unpaid, Hermia pauses and stops replying to new enquiries, but your setup is kept. Pay, and it switches back on by itself. After 12 months unpaid your setup is removed; if you come back, it is built again from your saved configuration.</p></div></details>
+          <details><summary>Do I need a CRM?</summary><div class="a"><p>No, and the price is the same either way. If you use a CRM or job system that Hermia connects to, every finished enquiry goes straight into it. If you don't use one, or yours isn't connected yet, every enquiry still reaches you straight away as a secure lead docket by email.</p></div></details>
+          <details><summary>What does Hermia cost over a year?</summary><div class="a"><table><thead><tr><th scope="col">Plan</th><th scope="col">First year</th><th scope="col">Each year after</th></tr></thead><tbody><tr><td>Starter</td><td>USD 8,000</td><td>USD 7,200</td></tr><tr><td>Standard</td><td>USD 24,800</td><td>USD 20,400</td></tr><tr><td>Growth</td><td>USD 49,500</td><td>USD 42,000</td></tr><tr><td>Large</td><td>USD 111,000</td><td>USD 96,000</td></tr></tbody></table><p>The first year is the setup plus 12 monthly payments; each year after is 12 monthly payments. Change requests are extra only if you ask for them, and the monthly fee follows your plan.</p></div></details>
+          <details><summary>What currency are the prices in?</summary><div class="a"><p>US dollars (USD), for every business in every country. If your card is in another currency, your bank converts the amount at its own rate.</p></div></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="close" id="start">
+      <img class="bg" src="assets/pricing/plans-bg.webp" alt="" loading="lazy">
+      <div class="shell close-in">
+        <div>
+          <span class="label">Get started</span>
+          <h2>Know the job <em>before your team acts.</em></h2>
+        </div>
+        <div>
+          <p>Configure Hermia with your channels, your questions and your plan. Your own system is built for you, usually within 1 business day, and checked before a single enquiry reaches it, and your 2-day trial starts the day it's ready.</p>
+          <div class="btns">
+            <a class="btn" href="configuration.html">Configure Hermia</a>
+            <a class="btn ghost" href="about%20us.html">How Hermia works</a>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+  </main>
 
-      <section class="context-strip" aria-label="How Hermia works">
-        <div class="context-item"><span class="context-number">01</span><div><strong>A customer sends an enquiry</strong><span>Through the channels and platforms your business approves.</span></div></div>
-        <div class="context-item"><span class="context-number">02</span><div><strong>Hermia asks what is missing</strong><span>Your configured questions collect the context the team needs.</span></div></div>
-        <div class="context-item"><span class="context-number">03</span><div><strong>The right people receive the brief</strong><span>Recipients, calendar routes, media handling, and follow-up are configured for your operation.</span></div></div>
-      </section>
-
-      <style>
-        /* Industry pricing cards mirror the homepage industry tiles while making the commercial path explicit. */
-        .industry-pricing-section{padding:0 0 112px}
-        .industry-pricing-head{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:24px}
-        .industry-pricing-head h2{max-width:680px;margin:12px 0 0;color:#fffdfa;font:600 clamp(40px,4.8vw,66px)/.96 var(--display);letter-spacing:-.055em}
-        .industry-pricing-head h2 em{color:var(--gold-light);font-weight:500}
-        .industry-pricing-intro{max-width:390px;margin:0;color:var(--paper-soft);font-size:13px;line-height:1.7}
-        .industry-pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-        .industry-pricing-card{display:flex;min-height:0;flex-direction:column;overflow:hidden;border:1px solid var(--line);background:#12110f;box-shadow:0 20px 44px rgba(0,0,0,.18);transition:transform .24s ease,border-color .24s ease;color:inherit;text-decoration:none}
-        .industry-pricing-card{cursor:pointer}.industry-pricing-card:hover{transform:translateY(-5px);border-color:rgba(232,193,122,.72)}.industry-pricing-card:focus-visible{outline:2px solid var(--gold-light);outline-offset:4px}
-        .industry-pricing-card img{display:block;width:100%;height:190px;object-fit:cover;filter:saturate(.72) contrast(1.05);opacity:.88}
-        .industry-pricing-card.trade img{filter:saturate(.92) contrast(1.06)}
-        .industry-pricing-content{display:flex;flex:1;flex-direction:column;padding:20px 21px 21px;min-height:150px}
-        .industry-pricing-status{color:var(--gold-light);font:500 9px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
-        .industry-pricing-title{display:block;margin:10px 0 18px;color:#fff;font:600 28px/.98 var(--display);letter-spacing:-.04em}
-        .industry-pricing-content p{margin:0;color:var(--paper-soft);font-size:12px;line-height:1.62}
-        .industry-pricing-price{margin-top:11px;color:#fff;font:600 17px/1.1 var(--display)}
-        .industry-pricing-price em{display:block;margin-top:4px;color:var(--gold-light);font:500 10px/1 var(--mono);font-style:normal;letter-spacing:.08em;text-transform:uppercase}
-        .industry-pricing-price span{display:block;margin-top:5px;color:var(--gold-light);font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}.industry-pricing-note{margin:0;color:var(--muted);font:500 10px/1.45 var(--mono);letter-spacing:.02em}
-        .industry-pricing-nonnegotiable{margin-top:10px;padding:11px 12px;border-left:2px solid var(--gold-light);background:rgba(213,170,88,.07);color:var(--paper-soft);font-size:10.5px;line-height:1.5}
-        .industry-pricing-nonnegotiable strong{color:#fff}
-        .industry-pricing-action{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:12px;color:var(--gold-light);font:700 10px/1 var(--mono);letter-spacing:.12em;text-decoration:none;text-transform:uppercase}
-        .industry-pricing-action span{font-size:17px;transition:transform .2s ease}.industry-pricing-action:hover span{transform:translateX(4px)}
-        @media(max-width:900px){.industry-pricing-grid{grid-template-columns:repeat(2,1fr)}.industry-pricing-head{display:block}.industry-pricing-intro{margin-top:17px}}
-        @media(max-width:560px){.industry-pricing-grid{grid-template-columns:1fr}.industry-pricing-card{min-height:0}.industry-pricing-card img{height:205px}.industry-pricing-section{padding-bottom:84px}}
-      </style>
-      <section class="industry-pricing-section" id="industry-pricing" aria-labelledby="industry-pricing-title">
-        <div class="industry-pricing-head">
-          <div><p class="eyebrow">Pick your industry</p><h2 id="industry-pricing-title">Pricing by<br><em>industry.</em></h2></div>
-        </div>
-        <div class="industry-pricing-grid">
-          <a class="industry-pricing-card" href="pricing-trades.html" aria-label="Open Trades &amp; field services pricing"><img src="assets/pricing-trade.jpg" alt="Trade professional working on site" loading="lazy"><span class="industry-pricing-content"><span class="industry-pricing-status">Pricing</span><span class="industry-pricing-title">Trades &amp; field services</span><span class="industry-pricing-action">Open pricing <span>↗</span></span></span></a>
-          <a class="industry-pricing-card" href="pricing-property.html" aria-label="Open Property pricing"><img src="assets/hermia-application-hero.jpg" alt="Property operations" loading="lazy"><span class="industry-pricing-content"><span class="industry-pricing-status">Pricing</span><span class="industry-pricing-title">Property</span><span class="industry-pricing-action">Open pricing <span>↗</span></span></span></a>
-          <a class="industry-pricing-card" href="pricing-legal.html" aria-label="Open Legal operations pricing"><img src="assets/pricing-legal.jpg" alt="Professional consultation space" loading="lazy"><span class="industry-pricing-content"><span class="industry-pricing-status">Pricing</span><span class="industry-pricing-title">Legal operations</span><span class="industry-pricing-action">Open pricing <span>↗</span></span></span></a>
-          <a class="industry-pricing-card" href="pricing-healthcare.html" aria-label="Open Healthcare administration pricing"><img src="assets/pricing-healthcare-new.jpg" alt="Healthcare administration workspace" loading="lazy"><span class="industry-pricing-content"><span class="industry-pricing-status">Pricing</span><span class="industry-pricing-title">Healthcare administration</span><span class="industry-pricing-action">Open pricing <span>↗</span></span></span></a>
-          <a class="industry-pricing-card" href="pricing-finance.html" aria-label="Open Finance pricing"><img src="assets/pricing-finance-new.jpg" alt="Finance operations" loading="lazy"><span class="industry-pricing-content"><span class="industry-pricing-status">Pricing</span><span class="industry-pricing-title">Finance</span><span class="industry-pricing-action">Open pricing <span>↗</span></span></span></a>
-          <a class="industry-pricing-card" href="pricing-insurance.html" aria-label="Open Insurance companies pricing"><img src="assets/pricing-insurance-new.jpg" alt="Insurance operations" loading="lazy"><span class="industry-pricing-content"><span class="industry-pricing-status">Pricing</span><span class="industry-pricing-title">Insurance companies</span><span class="industry-pricing-action">Open pricing <span>↗</span></span></span></a>
-        </div>
-      </section>
-    </main>
-
-<footer>
-      <div class="footer-row"><div>© 2026 Hermia · ABN 75 434 177 026</div><div class="footer-legal">Open an industry card to view its complete pricing details. <a href="mailto:info@hermia.au">info@hermia.au</a></div></div>
-    </footer>
-  </div>
-
-<script id="hermia-history-back">
+  <footer class="footer"><div class="shell footin"><a class="brand" href="index.html"><img src="assets/hermia-mark.webp" alt="" width="34" height="34">Hermia</a><span>It was never about the leads. It was about knowing the job first.</span><nav class="legal" aria-label="Legal"><a href="contract.html">Service Agreement</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></nav><a href="#top">Back to top ↑</a></div><div class="shell fine-legal"><p>Prices include any GST that applies. These commercial refund and cancellation terms don't limit any right or remedy you have under the law. Read the <a href="terms.html">Terms</a> and the <a href="contract.html">Service Agreement</a> before you pay.</p><p>© 2026 Hermia · ABN 75 434 177 026</p></div></footer>
+<script>
 (function () {
-  var trailKey = 'hermiaNavigationTrail';
-  var current = (location.pathname.split('/').pop() || 'index.html');
-  var trail = [];
-  try { trail = JSON.parse(sessionStorage.getItem(trailKey) || '[]'); } catch (e) { trail = []; }
-  if (!Array.isArray(trail)) trail = [];
-  if (current === 'index.html') {
-    trail = ['index.html'];
-  } else if (trail[trail.length - 1] !== current) {
-    trail.push(current);
-  }
-  if (trail.length > 40) trail = trail.slice(-40);
-  try { sessionStorage.setItem(trailKey, JSON.stringify(trail)); } catch (e) {}
-  document.querySelectorAll('[data-flow-back]').forEach(function (link) {
-    link.addEventListener('click', function (event) {
-      event.preventDefault();
-      var active = trail.slice();
-      if (active[active.length - 1] === current) active.pop();
-      var destination = active[active.length - 1] || 'index.html';
-      if (destination === current) destination = 'index.html';
-      if (destination === 'index.html') active = ['index.html'];
-      try { sessionStorage.setItem(trailKey, JSON.stringify(active)); } catch (e) {}
-      location.assign(destination);
-    });
+  var known = { trades: 1, 'real-estate': 1, realestate: 1, property: 1, 'property-management': 1, healthcare: 1, legal: 1, insurance: 1, finance: 1, automotive: 1, 'car-dealers': 1, cars: 1, education: 1, hospitality: 1 };
+  var ind = '';
+  try { ind = String(new URLSearchParams(location.search).get('industry') || '').toLowerCase(); } catch (e) {}
+  if (!known[ind]) return;
+  document.querySelectorAll('a[href^="configuration.html"]').forEach(function (a) {
+    var href = a.getAttribute('href');
+    a.setAttribute('href', href + (href.indexOf('?') > -1 ? '&' : '?') + 'industry=' + encodeURIComponent(ind));
   });
-}());
+})();
 </script>
 </body>
 </html>
